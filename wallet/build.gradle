@@ -8,9 +8,6 @@ android {
     buildToolsVersion '27.0.3'
 
 
-lintOptions {
-          abortOnError false
-      }
       
       
     defaultConfig {
@@ -68,7 +65,7 @@ lintOptions {
 
     lintOptions {
         warningsAsErrors false
-        abortOnError true // Fail early.
+        abortOnError false // Fail early.
 
         lintConfig file("lint.xml")
     }
