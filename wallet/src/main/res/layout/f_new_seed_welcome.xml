@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/welcome_to_trustnote"
+            style="@style/t_text_black_bold"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/welcome_to_trustnote" />
+
+        <TextView
+            android:id="@+id/welcome_security_warning"
+            style="@style/t_text_msg"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+
+            android:layout_below="@id/welcome_to_trustnote"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/welcome_security_warning" />
+
+        <org.trustnote.wallet.widget.TEditText
+            android:id="@+id/welcome_device_name"
+            style="@style/t_text_msg"
+            android:maxLines="1"
+            android:layout_below="@id/welcome_security_warning"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center"
+            android:hint="@string/welcome_hint_wallet_name" />
+
+        <Button
+            android:id="@+id/next_step"
+            style="@style/t_btn_blue"
+            android:layout_below="@id/welcome_device_name"
+
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+</layout>

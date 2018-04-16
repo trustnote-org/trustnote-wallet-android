@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/seed_confirm_title"
+            style="@style/t_text_black_bold"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/seed_confirm_title" />
+
+        <TextView
+            android:id="@+id/seed_confirm_msg"
+            style="@style/t_text_msg"
+            android:layout_below="@id/seed_confirm_title"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+
+            android:text="@string/seed_confirm_msg" />
+
+        <org.trustnote.wallet.widget.MnemonicGridView
+            android:id="@+id/grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_below="@id/seed_confirm_msg"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="20dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="4"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+
+        <TextView
+            android:id="@+id/err_msg"
+            style="@style/t_text_msg"
+            android:textColor="@color/t_f_red"
+            android:layout_below="@id/grid_view"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="10dp"
+            android:text="@string/mnemonic_check_ok"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/pre_step"
+            style="@style/t_btn_blue"
+
+            android:layout_below="@id/err_msg"
+            android:layout_centerInParent="true"
+            android:text="@string/pre_step" />
+
+        <Button
+            android:id="@+id/mnemonic_remove"
+            style="@style/t_btn_blue"
+            android:visibility="gone"
+            android:layout_below="@id/pre_step"
+            android:layout_centerInParent="true"
+            android:text="@string/mnemonic_remove" />
+        <Button
+            android:id="@+id/mnemonic_remove_ignore"
+            style="@style/t_btn_white"
+            android:visibility="gone"
+            android:layout_below="@id/mnemonic_remove"
+            android:layout_centerInParent="true"
+            android:text="@string/mnemonic_remove_ignore" />
+
+    </RelativeLayout>
+
+</layout>

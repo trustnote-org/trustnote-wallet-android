@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/new_seed_dont_screenshot"
+            style="@style/t_text_black_bold"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/new_seed_dont_screenshot" />
+
+        <TextView
+            android:id="@+id/new_seed_copy_title"
+            style="@style/t_text_black_bold"
+            android:layout_below="@id/new_seed_dont_screenshot"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:text="@string/new_seed_copy_title" />
+
+        <TextView
+            android:id="@+id/new_seed_copy_msg"
+            style="@style/t_text_msg"
+
+            android:layout_below="@id/new_seed_copy_title"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/new_seed_copy_msg" />
+        <TextView
+            android:id="@+id/new_seed"
+            style="@style/t_text_msg_gray"
+            android:layout_below="@id/new_seed_copy_msg"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="@string/test_seed" />
+
+        <Button
+            style="@style/t_btn_blue"
+            android:id="@+id/next_step"
+            android:layout_below="@id/new_seed"
+
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+</layout>

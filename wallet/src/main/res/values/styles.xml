@@ -1,0 +1,98 @@
+<resources>
+
+    <item name="mnemonic_0" type="id"/>
+    <item name="mnemonic_1" type="id"/>
+    <item name="mnemonic_2" type="id"/>
+    <item name="mnemonic_3" type="id"/>
+    <item name="mnemonic_4" type="id"/>
+    <item name="mnemonic_5" type="id"/>
+    <item name="mnemonic_6" type="id"/>
+    <item name="mnemonic_7" type="id"/>
+    <item name="mnemonic_8" type="id"/>
+    <item name="mnemonic_9" type="id"/>
+    <item name="mnemonic_10" type="id"/>
+    <item name="mnemonic_11" type="id"/>
+
+    <dimen name="t_layout_padding">16dp</dimen>
+    <dimen name="sp_mnemonic">18dp</dimen>
+
+    <color name="t_white">#EEE</color>
+    <color name="t_f_red">#B22</color>
+    <color name="t_bg_white">#EEE</color>
+    <color name="t_btn_bg_blue">#0288D1</color>
+    <color name="t_blue">#0288D1</color>
+    <color name="t_f_blue">#0288D1</color>
+
+    <!-- Move to file colors.xml later-->
+    <color name="t_f_black">#000</color>
+    <color name="t_f_gray">#bbb</color>
+    <color name="t_f_gray_2">#aaa</color>
+    <color name="t_f_white">#fff</color>
+
+    <style name="t_text" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="t_btn" parent="@style/t_text">
+    </style>
+
+    <style name="t_text_black_bold" parent="@style/t_text">
+        <item name="android:textColor">@color/t_f_black</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="t_text_msg" parent="@style/t_text">
+        <item name="android:textColor">@color/t_f_gray</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="t_text_msg_gray" parent="@style/t_text">
+        <item name="android:background">@color/t_f_gray</item>
+        <item name="android:textColor">@color/t_f_black</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="t_btn_blue" parent="@style/t_text">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:text">@string/next_step</item>
+        <item name="android:background">@drawable/t_btn_bg</item>
+        <item name="android:layout_width">140dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/t_f_white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="t_btn_white" parent="@style/t_btn_blue">
+        <item name="android:background">@drawable/t_btn_bg_white</item>
+        <item name="android:textColor">@color/t_f_blue</item>
+    </style>
+
+    <style name="t_layout">
+        <item name="android:padding">@dimen/t_layout_padding</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/t_bg_white</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>

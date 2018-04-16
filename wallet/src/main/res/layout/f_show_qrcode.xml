@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout style="@style/t_layout">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/t_text_black_bold"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:gravity="left"
+            android:text="@string/wallet_new_name" />
+
+        <ImageView
+            android:id="@+id/qr_code_bitmap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp" />
+
+        <org.trustnote.wallet.widget.TEditText
+            android:id="@+id/qrcode_scan_res"
+            style="@style/t_text_msg"
+            android:layout_width="match_parent"
+            android:layout_below="@id/qr_code_bitmap"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="left"
+            android:maxLines="3" />
+
+        <Button
+            android:id="@+id/qrcode_scan"
+            style="@style/t_btn_blue"
+            android:layout_width="match_parent"
+            android:layout_below="@id/qrcode_scan_res"
+            android:layout_centerInParent="true"
+            android:text="@string/qrcode_scan" />
+
+
+    </RelativeLayout>
+
+</layout>

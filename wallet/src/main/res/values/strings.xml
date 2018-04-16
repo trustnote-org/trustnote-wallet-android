@@ -1,0 +1,71 @@
+<resources>
+
+    <string name="app_name">TrustNote</string>
+
+    <!--<string name="menu_home">Home</string>-->
+    <!--<string name="menu_msg">Messages</string>-->
+    <!--<string name="menu_me">Me</string>-->
+
+    <!--Debug related-->
+    <string name="menu_debug">Debug</string>
+    <string name="coming_soon">Coming soon&#8230;</string>
+
+    <!-- Maybe useless code, just keep it for compilation -->
+    <string name="action_settings">Settings</string>
+    <string name="action_enable_day_mode">Enable Day Mode</string>
+    <string name="action_enable_night_mode">Enable Night Mode</string>
+
+    <string name="list_no_repos">No downloaded repos!</string>
+    <string name="list_no_repos_icon_description">Github Logo</string>
+    <string name="list_error_no_network">No internet connection!</string>
+    <string name="list_error_failed_fetch">Failed to fetch Github repos!</string>
+
+    <string name="detail_icon_content_description">Github Owner Avatar Icon</string>
+    <string name="repo_star_icon_content_description">Repo Star Icon</string>
+    <string name="repo_fork_icon_content_description">Repo Fork Icon</string>
+    <string name="repo_icon_content_description">Repo Icon</string>
+
+
+    <string name="menu_home">首页</string>
+    <string name="menu_msg">消息</string>
+    <string name="menu_me">我的</string>
+
+    <string name="welcome_to_trustnote">欢迎来到TrustNote</string>
+    <string name="welcome_security_warning">您的钱包将在此设备上创建，请确认设备足够安全，并及时备份钱包。此外，在钱包设置中，您可以设置交易密码。</string>
+
+    <string name="welcome_hint_wallet_name">请指定设备名字</string>
+    <string name="next_step">下一步</string>
+    <string name="pre_step">上一步</string>
+
+    <string name="create_seed">创建钱包</string>
+    <string name="restore_seed">恢复钱包</string>
+
+    <string name="new_seed_title">创建钱包并备份您的口令</string>
+    <string name="new_seed_help_msg">备份钱包，导出“口令”并抄写到安全的地方，千万不要保存到网络上。然后尝试转入，转出小额资产开始使用。</string>
+
+    <string name="new_seed_dont_screenshot">请勿截图</string>
+    <string name="new_seed_copy_title">抄写下您的钱包口令</string>
+    <string name="new_seed_copy_msg">口令用于恢复钱包，将它准确地写到纸上，并存放在只有你知道的地方</string>
+
+    <string name="test_seed">dragon test equip crew file acoustic public myth alley siege vanish luggage</string>
+    <string name="seed_confirm_title">确认您的钱包口令</string>
+    <string name="seed_confirm_msg">请按顺序输入口令以确认您的备份口令正确</string>
+
+    <string name="mnemonic_check_failed">无效的口令</string>
+    <string name="mnemonic_check_ok">您的口令正确，为了保证您的钱包安全，建议您删掉口令</string>
+    <string name="mnemonic_remove">删除口令</string>
+    <string name="mnemonic_remove_ignore">跳过</string>
+    <string name="mnemonic_remove_confirm">确定删除</string>
+
+    <string name="mnemonic_remove_title">您确定要删除钱包口令吗？</string>
+    <string name="mnemonic_remove_msg">此操作将彻底删除应用中口令并且不可恢复，请再次确认您已经将口令备份到安全的地方</string>
+
+    <string name="wallet_new_name">钱包名称</string>
+    <string name="wallet_new_hint">输入新钱包名称</string>
+    <string name="wallet_new_btn">创建新钱包</string>
+    <string name="wallet_new_msg_emptyname">钱包名称不能为空</string>
+
+    <string name="qrcode_scan">扫描</string>
+
+
+</resources>

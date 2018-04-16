@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout style="@style/t_layout">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/t_text_black_bold"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:gravity="left"
+            android:text="@string/wallet_new_name" />
+
+        <org.trustnote.wallet.widget.TEditText
+            android:id="@+id/wallet_new_name"
+            style="@style/t_text_msg"
+            android:layout_width="match_parent"
+            android:layout_below="@id/title"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="left"
+            android:hint="@string/wallet_new_hint"
+            android:maxLines="1" />
+
+        <Button
+            android:id="@+id/wallet_new_ok"
+            style="@style/t_btn_blue"
+            android:layout_width="match_parent"
+            android:layout_below="@id/wallet_new_name"
+            android:layout_centerInParent="true"
+            android:text="@string/wallet_new_btn" />
+
+    </RelativeLayout>
+
+</layout>

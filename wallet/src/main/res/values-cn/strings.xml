@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="menu_home">首页</string>
+    <string name="menu_msg">消息</string>
+    <string name="menu_me">我的</string>
+
+    <string name="welcome_to_trustnote">欢迎来到TrustNote</string>
+    <string name="welcome_security_warning">您的钱包将在此设备上创建，请确认设备足够安全，并及时备份钱包。此外，在钱包设置中，您可以设置交易密码。</string>
+
+    <string name="welcome_hint_wallet_name">请指定设备名字</string>
+    <string name="next_step">下一步</string>
+    <string name="pre_step">上一步</string>
+
+    <string name="create_seed">创建钱包</string>
+    <string name="restore_seed">恢复钱包</string>
+
+    <string name="new_seed_title">创建钱包并备份您的口令</string>
+    <string name="new_seed_help_msg">备份钱包，导出“口令”并抄写到安全的地方，千万不要保存到网络上。然后尝试转入，转出小额资产开始使用。</string>
+
+    <string name="new_seed_dont_screenshot">请勿截图</string>
+    <string name="new_seed_copy_title">抄写下您的钱包口令</string>
+    <string name="new_seed_copy_msg">口令用于恢复钱包，将它准确地写到纸上，并存放在只有你知道的地方</string>
+
+    <string name="test_seed">dragon test equip crew file acoustic public myth alley siege vanish luggage</string>
+    <string name="seed_confirm_title">确认您的钱包口令</string>
+    <string name="seed_confirm_msg">请按顺序输入口令以确认您的备份口令正确</string>
+
+
+
+</resources>

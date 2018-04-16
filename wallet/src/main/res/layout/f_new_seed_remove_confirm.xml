@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/seed_remove_title"
+            style="@style/t_text_black_bold"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/mnemonic_remove_title" />
+
+        <TextView
+            android:id="@+id/seed_remove_msg"
+            style="@style/t_text_msg"
+            android:layout_below="@id/seed_remove_title"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/mnemonic_remove_msg" />
+
+        <Button
+            android:id="@+id/mnemonic_remove_confirm"
+            style="@style/t_btn_blue"
+            android:layout_below="@id/seed_remove_msg"
+            android:layout_centerInParent="true"
+            android:text="@string/mnemonic_remove_confirm" />
+
+        <Button
+            android:id="@+id/mnemonic_remove_ignore"
+            style="@style/t_btn_white"
+            android:layout_below="@id/mnemonic_remove_confirm"
+            android:layout_centerInParent="true"
+            android:text="@string/mnemonic_remove_ignore" />
+
+    </RelativeLayout>
+
+</layout>

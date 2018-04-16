@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:background="@drawable/t_bg_beijing"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/welcome_to_trustnote"
+            style="@style/t_text_black_bold"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:text="@string/welcome_to_trustnote" />
+
+        <Button
+            android:id="@+id/btn_new_seed"
+            android:text="@string/create_seed"
+            style="@style/t_btn_blue"
+            android:layout_below="@id/welcome_to_trustnote"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="30dp" />
+
+        <Button
+            android:id="@+id/btn_restore_seed"
+            android:text="@string/restore_seed"
+            style="@style/t_btn_white"
+            android:layout_below="@id/btn_new_seed"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+</layout>
