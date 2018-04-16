@@ -10,7 +10,3 @@ The project is still in its early stages
 ### License
 [MIT](LICENSE)
 
-
-
-
-
