@@ -6,6 +6,7 @@ import dagger.Lazy
 import org.trustnote.wallet.js.TWebView
 import org.trustnote.wallet.network.Hub
 import org.trustnote.wallet.util.Prefs
+import org.trustnote.wallet.util.TimberFile
 import org.trustnote.wallet.walletadmin.WalletModel
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,6 +29,7 @@ class TApp : Application() {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(debugTree.get())
+            Timber.plant(TimberFile(this))
         }
 
         init()

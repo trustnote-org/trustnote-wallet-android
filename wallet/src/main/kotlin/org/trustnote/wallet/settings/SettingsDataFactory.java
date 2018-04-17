@@ -1,8 +1,9 @@
 package org.trustnote.wallet.settings;
 
+import android.Manifest;
 import android.webkit.ValueCallback;
 
-import org.trustnote.wallet.debugui.TestSocket;
+import org.trustnote.wallet.TApp;
 import org.trustnote.wallet.js.JSApi;
 import org.trustnote.wallet.pojo.Credential;
 import org.trustnote.wallet.pojo.TProfile;
@@ -16,6 +17,8 @@ import org.trustnote.wallet.walletadmin.WalletModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import kr.co.namee.permissiongen.PermissionGen;
 
 public class SettingsDataFactory {
 
@@ -33,6 +36,8 @@ public class SettingsDataFactory {
 
     public static List<SettingItem> makeTests() {
 
+        ArrayList<SettingItem> res = new ArrayList<>();
+
         SettingItem jsApi = new SettingItem("Test JS API: new mnomonic", false);
         jsApi.action = new Runnable() {
             @Override
@@ -45,6 +50,7 @@ public class SettingsDataFactory {
                 });
             }
         };
+        res.add(jsApi);
 
         SettingItem walletIdJSApi = new SettingItem("Test new wallet seed JS API: expected: LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", false);
         walletIdJSApi.action = new Runnable() {
@@ -53,15 +59,8 @@ public class SettingsDataFactory {
                 WalletModel.getInstance().testCreateWallet();
             }
         };
+        res.add(walletIdJSApi);
 
-
-        SettingItem hubConnect = new SettingItem("Test hub connect", false);
-        hubConnect.action = new Runnable() {
-            @Override
-            public void run() {
-                TestSocket.test();
-            }
-        };
 
         SettingItem testJSSignWithDeviceMessageHash = new SettingItem("testJSSignWithDeviceMessageHash", false);
         testJSSignWithDeviceMessageHash.action = new Runnable() {
@@ -92,6 +91,7 @@ public class SettingsDataFactory {
                 });
             }
         };
+        res.add(testJSSignWithDeviceMessageHash);
 
 
         SettingItem testJSVerifySign = new SettingItem("testJSVerifySign", false);
@@ -101,6 +101,8 @@ public class SettingsDataFactory {
                 runTestJSVerifySign();
             }
         };
+        res.add(testJSVerifySign);
+
 
         SettingItem testQrCode = new SettingItem("Test QR CODE");
         testQrCode.action = new Runnable() {
@@ -109,8 +111,23 @@ public class SettingsDataFactory {
                 SimpleFragmentActivity.startMe(QRFragment.class.getCanonicalName());
             }
         };
+        res.add(testQrCode);
 
-        return Arrays.asList(jsApi, walletIdJSApi, hubConnect, testJSSignWithDeviceMessageHash, testJSVerifySign, testQrCode);
+//        SettingItem loggerToSdcard = new SettingItem("loggerToSdcard");
+//        loggerToSdcard.action = new Runnable() {
+//            @Override
+//            public void run() {
+//                PermissionGen.needPermission(MeFragment.getInstance(), 100,
+//                        new String[] {
+//                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                                Manifest.permission.READ_EXTERNAL_STORAGE,
+//                        }
+//                );
+//            }
+//        };
+//        res.add(loggerToSdcard);
+
+        return res;
     }
 
 

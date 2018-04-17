@@ -123,6 +123,9 @@ dependencies {
     //Web Socket for Hub API
     implementation "org.java-websocket:Java-WebSocket:1.3.8"
 
+    // Android permission Utils.
+    implementation 'com.lovedise:permissiongen:0.0.6'
+
     // IOS like Setting UI
     implementation 'com.thoughtbot:expandablerecyclerview:1.3'
 
