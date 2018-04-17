@@ -5,6 +5,7 @@ import android.webkit.ValueCallback;
 
 import org.trustnote.wallet.TApp;
 import org.trustnote.wallet.js.JSApi;
+import org.trustnote.wallet.network.Hub;
 import org.trustnote.wallet.pojo.Credential;
 import org.trustnote.wallet.pojo.TProfile;
 import org.trustnote.wallet.tttui.QRFragment;
@@ -113,19 +114,14 @@ public class SettingsDataFactory {
         };
         res.add(testQrCode);
 
-//        SettingItem loggerToSdcard = new SettingItem("loggerToSdcard");
-//        loggerToSdcard.action = new Runnable() {
-//            @Override
-//            public void run() {
-//                PermissionGen.needPermission(MeFragment.getInstance(), 100,
-//                        new String[] {
-//                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                                Manifest.permission.READ_EXTERNAL_STORAGE,
-//                        }
-//                );
-//            }
-//        };
-//        res.add(loggerToSdcard);
+        SettingItem testHubApi = new SettingItem("Test Hub Api");
+        testHubApi.action = new Runnable() {
+            @Override
+            public void run() {
+                Hub.getInstance().queryHistoryAndSave();
+            }
+        };
+        res.add(testHubApi);
 
         return res;
     }

@@ -117,7 +117,6 @@ dependencies {
     // Databinding
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
-
     implementation 'com.google.code.gson:gson:2.7'
 
     //Web Socket for Hub API
@@ -136,6 +135,8 @@ dependencies {
     implementation("android.arch.persistence.room:runtime:1.0.0") {
         exclude group: 'com.android.support'
     }
+    kapt "android.arch.persistence.room:compiler:1.0.0"
+
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     // Unit Testing
     testImplementation 'junit:junit:4.12'

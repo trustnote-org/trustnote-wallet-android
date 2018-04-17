@@ -7,9 +7,9 @@ import java.util.HashMap;
 public class HubPackageBase {
 
     public MSG_TYPE msgType;
-    String command;
-    String content;
-    JSONObject body;
+    public String command;
+    public String content;
+    public JSONObject body;
 
     HashMap<String, String> attrs = new HashMap();
     BODY_TYPE subjectType = BODY_TYPE.EMPTY;
