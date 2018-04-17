@@ -1,6 +1,5 @@
 ### TTT native wallet for Android device 
-[![Build Status](https://travis-ci.org/trustnote/trustnote-wallet-android.svg?branch=master) 
-
+[![Build Status](https://travis-ci.org/trustnote/trustnote-wallet-android.svg?branch=master)](https://travis-ci.org/trustnote/trustnote-wallet-android) 
 
 The project is still in its early stages
 
