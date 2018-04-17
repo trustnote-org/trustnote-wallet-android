@@ -2,6 +2,7 @@ package org.trustnote.wallet
 
 import android.app.Application
 import android.content.Context
+import android.os.Build
 import dagger.Lazy
 import org.trustnote.wallet.js.TWebView
 import org.trustnote.wallet.network.Hub
@@ -45,6 +46,13 @@ class TApp : Application() {
 
     //TODO: try other way as init.
     private fun init() {
+
+         //disable IPv6 in emulator
+         if ("google_sdk" == Build.PRODUCT) {
+            java.lang.System.setProperty("java.net.preferIPv6Addresses", "false");
+            java.lang.System.setProperty("java.net.preferIPv4Stack", "true");
+        }
+
         context = this
         TWebView.init(this)
         Prefs.with(this)
