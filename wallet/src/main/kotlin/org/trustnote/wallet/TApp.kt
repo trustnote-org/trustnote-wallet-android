@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import dagger.Lazy
 import org.trustnote.wallet.js.TWebView
+import org.trustnote.wallet.network.Hub
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.walletadmin.WalletModel
 import timber.log.Timber
@@ -29,7 +30,7 @@ class TApp : Application() {
             Timber.plant(debugTree.get())
         }
 
-        init();
+        init()
     }
 
     private fun initDependencyGraph() {
@@ -40,13 +41,12 @@ class TApp : Application() {
 
     }
 
-
-
     //TODO: try other way as init.
     private fun init() {
+        context = this
         TWebView.init(this)
         Prefs.with(this)
         WalletModel()
-        context = this
+        Hub.instance
     }
 }

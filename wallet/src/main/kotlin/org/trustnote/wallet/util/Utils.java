@@ -4,6 +4,9 @@ package org.trustnote.wallet.util;
 import android.widget.Toast;
 
 import org.trustnote.wallet.TApp;
+import org.trustnote.wallet.network.hubapi.HubClient;
+
+import timber.log.Timber;
 
 public class Utils {
     public static void debugLog(String s) {
@@ -29,6 +32,10 @@ public class Utils {
 
     public static void toastMsg(int stringResId) {
         Toast.makeText(TApp.context, stringResId, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void d(Class clz, String msg) {
+        Timber.d(clz.getSimpleName() + msg);
     }
 
 }
