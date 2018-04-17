@@ -1,6 +1,9 @@
 
 # Created by https://www.gitignore.io/api/android,java,macos
 
+# My Locale Files
+mylocale/
+
 ### Android ###
 # Built application files
 *.apk
