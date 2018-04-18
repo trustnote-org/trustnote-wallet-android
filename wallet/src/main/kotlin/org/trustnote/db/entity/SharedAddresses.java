@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "shared_addresses"
 )
-public class SharedAddresses {
+public class SharedAddresses extends TBaseEntity {
   @ColumnInfo(
       name = "shared_address"
   )

@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "android_metadata"
 )
-public class AndroidMetadata {
+public class AndroidMetadata extends TBaseEntity {
   @ColumnInfo(
       name = "locale"
   )

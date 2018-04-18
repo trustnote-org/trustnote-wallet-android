@@ -2,16 +2,19 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.lang.Integer;
 import java.lang.String;
 
-@Entity(
-    tableName = "inputs"
-)
-public class Inputs {
+@Entity(tableName = "inputs", primaryKeys = {"unit", "input_index"})
+public class Inputs extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )
+
+  @NonNull
   public String unit;
 
   @ColumnInfo(
@@ -22,6 +25,8 @@ public class Inputs {
   @ColumnInfo(
       name = "input_index"
   )
+
+  @NonNull
   public int inputIndex;
 
   @ColumnInfo(

@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "pairing_secrets"
 )
-public class PairingSecrets {
+public class PairingSecrets extends TBaseEntity {
   @ColumnInfo(
       name = "pairing_secret"
   )

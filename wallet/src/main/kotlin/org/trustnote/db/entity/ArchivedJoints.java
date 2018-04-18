@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "archived_joints"
 )
-public class ArchivedJoints {
+public class ArchivedJoints extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

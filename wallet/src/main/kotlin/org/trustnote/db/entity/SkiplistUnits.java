@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "skiplist_units"
 )
-public class SkiplistUnits {
+public class SkiplistUnits extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

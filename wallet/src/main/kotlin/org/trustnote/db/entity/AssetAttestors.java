@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "asset_attestors"
 )
-public class AssetAttestors {
+public class AssetAttestors extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

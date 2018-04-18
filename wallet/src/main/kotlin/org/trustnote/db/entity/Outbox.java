@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "outbox"
 )
-public class Outbox {
+public class Outbox extends TBaseEntity {
   @ColumnInfo(
       name = "message_hash"
   )

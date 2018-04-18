@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "headers_commission_outputs"
 )
-public class HeadersCommissionOutputs {
+public class HeadersCommissionOutputs extends TBaseEntity {
   @ColumnInfo(
       name = "main_chain_index"
   )

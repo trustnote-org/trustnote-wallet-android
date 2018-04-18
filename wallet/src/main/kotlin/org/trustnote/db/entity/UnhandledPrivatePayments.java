@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "unhandled_private_payments"
 )
-public class UnhandledPrivatePayments {
+public class UnhandledPrivatePayments extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

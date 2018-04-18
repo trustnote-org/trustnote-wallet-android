@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "headers_commission_contributions"
 )
-public class HeadersCommissionContributions {
+public class HeadersCommissionContributions extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

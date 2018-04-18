@@ -8,7 +8,7 @@ import java.lang.String;
 @Entity(
     tableName = "chat_messages"
 )
-public class ChatMessages {
+public class ChatMessages extends TBaseEntity {
   @ColumnInfo(
       name = "id"
   )

@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "peer_hosts"
 )
-public class PeerHosts {
+public class PeerHosts extends TBaseEntity {
   @ColumnInfo(
       name = "peer_host"
   )

@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "device_messages"
 )
-public class DeviceMessages {
+public class DeviceMessages extends TBaseEntity {
   @ColumnInfo(
       name = "message_hash"
   )

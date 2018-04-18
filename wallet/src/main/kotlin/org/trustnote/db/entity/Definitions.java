@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "definitions"
 )
-public class Definitions {
+public class Definitions extends TBaseEntity {
   @ColumnInfo(
       name = "definition_chash"
   )

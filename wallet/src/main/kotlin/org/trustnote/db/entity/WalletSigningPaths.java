@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "wallet_signing_paths"
 )
-public class WalletSigningPaths {
+public class WalletSigningPaths extends TBaseEntity {
   @ColumnInfo(
       name = "wallet"
   )

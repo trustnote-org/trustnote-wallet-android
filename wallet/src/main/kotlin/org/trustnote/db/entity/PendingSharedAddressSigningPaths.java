@@ -8,7 +8,7 @@ import java.lang.String;
 @Entity(
     tableName = "pending_shared_address_signing_paths"
 )
-public class PendingSharedAddressSigningPaths {
+public class PendingSharedAddressSigningPaths extends TBaseEntity {
   @ColumnInfo(
       name = "definition_template_chash"
   )

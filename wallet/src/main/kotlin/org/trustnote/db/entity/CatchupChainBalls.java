@@ -8,7 +8,7 @@ import java.lang.String;
 @Entity(
     tableName = "catchup_chain_balls"
 )
-public class CatchupChainBalls {
+public class CatchupChainBalls extends TBaseEntity {
   @ColumnInfo(
       name = "member_index"
   )

@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "watched_light_units"
 )
-public class WatchedLightUnits {
+public class WatchedLightUnits extends TBaseEntity {
   @ColumnInfo(
       name = "peer"
   )

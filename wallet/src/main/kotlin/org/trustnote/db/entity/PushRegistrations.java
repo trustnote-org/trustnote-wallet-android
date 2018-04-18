@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "push_registrations"
 )
-public class PushRegistrations {
+public class PushRegistrations extends TBaseEntity {
   @ColumnInfo(
       name = "registrationId"
   )

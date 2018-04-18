@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "earned_headers_commission_recipients"
 )
-public class EarnedHeadersCommissionRecipients {
+public class EarnedHeadersCommissionRecipients extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

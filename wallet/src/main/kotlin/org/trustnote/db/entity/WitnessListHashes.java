@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "witness_list_hashes"
 )
-public class WitnessListHashes {
+public class WitnessListHashes extends TBaseEntity {
   @ColumnInfo(
       name = "witness_list_unit"
   )

@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "witnessing_outputs"
 )
-public class WitnessingOutputs {
+public class WitnessingOutputs extends TBaseEntity {
   @ColumnInfo(
       name = "main_chain_index"
   )

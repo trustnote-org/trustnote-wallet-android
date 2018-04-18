@@ -8,7 +8,7 @@ import java.lang.String;
 @Entity(
     tableName = "paid_witness_events"
 )
-public class PaidWitnessEvents {
+public class PaidWitnessEvents extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

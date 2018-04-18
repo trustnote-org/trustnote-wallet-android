@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "unhandled_joints"
 )
-public class UnhandledJoints {
+public class UnhandledJoints extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

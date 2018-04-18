@@ -8,7 +8,7 @@ import java.lang.String;
 @Entity(
     tableName = "data_feeds"
 )
-public class DataFeeds {
+public class DataFeeds extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )

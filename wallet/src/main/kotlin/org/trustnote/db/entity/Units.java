@@ -11,7 +11,7 @@ import java.lang.String;
 @Entity(
     tableName = "units"
 )
-public class Units {
+public class Units extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )
@@ -103,4 +103,7 @@ public class Units {
       name = "best_parent_unit"
   )
   public String bestParentUnit;
+
+  public Inputs[] inputs;
+  public Outputs[] outputs;
 }

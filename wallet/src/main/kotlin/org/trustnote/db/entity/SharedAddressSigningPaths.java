@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "shared_address_signing_paths"
 )
-public class SharedAddressSigningPaths {
+public class SharedAddressSigningPaths extends TBaseEntity {
   @ColumnInfo(
       name = "shared_address"
   )

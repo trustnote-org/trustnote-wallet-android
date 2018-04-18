@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "known_bad_joints"
 )
-public class KnownBadJoints {
+public class KnownBadJoints extends TBaseEntity {
   @ColumnInfo(
       name = "joint"
   )

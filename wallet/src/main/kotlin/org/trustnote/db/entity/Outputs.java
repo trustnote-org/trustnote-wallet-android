@@ -9,7 +9,7 @@ import java.lang.String;
 @Entity(
     tableName = "outputs"
 )
-public class Outputs {
+public class Outputs extends TBaseEntity {
   @ColumnInfo(
       name = "output_id"
   )

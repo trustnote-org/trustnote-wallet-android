@@ -8,7 +8,7 @@ import java.lang.String;
 @Entity(
     tableName = "hash_tree_balls"
 )
-public class HashTreeBalls {
+public class HashTreeBalls extends TBaseEntity {
   @ColumnInfo(
       name = "ball_index"
   )

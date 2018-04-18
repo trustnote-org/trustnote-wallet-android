@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "pending_shared_addresses"
 )
-public class PendingSharedAddresses {
+public class PendingSharedAddresses extends TBaseEntity {
   @ColumnInfo(
       name = "definition_template_chash"
   )

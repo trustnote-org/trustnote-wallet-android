@@ -7,7 +7,7 @@ import java.lang.String;
 @Entity(
     tableName = "unit_authors"
 )
-public class UnitAuthors {
+public class UnitAuthors extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )
