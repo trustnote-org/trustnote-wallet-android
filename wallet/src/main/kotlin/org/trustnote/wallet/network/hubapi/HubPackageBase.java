@@ -1,6 +1,7 @@
 package org.trustnote.wallet.network.hubapi;
 
-import org.json.JSONObject;
+
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
@@ -9,11 +10,10 @@ public class HubPackageBase {
     public MSG_TYPE msgType;
     public String command;
     public String content;
-    public JSONObject body;
+    public JsonObject body;
 
     HashMap<String, String> attrs = new HashMap();
     BODY_TYPE subjectType = BODY_TYPE.EMPTY;
-
 
     public static enum MSG_TYPE {
         request,

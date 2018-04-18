@@ -34,8 +34,7 @@ class Hub {
 
         val element = gson.fromJson(jointsArray.toString(), JsonElement::class.java)
 
-
-        val data: List<GsonGetHistory> = gson.fromJson(element, Array<GsonGetHistory>::class.java).toList()
+        val data: List<Joints> = gson.fromJson(element, Array<Joints>::class.java).toList()
 
         Utils.debugLog("RES size= " + data.size)
 
@@ -59,7 +58,7 @@ class Hub {
 
     fun getHubSubject(): Observable<HubResponse> {
         return subject.filter {
-            it.msgType == HubPackageBase.MSG_TYPE.response && it.body != null && it.body.optJSONObject("response") != null && it.body.optString("tag") == "bOo0Eeq5jWT8D0fwStljdp6T8JDIqaaKWEpzhQUgOvc="
+            it.msgType == HubPackageBase.MSG_TYPE.response && it.body != null && it.body.get("response") != null && it.body.get("tag").asString == "bOo0Eeq5jWT8D0fwStljdp6T8JDIqaaKWEpzhQUgOvc="
         }
     }
 
