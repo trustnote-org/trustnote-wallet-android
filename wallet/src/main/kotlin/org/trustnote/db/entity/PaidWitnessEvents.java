@@ -6,21 +6,21 @@ import java.lang.Integer;
 import java.lang.String;
 
 @Entity(
-    tableName = "`paid_witness_events`"
+    tableName = "paid_witness_events"
 )
 public class PaidWitnessEvents {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 
   @ColumnInfo(
-      name = "`delay`"
+      name = "delay"
   )
   public Integer delay;
 }

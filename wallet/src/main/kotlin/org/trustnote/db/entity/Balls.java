@@ -6,26 +6,26 @@ import java.lang.Integer;
 import java.lang.String;
 
 @Entity(
-    tableName = "`balls`"
+    tableName = "balls"
 )
 public class Balls {
   @ColumnInfo(
-      name = "`ball`"
+      name = "ball"
   )
   public String ball;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`count_paid_witnesses`"
+      name = "count_paid_witnesses"
   )
   public Integer countPaidWitnesses;
 }

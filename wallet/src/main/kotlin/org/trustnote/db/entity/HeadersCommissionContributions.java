@@ -5,26 +5,26 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`headers_commission_contributions`"
+    tableName = "headers_commission_contributions"
 )
 public class HeadersCommissionContributions {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 
   @ColumnInfo(
-      name = "`amount`"
+      name = "amount"
   )
   public int amount;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

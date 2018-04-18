@@ -5,11 +5,11 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`android_metadata`"
+    tableName = "android_metadata"
 )
 public class AndroidMetadata {
   @ColumnInfo(
-      name = "`locale`"
+      name = "locale"
   )
   public String locale;
 }

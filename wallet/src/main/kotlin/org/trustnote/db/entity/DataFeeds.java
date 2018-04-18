@@ -6,31 +6,31 @@ import java.lang.Integer;
 import java.lang.String;
 
 @Entity(
-    tableName = "`data_feeds`"
+    tableName = "data_feeds"
 )
 public class DataFeeds {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`message_index`"
+      name = "message_index"
   )
   public int messageIndex;
 
   @ColumnInfo(
-      name = "`feed_name`"
+      name = "feed_name"
   )
   public String feedName;
 
   @ColumnInfo(
-      name = "`value`"
+      name = "value"
   )
   public String value;
 
   @ColumnInfo(
-      name = "`int_value`"
+      name = "int_value"
   )
   public Integer intValue;
 }

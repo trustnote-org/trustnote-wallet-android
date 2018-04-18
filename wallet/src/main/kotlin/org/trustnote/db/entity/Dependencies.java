@@ -5,21 +5,21 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`dependencies`"
+    tableName = "dependencies"
 )
 public class Dependencies {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`depends_on_unit`"
+      name = "depends_on_unit"
   )
   public String dependsOnUnit;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

@@ -5,16 +5,16 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`parenthoods`"
+    tableName = "parenthoods"
 )
 public class Parenthoods {
   @ColumnInfo(
-      name = "`child_unit`"
+      name = "child_unit"
   )
   public String childUnit;
 
   @ColumnInfo(
-      name = "`parent_unit`"
+      name = "parent_unit"
   )
   public String parentUnit;
 }

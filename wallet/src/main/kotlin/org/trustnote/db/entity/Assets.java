@@ -6,66 +6,66 @@ import java.lang.Integer;
 import java.lang.String;
 
 @Entity(
-    tableName = "`assets`"
+    tableName = "assets"
 )
 public class Assets {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`message_index`"
+      name = "message_index"
   )
   public int messageIndex;
 
   @ColumnInfo(
-      name = "`cap`"
+      name = "cap"
   )
   public Integer cap;
 
   @ColumnInfo(
-      name = "`is_private`"
+      name = "is_private"
   )
   public int isPrivate;
 
   @ColumnInfo(
-      name = "`is_transferrable`"
+      name = "is_transferrable"
   )
   public int isTransferrable;
 
   @ColumnInfo(
-      name = "`auto_destroy`"
+      name = "auto_destroy"
   )
   public int autoDestroy;
 
   @ColumnInfo(
-      name = "`fixed_denominations`"
+      name = "fixed_denominations"
   )
   public int fixedDenominations;
 
   @ColumnInfo(
-      name = "`issued_by_definer_only`"
+      name = "issued_by_definer_only"
   )
   public int issuedByDefinerOnly;
 
   @ColumnInfo(
-      name = "`cosigned_by_definer`"
+      name = "cosigned_by_definer"
   )
   public int cosignedByDefiner;
 
   @ColumnInfo(
-      name = "`spender_attested`"
+      name = "spender_attested"
   )
   public int spenderAttested;
 
   @ColumnInfo(
-      name = "`issue_condition`"
+      name = "issue_condition"
   )
   public String issueCondition;
 
   @ColumnInfo(
-      name = "`transfer_condition`"
+      name = "transfer_condition"
   )
   public String transferCondition;
 }

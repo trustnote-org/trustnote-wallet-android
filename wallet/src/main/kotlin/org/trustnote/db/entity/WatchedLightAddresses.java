@@ -5,21 +5,21 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`watched_light_addresses`"
+    tableName = "watched_light_addresses"
 )
 public class WatchedLightAddresses {
   @ColumnInfo(
-      name = "`peer`"
+      name = "peer"
   )
   public String peer;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

@@ -6,51 +6,51 @@ import java.lang.Integer;
 import java.lang.String;
 
 @Entity(
-    tableName = "`correspondent_devices`"
+    tableName = "correspondent_devices"
 )
 public class CorrespondentDevices {
   @ColumnInfo(
-      name = "`device_address`"
+      name = "device_address"
   )
   public String deviceAddress;
 
   @ColumnInfo(
-      name = "`name`"
+      name = "name"
   )
   public String name;
 
   @ColumnInfo(
-      name = "`pubkey`"
+      name = "pubkey"
   )
   public String pubkey;
 
   @ColumnInfo(
-      name = "`hub`"
+      name = "hub"
   )
   public String hub;
 
   @ColumnInfo(
-      name = "`is_confirmed`"
+      name = "is_confirmed"
   )
   public int isConfirmed;
 
   @ColumnInfo(
-      name = "`is_indirect`"
+      name = "is_indirect"
   )
   public int isIndirect;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 
   @ColumnInfo(
-      name = "`my_record_pref`"
+      name = "my_record_pref"
   )
   public Integer myRecordPref;
 
   @ColumnInfo(
-      name = "`peer_record_pref`"
+      name = "peer_record_pref"
   )
   public Integer peerRecordPref;
 }

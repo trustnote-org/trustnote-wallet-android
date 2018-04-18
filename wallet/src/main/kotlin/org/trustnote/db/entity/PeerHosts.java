@@ -5,31 +5,31 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`peer_hosts`"
+    tableName = "peer_hosts"
 )
 public class PeerHosts {
   @ColumnInfo(
-      name = "`peer_host`"
+      name = "peer_host"
   )
   public String peerHost;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 
   @ColumnInfo(
-      name = "`count_new_good_joints`"
+      name = "count_new_good_joints"
   )
   public int countNewGoodJoints;
 
   @ColumnInfo(
-      name = "`count_invalid_joints`"
+      name = "count_invalid_joints"
   )
   public int countInvalidJoints;
 
   @ColumnInfo(
-      name = "`count_nonserial_joints`"
+      name = "count_nonserial_joints"
   )
   public int countNonserialJoints;
 }

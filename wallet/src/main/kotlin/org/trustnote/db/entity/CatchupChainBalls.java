@@ -6,11 +6,11 @@ import android.arch.persistence.room.PrimaryKey;
 import java.lang.String;
 
 @Entity(
-    tableName = "`catchup_chain_balls`"
+    tableName = "catchup_chain_balls"
 )
 public class CatchupChainBalls {
   @ColumnInfo(
-      name = "`member_index`"
+      name = "member_index"
   )
   @PrimaryKey(
       autoGenerate = true
@@ -18,7 +18,7 @@ public class CatchupChainBalls {
   public int memberIndex;
 
   @ColumnInfo(
-      name = "`ball`"
+      name = "ball"
   )
   public String ball;
 }

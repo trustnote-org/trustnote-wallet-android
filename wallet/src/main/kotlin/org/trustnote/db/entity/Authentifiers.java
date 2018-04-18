@@ -5,26 +5,26 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`authentifiers`"
+    tableName = "authentifiers"
 )
 public class Authentifiers {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 
   @ColumnInfo(
-      name = "`path`"
+      name = "path"
   )
   public String path;
 
   @ColumnInfo(
-      name = "`authentifier`"
+      name = "authentifier"
   )
   public String authentifier;
 }

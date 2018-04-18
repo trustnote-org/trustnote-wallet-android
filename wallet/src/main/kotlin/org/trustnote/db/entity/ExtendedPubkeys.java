@@ -6,36 +6,36 @@ import java.lang.Long;
 import java.lang.String;
 
 @Entity(
-    tableName = "`extended_pubkeys`"
+    tableName = "extended_pubkeys"
 )
 public class ExtendedPubkeys {
   @ColumnInfo(
-      name = "`wallet`"
+      name = "wallet"
   )
   public String wallet;
 
   @ColumnInfo(
-      name = "`extended_pubkey`"
+      name = "extended_pubkey"
   )
   public String extendedPubkey;
 
   @ColumnInfo(
-      name = "`device_address`"
+      name = "device_address"
   )
   public String deviceAddress;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 
   @ColumnInfo(
-      name = "`approval_date`"
+      name = "approval_date"
   )
   public Long approvalDate;
 
   @ColumnInfo(
-      name = "`member_ready_date`"
+      name = "member_ready_date"
   )
   public Long memberReadyDate;
 }

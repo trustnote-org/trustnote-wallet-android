@@ -6,36 +6,36 @@ import java.lang.Long;
 import java.lang.String;
 
 @Entity(
-    tableName = "`wallets`"
+    tableName = "wallets"
 )
 public class Wallets {
   @ColumnInfo(
-      name = "`wallet`"
+      name = "wallet"
   )
   public String wallet;
 
   @ColumnInfo(
-      name = "`account`"
+      name = "account"
   )
   public int account;
 
   @ColumnInfo(
-      name = "`definition_template`"
+      name = "definition_template"
   )
   public String definitionTemplate;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 
   @ColumnInfo(
-      name = "`full_approval_date`"
+      name = "full_approval_date"
   )
   public Long fullApprovalDate;
 
   @ColumnInfo(
-      name = "`ready_date`"
+      name = "ready_date"
   )
   public Long readyDate;
 }

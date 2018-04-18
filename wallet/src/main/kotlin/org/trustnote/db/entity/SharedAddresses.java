@@ -5,21 +5,21 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`shared_addresses`"
+    tableName = "shared_addresses"
 )
 public class SharedAddresses {
   @ColumnInfo(
-      name = "`shared_address`"
+      name = "shared_address"
   )
   public String sharedAddress;
 
   @ColumnInfo(
-      name = "`definition`"
+      name = "definition"
   )
   public String definition;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

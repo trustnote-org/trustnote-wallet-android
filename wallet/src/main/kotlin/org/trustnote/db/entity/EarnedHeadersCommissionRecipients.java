@@ -5,21 +5,21 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`earned_headers_commission_recipients`"
+    tableName = "earned_headers_commission_recipients"
 )
 public class EarnedHeadersCommissionRecipients {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 
   @ColumnInfo(
-      name = "`earned_headers_commission_share`"
+      name = "earned_headers_commission_share"
   )
   public int earnedHeadersCommissionShare;
 }

@@ -5,21 +5,21 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`poll_choices`"
+    tableName = "poll_choices"
 )
 public class PollChoices {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`choice_index`"
+      name = "choice_index"
   )
   public int choiceIndex;
 
   @ColumnInfo(
-      name = "`choice`"
+      name = "choice"
   )
   public String choice;
 }

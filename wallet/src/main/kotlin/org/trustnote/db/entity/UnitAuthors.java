@@ -5,21 +5,21 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`unit_authors`"
+    tableName = "unit_authors"
 )
 public class UnitAuthors {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 
   @ColumnInfo(
-      name = "`definition_chash`"
+      name = "definition_chash"
   )
   public String definitionChash;
 }

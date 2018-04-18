@@ -5,16 +5,16 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`skiplist_units`"
+    tableName = "skiplist_units"
 )
 public class SkiplistUnits {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`skiplist_unit`"
+      name = "skiplist_unit"
   )
   public String skiplistUnit;
 }

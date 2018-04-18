@@ -7,11 +7,11 @@ import java.lang.Integer;
 import java.lang.String;
 
 @Entity(
-    tableName = "`outputs`"
+    tableName = "outputs"
 )
 public class Outputs {
   @ColumnInfo(
-      name = "`output_id`"
+      name = "output_id"
   )
   @PrimaryKey(
       autoGenerate = true
@@ -19,57 +19,57 @@ public class Outputs {
   public int outputId;
 
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`message_index`"
+      name = "message_index"
   )
   public int messageIndex;
 
   @ColumnInfo(
-      name = "`output_index`"
+      name = "output_index"
   )
   public int outputIndex;
 
   @ColumnInfo(
-      name = "`asset`"
+      name = "asset"
   )
   public String asset;
 
   @ColumnInfo(
-      name = "`denomination`"
+      name = "denomination"
   )
   public int denomination;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 
   @ColumnInfo(
-      name = "`amount`"
+      name = "amount"
   )
   public int amount;
 
   @ColumnInfo(
-      name = "`blinding`"
+      name = "blinding"
   )
   public String blinding;
 
   @ColumnInfo(
-      name = "`output_hash`"
+      name = "output_hash"
   )
   public String outputHash;
 
   @ColumnInfo(
-      name = "`is_serial`"
+      name = "is_serial"
   )
   public Integer isSerial;
 
   @ColumnInfo(
-      name = "`is_spent`"
+      name = "is_spent"
   )
   public int isSpent;
 }

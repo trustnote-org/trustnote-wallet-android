@@ -6,11 +6,11 @@ import android.arch.persistence.room.PrimaryKey;
 import java.lang.String;
 
 @Entity(
-    tableName = "`bots`"
+    tableName = "bots"
 )
 public class Bots {
   @ColumnInfo(
-      name = "`id`"
+      name = "id"
   )
   @PrimaryKey(
       autoGenerate = true
@@ -18,22 +18,22 @@ public class Bots {
   public int id;
 
   @ColumnInfo(
-      name = "`rank`"
+      name = "rank"
   )
   public int rank;
 
   @ColumnInfo(
-      name = "`name`"
+      name = "name"
   )
   public String name;
 
   @ColumnInfo(
-      name = "`pairing_code`"
+      name = "pairing_code"
   )
   public String pairingCode;
 
   @ColumnInfo(
-      name = "`description`"
+      name = "description"
   )
   public String description;
 }

@@ -5,26 +5,26 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`devices`"
+    tableName = "devices"
 )
 public class Devices {
   @ColumnInfo(
-      name = "`device_address`"
+      name = "device_address"
   )
   public String deviceAddress;
 
   @ColumnInfo(
-      name = "`pubkey`"
+      name = "pubkey"
   )
   public String pubkey;
 
   @ColumnInfo(
-      name = "`temp_pubkey_package`"
+      name = "temp_pubkey_package"
   )
   public String tempPubkeyPackage;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

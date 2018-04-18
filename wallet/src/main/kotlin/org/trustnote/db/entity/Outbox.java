@@ -5,31 +5,31 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`outbox`"
+    tableName = "outbox"
 )
 public class Outbox {
   @ColumnInfo(
-      name = "`message_hash`"
+      name = "message_hash"
   )
   public String messageHash;
 
   @ColumnInfo(
-      name = "`to`"
+      name = "to"
   )
   public String to;
 
   @ColumnInfo(
-      name = "`message`"
+      name = "message"
   )
   public String message;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 
   @ColumnInfo(
-      name = "`last_error`"
+      name = "last_error"
   )
   public String lastError;
 }

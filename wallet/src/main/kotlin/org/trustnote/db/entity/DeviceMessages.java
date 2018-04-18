@@ -5,26 +5,26 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`device_messages`"
+    tableName = "device_messages"
 )
 public class DeviceMessages {
   @ColumnInfo(
-      name = "`message_hash`"
+      name = "message_hash"
   )
   public String messageHash;
 
   @ColumnInfo(
-      name = "`device_address`"
+      name = "device_address"
   )
   public String deviceAddress;
 
   @ColumnInfo(
-      name = "`message`"
+      name = "message"
   )
   public String message;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

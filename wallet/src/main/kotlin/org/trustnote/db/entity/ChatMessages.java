@@ -6,36 +6,36 @@ import java.lang.Integer;
 import java.lang.String;
 
 @Entity(
-    tableName = "`chat_messages`"
+    tableName = "chat_messages"
 )
 public class ChatMessages {
   @ColumnInfo(
-      name = "`id`"
+      name = "id"
   )
   public Integer id;
 
   @ColumnInfo(
-      name = "`correspondent_address`"
+      name = "correspondent_address"
   )
   public String correspondentAddress;
 
   @ColumnInfo(
-      name = "`message`"
+      name = "message"
   )
   public String message;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 
   @ColumnInfo(
-      name = "`is_incoming`"
+      name = "is_incoming"
   )
   public int isIncoming;
 
   @ColumnInfo(
-      name = "`type`"
+      name = "type"
   )
   public String type;
 }

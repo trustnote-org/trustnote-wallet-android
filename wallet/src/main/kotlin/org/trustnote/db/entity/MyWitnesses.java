@@ -5,11 +5,11 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`my_witnesses`"
+    tableName = "my_witnesses"
 )
 public class MyWitnesses {
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 }

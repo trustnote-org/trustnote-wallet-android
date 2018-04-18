@@ -5,31 +5,31 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`witnessing_outputs`"
+    tableName = "witnessing_outputs"
 )
 public class WitnessingOutputs {
   @ColumnInfo(
-      name = "`main_chain_index`"
+      name = "main_chain_index"
   )
   public int mainChainIndex;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 
   @ColumnInfo(
-      name = "`amount`"
+      name = "amount"
   )
   public int amount;
 
   @ColumnInfo(
-      name = "`is_spent`"
+      name = "is_spent"
   )
   public int isSpent;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

@@ -5,21 +5,21 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`witness_list_hashes`"
+    tableName = "witness_list_hashes"
 )
 public class WitnessListHashes {
   @ColumnInfo(
-      name = "`witness_list_unit`"
+      name = "witness_list_unit"
   )
   public String witnessListUnit;
 
   @ColumnInfo(
-      name = "`witness_list_hash`"
+      name = "witness_list_hash"
   )
   public String witnessListHash;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

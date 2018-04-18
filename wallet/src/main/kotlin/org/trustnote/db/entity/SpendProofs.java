@@ -5,31 +5,31 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`spend_proofs`"
+    tableName = "spend_proofs"
 )
 public class SpendProofs {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`message_index`"
+      name = "message_index"
   )
   public int messageIndex;
 
   @ColumnInfo(
-      name = "`spend_proof_index`"
+      name = "spend_proof_index"
   )
   public int spendProofIndex;
 
   @ColumnInfo(
-      name = "`spend_proof`"
+      name = "spend_proof"
   )
   public String spendProof;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 }

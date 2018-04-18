@@ -5,26 +5,26 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`archived_joints`"
+    tableName = "archived_joints"
 )
 public class ArchivedJoints {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`reason`"
+      name = "reason"
   )
   public String reason;
 
   @ColumnInfo(
-      name = "`json`"
+      name = "json"
   )
   public String json;
 
   @ColumnInfo(
-      name = "`creation_date`"
+      name = "creation_date"
   )
   public long creationDate;
 }

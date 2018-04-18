@@ -6,81 +6,81 @@ import java.lang.Integer;
 import java.lang.String;
 
 @Entity(
-    tableName = "`inputs`"
+    tableName = "inputs"
 )
 public class Inputs {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`message_index`"
+      name = "message_index"
   )
   public int messageIndex;
 
   @ColumnInfo(
-      name = "`input_index`"
+      name = "input_index"
   )
   public int inputIndex;
 
   @ColumnInfo(
-      name = "`asset`"
+      name = "asset"
   )
   public String asset;
 
   @ColumnInfo(
-      name = "`denomination`"
+      name = "denomination"
   )
   public int denomination;
 
   @ColumnInfo(
-      name = "`is_unique`"
+      name = "is_unique"
   )
   public Integer isUnique;
 
   @ColumnInfo(
-      name = "`type`"
+      name = "type"
   )
   public String type;
 
   @ColumnInfo(
-      name = "`src_unit`"
+      name = "src_unit"
   )
   public String srcUnit;
 
   @ColumnInfo(
-      name = "`src_message_index`"
+      name = "src_message_index"
   )
   public Integer srcMessageIndex;
 
   @ColumnInfo(
-      name = "`src_output_index`"
+      name = "src_output_index"
   )
   public Integer srcOutputIndex;
 
   @ColumnInfo(
-      name = "`from_main_chain_index`"
+      name = "from_main_chain_index"
   )
   public Integer fromMainChainIndex;
 
   @ColumnInfo(
-      name = "`to_main_chain_index`"
+      name = "to_main_chain_index"
   )
   public Integer toMainChainIndex;
 
   @ColumnInfo(
-      name = "`serial_number`"
+      name = "serial_number"
   )
   public Integer serialNumber;
 
   @ColumnInfo(
-      name = "`amount`"
+      name = "amount"
   )
   public Integer amount;
 
   @ColumnInfo(
-      name = "`address`"
+      name = "address"
   )
   public String address;
 }

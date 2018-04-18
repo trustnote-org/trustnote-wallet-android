@@ -5,26 +5,26 @@ import android.arch.persistence.room.Entity;
 import java.lang.String;
 
 @Entity(
-    tableName = "`asset_attestors`"
+    tableName = "asset_attestors"
 )
 public class AssetAttestors {
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 
   @ColumnInfo(
-      name = "`message_index`"
+      name = "message_index"
   )
   public int messageIndex;
 
   @ColumnInfo(
-      name = "`asset`"
+      name = "asset"
   )
   public String asset;
 
   @ColumnInfo(
-      name = "`attestor_address`"
+      name = "attestor_address"
   )
   public String attestorAddress;
 }

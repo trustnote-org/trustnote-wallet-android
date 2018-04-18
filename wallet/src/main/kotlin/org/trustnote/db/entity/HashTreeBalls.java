@@ -6,11 +6,11 @@ import android.arch.persistence.room.PrimaryKey;
 import java.lang.String;
 
 @Entity(
-    tableName = "`hash_tree_balls`"
+    tableName = "hash_tree_balls"
 )
 public class HashTreeBalls {
   @ColumnInfo(
-      name = "`ball_index`"
+      name = "ball_index"
   )
   @PrimaryKey(
       autoGenerate = true
@@ -18,12 +18,12 @@ public class HashTreeBalls {
   public int ballIndex;
 
   @ColumnInfo(
-      name = "`ball`"
+      name = "ball"
   )
   public String ball;
 
   @ColumnInfo(
-      name = "`unit`"
+      name = "unit"
   )
   public String unit;
 }
