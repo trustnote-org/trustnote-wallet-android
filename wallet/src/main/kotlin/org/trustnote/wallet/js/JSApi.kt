@@ -14,10 +14,12 @@ class JSApi {
      * @return {string} 12个助记词
      */
     fun mnemonic(cb: ValueCallback<String>) {
-        //TWebView.sInstance.callJS("goodBye();", cb)
         TWebView.sInstance.callJS("window.Client.mnemonic();", cb)
     }
 
+    fun mnemonicSync(): String {
+        return TWebView.sInstance.syncCallJs("window.Client.mnemonic();")
+    }
 
     /**
      * 根据助记词生成根私钥
@@ -155,4 +157,8 @@ class JSApi {
         TWebView.sInstance.callJS("window.Client.getUnitHashToSign($unit);", cb)
     }
 
+}
+
+class JSResult {
+    var result: String = ""
 }

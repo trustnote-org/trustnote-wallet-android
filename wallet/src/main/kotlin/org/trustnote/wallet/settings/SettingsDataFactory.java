@@ -5,6 +5,7 @@ import android.webkit.ValueCallback;
 
 import org.trustnote.wallet.TApp;
 import org.trustnote.wallet.js.JSApi;
+import org.trustnote.wallet.js.TWebView;
 import org.trustnote.wallet.network.Hub;
 import org.trustnote.wallet.pojo.Credential;
 import org.trustnote.wallet.pojo.TProfile;
@@ -43,6 +44,16 @@ public class SettingsDataFactory {
         jsApi.action = new Runnable() {
             @Override
             public void run() {
+
+                // Test Syfc all function.
+//                new Thread(){
+//                    @Override
+//                    public void run() {
+//                        String s = TWebView.sInstance.syncCallJs("window.Client.mnemonic();");
+//                        Utils.debugJS("From ME: " + s);
+//                    }
+//                }.start();
+
                 new JSApi().mnemonic(new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String s) {
@@ -74,7 +85,6 @@ public class SettingsDataFactory {
                     @Override
                     public void onReceiveValue(String hashValue) {
                         Utils.debugLog(hashValue);
-
 
                         //fun sign(b64_hash: String, xPrivKey: String, path: String, cb: ValueCallback<String>) {
 

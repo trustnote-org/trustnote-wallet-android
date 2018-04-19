@@ -20,6 +20,7 @@ public class Utils {
     public static void crash(String s) {
         //TODO:
         android.util.Log.e("CRASH", s);
+        throw new RuntimeException(s);
     }
 
     public static void debugToast(String s) {

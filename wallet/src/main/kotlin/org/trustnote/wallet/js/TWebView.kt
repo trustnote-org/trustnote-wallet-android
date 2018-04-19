@@ -2,6 +2,7 @@ package org.trustnote.wallet.js
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.webkit.ConsoleMessage
@@ -11,6 +12,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.Toast
 import org.trustnote.wallet.util.Utils
+import java.util.concurrent.CountDownLatch
 
 class TWebView : WebView {
 
@@ -26,6 +28,8 @@ class TWebView : WebView {
         initInternal()
     }
 
+
+    val mHandler = Handler()
     private fun initInternal() {
         sInstance = this
         setupWebView()
@@ -57,6 +61,33 @@ class TWebView : WebView {
         webChromeClient = TWebChromeClient()
     }
 
+    fun syncCallJs(jsCode: String): String {
+        if (Thread.currentThread() == Looper.getMainLooper().thread) {
+            Utils.crash("JS sync all should called from non UI thread")
+            return ""
+        }
+
+        val latch = CountDownLatch(1)
+        val jsResult = JSResult()
+        Utils.debugJS("From outer non UI thread:Before")
+
+        val jsAction = Runnable {
+
+            Utils.debugJS("Log from mainUI::will call jscode = $jsCode")
+            evaluateJavascript(jsCode) { valueFromJS ->
+                jsResult.result = valueFromJS
+                latch.countDown()
+            }
+        }
+        mHandler.post(jsAction)
+
+        latch.await()
+
+        Utils.debugJS("From outer non UI thread::after" + jsResult.result)
+
+        return jsResult.result
+    }
+
     fun callJS(jsCode: String, cb: ValueCallback<String>) {
 
         if (Thread.currentThread() != Looper.getMainLooper().thread) {
@@ -84,5 +115,7 @@ class TWebView : WebView {
     }
 
 }
+
+
 
 
