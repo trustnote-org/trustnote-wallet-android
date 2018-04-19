@@ -107,7 +107,9 @@ class WalletModel {
         JSApi().xPrivKey(mnemonic, ValueCallback {
             xPrivKey = it
 
-            JSApi().ecdsaPubkey(it, ValueCallback {
+
+            //TODO:
+            JSApi().ecdsaPubkey(it, "\"m/1\"", ValueCallback {
                 WalletModel.instance.ecdsaPubkey = it
                 //Utils.debugLog(it)
                 JSApi().deviceAddress(xPrivKey, ValueCallback {

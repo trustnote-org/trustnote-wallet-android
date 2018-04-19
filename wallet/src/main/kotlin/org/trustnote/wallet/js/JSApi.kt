@@ -3,7 +3,6 @@ package org.trustnote.wallet.js
 import android.webkit.ValueCallback
 import org.trustnote.wallet.util.Utils
 
-
 class JSApi {
 
     /**
@@ -18,7 +17,7 @@ class JSApi {
     }
 
     fun mnemonicSync(): String {
-        return TWebView.sInstance.syncCallJs("window.Client.mnemonic();")
+        return TWebView.sInstance.callJSSync("window.Client.mnemonic();")
     }
 
     /**
@@ -30,6 +29,10 @@ class JSApi {
      */
     fun xPrivKey(mnemonic: String, cb: ValueCallback<String>) {
         TWebView.sInstance.callJS("window.Client.xPrivKey(\"$mnemonic\");", cb)
+    }
+
+    fun xPrivKeySync(mnemonic: String): String {
+        return TWebView.sInstance.callJSSync("window.Client.xPrivKey(\"$mnemonic\");")
     }
 
 
@@ -56,6 +59,9 @@ class JSApi {
         TWebView.sInstance.callJS("window.Client.walletPubKey($xPrivKey,$num);", cb)
     }
 
+    fun walletPubKeySync(xPrivKey: String, num: Int): String {
+        return TWebView.sInstance.callJSSync("window.Client.walletPubKey($xPrivKey,$num);")
+    }
 
     /**
      * 生成钱包ID
@@ -67,8 +73,10 @@ class JSApi {
     fun walletID(walletPubKey: String, cb: ValueCallback<String>) {
         TWebView.sInstance.callJS("""window.Client.walletID($walletPubKey);""", cb)
     }
-    //Client.walletID(walletPubKey)
 
+    fun walletIDSync(walletPubKey: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.walletID($walletPubKey);""")
+    }
 
     /**
      * 生成设备地址
@@ -82,6 +90,21 @@ class JSApi {
     }
 
     /**
+     * 生成钱包地址对应的公钥
+     * @method walletAddress
+     * @for Base
+     * @param {string}  钱包公钥
+     * @param {int}     地址index 0-
+     * @return {string} 钱包地址对应的公钥
+     */
+    fun walletAddressPubkey(wallet_xPubKey: String, idx: Int, cb: ValueCallback<String>) {
+        TWebView.sInstance.callJS("""window.Client.walletAddressPubkey($wallet_xPubKey,$idx);""", cb)
+    }
+
+    fun walletAddressPubkeySync(wallet_xPubKey: String, idx: Int): String {
+        return TWebView.sInstance.callJSSync("""window.Client.walletAddressPubkey($wallet_xPubKey,$idx);""")
+    }
+    /**
      * 生成钱包的地址
      * @method walletAddress
      * @for Base
@@ -89,18 +112,30 @@ class JSApi {
      * @param {int}     地址index 0-
      * @return {string} 钱包地址
      */
-    //Client.walletAddress(wallet_xPubKey, num)
+    fun walletAddress(wallet_xPubKey: String, idx: Int, cb: ValueCallback<String>) {
+        TWebView.sInstance.callJS("""window.Client.walletAddress($wallet_xPubKey,$idx);""", cb)
+    }
+
+    fun walletAddressSync(wallet_xPubKey: String, idx: Int): String {
+        return TWebView.sInstance.callJSSync("""window.Client.walletAddress($wallet_xPubKey,$idx);""")
+    }
 
     /**
      * 生成ecdsa签名公钥
      * @method ecdsaPubkey
      * @for Base
      * @param {string}  钱包私钥
+     * @param {string}  派生路径
      * @return {string} 签名公钥
      */
-    fun ecdsaPubkey(xPrivKey: String, cb: ValueCallback<String>) {
-        TWebView.sInstance.callJS("window.Client.ecdsaPubkey($xPrivKey);", cb)
+    fun ecdsaPubkey(xPrivKey: String, path: String, cb: ValueCallback<String>) {
+        TWebView.sInstance.callJS("window.Client.ecdsaPubkey($xPrivKey,$path);", cb)
     }
+
+    fun ecdsaPubkeySync(xPrivKey: String, path: String):String {
+        return TWebView.sInstance.callJSSync("window.Client.ecdsaPubkey($xPrivKey,$path);")
+    }
+
 
     /**
      * 签名
@@ -145,7 +180,6 @@ class JSApi {
         TWebView.sInstance.callJS("window.Client.getDeviceMessageHashToSign($unit);", cb)
     }
 
-
     /**
      * 获得交易单元hash
      * @method getUnitHashToSign
@@ -155,6 +189,10 @@ class JSApi {
      */
     fun getUnitHashToSign(unit: String, cb: ValueCallback<String>) {
         TWebView.sInstance.callJS("window.Client.getUnitHashToSign($unit);", cb)
+    }
+
+    fun getUnitHashToSignSync(unit: String): String {
+        return TWebView.sInstance.callJSSync("window.Client.getUnitHashToSign($unit);")
     }
 
 }

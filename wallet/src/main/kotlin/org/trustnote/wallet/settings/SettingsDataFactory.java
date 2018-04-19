@@ -1,11 +1,9 @@
 package org.trustnote.wallet.settings;
 
-import android.Manifest;
 import android.webkit.ValueCallback;
 
-import org.trustnote.wallet.TApp;
 import org.trustnote.wallet.js.JSApi;
-import org.trustnote.wallet.js.TWebView;
+import org.trustnote.wallet.js.JsTest;
 import org.trustnote.wallet.network.Hub;
 import org.trustnote.wallet.pojo.Credential;
 import org.trustnote.wallet.pojo.TProfile;
@@ -19,8 +17,6 @@ import org.trustnote.wallet.walletadmin.WalletModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import kr.co.namee.permissiongen.PermissionGen;
 
 public class SettingsDataFactory {
 
@@ -38,7 +34,20 @@ public class SettingsDataFactory {
 
     public static List<SettingItem> makeTests() {
 
+
         ArrayList<SettingItem> res = new ArrayList<>();
+
+
+        SettingItem testWallet = new SettingItem("Test Wallet with fixed seed");
+        testWallet.action = new Runnable() {
+            @Override
+            public void run() {
+                JsTest.INSTANCE.createFullWallet();
+            }
+        };
+        res.add(testWallet);
+
+
 
         SettingItem jsApi = new SettingItem("Test JS API: new mnomonic", false);
         jsApi.action = new Runnable() {
@@ -49,7 +58,7 @@ public class SettingsDataFactory {
 //                new Thread(){
 //                    @Override
 //                    public void run() {
-//                        String s = TWebView.sInstance.syncCallJs("window.Client.mnemonic();");
+//                        String s = TWebView.sInstance.callJSSync("window.Client.mnemonic();");
 //                        Utils.debugJS("From ME: " + s);
 //                    }
 //                }.start();

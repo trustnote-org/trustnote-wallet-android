@@ -61,7 +61,7 @@ class TWebView : WebView {
         webChromeClient = TWebChromeClient()
     }
 
-    fun syncCallJs(jsCode: String): String {
+    fun callJSSync(jsCode: String): String {
         if (Thread.currentThread() == Looper.getMainLooper().thread) {
             Utils.crash("JS sync all should called from non UI thread")
             return ""
