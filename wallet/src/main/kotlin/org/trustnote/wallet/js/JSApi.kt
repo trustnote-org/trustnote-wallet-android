@@ -14,6 +14,7 @@ class JSApi {
      * @return {string} 12个助记词
      */
     fun mnemonic(cb: ValueCallback<String>) {
+        //TWebView.sInstance.callJS("goodBye();", cb)
         TWebView.sInstance.callJS("window.Client.mnemonic();", cb)
     }
 
