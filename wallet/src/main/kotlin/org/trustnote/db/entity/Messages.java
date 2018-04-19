@@ -2,20 +2,27 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.support.annotation.NonNull;
+
 import java.lang.String;
+import java.util.List;
 
 @Entity(
-    tableName = "messages"
+    tableName = "messages",
+    primaryKeys = {"unit", "message_index"}
 )
 public class Messages extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )
+  @NonNull
   public String unit;
 
   @ColumnInfo(
       name = "message_index"
   )
+  @NonNull
   public int messageIndex;
 
   @ColumnInfo(
@@ -36,7 +43,7 @@ public class Messages extends TBaseEntity {
   @ColumnInfo(
       name = "payload"
   )
-  public String payload;
+  public transient String payload;
 
   @ColumnInfo(
       name = "payload_uri_hash"
@@ -47,4 +54,10 @@ public class Messages extends TBaseEntity {
       name = "payload_uri"
   )
   public String payloadUri;
+
+  @Ignore
+  public List<Inputs> inputs;
+  @Ignore
+  public List<Outputs> outputs;
+
 }

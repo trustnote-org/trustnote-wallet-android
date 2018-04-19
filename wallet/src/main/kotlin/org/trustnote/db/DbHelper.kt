@@ -1,44 +1,80 @@
 package org.trustnote.db
 
 import com.google.gson.*
-import org.trustnote.db.entity.Messages
-import org.trustnote.db.entity.Units
+import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.network.hubapi.Joints
 import org.trustnote.wallet.network.hubapi.HubResponse
+import org.trustnote.wallet.network.hubapi.Joints
 
-fun saveUnit(hubResponse: HubResponse) {
 
-    val joints = hubResponse.body.getAsJsonObject("response").getAsJsonArray("joints")
+object DbHelper {
+    fun saveUnit(hubResponse: HubResponse) = saveUnitInternal(hubResponse)
+}
 
+fun saveUnitInternal(hubResponse: HubResponse) {
+
+    val response = hubResponse.body.getAsJsonObject("response")
     val gson = getGson()
+    val jointList = parseChildFromJson(gson, TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
 
-    val units: Array<Units> = Array(joints.size()) { index:Int ->
-        val joint: Joints = gson.fromJson(joints[index], Joints::class.java)
+    for (joint in jointList) {
+        val units = joint.unit
+        units.originalJson = joint.originalJson.getAsJsonObject("unit")
+        val messageArray = parseChildFromJson(gson, units, units.originalJson, Messages::class.java.canonicalName, "messages") as List<Messages>
+        units.messages = messageArray
+        for (message in messageArray) {
+            message.parent = units
+            message.unit = units.unit
+            val inputArray = parseChildFromJson(gson, message, message.originalJson, Inputs::class.java.canonicalName, "payload", "inputs") as List<Inputs>
 
-        val unitJson = joints[index].asJsonObject.getAsJsonObject("unit")
-        val msgsJson = unitJson.getAsJsonArray("messages")
-        val msgEntities = Array(msgsJson.size()) {
-            val message = gson.fromJson(joints[index], Messages::class.java)
+            val outputArray = parseChildFromJson(gson, message, message.originalJson, Outputs::class.java.canonicalName, "payload", "outputs") as List<Outputs>
 
-            message
+            inputArray.onEach { it.unit = units.unit }
+            message.inputs = inputArray
+
+            outputArray.onEach { it.unit = units.unit }
+            message.outputs = outputArray
         }
-
-        joint.unit
     }
 
-    val db = TrustNoteDataBase.getInstance(TApp.context)
 
-    //db?.unitsDao()?.insert(data[1].unit)
+    val db = TrustNoteDataBase.getInstance(TApp.context)
+    db.unitsDao().saveUnits(jointList.mapToTypedArray { it.unit })
 
 }
 
-    fun <T> parseChildFromJson(origJson: JsonObject, clz: Class<T>, childJsonKey:String) {
-        val children = origJson.getAsJsonArray(childJsonKey)
-
-        val joint: Joints = gson.fromJson(joints[index], clz)
-
+inline fun <T, reified R> List<T>.mapToTypedArray(transform: (T) -> R): Array<R> {
+    return when (this) {
+        is RandomAccess -> Array(size) { index -> transform(this[index]) }
+        else -> with(iterator()) { Array(size) { transform(next()) } }
     }
+}
+
+fun parseChildFromJson(gson: Gson, parentEntity: TBaseEntity, origJson: JsonObject, clzFullName: String, vararg childJsonKey: String): List<Any> {
+
+    assert(childJsonKey.isNotEmpty())
+    var childrenAsJsonArray: JsonArray
+
+    if (childJsonKey.size == 1) {
+        childrenAsJsonArray = origJson.getAsJsonArray(childJsonKey[0])
+    } else {
+        var json = origJson
+        for (index in 0..childJsonKey.size - 2) {
+            json = json.getAsJsonObject(childJsonKey[index])
+        }
+        childrenAsJsonArray = json.getAsJsonArray(childJsonKey[childJsonKey.size - 1])
+    }
+
+    val children = List(childrenAsJsonArray.size()) { index: Int ->
+        val child = gson.fromJson(childrenAsJsonArray[index], Class.forName(clzFullName)) as TBaseEntity
+        child.originalJson = childrenAsJsonArray[index].asJsonObject
+        child.parentJson = origJson
+        child.parent = parentEntity
+
+        child
+    }
+    return children
+}
 
 fun getGson(): Gson {
     return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()

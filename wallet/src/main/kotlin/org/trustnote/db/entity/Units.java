@@ -2,11 +2,15 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.Expose;
+
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 
 @Entity(
     tableName = "units"
@@ -104,6 +108,8 @@ public class Units extends TBaseEntity {
   )
   public String bestParentUnit;
 
-  public Inputs[] inputs;
-  public Outputs[] outputs;
+  @Ignore
+  @Expose
+  public transient List<Messages> messages;
+
 }

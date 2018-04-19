@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.Transaction
 import org.trustnote.db.entity.Inputs
+import org.trustnote.db.entity.Messages
 import org.trustnote.db.entity.Outputs
 import org.trustnote.db.entity.Units
 
@@ -21,11 +22,19 @@ abstract class UnitsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertOutputs(outputs: Array<Outputs>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertMessages(outputs: Array<Messages>)
+
     @Transaction
-    open fun saveUnits(units: Array<Units>, inputs: Array<Inputs>, outputs: Array<Outputs>) {
+    open fun saveUnits(units: Array<Units>) {
         insertUnits(units)
-        insertInputs(inputs)
-        insertOutputs(outputs)
+        for(oneUnit in units) {
+            insertMessages(oneUnit.messages.toTypedArray())
+            for(oneMessage in oneUnit.messages) {
+                insertInputs(oneMessage.inputs.toTypedArray())
+                insertOutputs(oneMessage.outputs.toTypedArray())
+            }
+        }
     }
 
 }

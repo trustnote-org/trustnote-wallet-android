@@ -8,6 +8,7 @@ import java.net.URI
 import com.google.gson.GsonBuilder
 import org.trustnote.wallet.util.Utils
 import com.google.gson.JsonElement
+import org.trustnote.db.DbHelper
 import org.trustnote.db.TrustNoteDataBase
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.network.hubapi.*
@@ -23,25 +24,13 @@ class Hub {
         hubClient.init(subject)
         hubClient.connect()
 
-        getHubSubject().subscribe() {
+        getHubSubject().subscribe {
             handleResponse(it!!)
         }
     }
 
     private fun handleResponse(it: HubResponse) {
-        val jointsArray = it.body.getJSONObject("response").getJSONArray("joints")
-        val gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
-
-        val element = gson.fromJson(jointsArray.toString(), JsonElement::class.java)
-
-        val data: List<Joints> = gson.fromJson(element, Array<Joints>::class.java).toList()
-
-        Utils.debugLog("RES size= " + data.size)
-
-        val db = TrustNoteDataBase.getInstance(TApp.context)
-
-        db?.unitsDao()?.insert(data[1].unit)
-
+        DbHelper.saveUnit(it)
     }
 
     companion object {

@@ -1,9 +1,9 @@
 package org.trustnote.wallet.network.hubapi;
 
-import org.json.JSONObject;
+import com.google.gson.JsonParser;
+
 
 public class HubResponse extends HubPackageBase {
-
 
     public final static String TYPE_Justsaying = "justsaying";
     public final static String TYPE_Status_connected = "socketconnected";
@@ -21,16 +21,12 @@ public class HubResponse extends HubPackageBase {
         } else {
             HubResponse res = new HubResponse();
             res.msgType = MSG_TYPE.valueOf(hubMsg.substring(2, index - 1));
-            res.content = hubMsg.substring(index+1, hubMsg.length() - 1);
-            try {
-                res.body = new JSONObject(res.content);
-                if (TYPE_Justsaying.equals(res.msgType)) {
-                    if (KEY_CHALLENGE.equals(res.body.opt(KEY_Subject))) {
-                        res.subjectType = BODY_TYPE.RES_CHALLENGE;
-                    }
+            res.content = hubMsg.substring(index + 1, hubMsg.length() - 1);
+            res.body = new JsonParser().parse(res.content).getAsJsonObject();
+            if (TYPE_Justsaying.equals(res.msgType)) {
+                if (KEY_CHALLENGE.equals(res.body.getAsJsonPrimitive(KEY_Subject).getAsString())) {
+                    res.subjectType = BODY_TYPE.RES_CHALLENGE;
                 }
-            } catch (org.json.JSONException e) {
-                //TODO:
             }
             return res;
         }
@@ -53,6 +49,6 @@ public class HubResponse extends HubPackageBase {
         if (subjectType != BODY_TYPE.RES_CHALLENGE) {
             throw new IllegalStateException("Msg is not RES_CHALLENGE");
         }
-        return body.optString(KEY_Body);
+        return body.get(KEY_Body).getAsString();
     }
 }
