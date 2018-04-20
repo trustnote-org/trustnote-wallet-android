@@ -1,7 +1,5 @@
 package org.trustnote.wallet
 
-import org.trustnote.wallet.js.JsTest
-
 class TTT {
 
     companion object {
@@ -10,9 +8,7 @@ class TTT {
         const val walletAddressInitSize = 20
         const val addressReceiveType = 0
         const val addressChangeType = 1
+        const val testHubAddress = "wss://raytest.trustnote.org:443"
     }
 
-    fun createFromSeed(seed: String) {
-        JsTest
-    }
 }

@@ -11,12 +11,14 @@ import org.trustnote.wallet.util.Utils
 
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import org.trustnote.wallet.network.ReqTagMapping
 
 
 class HubClient : WebSocketClient {
 
     internal lateinit var mHeartBeatTimer: Timer
     internal var mSubject: Subject<HubResponse> = PublishSubject.create()
+    private val reqTagMapping = ReqTagMapping()
 
     constructor(serverUri: URI, draft: Draft) : super(serverUri, draft) {}
 
@@ -31,15 +33,21 @@ class HubClient : WebSocketClient {
         log("SENDING: $text")
     }
 
+    fun sendHubRequest(req: HubRequest) {
+        reqTagMapping.put(req.tag, req.expectBodyType)
+        super.send(req.toHubString())
+    }
+
     override fun onOpen(handshakedata: ServerHandshake) {
         log("ONOPEN: " + handshakedata.toString())
-        send(HubRequest.reqVersion())
         mSubject.onNext(HubResponse.createConnectedInstance())
+        send(HubRequest.reqVersion())
+        sendHubRequest(HubRequest.reqGetWitnesses())
     }
 
     override fun onMessage(message: String) {
         log("RECEIVED:onMessage: $message")
-        val hubResponse = HubResponse.parseResponse(message)
+        val hubResponse = HubResponse.parseResponse(message, reqTagMapping)
         mSubject.onNext(hubResponse)
     }
 

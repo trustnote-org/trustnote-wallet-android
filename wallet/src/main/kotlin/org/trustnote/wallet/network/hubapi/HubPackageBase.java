@@ -13,7 +13,7 @@ public class HubPackageBase {
     public JsonObject body;
 
     HashMap<String, String> attrs = new HashMap();
-    BODY_TYPE subjectType = BODY_TYPE.EMPTY;
+    public BODY_TYPE subjectType = BODY_TYPE.EMPTY;
 
     public static enum MSG_TYPE {
         request,
@@ -28,5 +28,6 @@ public class HubPackageBase {
         EMPTY,
         CONNECTED,
         RES_CHALLENGE,
+        RES_GET_WITNESSES
     }
 }

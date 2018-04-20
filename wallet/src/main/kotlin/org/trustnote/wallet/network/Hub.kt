@@ -1,19 +1,20 @@
 package org.trustnote.wallet.network
 
-import com.google.gson.FieldNamingPolicy
-import io.reactivex.Observable
+import android.annotation.SuppressLint
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
-import java.net.URI
-import com.google.gson.GsonBuilder
-import org.trustnote.wallet.util.Utils
-import com.google.gson.JsonElement
-import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
-import org.trustnote.db.TrustNoteDataBase
-import org.trustnote.wallet.TApp
-import org.trustnote.wallet.network.hubapi.*
+import org.trustnote.wallet.TTT
+import org.trustnote.wallet.network.hubapi.HubClient
+import org.trustnote.wallet.network.hubapi.HubPackageBase
+import org.trustnote.wallet.network.hubapi.HubRequest
+import org.trustnote.wallet.network.hubapi.HubResponse
+import org.trustnote.wallet.util.Utils
+import java.net.URI
+import java.util.function.Consumer
 
+//TODO: some request need retry logic. such as get witnesses.
 
 class Hub {
 
@@ -29,7 +30,7 @@ class Hub {
     }
 
     companion object {
-        const val hubAddress = "wss://raytest.trustnote.org:443"
+        const val hubAddress = TTT.testHubAddress
         @JvmStatic
         val instance = Hub()
     }
@@ -42,6 +43,17 @@ class Hub {
         hubClient.connect()
 
         monitorConnection()
+
+        monitorResponse(HubPackageBase.BODY_TYPE.RES_GET_WITNESSES, Consumer<HubResponse>{
+            Utils.debugLog("RES_GET_WITNESSES:" + it.body.toString())
+        })
+    }
+
+    @SuppressLint("NewApi")
+    private fun monitorResponse(bodyType: HubPackageBase.BODY_TYPE, action: Consumer<HubResponse>) {
+        subject.filter { it.subjectType == bodyType }.observeOn(Schedulers.computation()).subscribe { res: HubResponse ->
+            action.accept(res)
+        }
     }
 
     private fun monitorConnection() {
