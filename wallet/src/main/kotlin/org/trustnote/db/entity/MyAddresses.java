@@ -2,6 +2,9 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.lang.String;
 
 @Entity(
@@ -11,6 +14,7 @@ public class MyAddresses extends TBaseEntity {
   @ColumnInfo(
       name = "address"
   )
+  @PrimaryKey @NonNull
   public String address;
 
   @ColumnInfo(
@@ -37,4 +41,14 @@ public class MyAddresses extends TBaseEntity {
       name = "creation_date"
   )
   public long creationDate;
+
+  @Override
+  public boolean equals(@NonNull Object o) {
+    if (o == null || !(o instanceof MyAddresses)) {
+      return false;
+    } else {
+      return address.equals(((MyAddresses)o).address);
+    }
+  }
+
 }

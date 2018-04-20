@@ -97,30 +97,32 @@ class JSApi {
      * @method walletAddress
      * @for Base
      * @param {string}  钱包公钥
+     * @param {int}     收款地址为 0; 找零地址为 1;
      * @param {int}     地址index 0-
      * @return {string} 钱包地址对应的公钥
      */
-    fun walletAddressPubkey(wallet_xPubKey: String, idx: Int, cb: ValueCallback<String>) {
-        TWebView.sInstance.callJS("""window.Client.walletAddressPubkey($wallet_xPubKey,$idx);""", cb)
+    fun walletAddressPubkey(wallet_xPubKey: String, isChange: Int, idx: Int, cb: ValueCallback<String>) {
+        TWebView.sInstance.callJS("""window.Client.walletAddressPubkey($wallet_xPubKey,$isChange,$idx);""", cb)
     }
 
-    fun walletAddressPubkeySync(wallet_xPubKey: String, idx: Int): String {
-        return TWebView.sInstance.callJSSync("""window.Client.walletAddressPubkey($wallet_xPubKey,$idx);""")
+    fun walletAddressPubkeySync(wallet_xPubKey: String, isChange: Int, idx: Int): String {
+        return TWebView.sInstance.callJSSync("""window.Client.walletAddressPubkey($wallet_xPubKey,$isChange,$idx);""")
     }
     /**
      * 生成钱包的地址
      * @method walletAddress
      * @for Base
      * @param {string}  钱包公钥
+     * @param {int}     收款地址为 0; 找零地址为 1;
      * @param {int}     地址index 0-
      * @return {string} 钱包地址
      */
-    fun walletAddress(wallet_xPubKey: String, idx: Int, cb: ValueCallback<String>) {
-        TWebView.sInstance.callJS("""window.Client.walletAddress($wallet_xPubKey,$idx);""", cb)
+    fun walletAddress(wallet_xPubKey: String, isChange: Int, idx: Int, cb: ValueCallback<String>) {
+        TWebView.sInstance.callJS("""window.Client.walletAddress($wallet_xPubKey,$isChange,$idx);""", cb)
     }
 
-    fun walletAddressSync(wallet_xPubKey: String, idx: Int): String {
-        return TWebView.sInstance.callJSSync("""window.Client.walletAddress($wallet_xPubKey,$idx);""")
+    fun walletAddressSync(wallet_xPubKey: String, isChange: Int, idx: Int): String {
+        return TWebView.sInstance.callJSSync("""window.Client.walletAddress($wallet_xPubKey,$isChange,$idx);""")
     }
 
     /**

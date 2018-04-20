@@ -49,7 +49,7 @@ class TWebView : WebView {
         override fun onConsoleMessage(cm: ConsoleMessage): Boolean {
             Utils.debugJS(cm.message() + " -- From line "
                     + cm.lineNumber() + " of "
-                    + cm.sourceId());
+                    + cm.sourceId())
             return true
         }
     }

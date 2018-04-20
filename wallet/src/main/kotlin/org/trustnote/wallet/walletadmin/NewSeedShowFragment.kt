@@ -3,7 +3,6 @@ package org.trustnote.wallet.walletadmin
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.view.ViewPager
-import android.support.v7.widget.AppCompatEditText
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.R.*
+import org.trustnote.wallet.THandler
 import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MnemonicGridView
@@ -94,7 +94,7 @@ class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
                 view.findViewById<View>(R.id.btn_new_seed).setOnClickListener {
                     Utils.runInbackground(Runnable {
                         WalletModel.instance.getOrCreateMnemonic()
-                        mPager.post {
+                        THandler.instance.post {
                             mPager.currentItem = mPager.currentItem + 1
                         }
                     })

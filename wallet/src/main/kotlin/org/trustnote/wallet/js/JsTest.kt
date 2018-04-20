@@ -1,5 +1,6 @@
 package org.trustnote.wallet.js
 
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.walletadmin.TestData
 import timber.log.Timber
@@ -35,7 +36,7 @@ fun findVanityAddressInternal(target: String) {
         val walletId = api.walletIDSync(walletPubKey)
 
         val walletAddresses = List(20, {
-            val oneAddress = api.walletAddressSync(walletPubKey, it)
+            val oneAddress = api.walletAddressSync(walletPubKey, TTT.addressReceiveType, it)
             Utils.debugJS(oneAddress)
 
             isFound = isVanity(target, oneAddress)
@@ -64,8 +65,8 @@ fun createFullWalletInternal(seed: String) {
     val walletId = api.walletIDSync(walletPubKey)
 
     val walletAddresses = List(5, {
-        val oneAddress = api.walletAddressSync(walletPubKey, it)
-        val onePubKey = api.walletAddressPubkeySync(walletPubKey, it)
+        val oneAddress = api.walletAddressSync(walletPubKey, TTT.addressReceiveType, it)
+        val onePubKey = api.walletAddressPubkeySync(walletPubKey, TTT.addressReceiveType, it)
     })
 
     Utils.debugJS("Done")

@@ -5,11 +5,20 @@ import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.network.hubapi.HubResponse
 import org.trustnote.wallet.network.hubapi.Joints
+import org.trustnote.wallet.pojo.Credential
 
 
 object DbHelper {
     fun saveUnit(hubResponse: HubResponse) = saveUnitInternal(hubResponse)
+    fun saveWalletMyAddress(credential: Credential) = saveWalletMyAddressInternal(credential)
 }
+
+fun saveWalletMyAddressInternal(credential: Credential) {
+    val db = TrustNoteDataBase.getInstance(TApp.context)
+    db.unitsDao().insertMyAddresses(credential.myAddresses.toTypedArray())
+}
+
+
 
 fun saveUnitInternal(hubResponse: HubResponse) {
 

@@ -26,7 +26,7 @@ data class Credential(
         val n: Int = 0,
         val derivationStrategy: String = "BIP44",
         val account: Int = 0,
-        val myAddresses: MutableList<MyAddresses> = mutableListOf()
+        val myAddresses: MutableSet<MyAddresses> = mutableSetOf()
 )
 
 data class PublicKeyRing(

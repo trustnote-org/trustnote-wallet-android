@@ -1,12 +1,12 @@
 package org.trustnote.wallet.walletadmin
 
-import android.webkit.ValueCallback
+import org.trustnote.db.DbHelper
+import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.util.Prefs
-import org.trustnote.wallet.util.Utils
 
 class WalletModel {
 
@@ -51,10 +51,10 @@ class WalletModel {
 
     private fun createNextCredential(profile: TProfile, credentialName: String = TTT.firstWalletName): Credential {
         val api = JSApi()
-        val walletPubKey = api.walletPubKeySync(profile.xPrivKey, 0)
+        val walletIndex = findNextAccount(profile)
+        val walletPubKey = api.walletPubKeySync(profile.xPrivKey, walletIndex)
         val walletId = api.walletIDSync(walletPubKey)
-        val credential = Credential(account = findNextAccount(profile), walletId = walletId, xPubKey = walletPubKey, walletName = credentialName)
-        return credential
+        return Credential(account = walletIndex, walletId = walletId, xPubKey = walletPubKey, walletName = credentialName)
     }
 
     private fun findNextAccount(profile: TProfile): Int {
@@ -67,14 +67,35 @@ class WalletModel {
         return max + 1
     }
 
+    private fun generateMyAddresses(credential: Credential) {
+        val api = JSApi()
+        val res = List(TTT.walletAddressInitSize, {
+            val myAddress = MyAddresses()
+            myAddress.address = api.walletAddressSync(credential.xPubKey, TTT.addressReceiveType, it)
+            myAddress.wallet = credential.walletId
+            myAddress.isChange = TTT.addressReceiveType
+            myAddress.addressIndex = it
+            val addressPubkey = api.walletAddressPubkeySync(credential.xPubKey, TTT.addressReceiveType, it)
+            myAddress.definition = """["sig",{"pubkey":$addressPubkey}]"""
+            //TODO: check above logic from JS code.
+            myAddress
+        })
+
+        credential.myAddresses.addAll(res)
+
+    }
+
     fun createProfile(removeMnemonic: Boolean) {
         createProfileFromMnenonic(currentJSMnemonic, removeMnemonic)
     }
 
     fun newWallet(credentialName: String = TTT.firstWalletName) {
         val newCredential = createNextCredential(tProfile!!, credentialName)
-        tProfile!!.credentials.add(newCredential)
+        //TODO: how about DB/Prefs failed.
+        generateMyAddresses(newCredential)
         Prefs.getInstance().saveObject(tProfile)
+        DbHelper.saveWalletMyAddress(newCredential)
+        tProfile!!.credentials.add(newCredential)
     }
 
     fun createProfileFromMnenonic(mnemonic: String, removeMnemonic: Boolean) {
