@@ -11,7 +11,7 @@ public class TJSObject {
     public static Context sContext;
     @JavascriptInterface
     public void notify(String msg) {
-        Utils.debugToast("NOTIFY from JS: " + msg);
+        Utils.INSTANCE.debugToast("NOTIFY from JS: " + msg);
     }
 
 }

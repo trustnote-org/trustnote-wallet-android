@@ -37,7 +37,6 @@ public class SettingsDataFactory {
 
         ArrayList<SettingItem> res = new ArrayList<>();
 
-
         SettingItem testWallet = new SettingItem("Test Wallet with fixed seed");
         testWallet.action = new Runnable() {
             @Override
@@ -48,39 +47,15 @@ public class SettingsDataFactory {
         res.add(testWallet);
 
 
-
-        SettingItem jsApi = new SettingItem("Test JS API: new mnomonic", false);
-        jsApi.action = new Runnable() {
+        SettingItem findVanityWallet = new SettingItem("Find vanity receive address");
+        findVanityWallet.action = new Runnable() {
             @Override
             public void run() {
-
-                // Test Syfc all function.
-//                new Thread(){
-//                    @Override
-//                    public void run() {
-//                        String s = TWebView.sInstance.callJSSync("window.Client.mnemonic();");
-//                        Utils.debugJS("From ME: " + s);
-//                    }
-//                }.start();
-
-                new JSApi().mnemonic(new ValueCallback<String>() {
-                    @Override
-                    public void onReceiveValue(String s) {
-
-                    }
-                });
+                JsTest.INSTANCE.findVanityAddress("GUO");
             }
         };
-        res.add(jsApi);
+        res.add(findVanityWallet);
 
-        SettingItem walletIdJSApi = new SettingItem("Test new wallet seed JS API: expected: LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", false);
-        walletIdJSApi.action = new Runnable() {
-            @Override
-            public void run() {
-                WalletModel.getInstance().testCreateWallet();
-            }
-        };
-        res.add(walletIdJSApi);
 
 
         SettingItem testJSSignWithDeviceMessageHash = new SettingItem("testJSSignWithDeviceMessageHash", false);
@@ -93,14 +68,14 @@ public class SettingsDataFactory {
                 new JSApi().getDeviceMessageHashToSign(orignData, new ValueCallback<String>() {
                     @Override
                     public void onReceiveValue(String hashValue) {
-                        Utils.debugLog(hashValue);
+                        Utils.INSTANCE.debugLog(hashValue);
 
                         //fun sign(b64_hash: String, xPrivKey: String, path: String, cb: ValueCallback<String>) {
 
                         new JSApi().sign(hashValue, WalletModel.getInstance().getProfile().getXPrivKey(), "\"m/1'\"", new ValueCallback<String>() {
                             @Override
                             public void onReceiveValue(String signRes) {
-                                Utils.debugLog(signRes);
+                                Utils.INSTANCE.debugLog(signRes);
 
                                 // /r1gbvHPi8NLGpKoderkk1QJHbooOrDEi81rE2sXKtYCQFDHPxCdvmPPj17czehyptxL3T7dPKK2FqACbcdyiQ==
 
@@ -154,7 +129,7 @@ public class SettingsDataFactory {
         String pubKey = "\"A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw\"";
         new JSApi().verify(orignData, sign, pubKey, new ValueCallback<String>() {
             public void onReceiveValue(String signRes) {
-                Utils.debugLog(signRes);
+                Utils.INSTANCE.debugLog(signRes);
             }
 
         });

@@ -74,7 +74,7 @@ public class HubClient extends WebSocketClient {
     }
 
     private static void log(String msg) {
-        Utils.d(HubClient.class, msg);
+        Utils.INSTANCE.d(HubClient.class, msg);
     }
 
 }

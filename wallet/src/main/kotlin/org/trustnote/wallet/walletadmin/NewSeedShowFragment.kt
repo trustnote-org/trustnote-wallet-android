@@ -3,6 +3,7 @@ package org.trustnote.wallet.walletadmin
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.AppCompatEditText
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.R.*
 import org.trustnote.wallet.uiframework.BaseFragment
+import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MnemonicGridView
 
 @SuppressLint("ValidFragment")  //TODO: the fragment cannot re-create from tomb.
@@ -53,7 +55,8 @@ class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
     }
 
     fun createWallet(removeMnemonic: Boolean) {
-        WalletModel.instance.createWallet(removeMnemonic, Runnable {
+        Utils.runInbackground(Runnable {
+            WalletModel.instance.createProfile(removeMnemonic)
             activity.finish()
         })
     }
@@ -84,13 +87,16 @@ class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
             layout.f_new_seed_show_warning -> {
 
                 val newSeedTV = view.findViewById<TextView>(R.id.new_seed)
-                newSeedTV.text = WalletModel.instance.getFullMnemonic()
+                newSeedTV.text = WalletModel.instance.getTxtMnemonic()
             }
 
             layout.f_new_seed_or_restore -> {
                 view.findViewById<View>(R.id.btn_new_seed).setOnClickListener {
-                    WalletModel().newMnemonic(Runnable {
-                        mPager.currentItem = mPager.currentItem + 1
+                    Utils.runInbackground(Runnable {
+                        WalletModel.instance.getOrCreateMnemonic()
+                        mPager.post {
+                            mPager.currentItem = mPager.currentItem + 1
+                        }
                     })
                 }
             }

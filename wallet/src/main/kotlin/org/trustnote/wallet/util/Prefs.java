@@ -376,7 +376,7 @@ public class Prefs {
     public void saveObject(Object o) {
         Gson gson = new Gson();
         String json = gson.toJson(o);
-        Utils.debugLog(json);
+        Utils.INSTANCE.debugLog(json);
         write(o.getClass().getSimpleName(), json);
     }
 

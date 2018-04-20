@@ -28,11 +28,11 @@ class JSApi {
      * @return {string} 私钥
      */
     fun xPrivKey(mnemonic: String, cb: ValueCallback<String>) {
-        TWebView.sInstance.callJS("window.Client.xPrivKey(\"$mnemonic\");", cb)
+        TWebView.sInstance.callJS("window.Client.xPrivKey($mnemonic);", cb)
     }
 
     fun xPrivKeySync(mnemonic: String): String {
-        return TWebView.sInstance.callJSSync("window.Client.xPrivKey(\"$mnemonic\");")
+        return TWebView.sInstance.callJSSync("window.Client.xPrivKey($mnemonic);")
     }
 
 
@@ -87,6 +87,9 @@ class JSApi {
      */
     fun deviceAddress(xPrivKey: String, cb: ValueCallback<String>) {
         TWebView.sInstance.callJS("""window.Client.deviceAddress($xPrivKey);""", cb)
+    }
+    fun deviceAddressSync(xPrivKey: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.deviceAddress($xPrivKey);""")
     }
 
     /**

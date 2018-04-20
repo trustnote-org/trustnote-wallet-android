@@ -1,6 +1,7 @@
 package org.trustnote.wallet.walletadmin
 
 import android.webkit.ValueCallback
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.TProfile
@@ -19,68 +20,41 @@ class WalletModel {
         instance = this
     }
 
-    //var profile: TProfile = TProfile()
     var currentMnemonic: List<String> = listOf()
-    var ecdsaPubkey: String = ""
+    var currentJSMnemonic = ""
+    var tProfile: TProfile? = null
 
-    fun setMnemonic(s: String) {
-        currentMnemonic = s.filterNot { it == '"' }.split(" ");
+    fun setJSMnemonic(s: String) {
+        currentMnemonic = s.filterNot { it == '"' }.split(" ")
+        currentJSMnemonic = s
     }
 
-    fun getFullMnemonic(): String {
-        return currentMnemonic.joinToString(" ")
+    fun getTxtMnemonic(): String {
+        return currentJSMnemonic.filterNot { it == '"' }
     }
 
-//    set(value) {
-//        currentMnemonic = value.filterNot { it == '"' }
-//    }
+    fun getOrCreateMnemonic(): List<String> {
+        if (currentJSMnemonic.isEmpty()) {
+            setJSMnemonic(JSApi().mnemonicSync())
+        }
+        return currentMnemonic
+    }
 
     var deviceName: String = android.os.Build.MODEL
 
-    fun createWithMnemonic() {
-
-    }
-
-    fun restoreWithMnemonic() {
-
-    }
-
     fun getProfile(): TProfile? {
-        return Prefs.getInstance().readObject(TProfile::class.java)
+        if (tProfile == null) {
+            tProfile = Prefs.getInstance().readObject(TProfile::class.java)
+        }
+        return tProfile
     }
 
-    fun testCreateWallet() {
-        setMnemonic("theme wall plunge fluid circle organ gloom expire coach patient neck clip")
-        createWallet(false, Runnable {
-            //TODO: verify it works.
-            var profile = Prefs.getInstance().readObject(TProfile::class.java)
-            if (!"\"LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=\"".equals(profile.credentials[0].walletId)) {
-                Utils.debugToast("Something error. walletId is: " + profile.credentials[0].walletId)
-            } else {
-                Utils.debugToast("Verify works good. walletId is " + profile.credentials[0].walletId)
-            }
-        })
-    }
-
-    fun addWallet(walletName: String, runnable: Runnable) {
-        val profile = getProfile()
-
-        var walletPubKey: String
-        var walletId: String
-        var account: Int = findNextAccount(profile!!)
-
-        //TODO: reuse code from createWallet.
-        JSApi().walletPubKey(profile.xPrivKey, account, ValueCallback {
-            walletPubKey = it
-            JSApi().walletID(walletPubKey, ValueCallback {
-                walletId = it
-                //Utils.debugLog(it)
-                profile.credentials.add(Credential(walletId = walletId, xPubKey = walletPubKey, walletName = walletName, account = account))
-                Prefs.getInstance().saveObject(profile)
-                runnable.run()
-            })
-        })
-
+    private fun createNextCredential(profile: TProfile, credentialName: String = TTT.firstWalletName): Credential {
+        val api = JSApi()
+        val walletPubKey = api.walletPubKeySync(profile.xPrivKey, 0)
+        val walletId = api.walletIDSync(walletPubKey)
+        val credential = Credential(account = findNextAccount(profile), walletId = walletId, xPubKey = walletPubKey, walletName = credentialName)
+        return credential
     }
 
     private fun findNextAccount(profile: TProfile): Int {
@@ -93,51 +67,25 @@ class WalletModel {
         return max + 1
     }
 
-    fun createWallet(removeMnemonic: Boolean, runnable: Runnable) {
-        var mnemonic = getFullMnemonic()
-        var xPrivKey: String
-        var my_device_address: String
-
-        var walletPubKey: String
-        var walletId: String
-
-        val credentials: ArrayList<Credential> = ArrayList(1)
-
-
-        JSApi().xPrivKey(mnemonic, ValueCallback {
-            xPrivKey = it
-
-
-            //TODO:
-            JSApi().ecdsaPubkey(it, "\"m/1\"", ValueCallback {
-                WalletModel.instance.ecdsaPubkey = it
-                //Utils.debugLog(it)
-                JSApi().deviceAddress(xPrivKey, ValueCallback {
-                    my_device_address = it
-                    //Utils.debugLog(it)
-                    JSApi().walletPubKey(xPrivKey, 0, ValueCallback {
-                        walletPubKey = it
-                        //Utils.debugLog(it)
-                        JSApi().walletID(walletPubKey, ValueCallback {
-                            walletId = it
-                            //Utils.debugLog(it)
-                            credentials.add(Credential(walletId = walletId, xPubKey = walletPubKey, walletName = "TTT钱包"))
-                            val profile = TProfile(ecdsaPubkey = ecdsaPubkey, mnemonic = mnemonic, xPrivKey = xPrivKey, my_device_address = my_device_address, credentials = credentials)
-                            Prefs.getInstance().saveObject(profile)
-                            runnable.run()
-                        })
-                    })
-                })
-
-            })
-        })
+    fun createProfile(removeMnemonic: Boolean) {
+        createProfileFromMnenonic(currentJSMnemonic, removeMnemonic)
     }
 
-    fun newMnemonic(runnable: Runnable) {
-        JSApi().mnemonic(ValueCallback {
-            WalletModel.instance.setMnemonic(it)
-            runnable.run()
-        })
+    fun newWallet(credentialName: String = TTT.firstWalletName) {
+        val newCredential = createNextCredential(tProfile!!, credentialName)
+        tProfile!!.credentials.add(newCredential)
+        Prefs.getInstance().saveObject(tProfile)
+    }
+
+    fun createProfileFromMnenonic(mnemonic: String, removeMnemonic: Boolean) {
+        //TODO: handle the removeMnenonic logic.
+        val api = JSApi()
+        val xPrivKey = api.xPrivKeySync(mnemonic)
+        val ecdsaPubkey = api.ecdsaPubkeySync(xPrivKey, "\"m/1\"")
+        val deviceAddress = api.deviceAddressSync(xPrivKey)
+        val profile = TProfile(ecdsaPubkey = ecdsaPubkey, mnemonic = mnemonic, xPrivKey = xPrivKey, deviceAddress = deviceAddress)
+        tProfile = profile
+        newWallet()
     }
 
 }

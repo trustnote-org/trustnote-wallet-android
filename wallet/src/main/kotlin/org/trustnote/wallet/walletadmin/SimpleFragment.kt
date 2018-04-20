@@ -18,13 +18,14 @@ class SimpleFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view!!.findViewById<View>(R.id.wallet_new_ok).setOnClickListener{
+        view!!.findViewById<View>(R.id.wallet_new_ok).setOnClickListener {
             val walletNameTV = view!!.findViewById<EditText>(R.id.wallet_new_name)
             val walletName = walletNameTV.text.toString()
             if (walletName.isNullOrBlank()) {
                 Utils.toastMsg(R.string.wallet_new_msg_emptyname)
             } else {
-                WalletModel.instance.addWallet(walletName, Runnable {
+                Utils.runInbackground(Runnable {
+                    WalletModel.instance.newWallet(walletName)
                     activity.finish()
                 })
             }
