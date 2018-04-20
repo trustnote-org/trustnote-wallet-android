@@ -8,6 +8,7 @@ import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
 
 @Database(entities = arrayOf(
+        MyWitnesses::class,
         MyAddresses::class,
         Units::class,
         Messages::class,

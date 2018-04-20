@@ -7,6 +7,7 @@ import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.util.Prefs
+import org.trustnote.wallet.util.Utils
 
 class WalletModel {
 
@@ -23,6 +24,22 @@ class WalletModel {
     var currentMnemonic: List<String> = listOf()
     var currentJSMnemonic = ""
     var tProfile: TProfile? = null
+
+    var latestWitnesses: MutableList<String> = mutableListOf()
+
+    fun getWitnesses(): List<String>{
+        return latestWitnesses
+    }
+
+    fun setWitnesses(l: List<String>) {
+        if (l.isEmpty()) {
+            Utils.debugLog("setWitness with l, but it is empty")
+            return
+        }
+        latestWitnesses.clear()
+
+        latestWitnesses.addAll(l)
+    }
 
     fun setJSMnemonic(s: String) {
         currentMnemonic = s.filterNot { it == '"' }.split(" ")

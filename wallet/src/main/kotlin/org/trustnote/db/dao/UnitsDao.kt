@@ -1,9 +1,6 @@
 package org.trustnote.db.dao
 
-import android.arch.persistence.room.OnConflictStrategy
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Transaction
+import android.arch.persistence.room.*
 import org.trustnote.db.entity.*
 
 
@@ -17,20 +14,38 @@ abstract class UnitsDao {
     abstract fun insertInputs(inputs: Array<Inputs>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertOutputs(outputs: Array<Outputs>)
+    abstract fun insertOutputs(inputs: Array<Outputs>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertMessages(outputs: Array<Messages>)
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertMyAddresses(outputs: Array<MyAddresses>)
+    abstract fun insertMyAddresses(myAddresses: Array<MyAddresses>)
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertMyWitnesses(myWitnesses: Array<MyWitnesses>)
+
+    @Delete
+    abstract fun deleteMyWitnesses(myWitnesses: Array<MyWitnesses>)
+
+    @Query("SELECT * FROM my_witnesses")
+    abstract fun queryMyWitnesses(): Array<MyWitnesses>
+
+    @Transaction
+    open fun saveMyWitnesses(myWitnesses: Array<MyWitnesses>) {
+        val oldWitnesses = queryMyWitnesses()
+        deleteMyWitnesses(oldWitnesses)
+        insertMyWitnesses(myWitnesses)
+    }
 
     @Transaction
     open fun saveUnits(units: Array<Units>) {
         insertUnits(units)
-        for(oneUnit in units) {
+        for (oneUnit in units) {
             insertMessages(oneUnit.messages.toTypedArray())
-            for(oneMessage in oneUnit.messages) {
+            for (oneMessage in oneUnit.messages) {
                 insertInputs(oneMessage.inputs.toTypedArray())
                 insertOutputs(oneMessage.outputs.toTypedArray())
             }
