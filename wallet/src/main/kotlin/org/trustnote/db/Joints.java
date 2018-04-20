@@ -1,4 +1,4 @@
-package org.trustnote.wallet.network.hubapi;
+package org.trustnote.db;
 
 import org.trustnote.db.entity.TBaseEntity;
 import org.trustnote.db.entity.Units;

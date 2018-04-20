@@ -4,7 +4,6 @@ import com.google.gson.*
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.network.hubapi.HubResponse
-import org.trustnote.wallet.network.hubapi.Joints
 import org.trustnote.wallet.pojo.Credential
 
 

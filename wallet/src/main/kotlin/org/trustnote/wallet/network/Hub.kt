@@ -8,6 +8,7 @@ import java.net.URI
 import com.google.gson.GsonBuilder
 import org.trustnote.wallet.util.Utils
 import com.google.gson.JsonElement
+import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.TrustNoteDataBase
 import org.trustnote.wallet.TApp
@@ -16,17 +17,11 @@ import org.trustnote.wallet.network.hubapi.*
 
 class Hub {
 
-    private var hubClient: HubClient
-    private val subject: Subject<HubResponse> = PublishSubject.create()
+    private var hubClient: HubClient = HubClient(URI(hubAddress))
+    private var subject: Subject<HubResponse> = PublishSubject.create()
 
     init {
-        hubClient = HubClient(URI(hubAddress))
-        hubClient.init(subject)
-        hubClient.connect()
-
-        getHubSubject().subscribe {
-            handleResponse(it!!)
-        }
+        reConnectHub()
     }
 
     private fun handleResponse(it: HubResponse) {
@@ -39,21 +34,35 @@ class Hub {
         val instance = Hub()
     }
 
-    private fun reConnectHub() {
+    fun reConnectHub() {
         hubClient = HubClient(URI(hubAddress))
+        subject = PublishSubject.create()
         hubClient.init(subject)
+
         hubClient.connect()
+
+        monitorConnection()
     }
 
-    fun getHubSubject(): Observable<HubResponse> {
-        return subject.filter {
-            it.msgType == HubPackageBase.MSG_TYPE.response && it.body != null && it.body.get("response") != null && it.body.get("tag").asString == "bOo0Eeq5jWT8D0fwStljdp6T8JDIqaaKWEpzhQUgOvc="
+    private fun monitorConnection() {
+        Utils.debugLog("monitorConnection")
+        subject.filter { it.msgType == HubPackageBase.MSG_TYPE.CLOSED }.observeOn(Schedulers.computation()).subscribe {
+            //TODO: should monitor network status change event and take action.
+            Thread.sleep(10000)
+            reConnectHub()
         }
     }
+
+//    fun getHubSubject(): Observable<HubResponse> {
+//        return subject.filter {
+//            it.msgType == HubPackageBase.MSG_TYPE.response && it.body != null && it.body.get("response") != null && it.body.get("tag").asString == "bOo0Eeq5jWT8D0fwStljdp6T8JDIqaaKWEpzhQUgOvc="
+//        }
+//    }
 
     fun queryHistoryAndSave() {
         hubClient.send(HubRequest.reqGetHistory())
     }
+
 
 }
 
