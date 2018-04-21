@@ -15,6 +15,7 @@ object HubMsgFactory {
     const val SUBJECT = "subject"
     const val CMD_HEARTBEAT = "heartbeat"
     const val CMD_VERSION = "version"
+    const val CMD_GET_WITNESSES = "get_witnesses"
 
     fun parseMsg(textFromHub: String): HubMsg {
         val index = textFromHub.indexOf(',')
@@ -41,55 +42,10 @@ object HubMsgFactory {
         return HubJustSaying(CMD_VERSION, JsonParser().parse(Utils.getGson().toJson(WalletVersion())) as JsonObject)
     }
 
+    fun getWitnesses(hubSocketModel: HubSocketModel): HubRequest {
+        return HubRequest(CMD_GET_WITNESSES, hubSocketModel.mGetWitnessTag)
+    }
 
 }
 
 
-//companion object {
-//
-//    val TYPE_Justsaying = "justsaying"
-//    val TYPE_Status_connected = "socketconnected"
-//    val TYPE_Status_closed = "socketclosed"
-//    val KEY_Subject = "mSubject"
-//    val KEY_CHALLENGE = "hub/challenge"
-//    val KEY_Body = "msgJson"
-//
-//    internal fun parseResponse(hubMsg: String, reqTagMapping: RequestMap): HubResponse? {
-//
-//        val index = hubMsg.indexOf(',')
-//
-//        if (index < 3) {
-//            return null
-//        } else {
-//            val res = HubResponse()
-//            res.msgType = HubMsg.MSG_TYPE.valueOf(hubMsg.substring(2, index - 1))
-//            res.content = hubMsg.substring(index + 1, hubMsg.length - 1)
-//            res.msgJson = JsonParser().parse(res.content).asJsonObject
-//            if (MSG_TYPE.justsaying == res.msgType) {
-//                if (KEY_CHALLENGE == res.msgJson.getAsJsonPrimitive(KEY_Subject).asString) {
-//                    res.subjectType = HubMsg.BODY_TYPE.RES_CHALLENGE
-//                }
-//            }
-//
-//            if (HubMsg.MSG_TYPE.response == res.msgType) {
-//                val tag = res.msgJson.get("tag").asString
-//                res.subjectType = reqTagMapping.getExpectedResBodyType(tag)
-//            }
-//
-//            return res
-//        }
-//    }
-//
-//    fun createConnectedInstance(): HubResponse {
-//        val res = HubResponse()
-//        res.msgType = HubMsg.MSG_TYPE.CONNECTED
-//        return res
-//    }
-//
-//    fun createCloseInstance(): HubResponse {
-//        val res = HubResponse()
-//        res.msgType = HubMsg.MSG_TYPE.CLOSED
-//        return res
-//    }
-//}
-//}

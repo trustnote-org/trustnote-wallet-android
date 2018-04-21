@@ -28,10 +28,19 @@ class HubManager {
         val instance = HubManager()
     }
 
+    //Quick code.
+    fun reConnectHubAfter10Sec() {
+        Thread{
+            Thread.sleep(5000)
+            reConnectHub()
+        }.start()
+    }
+
     fun reConnectHub() {
         val hubSocketModel = HubSocketModel()
         val hubClient = HubClient(hubSocketModel)
         hubClient.connect()
+        hubSocketModel.setupRetryLogic()
 
 //        subject = PublishSubject.create()
 //        hubClient.init(subject)

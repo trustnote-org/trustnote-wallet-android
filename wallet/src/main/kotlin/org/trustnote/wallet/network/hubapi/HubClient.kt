@@ -8,6 +8,7 @@ import org.java_websocket.handshake.ServerHandshake
 import org.trustnote.wallet.util.Utils
 
 import io.reactivex.subjects.Subject
+import org.trustnote.wallet.network.HubManager
 
 
 class HubClient : WebSocketClient {
@@ -27,6 +28,7 @@ class HubClient : WebSocketClient {
     }
 
     fun sendHubMsg(hubMsg: HubMsg) {
+        hubMsg.lastSentTime = System.currentTimeMillis()
         mHubSocketModel.mRequestMap.put(hubMsg)
         send(hubMsg.toHubString())
     }
@@ -35,6 +37,7 @@ class HubClient : WebSocketClient {
         log("ONOPEN: " + handshakedata.toString())
         mHubSocketModel.mHeartBeatTask.start()
         sendHubMsg(HubMsgFactory.walletVersion())
+        sendHubMsg(HubMsgFactory.getWitnesses(mHubSocketModel))
 
         //        mSubject.onNext(HubResponse.createConnectedInstance())
 //        send(HubRequest.reqVersion())
@@ -42,12 +45,22 @@ class HubClient : WebSocketClient {
 
     override fun onMessage(message: String) {
         log("RECEIVED:onMessage: $message")
-        mHubSocketModel.mSubject.onNext(HubMsgFactory.parseMsg(message))
+        val hugMsg = HubMsgFactory.parseMsg(message)
+        mHubSocketModel.mSubject.onNext(hugMsg)
+
+        //TODO: remove the req after every thing is OK.
+        if (hugMsg.msgType == MSG_TYPE.response) {
+            mHubSocketModel.mRequestMap.responseMsgArrived(hugMsg)
+        }
+
     }
 
     override fun onClose(code: Int, reason: String, remote: Boolean) {
         log("onClose:: " + "Connection closed by " + (if (remote) "remote peer" else "us") + " Code: " + code + " Reason: " + reason)
         mHubSocketModel.mHeartBeatTask.stop()
+
+        //Retry logic
+        HubManager.instance.reConnectHubAfter10Sec()
     }
 
     //From test result: onError sometimes be called after onClose.
@@ -62,7 +75,7 @@ class HubClient : WebSocketClient {
     }
 
     private fun log(msg: String) {
-        Utils.d(HubClient::class.java, msg)
+        Utils.debugHub(msg)
     }
 
 }

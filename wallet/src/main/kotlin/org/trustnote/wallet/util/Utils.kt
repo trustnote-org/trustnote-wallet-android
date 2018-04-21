@@ -69,6 +69,11 @@ object Utils {
         return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
     }
 
+    fun debugHub(s:String) {
+        d(HubClient::class.java, s)
+        //android.util.Log.e(HubClient::class.java.simpleName, s)
+    }
+
 
 }
 
