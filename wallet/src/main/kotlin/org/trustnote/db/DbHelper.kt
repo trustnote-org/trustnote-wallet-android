@@ -5,6 +5,7 @@ import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.network.hubapi.HubResponse
 import org.trustnote.wallet.pojo.Credential
+import org.trustnote.wallet.util.Utils
 
 
 object DbHelper {
@@ -22,7 +23,7 @@ fun saveWalletMyAddressInternal(credential: Credential) {
 fun saveUnitInternal(hubResponse: HubResponse) {
 
     val response = hubResponse.msgJson!!.getAsJsonObject("response")
-    val gson = getGson()
+    val gson = Utils.getGson()
     val jointList = parseChildFromJson(gson, TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
 
     for (joint in jointList) {
@@ -84,6 +85,3 @@ fun parseChildFromJson(gson: Gson, parentEntity: TBaseEntity, origJson: JsonObje
     return children
 }
 
-fun getGson(): Gson {
-    return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
-}

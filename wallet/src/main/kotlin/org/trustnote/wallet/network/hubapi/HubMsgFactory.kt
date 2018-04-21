@@ -1,5 +1,9 @@
 package org.trustnote.wallet.network.hubapi
 
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import org.trustnote.wallet.util.Utils
+
 
 object HubMsgFactory {
 
@@ -10,6 +14,7 @@ object HubMsgFactory {
     const val BODY = "msgJson"
     const val SUBJECT = "subject"
     const val CMD_HEARTBEAT = "heartbeat"
+    const val CMD_VERSION = "version"
 
     fun parseMsg(textFromHub: String): HubMsg {
         val index = textFromHub.indexOf(',')
@@ -30,9 +35,11 @@ object HubMsgFactory {
 
     fun walletHeartBeat(hubSocketModel: HubSocketModel): HubRequest {
         return HubRequest(CMD_HEARTBEAT, hubSocketModel.mHeartbeatTag)
-
     }
 
+    fun walletVersion(): HubJustSaying {
+        return HubJustSaying(CMD_VERSION, JsonParser().parse(Utils.getGson().toJson(WalletVersion())) as JsonObject)
+    }
 
 
 }

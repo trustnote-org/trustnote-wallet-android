@@ -9,7 +9,7 @@ class HeartBeatTask internal constructor(internal var walletClient: HubClient) :
 
     override fun run() {
         if (walletClient.isOpen) {
-            walletClient.sendHubRequest(HubMsgFactory.walletHeartBeat(walletClient.mHubSocketModel))
+            walletClient.sendHubMsg(HubMsgFactory.walletHeartBeat(walletClient.mHubSocketModel))
         }
     }
 

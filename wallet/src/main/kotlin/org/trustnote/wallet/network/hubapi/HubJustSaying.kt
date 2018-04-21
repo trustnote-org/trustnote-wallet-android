@@ -14,8 +14,13 @@ class HubJustSaying : HubMsg {
 
     constructor(subject:String, bodyJson: JsonObject) : super(MSG_TYPE.justsaying) {
         this.msgSource = MSG_SOURCE.wallet
-        this.subject = msgJson.getAsJsonPrimitive(HubMsgFactory.SUBJECT).asString
-        this.bodyJson = msgJson.getAsJsonObject(HubMsgFactory.BODY)
+        this.subject = subject
+        this.bodyJson = bodyJson
+
+        this.msgJson = JsonObject()
+        this.msgJson.addProperty(HubMsgFactory.SUBJECT, subject)
+        this.msgJson.add(HubMsgFactory.BODY, bodyJson)
+
     }
 
 }

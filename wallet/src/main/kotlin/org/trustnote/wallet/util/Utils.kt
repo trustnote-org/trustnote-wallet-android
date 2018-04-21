@@ -2,6 +2,9 @@ package org.trustnote.wallet.util
 
 
 import android.widget.Toast
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
 
 import org.trustnote.wallet.TApp
@@ -60,6 +63,12 @@ object Utils {
         //TODO: USE crypto alg.
         return "RANDOM:" + Random().nextInt()
     }
+
+
+    fun getGson(): Gson {
+        return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
+    }
+
 
 }
 

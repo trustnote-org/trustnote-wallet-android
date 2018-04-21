@@ -26,15 +26,16 @@ class HubClient : WebSocketClient {
         log("SENDING: $text")
     }
 
-    fun sendHubRequest(req: HubRequest) {
-        mHubSocketModel.mRequestMap.put(req)
-        send(req.toHubString())
+    fun sendHubMsg(hubMsg: HubMsg) {
+        mHubSocketModel.mRequestMap.put(hubMsg)
+        send(hubMsg.toHubString())
     }
 
     override fun onOpen(handshakedata: ServerHandshake) {
         log("ONOPEN: " + handshakedata.toString())
         mHubSocketModel.mHeartBeatTask.start()
-        sendHubRequest(HubMsgFactory.walletHeartBeat(mHubSocketModel))
+        sendHubMsg(HubMsgFactory.walletVersion())
+
         //        mSubject.onNext(HubResponse.createConnectedInstance())
 //        send(HubRequest.reqVersion())
     }
