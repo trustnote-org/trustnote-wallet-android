@@ -1,16 +1,24 @@
 package org.trustnote.wallet.network.hubapi
 
-import java.util.TimerTask
+import org.trustnote.wallet.TTT
+import java.util.*
 
 class HeartBeatTask internal constructor(internal var walletClient: HubClient) : TimerTask() {
 
+    private var mHeartBeatTimer: Timer = Timer(true)
+
     override fun run() {
         if (walletClient.isOpen) {
-            //System.out.println("HeartBeat");
-            walletClient.send(HubRequest.reqHeartBeat())
+            walletClient.sendHubRequest(HubMsgFactory.walletHeartBeat(walletClient.mHubSocketModel))
         }
     }
 
+    fun start() {
+        mHeartBeatTimer.scheduleAtFixedRate(this, (TTT.HUB_HEARTBEAT_FIRST_DELAY_SEC * 1000).toLong(), (TTT.HUB_HEARTBEAT_INTERVAL_SEC * 1000).toLong())
+    }
 
+    fun stop() {
+        mHeartBeatTimer.cancel()
+    }
 }
 

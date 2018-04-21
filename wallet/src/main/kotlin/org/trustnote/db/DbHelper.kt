@@ -21,7 +21,7 @@ fun saveWalletMyAddressInternal(credential: Credential) {
 
 fun saveUnitInternal(hubResponse: HubResponse) {
 
-    val response = hubResponse.body.getAsJsonObject("response")
+    val response = hubResponse.msgJson!!.getAsJsonObject("response")
     val gson = getGson()
     val jointList = parseChildFromJson(gson, TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
 

@@ -2,13 +2,18 @@ package org.trustnote.wallet.util
 
 
 import android.widget.Toast
+import com.google.gson.JsonObject
 
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.network.hubapi.HubClient
 
 import timber.log.Timber
+import java.util.*
 
 object Utils {
+
+    val emptyJsonObject = JsonObject()
+
     fun debugLog(s: String) {
         android.util.Log.e("GUO", s)
     }
@@ -49,6 +54,11 @@ object Utils {
     //TODO:
     fun runInbackground(runnable: Runnable) {
         Thread { runnable.run() }.start()
+    }
+
+    fun generateRandomString(length:Int): String {
+        //TODO: USE crypto alg.
+        return "RANDOM:" + Random().nextInt()
     }
 
 }

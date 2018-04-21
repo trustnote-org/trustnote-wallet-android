@@ -4,7 +4,7 @@ import android.webkit.ValueCallback;
 
 import org.trustnote.wallet.js.JSApi;
 import org.trustnote.wallet.js.JsTest;
-import org.trustnote.wallet.network.Hub;
+import org.trustnote.wallet.network.HubManager;
 import org.trustnote.wallet.pojo.Credential;
 import org.trustnote.wallet.pojo.TProfile;
 import org.trustnote.wallet.tttui.QRFragment;
@@ -108,11 +108,11 @@ public class SettingsDataFactory {
         };
         res.add(testQrCode);
 
-        SettingItem testHubApi = new SettingItem("Test Hub Api");
+        SettingItem testHubApi = new SettingItem("Test HubManager Api");
         testHubApi.action = new Runnable() {
             @Override
             public void run() {
-                Hub.getInstance().queryHistoryAndSave();
+                HubManager.getInstance().queryHistoryAndSave();
             }
         };
         res.add(testHubApi);

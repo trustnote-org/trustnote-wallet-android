@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Build
 import dagger.Lazy
 import org.trustnote.wallet.js.TWebView
-import org.trustnote.wallet.network.Hub
+import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.TimberFile
 import org.trustnote.wallet.walletadmin.WalletModel
@@ -57,6 +57,6 @@ class TApp : Application() {
         TWebView.init(this)
         Prefs.with(this)
         WalletModel()
-        Hub.instance
+        HubManager.instance
     }
 }
