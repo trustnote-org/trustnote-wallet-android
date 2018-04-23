@@ -1,9 +1,13 @@
 package org.trustnote.wallet.network.hubapi
 
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.network.RequestMap
 import org.trustnote.wallet.util.Utils
@@ -36,5 +40,37 @@ class HubSocketModel {
             }
         }
     }
+
+
+    //TODO: for future copy.
+    private var connectivityDisposable: Disposable? = null
+
+    fun onResume() {
+        connectivityDisposable = ReactiveNetwork.observeNetworkConnectivity(TApp.context)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { connectivity ->
+                    Utils.debugHub(connectivity.toString())
+                    val state = connectivity.state
+                    val name = connectivity.typeName
+                    //TODO:
+                    //connectivity_status.text = String.format("state: %s, typeName: %s", state, name)
+                }
+    }
+
+    fun onPause() {
+        safelyDispose(connectivityDisposable)
+    }
+
+    private fun safelyDispose(disposable: Disposable?) {
+        if (disposable != null && !disposable.isDisposed) {
+            disposable.dispose()
+        }
+    }
+
+    fun dispose() {
+        TODO("not implemented")
+    }
+
 
 }

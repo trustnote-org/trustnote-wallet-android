@@ -1,16 +1,11 @@
 package org.trustnote.wallet.network
 
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.Subject
 import org.trustnote.db.DbHelper
-import org.trustnote.wallet.TTT
 import org.trustnote.wallet.network.hubapi.HubClient
 import org.trustnote.wallet.network.hubapi.HubResponse
 import org.trustnote.wallet.network.hubapi.HubSocketModel
 import org.trustnote.wallet.util.Utils
-import java.net.URI
 
-//TODO: some request need retry logic. such as get witnesses.
 //TODO: test case when HubManager return empty\strange result.
 
 class HubManager {
@@ -28,12 +23,10 @@ class HubManager {
         val instance = HubManager()
     }
 
-    //Quick code.
-    fun reConnectHubAfter10Sec() {
-        Thread{
-            Thread.sleep(5000)
-            reConnectHub()
-        }.start()
+    fun reConnectHub(oldHubSocketModel: HubSocketModel) {
+        //TODO: move dispose logic to model.
+        oldHubSocketModel.dispose()
+        reConnectHub()
     }
 
     fun reConnectHub() {
@@ -41,17 +34,6 @@ class HubManager {
         val hubClient = HubClient(hubSocketModel)
         hubClient.connect()
         hubSocketModel.setupRetryLogic()
-
-//        subject = PublishSubject.create()
-//        hubClient.init(subject)
-//
-//        hubClient.connect()
-//
-//        monitorConnection()
-
-//        monitorResponse(HubMsg.BODY_TYPE.RES_GET_WITNESSES, Consumer<HubResponse>{
-//            Utils.debugLog("RES_GET_WITNESSES:" + it.msgJson.toString())
-//        })
     }
 
     //@SuppressLint("NewApi")
