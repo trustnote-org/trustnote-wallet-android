@@ -53,18 +53,25 @@ fun saveUnitInternal(hubResponse: HubResponse) {
         val units = joint.unit
         units.originalJson = joint.originalJson.getAsJsonObject("unit")
         val messageArray = parseChildFromJson(gson, units, units.originalJson, Messages::class.java.canonicalName, "messages") as List<Messages>
+        
+        messageArray.forEachIndexed { index, messages ->  messages.messageIndex = index}
         units.messages = messageArray
+        
         for (message in messageArray) {
             message.parent = units
             message.unit = units.unit
             val inputArray = parseChildFromJson(gson, message, message.originalJson, Inputs::class.java.canonicalName, "payload", "inputs") as List<Inputs>
+            
 
             val outputArray = parseChildFromJson(gson, message, message.originalJson, Outputs::class.java.canonicalName, "payload", "outputs") as List<Outputs>
 
-            inputArray.onEach { it.unit = units.unit }
+
+            inputArray.forEachIndexed { index, inputs ->  inputs.unit = units.unit;inputs.messageIndex = message.messageIndex; inputs.inputIndex = index}
+
+            outputArray.forEachIndexed { index, outputs ->  outputs.unit = units.unit;outputs.messageIndex = message.messageIndex; outputs.outputIndex = index}
+
             message.inputs = inputArray
 
-            outputArray.onEach { it.unit = units.unit }
             message.outputs = outputArray
         }
     }

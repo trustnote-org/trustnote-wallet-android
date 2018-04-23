@@ -56,4 +56,18 @@ abstract class UnitsDao {
         }
     }
 
+
+    @Transaction
+    open fun getUnitxByWalletId(units: Array<Units>) {
+        insertUnits(units)
+        for (oneUnit in units) {
+            insertMessages(oneUnit.messages.toTypedArray())
+            for (oneMessage in oneUnit.messages) {
+                insertInputs(oneMessage.inputs.toTypedArray())
+                insertOutputs(oneMessage.outputs.toTypedArray())
+            }
+        }
+    }
+
+
 }

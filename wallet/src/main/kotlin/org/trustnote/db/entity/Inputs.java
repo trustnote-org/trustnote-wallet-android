@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.lang.Integer;
 import java.lang.String;
 
@@ -13,19 +15,20 @@ public class Inputs extends TBaseEntity {
   @ColumnInfo(
       name = "unit"
   )
-
   @NonNull
+  @SerializedName("owner_unit")
   public String unit;
 
   @ColumnInfo(
       name = "message_index"
   )
+  @NonNull
+  @SerializedName("msg_non_dup_index")
   public int messageIndex;
 
   @ColumnInfo(
       name = "input_index"
   )
-
   @NonNull
   public int inputIndex;
 
@@ -52,16 +55,19 @@ public class Inputs extends TBaseEntity {
   @ColumnInfo(
       name = "src_unit"
   )
+  @SerializedName("unit")
   public String srcUnit;
 
   @ColumnInfo(
       name = "src_message_index"
   )
+  @SerializedName("message_index")
   public Integer srcMessageIndex;
 
   @ColumnInfo(
       name = "src_output_index"
   )
+  @SerializedName("output_index")
   public Integer srcOutputIndex;
 
   @ColumnInfo(

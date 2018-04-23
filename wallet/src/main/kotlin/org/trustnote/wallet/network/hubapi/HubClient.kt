@@ -52,7 +52,7 @@ class HubClient : WebSocketClient {
     }
 
     fun sendHubMsg(hubMsg: HubMsg) {
-        if (!isConnectCalled || isClosed) {
+        if (!isConnectCalled || isClosed || !isOpen) {
             log("try to send hub msg, but socket closed")
             return
         }

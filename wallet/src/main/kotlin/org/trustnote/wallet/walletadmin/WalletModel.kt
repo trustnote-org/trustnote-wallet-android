@@ -77,7 +77,7 @@ class WalletModel {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
         val walletPubKey = api.walletPubKeySync(profile.xPrivKey, walletIndex)
-        val walletId = api.walletIDSync(walletPubKey)
+        val walletId = toNormalStr(api.walletIDSync(walletPubKey))
         return Credential(account = walletIndex, walletId = walletId, xPubKey = walletPubKey, walletName = credentialName)
     }
 
@@ -106,7 +106,7 @@ class WalletModel {
             myAddress.wallet = credential.walletId
             myAddress.isChange = TTT.addressReceiveType
             myAddress.addressIndex = it
-            val addressPubkey = api.walletAddressPubkeySync(credential.xPubKey, TTT.addressReceiveType, it)
+            val addressPubkey = toNormalStr(api.walletAddressPubkeySync(credential.xPubKey, TTT.addressReceiveType, it))
             myAddress.definition = """["sig",{"pubkey":$addressPubkey}]"""
             //TODO: check above logic from JS code.
             myAddress
