@@ -20,9 +20,13 @@ abstract class UnitsDao {
     abstract fun insertMessages(outputs: Array<Messages>)
 
 
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertMyAddresses(myAddresses: Array<MyAddresses>)
 
+    @Query("SELECT * FROM my_addresses WHERE wallet == :walletId")
+    abstract fun queryAllWalletAddress(walletId: String): Array<MyAddresses>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertMyWitnesses(myWitnesses: Array<MyWitnesses>)

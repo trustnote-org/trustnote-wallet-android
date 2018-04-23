@@ -4,6 +4,8 @@ import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.network.HubManager
+import org.trustnote.wallet.network.hubapi.HubMsgFactory
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.util.Prefs
@@ -42,8 +44,9 @@ class WalletModel {
     }
 
     fun setJSMnemonic(s: String) {
-        currentMnemonic = s.filterNot { it == '"' }.split(" ")
-        currentJSMnemonic = s
+        currentMnemonic = toNormalStr(s).split(" ")
+
+        currentJSMnemonic = "\"" + currentMnemonic.joinToString(" ") + "\""
     }
 
     fun getTxtMnemonic(): String {
@@ -99,7 +102,7 @@ class WalletModel {
         val api = JSApi()
         val res = List(TTT.walletAddressInitSize, {
             val myAddress = MyAddresses()
-            myAddress.address = api.walletAddressSync(credential.xPubKey, TTT.addressReceiveType, it)
+            myAddress.address = toNormalStr(api.walletAddressSync(credential.xPubKey, TTT.addressReceiveType, it))
             myAddress.wallet = credential.walletId
             myAddress.isChange = TTT.addressReceiveType
             myAddress.addressIndex = it
@@ -127,10 +130,13 @@ class WalletModel {
         saveProfile()
     }
 
-    fun createProfileFromMnenonic(mnemonic: String, removeMnemonic: Boolean) {
+    fun createProfileFromMnenonic(mnemonic: String, removeMnemonic: Boolean = false) {
         //TODO: handle the removeMnenonic logic.
+        setJSMnemonic(mnemonic)
+
         val api = JSApi()
-        val xPrivKey = api.xPrivKeySync(mnemonic)
+        val xPrivKey = api.xPrivKeySync(currentJSMnemonic)
+
         val ecdsaPubkey = api.ecdsaPubkeySync(xPrivKey, "\"m/1\"")
         val deviceAddress = api.deviceAddressSync(xPrivKey)
         val profile = TProfile(ecdsaPubkey = ecdsaPubkey, mnemonic = mnemonic, xPrivKey = xPrivKey, deviceAddress = deviceAddress)
@@ -140,6 +146,27 @@ class WalletModel {
 
     private fun saveProfile() {
         Prefs.getInstance().saveObject(tProfile)
+    }
+
+    private fun toNormalStr(jsString: String): String {
+        return jsString.filterNot { it == '"' }
+    }
+
+    fun hubRequestCurrentWalletTxHistory() {
+        if (getProfile() == null || tProfile!!.credentials.isEmpty()) {
+            return
+        }
+
+        val witnesses = DbHelper.getMyWitnesses()
+        val addresses = DbHelper.getAllWalletAddress(tProfile!!.credentials[0].walletId)
+
+        if (witnesses.isEmpty() || addresses.isEmpty()) {
+            return
+        }
+
+        val req = HubMsgFactory.getHistory(HubManager.instance.getCurrentHub(), witnesses, addresses)
+        HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(req)
+
     }
 
 }

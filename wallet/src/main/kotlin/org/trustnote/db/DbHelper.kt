@@ -7,11 +7,22 @@ import org.trustnote.wallet.network.hubapi.HubResponse
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.util.Utils
 
-
 object DbHelper {
     fun saveUnit(hubResponse: HubResponse) = saveUnitInternal(hubResponse)
     fun saveWalletMyAddress(credential: Credential) = saveWalletMyAddressInternal(credential)
     fun saveMyWitnesses(hubResponse: HubResponse) = saveMyWitnessesInternal(hubResponse)
+    fun getMyWitnesses(): Array<MyWitnesses> = getMyWitnessesInternal()
+    fun getAllWalletAddress(walletId: String): Array<MyAddresses> = getAllWalletAddressInternal(walletId)
+}
+
+fun getAllWalletAddressInternal(walletId: String): Array<MyAddresses>{
+    val db = TrustNoteDataBase.getInstance(TApp.context)
+    return db.unitsDao().queryAllWalletAddress(walletId)
+}
+
+fun getMyWitnessesInternal(): Array<MyWitnesses>{
+    val db = TrustNoteDataBase.getInstance(TApp.context)
+    return db.unitsDao().queryMyWitnesses()
 }
 
 fun saveWalletMyAddressInternal(credential: Credential) {

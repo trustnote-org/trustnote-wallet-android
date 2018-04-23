@@ -46,17 +46,14 @@ public class SettingsDataFactory {
         };
         res.add(testWallet);
 
-
-        SettingItem findVanityWallet = new SettingItem("Find vanity receive address");
-        findVanityWallet.action = new Runnable() {
+        SettingItem testHistory = new SettingItem("Test: get_history, check res from log");
+        testHistory.action = new Runnable() {
             @Override
             public void run() {
-                JsTest.INSTANCE.findVanityAddress("GUO");
+                WalletModel.getInstance().hubRequestCurrentWalletTxHistory();
             }
         };
-        res.add(findVanityWallet);
-
-
+        res.add(testHistory);
 
         SettingItem testJSSignWithDeviceMessageHash = new SettingItem("testJSSignWithDeviceMessageHash", false);
         testJSSignWithDeviceMessageHash.action = new Runnable() {

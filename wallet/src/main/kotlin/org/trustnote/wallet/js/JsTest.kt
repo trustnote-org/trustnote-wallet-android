@@ -3,6 +3,7 @@ package org.trustnote.wallet.js
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.walletadmin.TestData
+import org.trustnote.wallet.walletadmin.WalletModel
 import timber.log.Timber
 
 
@@ -58,16 +59,8 @@ fun isVanity(target: String, oneAddress: String): Boolean {
 }
 
 fun createFullWalletInternal(seed: String) {
-    val api = JSApi()
-    val privKey = api.xPrivKeySync(seed)
 
-    val walletPubKey = api.walletPubKeySync(privKey, 0)
-    val walletId = api.walletIDSync(walletPubKey)
-
-    val walletAddresses = List(5, {
-        val oneAddress = api.walletAddressSync(walletPubKey, TTT.addressReceiveType, it)
-        val onePubKey = api.walletAddressPubkeySync(walletPubKey, TTT.addressReceiveType, it)
-    })
+    WalletModel.instance.createProfileFromMnenonic(seed)
 
     Utils.debugJS("Done")
 

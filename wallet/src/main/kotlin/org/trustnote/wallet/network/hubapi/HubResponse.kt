@@ -45,16 +45,23 @@ class HubResponse : HubMsg {
 
         var handleResult = true
         when (originRequset.command) {
-            HubMsgFactory.CMD_GET_WITNESSES -> handleResult = handleMyWitnesses(responseJson)
+            HubMsgFactory.CMD_GET_WITNESSES -> handleResult = handleMyWitnesses()
+            HubMsgFactory.CMD_GET_HISTORY -> handleResult = handleGetHistory()
         }
 
         return handleResult
     }
 
-    private fun handleMyWitnesses(responseJson: JsonElement): Boolean {
+    private fun handleMyWitnesses(): Boolean {
         DbHelper.saveMyWitnesses(this)
         return true
     }
+
+    private fun handleGetHistory(): Boolean {
+        DbHelper.saveUnit(this)
+        return true
+    }
+
 
 }
 

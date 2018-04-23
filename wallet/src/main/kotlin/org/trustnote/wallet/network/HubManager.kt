@@ -14,6 +14,9 @@ class HubManager {
         reConnectHub()
     }
 
+    //TODO: remove.
+    lateinit private var currentHub: HubSocketModel
+
     private fun handleResponse(it: HubResponse) {
         DbHelper.saveUnit(it)
     }
@@ -23,6 +26,8 @@ class HubManager {
         val instance = HubManager()
     }
 
+
+
     fun reConnectHub(oldHubSocketModel: HubSocketModel) {
         //TODO: move dispose logic to model.
         oldHubSocketModel.dispose()
@@ -31,9 +36,14 @@ class HubManager {
 
     fun reConnectHub() {
         val hubSocketModel = HubSocketModel()
+        this.currentHub = hubSocketModel
         val hubClient = HubClient(hubSocketModel)
         hubClient.connect()
         hubSocketModel.setupRetryLogic()
+    }
+
+    fun getCurrentHub(): HubSocketModel{
+        return this.currentHub
     }
 
     //@SuppressLint("NewApi")

@@ -52,6 +52,10 @@ class HubClient : WebSocketClient {
     }
 
     fun sendHubMsg(hubMsg: HubMsg) {
+        if (!isConnectCalled || isClosed) {
+            log("try to send hub msg, but socket closed")
+            return
+        }
         hubMsg.lastSentTime = System.currentTimeMillis()
         mHubSocketModel.mRequestMap.put(hubMsg)
         send(hubMsg.toHubString())
@@ -63,8 +67,6 @@ class HubClient : WebSocketClient {
         sendHubMsg(HubMsgFactory.walletVersion())
         sendHubMsg(HubMsgFactory.getWitnesses(mHubSocketModel))
 
-        //        mSubject.onNext(HubResponse.createConnectedInstance())
-//        send(HubRequest.reqVersion())
     }
 
     override fun onMessage(message: String) {
