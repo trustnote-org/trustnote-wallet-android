@@ -69,7 +69,7 @@ class HubSocketModel {
     }
 
     fun dispose() {
-        TODO("not implemented")
+        //TODO: ("not implemented")
     }
 
 

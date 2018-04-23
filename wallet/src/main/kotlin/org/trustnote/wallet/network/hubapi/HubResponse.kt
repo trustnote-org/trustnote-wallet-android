@@ -2,6 +2,8 @@ package org.trustnote.wallet.network.hubapi
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import org.trustnote.db.DbHelper
+import org.trustnote.wallet.network.RequestMap
 import org.trustnote.wallet.util.Utils
 
 
@@ -20,6 +22,38 @@ class HubResponse : HubMsg {
         this.msgSource = MSG_SOURCE.wallet
         this.responseJson = responseJson
         this.tag = tag
+    }
+
+    fun handResonse(hubSocketModel: HubSocketModel): Boolean {
+
+        var handleResult = true
+        val originRequset = hubSocketModel.mRequestMap.getHubRequest(tag)
+
+        when (originRequset.msgType) {
+            MSG_TYPE.ERROR -> return false
+            MSG_TYPE.request -> handleResonseInternally(originRequset, hubSocketModel)
+        }
+
+        if (handleResult) {
+            hubSocketModel.mRequestMap.remove(this)
+        }
+
+        return handleResult
+    }
+
+    private fun handleResonseInternally(originRequset: HubRequest, hubSocketModel: HubSocketModel): Boolean {
+
+        var handleResult = true
+        when (originRequset.command) {
+            HubMsgFactory.CMD_GET_WITNESSES -> handleResult = handleMyWitnesses(responseJson)
+        }
+
+        return handleResult
+    }
+
+    private fun handleMyWitnesses(responseJson: JsonElement): Boolean {
+        DbHelper.saveMyWitnesses(this)
+        return true
     }
 
 }

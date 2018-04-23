@@ -28,6 +28,12 @@ class HubRequest : HubMsg {
         this.msgJson.addProperty(HubMsgFactory.TAG, tag)
     }
 
+    constructor(msgType: MSG_TYPE) : super(msgType) {
+        this.msgSource = MSG_SOURCE.wallet
+        this.params = Utils.emptyJsonObject
+        this.command = ""
+        this.tag = ""
+    }
 
 
 //    //TODO: use crypto to generate random string.

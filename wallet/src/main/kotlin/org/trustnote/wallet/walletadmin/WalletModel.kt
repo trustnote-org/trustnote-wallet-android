@@ -27,7 +27,7 @@ class WalletModel {
 
     var latestWitnesses: MutableList<String> = mutableListOf()
 
-    fun getWitnesses(): List<String>{
+    fun getWitnesses(): List<String> {
         return latestWitnesses
     }
 
@@ -66,6 +66,10 @@ class WalletModel {
         return tProfile
     }
 
+    fun getAllCredentials(): Iterable<Credential> {
+        return getProfile()!!.credentials.asIterable()
+    }
+
     private fun createNextCredential(profile: TProfile, credentialName: String = TTT.firstWalletName): Credential {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
@@ -74,6 +78,13 @@ class WalletModel {
         return Credential(account = walletIndex, walletId = walletId, xPubKey = walletPubKey, walletName = credentialName)
     }
 
+
+    fun setCurrentWallet(accountIdx: Int) {
+        getProfile()!!.currentWalletIndex = accountIdx
+        saveProfile()
+    }
+
+    //TODO: get the next accout from DB. regarding use can remove wallet.
     private fun findNextAccount(profile: TProfile): Int {
         var max = -1
         for (one in profile.credentials) {
@@ -110,9 +121,10 @@ class WalletModel {
         val newCredential = createNextCredential(tProfile!!, credentialName)
         //TODO: how about DB/Prefs failed.
         generateMyAddresses(newCredential)
-        Prefs.getInstance().saveObject(tProfile)
         DbHelper.saveWalletMyAddress(newCredential)
         tProfile!!.credentials.add(newCredential)
+
+        saveProfile()
     }
 
     fun createProfileFromMnenonic(mnemonic: String, removeMnemonic: Boolean) {
@@ -124,6 +136,10 @@ class WalletModel {
         val profile = TProfile(ecdsaPubkey = ecdsaPubkey, mnemonic = mnemonic, xPrivKey = xPrivKey, deviceAddress = deviceAddress)
         tProfile = profile
         newWallet()
+    }
+
+    private fun saveProfile() {
+        Prefs.getInstance().saveObject(tProfile)
     }
 
 }

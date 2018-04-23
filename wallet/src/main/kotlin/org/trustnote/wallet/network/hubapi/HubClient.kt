@@ -1,10 +1,8 @@
 package org.trustnote.wallet.network.hubapi
 
 import android.net.NetworkInfo
-import android.util.Log
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.net.URI
 import java.nio.channels.NotYetConnectedException
@@ -45,7 +43,8 @@ class HubClient : WebSocketClient {
                     if (connectivity.state == NetworkInfo.State.CONNECTED) {
                         if (!isConnectCalled) {
                             isConnectCalled = true
-                            //TODO: should dispose, otherwise memory leak(maybe?). find a one-time operator in rxjava for this case.
+                            // TODO: if already disposed, do nothing.
+                            //TODO: should dispose itself, otherwise memory leak(maybe?). find a one-time operator in rxjava for this case.
                             super.connect()
                         }
                     }
@@ -70,14 +69,13 @@ class HubClient : WebSocketClient {
 
     override fun onMessage(message: String) {
         log("RECEIVED:onMessage: $message")
-        val hugMsg = HubMsgFactory.parseMsg(message)
-        mHubSocketModel.mSubject.onNext(hugMsg)
+        val hubMsg = HubMsgFactory.parseMsg(message)
+        mHubSocketModel.mSubject.onNext(hubMsg)
 
         //TODO: remove the req after every thing is OK.
-        if (hugMsg.msgType == MSG_TYPE.response) {
-            mHubSocketModel.mRequestMap.responseMsgArrived(hugMsg)
+        if (hubMsg.msgType == MSG_TYPE.response) {
+            (hubMsg as HubResponse).handResonse(mHubSocketModel)
         }
-
     }
 
     override fun onClose(code: Int, reason: String, remote: Boolean) {

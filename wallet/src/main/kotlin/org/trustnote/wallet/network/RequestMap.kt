@@ -26,9 +26,9 @@ class RequestMap {
     }
 
     @Synchronized
-    fun responseMsgArrived(hubMsg: HubMsg) {
+    fun remove(hubMsg: HubMsg) {
         if (hubMsg.msgType == MSG_TYPE.response) {
-            Utils.debugHub("responseMsgArrived for tag:" + (hubMsg as HubResponse).tag)
+            Utils.debugHub("remove for tag:" + (hubMsg as HubResponse).tag)
             cacheReq.remove((hubMsg as HubResponse).tag)
         }
     }
@@ -39,9 +39,15 @@ class RequestMap {
         return cacheTag.get(tag)!!
     }
 
+    //TODO: How about Hub return a wrong tag.
     @Synchronized
     fun getHubRequest(tag: String): HubRequest {
-        return cacheReq.get(tag) as HubRequest
+        var res = cacheReq.get(tag)
+        if (res is HubRequest) {
+            return res
+        } else {
+            return HubRequest(MSG_TYPE.ERROR)
+        }
     }
 
     @Synchronized //TODO: return an iterator.

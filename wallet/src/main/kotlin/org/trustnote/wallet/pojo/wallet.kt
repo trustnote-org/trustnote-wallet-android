@@ -13,7 +13,8 @@ data class TProfile(
         val tempDeviceKey: String = "",
         val prevTempDeviceKey: String = "",
         val deviceAddress: String,
-        val ecdsaPubkey: String = ""
+        val ecdsaPubkey: String = "",
+        var currentWalletIndex: Int = 0
 )
 
 data class Credential(

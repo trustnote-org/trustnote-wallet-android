@@ -11,6 +11,7 @@ import org.trustnote.wallet.util.Utils
 object DbHelper {
     fun saveUnit(hubResponse: HubResponse) = saveUnitInternal(hubResponse)
     fun saveWalletMyAddress(credential: Credential) = saveWalletMyAddressInternal(credential)
+    fun saveMyWitnesses(hubResponse: HubResponse) = saveMyWitnessesInternal(hubResponse)
 }
 
 fun saveWalletMyAddressInternal(credential: Credential) {
@@ -18,6 +19,17 @@ fun saveWalletMyAddressInternal(credential: Credential) {
     db.unitsDao().insertMyAddresses(credential.myAddresses.toTypedArray())
 }
 
+fun saveMyWitnessesInternal(hubResponse: HubResponse) {
+
+    val db = TrustNoteDataBase.getInstance(TApp.context)
+
+    var myWitnesses = parseArray(hubResponse.responseJson as JsonArray, String::class.java.simpleName)
+    db.unitsDao().saveMyWitnesses(myWitnesses.mapToTypedArray {
+        val res = MyWitnesses()
+        res.address = it as String
+        res
+    })
+}
 
 
 fun saveUnitInternal(hubResponse: HubResponse) {
@@ -57,6 +69,20 @@ inline fun <T, reified R> List<T>.mapToTypedArray(transform: (T) -> R): Array<R>
         is RandomAccess -> Array(size) { index -> transform(this[index]) }
         else -> with(iterator()) { Array(size) { transform(next()) } }
     }
+}
+
+fun parseArray(origJson: JsonArray, clzFullName: String): List<Any> {
+    var gson = Utils.getGson()
+
+    val res = List(origJson.size()) { index: Int ->
+        if (clzFullName == String::class.java.simpleName) {
+            origJson[index].asString
+        } else {
+            gson.fromJson(origJson[index], Class.forName(clzFullName))
+        }
+    }
+
+    return res
 }
 
 fun parseChildFromJson(gson: Gson, parentEntity: TBaseEntity, origJson: JsonObject, clzFullName: String, vararg childJsonKey: String): List<Any> {
