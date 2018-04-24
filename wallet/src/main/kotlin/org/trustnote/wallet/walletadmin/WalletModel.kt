@@ -37,10 +37,12 @@ class WalletModel {
 
     fun monitorWallet() {
         DbHelper.monitorAddresses().subscribeOn(Schedulers.io()).subscribe {
+            Utils.debugLog("from monitorAddresses")
             WalletModel.instance.hubRequestCurrentWalletTxHistory()
         }
 
         DbHelper.monitorUnits().subscribeOn(Schedulers.io()).subscribe {
+            Utils.debugLog("from monitorUnits")
             tryToReqMoreUnitsFromHub()
         }
 
@@ -51,14 +53,14 @@ class WalletModel {
             return
         }
 
-        var lastWallet: Credential? = null
-        for(oneWallet in getProfile()!!.credentials) {
+        getProfile()!!.credentials.forEachIndexed { index, oneWallet ->
             val isMore = DbHelper.shouldGenerateMoreAddress(oneWallet.walletId)
             if (isMore) {
                 generateMoreAddressAndSave(oneWallet)
             }
-            lastWallet = oneWallet
         }
+
+        var lastWallet = getProfile()!!.credentials.last()
 
         if (lastWallet != null) {
             val isMore = DbHelper.shouldGenerateNextWallet(lastWallet.walletId)
@@ -114,7 +116,8 @@ class WalletModel {
         val walletIndex = findNextAccount(profile)
         val walletPubKey = api.walletPubKeySync(profile.xPrivKey, walletIndex)
         val walletId = toNormalStr(api.walletIDSync(walletPubKey))
-        return Credential(account = walletIndex, walletId = walletId, xPubKey = walletPubKey, walletName = credentialName)
+        val walletTitle = if (TTT.firstWalletName == credentialName) TTT.firstWalletName + ":" + walletIndex else credentialName
+        return Credential(account = walletIndex, walletId = walletId, xPubKey = walletPubKey, walletName = walletTitle)
     }
 
 
@@ -157,17 +160,18 @@ class WalletModel {
         createProfileFromMnenonic(currentJSMnemonic, removeMnemonic)
     }
 
-    fun newWallet(credentialName: String = TTT.firstWalletName) {
+    @Synchronized fun newWallet(credentialName: String = TTT.firstWalletName) {
         val newCredential = createNextCredential(tProfile!!, credentialName)
         //TODO: how about DB/Prefs failed.
+        tProfile!!.credentials.add(newCredential)
         generateMoreAddressAndSave(newCredential)
     }
 
     private fun generateMoreAddressAndSave(newCredential: Credential) {
         generateMyAddresses(newCredential, TTT.addressReceiveType)
         generateMyAddresses(newCredential, TTT.addressChangeType)
+
         DbHelper.saveWalletMyAddress(newCredential)
-        tProfile!!.credentials.add(newCredential)
         saveProfile()
     }
 
