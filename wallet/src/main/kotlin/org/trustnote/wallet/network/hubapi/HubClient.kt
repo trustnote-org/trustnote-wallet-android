@@ -3,6 +3,7 @@ package org.trustnote.wallet.network.hubapi
 import android.net.NetworkInfo
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.net.URI
 import java.nio.channels.NotYetConnectedException
@@ -20,6 +21,7 @@ class HubClient : WebSocketClient {
 
     val mHubSocketModel: HubSocketModel
     private var isConnectCalled = false
+    private var networkMonitor : Disposable? = null
 
     constructor(hubSocketModel: HubSocketModel) : super(URI(hubSocketModel.mHubAddress)) {
         mHubSocketModel = hubSocketModel
@@ -35,20 +37,15 @@ class HubClient : WebSocketClient {
 
     override fun connect() {
 
-        ReactiveNetwork.observeNetworkConnectivity(TApp.context)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { connectivity ->
-                    log("state: ${connectivity.state}, typeName: ${connectivity.typeName}")
-                    if (connectivity.state == NetworkInfo.State.CONNECTED) {
-                        if (!isConnectCalled) {
-                            isConnectCalled = true
-                            // TODO: if already disposed, do nothing.
-                            //TODO: should dispose itself, otherwise memory leak(maybe?). find a one-time operator in rxjava for this case.
-                            super.connect()
-                        }
-                    }
-                }
+        val subScription = Utils.connectedEvent().subscribe { connectivity ->
+            log("state: ${connectivity.state}, typeName: ${connectivity.typeName}")
+            if (!isConnectCalled) {
+                isConnectCalled = true
+                // TODO: if already disposed, do nothing.
+                //TODO: should dispose itself, otherwise memory leak(maybe?). find a one-time operator in rxjava for this case.
+                super.connect()
+            }
+        }
     }
 
     fun sendHubMsg(hubMsg: HubMsg) {
@@ -100,6 +97,11 @@ class HubClient : WebSocketClient {
 
     private fun log(msg: String) {
         Utils.debugHub(msg)
+    }
+
+    fun dispose() {
+        if (networkMonitor != null && !networkMonitor!!.isDisposed)
+            networkMonitor!!.dispose()
     }
 
 }

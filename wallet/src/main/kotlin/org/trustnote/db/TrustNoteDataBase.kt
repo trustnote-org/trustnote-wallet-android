@@ -13,7 +13,8 @@ import org.trustnote.db.entity.*
         Units::class,
         Messages::class,
         Inputs::class,
-        Outputs::class
+        Outputs::class,
+        Authentifiers::class
 ), version = 1)
 abstract class TrustNoteDataBase : RoomDatabase() {
 

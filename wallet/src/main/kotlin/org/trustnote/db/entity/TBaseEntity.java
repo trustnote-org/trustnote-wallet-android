@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 public class TBaseEntity implements Comparable{
     public static TBaseEntity VoidEntity = new TBaseEntity();
     @Ignore
-    public JsonObject originalJson;
+    public JsonObject json;
     @Ignore
     public JsonObject parentJson;
     @Ignore

@@ -68,10 +68,5 @@ class HubManager {
 //        }
 //    }
 
-    fun queryHistoryAndSave() {
-        //hubClient.send(HubRequest.reqGetHistory())
-    }
-
-
 }
 

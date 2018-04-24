@@ -18,6 +18,7 @@ class HeartBeatTask internal constructor(internal var walletClient: HubClient) :
     }
 
     fun stop() {
+        cancel()
         mHeartBeatTimer.cancel()
     }
 }

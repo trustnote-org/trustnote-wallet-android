@@ -17,15 +17,18 @@ class HubSocketModel {
 
     val mGetWitnessTag = Utils.generateRandomString(30)
     val mHeartbeatTag = Utils.generateRandomString(30)
+
+    //Maybe more than one getHistory cmd.
     val mGetHistoryTag = Utils.generateRandomString(30)
     val mHubAddress = TTT.testHubAddress
     val mRequestMap = RequestMap()
     val mSubject: Subject<HubMsg> = PublishSubject.create()
     lateinit var mHubClient: HubClient
     lateinit var mHeartBeatTask: HeartBeatTask
+    lateinit var retrySubscription: Disposable
 
     fun setupRetryLogic() {
-        Observable.interval(60, TimeUnit.SECONDS).observeOn(Schedulers.computation()).subscribe {
+        retrySubscription = Observable.interval(60, TimeUnit.SECONDS).observeOn(Schedulers.computation()).subscribe {
             retry()
         }
     }
@@ -67,6 +70,10 @@ class HubSocketModel {
     }
 
     fun dispose() {
+        if (!retrySubscription.isDisposed) {
+            retrySubscription.dispose()
+        }
+        mHubClient.dispose()
         //TODO: ("not implemented")
     }
 

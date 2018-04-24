@@ -15,6 +15,8 @@ class RequestMap {
     private val cacheTag = HashMap<String, MSG_TYPE>()
     private val cacheReq = HashMap<String, HubMsg>()
 
+
+
     init {
     }
 

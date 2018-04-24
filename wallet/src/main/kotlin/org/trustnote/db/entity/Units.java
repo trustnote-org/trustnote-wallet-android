@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
@@ -112,4 +114,7 @@ public class Units extends TBaseEntity {
   @Expose
   public transient List<Messages> messages;
 
+  @Ignore
+  @Expose
+  public List<Authentifiers> authenfiers;
 }

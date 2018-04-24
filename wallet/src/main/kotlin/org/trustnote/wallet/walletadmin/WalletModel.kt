@@ -1,5 +1,6 @@
 package org.trustnote.wallet.walletadmin
 
+import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.TTT
@@ -21,6 +22,7 @@ class WalletModel {
 
     constructor() {
         instance = this
+        monitorWallet()
     }
 
     var currentMnemonic: List<String> = listOf()
@@ -31,6 +33,40 @@ class WalletModel {
 
     fun getWitnesses(): List<String> {
         return latestWitnesses
+    }
+
+    fun monitorWallet() {
+        DbHelper.monitorAddresses().subscribeOn(Schedulers.io()).subscribe {
+            WalletModel.instance.hubRequestCurrentWalletTxHistory()
+        }
+
+        DbHelper.monitorUnits().subscribeOn(Schedulers.io()).subscribe {
+            tryToReqMoreUnitsFromHub()
+        }
+
+    }
+
+    private fun tryToReqMoreUnitsFromHub() {
+        if (getProfile() == null) {
+            return
+        }
+
+        var lastWallet: Credential? = null
+        for(oneWallet in getProfile()!!.credentials) {
+            val isMore = DbHelper.shouldGenerateMoreAddress(oneWallet.walletId)
+            if (isMore) {
+                generateMoreAddressAndSave(oneWallet)
+            }
+            lastWallet = oneWallet
+        }
+
+        if (lastWallet != null) {
+            val isMore = DbHelper.shouldGenerateNextWallet(lastWallet.walletId)
+            if (isMore) {
+                newWallet()
+            }
+        }
+
     }
 
     fun setWitnesses(l: List<String>) {
@@ -98,15 +134,16 @@ class WalletModel {
         return max + 1
     }
 
-    private fun generateMyAddresses(credential: Credential) {
+    private fun generateMyAddresses(credential: Credential, isChange: Int) {
         val api = JSApi()
+        val currentMaxAddress = DbHelper.getMaxAddressIndex(credential.walletId, isChange)
         val res = List(TTT.walletAddressInitSize, {
             val myAddress = MyAddresses()
-            myAddress.address = toNormalStr(api.walletAddressSync(credential.xPubKey, TTT.addressReceiveType, it))
             myAddress.wallet = credential.walletId
-            myAddress.isChange = TTT.addressReceiveType
-            myAddress.addressIndex = it
-            val addressPubkey = toNormalStr(api.walletAddressPubkeySync(credential.xPubKey, TTT.addressReceiveType, it))
+            myAddress.isChange = isChange
+            myAddress.addressIndex = it + currentMaxAddress
+            myAddress.address = toNormalStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
+            val addressPubkey = toNormalStr(api.walletAddressPubkeySync(credential.xPubKey, isChange, myAddress.addressIndex))
             myAddress.definition = """["sig",{"pubkey":$addressPubkey}]"""
             //TODO: check above logic from JS code.
             myAddress
@@ -123,10 +160,14 @@ class WalletModel {
     fun newWallet(credentialName: String = TTT.firstWalletName) {
         val newCredential = createNextCredential(tProfile!!, credentialName)
         //TODO: how about DB/Prefs failed.
-        generateMyAddresses(newCredential)
+        generateMoreAddressAndSave(newCredential)
+    }
+
+    private fun generateMoreAddressAndSave(newCredential: Credential) {
+        generateMyAddresses(newCredential, TTT.addressReceiveType)
+        generateMyAddresses(newCredential, TTT.addressChangeType)
         DbHelper.saveWalletMyAddress(newCredential)
         tProfile!!.credentials.add(newCredential)
-
         saveProfile()
     }
 
@@ -142,6 +183,7 @@ class WalletModel {
         val profile = TProfile(ecdsaPubkey = ecdsaPubkey, mnemonic = mnemonic, xPrivKey = xPrivKey, deviceAddress = deviceAddress)
         tProfile = profile
         newWallet()
+
     }
 
     private fun saveProfile() {
@@ -158,7 +200,7 @@ class WalletModel {
         }
 
         val witnesses = DbHelper.getMyWitnesses()
-        val addresses = DbHelper.getAllWalletAddress(tProfile!!.credentials[0].walletId)
+        val addresses = DbHelper.getAllWalletAddress()
 
         if (witnesses.isEmpty() || addresses.isEmpty()) {
             return
