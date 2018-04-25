@@ -11,12 +11,12 @@ import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
+import java.math.BigInteger
 
 class WalletModel {
 
     companion object {
-        lateinit @JvmStatic
-        var instance: WalletModel
+        lateinit var instance: WalletModel
             private set
     }
 
@@ -44,10 +44,26 @@ class WalletModel {
         DbHelper.monitorUnits().subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorUnits")
             tryToReqMoreUnitsFromHub()
+            DbHelper.fixIsSpentFlag()
         }
 
+        DbHelper.monitorOutputs().subscribeOn(Schedulers.io()).subscribe {
+            Utils.debugLog("from monitorOutputs")
+            updateBalance()
+        }
     }
 
+    @Synchronized private fun updateBalance() {
+        getProfile()!!.credentials.forEachIndexed { index, oneWallet ->
+            val balanceDetails = DbHelper.getBanlance(oneWallet.walletId)
+            oneWallet.balanceDetails = balanceDetails
+            oneWallet.balance = 0
+            oneWallet.balanceDetails.forEach{
+                oneWallet.balance += it.amount
+            }
+        }
+    }
+    
     private fun tryToReqMoreUnitsFromHub() {
         if (getProfile() == null) {
             return
@@ -119,7 +135,6 @@ class WalletModel {
         val walletTitle = if (TTT.firstWalletName == credentialName) TTT.firstWalletName + ":" + walletIndex else credentialName
         return Credential(account = walletIndex, walletId = walletId, xPubKey = walletPubKey, walletName = walletTitle)
     }
-
 
     fun setCurrentWallet(accountIdx: Int) {
         getProfile()!!.currentWalletIndex = accountIdx

@@ -1,8 +1,8 @@
 package org.trustnote.db
 
 import com.google.gson.*
-import io.reactivex.Flowable
 import io.reactivex.Observable
+import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.network.hubapi.HubResponse
@@ -18,10 +18,27 @@ object DbHelper {
     fun getAllWalletAddress(): Array<MyAddresses> = getAllWalletAddressInternal()
     fun monitorAddresses(): Observable<Array<MyAddresses>> = monitorAddressesInternal()
     fun monitorUnits(): Observable<Array<Units>> = monitorUnitsInternal()
+    fun monitorOutputs(): Observable<Array<Outputs>> = monitorOutputsInternal()
+
     fun shouldGenerateMoreAddress(walletId: String): Boolean = shouldGenerateMoreAddressInternal(walletId)
     fun getMaxAddressIndex(walletId: String, isChange: Int): Int = getMaxAddressIndexInternal(walletId, isChange)
-
     fun shouldGenerateNextWallet(walletId: String): Boolean = shouldGenerateNextWalletInternal(walletId)
+
+    //Balance and tx history
+    fun getBanlance(walletId: String): List<Balance> = getBanlanceInternal(walletId)
+
+    fun fixIsSpentFlag() = getDao().fixIsSpentFlag()
+
+}
+
+fun getDao():UnitsDao {
+    return TrustNoteDataBase.getInstance(TApp.context).unitsDao()
+}
+
+fun getBanlanceInternal(walletId: String): List<Balance> {
+    val db = TrustNoteDataBase.getInstance(TApp.context)
+    val res = db.unitsDao().queryBalance(walletId)
+    return res.toList()
 }
 
 fun getMaxAddressIndexInternal(walletId: String, change: Int): Int {
@@ -106,7 +123,11 @@ fun saveUnitInternal(hubResponse: HubResponse) {
 
 
             inputArray.forEachIndexed { index, inputs ->
-                inputs.unit = units.unit;inputs.messageIndex = message.messageIndex; inputs.inputIndex = index
+                inputs.unit = units.unit
+                inputs.messageIndex = message.messageIndex
+                inputs.inputIndex = index
+                //TODO: check JS code.
+                inputs.address = units.authenfiers[0].address
             }
 
             outputArray.forEachIndexed { index, outputs ->
@@ -183,3 +204,7 @@ fun monitorUnitsInternal(): Observable<Array<Units>> {
     return Utils.throttleDbEvent(db.unitsDao().monitorUnits().toObservable(), 3L)
 }
 
+fun monitorOutputsInternal(): Observable<Array<Outputs>> {
+    val db = TrustNoteDataBase.getInstance(TApp.context)
+    return Utils.throttleDbEvent(db.unitsDao().monitorOutputs().toObservable(), 3L)
+}
