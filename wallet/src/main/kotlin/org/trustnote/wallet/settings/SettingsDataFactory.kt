@@ -44,6 +44,7 @@ object SettingsDataFactory {
         testHistory.action = Runnable { WalletModel.instance.hubRequestCurrentWalletTxHistory() }
         res.add(testHistory)
 
+
 //        val testJSSignWithDeviceMessageHash = SettingItem("testJSSignWithDeviceMessageHash", false)
 //        testJSSignWithDeviceMessageHash.action = Runnable {
 //            val orignData = "{\"challenge\":\"C4q7l7jDyLVvFB9YDQu2M3J1N0PC/9NkNwbUNQLa\",\"pubkey\":\"A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw\",\"signature\":\"cphmz+vksrdwMDAUlNNXUPo+1oL7fTaYiKoI0rQNflZpOyQBZpovA3s79HTByxvWrUo2Wy/NerrpsLzaaXm/2g==\"}"

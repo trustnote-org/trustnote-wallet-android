@@ -50,7 +50,7 @@ public class Outputs extends TBaseEntity {
     @ColumnInfo(
             name = "amount"
     )
-    public int amount;
+    public long amount;
 
     @ColumnInfo(
             name = "blinding"

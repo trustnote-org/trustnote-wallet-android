@@ -11,7 +11,7 @@ import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
-import java.math.BigInteger
+import java.util.concurrent.TimeUnit
 
 class WalletModel {
 
@@ -47,23 +47,36 @@ class WalletModel {
             DbHelper.fixIsSpentFlag()
         }
 
-        DbHelper.monitorOutputs().subscribeOn(Schedulers.io()).subscribe {
+        DbHelper.monitorOutputs().delay(3L, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorOutputs")
-            updateBalance()
+            if (tProfile != null) {
+                //Too
+                updateBalance()
+                updateTxs()
+            }
         }
     }
 
-    @Synchronized private fun updateBalance() {
+    @Synchronized
+    fun updateTxs() {
+        tProfile!!.credentials.forEach {
+            val txs = DbHelper.getTxs(it.walletId)
+            it.txDetails = txs
+        }
+    }
+
+    @Synchronized
+    private fun updateBalance() {
         getProfile()!!.credentials.forEachIndexed { index, oneWallet ->
             val balanceDetails = DbHelper.getBanlance(oneWallet.walletId)
             oneWallet.balanceDetails = balanceDetails
             oneWallet.balance = 0
-            oneWallet.balanceDetails.forEach{
+            oneWallet.balanceDetails.forEach {
                 oneWallet.balance += it.amount
             }
         }
     }
-    
+
     private fun tryToReqMoreUnitsFromHub() {
         if (getProfile() == null) {
             return
@@ -175,7 +188,8 @@ class WalletModel {
         createProfileFromMnenonic(currentJSMnemonic, removeMnemonic)
     }
 
-    @Synchronized fun newWallet(credentialName: String = TTT.firstWalletName) {
+    @Synchronized
+    fun newWallet(credentialName: String = TTT.firstWalletName) {
         val newCredential = createNextCredential(tProfile!!, credentialName)
         //TODO: how about DB/Prefs failed.
         tProfile!!.credentials.add(newCredential)

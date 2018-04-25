@@ -1,11 +1,11 @@
 package org.trustnote.wallet.pojo
 
 import org.trustnote.db.Balance
+import org.trustnote.db.Tx
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.db.entity.Outputs
 import java.math.BigInteger
 import java.util.*
-
 
 data class TProfile(
         val mnemonic: String,
@@ -31,8 +31,9 @@ data class Credential(
         val derivationStrategy: String = "BIP44",
         val account: Int = 0,
         val myAddresses: MutableSet<MyAddresses> = mutableSetOf(),
-        var balance: Int = 0, //TODO: should BigInteger
-        var balanceDetails: List<Balance> = listOf()
+        var balance: Long = 0, //TODO: should BigInteger
+        var balanceDetails: List<Balance> = listOf(),
+        var txDetails: List<Tx> = listOf()
 )
 
 data class PublicKeyRing(

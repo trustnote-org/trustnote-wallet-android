@@ -3,6 +3,8 @@ package org.trustnote.db.dao
 import android.arch.persistence.room.*
 import io.reactivex.Flowable
 import org.trustnote.db.Balance
+import org.trustnote.db.TxOutputs
+import org.trustnote.db.TxUnits
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TTT
 
@@ -86,6 +88,32 @@ abstract class UnitsDao {
             "AND output_index = :outputIndex")
     abstract fun fixIsSpentFlag(unitId: String, messageIndex: Int, outputIndex: Int): Int
 
+    @Query("SELECT unit, level, is_stable, sequence, address, units.creation_date as ts, headers_commission+payload_commission AS fee, \n" +
+            "SUM(amount) AS amount, address AS to_address, '' AS from_address, main_chain_index AS mci \n" +
+            "FROM units \n" +
+            "JOIN outputs USING(unit) \n" +
+            "JOIN my_addresses USING(address)\n" +
+            "WHERE wallet= :walletId \n" +
+            "GROUP BY unit, address \n" +
+            "UNION\n" +
+            "SELECT unit, level, is_stable, sequence, address, units.creation_date as ts, headers_commission+payload_commission AS fee, \n" +
+            "NULL AS amount, '' AS to_address, address AS from_address, main_chain_index AS mci \n" +
+            "FROM units \n" +
+            "JOIN inputs USING(unit)\n" +
+            "JOIN my_addresses USING(address)\n" +
+            "WHERE wallet= :walletId \n" +
+            "ORDER BY ts DESC\n")
+    abstract fun queryTxUnits(walletId: String): Array<TxUnits>
+
+    @Query("SELECT DISTINCT address FROM inputs WHERE unit= :unitId ORDER BY address")
+    abstract fun queryInputAddresses(unitId: String): Array<String>
+
+    @Query("SELECT outputs.address, SUM(amount) AS amount, (my_addresses.address IS NULL) AS is_external\n" +
+            "    FROM outputs LEFT JOIN my_addresses ON outputs.address=my_addresses.address AND wallet= :walletId\n" +
+            "    WHERE unit= :unitId\n" +
+            "    GROUP BY outputs.address")
+    abstract fun queryOutputAddress(unitId: String, walletId: String): Array<TxOutputs>
+
     @Transaction
     open fun saveMyWitnesses(myWitnesses: Array<MyWitnesses>) {
         val oldWitnesses = queryMyWitnesses()
@@ -134,5 +162,6 @@ abstract class UnitsDao {
             fixIsSpentFlag(it.unit, it.messageIndex, it.outputIndex)
         }
     }
+
 
 }

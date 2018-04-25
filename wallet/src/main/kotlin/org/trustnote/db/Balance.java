@@ -21,6 +21,6 @@ public class Balance {
     @ColumnInfo(
             name = "amount"
     )
-    public int amount;
+    public long amount;
 
 }
