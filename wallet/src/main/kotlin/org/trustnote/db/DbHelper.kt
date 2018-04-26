@@ -89,7 +89,7 @@ fun getTxsInternal(walletId: String): List<Tx> {
         } else if (movement["has_minus"] as Boolean) {
             val payee_rows = dao.queryOutputAddress(unitId, walletId)
             val txType = if (payee_rows.any { it.isExternal }) TxType.sent else TxType.moved
-            payee_rows.forEach{
+            payee_rows.forEach {
                 if (txType == TxType.sent && !it.isExternal) {
                     //Do nothing
                 } else {
