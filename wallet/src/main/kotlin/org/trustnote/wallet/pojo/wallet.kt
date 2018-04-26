@@ -34,7 +34,15 @@ data class Credential(
         var balance: Long = 0, //TODO: should BigInteger
         var balanceDetails: List<Balance> = listOf(),
         var txDetails: List<Tx> = listOf()
-)
+) {
+    override fun toString(): String {
+        var res = "WalletName: $walletName\n\rBalance: $balance\n\rTransactions: \n\r------------------------\n\r"
+        txDetails.forEach {
+            res += it.toString() + "------------------------\n\r"
+        }
+        return res
+    }
+}
 
 data class PublicKeyRing(
         val xPubKey: String = ""

@@ -36,12 +36,12 @@ class WalletModel {
     }
 
     fun monitorWallet() {
-        DbHelper.monitorAddresses().subscribeOn(Schedulers.io()).subscribe {
+        DbHelper.monitorAddresses().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorAddresses")
             WalletModel.instance.hubRequestCurrentWalletTxHistory()
         }
 
-        DbHelper.monitorUnits().subscribeOn(Schedulers.io()).subscribe {
+        DbHelper.monitorUnits().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorUnits")
             tryToReqMoreUnitsFromHub()
             DbHelper.fixIsSpentFlag()
@@ -53,6 +53,7 @@ class WalletModel {
                 //Too
                 updateBalance()
                 updateTxs()
+                saveProfile()
             }
         }
     }

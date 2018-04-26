@@ -100,7 +100,7 @@ object SettingsDataFactory {
         val profile = WalletModel.instance.getProfile()
         if (profile != null) {
             for (credential in profile.credentials) {
-                val oneWallet = SettingItem(credential.walletName + ": Balance=" + credential.balance)
+                val oneWallet = SettingItem(credential.toString())
                 res.add(oneWallet)
             }
 

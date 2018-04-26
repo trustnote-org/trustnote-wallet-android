@@ -14,7 +14,11 @@ data class Tx(
         val arrPayerAddresses: Array<String> = arrayOf<String>(),
         val ts: Long = 0,
         val addressTo: String = ""
-)
+) {
+    override fun toString(): String {
+        return "Type: $action \n\rAmount: $amount\n\rMe: $myAddress\n\rTo: $addressTo\n\r"
+    }
+}
 
 class TxUnits {
     @ColumnInfo(name = "unit")
