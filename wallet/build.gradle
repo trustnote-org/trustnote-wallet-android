@@ -3,7 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+
+
 android {
+
     compileSdkVersion 26
     buildToolsVersion '27.0.3'
 
@@ -20,6 +23,17 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
+    }
+
+    kotlinOptions {
+        suppressWarnings = true
     }
 
     signingConfigs {
@@ -31,11 +45,26 @@ android {
             applicationIdSuffix '.debug'
         }
         release {
-            applicationIdSuffix '.release'
+            //applicationIdSuffix '.release'
             signingConfig signingConfigs.release
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "applicationIdSuffix"
+
+    productFlavors {
+        mainnet {
+            buildConfigField "boolean", "IS_MAINNET", "true"
+        }
+
+        devnet {
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-testnet"
+            buildConfigField "boolean", "IS_MAINNET", "false"
+            //applicationId defaultConfig.applicationId + ".dev"
         }
     }
 
@@ -66,7 +95,6 @@ android {
     lintOptions {
         warningsAsErrors false
         abortOnError false // Fail early.
-
         lintConfig file("lint.xml")
     }
 
@@ -77,6 +105,14 @@ android {
             exceptionFormat 'full'
         }
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            // outputFileName = "${variant.name}-${variant.versionName}.apk"
+        }
+    }
+
+
 }
 
 // Use for legacy kapt implementation
@@ -181,4 +217,35 @@ if (propFile.canRead()) {
     println 'signing.properties not found'
     android.buildTypes.release.signingConfig = null
 }
+
+
+def publish = project.tasks.create("publishAll")
+android.applicationVariants.all { variant ->
+    def task = project.tasks.create("publish${variant.name}Apk", Copy)
+    def myFileServerPath = new File(buildDir.parentFile.parentFile, "myfileserver")
+    task.from(variant.outputs[0].outputFile)
+    task.into(myFileServerPath)
+
+    task.dependsOn variant.assemble
+    publish.dependsOn task
+}
+
+
+def versionPropsFile = new File(rootDir, 'version.properties')
+
+if (versionPropsFile.canRead()) {
+    Properties versionProps = new Properties()
+    versionProps.load(new FileInputStream(versionPropsFile))
+
+    def code = versionProps['VERSION_CODE'].toInteger() + 1
+    versionProps['VERSION_CODE'] = code.toString()
+    versionProps.store(versionPropsFile.newWriter(), null)
+
+    android.defaultConfig {
+        versionCode code
+    }
+} else {
+    throw new GradleException("Could not read version.properties!")
+}
+
 

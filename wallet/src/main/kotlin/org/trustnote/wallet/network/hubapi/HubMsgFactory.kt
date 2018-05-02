@@ -22,17 +22,19 @@ object HubMsgFactory {
 
     fun parseMsg(textFromHub: String): HubMsg {
         val index = textFromHub.indexOf(',')
-        var msgType = MSG_TYPE.empty
-        if (index < 3) {
-            msgType = MSG_TYPE.ERROR
+        var msgType = if (index < 3) {
+            MSG_TYPE.ERROR
         } else {
-            msgType = MSG_TYPE.valueOf(textFromHub.substring(2, index - 1))
+            MSG_TYPE.valueOf(textFromHub.substring(2, index - 1))
         }
 
         when (msgType) {
             MSG_TYPE.ERROR, MSG_TYPE.empty -> return HubMsg(msgType)
             MSG_TYPE.response -> return HubResponse(textFromHub)
             MSG_TYPE.request -> return HubRequest(textFromHub)
+            else -> {
+
+            }
         }
         return HubMsg()
     }
@@ -55,12 +57,12 @@ object HubMsgFactory {
 
         val params = JsonObject()
         val wts = JsonArray()
-        for(oneWts in witnesses) {
+        for (oneWts in witnesses) {
             wts.add(oneWts.address)
         }
 
         val ads = JsonArray()
-        for(oneAds in myAddresses) {
+        for (oneAds in myAddresses) {
             ads.add(oneAds.address)
         }
 

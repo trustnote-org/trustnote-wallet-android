@@ -30,13 +30,12 @@ fun findVanityAddressInternal(target: String) {
     var mnemonic = api.mnemonicSync()
     var isFound = false
     while (!isFound) {
-        val mnemonic = api.mnemonicSync()
+        mnemonic = api.mnemonicSync()
         val privKey = api.xPrivKeySync(mnemonic)
 
         val walletPubKey = api.walletPubKeySync(privKey, 0)
-        val walletId = api.walletIDSync(walletPubKey)
 
-        val walletAddresses = List(20, {
+        List(20, {
             val oneAddress = api.walletAddressSync(walletPubKey, TTT.addressReceiveType, it)
             Utils.debugJS(oneAddress)
 

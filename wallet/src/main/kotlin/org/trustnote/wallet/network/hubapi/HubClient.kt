@@ -37,7 +37,7 @@ class HubClient : WebSocketClient {
 
     override fun connect() {
 
-        val subScription = Utils.connectedEvent().subscribe { connectivity ->
+        Utils.connectedEvent().subscribe { connectivity ->
             log("state: ${connectivity.state}, typeName: ${connectivity.typeName}")
             if (!isConnectCalled) {
                 isConnectCalled = true
@@ -88,11 +88,6 @@ class HubClient : WebSocketClient {
     override fun onError(ex: Exception) {
         ex.printStackTrace()
         log("onError:: " + ex.message)
-    }
-
-    fun init(subject: Subject<HubResponse>) {
-        //TODO: mHeartBeatTimer = mHeartBeatTimer;
-        //mSubject = subject
     }
 
     private fun log(msg: String) {

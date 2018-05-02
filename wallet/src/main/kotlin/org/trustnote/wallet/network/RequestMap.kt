@@ -31,7 +31,7 @@ class RequestMap {
     fun remove(hubMsg: HubMsg) {
         if (hubMsg.msgType == MSG_TYPE.response) {
             Utils.debugHub("remove for tag:" + (hubMsg as HubResponse).tag)
-            cacheReq.remove((hubMsg as HubResponse).tag)
+            cacheReq.remove((hubMsg).tag)
         }
     }
 

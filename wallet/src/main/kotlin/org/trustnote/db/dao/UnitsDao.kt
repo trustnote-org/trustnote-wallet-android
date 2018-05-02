@@ -9,6 +9,8 @@ import org.trustnote.db.entity.*
 import org.trustnote.wallet.TTT
 
 
+@SuppressWarnings("unchecked")
+@Suppress("UNCHECKED_CAST")
 @Dao
 abstract class UnitsDao {
 
@@ -135,7 +137,7 @@ abstract class UnitsDao {
     }
 
     @Transaction
-    open fun getUnitxByWalletId(units: Array<Units>) {
+    open fun getUnitxByWalletId() {
         val units = queryUnits()
         for (oneUnit in units) {
 

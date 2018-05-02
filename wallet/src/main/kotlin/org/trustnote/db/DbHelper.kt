@@ -9,6 +9,7 @@ import org.trustnote.wallet.network.hubapi.HubResponse
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.util.Utils
 
+@Suppress("UNCHECKED_CAST")
 object DbHelper {
     fun saveUnit(hubResponse: HubResponse) = saveUnitInternal(hubResponse)
     fun saveWalletMyAddress(credential: Credential) = saveWalletMyAddressInternal(credential)
@@ -33,6 +34,7 @@ object DbHelper {
 
 }
 
+@Suppress("UNCHECKED_CAST")
 fun getTxsInternal(walletId: String): List<Tx> {
     //TODO: add the asset logic according JS.
     val dao = TrustNoteDataBase.getInstance(TApp.context).unitsDao()
@@ -61,6 +63,7 @@ fun getTxsInternal(walletId: String): List<Tx> {
             val myRecipients = HashMap<String, Any>()
             myRecipients["my_address"] = txUnit.toAddress
             myRecipients["amount"] = txUnit.amount
+
             (currentAssocMovement["arrMyRecipients"] as MutableList<HashMap<String, Any>>).add(myRecipients)
         }
 
@@ -230,11 +233,11 @@ fun parseChild(parentEntity: TBaseEntity, origJson: JsonObject, clzFullName: Str
     return children
 }
 
-
+@Suppress("UNCHECKED_CAST")
 fun saveUnitInternal(hubResponse: HubResponse) {
     //TODO: too much tedious work.
     //TODO: save data to table units_authors??
-    val response = hubResponse.msgJson!!.getAsJsonObject("response")
+    val response = hubResponse.msgJson.getAsJsonObject("response")
     val jointList = parseChild(TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
 
     for (joint in jointList) {
@@ -244,7 +247,7 @@ fun saveUnitInternal(hubResponse: HubResponse) {
         units.sequence = DbConst.UNIT_SEQUENCE_GOOD
 
         val authentifiersArray = parseChild(units, units.json, Authentifiers::class.java.canonicalName, "authors") as List<Authentifiers>
-        authentifiersArray.forEachIndexed { index, authentifier ->
+        authentifiersArray.forEachIndexed { _, authentifier ->
             authentifier.unit = units.unit; authentifier.parsePathAndAuthentifier()
         }
         units.authenfiers = authentifiersArray
@@ -260,9 +263,7 @@ fun saveUnitInternal(hubResponse: HubResponse) {
             message.unit = units.unit
             val inputArray = parseChild(message, message.json, Inputs::class.java.canonicalName, "payload", "inputs") as List<Inputs>
 
-
             val outputArray = parseChild(message, message.json, Outputs::class.java.canonicalName, "payload", "outputs") as List<Outputs>
-
 
             inputArray.forEachIndexed { index, inputs ->
                 inputs.unit = units.unit
