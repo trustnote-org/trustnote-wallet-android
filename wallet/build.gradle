@@ -3,8 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-//Constants:
-
 android {
 
     compileSdkVersion 26
@@ -60,7 +58,6 @@ android {
 
         devnet {
             applicationIdSuffix ".dev"
-            versionNameSuffix "-testnet"
             buildConfigField "boolean", "IS_MAINNET", "false"
         }
     }
@@ -105,7 +102,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            // outputFileName = "${variant.name}-${variant.versionName}.apk"
+            outputFileName = "${variant.name}-${variant.versionName}.apk"
         }
     }
 
@@ -214,6 +211,10 @@ android.applicationVariants.all { variant ->
 
     task.dependsOn variant.assemble
     publish.dependsOn task
+    publish << {
+        println "copy apk to myfileserver"
+    }
+
 }
 
 
@@ -253,10 +254,10 @@ def updateVersion() {
         def versionNamePatch = versionProps['VERSION_NAME_PATCH'].toInteger()
         versionProps['VERSION_NAME_PATCH'] = versionNamePatch.toString()
 
-        def versionNameBuild = versionProps['VERSION_NAME_BUILD'].toInteger() + 1
+        def versionNameBuild = versionProps['VERSION_NAME_BUILD'].toInteger()
         versionProps['VERSION_NAME_BUILD'] = versionNameBuild.toString()
 
-        versionProps.store(versionPropsFile.newWriter(), null)
+        //versionProps.store(versionPropsFile.newWriter(), null)
 
         android.defaultConfig {
             versionCode versionCodeNo
@@ -267,6 +268,12 @@ def updateVersion() {
     }
 }
 
+task gitPull(type: Exec) {
+    description 'Pulls git.'
+    commandLine "git", "pull", "origin", "master:master"
+    println "Git pull latest code in master branch"
+}
 
+preBuild.dependsOn gitPull
 
-
+build.finalizedBy publishAll
