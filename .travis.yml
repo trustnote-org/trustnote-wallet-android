@@ -32,4 +32,7 @@ before_script:
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
 
-script: ./gradlew assembleDebug
+
+script:
+android list target
+./gradlew assembleDebug
