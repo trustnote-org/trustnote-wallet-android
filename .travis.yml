@@ -26,4 +26,4 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-armeabi-v7a-android-26
 
-  script: ./gradlew testDebugUnitTest
+  script: ./gradlew assembleDebug
