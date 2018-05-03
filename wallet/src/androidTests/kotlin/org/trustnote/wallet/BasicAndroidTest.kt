@@ -16,8 +16,8 @@ class BasicAndroidTest {
     fun createLogHistory() {
     }
 
-    @Test
-    fun logHistory_ParcelableWriteRead() {
-        android.util.Log.e("Abc", "Abc")
-    }
+//    @Test
+//    fun logHistory_ParcelableWriteRead() {
+//        android.util.Log.e("Abc", "Abc")
+//    }
 }

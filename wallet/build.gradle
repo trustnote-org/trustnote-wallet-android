@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-
+//Constants:
 
 android {
 
@@ -15,8 +15,6 @@ android {
 
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "0.5"
 
         // Enable VectorDrawableCompat for API < 21
         vectorDrawables.useSupportLibrary = true
@@ -28,15 +26,9 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
-
     }
 
-
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_7
-//        targetCompatibility JavaVersion.VERSION_1_7
-//    }
-
+    updateVersion()
 
     kotlinOptions {
         suppressWarnings = true
@@ -70,7 +62,6 @@ android {
             applicationIdSuffix ".dev"
             versionNameSuffix "-testnet"
             buildConfigField "boolean", "IS_MAINNET", "false"
-            //applicationId defaultConfig.applicationId + ".dev"
         }
     }
 
@@ -189,10 +180,11 @@ repositories {
 
 // Signing Config code
 // From https://gist.github.com/gabrielemariotti/6856974
-def Properties props = new Properties()
-def propFile = new File('signing.properties')
-if (propFile.canRead()) {
-    props.load(new FileInputStream(propFile))
+def signPropFile = new File(buildDir.parentFile.parentFile, 'signing.properties')
+
+Properties props = new Properties()
+if (signPropFile.canRead()) {
+    props.load(new FileInputStream(signPropFile))
 
     if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
             props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
@@ -211,32 +203,70 @@ if (propFile.canRead()) {
 
 
 def publish = project.tasks.create("publishAll")
+def nowTimeAsString = getNowAsString()
 android.applicationVariants.all { variant ->
     def task = project.tasks.create("publish${variant.name}Apk", Copy)
     def myFileServerPath = new File(buildDir.parentFile.parentFile, "myfileserver")
+    def versionPath = new File(myFileServerPath, android.defaultConfig.versionName)
+    def targetPath = new File(versionPath, nowTimeAsString)
     task.from(variant.outputs[0].outputFile)
-    task.into(myFileServerPath)
+    task.into(targetPath)
 
     task.dependsOn variant.assemble
     publish.dependsOn task
 }
 
 
-def versionPropsFile = new File(rootDir, 'version.properties')
-
-if (versionPropsFile.canRead()) {
-    Properties versionProps = new Properties()
-    versionProps.load(new FileInputStream(versionPropsFile))
-
-    def code = versionProps['VERSION_CODE'].toInteger() + 1
-    versionProps['VERSION_CODE'] = code.toString()
-    versionProps.store(versionPropsFile.newWriter(), null)
-
-    android.defaultConfig {
-        versionCode code
-    }
-} else {
-    throw new GradleException("Could not read version.properties!")
+def readVersionName() {
+    return android.defaultConfig.versionName
 }
+
+def getNowAsString() {
+    Date date = new Date()
+    return date.format("yyyy_MM_dd_HH_mm")
+}
+
+
+def updateVersion() {
+
+    def versionPropsFile = new File(rootDir, 'version.properties')
+
+    if (versionPropsFile.canRead()) {
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        //
+        // versionCode
+        //
+        def versionCodeNo = versionProps['VERSION_CODE'].toInteger()
+        versionProps['VERSION_CODE'] = versionCodeNo.toString()
+
+        //
+        // versionName
+        //
+        def versionNameMajor = versionProps['VERSION_NAME_MAJOR'].toInteger()
+        versionProps['VERSION_NAME_MAJOR'] = versionNameMajor.toString()
+
+        def versionNameMinor = versionProps['VERSION_NAME_MINOR'].toInteger()
+        versionProps['VERSION_NAME_MINOR'] = versionNameMinor.toString()
+
+        def versionNamePatch = versionProps['VERSION_NAME_PATCH'].toInteger()
+        versionProps['VERSION_NAME_PATCH'] = versionNamePatch.toString()
+
+        def versionNameBuild = versionProps['VERSION_NAME_BUILD'].toInteger() + 1
+        versionProps['VERSION_NAME_BUILD'] = versionNameBuild.toString()
+
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        android.defaultConfig {
+            versionCode versionCodeNo
+            versionName versionNameMajor + "." + versionNameMinor + "." + versionNamePatch + "." + versionNameBuild
+        }
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+
 
 
