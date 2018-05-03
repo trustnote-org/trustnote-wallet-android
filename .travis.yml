@@ -36,3 +36,5 @@ before_script:
 script:
 android list target
 ./gradlew assembleDebug
+
+

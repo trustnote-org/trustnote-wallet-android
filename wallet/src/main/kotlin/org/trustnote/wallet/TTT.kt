@@ -8,13 +8,75 @@ class TTT {
         const val walletAddressInitSize = 30
         const val addressReceiveType = 0
         const val addressChangeType = 1
-        const val testHubAddress = "wss://raytest.trustnote.org:443"
 
         const val HUB_HEARTBEAT_FIRST_DELAY_SEC = 2
         const val HUB_HEARTBEAT_INTERVAL_SEC = 10
         const val HUB_REQ_RETRY_SECS = 10
 
+        const val COUNT_WITNESSES = 12
+        const val MAX_WITNESS_LIST_MUTATIONS = 1
+        const val TOTAL_WHITEBYTES = 5e14
+        val MAJORITY_OF_WITNESSES = if (COUNT_WITNESSES % 2 == 0) (COUNT_WITNESSES / 2 + 1) else COUNT_WITNESSES / 2
+        const val COUNT_MC_BALLS_FOR_PAID_WITNESSING = 100
+
+        const val version = "1.0"
+        const val alt = "1"
+
+        const val GENESIS_UNIT = "rg1RzwKwnfRHjBojGol3gZaC5w7kR++rOR6O61JRsrQ="
+        const val BLACKBYTES_ASSET = "9qQId3BlWRQHvVy+STWyLKFb3lUd0xfQhX6mPVEHC2c="
+
+        const val HASH_LENGTH = 44
+        const val PUBKEY_LENGTH = 44
+        const val SIG_LENGTH = 88
+
+        // anti-spam limits
+        const val MAX_AUTHORS_PER_UNIT = 16
+        const val MAX_PARENTS_PER_UNIT = 16
+        const val MAX_MESSAGES_PER_UNIT = 128
+        const val MAX_SPEND_PROOFS_PER_MESSAGE = 128
+        const val MAX_INPUTS_PER_PAYMENT_MESSAGE = 128
+        const val MAX_OUTPUTS_PER_PAYMENT_MESSAGE = 128
+        const val MAX_CHOICES_PER_POLL = 128
+        const val MAX_DENOMINATIONS_PER_ASSET_DEFINITION = 64
+        const val MAX_ATTESTORS_PER_ASSET = 64
+        const val MAX_DATA_FEED_NAME_LENGTH = 64
+        const val MAX_DATA_FEED_VALUE_LENGTH = 64
+        const val MAX_AUTHENTIFIER_LENGTH = 4096
+        const val MAX_CAP = 9e15
+        const val MAX_COMPLEXITY = 100
+
+
+        const val w_requiredCosigners = 2
+        const val w_totalCosigners = 3
+        const val w_spendUnconfirmed = false
+        const val w_reconnectDelay = 5000
+        const val w_idleDurationMin = 4
+        const val w_coinunitName = "MN"
+        const val w_coinunitValue = 1000000
+        const val w_coinunitDecimals = 6
+        const val w_coinunitCode = "mega"
+        const val w_coinbbUnitName = "blacknotes"
+        const val w_coinbbUnitValue = 1
+        const val w_coinbbUnitDecimals = 0
+        const val w_coinbbUnitCode = "one"
+        const val w_coinalternativeName = "US Dollar"
+        const val w_coinalternativeIsoCode = "USD"
+
+        const val isTestnet = BuildConfig.FLAVOR == "devnet"
+
+        val hubArrayForTestNet = arrayOf("shawtest.trustnote.org", "raytest.trustnote.org")
+        val hubArrayForMainNet = arrayOf("victor.trustnote.org/tn",
+                "eason.trustnote.org/tn",
+                "lymn.trustnote.org/tn",
+                "bob.trustnote.org/tn",
+                "curry.trustnote.org/tn",
+                "kake.trustnote.org/tn")
+
+        val hubAddress = if (isTestnet) "wss://raytest.trustnote.org" else "wss://eason.trustnote.org/tn"
 
     }
-
 }
+
+
+
+

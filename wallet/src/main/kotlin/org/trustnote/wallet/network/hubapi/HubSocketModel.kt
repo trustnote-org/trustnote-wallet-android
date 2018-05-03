@@ -20,7 +20,7 @@ class HubSocketModel {
 
     //Maybe more than one getHistory cmd.
     val mGetHistoryTag = Utils.generateRandomString(30)
-    val mHubAddress = TTT.testHubAddress
+    val mHubAddress = TTT.hubAddress
     val mRequestMap = RequestMap()
     val mSubject: Subject<HubMsg> = PublishSubject.create()
     lateinit var mHubClient: HubClient
