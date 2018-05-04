@@ -36,6 +36,10 @@ object SettingsDataFactory {
 
         val res = ArrayList<SettingItem>()
 
+        val testPostTx = SettingItem("Test: Test post tx")
+        testPostTx.action = Runnable { JsTest.testPostTx() }
+        res.add(testPostTx)
+
         val testWallet = SettingItem("Test: restore wallet with fixed seed")
         testWallet.action = Runnable { JsTest.createFullWallet() }
         res.add(testWallet)

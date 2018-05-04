@@ -29,7 +29,7 @@ object Utils {
     }
 
     fun debugJS(s: String) {
-        android.util.Log.e("JSAPI", s)
+        android.util.Log.e("JSApi", s)
     }
 
     fun crash(s: String) {
