@@ -22,7 +22,6 @@ class WalletModel {
 
     constructor() {
         instance = this
-        monitorWallet()
     }
 
     var currentMnemonic: List<String> = listOf()
@@ -33,6 +32,11 @@ class WalletModel {
 
     fun getWitnesses(): List<String> {
         return latestWitnesses
+    }
+
+    //TODO: use hash function
+    fun getMnemonicAsHash(): String {
+        return currentMnemonic[0]
     }
 
     fun monitorWallet() {
@@ -218,6 +222,8 @@ class WalletModel {
         val profile = TProfile(ecdsaPubkey = ecdsaPubkey, mnemonic = mnemonic, xPrivKey = xPrivKey, deviceAddress = deviceAddress)
         tProfile = profile
         newWallet()
+
+        monitorWallet()
 
     }
 

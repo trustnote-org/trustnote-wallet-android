@@ -2,40 +2,46 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+
 import java.lang.Long;
 import java.lang.String;
 
 @Entity(
-    tableName = "wallets"
+        tableName = "wallets"
 )
 public class Wallets extends TBaseEntity {
-  @ColumnInfo(
-      name = "wallet"
-  )
-  public String wallet;
+    @ColumnInfo(
+            name = "wallet"
+    )
+    public String wallet;
 
-  @ColumnInfo(
-      name = "account"
-  )
-  public int account;
+    @ColumnInfo(
+            name = "account"
+    )
+    public int account;
 
-  @ColumnInfo(
-      name = "definition_template"
-  )
-  public String definitionTemplate;
+    @ColumnInfo(
+            name = "definition_template"
+    )
+    public String definitionTemplate;
 
-  @ColumnInfo(
-      name = "creation_date"
-  )
-  public long creationDate;
+    @ColumnInfo(
+            name = "is_local"
+    )
+    public boolean isLocal;
 
-  @ColumnInfo(
-      name = "full_approval_date"
-  )
-  public Long fullApprovalDate;
+    @ColumnInfo(
+            name = "creation_date"
+    )
+    public long creationDate;
 
-  @ColumnInfo(
-      name = "ready_date"
-  )
-  public Long readyDate;
+    @ColumnInfo(
+            name = "full_approval_date"
+    )
+    public Long fullApprovalDate;
+
+    @ColumnInfo(
+            name = "ready_date"
+    )
+    public Long readyDate;
 }

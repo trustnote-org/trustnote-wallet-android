@@ -33,7 +33,8 @@ data class Credential(
         val myAddresses: MutableSet<MyAddresses> = mutableSetOf(),
         var balance: Long = 0, //TODO: should BigInteger
         var balanceDetails: List<Balance> = listOf(),
-        var txDetails: List<Tx> = listOf()
+        var txDetails: List<Tx> = listOf(),
+        val isLocal: Boolean = false
 ) {
     override fun toString(): String {
         var res = "WalletName: $walletName\n\rBalance: $balance\n\rTransactions: \n\r------------------------\n\r"

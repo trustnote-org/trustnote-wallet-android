@@ -154,7 +154,6 @@ class JSApi {
     fun sign(b64_hash: String, xPrivKey: String, path: String, cb: ValueCallback<String>) {
         val seperator = ","
 
-        Utils.debugLog("GUODAPING")
         Utils.debugLog("$b64_hash$seperator$xPrivKey$seperator$path");
 
         TWebView.sInstance.callJS("window.Client.sign($b64_hash$seperator$xPrivKey$seperator$path);", cb)

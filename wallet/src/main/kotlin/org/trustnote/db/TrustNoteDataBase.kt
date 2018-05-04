@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
+import org.trustnote.wallet.walletadmin.WalletModel
 
 @Database(entities = arrayOf(
         MyWitnesses::class,
@@ -21,22 +22,24 @@ abstract class TrustNoteDataBase : RoomDatabase() {
     abstract fun unitsDao(): UnitsDao
 
     companion object {
-        var INSTANCE: TrustNoteDataBase? = null
+        private var dbMap = mutableMapOf<String, TrustNoteDataBase>()
 
         fun getInstance(context: Context): TrustNoteDataBase {
-            if (INSTANCE == null) {
-                synchronized(TrustNoteDataBase::class) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TrustNoteDataBase::class.java, "trustnote.db")
+            val dbSuffix = WalletModel.instance.getMnemonicAsHash()
+            synchronized(TrustNoteDataBase::class) {
+                if (!dbMap.containsKey(dbSuffix)) {
+                    val db = Room.databaseBuilder(context.getApplicationContext(),
+                            TrustNoteDataBase::class.java, "trustnote_$dbSuffix.db")
                             .allowMainThreadQueries()
                             .build()
+                    dbMap.put(dbSuffix, db)
                 }
             }
-            return INSTANCE!!
+            return dbMap[dbSuffix]!!
         }
 
         fun destroyInstance() {
-            INSTANCE = null
+            dbMap.clear()
         }
     }
 }

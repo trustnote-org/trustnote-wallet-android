@@ -24,8 +24,8 @@ object Utils {
 
     val emptyJsonObject = JsonObject()
 
-    fun debugLog(s: String) {
-        android.util.Log.e("GUO", s)
+    fun debugLog(msg: String) {
+        Timber.d("TTT" + msg)
     }
 
     fun debugJS(s: String) {
