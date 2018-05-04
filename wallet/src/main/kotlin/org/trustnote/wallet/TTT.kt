@@ -5,7 +5,8 @@ class TTT {
     companion object {
         val instance = TTT()
         const val firstWalletName = "TTT"
-        const val walletAddressInitSize = 30
+        const val walletAddressInitSize = 21
+        const val walletAddressIncSteps = 20
         const val addressReceiveType = 0
         const val addressChangeType = 1
 

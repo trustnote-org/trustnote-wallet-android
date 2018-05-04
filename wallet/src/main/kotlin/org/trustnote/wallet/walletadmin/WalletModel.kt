@@ -169,7 +169,8 @@ class WalletModel {
     private fun generateMyAddresses(credential: Credential, isChange: Int) {
         val api = JSApi()
         val currentMaxAddress = DbHelper.getMaxAddressIndex(credential.walletId, isChange)
-        val res = List(TTT.walletAddressInitSize, {
+        val newAddressSize = if (currentMaxAddress == 0) TTT.walletAddressInitSize else TTT.walletAddressIncSteps
+        val res = List(newAddressSize, {
             val myAddress = MyAddresses()
             myAddress.wallet = credential.walletId
             myAddress.isChange = isChange
