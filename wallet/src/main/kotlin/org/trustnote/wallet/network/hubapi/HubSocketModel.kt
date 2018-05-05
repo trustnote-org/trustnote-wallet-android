@@ -33,6 +33,10 @@ class HubSocketModel {
         }
     }
 
+    fun getRandomTag(): String {
+        return Utils.generateRandomString(30)
+    }
+
     @Synchronized
     private fun retry() {
         for ((tag, hubMsg) in mRequestMap.getRetryMap()) {

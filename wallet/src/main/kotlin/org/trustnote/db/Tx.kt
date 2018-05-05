@@ -54,6 +54,12 @@ class TxOutputs {
     var isExternal: Boolean = false
 }
 
+class FundedAddress {
+    @ColumnInfo(name = "address")
+    var address: String = ""
+    @ColumnInfo(name = "total")
+    var total: Long = 0
+}
 
 enum class TxType {
     invalid,

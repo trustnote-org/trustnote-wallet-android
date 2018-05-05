@@ -2,12 +2,8 @@ package org.trustnote.wallet.settings
 
 import android.webkit.ValueCallback
 
-import org.trustnote.db.DbHelper
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.js.JsTest
-import org.trustnote.wallet.network.HubManager
-import org.trustnote.wallet.pojo.Credential
-import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.tttui.QRFragment
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.walletadmin.NewSeedActivity
@@ -37,7 +33,10 @@ object SettingsDataFactory {
         val res = ArrayList<SettingItem>()
 
         val testPostTx = SettingItem("Test: Test post tx")
-        testPostTx.action = Runnable { JsTest.testPostTx() }
+        testPostTx.action = Runnable {
+            WalletModel.instance.startSendPayment()
+            //JsTest.testPostTx()
+        }
         res.add(testPostTx)
 
         val testWallet = SettingItem("Test: restore wallet with fixed seed")

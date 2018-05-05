@@ -1,11 +1,16 @@
 package org.trustnote.wallet.pojo
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import org.trustnote.db.Balance
 import org.trustnote.db.Tx
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.db.entity.Outputs
+import org.trustnote.wallet.util.Utils
 import java.math.BigInteger
 import java.util.*
+import com.google.gson.JsonParser
+
 
 data class TProfile(
         val mnemonic: String,
@@ -48,3 +53,50 @@ data class Credential(
 data class PublicKeyRing(
         val xPubKey: String = ""
 )
+
+data class SendPaymentInfo(
+        val walletId: String,
+        val receiverAddress: String,
+        val amount: Long,
+        val lastBallMCI: Int
+)
+
+data class InputOfPayment(
+        val unit: String,
+        val messageIndex: Int,
+        val outputIndex: Int,
+        val amount: Long,
+        val address: String
+) {
+    fun toJsonObject(): JsonObject {
+        val res = JsonObject()
+        res.addProperty("unit", unit)
+        res.addProperty("message_index", messageIndex)
+        res.addProperty("output_index", outputIndex)
+        return res
+    }
+}
+
+data class Author(
+        //just support single signature address.
+        val address: String,
+        val authentifiers: String,
+        val definitionOfPubkey: String
+
+) {
+    fun toJsonObject(): JsonObject {
+        val res = JsonObject()
+        res.addProperty("address", address)
+
+        val jsonAuthentifiers = JsonObject()
+        jsonAuthentifiers.addProperty("r", authentifiers)
+        res.add("authentifiers", jsonAuthentifiers)
+
+        val parser = JsonParser()
+        val jsonArrayDefinition = parser.parse(definitionOfPubkey) as JsonArray
+
+        res.add("definition", jsonArrayDefinition)
+
+        return res
+    }
+}

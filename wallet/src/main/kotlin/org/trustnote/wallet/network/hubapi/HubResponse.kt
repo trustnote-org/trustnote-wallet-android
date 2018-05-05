@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import org.trustnote.db.DbHelper
 import org.trustnote.wallet.network.RequestMap
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.walletadmin.WalletModel
 
 
 class HubResponse : HubMsg {
@@ -47,6 +48,7 @@ class HubResponse : HubMsg {
         when (originRequset.command) {
             HubMsgFactory.CMD_GET_WITNESSES -> handleResult = handleMyWitnesses()
             HubMsgFactory.CMD_GET_HISTORY -> handleResult = handleGetHistory()
+            HubMsgFactory.CMD_GET_PARENT_FOR_NEW_TX -> handleResult = handleGetParentForNewTx()
         }
 
         return handleResult
@@ -61,6 +63,12 @@ class HubResponse : HubMsg {
         DbHelper.saveUnit(this)
         return true
     }
+
+    private fun handleGetParentForNewTx(): Boolean {
+        WalletModel.instance.composeNewTx(this)
+        return true
+    }
+
 
 
 }

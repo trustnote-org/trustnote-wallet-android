@@ -75,6 +75,15 @@ class TTT {
 
         val hubAddress = if (isTestnet) "wss://raytest.trustnote.org" else "wss://eason.trustnote.org/tn"
 
+
+        const val TYPICAL_FEE = 1000L
+        const val MAX_FEE = 20000L
+
+        // 256 bits (32 bytes) base64: 44 bytes
+        const val PLACEHOLDER_HASH = "--------------------------------------------"
+        // 88 bytes
+        const val PLACEHOLDER_SIG = "----------------------------------------------------------------------------------------"
+
     }
 }
 

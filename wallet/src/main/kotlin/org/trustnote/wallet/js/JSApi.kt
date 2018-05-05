@@ -205,10 +205,43 @@ class JSApi {
         return TWebView.sInstance.callJSSync("window.Client.getUnitHashToSign($unit);")
     }
 
-    fun getBase64Hash(json: String): String {
+    fun getBase64HashSync(json: String): String {
         return TWebView.sInstance.callJSSync("window.Client.getBase64Hash($json);")
     }
 
+    /**
+     * 获得交易单元unit hash
+     * @method getUnitHash
+     * @for Base
+     * @param {string}  消息JSON字符串
+     * @return {string} base64过的hash
+     */
+    fun getUnitHashSync(unit: String): String {
+        return TWebView.sInstance.callJSSync("window.Client.getUnitHash($unit);")
+    }
+
+
+    /**
+     * 获得消息头字节数
+     * @method getHeadersSize
+     * @for Base
+     * @param {string}  单元JSON字符串
+     * @return {int}    字节数
+     */
+    fun getHeadersSizeSync(unit: String): String {
+        return TWebView.sInstance.callJSSync("window.Client.getHeadersSize($unit);")
+    }
+
+    /**
+     * 获得payload字节数
+     * @method getTotalPayloadSize
+     * @for Base
+     * @param {string}  单元JSON字符串
+     * @return {int}    字节数
+     */
+    fun getTotalPayloadSizeSync(unit: String): String {
+        return TWebView.sInstance.callJSSync("window.Client.getTotalPayloadSize($unit);")
+    }
 }
 
 class JSResult {

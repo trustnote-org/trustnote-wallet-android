@@ -5,8 +5,11 @@ import io.reactivex.Observable
 import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.network.hubapi.HubResponse
 import org.trustnote.wallet.pojo.Credential
+import org.trustnote.wallet.pojo.InputOfPayment
+import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.util.Utils
 
 @Suppress("UNCHECKED_CAST")
@@ -31,6 +34,10 @@ object DbHelper {
     fun fixIsSpentFlag() = getDao().fixIsSpentFlag()
 
     fun getTxs(walletId: String): List<Tx> = getTxsInternal(walletId)
+    fun findInputsForPayment(sendPaymentInfo: SendPaymentInfo) = findInputsForPaymentInternal(sendPaymentInfo)
+
+    fun queryAddress(addressList: List<String>) = queryAddressInternal(addressList)
+
 
 }
 
@@ -78,15 +85,28 @@ fun getTxsInternal(walletId: String): List<Tx> {
         val movement = it.value
         val unitId = it.key
         if (DbConst.UNIT_SEQUENCE_GOOD != it.value["sequence"]) {
-            val transaction = Tx(action = TxType.invalid, confirmations = movement["is_stable"] as Int,
-                    unit = it.key, fee = movement["fee"] as Long, ts = movement["ts"] as Long,
-                    level = movement["level"] as Int, mci = movement["mci"] as Int)
+            val transaction = Tx(action = TxType.invalid,
+                    confirmations = movement["is_stable"] as Int,
+                    unit = it.key,
+                    fee = movement["fee"] as Long,
+                    ts = movement["ts"] as Long,
+                    level = movement["level"] as Int,
+                    mci = movement["mci"] as Int)
             res.add(transaction)
         } else if (movement["plus"] as Long > 0 && !(movement["has_minus"] as Boolean)) {
             val arrPayerAddresses = dao.queryInputAddresses(unitId)
             (movement["arrMyRecipients"] as MutableList<HashMap<String, Any>>).forEach {
                 val objRecipient = it
-                val transaction = Tx(action = TxType.received, amount = objRecipient["amount"] as Long, myAddress = objRecipient["my_address"] as String, arrPayerAddresses = arrPayerAddresses, confirmations = movement["is_stable"] as Int, unit = unitId, fee = movement["fee"] as Long, ts = movement["ts"] as Long, level = movement["level"] as Int, mci = movement["mci"] as Int)
+                val transaction = Tx(action = TxType.received,
+                        amount = objRecipient["amount"] as Long,
+                        myAddress = objRecipient["my_address"] as String,
+                        arrPayerAddresses = arrPayerAddresses,
+                        confirmations = movement["is_stable"] as Int,
+                        unit = unitId,
+                        fee = movement["fee"] as Long,
+                        ts = movement["ts"] as Long,
+                        level = movement["level"] as Int,
+                        mci = movement["mci"] as Int)
                 res.add(transaction)
             }
         } else if (movement["has_minus"] as Boolean) {
@@ -96,7 +116,15 @@ fun getTxsInternal(walletId: String): List<Tx> {
                 if (txType == TxType.sent && !it.isExternal) {
                     //Do nothing
                 } else {
-                    val transaction = Tx(action = txType, amount = it.amount, addressTo = it.address, confirmations = movement["is_stable"] as Int, unit = unitId, fee = movement["fee"] as Long, ts = movement["ts"] as Long, level = movement["level"] as Int, mci = movement["mci"] as Int)
+                    val transaction = Tx(action = txType,
+                            amount = it.amount,
+                            addressTo = it.address,
+                            confirmations = movement["is_stable"] as Int,
+                            unit = unitId,
+                            fee = movement["fee"] as Long,
+                            ts = movement["ts"] as Long,
+                            level = movement["level"] as Int,
+                            mci = movement["mci"] as Int)
                     if (txType == TxType.moved) {
                         transaction.myAddress = it.address
                     }
@@ -288,3 +316,47 @@ fun saveUnitInternal(hubResponse: HubResponse) {
     db.unitsDao().saveUnits(jointList.mapToTypedArray { it.unit })
 
 }
+
+fun filterMostFundedAddresses(rows: Array<FundedAddress>, estimatedAmount: Long): List<FundedAddress> {
+    if (estimatedAmount <= 0) {
+        return rows.asList()
+    }
+    val res = mutableListOf<FundedAddress>()
+    var accumulatedAmount = 0L
+
+    rows.forEach {
+        res.add(it)
+        accumulatedAmount += it.total
+        if (accumulatedAmount > estimatedAmount + TTT.MAX_FEE) {
+            return res
+        }
+    }
+    return res
+}
+
+fun findInputsForPaymentInternal(sendPaymentInfo: SendPaymentInfo): List<InputOfPayment> {
+    val res = mutableListOf<InputOfPayment>()
+
+    val fundedAddress = getDao().queryFundedAddressesByAmount(sendPaymentInfo.walletId, sendPaymentInfo.amount)
+    val addresses = mutableListOf<String>()
+    fundedAddress.forEach {addresses.add(it.address)}
+
+    val outputs = getDao().queryUtxoByAddress(addresses, sendPaymentInfo.lastBallMCI)
+    outputs.forEach {
+        res.add(InputOfPayment(
+                unit = it.unit,
+                messageIndex = it.messageIndex,
+                outputIndex = it.outputIndex,
+                amount = it.amount,
+                address = it.address
+        ))
+    }
+
+    return res
+}
+
+fun queryAddressInternal(addressList: List<String>): Array<MyAddresses> {
+    return getDao().queryAddress(addressList)
+}
+
+
