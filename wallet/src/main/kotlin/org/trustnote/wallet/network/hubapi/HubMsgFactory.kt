@@ -84,7 +84,7 @@ object HubMsgFactory {
 
         params.add("witnesses", wts)
 
-        return HubRequest(CMD_GET_HISTORY, hubSocketModel.getRandomTag(), params)
+        return HubRequest(CMD_GET_PARENT_FOR_NEW_TX, hubSocketModel.getRandomTag(), params)
     }
 
 

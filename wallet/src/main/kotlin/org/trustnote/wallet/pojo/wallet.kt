@@ -58,7 +58,7 @@ data class SendPaymentInfo(
         val walletId: String,
         val receiverAddress: String,
         val amount: Long,
-        val lastBallMCI: Int
+        var lastBallMCI: Int = 0
 )
 
 data class InputOfPayment(

@@ -272,6 +272,9 @@ fun saveUnitInternal(hubResponse: HubResponse) {
         val units = joint.unit
         units.json = joint.json.getAsJsonObject("unit")
 
+        //TODO: when to stable?
+        units.isStable = 1
+
         units.sequence = DbConst.UNIT_SEQUENCE_GOOD
 
         val authentifiersArray = parseChild(units, units.json, Authentifiers::class.java.canonicalName, "authors") as List<Authentifiers>
@@ -338,8 +341,9 @@ fun findInputsForPaymentInternal(sendPaymentInfo: SendPaymentInfo): List<InputOf
     val res = mutableListOf<InputOfPayment>()
 
     val fundedAddress = getDao().queryFundedAddressesByAmount(sendPaymentInfo.walletId, sendPaymentInfo.amount)
+    val filterFundedAddress = filterMostFundedAddresses(fundedAddress, sendPaymentInfo.amount)
     val addresses = mutableListOf<String>()
-    fundedAddress.forEach {addresses.add(it.address)}
+    filterFundedAddress.forEach {addresses.add(it.address)}
 
     val outputs = getDao().queryUtxoByAddress(addresses, sendPaymentInfo.lastBallMCI)
     outputs.forEach {

@@ -13,7 +13,6 @@ import org.trustnote.wallet.network.hubapi.HubResponse
 import org.trustnote.wallet.pojo.*
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.util.testTopLevel
 import java.util.concurrent.TimeUnit
 
 class WalletModel {
@@ -39,7 +38,7 @@ class WalletModel {
 
     //TODO: use hash function
     fun getMnemonicAsHash(): String {
-        return currentMnemonic[0]
+        return tProfile!!.mnemonic.substring(1..4)
     }
 
     fun monitorWallet() {
@@ -184,7 +183,7 @@ class WalletModel {
             myAddress.addressIndex = it + currentMaxAddress
             myAddress.address = toNormalStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
             val addressPubkey = toNormalStr(api.walletAddressPubkeySync(credential.xPubKey, isChange, myAddress.addressIndex))
-            myAddress.definition = """["sig",{"pubkey":$addressPubkey}]"""
+            myAddress.definition = """["sig",{"pubkey":"$addressPubkey"}]"""
             //TODO: check above logic from JS code.
             myAddress
         })
@@ -287,8 +286,12 @@ class WalletModel {
     //38338236 = 17000000 + 21337648 + 391 + 197
 
     //TODO: need refactor code.
-    fun composeNewTx(hubResponse: HubResponse, sendPaymentInfo: SendPaymentInfo) {
+    fun composeNewTx(hubResponse: HubResponse) {
+        val sendPaymentInfo = SendPaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 3000000L)
         val responseJson = hubResponse.responseJson as JsonObject
+
+        sendPaymentInfo.lastBallMCI = responseJson.get("last_stable_mc_ball_mci").asInt
+
         val unit = JsonObject()
         unit.addProperty("version", TTT.version)
         unit.addProperty("alt", TTT.alt)
@@ -335,10 +338,38 @@ class WalletModel {
         unit.addProperty("payload_commission", computePayloadCommission())
 
 
+        val api = JSApi()
+        val unitHash = api.getUnitHashSync(unit.toString())
+
         //TODO:
-//        unit.addProperty("unit", responseJson.get("witness_list_unit").asString)
+        unit.addProperty("unit", toNormalStr(unitHash))
 
         unit.addProperty("timestamp", System.currentTimeMillis() / 1000L)
+
+
+        //TODO: sign and send reqeust.
+
+
+
+        val unitHashForSign = api.getUnitHashToSignSync(unit.toString())
+
+
+        //TODO: read below value from MyAddress, where is the wallet index come from?
+        val path = """"m/44'/0'/0'/1/2""""
+
+
+        val authorsWithSign = JsonArray()
+        myAddressesArray.forEach {
+            val sign = api.signSync(unitHashForSign,
+                    WalletModel.instance.getProfile()!!.xPrivKey, path)
+            authorsWithSign.add(Author(it.address,
+                    toNormalStr(sign), it.definition).toJsonObject())
+        }
+
+        unit.remove("authors")
+        unit.add("authors", authorsWithSign)
+
+        Utils.debugLog(unit.toString())
 
 
     }

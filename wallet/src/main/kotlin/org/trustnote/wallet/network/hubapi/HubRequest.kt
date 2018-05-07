@@ -11,6 +11,7 @@ class HubRequest : HubMsg {
     val command: String
     val params: JsonObject
     val tag: String
+    var attachedInfo: Object = Object()
 
     constructor(textFromHub: String) : super(textFromHub) {
         tag = msgJson.getAsJsonPrimitive(HubMsgFactory.TAG).asString

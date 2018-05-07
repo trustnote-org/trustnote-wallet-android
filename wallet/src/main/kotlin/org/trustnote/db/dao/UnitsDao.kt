@@ -115,13 +115,14 @@ abstract class UnitsDao {
         WHERE wallet= :walletId
         GROUP BY unit, address
         UNION
-        SELECT unit, level, is_stable, sequence, address, units.creation_date as ts, headers_commission+payload_commission AS fee,
+        SELECT unit, level, is_stable, sequence, address, units.creation_date as ts,
+        headers_commission+payload_commission AS fee,
         NULL AS amount, '' AS to_address, address AS from_address, main_chain_index AS mci
         FROM units
         JOIN inputs USING(unit)
         JOIN my_addresses USING(address)
         WHERE wallet= :walletId
-        ORDER BY ts DESC\n
+        ORDER BY ts DESC
         """)
     abstract fun queryTxUnits(walletId: String): Array<TxUnits>
 
@@ -141,21 +142,21 @@ abstract class UnitsDao {
         SELECT address, SUM(amount) AS total
         FROM outputs JOIN my_addresses USING(address)
         CROSS JOIN units USING(unit)
-        WHERE wallet= :walletId
-        AND is_stable=1
-        AND sequence='good'
-        AND is_spent=0
+        WHERE wallet = :walletId
+        AND is_stable = 1
+        AND sequence = 'good'
+        AND is_spent = 0
         AND asset IS NULL
-        GROUP BY address ORDER BY SUM(amount) > :estimatedAmount DESC, ABS(SUM(amount) - :estimatedAmount) ASC
+        GROUP BY address ORDER BY SUM(amount) > :estimateAmount DESC, ABS(SUM(amount) - :estimateAmount) ASC;
         """)
         //    TODO: unclear logic.
         //    AND NOT EXISTS (
         //    SELECT * FROM unit_authors JOIN units USING(unit)
         //    WHERE is_stable=0 AND unit_authors.address=outputs.address AND definition_chash IS NOT NULL)
-    abstract fun queryFundedAddressesByAmount(walletId: String, estimatedAmount: Long): Array<FundedAddress>
+    abstract fun queryFundedAddressesByAmount(walletId: String, estimateAmount: Long): Array<FundedAddress>
 
     @Query("""
-        SELECT unit, message_index, output_index, amount, address, blinding
+        SELECT unit, message_index, output_index, amount, address, blinding, is_spent, denomination
         FROM outputs
         CROSS JOIN units USING(unit)
         WHERE address IN( :addressList)
