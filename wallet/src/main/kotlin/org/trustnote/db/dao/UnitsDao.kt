@@ -67,6 +67,9 @@ abstract class UnitsDao {
     @Query("SELECT * FROM my_addresses WHERE address in (:addressList)")
     abstract fun queryAddress(addressList: List<String>): Array<MyAddresses>
 
+    @Query("SELECT * FROM my_addresses WHERE wallet = :walletId")
+    abstract fun queryAddressByWalletId(walletId: String): Array<MyAddresses>
+
     @Query("SELECT * FROM my_addresses")
     abstract fun monitorAddresses(): Flowable<Array<MyAddresses>>
 

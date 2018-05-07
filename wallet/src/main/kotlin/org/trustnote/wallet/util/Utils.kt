@@ -94,5 +94,10 @@ object Utils {
         return orig.throttleFirst(intervalSecs, TimeUnit.SECONDS)
     }
 
+    fun genJsBip44Path(account: Int, isChange: Int, index: Int): String {
+        //Sample = "m/44'/0'/0'/1/2"
+        return """"m/44'/0'/$account'/$isChange/$index""""
+    }
+
 }
 

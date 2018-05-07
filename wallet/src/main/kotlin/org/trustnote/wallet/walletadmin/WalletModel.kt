@@ -139,6 +139,18 @@ class WalletModel {
     fun getProfile(): TProfile? {
         if (tProfile == null) {
             tProfile = Prefs.getInstance().readObject(TProfile::class.java)
+
+            //TODO: load tx, address from db etc.
+            if (tProfile != null) {
+                for(oneCredential in tProfile!!.credentials) {
+                    val addresses = DbHelper.queryAddressByWalletId(oneCredential.walletId)
+                    addresses.forEach { it.jsBip44Path = Utils.genJsBip44Path(oneCredential.account, it.isChange, it.addressIndex) }
+                    oneCredential.myAddresses.clear()
+                    oneCredential.myAddresses.addAll(addresses)
+                }
+            }
+
+
         }
         return tProfile
     }
@@ -178,7 +190,9 @@ class WalletModel {
         val newAddressSize = if (currentMaxAddress == 0) TTT.walletAddressInitSize else TTT.walletAddressIncSteps
         val res = List(newAddressSize, {
             val myAddress = MyAddresses()
+            myAddress.account = credential.account
             myAddress.wallet = credential.walletId
+
             myAddress.isChange = isChange
             myAddress.addressIndex = it + currentMaxAddress
             myAddress.address = toNormalStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
@@ -346,20 +360,16 @@ class WalletModel {
 
         unit.addProperty("timestamp", System.currentTimeMillis() / 1000L)
 
-
         //TODO: sign and send reqeust.
-
-
 
         val unitHashForSign = api.getUnitHashToSignSync(unit.toString())
 
-
         //TODO: read below value from MyAddress, where is the wallet index come from?
-        val path = """"m/44'/0'/0'/1/2""""
 
 
         val authorsWithSign = JsonArray()
         myAddressesArray.forEach {
+            val path = Utils.genJsBip44Path(it.account, it.isChange, it.addressIndex)
             val sign = api.signSync(unitHashForSign,
                     WalletModel.instance.getProfile()!!.xPrivKey, path)
             authorsWithSign.add(Author(it.address,

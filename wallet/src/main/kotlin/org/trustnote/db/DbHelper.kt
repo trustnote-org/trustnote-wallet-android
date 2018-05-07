@@ -38,6 +38,10 @@ object DbHelper {
 
     fun queryAddress(addressList: List<String>) = queryAddressInternal(addressList)
 
+    fun queryAddressByAddresdId(addressId: String) = queryAddressByAddresdIdInternal(addressId)
+
+    fun queryAddressByWalletId(walletId: String) = queryAddressByWalletIdInternal(walletId)
+
 
 }
 
@@ -363,4 +367,14 @@ fun queryAddressInternal(addressList: List<String>): Array<MyAddresses> {
     return getDao().queryAddress(addressList)
 }
 
+fun queryAddressByWalletIdInternal(walletId: String): Array<MyAddresses> {
+    return getDao().queryAddressByWalletId(walletId)
+}
 
+
+fun queryAddressByAddresdIdInternal(addressId: String): MyAddresses {
+
+    //How about query with no result.
+    val res = getDao().queryAddress(listOf<String>(addressId))
+    return res[0]
+}

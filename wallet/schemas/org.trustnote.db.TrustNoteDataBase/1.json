@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "48502c7759b1ed24e7b8bebd2d504c19",
+    "identityHash": "dfb5187d4480cbe4fa563ff915df02ed",
     "entities": [
       {
         "tableName": "my_witnesses",
@@ -26,12 +26,18 @@
       },
       {
         "tableName": "my_addresses",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`address` TEXT NOT NULL, `wallet` TEXT, `is_change` INTEGER NOT NULL, `address_index` INTEGER NOT NULL, `definition` TEXT, `creation_date` INTEGER NOT NULL, PRIMARY KEY(`address`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`address` TEXT NOT NULL, `account` INTEGER NOT NULL, `wallet` TEXT, `is_change` INTEGER NOT NULL, `address_index` INTEGER NOT NULL, `definition` TEXT, `creation_date` INTEGER NOT NULL, PRIMARY KEY(`address`))",
         "fields": [
           {
             "fieldPath": "address",
             "columnName": "address",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "account",
+            "columnName": "account",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -489,7 +495,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"48502c7759b1ed24e7b8bebd2d504c19\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"dfb5187d4480cbe4fa563ff915df02ed\")"
     ]
   }
 }
