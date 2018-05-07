@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.units
 
+import com.google.gson.JsonArray
 import org.trustnote.db.*
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
@@ -66,4 +67,24 @@ class UnitsManager {
         DbHelper.saveUnits(jointList.mapToTypedArray { it.unit })
 
     }
+
+
+    fun saveMyWitnesses(hubResponse: HubResponse) {
+
+        val db = TrustNoteDataBase.getInstance(TApp.context)
+
+        var myWitnesses = parseArray(hubResponse.responseJson as JsonArray)
+        DbHelper.saveMyWitnesses(myWitnesses)
+    }
+
+    fun parseArray(origJson: JsonArray): List<String> {
+        var gson = Utils.getGson()
+
+        val res = List<String>(origJson.size()) { index: Int ->
+            origJson[index].asString
+        }
+
+        return res
+    }
+
 }

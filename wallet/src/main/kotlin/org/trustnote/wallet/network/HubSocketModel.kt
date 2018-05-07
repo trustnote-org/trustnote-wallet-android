@@ -125,7 +125,7 @@ class HubSocketModel {
 
     private fun handleMyWitnesses(hubResponse: HubResponse): Boolean {
         //TODO: remove below logic
-        DbHelper.saveMyWitnesses(hubResponse)
+        UnitsManager().saveMyWitnesses(hubResponse)
         return true
     }
 

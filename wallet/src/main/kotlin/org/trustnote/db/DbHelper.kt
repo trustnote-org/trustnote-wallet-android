@@ -18,7 +18,14 @@ object DbHelper {
         getDao().saveUnits(units)
     }
     fun saveWalletMyAddress(credential: Credential) = saveWalletMyAddressInternal(credential)
-    fun saveMyWitnesses(hubResponse: HubResponse) = saveMyWitnessesInternal(hubResponse)
+    fun saveMyWitnesses(myWitnesses: List<String>) {
+        getDao().saveMyWitnesses(myWitnesses.mapToTypedArray {
+            val res = MyWitnesses()
+            res.address = it as String
+            res
+        })
+
+    }
     fun getMyWitnesses(): Array<MyWitnesses> = getMyWitnessesInternal()
     fun getAllWalletAddress(walletId: String): Array<MyAddresses> = getAllWalletAddressInternal(walletId)
     fun getAllWalletAddress(): Array<MyAddresses> = getAllWalletAddressInternal()
@@ -123,17 +130,6 @@ fun monitorOutputsInternal(): Observable<Array<Outputs>> {
     return Utils.throttleDbEvent(db.unitsDao().monitorOutputs().toObservable(), 3L)
 }
 
-fun saveMyWitnessesInternal(hubResponse: HubResponse) {
-
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-
-    var myWitnesses = parseArray(hubResponse.responseJson as JsonArray, String::class.java.simpleName)
-    db.unitsDao().saveMyWitnesses(myWitnesses.mapToTypedArray {
-        val res = MyWitnesses()
-        res.address = it as String
-        res
-    })
-}
 
 
 inline fun <T, reified R> List<T>.mapToTypedArray(transform: (T) -> R): Array<R> {
@@ -141,20 +137,6 @@ inline fun <T, reified R> List<T>.mapToTypedArray(transform: (T) -> R): Array<R>
         is RandomAccess -> Array(size) { index -> transform(this[index]) }
         else -> with(iterator()) { Array(size) { transform(next()) } }
     }
-}
-
-fun parseArray(origJson: JsonArray, clzFullName: String): List<Any> {
-    var gson = Utils.getGson()
-
-    val res = List(origJson.size()) { index: Int ->
-        if (clzFullName == String::class.java.simpleName) {
-            origJson[index].asString
-        } else {
-            gson.fromJson(origJson[index], Class.forName(clzFullName))
-        }
-    }
-
-    return res
 }
 
 
