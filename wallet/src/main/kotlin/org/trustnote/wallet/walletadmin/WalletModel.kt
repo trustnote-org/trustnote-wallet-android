@@ -13,6 +13,7 @@ import org.trustnote.wallet.network.hubapi.HubResponse
 import org.trustnote.wallet.pojo.*
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.util.testTopLevel
 import java.util.concurrent.TimeUnit
 
 class WalletModel {
@@ -398,4 +399,5 @@ class WalletModel {
     }
 
 }
+
 

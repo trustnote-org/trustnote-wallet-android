@@ -90,11 +90,12 @@ abstract class UnitsDao {
         """)
     abstract fun queryBalance(walletId: String): Array<Balance>
 
-    @Query("SELECT outputs.* " +
-            "FROM outputs JOIN inputs ON outputs.unit=inputs.src_unit " +
-            "AND outputs.message_index=inputs.src_message_index " +
-            "AND outputs.output_index=inputs.src_output_index " +
-            "WHERE is_spent=0")
+    @Query("""SELECT outputs.*
+        FROM outputs JOIN inputs ON outputs.unit=inputs.src_unit
+        AND outputs.message_index=inputs.src_message_index
+        AND outputs.output_index=inputs.src_output_index
+        WHERE is_spent=0
+        """)
     abstract fun querySpentOutputs(): Array<Outputs>
 
     @Query("""
@@ -105,24 +106,22 @@ abstract class UnitsDao {
         """)
     abstract fun fixIsSpentFlag(unitId: String, messageIndex: Int, outputIndex: Int): Int
 
-    @Query("""
-        SELECT unit, level, is_stable, sequence, address, units.creation_date as ts, 
+    @Query("""SELECT unit, level, is_stable, sequence, address, units.creation_date as ts,
         headers_commission+payload_commission AS fee,
-        SUM(amount) AS amount, address AS to_address, '' AS from_address, main_chain_index AS mci 
+        SUM(amount) AS amount, address AS to_address, '' AS from_address, main_chain_index AS mci
         FROM units
         JOIN outputs USING(unit)
         JOIN my_addresses USING(address)
         WHERE wallet= :walletId
         GROUP BY unit, address
         UNION
-        SELECT unit, level, is_stable, sequence, address, units.creation_date as ts,
-        headers_commission+payload_commission AS fee,
+        SELECT unit, level, is_stable, sequence, address, units.creation_date as ts, headers_commission+payload_commission AS fee,
         NULL AS amount, '' AS to_address, address AS from_address, main_chain_index AS mci
         FROM units
         JOIN inputs USING(unit)
         JOIN my_addresses USING(address)
         WHERE wallet= :walletId
-        ORDER BY ts DESC
+        ORDER BY ts DESC\n
         """)
     abstract fun queryTxUnits(walletId: String): Array<TxUnits>
 
@@ -132,7 +131,7 @@ abstract class UnitsDao {
     @Query("""
         SELECT outputs.address, SUM(amount) AS amount, (my_addresses.address IS NULL) AS is_external
         FROM outputs LEFT JOIN my_addresses ON outputs.address=my_addresses.address
-        AND wallet= :walletId\n" +
+        AND wallet= :walletId
         WHERE unit= :unitId
         GROUP BY outputs.address
         """)
@@ -147,11 +146,12 @@ abstract class UnitsDao {
         AND sequence='good'
         AND is_spent=0
         AND asset IS NULL
-        AND NOT EXISTS (
-        SELECT * FROM unit_authors JOIN units USING(unit)
-        WHERE is_stable=0 AND unit_authors.address=outputs.address AND definition_chash IS NOT NULL)
         GROUP BY address ORDER BY SUM(amount) > :estimatedAmount DESC, ABS(SUM(amount) - :estimatedAmount) ASC
         """)
+        //    TODO: unclear logic.
+        //    AND NOT EXISTS (
+        //    SELECT * FROM unit_authors JOIN units USING(unit)
+        //    WHERE is_stable=0 AND unit_authors.address=outputs.address AND definition_chash IS NOT NULL)
     abstract fun queryFundedAddressesByAmount(walletId: String, estimatedAmount: Long): Array<FundedAddress>
 
     @Query("""

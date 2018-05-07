@@ -3,7 +3,6 @@ package org.trustnote.wallet.network.hubapi
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import org.trustnote.db.DbHelper
-import org.trustnote.wallet.network.RequestMap
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.walletadmin.WalletModel
 
