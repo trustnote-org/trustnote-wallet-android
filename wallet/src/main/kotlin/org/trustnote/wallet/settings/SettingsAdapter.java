@@ -3,7 +3,6 @@ package org.trustnote.wallet.settings;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ValueCallback;
 
 import com.thoughtbot.expandablerecyclerview.MultiTypeExpandableRecyclerViewAdapter;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
@@ -11,8 +10,6 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 import org.trustnote.wallet.R;
-import org.trustnote.wallet.js.JSApi;
-import org.trustnote.wallet.walletadmin.NewSeedActivity;
 
 import java.util.List;
 

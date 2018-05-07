@@ -1,4 +1,4 @@
-package org.trustnote.wallet.walletadmin
+package org.trustnote.wallet.biz.wallet
 
 import android.annotation.SuppressLint
 import android.os.Bundle

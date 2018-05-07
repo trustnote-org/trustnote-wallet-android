@@ -28,11 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".walletadmin.NewSeedActivity"
+            android:name="org.trustnote.wallet.biz.wallet.NewSeedActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="org.trustnote.wallet.walletadmin.SimpleFragmentActivity"
+            android:name="org.trustnote.wallet.biz.wallet.SimpleFragmentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

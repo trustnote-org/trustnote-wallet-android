@@ -5,13 +5,11 @@ import android.net.NetworkInfo
 import android.widget.Toast
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
-import com.google.gson.FieldNamingPolicy
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonObject
+import com.google.gson.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.trustnote.db.entity.TBaseEntity
 
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.network.HubClient
@@ -107,6 +105,32 @@ object Utils {
         return jsString.filterNot { it == '"' }
     }
 
+    fun parseChild(parentEntity: TBaseEntity, origJson: JsonObject, clzFullName: String, vararg childJsonKey: String): List<Any> {
+        var gson = Utils.getGson()
+
+        assert(childJsonKey.isNotEmpty())
+        var childrenAsJsonArray: JsonArray
+
+        if (childJsonKey.size == 1) {
+            childrenAsJsonArray = origJson.getAsJsonArray(childJsonKey[0])
+        } else {
+            var json = origJson
+            for (index in 0..childJsonKey.size - 2) {
+                json = json.getAsJsonObject(childJsonKey[index])
+            }
+            childrenAsJsonArray = json.getAsJsonArray(childJsonKey[childJsonKey.size - 1])
+        }
+
+        val children = List(childrenAsJsonArray.size()) { index: Int ->
+            val child = gson.fromJson(childrenAsJsonArray[index], Class.forName(clzFullName)) as TBaseEntity
+            child.json = childrenAsJsonArray[index].asJsonObject
+            child.parentJson = origJson
+            child.parent = parentEntity
+
+            child
+        }
+        return children
+    }
 
 }
 

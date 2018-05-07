@@ -1,7 +1,6 @@
-package org.trustnote.wallet.tx
+package org.trustnote.wallet.biz.tx
 
 import org.trustnote.db.*
-import org.trustnote.wallet.TApp
 
 class TxParser {
 

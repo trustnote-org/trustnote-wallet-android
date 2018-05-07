@@ -6,9 +6,12 @@ import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.js.JsTest
 import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
-import org.trustnote.wallet.tx.TxComposer
+import org.trustnote.wallet.biz.tx.TxComposer
+import org.trustnote.wallet.biz.wallet.NewSeedActivity
+import org.trustnote.wallet.biz.wallet.SimpleFragment
+import org.trustnote.wallet.biz.wallet.SimpleFragmentActivity
+import org.trustnote.wallet.biz.wallet.WalletModel
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.walletadmin.*
 
 import java.util.ArrayList
 import java.util.Arrays

@@ -1,4 +1,4 @@
-package org.trustnote.wallet.walletadmin
+package org.trustnote.wallet.biz.wallet
 
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
@@ -9,7 +9,7 @@ import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.TProfile
-import org.trustnote.wallet.tx.TxParser
+import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
@@ -43,7 +43,7 @@ class WalletModel {
     fun monitorWallet() {
         DbHelper.monitorAddresses().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorAddresses")
-            WalletModel.instance.hubRequestCurrentWalletTxHistory()
+            instance.hubRequestCurrentWalletTxHistory()
         }
 
         DbHelper.monitorUnits().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {

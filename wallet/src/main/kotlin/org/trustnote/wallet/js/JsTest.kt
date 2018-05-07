@@ -1,11 +1,9 @@
 package org.trustnote.wallet.js
 
-import android.webkit.ValueCallback
-import com.google.gson.JsonObject
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.walletadmin.TestData
-import org.trustnote.wallet.walletadmin.WalletModel
+import org.trustnote.wallet.biz.wallet.TestData
+import org.trustnote.wallet.biz.wallet.WalletModel
 import timber.log.Timber
 
 

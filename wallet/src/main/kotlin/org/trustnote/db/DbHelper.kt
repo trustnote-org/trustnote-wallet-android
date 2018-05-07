@@ -14,7 +14,9 @@ import org.trustnote.wallet.util.Utils
 
 @Suppress("UNCHECKED_CAST")
 object DbHelper {
-    fun saveUnit(hubResponse: HubResponse) = saveUnitInternal(hubResponse)
+    fun saveUnits(units: Array<Units>) {
+        getDao().saveUnits(units)
+    }
     fun saveWalletMyAddress(credential: Credential) = saveWalletMyAddressInternal(credential)
     fun saveMyWitnesses(hubResponse: HubResponse) = saveMyWitnessesInternal(hubResponse)
     fun getMyWitnesses(): Array<MyWitnesses> = getMyWitnessesInternal()
@@ -35,8 +37,6 @@ object DbHelper {
 
     fun getTxs(walletId: String): List<TxUnits> = getTxsInternal(walletId)
 
-    fun findInputsForPayment(sendPaymentInfo: SendPaymentInfo) = findInputsForPaymentInternal(sendPaymentInfo)
-
     fun queryAddress(addressList: List<String>) = queryAddressInternal(addressList)
 
     fun queryAddressByAddresdId(addressId: String) = queryAddressByAddresdIdInternal(addressId)
@@ -49,6 +49,15 @@ object DbHelper {
     fun queryInputAddresses(unitId: String): Array<String> {
         return getDao().queryInputAddresses(unitId)
     }
+
+    fun queryFundedAddressesByAmount(walletId: String, amount: Long): Array<FundedAddress> {
+        return getDao().queryFundedAddressesByAmount(walletId, amount)
+    }
+
+    fun queryUtxoByAddress(addressList: List<String>, lastBallMCI: Int): Array<Outputs> {
+        return getDao().queryUtxoByAddress(addressList, lastBallMCI)
+    }
+
 
 }
 
@@ -148,130 +157,7 @@ fun parseArray(origJson: JsonArray, clzFullName: String): List<Any> {
     return res
 }
 
-fun parseChild(parentEntity: TBaseEntity, origJson: JsonObject, clzFullName: String, vararg childJsonKey: String): List<Any> {
-    var gson = Utils.getGson()
 
-    assert(childJsonKey.isNotEmpty())
-    var childrenAsJsonArray: JsonArray
-
-    if (childJsonKey.size == 1) {
-        childrenAsJsonArray = origJson.getAsJsonArray(childJsonKey[0])
-    } else {
-        var json = origJson
-        for (index in 0..childJsonKey.size - 2) {
-            json = json.getAsJsonObject(childJsonKey[index])
-        }
-        childrenAsJsonArray = json.getAsJsonArray(childJsonKey[childJsonKey.size - 1])
-    }
-
-    val children = List(childrenAsJsonArray.size()) { index: Int ->
-        val child = gson.fromJson(childrenAsJsonArray[index], Class.forName(clzFullName)) as TBaseEntity
-        child.json = childrenAsJsonArray[index].asJsonObject
-        child.parentJson = origJson
-        child.parent = parentEntity
-
-        child
-    }
-    return children
-}
-
-@Suppress("UNCHECKED_CAST")
-fun saveUnitInternal(hubResponse: HubResponse) {
-    //TODO: too much tedious work.
-    //TODO: save data to table units_authors??
-    val response = hubResponse.msgJson.getAsJsonObject("response")
-    val jointList = parseChild(TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
-
-    for (joint in jointList) {
-        val units = joint.unit
-        units.json = joint.json.getAsJsonObject("unit")
-
-        //TODO: when to stable?
-        units.isStable = 1
-
-        units.sequence = DbConst.UNIT_SEQUENCE_GOOD
-
-        val authentifiersArray = parseChild(units, units.json, Authentifiers::class.java.canonicalName, "authors") as List<Authentifiers>
-        authentifiersArray.forEachIndexed { _, authentifier ->
-            authentifier.unit = units.unit; authentifier.parsePathAndAuthentifier()
-        }
-        units.authenfiers = authentifiersArray
-
-
-        val messageArray = parseChild(units, units.json, Messages::class.java.canonicalName, "messages") as List<Messages>
-
-        messageArray.forEachIndexed { index, messages -> messages.messageIndex = index }
-        units.messages = messageArray
-
-        for (message in messageArray) {
-            message.parent = units
-            message.unit = units.unit
-            val inputArray = parseChild(message, message.json, Inputs::class.java.canonicalName, "payload", "inputs") as List<Inputs>
-
-            val outputArray = parseChild(message, message.json, Outputs::class.java.canonicalName, "payload", "outputs") as List<Outputs>
-
-            inputArray.forEachIndexed { index, inputs ->
-                inputs.unit = units.unit
-                inputs.messageIndex = message.messageIndex
-                inputs.inputIndex = index
-                //TODO: check JS code.
-                inputs.address = units.authenfiers[0].address
-            }
-
-            outputArray.forEachIndexed { index, outputs ->
-                outputs.unit = units.unit;outputs.messageIndex = message.messageIndex; outputs.outputIndex = index
-            }
-
-            message.inputs = inputArray
-
-            message.outputs = outputArray
-        }
-    }
-
-
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    db.unitsDao().saveUnits(jointList.mapToTypedArray { it.unit })
-
-}
-
-fun filterMostFundedAddresses(rows: Array<FundedAddress>, estimatedAmount: Long): List<FundedAddress> {
-    if (estimatedAmount <= 0) {
-        return rows.asList()
-    }
-    val res = mutableListOf<FundedAddress>()
-    var accumulatedAmount = 0L
-
-    rows.forEach {
-        res.add(it)
-        accumulatedAmount += it.total
-        if (accumulatedAmount > estimatedAmount + TTT.MAX_FEE) {
-            return res
-        }
-    }
-    return res
-}
-
-fun findInputsForPaymentInternal(sendPaymentInfo: SendPaymentInfo): List<InputOfPayment> {
-    val res = mutableListOf<InputOfPayment>()
-
-    val fundedAddress = getDao().queryFundedAddressesByAmount(sendPaymentInfo.walletId, sendPaymentInfo.amount)
-    val filterFundedAddress = filterMostFundedAddresses(fundedAddress, sendPaymentInfo.amount)
-    val addresses = mutableListOf<String>()
-    filterFundedAddress.forEach {addresses.add(it.address)}
-
-    val outputs = getDao().queryUtxoByAddress(addresses, sendPaymentInfo.lastBallMCI)
-    outputs.forEach {
-        res.add(InputOfPayment(
-                unit = it.unit,
-                messageIndex = it.messageIndex,
-                outputIndex = it.outputIndex,
-                amount = it.amount,
-                address = it.address
-        ))
-    }
-
-    return res
-}
 
 fun queryAddressInternal(addressList: List<String>): Array<MyAddresses> {
     return getDao().queryAddress(addressList)

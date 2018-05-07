@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
-import org.trustnote.wallet.walletadmin.WalletModel
+import org.trustnote.wallet.biz.wallet.WalletModel
 
 @Database(entities = arrayOf(
         MyWitnesses::class,

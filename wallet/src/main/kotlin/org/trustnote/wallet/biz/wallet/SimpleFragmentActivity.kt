@@ -1,4 +1,4 @@
-package org.trustnote.wallet.walletadmin
+package org.trustnote.wallet.biz.wallet
 
 import android.content.Intent
 import android.os.Bundle

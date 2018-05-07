@@ -8,7 +8,7 @@ import org.trustnote.wallet.js.TWebView
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.TimberFile
-import org.trustnote.wallet.walletadmin.WalletModel
+import org.trustnote.wallet.biz.wallet.WalletModel
 import timber.log.Timber
 import javax.inject.Inject
 

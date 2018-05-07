@@ -1,4 +1,4 @@
-package org.trustnote.wallet.walletadmin
+package org.trustnote.wallet.biz.wallet
 
 import android.os.Bundle
 import android.view.LayoutInflater

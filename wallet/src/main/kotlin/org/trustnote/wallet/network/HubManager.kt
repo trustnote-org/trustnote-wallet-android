@@ -1,6 +1,7 @@
 package org.trustnote.wallet.network
 
 import org.trustnote.db.DbHelper
+import org.trustnote.wallet.biz.units.UnitsManager
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.util.Utils
 
@@ -14,10 +15,6 @@ class HubManager {
 
     //TODO: remove.
     lateinit private var currentHub: HubSocketModel
-
-    private fun handleResponse(it: HubResponse) {
-        DbHelper.saveUnit(it)
-    }
 
     companion object {
         @JvmStatic

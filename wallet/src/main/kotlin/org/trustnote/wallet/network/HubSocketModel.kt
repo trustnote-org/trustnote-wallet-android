@@ -10,6 +10,7 @@ import io.reactivex.subjects.Subject
 import org.trustnote.db.DbHelper
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.units.UnitsManager
 import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
@@ -130,7 +131,7 @@ class HubSocketModel {
 
     private fun handleGetHistory(hubResponse: HubResponse): Boolean {
         //TODO: remove below logic
-        DbHelper.saveUnit(hubResponse)
+        UnitsManager().saveUnits(hubResponse)
         return true
     }
 

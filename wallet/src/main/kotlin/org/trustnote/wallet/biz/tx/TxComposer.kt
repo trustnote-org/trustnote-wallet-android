@@ -1,8 +1,9 @@
-package org.trustnote.wallet.tx
+package org.trustnote.wallet.biz.tx
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import org.trustnote.db.DbHelper
+import org.trustnote.db.FundedAddress
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
@@ -14,7 +15,7 @@ import org.trustnote.wallet.pojo.Author
 import org.trustnote.wallet.pojo.InputOfPayment
 import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.walletadmin.WalletModel
+import org.trustnote.wallet.biz.wallet.WalletModel
 
 class TxComposer(
         val sendPaymentInfo: SendPaymentInfo
@@ -48,7 +49,7 @@ class TxComposer(
         unit.add("messages", messages)
 
         //TODO: DUP code and error prone if DB changed.
-        val inputs = DbHelper.findInputsForPayment(sendPaymentInfo)
+        val inputs = findInputsForPayment(sendPaymentInfo)
         val addressList = mutableListOf<String>()
         inputs.forEach { addressList.add(it.address) }
 
@@ -144,10 +145,6 @@ class TxComposer(
         return 197L
     }
 
-    private fun findInputsForPayment(sendPaymentInfo: SendPaymentInfo): List<InputOfPayment> {
-        return DbHelper.findInputsForPayment(sendPaymentInfo)
-    }
-
     private fun createOutput(address: String, amount: Number): JsonObject {
         val output = JsonObject()
         output.addProperty("address", address)
@@ -183,4 +180,43 @@ class TxComposer(
         composeNewTx(hubRequest.hubResponse)
     }
 
+
+    fun filterMostFundedAddresses(rows: Array<FundedAddress>, estimatedAmount: Long): List<FundedAddress> {
+        if (estimatedAmount <= 0) {
+            return rows.asList()
+        }
+        val res = mutableListOf<FundedAddress>()
+        var accumulatedAmount = 0L
+
+        rows.forEach {
+            res.add(it)
+            accumulatedAmount += it.total
+            if (accumulatedAmount > estimatedAmount + TTT.MAX_FEE) {
+                return res
+            }
+        }
+        return res
+    }
+
+    fun findInputsForPayment(sendPaymentInfo: SendPaymentInfo): List<InputOfPayment> {
+        val res = mutableListOf<InputOfPayment>()
+
+        val fundedAddress = DbHelper.queryFundedAddressesByAmount(sendPaymentInfo.walletId, sendPaymentInfo.amount)
+        val filterFundedAddress = filterMostFundedAddresses(fundedAddress, sendPaymentInfo.amount)
+        val addresses = mutableListOf<String>()
+        filterFundedAddress.forEach {addresses.add(it.address)}
+
+        val outputs = DbHelper.queryUtxoByAddress(addresses, sendPaymentInfo.lastBallMCI)
+        outputs.forEach {
+            res.add(InputOfPayment(
+                    unit = it.unit,
+                    messageIndex = it.messageIndex,
+                    outputIndex = it.outputIndex,
+                    amount = it.amount,
+                    address = it.address
+            ))
+        }
+
+        return res
+    }
 }

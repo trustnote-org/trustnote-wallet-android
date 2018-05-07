@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
 import android.webkit.ValueCallback
 import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.walletadmin.NewSeedActivity
+import org.trustnote.wallet.biz.wallet.NewSeedActivity
 
 class DebugFragment : BaseFragment() {
 
