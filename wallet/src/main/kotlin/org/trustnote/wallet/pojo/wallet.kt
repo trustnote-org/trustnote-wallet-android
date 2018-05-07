@@ -58,6 +58,7 @@ data class SendPaymentInfo(
         val walletId: String,
         val receiverAddress: String,
         val amount: Long,
+        //TODO: remove below field.
         var lastBallMCI: Int = 0
 )
 

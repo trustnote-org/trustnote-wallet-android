@@ -7,10 +7,14 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import org.trustnote.db.DbHelper
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.network.RequestMap
+import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.walletadmin.TxComposer
+import org.trustnote.wallet.walletadmin.WalletModel
 import java.util.concurrent.TimeUnit
 
 class HubSocketModel {
@@ -79,6 +83,59 @@ class HubSocketModel {
         }
         mHubClient.dispose()
         //TODO: ("not implemented")
+    }
+
+    fun responseArrived(hubResponse: HubResponse): Boolean {
+        val originRequset = mRequestMap.getHubRequest(hubResponse.tag)
+
+
+        var handleResult = true
+
+        when (originRequset.msgType) {
+            MSG_TYPE.ERROR -> return false
+            MSG_TYPE.request -> handleResonseInternally(originRequset, hubResponse)
+        }
+
+        //TODO: ?? do we need this. should remove request.
+        if (handleResult) {
+            mRequestMap.remove(hubResponse)
+        }
+
+        return handleResult
+
+
+    }
+
+    private fun handleResonseInternally(originRequset: HubRequest, hubResponse: HubResponse): Boolean {
+
+        var handleResult = true
+        when (originRequset.command) {
+            HubMsgFactory.CMD_GET_WITNESSES -> handleResult = handleMyWitnesses(hubResponse)
+            HubMsgFactory.CMD_GET_HISTORY -> handleResult = handleGetHistory(hubResponse)
+            HubMsgFactory.CMD_GET_PARENT_FOR_NEW_TX -> handleResult = handleGetParentForNewTx(hubResponse)
+        }
+
+        return handleResult
+    }
+
+    private fun handleMyWitnesses(hubResponse: HubResponse): Boolean {
+        //TODO: remove below logic
+        DbHelper.saveMyWitnesses(hubResponse)
+        return true
+    }
+
+    private fun handleGetHistory(hubResponse: HubResponse): Boolean {
+        //TODO: remove below logic
+        DbHelper.saveUnit(hubResponse)
+        return true
+    }
+
+    private fun handleGetParentForNewTx(hubResponse: HubResponse): Boolean {
+        val originRequset = mRequestMap.getHubRequest(hubResponse.tag)
+        originRequset.hubResponse = hubResponse
+
+        mSubject.onNext(originRequset)
+        return true
     }
 
 

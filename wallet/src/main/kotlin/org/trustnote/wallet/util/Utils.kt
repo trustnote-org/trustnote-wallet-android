@@ -99,5 +99,10 @@ object Utils {
         return """"m/44'/0'/$account'/$isChange/$index""""
     }
 
+    fun jsStr2NormalStr(jsString: String): String {
+        return jsString.filterNot { it == '"' }
+    }
+
+
 }
 

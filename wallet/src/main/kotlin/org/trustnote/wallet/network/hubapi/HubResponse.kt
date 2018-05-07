@@ -26,47 +26,9 @@ class HubResponse : HubMsg {
 
     fun handResonse(hubSocketModel: HubSocketModel): Boolean {
 
-        var handleResult = true
-        val originRequset = hubSocketModel.mRequestMap.getHubRequest(tag)
-
-        when (originRequset.msgType) {
-            MSG_TYPE.ERROR -> return false
-            MSG_TYPE.request -> handleResonseInternally(originRequset, hubSocketModel)
-        }
-
-        if (handleResult) {
-            hubSocketModel.mRequestMap.remove(this)
-        }
-
-        return handleResult
+        return hubSocketModel.responseArrived(this)
     }
 
-    private fun handleResonseInternally(originRequset: HubRequest, hubSocketModel: HubSocketModel): Boolean {
-
-        var handleResult = true
-        when (originRequset.command) {
-            HubMsgFactory.CMD_GET_WITNESSES -> handleResult = handleMyWitnesses()
-            HubMsgFactory.CMD_GET_HISTORY -> handleResult = handleGetHistory()
-            HubMsgFactory.CMD_GET_PARENT_FOR_NEW_TX -> handleResult = handleGetParentForNewTx()
-        }
-
-        return handleResult
-    }
-
-    private fun handleMyWitnesses(): Boolean {
-        DbHelper.saveMyWitnesses(this)
-        return true
-    }
-
-    private fun handleGetHistory(): Boolean {
-        DbHelper.saveUnit(this)
-        return true
-    }
-
-    private fun handleGetParentForNewTx(): Boolean {
-        WalletModel.instance.composeNewTx(this)
-        return true
-    }
 
 
 

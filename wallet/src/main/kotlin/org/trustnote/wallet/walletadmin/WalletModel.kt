@@ -1,7 +1,5 @@
 package org.trustnote.wallet.walletadmin
 
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
@@ -9,8 +7,8 @@ import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.hubapi.HubMsgFactory
-import org.trustnote.wallet.network.hubapi.HubResponse
-import org.trustnote.wallet.pojo.*
+import org.trustnote.wallet.pojo.Credential
+import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
@@ -118,7 +116,7 @@ class WalletModel {
     }
 
     fun setJSMnemonic(s: String) {
-        currentMnemonic = toNormalStr(s).split(" ")
+        currentMnemonic = Utils.jsStr2NormalStr(s).split(" ")
 
         currentJSMnemonic = "\"" + currentMnemonic.joinToString(" ") + "\""
     }
@@ -142,7 +140,7 @@ class WalletModel {
 
             //TODO: load tx, address from db etc.
             if (tProfile != null) {
-                for(oneCredential in tProfile!!.credentials) {
+                for (oneCredential in tProfile!!.credentials) {
                     val addresses = DbHelper.queryAddressByWalletId(oneCredential.walletId)
                     addresses.forEach { it.jsBip44Path = Utils.genJsBip44Path(oneCredential.account, it.isChange, it.addressIndex) }
                     oneCredential.myAddresses.clear()
@@ -163,7 +161,7 @@ class WalletModel {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
         val walletPubKey = api.walletPubKeySync(profile.xPrivKey, walletIndex)
-        val walletId = toNormalStr(api.walletIDSync(walletPubKey))
+        val walletId = Utils.jsStr2NormalStr(api.walletIDSync(walletPubKey))
         val walletTitle = if (TTT.firstWalletName == credentialName) TTT.firstWalletName + ":" + walletIndex else credentialName
         return Credential(account = walletIndex, walletId = walletId, xPubKey = walletPubKey, walletName = walletTitle)
     }
@@ -195,8 +193,8 @@ class WalletModel {
 
             myAddress.isChange = isChange
             myAddress.addressIndex = it + currentMaxAddress
-            myAddress.address = toNormalStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
-            val addressPubkey = toNormalStr(api.walletAddressPubkeySync(credential.xPubKey, isChange, myAddress.addressIndex))
+            myAddress.address = Utils.jsStr2NormalStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
+            val addressPubkey = Utils.jsStr2NormalStr(api.walletAddressPubkeySync(credential.xPubKey, isChange, myAddress.addressIndex))
             myAddress.definition = """["sig",{"pubkey":"$addressPubkey"}]"""
             //TODO: check above logic from JS code.
             myAddress
@@ -247,10 +245,6 @@ class WalletModel {
         Prefs.getInstance().saveObject(tProfile)
     }
 
-    private fun toNormalStr(jsString: String): String {
-        return jsString.filterNot { it == '"' }
-    }
-
     fun hubRequestCurrentWalletTxHistory() {
         if (getProfile() == null || tProfile!!.credentials.isEmpty()) {
             return
@@ -266,177 +260,6 @@ class WalletModel {
         val req = HubMsgFactory.getHistory(HubManager.instance.getCurrentHub(), witnesses, addresses)
         HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(req)
 
-    }
-
-    //TODO: how about the result.
-    fun startSendPayment(walletId: String = "", amount: Long = TTT.MAX_FEE * 2, toAddress: String = "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4") {
-        val witnesses = DbHelper.getMyWitnesses()
-
-        if (witnesses.isEmpty()) {
-            return
-        }
-
-        val req = HubMsgFactory.getParentForNewTx(HubManager.instance.getCurrentHub(), witnesses)
-        HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(req)
-    }
-
-
-//    [
-//    "response",
-//    {
-//        "tag": "bFJ6xkLnwXvliUo3oq8B8hz49fLVbUktpaVzwSBR5iU=",
-//        "response": {
-//        "parent_units": [
-//        "UyVkdidA6xVp0DzRUb9k9cEUO+c2a8TCVDFahMvBJT4="
-//        ],
-//        "last_stable_mc_ball": "Lf/YhFAVxQC0tRqu6HGLRSKs96OHIIdzvfq8XPM7Xio=",
-//        "last_stable_mc_ball_unit": "i8ua65frsm/rjDVRZphUfNbb1QyzZtaIEyONw1M52xQ=",
-//        "last_stable_mc_ball_mci": 12299,
-//        "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="
-//    }
-//    }
-//    ]
-
-    //38338236 = 17000000 + 21337648 + 391 + 197
-
-    //TODO: need refactor code.
-    fun composeNewTx(hubResponse: HubResponse) {
-        val sendPaymentInfo = SendPaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 3000000L)
-        val responseJson = hubResponse.responseJson as JsonObject
-
-        sendPaymentInfo.lastBallMCI = responseJson.get("last_stable_mc_ball_mci").asInt
-
-        val unit = JsonObject()
-        unit.addProperty("version", TTT.version)
-        unit.addProperty("alt", TTT.alt)
-        val messages = JsonArray()
-
-        val paymentMessage = JsonObject()
-        paymentMessage.addProperty("app", "payment")
-        paymentMessage.addProperty("payload_location", "inline")
-
-        val payload = genPayload(sendPaymentInfo)
-        val payloadHash = JSApi().getBase64HashSync(payload.toString())
-        paymentMessage.addProperty("payload_hash", payloadHash)
-
-        paymentMessage.add("payload", payload)
-
-        messages.add(paymentMessage)
-
-        unit.add("messages", messages)
-
-        //TODO: DUP code and error prone if DB changed.
-        val inputs = DbHelper.findInputsForPayment(sendPaymentInfo)
-        val addressList = mutableListOf<String>()
-        inputs.forEach { addressList.add(it.address) }
-
-        val myAddressesArray = DbHelper.queryAddress(addressList.toList())
-        val authors = JsonArray()
-        myAddressesArray.forEach {
-            authors.add(Author(it.address,
-                    TTT.PLACEHOLDER_SIG, it.definition).toJsonObject())
-        }
-
-        unit.add("authors", authors)
-
-        unit.add("parent_units", responseJson.getAsJsonArray("parent_units"))
-
-        unit.addProperty("last_ball", responseJson.get("last_stable_mc_ball").asString)
-
-        unit.addProperty("last_ball_unit", responseJson.get("last_stable_mc_ball_unit").asString)
-
-        unit.addProperty("witness_list_unit", responseJson.get("witness_list_unit").asString)
-
-        unit.addProperty("headers_commission", computeHeadersCommission())
-
-        unit.addProperty("payload_commission", computePayloadCommission())
-
-
-        val api = JSApi()
-        val unitHash = api.getUnitHashSync(unit.toString())
-
-        //TODO:
-        unit.addProperty("unit", toNormalStr(unitHash))
-
-        unit.addProperty("timestamp", System.currentTimeMillis() / 1000L)
-
-        //TODO: sign and send reqeust.
-
-        val unitHashForSign = api.getUnitHashToSignSync(unit.toString())
-
-        //TODO: read below value from MyAddress, where is the wallet index come from?
-
-
-        val authorsWithSign = JsonArray()
-        myAddressesArray.forEach {
-            val path = Utils.genJsBip44Path(it.account, it.isChange, it.addressIndex)
-            val sign = api.signSync(unitHashForSign,
-                    WalletModel.instance.getProfile()!!.xPrivKey, path)
-            authorsWithSign.add(Author(it.address,
-                    toNormalStr(sign), it.definition).toJsonObject())
-        }
-
-        unit.remove("authors")
-        unit.add("authors", authorsWithSign)
-
-        Utils.debugLog(unit.toString())
-
-
-    }
-
-    private fun genPayload(sendPaymentInfo: SendPaymentInfo): JsonObject {
-        val payload = JsonObject()
-        val outputs = JsonArray()
-        val inputs = JsonArray()
-
-        val inputsOfPayment = findInputsForPayment(sendPaymentInfo)
-        inputsOfPayment.forEach { inputs.add(it.toJsonObject()) }
-
-        val changeAddress = queryOrIssueNotUsedChangeAddress()
-        val changeAmount = computeChangeAmount(sendPaymentInfo, inputsOfPayment)
-        val changeOutput = createOutput(changeAddress, changeAmount)
-        val receiverOutput = createOutput(sendPaymentInfo.receiverAddress, sendPaymentInfo.amount)
-
-        outputs.add(receiverOutput)
-        outputs.add(changeOutput)
-
-        payload.add("outputs", outputs)
-        payload.add("inputs", inputs)
-
-        return payload
-    }
-
-    private fun computeChangeAmount(sendPaymentInfo: SendPaymentInfo, inputsOfPayment: List<InputOfPayment>): Long {
-        var totalInput = 0L
-        inputsOfPayment.forEach { totalInput += it.amount }
-
-        return totalInput - sendPaymentInfo.amount
-        -computeHeadersCommission() - computePayloadCommission()
-    }
-
-    private fun computeHeadersCommission(): Long {
-        return 391L
-    }
-
-    private fun computePayloadCommission(): Long {
-        return 197L
-    }
-
-    private fun findInputsForPayment(sendPaymentInfo: SendPaymentInfo): List<InputOfPayment> {
-        return DbHelper.findInputsForPayment(sendPaymentInfo)
-    }
-
-    private fun createOutput(address: String, amount: Number): JsonObject {
-        val output = JsonObject()
-        output.addProperty("address", address)
-        output.addProperty("amount", amount)
-        return output
-
-    }
-
-    private fun queryOrIssueNotUsedChangeAddress(): String {
-        //TODO
-        return "FJDDWP4AJ6I44HSKHPXXIX6RSQMH674G"
     }
 
 }

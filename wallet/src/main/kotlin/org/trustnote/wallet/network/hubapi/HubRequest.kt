@@ -12,6 +12,7 @@ class HubRequest : HubMsg {
     val params: JsonObject
     val tag: String
     var attachedInfo: Object = Object()
+    lateinit var hubResponse: HubResponse
 
     constructor(textFromHub: String) : super(textFromHub) {
         tag = msgJson.getAsJsonPrimitive(HubMsgFactory.TAG).asString
@@ -35,5 +36,9 @@ class HubRequest : HubMsg {
         this.params = Utils.emptyJsonObject
         this.command = ""
         this.tag = ""
+    }
+
+    fun handleResponse(response: HubResponse) {
+        //
     }
 }

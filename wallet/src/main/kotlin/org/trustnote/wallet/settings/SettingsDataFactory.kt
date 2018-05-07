@@ -1,15 +1,17 @@
 package org.trustnote.wallet.settings
 
 import android.webkit.ValueCallback
+import org.trustnote.db.DbHelper
+import org.trustnote.wallet.TTT
 
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.js.JsTest
+import org.trustnote.wallet.network.HubManager
+import org.trustnote.wallet.network.hubapi.HubMsgFactory
+import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.walletadmin.NewSeedActivity
-import org.trustnote.wallet.walletadmin.SimpleFragment
-import org.trustnote.wallet.walletadmin.SimpleFragmentActivity
-import org.trustnote.wallet.walletadmin.WalletModel
+import org.trustnote.wallet.walletadmin.*
 
 import java.util.ArrayList
 import java.util.Arrays
@@ -34,7 +36,12 @@ object SettingsDataFactory {
 
         val testPostTx = SettingItem("Test: Test post tx")
         testPostTx.action = Runnable {
-            WalletModel.instance.startSendPayment()
+
+            val sendPaymentInfo = SendPaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 3000000L)
+
+            TxComposer(sendPaymentInfo).startSending()
+
+
             //JsTest.testPostTx()
         }
         res.add(testPostTx)
