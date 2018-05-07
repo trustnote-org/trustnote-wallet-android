@@ -1,4 +1,4 @@
-package org.trustnote.wallet.network.hubapi
+package org.trustnote.wallet.network
 
 import org.trustnote.wallet.TTT
 import java.util.*

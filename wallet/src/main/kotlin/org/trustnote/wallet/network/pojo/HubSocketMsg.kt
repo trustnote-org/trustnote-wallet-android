@@ -1,4 +1,4 @@
-package org.trustnote.wallet.network.hubapi
+package org.trustnote.wallet.network.pojo
 
 class HubSocketMsg : HubMsg {
 

@@ -1,10 +1,9 @@
-package org.trustnote.wallet.network.hubapi
+package org.trustnote.wallet.network.pojo
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import org.trustnote.db.DbHelper
+import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.walletadmin.WalletModel
 
 
 class HubResponse : HubMsg {
@@ -23,14 +22,6 @@ class HubResponse : HubMsg {
         this.responseJson = responseJson
         this.tag = tag
     }
-
-    fun handResonse(hubSocketModel: HubSocketModel): Boolean {
-
-        return hubSocketModel.responseArrived(this)
-    }
-
-
-
 
 }
 

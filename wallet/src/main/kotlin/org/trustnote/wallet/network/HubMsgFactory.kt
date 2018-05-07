@@ -1,4 +1,4 @@
-package org.trustnote.wallet.network.hubapi
+package org.trustnote.wallet.network
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -6,6 +6,7 @@ import org.trustnote.db.entity.MyAddresses
 import org.trustnote.db.entity.MyWitnesses
 import org.trustnote.wallet.util.Utils
 import com.google.gson.JsonArray
+import org.trustnote.wallet.network.pojo.*
 
 object HubMsgFactory {
 

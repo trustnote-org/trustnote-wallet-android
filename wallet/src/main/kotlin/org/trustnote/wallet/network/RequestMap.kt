@@ -1,21 +1,16 @@
 package org.trustnote.wallet.network
 
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
-import org.trustnote.wallet.network.hubapi.HubMsg
-import org.trustnote.wallet.network.hubapi.HubRequest
-import org.trustnote.wallet.network.hubapi.HubResponse
-import org.trustnote.wallet.network.hubapi.MSG_TYPE
+import org.trustnote.wallet.network.pojo.HubMsg
+import org.trustnote.wallet.network.pojo.HubRequest
+import org.trustnote.wallet.network.pojo.HubResponse
+import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.util.Utils
-import java.util.concurrent.TimeUnit
 
 
 class RequestMap {
 
     private val cacheTag = HashMap<String, MSG_TYPE>()
     private val cacheReq = HashMap<String, HubMsg>()
-
-
 
     init {
     }

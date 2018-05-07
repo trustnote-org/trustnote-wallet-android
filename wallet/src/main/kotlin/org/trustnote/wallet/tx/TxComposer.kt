@@ -1,4 +1,4 @@
-package org.trustnote.wallet.walletadmin
+package org.trustnote.wallet.tx
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -6,14 +6,15 @@ import org.trustnote.db.DbHelper
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
-import org.trustnote.wallet.network.hubapi.HubMsgFactory
-import org.trustnote.wallet.network.hubapi.HubRequest
-import org.trustnote.wallet.network.hubapi.HubResponse
-import org.trustnote.wallet.network.hubapi.MSG_TYPE
+import org.trustnote.wallet.network.HubMsgFactory
+import org.trustnote.wallet.network.pojo.HubRequest
+import org.trustnote.wallet.network.pojo.HubResponse
+import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.pojo.Author
 import org.trustnote.wallet.pojo.InputOfPayment
 import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.walletadmin.WalletModel
 
 class TxComposer(
         val sendPaymentInfo: SendPaymentInfo

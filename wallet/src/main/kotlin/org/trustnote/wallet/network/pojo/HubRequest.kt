@@ -1,6 +1,7 @@
-package org.trustnote.wallet.network.hubapi
+package org.trustnote.wallet.network.pojo
 
 import com.google.gson.JsonObject
+import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.util.Utils
 
 class HubRequest : HubMsg {

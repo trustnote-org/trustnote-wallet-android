@@ -1,9 +1,7 @@
 package org.trustnote.wallet.network
 
 import org.trustnote.db.DbHelper
-import org.trustnote.wallet.network.hubapi.HubClient
-import org.trustnote.wallet.network.hubapi.HubResponse
-import org.trustnote.wallet.network.hubapi.HubSocketModel
+import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.util.Utils
 
 //TODO: test case when HubManager return empty\strange result.
@@ -42,7 +40,7 @@ class HubManager {
         hubSocketModel.setupRetryLogic()
     }
 
-    fun getCurrentHub(): HubSocketModel{
+    fun getCurrentHub(): HubSocketModel {
         return this.currentHub
     }
 

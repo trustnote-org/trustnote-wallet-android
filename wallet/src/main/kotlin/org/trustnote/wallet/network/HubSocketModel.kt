@@ -1,4 +1,4 @@
-package org.trustnote.wallet.network.hubapi
+package org.trustnote.wallet.network
 
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.Observable
@@ -10,11 +10,8 @@ import io.reactivex.subjects.Subject
 import org.trustnote.db.DbHelper
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TTT
-import org.trustnote.wallet.network.RequestMap
-import org.trustnote.wallet.pojo.SendPaymentInfo
+import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.walletadmin.TxComposer
-import org.trustnote.wallet.walletadmin.WalletModel
 import java.util.concurrent.TimeUnit
 
 class HubSocketModel {
@@ -44,11 +41,15 @@ class HubSocketModel {
     @Synchronized
     private fun retry() {
         for ((tag, hubMsg) in mRequestMap.getRetryMap()) {
-            if (hubMsg.shouldRetry()) {
+            if (shouldRetry(hubMsg)) {
                 Utils.debugHub("retry with:" + hubMsg.toHubString())
                 mHubClient.sendHubMsg(hubMsg)
             }
         }
+    }
+
+    private fun shouldRetry(hubMsg: HubMsg): Boolean {
+        return (System.currentTimeMillis() - hubMsg.lastSentTime) > TTT.HUB_REQ_RETRY_SECS * 1000
     }
 
     //TODO: for future copy.
@@ -87,7 +88,10 @@ class HubSocketModel {
 
     fun responseArrived(hubResponse: HubResponse): Boolean {
         val originRequset = mRequestMap.getHubRequest(hubResponse.tag)
-
+        if (originRequset == null) {
+            Utils.logW("Cannot find request for" + hubResponse.toHubString())
+            return true
+        }
 
         var handleResult = true
 

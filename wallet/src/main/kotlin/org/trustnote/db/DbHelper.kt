@@ -6,7 +6,7 @@ import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TTT
-import org.trustnote.wallet.network.hubapi.HubResponse
+import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.InputOfPayment
 import org.trustnote.wallet.pojo.SendPaymentInfo
@@ -33,7 +33,8 @@ object DbHelper {
 
     fun fixIsSpentFlag() = getDao().fixIsSpentFlag()
 
-    fun getTxs(walletId: String): List<Tx> = getTxsInternal(walletId)
+    fun getTxs(walletId: String): List<TxUnits> = getTxsInternal(walletId)
+
     fun findInputsForPayment(sendPaymentInfo: SendPaymentInfo) = findInputsForPaymentInternal(sendPaymentInfo)
 
     fun queryAddress(addressList: List<String>) = queryAddressInternal(addressList)
@@ -41,106 +42,15 @@ object DbHelper {
     fun queryAddressByAddresdId(addressId: String) = queryAddressByAddresdIdInternal(addressId)
 
     fun queryAddressByWalletId(walletId: String) = queryAddressByWalletIdInternal(walletId)
-
-
-}
-
-@Suppress("UNCHECKED_CAST")
-fun getTxsInternal(walletId: String): List<Tx> {
-    //TODO: add the asset logic according JS.
-    val dao = TrustNoteDataBase.getInstance(TApp.context).unitsDao()
-    val txUnits = dao.queryTxUnits(walletId)
-    val assocMovements = HashMap<String, HashMap<String, Any>>()
-    for (txUnit in txUnits) {
-        if (!assocMovements.containsKey(txUnit.unit)) {
-            val initMap = HashMap<String, Any>()
-            initMap["plus"] = 0L
-            initMap["has_minus"] = false
-            initMap["ts"] = txUnit.ts
-            initMap["level"] = txUnit.level
-            initMap["is_stable"] = txUnit.iisStable
-            initMap["sequence"] = txUnit.sequence
-            initMap["fee"] = txUnit.fee
-            initMap["mci"] = txUnit.mci
-            assocMovements[txUnit.unit] = initMap
-        }
-        val currentAssocMovement = assocMovements[txUnit.unit]!!
-        if (txUnit.toAddress.isNotEmpty()) {
-            currentAssocMovement["plus"] = (currentAssocMovement["plus"] as Long) + txUnit.amount
-            if (!currentAssocMovement.containsKey("arrMyRecipients")) {
-                currentAssocMovement["arrMyRecipients"] = mutableListOf<HashMap<String, Any>>()
-            }
-
-            val myRecipients = HashMap<String, Any>()
-            myRecipients["my_address"] = txUnit.toAddress
-            myRecipients["amount"] = txUnit.amount
-
-            (currentAssocMovement["arrMyRecipients"] as MutableList<HashMap<String, Any>>).add(myRecipients)
-        }
-
-        if (txUnit.fromAddress.isNotEmpty()) {
-            currentAssocMovement["has_minus"] = true
-        }
+    fun queryOutputAddress(unitId: String, walletId: String): List<TxOutputs> {
+        return getDao().queryOutputAddress(unitId, walletId).asList()
     }
 
-    val res = mutableListOf<Tx>()
-
-    assocMovements.forEach {
-        val movement = it.value
-        val unitId = it.key
-        if (DbConst.UNIT_SEQUENCE_GOOD != it.value["sequence"]) {
-            val transaction = Tx(action = TxType.invalid,
-                    confirmations = movement["is_stable"] as Int,
-                    unit = it.key,
-                    fee = movement["fee"] as Long,
-                    ts = movement["ts"] as Long,
-                    level = movement["level"] as Int,
-                    mci = movement["mci"] as Int)
-            res.add(transaction)
-        } else if (movement["plus"] as Long > 0 && !(movement["has_minus"] as Boolean)) {
-            val arrPayerAddresses = dao.queryInputAddresses(unitId)
-            (movement["arrMyRecipients"] as MutableList<HashMap<String, Any>>).forEach {
-                val objRecipient = it
-                val transaction = Tx(action = TxType.received,
-                        amount = objRecipient["amount"] as Long,
-                        myAddress = objRecipient["my_address"] as String,
-                        arrPayerAddresses = arrPayerAddresses,
-                        confirmations = movement["is_stable"] as Int,
-                        unit = unitId,
-                        fee = movement["fee"] as Long,
-                        ts = movement["ts"] as Long,
-                        level = movement["level"] as Int,
-                        mci = movement["mci"] as Int)
-                res.add(transaction)
-            }
-        } else if (movement["has_minus"] as Boolean) {
-            val payee_rows = dao.queryOutputAddress(unitId, walletId)
-            val txType = if (payee_rows.any { it.isExternal }) TxType.sent else TxType.moved
-            payee_rows.forEach {
-                if (txType == TxType.sent && !it.isExternal) {
-                    //Do nothing
-                } else {
-                    val transaction = Tx(action = txType,
-                            amount = it.amount,
-                            addressTo = it.address,
-                            confirmations = movement["is_stable"] as Int,
-                            unit = unitId,
-                            fee = movement["fee"] as Long,
-                            ts = movement["ts"] as Long,
-                            level = movement["level"] as Int,
-                            mci = movement["mci"] as Int)
-                    if (txType == TxType.moved) {
-                        transaction.myAddress = it.address
-                    }
-                    res.add(transaction)
-                }
-            }
-        }
+    fun queryInputAddresses(unitId: String): Array<String> {
+        return getDao().queryInputAddresses(unitId)
     }
 
-    return res
 }
-
 
 fun getDao(): UnitsDao {
     return TrustNoteDataBase.getInstance(TApp.context).unitsDao()
@@ -377,4 +287,9 @@ fun queryAddressByAddresdIdInternal(addressId: String): MyAddresses {
     //How about query with no result.
     val res = getDao().queryAddress(listOf<String>(addressId))
     return res[0]
+}
+
+private fun getTxsInternal(walletId: String): List<TxUnits> {
+    val dao = TrustNoteDataBase.getInstance(TApp.context).unitsDao()
+    return dao.queryTxUnits(walletId).asList()
 }

@@ -6,9 +6,10 @@ import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
-import org.trustnote.wallet.network.hubapi.HubMsgFactory
+import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.pojo.Credential
 import org.trustnote.wallet.pojo.TProfile
+import org.trustnote.wallet.tx.TxParser
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
@@ -65,7 +66,7 @@ class WalletModel {
     @Synchronized
     fun updateTxs() {
         tProfile!!.credentials.forEach {
-            val txs = DbHelper.getTxs(it.walletId)
+            val txs = TxParser().getTxs(it.walletId)
             it.txDetails = txs
         }
     }

@@ -1,9 +1,8 @@
-package org.trustnote.wallet.network.hubapi
+package org.trustnote.wallet.network.pojo
 
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import org.trustnote.wallet.TTT
 import org.trustnote.wallet.util.Utils
 
 open class HubMsg {
@@ -38,9 +37,6 @@ open class HubMsg {
         return """["${msgType}",${msgJson}]"""
     }
 
-    fun shouldRetry(): Boolean {
-        return (System.currentTimeMillis() - lastSentTime) > TTT.HUB_REQ_RETRY_SECS * 1000
-    }
 }
 
 

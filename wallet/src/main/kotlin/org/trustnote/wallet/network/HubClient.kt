@@ -1,10 +1,6 @@
-package org.trustnote.wallet.network.hubapi
+package org.trustnote.wallet.network
 
-import android.net.NetworkInfo
-import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import java.net.URI
 import java.nio.channels.NotYetConnectedException
 
@@ -12,9 +8,9 @@ import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import org.trustnote.wallet.util.Utils
 
-import io.reactivex.subjects.Subject
-import org.trustnote.wallet.TApp
-import org.trustnote.wallet.network.HubManager
+import org.trustnote.wallet.network.pojo.HubMsg
+import org.trustnote.wallet.network.pojo.HubResponse
+import org.trustnote.wallet.network.pojo.MSG_TYPE
 
 
 class HubClient : WebSocketClient {
@@ -73,7 +69,7 @@ class HubClient : WebSocketClient {
 
         //TODO: remove the req after every thing is OK.
         if (hubMsg.msgType == MSG_TYPE.response) {
-            (hubMsg as HubResponse).handResonse(mHubSocketModel)
+            mHubSocketModel.responseArrived(hubMsg as HubResponse)
         }
     }
 

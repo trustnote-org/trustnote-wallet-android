@@ -1,15 +1,12 @@
 package org.trustnote.wallet.settings
 
 import android.webkit.ValueCallback
-import org.trustnote.db.DbHelper
-import org.trustnote.wallet.TTT
 
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.js.JsTest
-import org.trustnote.wallet.network.HubManager
-import org.trustnote.wallet.network.hubapi.HubMsgFactory
 import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
+import org.trustnote.wallet.tx.TxComposer
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.walletadmin.*
 

@@ -14,7 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.network.hubapi.HubClient
+import org.trustnote.wallet.network.HubClient
 
 import timber.log.Timber
 import java.util.*
@@ -26,6 +26,10 @@ object Utils {
 
     fun debugLog(msg: String) {
         Timber.d("TTT" + msg)
+    }
+
+    fun logW(msg: String) {
+        Timber.w("TTT" + msg)
     }
 
     fun debugJS(s: String) {
