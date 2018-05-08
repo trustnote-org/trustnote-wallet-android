@@ -161,8 +161,8 @@ class JSApi {
 
     fun signSync(b64_hash: String, xPrivKey: String, path: String): String {
         val seperator = ","
-        Utils.debugLog("$b64_hash$seperator$xPrivKey$seperator$path");
-        return TWebView.sInstance.callJSSync("window.Client.sign($b64_hash$seperator$xPrivKey$seperator$path);")
+        Utils.debugLog("$b64_hash$seperator$xPrivKey$seperator$path")
+        return Utils.jsStr2NormalStr(TWebView.sInstance.callJSSync("window.Client.sign($b64_hash$seperator$xPrivKey$seperator$path);"))
     }
 
     /**
@@ -206,7 +206,7 @@ class JSApi {
     }
 
     fun getBase64HashSync(json: String): String {
-        return TWebView.sInstance.callJSSync("window.Client.getBase64Hash($json);")
+        return Utils.jsStr2NormalStr(TWebView.sInstance.callJSSync("window.Client.getBase64Hash($json);"))
     }
 
     /**
@@ -217,7 +217,7 @@ class JSApi {
      * @return {string} base64过的hash
      */
     fun getUnitHashSync(unit: String): String {
-        return TWebView.sInstance.callJSSync("window.Client.getUnitHash($unit);")
+        return Utils.jsStr2NormalStr(TWebView.sInstance.callJSSync("window.Client.getUnitHash($unit);"))
     }
 
 

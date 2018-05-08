@@ -74,7 +74,66 @@ fun testPostTxIn() {
 }
 """
 
-        val res = api.getUnitHashToSignSync(payload)
+
+
+        val unit2 = """{
+  "alt": "1",
+  "authenfiers": [
+    {
+      "address": "TTE5JNCIVLRUPGBHFC6TDZXAW5GO6U72",
+      "authentifiers": {
+        "r": "0"
+      },
+      "definition": [
+        "sig",
+        {
+          "pubkey": "A75zjR9ve2Jx81atNw10wVsxEmJc3Y6QJ2MTLSFcr06D"
+        }
+      ]
+    }
+  ],
+
+  "timestamp": 1525759443,
+  "headers_commission": 391,
+  "last_ball": "gNSyfDlVW70DwbEJSzLGNkU4fNY7/JcpqKI74DnYXrg=",
+  "last_ball_unit": "aYJO52pUJ9eQI3CvldRTE4bu62yiePCbSUqY0qikA/o=",
+  "messages": [
+    {
+      "app": "payment",
+      "payload": {
+        "inputs": [
+          {
+            "message_index": 0,
+            "output_index": 1,
+            "unit": "yJWsxthUK3D9AIx+hFqZEdlk0O7y+zkL+hBuSssJA60="
+          }
+        ],
+        "outputs": [
+          {
+            "address": "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4",
+            "amount": 17000000
+          },
+          {
+            "address": "FJDDWP4AJ6I44HSKHPXXIX6RSQMH674G",
+            "amount": 21337648
+          }
+        ]
+      },
+      "payload_hash": "1z7NQS9r5KjdtnxRS/DTSgU3bwXAFc6BJP/QDYws5Do=",
+      "payload_location": "inline"
+    }
+  ],
+  "parent_units": [
+    "thEzi5jnbxpvuINlGYHjzPxdm+lo2z06u21A0vxw7Xo="
+  ],
+  "payload_commission": 197,
+  "unit": "0",
+  "version": "1.0",
+  "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="
+}"""
+
+
+        val res = api.getUnitHashToSignSync(unit2)
         Utils.debugJS(res)
 
         val path = """"m/44'/0'/0'/1/2""""

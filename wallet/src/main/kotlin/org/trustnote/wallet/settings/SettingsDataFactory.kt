@@ -37,12 +37,12 @@ object SettingsDataFactory {
         val testPostTx = SettingItem("Test: Test post tx")
         testPostTx.action = Runnable {
 
-            val sendPaymentInfo = SendPaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 3000000L)
+            val sendPaymentInfo = SendPaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 17000000L)
 
             UnitComposer(sendPaymentInfo).startSending()
 
 
-            //JsTest.testPostTx()
+//            JsTest.testPostTx()
         }
         res.add(testPostTx)
 

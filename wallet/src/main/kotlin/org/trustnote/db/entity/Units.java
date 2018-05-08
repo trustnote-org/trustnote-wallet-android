@@ -72,12 +72,12 @@ public class Units extends TBaseEntity {
   @ColumnInfo(
       name = "is_free"
   )
-  public int isFree;
+  public transient int isFree;
 
   @ColumnInfo(
       name = "is_on_main_chain"
   )
-  public int isOnMainChain;
+  public transient int isOnMainChain;
 
   @ColumnInfo(
       name = "main_chain_index"
@@ -102,7 +102,7 @@ public class Units extends TBaseEntity {
   @ColumnInfo(
       name = "is_stable"
   )
-  public int isStable;
+  public transient int isStable;
 
   @ColumnInfo(
       name = "sequence"
@@ -121,9 +121,10 @@ public class Units extends TBaseEntity {
 
   @Ignore
   @Expose
-  public transient List<Messages> messages;
+  public List<Messages> messages;
 
   @Ignore
   @Expose
+  @SerializedName("authors")
   public List<Authentifiers> authenfiers;
 }

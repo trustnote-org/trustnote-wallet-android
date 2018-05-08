@@ -18,40 +18,40 @@ public class Inputs extends TBaseEntity {
   )
   @NonNull
   @SerializedName("owner_unit")
-  public String unit;
+  public transient String unit;
 
   @ColumnInfo(
       name = "message_index"
   )
   @NonNull
   @SerializedName("msg_non_dup_index")
-  public int messageIndex;
+  public transient int messageIndex;
 
   @ColumnInfo(
       name = "input_index"
   )
   @NonNull
-  public int inputIndex;
+  public transient int inputIndex;
 
   @ColumnInfo(
       name = "asset"
   )
-  public String asset;
+  public transient String asset;
 
   @ColumnInfo(
       name = "denomination"
   )
-  public int denomination;
+  public transient int denomination;
 
   @ColumnInfo(
       name = "is_unique"
   )
-  public Integer isUnique;
+  public transient Integer isUnique;
 
   @ColumnInfo(
       name = "type"
   )
-  public String type;
+  public transient String type;
 
   @ColumnInfo(
       name = "src_unit"
@@ -74,28 +74,26 @@ public class Inputs extends TBaseEntity {
   @ColumnInfo(
       name = "from_main_chain_index"
   )
-  public Integer fromMainChainIndex;
+  public transient Integer fromMainChainIndex;
 
   @ColumnInfo(
       name = "to_main_chain_index"
   )
-  public Integer toMainChainIndex;
+  public transient Integer toMainChainIndex;
 
   @ColumnInfo(
       name = "serial_number"
   )
-  public Integer serialNumber;
+  public transient Integer serialNumber;
 
   @ColumnInfo(
       name = "amount"
   )
-  public Long amount;
+  public transient Long amount;
 
   @ColumnInfo(
       name = "address"
   )
-  public String address;
+  public transient String address;
 
-  @Ignore
-  public MyAddresses srcAddress;
 }

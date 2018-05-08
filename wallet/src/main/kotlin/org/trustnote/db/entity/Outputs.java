@@ -18,29 +18,29 @@ public class Outputs extends TBaseEntity {
             name = "unit"
     )
     @NonNull
-    public String unit;
+    public transient String unit;
 
     @ColumnInfo(
             name = "message_index"
     )
     @NonNull
-    public int messageIndex;
+    public transient int messageIndex;
 
     @ColumnInfo(
             name = "output_index"
     )
     @NonNull
-    public int outputIndex;
+    public transient int outputIndex;
 
     @ColumnInfo(
             name = "asset"
     )
-    public String asset;
+    public transient String asset;
 
     @ColumnInfo(
             name = "denomination"
     )
-    public int denomination;
+    public transient int denomination;
 
     @ColumnInfo(
             name = "address"
@@ -55,20 +55,20 @@ public class Outputs extends TBaseEntity {
     @ColumnInfo(
             name = "blinding"
     )
-    public String blinding;
+    public transient String blinding;
 
     @ColumnInfo(
             name = "output_hash"
     )
-    public String outputHash;
+    public transient String outputHash;
 
     @ColumnInfo(
             name = "is_serial"
     )
-    public Integer isSerial;
+    public transient Integer isSerial;
 
     @ColumnInfo(
             name = "is_spent"
     )
-    public int isSpent;
+    public transient int isSpent;
 }

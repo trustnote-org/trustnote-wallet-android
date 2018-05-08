@@ -59,23 +59,18 @@ class UnitComposer(
         sendPaymentInfo.lastBallMCI = responseJson.get("last_stable_mc_ball_mci").asInt
 
         initUnits()
-        genPayloadInputs()
-        genAuthors()
 
         units.parentUnits = responseJson.getAsJsonArray("parent_units")
-
         units.lastBall = responseJson.get("last_stable_mc_ball").asString
-
         units.lastBallUnit = responseJson.get("last_stable_mc_ball_unit").asString
-
         units.witnessListUnit = responseJson.get("witness_list_unit").asString
-
-
         units.headersCommission = TTT.PLACEHOLDER_AMOUNT
         units.payloadCommission = TTT.PLACEHOLDER_AMOUNT
-
         units.unit = TTT.PLACEHOLDER_HASH
         units.creationDate = System.currentTimeMillis() / 1000L
+
+        genPayloadInputs()
+        genAuthors()
 
         genCommission()
         genChange()
@@ -89,22 +84,33 @@ class UnitComposer(
         var totalInput = 0L
         payload.inputs.forEach { totalInput += it.amount }
 
-        changeOutput.amount = totalInput - sendPaymentInfo.amount
-        -units.payloadCommission - units.headersCommission
+        changeOutput.amount = (totalInput - sendPaymentInfo.amount - units.payloadCommission - units.headersCommission)
+
+
+        Utils.debugLog("after genChange")
+        Utils.debugLog(Utils.toGsonString(payload))
 
     }
 
     private fun genUnitsHashAndSign() {
-        units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
-
         authors.forEach {
             val myAddresses = DbHelper.queryAddressByAddresdId(it.address)
-            jsApi.signSync(Utils.toGsonString(units), WalletModel.instance.tProfile!!.xPrivKey, Utils.genJsBip44Path(myAddresses))
+            val hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
+            val sign = jsApi.signSync(hashToSign, WalletModel.instance.tProfile!!.xPrivKey, Utils.genJsBip44Path(myAddresses))
+
+        units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
+
+            it.authentifiers.remove("r")
+            it.authentifiers.addProperty("r", sign)
+
         }
 
     }
 
     private fun genPayloadHash() {
+        Utils.debugLog("befroe genPayloadHash")
+        Utils.debugLog(Utils.toGsonString(payload))
+
         messages.payloadHash = JSApi().getBase64HashSync(Utils.toGsonString(payload))
     }
 
@@ -125,6 +131,7 @@ class UnitComposer(
             authentifiers.address = it.address
             authentifiers.definition = Utils.parseJsonArray(it.definition)
             authentifiers.authentifiers = Utils.genJsonObject("r", TTT.PLACEHOLDER_SIG)
+            authors.add(authentifiers)
         }
     }
 
@@ -164,7 +171,11 @@ class UnitComposer(
         val fundedAddress = DbHelper.queryFundedAddressesByAmount(sendPaymentInfo.walletId, sendPaymentInfo.amount)
         val filterFundedAddress = filterMostFundedAddresses(fundedAddress, sendPaymentInfo.amount)
         val addresses = mutableListOf<String>()
+
         filterFundedAddress.forEach { addresses.add(it.address) }
+
+        //TODO: TEST CODE
+        //addresses.add("TTE5JNCIVLRUPGBHFC6TDZXAW5GO6U72")
 
         val outputs = DbHelper.queryUtxoByAddress(addresses, sendPaymentInfo.lastBallMCI)
         val res = mutableListOf<Inputs>()

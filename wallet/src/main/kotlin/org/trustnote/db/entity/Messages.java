@@ -27,7 +27,7 @@ public class Messages extends TBaseEntity {
       name = "message_index"
   )
   @NonNull
-  public int messageIndex;
+  public transient int messageIndex;
 
   @ColumnInfo(
       name = "app"
