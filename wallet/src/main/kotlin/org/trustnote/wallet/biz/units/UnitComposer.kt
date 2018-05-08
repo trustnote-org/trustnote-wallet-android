@@ -137,8 +137,7 @@ class UnitComposer(
 
 
     private fun queryOrIssueNotUsedChangeAddress(): String {
-        //TODO
-        return "FJDDWP4AJ6I44HSKHPXXIX6RSQMH674G"
+        return WalletModel.instance.findNextUnsedChangeAddress(sendPaymentInfo.walletId).address
     }
 
     fun postNewUnitToHub() {

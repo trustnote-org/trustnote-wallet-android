@@ -1,7 +1,9 @@
 package org.trustnote.db
 
 import com.google.gson.*
+import io.reactivex.Maybe
 import io.reactivex.Observable
+import io.reactivex.Single
 import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
@@ -17,6 +19,7 @@ object DbHelper {
     fun saveUnits(units: Array<Units>) {
         getDao().saveUnits(units)
     }
+
     fun saveWalletMyAddress(credential: Credential) = saveWalletMyAddressInternal(credential)
     fun saveMyWitnesses(myWitnesses: List<String>) {
         getDao().saveMyWitnesses(myWitnesses.mapToTypedArray {
@@ -26,6 +29,7 @@ object DbHelper {
         })
 
     }
+
     fun getMyWitnesses(): Array<MyWitnesses> = getMyWitnessesInternal()
     fun getAllWalletAddress(walletId: String): Array<MyAddresses> = getAllWalletAddressInternal(walletId)
     fun getAllWalletAddress(): Array<MyAddresses> = getAllWalletAddressInternal()
@@ -65,6 +69,9 @@ object DbHelper {
         return getDao().queryUtxoByAddress(addressList, lastBallMCI)
     }
 
+    fun queryUnusedChangeAddress(walletid: String): Single<MyAddresses> {
+        return getDao().queryUnusedChangeAddress(walletid)
+    }
 
 }
 
@@ -131,14 +138,12 @@ fun monitorOutputsInternal(): Observable<Array<Outputs>> {
 }
 
 
-
 inline fun <T, reified R> List<T>.mapToTypedArray(transform: (T) -> R): Array<R> {
     return when (this) {
         is RandomAccess -> Array(size) { index -> transform(this[index]) }
         else -> with(iterator()) { Array(size) { transform(next()) } }
     }
 }
-
 
 
 fun queryAddressInternal(addressList: List<String>): Array<MyAddresses> {

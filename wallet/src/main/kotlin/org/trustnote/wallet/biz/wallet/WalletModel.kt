@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.wallet
 
+import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
@@ -261,6 +262,18 @@ class WalletModel {
         val req = HubMsgFactory.getHistory(HubManager.instance.getCurrentHub(), witnesses, addresses)
         HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(req)
 
+    }
+
+    fun findNextUnsedChangeAddress(walletId: String): MyAddresses {
+        var res = MyAddresses()
+        DbHelper.queryUnusedChangeAddress(walletId).subscribe(
+                Consumer {
+                    res = it
+                }, Consumer {
+            //Issue and save new address.
+
+        })
+        return res
     }
 
 }

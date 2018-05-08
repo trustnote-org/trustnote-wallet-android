@@ -2,6 +2,7 @@ package org.trustnote.db.dao
 
 import android.arch.persistence.room.*
 import io.reactivex.Flowable
+import io.reactivex.Single
 import org.trustnote.db.Balance
 import org.trustnote.db.FundedAddress
 import org.trustnote.db.TxOutputs
@@ -131,6 +132,16 @@ abstract class UnitsDao {
 
     @Query("SELECT DISTINCT address FROM inputs WHERE unit= :unitId ORDER BY address")
     abstract fun queryInputAddresses(unitId: String): Array<String>
+
+    @Query("""
+        SELECT my_addresses.* FROM my_addresses
+        LEFT JOIN outputs ON outputs.address = my_addresses.address
+        WHERE outputs.address IS NULL
+        AND my_addresses.wallet = :walletId
+        AND is_change = 1
+        LIMIT 1
+        """)
+    abstract fun queryUnusedChangeAddress(walletId: String): Single<MyAddresses>
 
     @Query("""
         SELECT outputs.address, SUM(amount) AS amount, (my_addresses.address IS NULL) AS is_external
