@@ -98,12 +98,12 @@ class UnitComposer(
             val hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
             val sign = jsApi.signSync(hashToSign, WalletModel.instance.tProfile!!.xPrivKey, Utils.genJsBip44Path(myAddresses))
 
-        units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
-
             it.authentifiers.remove("r")
             it.authentifiers.addProperty("r", sign)
 
         }
+
+        units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
 
     }
 
@@ -141,6 +141,13 @@ class UnitComposer(
         return "FJDDWP4AJ6I44HSKHPXXIX6RSQMH674G"
     }
 
+    fun postNewUnitToHub() {
+        val mPostJointRequest = HubMsgFactory.getPostJointRequest(HubManager.instance.getCurrentHub(), Utils.toGsonObject(units))
+
+        HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(mPostJointRequest)
+
+    }
+
     fun startSending() {
         //        UnitComposer(sendPaymentInfo).composeUnits(hubResponse)
         val witnesses = DbHelper.getMyWitnesses()
@@ -161,6 +168,8 @@ class UnitComposer(
 
     private fun gotParentFromHub(hubRequest: HubRequest) {
         composeUnits(hubRequest.hubResponse)
+
+        postNewUnitToHub()
     }
 
 

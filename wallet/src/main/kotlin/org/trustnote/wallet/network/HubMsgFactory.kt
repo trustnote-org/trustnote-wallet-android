@@ -21,6 +21,7 @@ object HubMsgFactory {
     const val CMD_GET_WITNESSES = "get_witnesses"
     const val CMD_GET_HISTORY = "light/get_history"
     const val CMD_GET_PARENT_FOR_NEW_TX = "light/get_parents_and_last_ball_and_witness_list_unit"
+    const val CMD_POST_JOINT = "post_joint"
 
     fun parseMsg(textFromHub: String): HubMsg {
         val index = textFromHub.indexOf(',')
@@ -87,6 +88,13 @@ object HubMsgFactory {
 
         return HubRequest(CMD_GET_PARENT_FOR_NEW_TX, hubSocketModel.getRandomTag(), params)
     }
+
+    fun getPostJointRequest(hubSocketModel: HubSocketModel, units: JsonObject): HubRequest {
+        val params = JsonObject()
+        params.add("unit", units)
+        return HubRequest(CMD_POST_JOINT, hubSocketModel.getRandomTag(), params)
+    }
+
 
 
 }

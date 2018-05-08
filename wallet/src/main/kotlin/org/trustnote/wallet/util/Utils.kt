@@ -18,6 +18,10 @@ import org.trustnote.wallet.network.HubClient
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
+import com.google.gson.JsonObject
+import com.google.gson.JsonElement
+
+
 
 object Utils {
 
@@ -152,6 +156,11 @@ object Utils {
     fun toGsonString(o: Any): String {
         return getGson().toJson(o)
     }
+
+    fun toGsonObject(o: Any): JsonObject {
+        return  getGson().toJsonTree(o) as JsonObject
+    }
+
 
 }
 
