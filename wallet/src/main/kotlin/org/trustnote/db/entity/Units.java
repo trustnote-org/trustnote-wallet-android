@@ -6,9 +6,12 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.JsonArray;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import org.jetbrains.annotations.NotNull;
+import org.trustnote.wallet.TTT;
 
 import java.lang.Integer;
 import java.lang.String;
@@ -28,17 +31,18 @@ public class Units extends TBaseEntity {
   @ColumnInfo(
       name = "creation_date"
   )
+  @SerializedName("timestamp")
   public long creationDate;
 
   @ColumnInfo(
       name = "version"
   )
-  public String version;
+  public String version = TTT.version;
 
   @ColumnInfo(
       name = "alt"
   )
-  public String alt;
+  public String alt = TTT.alt;
 
   @ColumnInfo(
       name = "witness_list_unit"
@@ -58,12 +62,12 @@ public class Units extends TBaseEntity {
   @ColumnInfo(
       name = "headers_commission"
   )
-  public int headersCommission;
+  public Long headersCommission;
 
   @ColumnInfo(
       name = "payload_commission"
   )
-  public int payloadCommission;
+  public Long payloadCommission;
 
   @ColumnInfo(
       name = "is_free"
@@ -109,6 +113,11 @@ public class Units extends TBaseEntity {
       name = "best_parent_unit"
   )
   public String bestParentUnit;
+
+  @Ignore
+  public JsonArray parentUnits;
+  @Ignore
+  public String lastBall;
 
   @Ignore
   @Expose

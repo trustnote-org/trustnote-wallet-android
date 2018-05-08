@@ -187,8 +187,8 @@ abstract class UnitsDao {
             insertAuthentifiers(oneUnit.authenfiers.toTypedArray())
             insertMessages(oneUnit.messages.toTypedArray())
             for (oneMessage in oneUnit.messages) {
-                insertInputs(oneMessage.inputs.toTypedArray())
-                insertOutputs(oneMessage.outputs.toTypedArray())
+                insertInputs(oneMessage.payload.inputs.toTypedArray())
+                insertOutputs(oneMessage.payload.outputs.toTypedArray())
             }
         }
     }
@@ -200,8 +200,8 @@ abstract class UnitsDao {
 
             insertMessages(oneUnit.messages.toTypedArray())
             for (oneMessage in oneUnit.messages) {
-                insertInputs(oneMessage.inputs.toTypedArray())
-                insertOutputs(oneMessage.outputs.toTypedArray())
+                insertInputs(oneMessage.payload.inputs.toTypedArray())
+                insertOutputs(oneMessage.payload.outputs.toTypedArray())
             }
         }
     }

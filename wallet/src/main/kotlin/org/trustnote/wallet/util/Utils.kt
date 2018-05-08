@@ -9,6 +9,7 @@ import com.google.gson.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import org.trustnote.db.entity.MyAddresses
 import org.trustnote.db.entity.TBaseEntity
 
 import org.trustnote.wallet.TApp
@@ -68,7 +69,7 @@ object Utils {
         Thread { runnable.run() }.start()
     }
 
-    fun generateRandomString(length:Int): String {
+    fun generateRandomString(length: Int): String {
         //TODO: USE crypto alg.
         return "RANDOM:" + Random().nextInt()
     }
@@ -78,7 +79,7 @@ object Utils {
         return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
     }
 
-    fun debugHub(s:String) {
+    fun debugHub(s: String) {
         d(HubClient::class.java, s)
         //android.util.Log.e(HubClient::class.java.simpleName, s)
     }
@@ -99,6 +100,11 @@ object Utils {
     fun genJsBip44Path(account: Int, isChange: Int, index: Int): String {
         //Sample = "m/44'/0'/0'/1/2"
         return """"m/44'/0'/$account'/$isChange/$index""""
+    }
+
+    fun genJsBip44Path(myAddresses: MyAddresses): String {
+        //Sample = "m/44'/0'/0'/1/2"
+        return genJsBip44Path(myAddresses.account, myAddresses.isChange, myAddresses.addressIndex)
     }
 
     fun jsStr2NormalStr(jsString: String): String {
@@ -130,6 +136,21 @@ object Utils {
             child
         }
         return children
+    }
+
+    fun parseJsonArray(jString: String): JsonArray {
+        val parser = JsonParser()
+        return parser.parse(jString) as JsonArray
+    }
+
+    fun genJsonObject(attr: String, value: String): JsonObject {
+        val res = JsonObject()
+        res.addProperty(attr, value)
+        return res
+    }
+
+    fun toGsonString(o: Any): String {
+        return getGson().toJson(o)
     }
 
 }

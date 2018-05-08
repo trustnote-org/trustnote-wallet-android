@@ -6,6 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
@@ -42,6 +43,9 @@ public class Authentifiers extends TBaseEntity {
     @Ignore
     @SerializedName("authentifiers")
     public JsonObject authentifiers;
+
+    @Ignore
+    public JsonArray definition;
 
     public void parsePathAndAuthentifier() {
         if (authentifiers != null) {

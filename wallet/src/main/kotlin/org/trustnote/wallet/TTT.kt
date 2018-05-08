@@ -22,6 +22,8 @@ class TTT {
 
         const val version = "1.0"
         const val alt = "1"
+        const val unitMsgTypePayment = "payment"
+        const val unitPayloadLoationInline = "inline"
 
         const val GENESIS_UNIT = "rg1RzwKwnfRHjBojGol3gZaC5w7kR++rOR6O61JRsrQ="
         const val BLACKBYTES_ASSET = "9qQId3BlWRQHvVy+STWyLKFb3lUd0xfQhX6mPVEHC2c="
@@ -80,6 +82,7 @@ class TTT {
         const val MAX_FEE = 20000L
 
         // 256 bits (32 bytes) base64: 44 bytes
+        const val PLACEHOLDER_AMOUNT = 111L
         const val PLACEHOLDER_HASH = "--------------------------------------------"
         // 88 bytes
         const val PLACEHOLDER_SIG = "----------------------------------------------------------------------------------------"

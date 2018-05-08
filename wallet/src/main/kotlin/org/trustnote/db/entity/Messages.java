@@ -5,6 +5,10 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.support.annotation.NonNull;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.trustnote.db.Payload;
+
 import java.lang.String;
 import java.util.List;
 
@@ -43,7 +47,7 @@ public class Messages extends TBaseEntity {
   @ColumnInfo(
       name = "payload"
   )
-  public transient String payload;
+  public transient String payloadStr;
 
   @ColumnInfo(
       name = "payload_uri_hash"
@@ -56,8 +60,7 @@ public class Messages extends TBaseEntity {
   public String payloadUri;
 
   @Ignore
-  public List<Inputs> inputs;
-  @Ignore
-  public List<Outputs> outputs;
+  @SerializedName("payload")
+  public Payload payload = new Payload();
 
 }

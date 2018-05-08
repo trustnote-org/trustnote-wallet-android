@@ -30,7 +30,6 @@ class UnitsManager {
             }
             units.authenfiers = authentifiersArray
 
-
             val messageArray = Utils.parseChild(units, units.json, Messages::class.java.canonicalName, "messages") as List<Messages>
 
             messageArray.forEachIndexed { index, messages -> messages.messageIndex = index }
@@ -55,14 +54,11 @@ class UnitsManager {
                     outputs.unit = units.unit;outputs.messageIndex = message.messageIndex; outputs.outputIndex = index
                 }
 
-                message.inputs = inputArray
+                message.payload.inputs = inputArray
 
-                message.outputs = outputArray
+                message.payload.outputs = outputArray
             }
         }
-
-
-        val db = TrustNoteDataBase.getInstance(TApp.context)
 
         DbHelper.saveUnits(jointList.mapToTypedArray { it.unit })
 

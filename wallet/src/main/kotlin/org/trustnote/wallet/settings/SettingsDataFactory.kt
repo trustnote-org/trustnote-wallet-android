@@ -6,7 +6,7 @@ import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.js.JsTest
 import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
-import org.trustnote.wallet.biz.tx.TxComposer
+import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.biz.wallet.NewSeedActivity
 import org.trustnote.wallet.biz.wallet.SimpleFragment
 import org.trustnote.wallet.biz.wallet.SimpleFragmentActivity
@@ -39,7 +39,7 @@ object SettingsDataFactory {
 
             val sendPaymentInfo = SendPaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 3000000L)
 
-            TxComposer(sendPaymentInfo).startSending()
+            UnitComposer(sendPaymentInfo).startSending()
 
 
             //JsTest.testPostTx()

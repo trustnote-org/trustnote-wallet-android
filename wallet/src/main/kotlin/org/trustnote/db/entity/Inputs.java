@@ -2,6 +2,7 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -88,10 +89,13 @@ public class Inputs extends TBaseEntity {
   @ColumnInfo(
       name = "amount"
   )
-  public Integer amount;
+  public Long amount;
 
   @ColumnInfo(
       name = "address"
   )
   public String address;
+
+  @Ignore
+  public MyAddresses srcAddress;
 }

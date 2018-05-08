@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "dfb5187d4480cbe4fa563ff915df02ed",
+    "identityHash": "4c762e7e7cf7a7edb3f03ef557c61be5",
     "entities": [
       {
         "tableName": "my_witnesses",
@@ -82,7 +82,7 @@
       },
       {
         "tableName": "units",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`unit` TEXT NOT NULL, `creation_date` INTEGER NOT NULL, `version` TEXT, `alt` TEXT, `witness_list_unit` TEXT, `last_ball_unit` TEXT, `content_hash` TEXT, `headers_commission` INTEGER NOT NULL, `payload_commission` INTEGER NOT NULL, `is_free` INTEGER NOT NULL, `is_on_main_chain` INTEGER NOT NULL, `main_chain_index` INTEGER, `latest_included_mc_index` INTEGER, `level` INTEGER, `witnessed_level` INTEGER, `is_stable` INTEGER NOT NULL, `sequence` TEXT, `best_parent_unit` TEXT, PRIMARY KEY(`unit`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`unit` TEXT NOT NULL, `creation_date` INTEGER NOT NULL, `version` TEXT, `alt` TEXT, `witness_list_unit` TEXT, `last_ball_unit` TEXT, `content_hash` TEXT, `headers_commission` INTEGER, `payload_commission` INTEGER, `is_free` INTEGER NOT NULL, `is_on_main_chain` INTEGER NOT NULL, `main_chain_index` INTEGER, `latest_included_mc_index` INTEGER, `level` INTEGER, `witnessed_level` INTEGER, `is_stable` INTEGER NOT NULL, `sequence` TEXT, `best_parent_unit` TEXT, PRIMARY KEY(`unit`))",
         "fields": [
           {
             "fieldPath": "unit",
@@ -130,13 +130,13 @@
             "fieldPath": "headersCommission",
             "columnName": "headers_commission",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "payloadCommission",
             "columnName": "payload_commission",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "isFree",
@@ -237,7 +237,7 @@
             "notNull": false
           },
           {
-            "fieldPath": "payload",
+            "fieldPath": "payloadStr",
             "columnName": "payload",
             "affinity": "TEXT",
             "notNull": false
@@ -495,7 +495,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"dfb5187d4480cbe4fa563ff915df02ed\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"4c762e7e7cf7a7edb3f03ef557c61be5\")"
     ]
   }
 }
