@@ -13,21 +13,7 @@
     <item name="mnemonic_10" type="id"/>
     <item name="mnemonic_11" type="id"/>
 
-    <dimen name="t_layout_padding">16dp</dimen>
-    <dimen name="sp_mnemonic">18dp</dimen>
-
-    <color name="t_white">#EEE</color>
-    <color name="t_f_red">#B22</color>
-    <color name="t_bg_white">#EEE</color>
-    <color name="t_btn_bg_blue">#0288D1</color>
-    <color name="t_blue">#0288D1</color>
-    <color name="t_f_blue">#0288D1</color>
-
     <!-- Move to file colors.xml later-->
-    <color name="t_f_black">#000</color>
-    <color name="t_f_gray">#bbb</color>
-    <color name="t_f_gray_2">#aaa</color>
-    <color name="t_f_white">#fff</color>
 
     <style name="t_text" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
@@ -54,13 +40,9 @@
     </style>
 
     <style name="t_btn_blue" parent="@style/t_text">
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
         <item name="android:text">@string/next_step</item>
         <item name="android:background">@drawable/t_btn_bg</item>
-        <item name="android:layout_width">140dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/t_f_white</item>
         <item name="android:textSize">18sp</item>
@@ -68,14 +50,12 @@
 
     <style name="t_btn_white" parent="@style/t_btn_blue">
         <item name="android:background">@drawable/t_btn_bg_white</item>
-        <item name="android:textColor">@color/t_f_blue</item>
+        <item name="android:textColor">@color/t_blue</item>
     </style>
 
     <style name="t_layout">
-        <item name="android:padding">@dimen/t_layout_padding</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/t_bg_white</item>
     </style>
 
     <!-- Base application theme. -->

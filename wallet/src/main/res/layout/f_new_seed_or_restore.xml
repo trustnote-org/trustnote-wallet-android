@@ -3,32 +3,43 @@
 
     <RelativeLayout
         style="@style/t_layout"
-        android:background="@drawable/t_bg_beijing"
-        android:gravity="center">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/logo_width"
+            android:layout_height="@dimen/logo_height"
+            android:layout_above="@id/slogan"
+            android:layout_centerInParent="true"
+            android:src="@drawable/logo" />
 
         <TextView
-            android:id="@+id/welcome_to_trustnote"
-            style="@style/t_text_black_bold"
-            android:layout_alignParentTop="true"
+            android:id="@+id/slogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_new_seed"
             android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/vertical_gap"
             android:gravity="center"
-            android:layout_marginBottom="30dp"
-            android:text="@string/welcome_to_trustnote" />
+            android:text="信任  ·  通证  ·  万物"
+            android:textColor="@color/t_blue"
+            android:textSize="22sp" />
 
         <Button
             android:id="@+id/btn_new_seed"
-            android:text="@string/create_seed"
             style="@style/t_btn_blue"
-            android:layout_below="@id/welcome_to_trustnote"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="30dp" />
+            android:layout_above="@id/btn_restore_seed"
+            android:layout_marginTop="@dimen/slogan_below"
+            android:text="@string/create_seed" />
 
         <Button
             android:id="@+id/btn_restore_seed"
-            android:text="@string/restore_seed"
             style="@style/t_btn_white"
-            android:layout_below="@id/btn_new_seed"
-            android:layout_centerInParent="true" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/page_margin_bottom"
+            android:layout_marginTop="@dimen/btn_vertical_gap"
+            android:text="@string/restore_seed" />
 
     </RelativeLayout>
 

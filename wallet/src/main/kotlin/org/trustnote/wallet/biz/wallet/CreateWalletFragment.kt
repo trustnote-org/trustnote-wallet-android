@@ -18,7 +18,7 @@ import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MnemonicGridView
 
 @SuppressLint("ValidFragment")  //TODO: the fragment cannot re-create from tomb.
-class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
+class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
 
     val mPager = _pager
     val mLayoutId = _layoutId
@@ -71,7 +71,7 @@ class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
         when (mLayoutId) {
             layout.f_new_seed_welcome -> {
                 val deviceNameTV = view.findViewById<EditText>(R.id.welcome_device_name)
-                deviceNameTV.setText(WalletManager.model.deviceName)
+                //deviceNameTV.setText(WalletManager.model.deviceName)
                 deviceNameTV.setOnKeyListener { v: View, keyCode: Int, event: KeyEvent ->
                     if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                         //do something here

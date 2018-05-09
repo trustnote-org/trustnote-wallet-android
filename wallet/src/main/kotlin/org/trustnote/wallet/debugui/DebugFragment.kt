@@ -11,7 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
 import android.webkit.ValueCallback
 import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.biz.wallet.NewSeedActivity
+import org.trustnote.wallet.biz.wallet.CreateWalletActivity
 
 class DebugFragment : BaseFragment() {
 
@@ -52,7 +52,7 @@ class SimpleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                     //TODO: show toast or log.
                 })
                 2 -> {
-                    NewSeedActivity.startMe()
+                    CreateWalletActivity.startMe()
                 }
             }
         }

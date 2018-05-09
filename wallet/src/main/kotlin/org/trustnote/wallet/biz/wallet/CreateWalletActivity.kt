@@ -13,7 +13,7 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.uiframework.BaseActivity
 
-class NewSeedActivity : BaseActivity() {
+class CreateWalletActivity : BaseActivity() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
     }
@@ -24,13 +24,12 @@ class NewSeedActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //TODO: Maybe we just a few fragments (UI) need this feature.
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
-        setContentView(R.layout.activity_new_seed)
+        setContentView(R.layout.activity_create_wallet)
 
-        mPager = findViewById<ViewPager>(R.id.view_pager)
-        mPagerAdapter = PagerAdapter(supportFragmentManager, mPager!!) //TODO:??
+        mPager = findViewById(R.id.view_pager)
+        mPagerAdapter = PagerAdapter(supportFragmentManager, mPager!!)
 
         mPager.addOnPageChangeListener(object : OnPageChangeListener {
 
@@ -41,7 +40,7 @@ class NewSeedActivity : BaseActivity() {
 
             }
             override fun onPageSelected(position: Int) {
-                (mPagerAdapter.getItem(position) as NewSeedShowFragment).onShowPage()
+                (mPagerAdapter.getItem(position) as CreateWalletFragment).onShowPage()
             }
 
         })
@@ -51,7 +50,7 @@ class NewSeedActivity : BaseActivity() {
 
     companion object {
         @JvmStatic fun startMe() {
-            val intent = Intent(TApp.context, NewSeedActivity::class.java)
+            val intent = Intent(TApp.context, CreateWalletActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             TApp.context.startActivity(intent)
         }
@@ -59,9 +58,8 @@ class NewSeedActivity : BaseActivity() {
 }
 
 
-class PagerAdapter(fm: FragmentManager, pager: ViewPager) : FragmentStatePagerAdapter(fm) {
-    val mPager = pager;
-    var allPageLayoutIds: Array<Int> = arrayOf(R.layout.f_new_seed_welcome,
+class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : FragmentStatePagerAdapter(fm) {
+    var allPageLayoutIds: Array<Int> = arrayOf(
             R.layout.f_new_seed_or_restore,
             R.layout.f_new_seed_prompt,
             R.layout.f_new_seed_show_warning,
@@ -70,12 +68,12 @@ class PagerAdapter(fm: FragmentManager, pager: ViewPager) : FragmentStatePagerAd
     )
 
     //TODO: possible bug?
-    val cache: MutableMap<Int, NewSeedShowFragment> = HashMap()
+    private val cache: MutableMap<Int, CreateWalletFragment> = HashMap()
 
 
     override fun getItem(position: Int): Fragment {
         if (cache[position] == null) {
-            cache += position to NewSeedShowFragment(allPageLayoutIds[position], mPager)
+            cache += position to CreateWalletFragment(allPageLayoutIds[position], pager)
         }
         return cache[position]!!
     }

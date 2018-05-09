@@ -10,7 +10,6 @@ import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.debugui.EmptyFragment
 import org.trustnote.wallet.settings.MeFragment
 
-//@RuntimePermissions
 class MainActivity : BaseActivity() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
@@ -59,11 +58,9 @@ class MainActivity : BaseActivity() {
         bottomNavigationView.selectedItemId = if (menuId == 0) R.id.action_me else menuId
     }
 
-    //@NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun changeFragment(menuItemId: Int) {
         var newFragment: Fragment = EmptyFragment()
         when (menuItemId) {
-        //R.id.action_debug -> newFragment = DebugFragment()
             R.id.action_me -> newFragment = MeFragment()
         }
 

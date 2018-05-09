@@ -4,7 +4,6 @@ import android.webkit.ValueCallback
 import org.trustnote.wallet.BuildConfig
 
 import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.js.JsTest
 import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
 import org.trustnote.wallet.biz.units.UnitComposer
@@ -110,7 +109,7 @@ object SettingsDataFactory {
         val res = ArrayList<SettingItem>()
         if (!WalletManager.isExist()) {
             val newSeed = SettingItem("create wallet from new seed", true)
-            newSeed.action = Runnable { NewSeedActivity.startMe() }
+            newSeed.action = Runnable { CreateWalletActivity.startMe() }
             res.add(newSeed)
         } else {
             for (credential in WalletManager.model.mProfile.credentials) {

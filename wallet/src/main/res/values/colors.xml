@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-
-    <!--Useless-->
-
     <color name="colorPrimary">#03A9F4</color>
     <color name="colorPrimaryDark">#0288D1</color>
     <color name="colorAccent">#FF9800</color>
 
-    <color name="gray">#9E9E9E</color>
+    <color name="bg_white">#FFFFFFFF</color>
+
     <color name="gray_light">#e0e0e0</color>
 
+    <color name="t_f_black">#000</color>
+    <color name="t_f_gray">#bbb</color>
+    <color name="t_f_gray_2">#aaa</color>
+    <color name="t_f_white">#FFFFFFFF</color>
+
+    <color name="t_white">#FFFFFFFF</color>
+    <color name="t_blue">#FF0052CC</color>
+    <color name="t_f_red">#B22</color>
 
 </resources>
