@@ -6,6 +6,7 @@ import org.trustnote.db.FundedAddress
 import org.trustnote.db.Payload
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.biz.wallet.WalletModel
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
@@ -96,7 +97,7 @@ class UnitComposer(
         authors.forEach {
             val myAddresses = DbHelper.queryAddressByAddresdId(it.address)
             val hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
-            val sign = jsApi.signSync(hashToSign, WalletModel.instance.tProfile!!.xPrivKey, Utils.genJsBip44Path(myAddresses))
+            val sign = jsApi.signSync(hashToSign, WalletManager.getProfile().xPrivKey, Utils.genBip44Path(myAddresses))
 
             it.authentifiers.remove("r")
             it.authentifiers.addProperty("r", sign)
@@ -137,7 +138,7 @@ class UnitComposer(
 
 
     private fun queryOrIssueNotUsedChangeAddress(): String {
-        return WalletModel.instance.findNextUnsedChangeAddress(sendPaymentInfo.walletId).address
+        return WalletManager.model.findNextUnusedChangeAddress(sendPaymentInfo.walletId).address
     }
 
     fun postNewUnitToHub() {
@@ -181,9 +182,6 @@ class UnitComposer(
         val addresses = mutableListOf<String>()
 
         filterFundedAddress.forEach { addresses.add(it.address) }
-
-        //TODO: TEST CODE
-        //addresses.add("TTE5JNCIVLRUPGBHFC6TDZXAW5GO6U72")
 
         val outputs = DbHelper.queryUtxoByAddress(addresses, sendPaymentInfo.lastBallMCI)
         val res = mutableListOf<Inputs>()

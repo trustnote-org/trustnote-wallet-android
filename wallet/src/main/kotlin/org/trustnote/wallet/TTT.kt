@@ -87,6 +87,8 @@ class TTT {
         // 88 bytes
         const val PLACEHOLDER_SIG = "----------------------------------------------------------------------------------------"
 
+        const val HD_DERIVATION_STRATEGY: String = "BIP44"
+
     }
 }
 

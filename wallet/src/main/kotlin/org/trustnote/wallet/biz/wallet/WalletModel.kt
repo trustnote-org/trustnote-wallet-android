@@ -15,36 +15,100 @@ import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
 
-class WalletModel {
+class WalletModel() {
 
-    companion object {
-        lateinit var instance: WalletModel
-            private set
+    lateinit var mProfile: TProfile
+
+    init {
+        if (Prefs.profileExist()) {
+            mProfile = Prefs.readProfile()
+            loadDataFromDb()
+        }
     }
 
-    constructor() {
-        instance = this
+    constructor(mnemonic: String, shouldRemoveMnemonic: Boolean) : this() {
+        mProfile = TProfile()
+        if (!shouldRemoveMnemonic) {
+            mProfile.mnemonic = mnemonic
+        }
+        //TODO: thread manager
+        Thread {
+            initFromMnemonic()
+        }.start()
     }
 
-    var currentMnemonic: List<String> = listOf()
-    var currentJSMnemonic = ""
-    var tProfile: TProfile? = null
+    private fun initFromMnemonic() {
 
-    var latestWitnesses: MutableList<String> = mutableListOf()
+        //TODO: At this moment, should clear all data in DB.
+        val api = JSApi()
+        val xPrivKey = api.xPrivKeySync(mProfile.mnemonic)
+        mProfile.xPrivKey = xPrivKey
+        mProfile.keyDb = xPrivKey.hashCode().toString()
 
-    fun getWitnesses(): List<String> {
-        return latestWitnesses
+        Prefs.writeProfile(mProfile)
+
+        //TODO: think more.
+        HubManager.instance.reConnectHub()
+
+        monitorWallet()
+        createDefaultCredential()
+
     }
 
-    //TODO: use hash function
-    fun getMnemonicAsHash(): String {
-        return tProfile!!.mnemonic.substring(1..4)
+    private fun createDefaultCredential() {
+        newWallet(TTT.firstWalletName)
     }
+
+    fun loadDataFromDb() {
+        //TODO: thread manager
+        Thread {
+            loadDataFromDbBg()
+            monitorWallet()
+        }.start()
+    }
+
+    private fun loadDataFromDbBg() {
+        mProfile.credentials.forEach {
+            loadMyAddress(it)
+            updateBalance(it)
+            updateTxs(it)
+        }
+    }
+
+    private fun updateBalance(credential: Credential) {
+        val balanceDetails = DbHelper.getBanlance(credential.walletId)
+        credential.balanceDetails = balanceDetails
+        credential.balance = 0
+        credential.balanceDetails.forEach {
+            credential.balance += it.amount
+        }
+    }
+
+    private fun updateTxs(credential: Credential) {
+        credential.txDetails.clear()
+        val txs = TxParser().getTxs(credential.walletId)
+        credential.txDetails.addAll(txs)
+    }
+
+    private fun loadMyAddress(credential: Credential) {
+        val addresses = DbHelper.queryAddressByWalletId(credential.walletId)
+
+        credential.myAddresses.clear()
+        credential.myAddresses.addAll(addresses)
+
+        credential.myReceiveAddresses.clear()
+        credential.myReceiveAddresses.addAll(addresses.filter { it.isChange == 0 })
+
+        credential.myChangeAddresses.clear()
+        credential.myChangeAddresses.addAll(addresses.filter { it.isChange == 1 })
+    }
+
+//
 
     fun monitorWallet() {
         DbHelper.monitorAddresses().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorAddresses")
-            instance.hubRequestCurrentWalletTxHistory()
+            hubRequestCurrentWalletTxHistory()
         }
 
         DbHelper.monitorUnits().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
@@ -55,48 +119,21 @@ class WalletModel {
 
         DbHelper.monitorOutputs().delay(3L, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorOutputs")
-            if (tProfile != null) {
-                //Too
-                updateBalance()
-                updateTxs()
-                saveProfile()
-            }
-        }
-    }
-
-    @Synchronized
-    fun updateTxs() {
-        tProfile!!.credentials.forEach {
-            val txs = TxParser().getTxs(it.walletId)
-            it.txDetails = txs
-        }
-    }
-
-    @Synchronized
-    private fun updateBalance() {
-        getProfile()!!.credentials.forEachIndexed { index, oneWallet ->
-            val balanceDetails = DbHelper.getBanlance(oneWallet.walletId)
-            oneWallet.balanceDetails = balanceDetails
-            oneWallet.balance = 0
-            oneWallet.balanceDetails.forEach {
-                oneWallet.balance += it.amount
+            if (mProfile != null) {
+                loadDataFromDbBg()
             }
         }
     }
 
     private fun tryToReqMoreUnitsFromHub() {
-        if (getProfile() == null) {
-            return
-        }
-
-        getProfile()!!.credentials.forEachIndexed { index, oneWallet ->
+        mProfile.credentials.forEachIndexed { index, oneWallet ->
             val isMore = DbHelper.shouldGenerateMoreAddress(oneWallet.walletId)
             if (isMore) {
                 generateMoreAddressAndSave(oneWallet)
             }
         }
 
-        var lastWallet = getProfile()!!.credentials.last()
+        var lastWallet = mProfile.credentials.last()
 
         if (lastWallet != null) {
             val isMore = DbHelper.shouldGenerateNextWallet(lastWallet.walletId)
@@ -107,70 +144,20 @@ class WalletModel {
 
     }
 
-    fun setWitnesses(l: List<String>) {
-        if (l.isEmpty()) {
-            Utils.debugLog("setWitness with l, but it is empty")
-            return
-        }
-        latestWitnesses.clear()
-
-        latestWitnesses.addAll(l)
-    }
-
-    fun setJSMnemonic(s: String) {
-        currentMnemonic = Utils.jsStr2NormalStr(s).split(" ")
-
-        currentJSMnemonic = "\"" + currentMnemonic.joinToString(" ") + "\""
-    }
-
-    fun getTxtMnemonic(): String {
-        return currentJSMnemonic.filterNot { it == '"' }
-    }
-
-    fun getOrCreateMnemonic(): List<String> {
-        if (currentJSMnemonic.isEmpty()) {
-            setJSMnemonic(JSApi().mnemonicSync())
-        }
-        return currentMnemonic
-    }
-
-    var deviceName: String = android.os.Build.MODEL
-
-    fun getProfile(): TProfile? {
-        if (tProfile == null) {
-            tProfile = Prefs.getInstance().readObject(TProfile::class.java)
-
-            //TODO: load tx, address from db etc.
-            if (tProfile != null) {
-                for (oneCredential in tProfile!!.credentials) {
-                    val addresses = DbHelper.queryAddressByWalletId(oneCredential.walletId)
-                    addresses.forEach { it.jsBip44Path = Utils.genJsBip44Path(oneCredential.account, it.isChange, it.addressIndex) }
-                    oneCredential.myAddresses.clear()
-                    oneCredential.myAddresses.addAll(addresses)
-                }
-            }
-
-
-        }
-        return tProfile
-    }
-
-    fun getAllCredentials(): Iterable<Credential> {
-        return getProfile()!!.credentials.asIterable()
-    }
-
     private fun createNextCredential(profile: TProfile, credentialName: String = TTT.firstWalletName): Credential {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
         val walletPubKey = api.walletPubKeySync(profile.xPrivKey, walletIndex)
-        val walletId = Utils.jsStr2NormalStr(api.walletIDSync(walletPubKey))
+        val walletId = Utils.decodeJsStr(api.walletIDSync(walletPubKey))
         val walletTitle = if (TTT.firstWalletName == credentialName) TTT.firstWalletName + ":" + walletIndex else credentialName
-        return Credential(account = walletIndex, walletId = walletId, xPubKey = walletPubKey, walletName = walletTitle)
-    }
 
-    fun setCurrentWallet(accountIdx: Int) {
-        getProfile()!!.currentWalletIndex = accountIdx
-        saveProfile()
+        val res = Credential()
+        res.account = walletIndex
+        res.walletId = walletId
+        res.walletName = walletTitle
+        res.xPubKey = walletPubKey
+
+        return res
     }
 
     //TODO: get the next accout from DB. regarding use can remove wallet.
@@ -195,8 +182,8 @@ class WalletModel {
 
             myAddress.isChange = isChange
             myAddress.addressIndex = it + currentMaxAddress
-            myAddress.address = Utils.jsStr2NormalStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
-            val addressPubkey = Utils.jsStr2NormalStr(api.walletAddressPubkeySync(credential.xPubKey, isChange, myAddress.addressIndex))
+            myAddress.address = Utils.decodeJsStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
+            val addressPubkey = Utils.decodeJsStr(api.walletAddressPubkeySync(credential.xPubKey, isChange, myAddress.addressIndex))
             myAddress.definition = """["sig",{"pubkey":"$addressPubkey"}]"""
             //TODO: check above logic from JS code.
             myAddress
@@ -206,15 +193,10 @@ class WalletModel {
 
     }
 
-    fun createProfile(removeMnemonic: Boolean) {
-        createProfileFromMnenonic(currentJSMnemonic, removeMnemonic)
-    }
-
     @Synchronized
     fun newWallet(credentialName: String = TTT.firstWalletName) {
-        val newCredential = createNextCredential(tProfile!!, credentialName)
-        //TODO: how about DB/Prefs failed.
-        tProfile!!.credentials.add(newCredential)
+        val newCredential = createNextCredential(mProfile, credentialName)
+        mProfile.credentials.add(newCredential)
         generateMoreAddressAndSave(newCredential)
     }
 
@@ -223,34 +205,11 @@ class WalletModel {
         generateMyAddresses(newCredential, TTT.addressChangeType)
 
         DbHelper.saveWalletMyAddress(newCredential)
-        saveProfile()
+        Prefs.writeProfile(mProfile)
     }
 
-    fun createProfileFromMnenonic(mnemonic: String, removeMnemonic: Boolean = false) {
-        //TODO: handle the removeMnenonic logic.
-        setJSMnemonic(mnemonic)
-
-        val api = JSApi()
-        val xPrivKey = api.xPrivKeySync(currentJSMnemonic)
-
-        val ecdsaPubkey = api.ecdsaPubkeySync(xPrivKey, "\"m/1\"")
-        val deviceAddress = api.deviceAddressSync(xPrivKey)
-        val profile = TProfile(ecdsaPubkey = ecdsaPubkey, mnemonic = mnemonic, xPrivKey = xPrivKey, deviceAddress = deviceAddress)
-        tProfile = profile
-        newWallet()
-
-        monitorWallet()
-
-    }
-
-    private fun saveProfile() {
-        Prefs.getInstance().saveObject(tProfile)
-    }
 
     fun hubRequestCurrentWalletTxHistory() {
-        if (getProfile() == null || tProfile!!.credentials.isEmpty()) {
-            return
-        }
 
         val witnesses = DbHelper.getMyWitnesses()
         val addresses = DbHelper.getAllWalletAddress()
@@ -264,7 +223,7 @@ class WalletModel {
 
     }
 
-    fun findNextUnsedChangeAddress(walletId: String): MyAddresses {
+    fun findNextUnusedChangeAddress(walletId: String): MyAddresses {
         var res = MyAddresses()
         DbHelper.queryUnusedChangeAddress(walletId).subscribe(
                 Consumer {
@@ -275,6 +234,8 @@ class WalletModel {
         })
         return res
     }
+
+    var deviceName: String = "Test device name"
 
 }
 

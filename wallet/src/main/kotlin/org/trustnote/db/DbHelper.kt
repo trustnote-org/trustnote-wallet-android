@@ -16,6 +16,7 @@ import org.trustnote.wallet.util.Utils
 
 @Suppress("UNCHECKED_CAST")
 object DbHelper {
+
     fun saveUnits(units: Array<Units>) {
         getDao().saveUnits(units)
     }

@@ -9,6 +9,10 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 
+import org.trustnote.wallet.TApp;
+import org.trustnote.wallet.pojo.TProfile;
+
+import java.io.File;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -41,7 +45,7 @@ public class Prefs {
 
 
     /**
-     * @return Returns a 'Prefs' instance
+     * @return Returns a 'Prefs' inst
      */
     public static Prefs getInstance() {
         if (prefsInstance == null) {
@@ -52,7 +56,7 @@ public class Prefs {
 
     /**
      * @param context
-     * @return Returns a 'Prefs' instance
+     * @return Returns a 'Prefs' inst
      */
     public static Prefs with(@NonNull Context context) {
         if (prefsInstance == null) {
@@ -65,7 +69,7 @@ public class Prefs {
     /**
      * @param context
      * @param forceInstantiation
-     * @return Returns a 'Prefs' instance
+     * @return Returns a 'Prefs' inst
      */
     public static Prefs with(@NonNull Context context, boolean forceInstantiation) {
         if (forceInstantiation) {
@@ -77,7 +81,7 @@ public class Prefs {
     /**
      * @param context
      * @param preferencesName
-     * @return Returns a 'Prefs' instance
+     * @return Returns a 'Prefs' inst
      */
     public static Prefs with(@NonNull Context context, @NonNull String preferencesName) {
         if (prefsInstance == null) {
@@ -90,7 +94,7 @@ public class Prefs {
      * @param context
      * @param preferencesName
      * @param forceInstantiation
-     * @return Returns a 'Prefs' instance
+     * @return Returns a 'Prefs' inst
      */
     public static Prefs with(@NonNull Context context, @NonNull String preferencesName,
                              boolean forceInstantiation) {
@@ -372,18 +376,49 @@ public class Prefs {
         sharedPreferences.edit().clear().apply();
     }
 
-
-    public void saveObject(Object o) {
-        Gson gson = new Gson();
-        String json = gson.toJson(o);
-        Utils.INSTANCE.debugLog(json);
-        write(o.getClass().getSimpleName(), json);
+    public void writeObject(String where, Object o) {
+        write(where, Utils.INSTANCE.toGsonString(o));
     }
 
-    public <T> T readObject(Class<T> cls) {
-        Gson gson = new Gson();
-        String json = read(cls.getSimpleName());
-        //TODO: how about json is null or empty.
-        return gson.fromJson(json, cls);
+    public Object readObject(String what, Class cls) {
+        String json = read(what);
+        if (json == null || json.isEmpty()) {
+            return new Object();
+        }
+        return Utils.INSTANCE.getGson().fromJson(json, cls);
     }
+
+    public boolean isExist(String what) {
+        String json = read(what);
+        return json != null && !json.isEmpty();
+    }
+
+
+    //Below are Biz related logic
+    private static final String KEY_PROFILE = "TTTProfile";
+    private static final File FILE_PROFILE = new File(TApp.getContext().getFilesDir(), "TTTProfile.json");
+    private static final String KEY_TMP_MNEMONIC = "tmp_mnemonic";
+
+    public static boolean profileExist() {
+        return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
+    }
+
+    public static void writeProfile(TProfile p) {
+        //getInstance().writeObject(KEY_PROFILE, p);
+        Utils.INSTANCE.write2File(FILE_PROFILE, p);
+        getInstance().remove(KEY_TMP_MNEMONIC);
+    }
+
+    public static TProfile readProfile() {
+        //Object res = getInstance().readObject(KEY_PROFILE, TProfile.class);
+        return Utils.INSTANCE.readFileAsTProfile(FILE_PROFILE);
+    }
+
+    public static void writeTmpMnemonic(String s) {
+        getInstance().write(KEY_TMP_MNEMONIC, s);
+    }
+    public static String getTmpMnemonic() {
+        return getInstance().read(KEY_TMP_MNEMONIC);
+    }
+
 }

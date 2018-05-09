@@ -10,37 +10,51 @@ import org.trustnote.wallet.util.Utils
 import java.math.BigInteger
 import java.util.*
 import com.google.gson.JsonParser
+import com.google.gson.annotations.Expose
+import org.trustnote.wallet.TTT
 
+class TProfile() {
 
-data class TProfile(
-        val mnemonic: String,
-        val version: String = "1.0",
-        val createdOn: Long = Date().time,
-        val credentials: MutableList<Credential> = mutableListOf(),
-        val xPrivKey: String,
-        val tempDeviceKey: String = "",
-        val prevTempDeviceKey: String = "",
-        val deviceAddress: String,
-        val ecdsaPubkey: String = "",
-        var currentWalletIndex: Int = 0
-)
+    var mnemonic: String = ""
+    var version: String = "1.0"
+    var createdOn: Long = Date().time
+    var credentials: MutableList<Credential> = mutableListOf()
+    var xPrivKey: String = ""
+    var tempDeviceKey: String = ""
+    var prevTempDeviceKey: String = ""
+    var deviceAddress: String = ""
+    var ecdsaPubkey: String = ""
+    var currentWalletIndex: Int = 0
+    var mnemonicType: MNEMONIC_TYPE = MNEMONIC_TYPE.UNKNOWN
+    var keyDb: String = "db"
 
-data class Credential(
-        val walletId: String,
-        val network: String = "TestNet",//TODO:
-        val xPubKey: String,
-        val publicKeyRing: List<PublicKeyRing> = ArrayList(),
-        val walletName: String,
-        val m: Int = 0,
-        val n: Int = 0,
-        val derivationStrategy: String = "BIP44",
-        val account: Int = 0,
-        val myAddresses: MutableSet<MyAddresses> = mutableSetOf(),
-        var balance: Long = 0, //TODO: should BigInteger
-        var balanceDetails: List<Balance> = listOf(),
-        var txDetails: List<Tx> = listOf(),
-        val isLocal: Boolean = false
-) {
+}
+
+class Credential {
+
+    var walletId: String = ""
+    val network: String = "TestNet"//TODO:
+    var xPubKey: String = ""
+    val publicKeyRing: List<PublicKeyRing> = ArrayList()
+    var walletName: String = ""
+    val m: Int = 0
+    val n: Int = 0
+    val derivationStrategy: String = TTT.HD_DERIVATION_STRATEGY
+    var account: Int = 0
+    var balance: Long = 0 //TODO: should BigInteger
+    val isLocal: Boolean = false
+
+    @Expose(serialize = false, deserialize = false)
+    @Transient var txDetails: MutableList<Tx> = mutableListOf()
+    @Expose(serialize = false, deserialize = false)
+    @Transient var balanceDetails: List<Balance> = listOf()
+    @Expose(serialize = false, deserialize = false)
+    @Transient val myAddresses: MutableSet<MyAddresses> = mutableSetOf()
+    @Expose(serialize = false, deserialize = false)
+    @Transient val myReceiveAddresses: MutableSet<MyAddresses> = mutableSetOf()
+    @Expose(serialize = false, deserialize = false)
+    @Transient val myChangeAddresses: MutableSet<MyAddresses> = mutableSetOf()
+
     override fun toString(): String {
         var res = "WalletName: $walletName\n\rBalance: $balance\n\rTransactions: \n\r------------------------\n\r"
         txDetails.forEach {
@@ -100,4 +114,10 @@ data class Author(
 
         return res
     }
+}
+
+enum class MNEMONIC_TYPE {
+    RANDOM_GEN,
+    RESTORE,
+    UNKNOWN
 }

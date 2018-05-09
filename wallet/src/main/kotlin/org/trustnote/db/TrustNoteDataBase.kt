@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.biz.wallet.WalletModel
 
 @Database(entities = arrayOf(
@@ -25,7 +26,7 @@ abstract class TrustNoteDataBase : RoomDatabase() {
         private var dbMap = mutableMapOf<String, TrustNoteDataBase>()
 
         fun getInstance(context: Context): TrustNoteDataBase {
-            val dbSuffix = WalletModel.instance.getMnemonicAsHash()
+            val dbSuffix = WalletManager.getDbKey()
             synchronized(TrustNoteDataBase::class) {
                 if (!dbMap.containsKey(dbSuffix)) {
                     val db = Room.databaseBuilder(context.getApplicationContext(),

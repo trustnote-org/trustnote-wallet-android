@@ -28,6 +28,12 @@ class MnemonicGridView @JvmOverloads constructor(
         mMnemonic = ArrayList(currentMnemonic)
         adapter = MnemonicAdapter(context, mMnemonic)
     }
+
+    fun init(menmonic: String) {
+        mMnemonic = menmonic.split(" ")
+        adapter = MnemonicAdapter(context, mMnemonic)
+    }
+
 }
 
 class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : BaseAdapter() {

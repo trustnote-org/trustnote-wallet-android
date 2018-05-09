@@ -85,7 +85,7 @@ class TWebView : WebView {
 
         Utils.debugJS("From outer non UI thread::after" + jsResult.result)
 
-        return jsResult.result
+        return Utils.decodeJsStr(jsResult.result)
     }
 
     fun callJS(jsCode: String, cb: ValueCallback<String>) {
@@ -97,11 +97,8 @@ class TWebView : WebView {
         }
 
         evaluateJavascript(jsCode) { valueFromJS ->
-            cb.onReceiveValue(valueFromJS)
+            cb.onReceiveValue(Utils.decodeJsStr(valueFromJS))
             Toast.makeText(context, valueFromJS, Toast.LENGTH_SHORT).show()
-            //TODO:
-            //I can use valueFromJS here
-            //android.util.Log.e(TAG, valueFromJS); // prints the value
         }
     }
 

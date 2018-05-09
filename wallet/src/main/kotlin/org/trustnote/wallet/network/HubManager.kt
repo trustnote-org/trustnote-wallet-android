@@ -15,6 +15,7 @@ class HubManager {
 
     //TODO: remove.
     lateinit private var currentHub: HubSocketModel
+    var latestWitnesses: MutableList<String> = mutableListOf()
 
     companion object {
         @JvmStatic

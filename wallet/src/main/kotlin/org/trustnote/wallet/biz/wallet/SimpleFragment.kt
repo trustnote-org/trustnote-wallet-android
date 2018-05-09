@@ -25,7 +25,7 @@ class SimpleFragment : BaseFragment() {
                 Utils.toastMsg(R.string.wallet_new_msg_emptyname)
             } else {
                 Utils.runInbackground(Runnable {
-                    WalletModel.instance.newWallet(walletName)
+                    WalletManager.model.newWallet(walletName)
                     activity.finish()
                 })
             }

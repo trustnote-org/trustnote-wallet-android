@@ -19,8 +19,8 @@ import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 import com.google.gson.JsonObject
-import com.google.gson.JsonElement
-
+import org.trustnote.wallet.pojo.TProfile
+import java.io.File
 
 
 object Utils {
@@ -36,7 +36,7 @@ object Utils {
     }
 
     fun debugJS(s: String) {
-        android.util.Log.e("JSApi", s)
+        android.util.Log.d("JSApi", s)
     }
 
     fun crash(s: String) {
@@ -80,7 +80,10 @@ object Utils {
 
 
     fun getGson(): Gson {
-        return GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).disableHtmlEscaping().create()
+        return GsonBuilder()
+                .setPrettyPrinting()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .disableHtmlEscaping().create()
     }
 
     fun debugHub(s: String) {
@@ -101,18 +104,21 @@ object Utils {
         return orig.throttleFirst(intervalSecs, TimeUnit.SECONDS)
     }
 
-    fun genJsBip44Path(account: Int, isChange: Int, index: Int): String {
-        //Sample = "m/44'/0'/0'/1/2"
-        return """"m/44'/0'/$account'/$isChange/$index""""
+    fun genBip44Path(account: Int, isChange: Int, index: Int): String {
+        return """m/44'/0'/$account'/$isChange/$index"""
     }
 
-    fun genJsBip44Path(myAddresses: MyAddresses): String {
-        //Sample = "m/44'/0'/0'/1/2"
-        return genJsBip44Path(myAddresses.account, myAddresses.isChange, myAddresses.addressIndex)
+    fun genBip44Path(myAddresses: MyAddresses): String {
+        return genBip44Path(myAddresses.account, myAddresses.isChange, myAddresses.addressIndex)
     }
 
-    fun jsStr2NormalStr(jsString: String): String {
+    fun decodeJsStr(jsString: String): String {
+        //TODO: just remove first and last double quota.
         return jsString.filterNot { it == '"' }
+    }
+
+    fun encodeJsStr(planeStr: String): String {
+        return """"$planeStr""""
     }
 
     fun parseChild(parentEntity: TBaseEntity, origJson: JsonObject, clzFullName: String, vararg childJsonKey: String): List<Any> {
@@ -158,9 +164,21 @@ object Utils {
     }
 
     fun toGsonObject(o: Any): JsonObject {
-        return  getGson().toJsonTree(o) as JsonObject
+        return getGson().toJsonTree(o) as JsonObject
     }
 
+    fun write2File(file: File, o: Any) {
+        file.bufferedWriter().use{
+            it.write(getGson().toJson(o))
+        }
+    }
+
+    fun readFileAsTProfile(file: File): TProfile {
+        if (!file.exists() || file.length() < 10) {
+            throw RuntimeException("TProfile file does not exist")
+        }
+        return getGson().fromJson(file.bufferedReader(), TProfile::class.java)
+    }
 
 }
 

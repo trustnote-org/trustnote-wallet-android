@@ -3,14 +3,14 @@ package org.trustnote.wallet.js
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.biz.wallet.TestData
-import org.trustnote.wallet.biz.wallet.WalletModel
+import org.trustnote.wallet.biz.wallet.WalletManager
 import timber.log.Timber
 
 
 object JsTest {
-    fun createFullWallet() = createFullWallet(seed)
+    fun createFullWallet() = restoreWallet(seed)
     fun findVanityAddress(target: String) = findVanityAddressBg(target)
-    var seed = TestData.mnemonic
+    var seed = TestData.mnemonic0
     fun testPostTx() = testPostTxIn()
 }
 
@@ -138,7 +138,7 @@ fun testPostTxIn() {
 
         val path = """"m/44'/0'/0'/1/2""""
         val signRes = api.signSync(""""qnGUSJUBLxvmBK1IswPeQnmEWN2wSi4ACf5lJn6pLzY="""",
-                WalletModel.instance.getProfile()!!.xPrivKey, path)
+                WalletManager.model.mProfile.xPrivKey, path)
         //var path = m/44'/" + coin + "'/" + account + "'/"+is_change+"/"+address_index;
 
         Utils.debugJS("Sign result::::")
@@ -174,7 +174,7 @@ fun testPostTxIn() {
 }
 
 
-fun createFullWallet(seed: String) {
+fun restoreWallet(seed: String) {
     Thread {
         createFullWalletInternal(seed)
     }.start()
@@ -220,7 +220,7 @@ fun isVanity(target: String, oneAddress: String): Boolean {
 
 fun createFullWalletInternal(seed: String) {
 
-    WalletModel.instance.createProfileFromMnenonic(seed)
+    WalletManager.initWithMnemonic(seed, false)
 
     Utils.debugJS("Done")
 

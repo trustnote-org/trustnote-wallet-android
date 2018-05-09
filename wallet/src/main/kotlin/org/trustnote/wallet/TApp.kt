@@ -56,7 +56,6 @@ class TApp : Application() {
         context = this
         TWebView.init(this)
         Prefs.with(this)
-        WalletModel()
         HubManager.instance
     }
 }

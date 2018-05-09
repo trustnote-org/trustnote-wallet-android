@@ -43,7 +43,7 @@ public class ReactiveNetwork {
     }
 
     /**
-     * Creates a new instance of the ReactiveNetwork class
+     * Creates a new inst of the ReactiveNetwork class
      *
      * @return ReactiveNetwork object
      */

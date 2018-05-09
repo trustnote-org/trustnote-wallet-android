@@ -1,16 +1,15 @@
 package org.trustnote.wallet.settings
 
 import android.webkit.ValueCallback
+import org.trustnote.wallet.BuildConfig
 
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.js.JsTest
 import org.trustnote.wallet.pojo.SendPaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
 import org.trustnote.wallet.biz.units.UnitComposer
-import org.trustnote.wallet.biz.wallet.NewSeedActivity
-import org.trustnote.wallet.biz.wallet.SimpleFragment
-import org.trustnote.wallet.biz.wallet.SimpleFragmentActivity
-import org.trustnote.wallet.biz.wallet.WalletModel
+import org.trustnote.wallet.biz.wallet.*
+import org.trustnote.wallet.js.restoreWallet
 import org.trustnote.wallet.util.Utils
 
 import java.util.ArrayList
@@ -20,10 +19,16 @@ object SettingsDataFactory {
 
     val GROUP_TEST = "Test"
     val GROUP_WALLET = "Wallet management"
+    val GROUP_MNEMONIC = "Restore Test"
 
     fun makeSettings(): List<SettingGroup> {
-        return Arrays.asList(makeTestGroup(),
-                makeWalletGroup())
+        if (BuildConfig.FLAVOR == "devnet" && BuildConfig.DEBUG) {
+            return Arrays.asList(makeTestGroup(),
+                    makeWalletGroup(), makeSeedsGroup())
+        } else {
+            return Arrays.asList(makeTestGroup(),
+                    makeWalletGroup())
+        }
     }
 
     fun makeTestGroup(): SettingGroup {
@@ -46,12 +51,8 @@ object SettingsDataFactory {
         }
         res.add(testPostTx)
 
-        val testWallet = SettingItem("Test: restore wallet with fixed seed")
-        testWallet.action = Runnable { JsTest.createFullWallet() }
-        res.add(testWallet)
-
         val testHistory = SettingItem("Test: get_history, check res from log")
-        testHistory.action = Runnable { WalletModel.instance.hubRequestCurrentWalletTxHistory() }
+        testHistory.action = Runnable { WalletManager.model.hubRequestCurrentWalletTxHistory() }
         res.add(testHistory)
 
 
@@ -64,7 +65,7 @@ object SettingsDataFactory {
 //
 //                //fun sign(b64_hash: String, xPrivKey: String, path: String, cb: ValueCallback<String>) {
 //
-//                JSApi().sign(hashValue, WalletModel.instance.getProfile()!!.xPrivKey, "\"m/1'\"", ValueCallback { signRes ->
+//                JSApi().sign(hashValue, WalletManager.modelgetProfile()!!.xPrivKey, "\"m/1'\"", ValueCallback { signRes ->
 //                    Utils.debugLog(signRes)
 //
 //                    // /r1gbvHPi8NLGpKoderkk1QJHbooOrDEi81rE2sXKtYCQFDHPxCdvmPPj17czehyptxL3T7dPKK2FqACbcdyiQ==
@@ -87,7 +88,7 @@ object SettingsDataFactory {
     }
 
     private fun reqHistoryFromHub() {
-        WalletModel.instance.hubRequestCurrentWalletTxHistory()
+        WalletManager.model.hubRequestCurrentWalletTxHistory()
     }
 
 
@@ -107,9 +108,12 @@ object SettingsDataFactory {
 
     fun makeWallets(): List<SettingItem> {
         val res = ArrayList<SettingItem>()
-        val profile = WalletModel.instance.getProfile()
-        if (profile != null) {
-            for (credential in profile.credentials) {
+        if (!WalletManager.isExist()) {
+            val newSeed = SettingItem("create wallet from new seed", true)
+            newSeed.action = Runnable { NewSeedActivity.startMe() }
+            res.add(newSeed)
+        } else {
+            for (credential in WalletManager.model.mProfile.credentials) {
                 val oneWallet = SettingItem(credential.toString())
                 res.add(oneWallet)
             }
@@ -117,10 +121,32 @@ object SettingsDataFactory {
             val newWallet = SettingItem("+  New")
             newWallet.action = Runnable { SimpleFragmentActivity.startMe(SimpleFragment::class.java.canonicalName) }
             res.add(newWallet)
-        } else {
+        }
 
-            val newSeed = SettingItem("create wallet from new seed", true)
-            newSeed.action = Runnable { NewSeedActivity.startMe() }
+        return res
+    }
+
+    fun makeSeedsGroup(): SettingGroup {
+        return SettingGroup(GROUP_MNEMONIC, makeSeedsTestCase())
+    }
+
+    fun makeSeedsTestCase(): List<SettingItem> {
+
+        val res = ArrayList<SettingItem>()
+        if (WalletManager.isExist()) {
+            val newSeed = SettingItem("Save current seed for future test", true)
+            newSeed.action = Runnable {
+                SeedManager.saveSeedForTest(WalletManager.model.mProfile.mnemonic)
+            }
+            res.add(newSeed)
+        }
+
+        val allSeeds = SeedManager.getAllSeeds()
+        allSeeds.forEach {
+            val newSeed = SettingItem("Restore seed from: " + it, true)
+            newSeed.action = Runnable {
+                restoreWallet(it)
+            }
             res.add(newSeed)
         }
 

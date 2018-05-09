@@ -25,10 +25,6 @@ class MainActivity : BaseActivity() {
 
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            changeFragment(item.itemId)
-            true
-        }
 
         selectPageByIntent(intent)
 
@@ -41,7 +37,6 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-
         if (BuildConfig.DEBUG) {
             PermissionGen.with(this)
                     .addRequestCode(100)
@@ -50,6 +45,12 @@ class MainActivity : BaseActivity() {
                             Manifest.permission.READ_EXTERNAL_STORAGE)
                     .request()
         }
+
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            changeFragment(item.itemId)
+            true
+        }
+
     }
 
     private fun selectPageByIntent(intent: Intent) {

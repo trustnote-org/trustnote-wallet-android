@@ -56,7 +56,7 @@ class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
 
     fun createWallet(removeMnemonic: Boolean) {
         Utils.runInbackground(Runnable {
-            WalletModel.instance.createProfile(removeMnemonic)
+            WalletManager.initWithMnemonic(removeMnemonic)
             activity.finish()
         })
     }
@@ -71,11 +71,11 @@ class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
         when (mLayoutId) {
             layout.f_new_seed_welcome -> {
                 val deviceNameTV = view.findViewById<EditText>(R.id.welcome_device_name)
-                deviceNameTV.setText(WalletModel.instance.deviceName)
+                deviceNameTV.setText(WalletManager.model.deviceName)
                 deviceNameTV.setOnKeyListener { v: View, keyCode: Int, event: KeyEvent ->
                     if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                         //do something here
-                        WalletModel.instance.deviceName = deviceNameTV.text.toString()
+                        WalletManager.model.deviceName = deviceNameTV.text.toString()
                         mPager.currentItem = mPager.currentItem + 1
                         true
                     } else {
@@ -87,13 +87,13 @@ class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
             layout.f_new_seed_show_warning -> {
 
                 val newSeedTV = view.findViewById<TextView>(R.id.new_seed)
-                newSeedTV.text = WalletModel.instance.getTxtMnemonic()
+                newSeedTV.text = WalletManager.getTmpMnemonic()
             }
 
             layout.f_new_seed_or_restore -> {
                 view.findViewById<View>(R.id.btn_new_seed).setOnClickListener {
                     Utils.runInbackground(Runnable {
-                        WalletModel.instance.getOrCreateMnemonic()
+                        WalletManager.getOrCreateMnemonic()
                         THandler.instance.post {
                             mPager.currentItem = mPager.currentItem + 1
                         }
@@ -102,7 +102,7 @@ class NewSeedShowFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
             }
 
             layout.f_new_seed_confirm -> {
-                (view.findViewById<MnemonicGridView>(R.id.grid_view)).init(WalletModel.instance.currentMnemonic)
+                (view.findViewById<MnemonicGridView>(R.id.grid_view)).init(WalletManager.getTmpMnemonic())
                 (view.findViewById<MnemonicGridView>(R.id.grid_view)).onWordCheckResult = { isOk: Boolean ->
                     val btnPreStep = view.findViewById<Button>(R.id.pre_step)
                     val btnRemove = view.findViewById<Button>(R.id.mnemonic_remove)

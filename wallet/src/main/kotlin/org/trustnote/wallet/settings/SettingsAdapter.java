@@ -10,6 +10,7 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableListPosition;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
 import org.trustnote.wallet.R;
+import org.trustnote.wallet.util.Utils;
 
 import java.util.List;
 
@@ -67,6 +68,7 @@ public class SettingsAdapter
                                                public void onClick(View view) {
                                                    if (artist != null && artist.action != null) {
                                                        artist.action.run();
+                                                       Utils.INSTANCE.toastMsg(artist.getName());
                                                    }
                                                }
                                            }

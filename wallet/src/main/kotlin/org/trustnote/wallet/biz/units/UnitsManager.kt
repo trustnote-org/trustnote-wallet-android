@@ -13,6 +13,10 @@ class UnitsManager {
         //TODO: too much tedious work.
         //TODO: save data to table units_authors??
         val response = hubResponse.msgJson.getAsJsonObject("response")
+        if (!response.has("joints")) {
+            return
+        }
+
         val jointList = Utils.parseChild(TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
 
         for (joint in jointList) {
