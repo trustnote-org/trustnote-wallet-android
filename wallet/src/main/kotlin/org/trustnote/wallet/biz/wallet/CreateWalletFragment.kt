@@ -14,6 +14,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.R.*
 import org.trustnote.wallet.THandler
 import org.trustnote.wallet.uiframework.BaseFragment
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MnemonicGridView
 
@@ -26,6 +27,10 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
     //TODO: empty constructor.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(mLayoutId, container, false)
+    }
+
+    private fun getMyActivity(): CreateWalletActivity{
+        return getActivity() as CreateWalletActivity
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,6 +70,7 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
         if (mRootView != null) {
             initFragment(mRootView!!)
         }
+        getMyActivity().adjustUIBySetting(getPageSetting(mLayoutId))
     }
 
     private fun initFragment(view: View) {
