@@ -1,17 +1,17 @@
 <resources>
 
-    <item name="mnemonic_0" type="id"/>
-    <item name="mnemonic_1" type="id"/>
-    <item name="mnemonic_2" type="id"/>
-    <item name="mnemonic_3" type="id"/>
-    <item name="mnemonic_4" type="id"/>
-    <item name="mnemonic_5" type="id"/>
-    <item name="mnemonic_6" type="id"/>
-    <item name="mnemonic_7" type="id"/>
-    <item name="mnemonic_8" type="id"/>
-    <item name="mnemonic_9" type="id"/>
-    <item name="mnemonic_10" type="id"/>
-    <item name="mnemonic_11" type="id"/>
+    <item name="mnemonic_0" type="id" />
+    <item name="mnemonic_1" type="id" />
+    <item name="mnemonic_2" type="id" />
+    <item name="mnemonic_3" type="id" />
+    <item name="mnemonic_4" type="id" />
+    <item name="mnemonic_5" type="id" />
+    <item name="mnemonic_6" type="id" />
+    <item name="mnemonic_7" type="id" />
+    <item name="mnemonic_8" type="id" />
+    <item name="mnemonic_9" type="id" />
+    <item name="mnemonic_10" type="id" />
+    <item name="mnemonic_11" type="id" />
 
     <!-- Move to file colors.xml later-->
 
@@ -19,12 +19,41 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="t_btn" parent="@style/t_text">
+
+    <style name="t_btn" parent="@style/t_text"></style>
+
+    <style name="t_title" parent="@style/t_text">
+        <item name="android:textColor">@color/t_title_black</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="t_text_black_bold" parent="@style/t_text">
-        <item name="android:textColor">@color/t_f_black</item>
-        <item name="android:textSize">30sp</item>
+    <style name="t_pwd" parent="@style/t_text">
+        <item name="android:textColor">@color/t_title_black</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:backgroundTint">@drawable/t_edit_bg</item>
+        <item name="android:hint">@string/pwd_hint</item>
+        <item name="android:textColorHint">@color/t_hint</item>
+    </style>
+
+    <style name="t_err" parent="@style/t_text">
+        <item name="android:textColor">@color/t_err</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:drawablePadding">@dimen/t_drawable_padding</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:text">@string/place_holder</item>
+        <item name="android:drawableLeft">@drawable/err</item>
+
+    </style>
+
+    <style name="t_line" parent="@style/t_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/t_bottom_line</item>
     </style>
 
     <style name="t_text_msg" parent="@style/t_text">
@@ -34,7 +63,7 @@
 
     <style name="t_text_msg_gray" parent="@style/t_text">
         <item name="android:background">@color/t_f_gray</item>
-        <item name="android:textColor">@color/t_f_black</item>
+        <item name="android:textColor">@color/t_title_black</item>
         <item name="android:padding">12dp</item>
         <item name="android:textSize">18sp</item>
     </style>

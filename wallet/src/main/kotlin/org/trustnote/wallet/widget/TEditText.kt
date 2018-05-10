@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.v7.widget.AppCompatEditText
 import android.util.AttributeSet
 
-class TEditText @JvmOverloads constructor(
+open class TEditText @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0

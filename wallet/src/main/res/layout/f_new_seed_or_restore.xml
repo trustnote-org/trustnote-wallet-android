@@ -22,7 +22,7 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/vertical_gap"
             android:gravity="center"
-            android:text="信任  ·  通证  ·  万物"
+            android:text="@string/ttt_slogan"
             android:textColor="@color/t_blue"
             android:textSize="22sp" />
 

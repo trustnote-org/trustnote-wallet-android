@@ -6,7 +6,9 @@
     <dimen name="title_height">44dp</dimen>
 
     <dimen name="page_margin_left">26dp</dimen>
+
     <dimen name="page_margin_bottom">64dp</dimen>
+    <dimen name="btn_bottom_margin">26dp</dimen>
 
     <dimen name="logo_width">151dp</dimen>
     <dimen name="logo_height">144dp</dimen>
@@ -18,5 +20,7 @@
     <dimen name="btn_corner">2dp</dimen>
 
     <dimen name="slogan_below">100dp</dimen>
+
+    <dimen name="t_drawable_padding">6dp</dimen>
 
 </resources>

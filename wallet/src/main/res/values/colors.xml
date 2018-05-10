@@ -9,7 +9,9 @@
 
     <color name="gray_light">#e0e0e0</color>
 
-    <color name="t_f_black">#000</color>
+    <color name="t_title_black">#FF111111</color>
+    <color name="t_bg_warning">#FF111111</color>
+
     <color name="t_f_gray">#bbb</color>
     <color name="t_f_gray_2">#aaa</color>
     <color name="t_f_white">#FFFFFFFF</color>
@@ -17,5 +19,9 @@
     <color name="t_white">#FFFFFFFF</color>
     <color name="t_blue">#FF0052CC</color>
     <color name="t_f_red">#B22</color>
+    <color name="t_hint">#999999</color>
+
+    <color name="t_bottom_line">#DDDDDD</color>
+    <color name="t_err">#EF2B2B</color>
 
 </resources>

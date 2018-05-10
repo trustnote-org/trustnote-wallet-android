@@ -2,6 +2,10 @@
 
     <string name="app_name">TestTTT</string>
 
+    <string name="place_holder">TestTTT</string>
+
+    <string name="confirm">确定</string>
+
     <!--<string name="menu_home">Home</string>-->
     <!--<string name="menu_msg">Messages</string>-->
     <!--<string name="menu_me">Me</string>-->
@@ -67,7 +71,15 @@
 
     <string name="qrcode_scan">扫描</string>
 
-    <string name="ttt_slogan">信任    通证    万物</string>
+    <string name="ttt_slogan">信任  ·  通证  ·  万物</string>
+
+    <string name="pwd_setup_title">设置密码</string>
+
+    <string name="PWD_WARNING1">密码用于进入设备和交易授权，强度非常重要</string>
+    <string name="PWD_WARNING2">TrustNote不存储密码，也无法帮您找回，请务必牢记</string>
+
+    <string name="pwd_hint">请输入密码</string>
+    <string name="pwd_confirm_hint">请再次确认密码</string>
 
 
 </resources>

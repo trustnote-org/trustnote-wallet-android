@@ -11,6 +11,7 @@ import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.Toast
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.CountDownLatch
 
@@ -37,10 +38,8 @@ class TWebView : WebView {
     }
 
     private fun loadJS() {
-        //TODO: make sure JS load finished before call jsapi.
-        val jsStream = context.assets.open("core.js")
-        val jsString = jsStream.bufferedReader().use { it.readText() }
-        callJS(jsString, ValueCallback {
+        val jsLib = AndroidUtils.readAssetFile("core.js")
+        callJS(jsLib, ValueCallback {
             //Do nothing.
         })
     }

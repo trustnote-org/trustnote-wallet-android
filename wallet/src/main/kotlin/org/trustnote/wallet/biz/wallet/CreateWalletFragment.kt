@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -29,7 +30,7 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
         return inflater.inflate(mLayoutId, container, false)
     }
 
-    private fun getMyActivity(): CreateWalletActivity{
+    private fun getMyActivity(): CreateWalletActivity {
         return getActivity() as CreateWalletActivity
     }
 
@@ -54,6 +55,13 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
         view.findViewById<View>(R.id.mnemonic_remove_ignore)?.setOnClickListener(View.OnClickListener {
             createWallet(false)
         })
+
+        val webView: WebView? = view.findViewById<WebView>(R.id.pwd_warning)
+        if (webView != null) {
+            val data = AndroidUtils.readAssetFile("pwd_warning.html")
+            val localData = AndroidUtils.replaceTTTTag(data)
+            webView.loadDataWithBaseURL("", localData, "text/html", "UTF-8", "")
+        }
 
         mRootView = view
         initFragment(mRootView!!)
@@ -130,5 +138,7 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
             }
         }
     }
-
 }
+
+//    button.setAlpha(.5f);
+//    button.setClickable(false);}

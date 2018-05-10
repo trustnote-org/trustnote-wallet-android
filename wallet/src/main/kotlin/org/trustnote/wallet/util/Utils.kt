@@ -168,7 +168,7 @@ object Utils {
     }
 
     fun write2File(file: File, o: Any) {
-        file.bufferedWriter().use{
+        file.bufferedWriter().use {
             it.write(getGson().toJson(o))
         }
     }
@@ -178,6 +178,10 @@ object Utils {
             throw RuntimeException("TProfile file does not exist")
         }
         return getGson().fromJson(file.bufferedReader(), TProfile::class.java)
+    }
+
+    fun hash(input: String): String {
+        return input
     }
 
 }

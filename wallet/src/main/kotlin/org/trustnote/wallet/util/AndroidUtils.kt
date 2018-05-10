@@ -1,14 +1,19 @@
 package org.trustnote.wallet.util
 
 import android.app.Activity
-import android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 import android.os.Build
 import android.view.View
-import android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
-import android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+import org.trustnote.wallet.TApp
 
 
 object AndroidUtils {
+
+    fun readAssetFile(fileName: String): String {
+        val jsStream = TApp.context.assets.open(fileName)
+        return jsStream.bufferedReader().use { it.readText() }
+    }
+
+
     fun hideStatusBar(activity: Activity, isShow: Boolean) {
 
         val uiOptions = activity.getWindow().getDecorView().getSystemUiVisibility()
@@ -23,7 +28,6 @@ object AndroidUtils {
         if (isImmersiveModeEnabled == isShow) {
             return
         }
-
 
         // Navigation bar hiding:  Backwards compatible to ICS.
         if (Build.VERSION.SDK_INT >= 14) {
@@ -41,6 +45,16 @@ object AndroidUtils {
 
         activity.getWindow().getDecorView().setSystemUiVisibility(newUiOptions)
         //END_INCLUDE (set_ui_flags)
+    }
+
+
+    fun replaceTTTTag(html:String):String {
+
+        return html.replace("TTTTAG(.*)TTTTAG".toRegex()){
+            val strResName = it.groupValues[1]
+            val resId = TApp.context.resources.getIdentifier(strResName, "string", TApp.context.packageName)
+            TApp.context.getString(resId)
+        }
     }
 
 }

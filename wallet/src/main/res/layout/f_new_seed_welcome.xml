@@ -7,7 +7,7 @@
 
         <TextView
             android:id="@+id/welcome_to_trustnote"
-            style="@style/t_text_black_bold"
+            style="@style/t_title"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:gravity="center"

@@ -398,6 +398,7 @@ public class Prefs {
     private static final String KEY_PROFILE = "TTTProfile";
     private static final File FILE_PROFILE = new File(TApp.getContext().getFilesDir(), "TTTProfile.json");
     private static final String KEY_TMP_MNEMONIC = "tmp_mnemonic";
+    private static final String KEY_HASH_PWD = "TTTProfile";
 
     public static boolean profileExist() {
         return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
@@ -419,6 +420,14 @@ public class Prefs {
     }
     public static String getTmpMnemonic() {
         return getInstance().read(KEY_TMP_MNEMONIC);
+    }
+
+    public static void writePwd(String pwd) {
+        getInstance().write(KEY_HASH_PWD, Utils.INSTANCE.hash(pwd));
+    }
+
+    public static Boolean pwdExist() {
+        return getInstance().isExist(KEY_HASH_PWD);
     }
 
 }

@@ -5,9 +5,6 @@ import com.google.gson.JsonObject
 import org.trustnote.db.Balance
 import org.trustnote.db.Tx
 import org.trustnote.db.entity.MyAddresses
-import org.trustnote.db.entity.Outputs
-import org.trustnote.wallet.util.Utils
-import java.math.BigInteger
 import java.util.*
 import com.google.gson.JsonParser
 import com.google.gson.annotations.Expose
@@ -120,4 +117,10 @@ enum class MNEMONIC_TYPE {
     RANDOM_GEN,
     RESTORE,
     UNKNOWN
+}
+
+enum class CREATE_WALLET_STATUS {
+    GENESIS,
+    PASSWORD_READY,
+    FINISHED
 }

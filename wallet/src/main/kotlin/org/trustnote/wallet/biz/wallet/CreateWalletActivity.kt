@@ -9,13 +9,11 @@ import android.support.v4.view.ViewPager
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.view.View
 import android.view.WindowManager
-import org.trustnote.wallet.R
-import org.trustnote.wallet.TApp
-import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 import com.koushikdutta.async.AsyncServer.post
-
+import org.trustnote.wallet.*
+import org.trustnote.wallet.pojo.CREATE_WALLET_STATUS
 
 
 class CreateWalletActivity : BaseActivity() {
@@ -28,6 +26,11 @@ class CreateWalletActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (CreateWalletModel.getCreationProgress() == CREATE_WALLET_STATUS.FINISHED) {
+            finish()
+            startMainActivityWithMenuId(R.id.action_home)
+        }
 
         setupUISettings()
 
@@ -79,8 +82,8 @@ class CreateWalletActivity : BaseActivity() {
 
 class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : FragmentStatePagerAdapter(fm) {
     var allPageLayoutIds: Array<Int> = arrayOf(
+            R.layout.f_new_seed_pwd,
             R.layout.f_new_seed_or_restore,
-            R.layout.f_new_seed_prompt,
             R.layout.f_new_seed_show_warning,
             R.layout.f_new_seed_confirm,
             R.layout.f_new_seed_remove_confirm

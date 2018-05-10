@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pwd_setup_title"
+            style="@style/t_title"
+            android:text="@string/pwd_setup_title" />
+
+        <WebView
+            android:id="@+id/pwd_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pwd_setup_title" />
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/pwd"
+            style="@style/t_pwd"
+            android:layout_below="@id/pwd_warning"
+            android:drawableRight="@drawable/pwd_clear"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/pwd_err"
+            style="@style/t_err"
+            android:layout_below="@id/pwd" />
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/pwd_confirm"
+            style="@style/t_pwd"
+
+            android:layout_below="@id/pwd_err"
+            android:drawableRight="@drawable/pwd_clear"
+            android:hint="@string/pwd_confirm_hint"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/pwd_confirm_err"
+            style="@style/t_err"
+            android:layout_below="@id/pwd_confirm" />
+
+        <Button
+            android:id="@+id/btn_new_seed"
+            style="@style/t_btn_blue"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/confirm" />
+
+
+    </RelativeLayout>
+
+</layout>
