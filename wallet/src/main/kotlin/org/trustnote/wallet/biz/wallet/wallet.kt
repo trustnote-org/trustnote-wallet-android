@@ -1,4 +1,4 @@
-package org.trustnote.wallet.pojo
+package org.trustnote.wallet.biz.wallet
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -120,7 +120,9 @@ enum class MNEMONIC_TYPE {
 }
 
 enum class CREATE_WALLET_STATUS {
-    GENESIS,
+    DIDNOT_AGREE,
+    DEVICE_NAME_FINISHED,
+    SELECT_CREATE_OR_RESTORE,
     PASSWORD_READY,
     FINISHED
 }

@@ -41,20 +41,20 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
             mPager.currentItem = mPager.currentItem + 1
         })
 
-        view.findViewById<View>(R.id.pre_step)?.setOnClickListener(View.OnClickListener {
-            mPager.currentItem = mPager.currentItem - 1
-        })
+//        view.findViewById<View>(R.id.pre_step)?.setOnClickListener(View.OnClickListener {
+//            mPager.currentItem = mPager.currentItem - 1
+//        })
+//
+//        view.findViewById<View>(R.id.mnemonic_remove)?.setOnClickListener(View.OnClickListener {
+//            mPager.currentItem = mPager.currentItem + 1
+//        })
 
-        view.findViewById<View>(R.id.mnemonic_remove)?.setOnClickListener(View.OnClickListener {
-            mPager.currentItem = mPager.currentItem + 1
-        })
-
-        view.findViewById<View>(R.id.mnemonic_remove_confirm)?.setOnClickListener(View.OnClickListener {
-            createWallet(true)
-        })
-        view.findViewById<View>(R.id.mnemonic_remove_ignore)?.setOnClickListener(View.OnClickListener {
-            createWallet(false)
-        })
+//        view.findViewById<View>(R.id.mnemonic_remove_confirm)?.setOnClickListener(View.OnClickListener {
+//            createWallet(true)
+//        })
+//        view.findViewById<View>(R.id.mnemonic_remove_ignore)?.setOnClickListener(View.OnClickListener {
+//            createWallet(false)
+//        })
 
         val webView: WebView? = view.findViewById<WebView>(R.id.pwd_warning)
         if (webView != null) {
@@ -100,8 +100,8 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
 
             layout.f_new_seed_show_warning -> {
 
-                val newSeedTV = view.findViewById<TextView>(R.id.new_seed)
-                newSeedTV.text = WalletManager.getTmpMnemonic()
+//                val newSeedTV = view.findViewById<TextView>(R.id.new_seed)
+//                newSeedTV.text = WalletManager.getTmpMnemonic()
             }
 
             layout.f_new_seed_or_restore -> {
@@ -115,25 +115,25 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
                 }
             }
 
-            layout.f_new_seed_confirm -> {
-                (view.findViewById<MnemonicGridView>(R.id.grid_view)).init(WalletManager.getTmpMnemonic())
-                (view.findViewById<MnemonicGridView>(R.id.grid_view)).onWordCheckResult = { isOk: Boolean ->
-                    val btnPreStep = view.findViewById<Button>(R.id.pre_step)
-                    val btnRemove = view.findViewById<Button>(R.id.mnemonic_remove)
-                    val btnIgnore = view.findViewById<Button>(R.id.mnemonic_remove_ignore)
-                    val errMsg = view.findViewById<TextView>(R.id.err_msg)
-                    if (isOk) {
-                        errMsg.visibility = View.VISIBLE
-                        btnPreStep.visibility = View.GONE
-                        btnRemove.visibility = View.VISIBLE
-                        btnIgnore.visibility = View.VISIBLE
-                    } else {
-                        errMsg.visibility = View.INVISIBLE
-                        btnPreStep.visibility = View.VISIBLE
-                        btnRemove.visibility = View.GONE
-                        btnIgnore.visibility = View.GONE
-                    }
-                }
+            layout.f_new_seed_verify -> {
+//                (view.findViewById<MnemonicGridView>(R.id.grid_view)).init(WalletManager.getTmpMnemonic())
+//                (view.findViewById<MnemonicGridView>(R.id.grid_view)).onWordCheckResult = { isOk: Boolean ->
+//                    val btnPreStep = view.findViewById<Button>(R.id.pre_step)
+//                    val btnRemove = view.findViewById<Button>(R.id.mnemonic_remove)
+//                    val btnIgnore = view.findViewById<Button>(R.id.mnemonic_remove_ignore)
+//                    val errMsg = view.findViewById<TextView>(R.id.err_msg)
+//                    if (isOk) {
+//                        errMsg.visibility = View.VISIBLE
+//                        btnPreStep.visibility = View.GONE
+//                        btnRemove.visibility = View.VISIBLE
+//                        btnIgnore.visibility = View.VISIBLE
+//                    } else {
+//                        errMsg.visibility = View.INVISIBLE
+//                        btnPreStep.visibility = View.VISIBLE
+//                        btnRemove.visibility = View.GONE
+//                        btnIgnore.visibility = View.GONE
+//                    }
+//                }
 
             }
         }

@@ -19,7 +19,7 @@ import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 import com.google.gson.JsonObject
-import org.trustnote.wallet.pojo.TProfile
+import org.trustnote.wallet.biz.wallet.TProfile
 import java.io.File
 
 

@@ -7,14 +7,13 @@ import org.trustnote.db.Payload
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.biz.wallet.WalletModel
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.network.pojo.HubRequest
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.MSG_TYPE
-import org.trustnote.wallet.pojo.SendPaymentInfo
+import org.trustnote.wallet.biz.wallet.SendPaymentInfo
 import org.trustnote.wallet.util.Utils
 
 class UnitComposer(

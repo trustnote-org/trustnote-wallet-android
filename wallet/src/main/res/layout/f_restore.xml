@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mnemonic_restore_title"
+            style="@style/t_title"
+            android:text="@string/mnemonic_restore_title" />
+
+
+        <TextView
+            android:id="@+id/mnemonic_restore_msg"
+            style="@style/t_text_msg"
+            android:layout_below="@id/mnemonic_restore_title"
+            android:text="@string/mnemonic_restore_msg" />
+
+        <Button
+            android:id="@+id/mnemonic_resotre_btn"
+            style="@style/t_btn_blue"
+            android:layout_above="@id/mnemonic_resotre_remvoe_btn"
+            android:text="@string/mnemonic_resotre_btn" />
+
+        <Button
+            android:id="@+id/mnemonic_resotre_remvoe_btn"
+            style="@style/t_btn_white"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:layout_marginTop="@dimen/btn_vertical_gap"
+            android:text="@string/mnemonic_resotre_remove_btn" />
+
+    </RelativeLayout>
+
+</layout>

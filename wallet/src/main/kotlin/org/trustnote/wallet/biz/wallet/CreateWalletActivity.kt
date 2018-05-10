@@ -11,9 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
-import com.koushikdutta.async.AsyncServer.post
 import org.trustnote.wallet.*
-import org.trustnote.wallet.pojo.CREATE_WALLET_STATUS
 
 
 class CreateWalletActivity : BaseActivity() {
@@ -43,7 +41,7 @@ class CreateWalletActivity : BaseActivity() {
 
         mPager.adapter = mPagerAdapter
 
-        val pageChangeListener = object:OnPageChangeListener {
+        val pageChangeListener = object : OnPageChangeListener {
 
             override fun onPageScrollStateChanged(state: Int) {
             }
@@ -75,18 +73,21 @@ class CreateWalletActivity : BaseActivity() {
     fun adjustUIBySetting(pageSetting: PageSetting) {
         AndroidUtils.hideStatusBar(this, !pageSetting.showStatusBar)
         findViewById<View>(R.id.titlebar_back_arrow).visibility = (if (pageSetting.showBackArrow) View.VISIBLE else View.INVISIBLE)
-
     }
 }
 
 
 class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : FragmentStatePagerAdapter(fm) {
     var allPageLayoutIds: Array<Int> = arrayOf(
+            R.layout.f_new_seed_disclaimer,
             R.layout.f_new_seed_pwd,
             R.layout.f_new_seed_or_restore,
             R.layout.f_new_seed_show_warning,
-            R.layout.f_new_seed_confirm,
-            R.layout.f_new_seed_remove_confirm
+            R.layout.f_new_seed_verify,
+            R.layout.f_new_seed_remove,
+            R.layout.f_restore
+//            R.layout.f_new_seed_verify,
+//            R.layout.f_new_seed_remove
     )
 
     //TODO: possible bug?

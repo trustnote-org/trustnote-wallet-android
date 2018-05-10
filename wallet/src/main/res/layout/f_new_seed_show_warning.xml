@@ -3,48 +3,42 @@
 
     <RelativeLayout
         style="@style/t_layout"
-        android:gravity="center">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/new_seed_dont_screenshot"
+            android:id="@+id/new_mnemonic_title"
             style="@style/t_title"
-            android:layout_alignParentTop="true"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/new_seed_dont_screenshot" />
+            android:text="@string/new_mnemonic_title" />
 
         <TextView
-            android:id="@+id/new_seed_copy_title"
-            style="@style/t_title"
-            android:layout_below="@id/new_seed_dont_screenshot"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            android:text="@string/new_seed_copy_title" />
+            android:id="@+id/new_mnemonic_sub_title"
+            style="@style/t_sub_title"
+            android:layout_below="@id/new_mnemonic_title"
+            android:text="@string/new_mnemonic_sub_title" />
 
         <TextView
-            android:id="@+id/new_seed_copy_msg"
+            android:id="@+id/new_mnemonic_msg"
             style="@style/t_text_msg"
+            android:layout_below="@id/new_mnemonic_sub_title"
+            android:text="@string/new_mnemonic_msg" />
 
-            android:layout_below="@id/new_seed_copy_title"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/new_seed_copy_msg" />
-        <TextView
-            android:id="@+id/new_seed"
-            style="@style/t_text_msg_gray"
-            android:layout_below="@id/new_seed_copy_msg"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:gravity="left"
-            android:text="@string/test_seed" />
+
+
+        <WebView
+            android:id="@+id/pwd_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_mnemonic_msg" />
+
 
         <Button
+            android:id="@+id/btn_new_seed"
             style="@style/t_btn_blue"
-            android:id="@+id/next_step"
-            android:layout_below="@id/new_seed"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/confirm_backup" />
 
-            android:layout_centerInParent="true" />
 
     </RelativeLayout>
 

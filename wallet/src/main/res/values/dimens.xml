@@ -22,5 +22,10 @@
     <dimen name="slogan_below">100dp</dimen>
 
     <dimen name="t_drawable_padding">6dp</dimen>
+    <dimen name="pwd_strength_bar_height">6dp</dimen>
+
+    <dimen name="icon_width">64dp</dimen>
+    <dimen name="icon_height">64dp</dimen>
+
 
 </resources>

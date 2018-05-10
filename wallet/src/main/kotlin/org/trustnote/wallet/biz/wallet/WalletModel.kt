@@ -8,8 +8,6 @@ import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.HubMsgFactory
-import org.trustnote.wallet.pojo.Credential
-import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils

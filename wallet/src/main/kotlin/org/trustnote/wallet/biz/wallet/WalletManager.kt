@@ -1,7 +1,6 @@
 package org.trustnote.wallet.biz.wallet
 
 import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.pojo.TProfile
 import org.trustnote.wallet.util.Prefs
 
 

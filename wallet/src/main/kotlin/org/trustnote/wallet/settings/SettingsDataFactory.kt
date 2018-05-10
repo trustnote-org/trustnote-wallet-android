@@ -4,7 +4,7 @@ import android.webkit.ValueCallback
 import org.trustnote.wallet.BuildConfig
 
 import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.pojo.SendPaymentInfo
+import org.trustnote.wallet.biz.wallet.SendPaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
 import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.biz.wallet.*

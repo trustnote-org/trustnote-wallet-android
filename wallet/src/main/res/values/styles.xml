@@ -15,20 +15,20 @@
 
     <!-- Move to file colors.xml later-->
 
-    <style name="t_text" parent="TextAppearance.AppCompat">
+    <style name="t_text_base" parent="TextAppearance.AppCompat">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="t_btn" parent="@style/t_text"></style>
+    <style name="t_btn" parent="@style/t_text_base"></style>
 
-    <style name="t_title" parent="@style/t_text">
+    <style name="t_title" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_title_black</item>
         <item name="android:gravity">left</item>
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="t_pwd" parent="@style/t_text">
+    <style name="t_pwd" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_title_black</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:layout_width">match_parent</item>
@@ -39,7 +39,7 @@
         <item name="android:textColorHint">@color/t_hint</item>
     </style>
 
-    <style name="t_err" parent="@style/t_text">
+    <style name="t_err" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_err</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:layout_width">match_parent</item>
@@ -47,28 +47,44 @@
         <item name="android:textSize">14sp</item>
         <item name="android:text">@string/place_holder</item>
         <item name="android:drawableLeft">@drawable/err</item>
-
     </style>
 
-    <style name="t_line" parent="@style/t_text">
+    <style name="t_line" parent="@style/t_text_base">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/t_bottom_line</item>
     </style>
 
-    <style name="t_text_msg" parent="@style/t_text">
-        <item name="android:textColor">@color/t_f_gray</item>
+    <style name="t_strength" parent="@style/t_text_base">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="t_strength_bar" parent="@style/t_text_base">
+        <item name="android:background">@color/t_strength</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/pwd_strength_bar_height</item>
+    </style>
+
+    <style name="t_sub_title" parent="@style/t_text_base">
+        <item name="android:textColor">@color/t_text</item>
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="t_text_msg_gray" parent="@style/t_text">
+    <style name="t_text_msg" parent="@style/t_text_base">
+        <item name="android:textColor">@color/t_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="t_text_msg_gray" parent="@style/t_text_base">
         <item name="android:background">@color/t_f_gray</item>
         <item name="android:textColor">@color/t_title_black</item>
         <item name="android:padding">12dp</item>
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="t_btn_blue" parent="@style/t_text">
+    <style name="t_btn_blue" parent="@style/t_text_base">
         <item name="android:text">@string/next_step</item>
         <item name="android:background">@drawable/t_btn_bg</item>
         <item name="android:layout_width">match_parent</item>

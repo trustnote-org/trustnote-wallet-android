@@ -1,6 +1,5 @@
 package org.trustnote.wallet.biz.wallet
 
-import org.trustnote.wallet.pojo.CREATE_WALLET_STATUS
 import org.trustnote.wallet.util.Prefs
 
 object CreateWalletModel {
@@ -12,7 +11,7 @@ object CreateWalletModel {
             return CREATE_WALLET_STATUS.PASSWORD_READY
         }
 
-        return CREATE_WALLET_STATUS.GENESIS
+        return CREATE_WALLET_STATUS.SELECT_CREATE_OR_RESTORE
     }
 }
 

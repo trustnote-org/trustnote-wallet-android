@@ -7,10 +7,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import com.google.gson.Gson;
-
 import org.trustnote.wallet.TApp;
-import org.trustnote.wallet.pojo.TProfile;
+import org.trustnote.wallet.biz.wallet.TProfile;
 
 import java.io.File;
 import java.util.LinkedHashSet;

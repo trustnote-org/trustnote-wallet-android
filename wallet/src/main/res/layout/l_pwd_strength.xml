@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout style="@style/t_strength"
+        android:orientation="vertical">
+        <View android:id="@+id/pwd_strength_bar_weak"
+            style="@style/t_strength_bar" />
+        <TextView
+            android:text="@string/pwd_strength_weak"
+            android:textColor="@color/t_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout style="@style/t_strength"
+        android:orientation="vertical">
+        <View android:id="@+id/pwd_strength_bar_general"
+            style="@style/t_strength_bar" />
+        <TextView
+            android:text="@string/pwd_strength_general"
+            android:textColor="@color/t_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent" />
+
+    <LinearLayout style="@style/t_strength"
+        android:orientation="vertical">
+        <View android:id="@+id/pwd_strength_bar_strong"
+            style="@style/t_strength_bar" />
+        <TextView
+            android:text="@string/pwd_strength_strong"
+            android:textColor="@color/t_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

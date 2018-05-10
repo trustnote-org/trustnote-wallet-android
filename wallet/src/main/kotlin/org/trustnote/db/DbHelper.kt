@@ -1,17 +1,11 @@
 package org.trustnote.db
 
-import com.google.gson.*
-import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.TTT
-import org.trustnote.wallet.network.pojo.HubResponse
-import org.trustnote.wallet.pojo.Credential
-import org.trustnote.wallet.pojo.InputOfPayment
-import org.trustnote.wallet.pojo.SendPaymentInfo
+import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.util.Utils
 
 @Suppress("UNCHECKED_CAST")

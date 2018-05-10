@@ -58,11 +58,10 @@
     <string name="mnemonic_check_failed">无效的口令</string>
     <string name="mnemonic_check_ok">您的口令正确，为了保证您的钱包安全，建议您删掉口令</string>
     <string name="mnemonic_remove">删除口令</string>
-    <string name="mnemonic_remove_ignore">跳过</string>
     <string name="mnemonic_remove_confirm">确定删除</string>
 
     <string name="mnemonic_remove_title">您确定要删除钱包口令吗？</string>
-    <string name="mnemonic_remove_msg">此操作将彻底删除应用中口令并且不可恢复，请再次确认您已经将口令备份到安全的地方</string>
+    <string name="mnemonic_remove_msg22">此操作将彻底删除应用中口令并且不可恢复，请再次确认您已经将口令备份到安全的地方</string>
 
     <string name="wallet_new_name">钱包名称</string>
     <string name="wallet_new_hint">输入新钱包名称</string>
@@ -80,6 +79,41 @@
 
     <string name="pwd_hint">请输入密码</string>
     <string name="pwd_confirm_hint">请再次确认密码</string>
+
+    <string name="pwd_strength_weak">弱</string>
+    <string name="pwd_strength_general">中</string>
+    <string name="pwd_strength_strong">强</string>
+
+    <string name="pwd_confirm_err">两次输入密码不一致，请重新输入</string>
+    <string name="pwd_strength_warning">密码强度太弱，极易被黑客破解</string>
+    <string name="pwd_error">不少于8位字符，建议混合大小写字母、数字、特殊符号</string>
+
+    <string name="agree">同意</string>
+    <string name="new_mnemonic_title">备份助记词</string>
+    <string name="new_mnemonic_sub_title">最后一步：立即备份你的12个助记词</string>
+
+    <string name="new_mnemonic_msg">您只能用这些单词恢复钱包！一旦丢失，资产将无法找回！一旦泄露，资产将会被盗！</string>
+
+    <string name="confirm_backup">完成备份</string>
+
+    <string name="new_mnemonic_verify_title">验证助记词</string>
+    <string name="new_mnemonic_verify_msg">根据你记下的助记词，按顺序输入，验证你备份的助记词正确无误</string>
+    <string name="new_mnemonic_verified">完成验证</string>
+
+    <string name="mnemonic_verify_success_title">助记词验证正确</string>
+
+    <string name="mnemonic_remove_msg">您的助记词正确，为了确保您的钱包安全，建议您删除显示在设备中的助记词</string>
+    <string name="mnemonic_remove_ignore">跳过</string>
+    <string name="mnemonic_remove_btn">删除助记词</string>
+
+    <string name="mnemonic_restore_title">恢复钱包</string>
+    <string name="mnemonic_restore_msg">钱包助记词</string>
+
+    <string name="mnemonic_resotre_btn">使用助记词恢复钱包</string>
+    <string name="mnemonic_resotre_remove_btn">恢复钱包并删除助记词</string>
+
+
+
 
 
 </resources>
