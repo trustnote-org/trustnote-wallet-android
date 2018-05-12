@@ -24,7 +24,7 @@
             android:layout_below="@id/pwd_warning"
             android:text="" />
 
-        
+
         <include
             android:id="@+id/pwd_strength"
             layout="@layout/l_pwd_strength"
