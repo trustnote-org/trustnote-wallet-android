@@ -2,7 +2,9 @@ package org.trustnote.wallet
 
 import android.app.Application
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
+import android.webkit.WebView
 import dagger.Lazy
 import org.trustnote.wallet.js.TWebView
 import org.trustnote.wallet.network.HubManager
@@ -21,6 +23,8 @@ class TApp : Application() {
         //TODO:
         lateinit @JvmStatic var context: Context
         lateinit var graph: TApplicationComponent
+        var smallIconSize = 14
+        lateinit var smallIconError: Drawable
     }
 
     override fun onCreate() {
@@ -47,6 +51,7 @@ class TApp : Application() {
     //TODO: try other way as init.
     private fun init() {
 
+
          //disable IPv6 in emulator
          if ("google_sdk" == Build.PRODUCT) {
             java.lang.System.setProperty("java.net.preferIPv6Addresses", "false");
@@ -57,5 +62,11 @@ class TApp : Application() {
         TWebView.init(this)
         Prefs.with(this)
         HubManager.instance
+
+        smallIconSize = TApp.context.resources.getDimension(R.dimen.small_icon).toInt()
+        smallIconError = TApp.context.resources.getDrawable(R.drawable.err)
+        smallIconError.setBounds(0, 0, smallIconSize, smallIconSize)
+
+        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
     }
 }

@@ -32,6 +32,9 @@
     <dimen name="line_gap_32">32dp</dimen>
     <dimen name="line_gap_12">12dp</dimen>
     <dimen name="line_gap_42">42dp</dimen>
+    <dimen name="line_gap_48">48dp</dimen>
+    <dimen name="line_gap_10">10dp</dimen>
+    <dimen name="line_gap_6">6dp</dimen>
 
     <dimen name="bg_dialog_corner">12dp</dimen>
     <dimen name="bg_dialog_padding_top">16dp</dimen>
@@ -43,5 +46,7 @@
     <dimen name="f_mnemonic">16sp</dimen>
 
     <dimen name="mnemonic_margin_top">26dp</dimen>
+
+    <dimen name="small_icon">14dp</dimen>
 
 </resources>

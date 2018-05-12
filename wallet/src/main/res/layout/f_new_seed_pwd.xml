@@ -9,6 +9,7 @@
         <TextView
             android:id="@+id/pwd_setup_title"
             style="@style/t_title"
+            android:layout_marginBottom="@dimen/line_gap_24"
             android:text="@string/pwd_setup_title" />
 
         <WebView
@@ -21,7 +22,6 @@
             android:id="@+id/pwd"
             style="@style/t_pwd"
             android:layout_below="@id/pwd_warning"
-            android:drawableRight="@drawable/pwd_clear"
             android:text="" />
 
         <include
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/pwd" />
 
-        <TextView
+        <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/pwd_err"
             style="@style/t_err"
             android:layout_below="@id/pwd_strength" />
@@ -39,17 +39,15 @@
         <org.trustnote.wallet.widget.ClearableEditText
             android:id="@+id/pwd_confirm"
             style="@style/t_pwd"
-
             android:layout_below="@id/pwd_err"
-            android:drawableRight="@drawable/pwd_clear"
             android:hint="@string/pwd_confirm_hint"
             android:text="" />
 
-        <TextView
+        <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/pwd_confirm_err"
             style="@style/t_err"
-            android:text="@string/pwd_confirm_err"
-            android:layout_below="@id/pwd_confirm" />
+            android:layout_below="@id/pwd_confirm"
+            android:text="@string/pwd_confirm_err" />
 
         <Button
             android:id="@+id/btn_new_seed"

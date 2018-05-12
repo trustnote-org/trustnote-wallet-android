@@ -86,7 +86,8 @@ class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : Fragment
             R.layout.f_new_seed_verify,
             R.layout.f_new_seed_remove,
             R.layout.l_dialog,
-            R.layout.f_restore
+            R.layout.f_new_seed_devicename,
+            R.layout.f_new_seed_restore
 //            R.layout.f_new_seed_verify,
 //            R.layout.f_new_seed_remove
     )

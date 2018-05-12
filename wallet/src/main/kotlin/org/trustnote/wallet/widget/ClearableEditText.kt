@@ -8,17 +8,12 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
-import kotlinx.android.synthetic.main.f_new_seed_pwd.view.*
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 
 class ClearableEditText constructor(context: Context,
                                     attrs: AttributeSet? = null
-) : EditText(context, attrs), View.OnTouchListener, View.OnFocusChangeListener{
-
-    init {
-        init()
-    }
-
+) : EditText(context, attrs), View.OnTouchListener, View.OnFocusChangeListener {
 
     private var loc: Location = Location.RIGHT
 
@@ -30,6 +25,11 @@ class ClearableEditText constructor(context: Context,
 
     private val displayedDrawable: Drawable?
         get() = if (loc != null) compoundDrawables[loc.idx] else null
+
+    init {
+        init()
+    }
+
 
     enum class Location private constructor(internal val idx: Int) {
         LEFT(0), RIGHT(2)
@@ -124,6 +124,7 @@ class ClearableEditText constructor(context: Context,
         addTextChangedListener(MyWatcher())
         initIcon()
         setClearIconVisible(false)
+        invalidate()
     }
 
     private fun initIcon() {
@@ -131,10 +132,13 @@ class ClearableEditText constructor(context: Context,
         if (loc != null) {
             xD = compoundDrawables[loc.idx]
         }
+
         if (xD == null) {
             xD = resources.getDrawable(R.drawable.pwd_clear)
         }
-        xD!!.setBounds(0, 0, xD!!.intrinsicWidth, xD!!.intrinsicHeight)
+
+        xD!!.setBounds(0, 0, TApp.smallIconSize, TApp.smallIconSize)
+        //xD!!.setBounds(0, 0, xD!!.intrinsicWidth, xD!!.intrinsicHeight)
         val min = paddingTop + xD!!.intrinsicHeight + paddingBottom
         if (suggestedMinimumHeight < min) {
             minimumHeight = min
@@ -143,12 +147,8 @@ class ClearableEditText constructor(context: Context,
 
     protected fun setClearIconVisible(visible: Boolean) {
         val cd = compoundDrawables
-        val displayed = displayedDrawable
-        val wasVisible = displayed != null
-        if (visible != wasVisible) {
-            val x = if (visible) xD else null
-            super.setCompoundDrawables(if (loc == Location.LEFT) x else cd[0], cd[1], if (loc == Location.RIGHT) x else cd[2],
-                    cd[3])
-        }
+        val x = if (visible) xD else null
+        super.setCompoundDrawables(if (loc == Location.LEFT) x else cd[0], cd[1], if (loc == Location.RIGHT) x else cd[2],
+                cd[3])
     }
 }

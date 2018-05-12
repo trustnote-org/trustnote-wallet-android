@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/mnemonic_devicename_icon"
+            android:layout_width="@dimen/icon_width"
+            android:layout_height="@dimen/icon_height"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_wallet" />
+
+        <TextView
+            android:id="@+id/mnemonic_devicename_title"
+            style="@style/t_title"
+            android:layout_below="@id/mnemonic_devicename_icon"
+            android:layout_marginTop="@dimen/line_gap_48"
+            android:text="@string/mnemonic_devicename_title" />
+
+        <TextView
+            android:id="@+id/mnemonic_devicename_msg"
+            style="@style/t_text_msg"
+            android:layout_below="@id/mnemonic_devicename_title"
+            android:layout_marginTop="@dimen/line_gap_16"
+            android:text="@string/mnemonic_devicename_msg" />
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/c"
+            style="@style/t_pwd"
+            android:hint="@string/mnemonic_devicename_hint"
+            android:inputType="text"
+            android:layout_below="@id/mnemonic_devicename_msg"
+            android:text="" />
+        <org.trustnote.wallet.widget.ErrTextView
+            android:id="@+id/mnemonic_devicename_err"
+            style="@style/t_err"
+            android:text="@string/detail_icon_content_description"
+            android:layout_below="@id/mnemonic_devicename_err" />
+
+        <Button
+            android:id="@+id/mnemonic_devicename_confirm"
+            style="@style/t_btn_blue"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/confirm" />
+    </RelativeLayout>
+
+</layout>

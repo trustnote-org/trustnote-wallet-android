@@ -44,9 +44,9 @@
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:drawablePadding">@dimen/t_drawable_padding</item>
+        <item name="android:layout_marginTop">@dimen/line_gap_10</item>
         <item name="android:textSize">14sp</item>
         <item name="android:text">@string/place_holder</item>
-        <item name="android:drawableLeft">@drawable/err</item>
     </style>
 
     <style name="t_line" parent="@style/t_text_base">
@@ -64,6 +64,7 @@
     <style name="t_strength_bar" parent="@style/t_text_base">
         <item name="android:background">@color/t_strength</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/line_gap_6</item>
         <item name="android:layout_height">@dimen/pwd_strength_bar_height</item>
     </style>
 

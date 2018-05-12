@@ -112,8 +112,10 @@
     <string name="mnemonic_resotre_btn">使用助记词恢复钱包</string>
     <string name="mnemonic_resotre_remove_btn">恢复钱包并删除助记词</string>
 
+    <string name="mnemonic_devicename_title">欢迎来到TrustNote钱包</string>
+    <string name="mnemonic_devicename_msg">您可以自定义设备名称，朋友加您好友后，在聊天列表里很容易找到您。</string>
 
-
-
+    <string name="mnemonic_devicename_hint">请输入设备名称</string>
+    <string name="mnemonic_devicename_err">不超过20个字符</string>
 
 </resources>

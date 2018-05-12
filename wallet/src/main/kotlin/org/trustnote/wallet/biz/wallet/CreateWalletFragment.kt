@@ -80,20 +80,20 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
 
     private fun initFragment(view: View) {
         when (mLayoutId) {
-            layout.f_new_seed_welcome -> {
-                val deviceNameTV = view.findViewById<EditText>(R.id.welcome_device_name)
-                //deviceNameTV.setText(WalletManager.model.deviceName)
-                deviceNameTV.setOnKeyListener { v: View, keyCode: Int, event: KeyEvent ->
-                    if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                        //do something here
-                        WalletManager.model.deviceName = deviceNameTV.text.toString()
-                        mPager.currentItem = mPager.currentItem + 1
-                        true
-                    } else {
-                        false
-                    }
-                }
-            }
+//            layout.f_new_seed_welcome -> {
+//                val deviceNameTV = view.findViewById<EditText>(R.id.welcome_device_name)
+//                //deviceNameTV.setText(WalletManager.model.deviceName)
+//                deviceNameTV.setOnKeyListener { v: View, keyCode: Int, event: KeyEvent ->
+//                    if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+//                        //do something here
+//                        WalletManager.model.deviceName = deviceNameTV.text.toString()
+//                        mPager.currentItem = mPager.currentItem + 1
+//                        true
+//                    } else {
+//                        false
+//                    }
+//                }
+//            }
 
             layout.f_new_seed_backup -> {
 
