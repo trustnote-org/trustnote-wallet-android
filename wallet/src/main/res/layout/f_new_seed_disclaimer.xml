@@ -7,12 +7,13 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/disclaim"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="免责声明，开发中..."
             android:textColor="@color/t_text"
-            android:textSize="28sp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:textSize="28sp" />
 
         <Button
             android:id="@+id/agree"

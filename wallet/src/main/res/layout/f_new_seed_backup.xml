@@ -25,14 +25,20 @@
             android:layout_below="@id/new_mnemonic_sub_title"
             android:text="@string/new_mnemonic_msg" />
 
-
+        <org.trustnote.wallet.widget.MnemonicsGridView
+            android:id = "@+id/mnemonics"
+            android:layout_marginTop="@dimen/mnemonic_margin_top"
+            android:layout_marginBottom="@dimen/mnemonic_margin_top"
+            android:textColor="@color/t_text"
+            android:layout_width="match_parent"
+            android:layout_below="@id/new_mnemonic_msg"
+            android:layout_height="wrap_content" />
 
         <WebView
             android:id="@+id/pwd_warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/new_mnemonic_msg" />
-
+            android:layout_below="@id/mnemonics" />
 
         <Button
             android:id="@+id/btn_new_seed"
@@ -40,7 +46,6 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"
             android:text="@string/confirm_backup" />
-
 
     </RelativeLayout>
 

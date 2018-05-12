@@ -30,7 +30,7 @@
         <activity
             android:name="org.trustnote.wallet.biz.wallet.CreateWalletActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

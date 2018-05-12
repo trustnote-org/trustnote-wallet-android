@@ -238,8 +238,16 @@ class JSApi {
     fun getTotalPayloadSizeSync(unit: String): String {
         return TWebView.sInstance.callJSSync("window.Client.getTotalPayloadSize($unit);")
     }
+
+
+    //TODO: Cache the result.
+    fun getBip39WordList():Array<String> {
+        return arrayOf("thingtr", "bitcoin", "trustn", "thingg", "thiner")
+    }
 }
 
 class JSResult {
     var result: String = ""
 }
+
+

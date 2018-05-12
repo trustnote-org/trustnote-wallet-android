@@ -8,38 +8,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.FrameLayout
 import android.widget.GridView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TTT
 
 
-class MnemonicGridView @JvmOverloads constructor(
+class MnemonicsGridView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : GridView(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
-    lateinit var mMnemonic: List<String>
-    var onWordCheckResult = { isAllWordOK: Boolean -> }
-    set(value) {
-        (adapter as MnemonicAdapter).onCheckResult = value
-    }
+    init {
+        val view = View.inflate(context, R.layout.w_mnemonics_grid, null)
+        addView(view)
+        val gridView = findViewById<GridView>(R.id.grid_view)
 
-    fun init(currentMnemonic: List<String>) {
-        mMnemonic = ArrayList(currentMnemonic)
-        adapter = MnemonicAdapter(context, mMnemonic)
-    }
+        val wordPlaceHolder = List(12){
+            TTT.PLACEHOLDER_TTT
+        }
+        gridView.adapter = MnemonicAdapter(context, wordPlaceHolder)
 
-    fun init(menmonic: String) {
-        mMnemonic = menmonic.split(" ")
-        adapter = MnemonicAdapter(context, mMnemonic)
     }
 
 }
 
+
 class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : BaseAdapter() {
     val mMnemonic: List<String> = mnemonic
     var onCheckResult = { isAllWordOK: Boolean -> }
-    val editTextCache = HashMap<Int, TMnemonicEditText >()
+    val editTextCache = HashMap<Int, MnemonicAutoCompleteTextView >()
 
     override fun getCount(): Int = mMnemonic.size
 
@@ -49,21 +48,21 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
 
     // create a new ImageView for each item referenced by the Adapter
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val editTextView: TMnemonicEditText
+        val editTextView: MnemonicAutoCompleteTextView
         //TODO: why warning.
         when (convertView == null) {
             true -> {
-                editTextView = LayoutInflater.from(context).inflate(R.layout.item_mnemonic, parent, false) as TMnemonicEditText
+                editTextView = LayoutInflater.from(context).inflate(R.layout.item_mnemonic, parent, false) as MnemonicAutoCompleteTextView
             }
 
             false -> {
-                editTextView = convertView as TMnemonicEditText
+                editTextView = convertView as MnemonicAutoCompleteTextView
             }
         }
 
         editTextView.setText(mMnemonic[position])
         //editTextView.setHint(mMnemonic[position])
-        editTextView.expectedInput = mMnemonic[position]
+        //editTextView.expectedInput = mMnemonic[position]
         editTextCache[position] = editTextView
 
         //setup the focus for next/enter key event.

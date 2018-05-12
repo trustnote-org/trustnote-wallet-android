@@ -82,12 +82,14 @@ class TTT {
         const val MAX_FEE = 20000L
 
         // 256 bits (32 bytes) base64: 44 bytes
+        const val PLACEHOLDER_TTT: String = "TTT_Test"
         const val PLACEHOLDER_AMOUNT = 111L
         const val PLACEHOLDER_HASH = "--------------------------------------------"
         // 88 bytes
         const val PLACEHOLDER_SIG = "----------------------------------------------------------------------------------------"
 
         const val HD_DERIVATION_STRATEGY: String = "BIP44"
+
 
     }
 }

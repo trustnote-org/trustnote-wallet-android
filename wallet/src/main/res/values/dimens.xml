@@ -1,7 +1,6 @@
 <resources>
 
     <dimen name="t_layout_padding">16dp</dimen>
-    <dimen name="sp_mnemonic">18dp</dimen>
 
     <dimen name="title_height">44dp</dimen>
 
@@ -32,11 +31,17 @@
     <dimen name="line_gap_14">14dp</dimen>
     <dimen name="line_gap_32">32dp</dimen>
     <dimen name="line_gap_12">12dp</dimen>
+    <dimen name="line_gap_42">42dp</dimen>
 
     <dimen name="bg_dialog_corner">12dp</dimen>
     <dimen name="bg_dialog_padding_top">16dp</dimen>
     <dimen name="bg_dialog_padding_left">21dp</dimen>
     <dimen name="bg_dialog_width">270dp</dimen>
     <dimen name="dialog_btn_font">17sp</dimen>
+
+    <dimen name="f_mnemonic_autocomplete">14sp</dimen>
+    <dimen name="f_mnemonic">16sp</dimen>
+
+    <dimen name="mnemonic_margin_top">26dp</dimen>
 
 </resources>
