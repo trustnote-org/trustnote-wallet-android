@@ -9,11 +9,13 @@
         <TextView
             android:id="@+id/new_mnemonic_title"
             style="@style/t_title"
+            android:layout_marginBottom="@dimen/line_gap_32"
             android:text="@string/new_mnemonic_title" />
 
         <TextView
             android:id="@+id/new_mnemonic_sub_title"
             style="@style/t_sub_title"
+            android:layout_marginBottom="@dimen/line_gap_14"
             android:layout_below="@id/new_mnemonic_title"
             android:text="@string/new_mnemonic_sub_title" />
 

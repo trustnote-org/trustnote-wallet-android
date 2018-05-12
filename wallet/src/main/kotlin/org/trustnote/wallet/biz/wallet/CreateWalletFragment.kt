@@ -8,16 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.R.*
 import org.trustnote.wallet.THandler
 import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.widget.MnemonicGridView
 
 @SuppressLint("ValidFragment")  //TODO: the fragment cannot re-create from tomb.
 class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
@@ -98,7 +95,7 @@ class CreateWalletFragment(_layoutId: Int, _pager: ViewPager) : BaseFragment() {
                 }
             }
 
-            layout.f_new_seed_show_warning -> {
+            layout.f_new_seed_backup -> {
 
 //                val newSeedTV = view.findViewById<TextView>(R.id.new_seed)
 //                newSeedTV.text = WalletManager.getTmpMnemonic()

@@ -14,7 +14,6 @@
     <dimen name="logo_height">144dp</dimen>
 
     <dimen name="vertical_gap">16dp</dimen>
-    <dimen name="btn_vertical_gap">24dp</dimen>
     <dimen name="btn_height">48dp</dimen>
 
     <dimen name="btn_corner">2dp</dimen>
@@ -27,5 +26,17 @@
     <dimen name="icon_width">64dp</dimen>
     <dimen name="icon_height">64dp</dimen>
 
+    <dimen name="btn_gap_24">24dp</dimen>
+    <dimen name="line_gap_16">16dp</dimen>
+    <dimen name="line_gap_24">24dp</dimen>
+    <dimen name="line_gap_14">14dp</dimen>
+    <dimen name="line_gap_32">32dp</dimen>
+    <dimen name="line_gap_12">12dp</dimen>
+
+    <dimen name="bg_dialog_corner">12dp</dimen>
+    <dimen name="bg_dialog_padding_top">16dp</dimen>
+    <dimen name="bg_dialog_padding_left">21dp</dimen>
+    <dimen name="bg_dialog_width">270dp</dimen>
+    <dimen name="dialog_btn_font">17sp</dimen>
 
 </resources>

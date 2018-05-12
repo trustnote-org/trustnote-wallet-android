@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/bg_dialog_width"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/t_text_dialog_msg"
+        android:layout_width="match_parent"
+        android:paddingBottom="@dimen/line_gap_12"
+        android:paddingLeft="@dimen/bg_dialog_padding_left"
+        android:paddingRight="@dimen/bg_dialog_padding_left"
+        android:paddingTop="@dimen/bg_dialog_padding_top"
+        android:text="@string/place_holder" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C74D4D4D" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/first_button"
+            android:layout_width="0dp"
+            android:background="@null"
+            android:layout_height="wrap_content"
+            android:textColor="#FF333333"
+            android:layout_weight="1"
+            android:textSize="@dimen/dialog_btn_font"
+            android:text="@string/confirm" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#C74D4D4D" />
+
+        <Button
+            android:id="@+id/second_button"
+            android:layout_width="0dp"
+            android:background="@null"
+            android:textColor="#FF007AFF"
+            android:textSize="@dimen/dialog_btn_font"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/confirm" />
+
+    </LinearLayout>
+
+</LinearLayout>

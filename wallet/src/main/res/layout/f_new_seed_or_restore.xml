@@ -11,17 +11,16 @@
             android:layout_width="@dimen/logo_width"
             android:layout_height="@dimen/logo_height"
             android:scaleType="fitXY"
-            android:layout_above="@id/slogan"
             android:layout_centerInParent="true"
+            android:layout_above="@id/slogan"
+            android:layout_marginBottom="@dimen/line_gap_16"
             android:src="@drawable/logo" />
 
         <TextView
             android:id="@+id/slogan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/btn_new_seed"
             android:layout_centerInParent="true"
-            android:layout_marginTop="@dimen/vertical_gap"
             android:gravity="center"
             android:text="@string/ttt_slogan"
             android:textColor="@color/t_blue"
@@ -39,7 +38,7 @@
             style="@style/t_btn_white"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/page_margin_bottom"
-            android:layout_marginTop="@dimen/btn_vertical_gap"
+            android:layout_marginTop="@dimen/btn_gap_24"
             android:text="@string/restore_seed" />
 
     </RelativeLayout>

@@ -82,7 +82,7 @@ class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : Fragment
             R.layout.f_new_seed_disclaimer,
             R.layout.f_new_seed_pwd,
             R.layout.f_new_seed_or_restore,
-            R.layout.f_new_seed_show_warning,
+            R.layout.f_new_seed_backup,
             R.layout.f_new_seed_verify,
             R.layout.f_new_seed_remove,
             R.layout.f_restore

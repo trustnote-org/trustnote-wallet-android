@@ -32,4 +32,9 @@
 
     <color name="t_text">#333333</color>
 
+    <color name="bg_dialog">#CCFCFCFC</color>
+    <color name="dialog_msg">#030303</color>
+
+
+
 </resources>

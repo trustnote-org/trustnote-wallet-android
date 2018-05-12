@@ -77,6 +77,13 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="t_text_dialog_msg" parent="@style/t_text_base">
+        <item name="android:textColor">@color/dialog_msg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
     <style name="t_text_msg_gray" parent="@style/t_text_base">
         <item name="android:background">@color/t_f_gray</item>
         <item name="android:textColor">@color/t_title_black</item>

@@ -11,7 +11,6 @@
             style="@style/t_title"
             android:text="@string/mnemonic_restore_title" />
 
-
         <TextView
             android:id="@+id/mnemonic_restore_msg"
             style="@style/t_text_msg"
@@ -29,7 +28,7 @@
             style="@style/t_btn_white"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"
-            android:layout_marginTop="@dimen/btn_vertical_gap"
+            android:layout_marginTop="@dimen/btn_gap_24"
             android:text="@string/mnemonic_resotre_remove_btn" />
 
     </RelativeLayout>
