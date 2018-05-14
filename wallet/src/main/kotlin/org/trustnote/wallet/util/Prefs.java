@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
+import org.jetbrains.annotations.NotNull;
 import org.trustnote.wallet.TApp;
 import org.trustnote.wallet.biz.wallet.TProfile;
 
@@ -428,4 +429,7 @@ public class Prefs {
         return getInstance().isExist(KEY_HASH_PWD);
     }
 
+    public static void savePassphrase(@NotNull String passphrase) {
+
+    }
 }

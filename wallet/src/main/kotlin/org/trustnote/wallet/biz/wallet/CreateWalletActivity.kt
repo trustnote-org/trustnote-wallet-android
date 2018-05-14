@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
@@ -50,13 +51,11 @@ class CreateWalletActivity : BaseActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                (mPagerAdapter.getItem(position) as CreateWalletFragment).onShowPage()
             }
 
         }
-        mPager.addOnPageChangeListener(pageChangeListener)
 
-        mPager.post { pageChangeListener.onPageSelected(mPager.getCurrentItem()) }
+        AndroidUtils.hideStatusBar(this, true)
 
     }
 
@@ -76,34 +75,23 @@ class CreateWalletActivity : BaseActivity() {
     }
 }
 
-
 class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : FragmentStatePagerAdapter(fm) {
-    var allPageLayoutIds: Array<Int> = arrayOf(
-            R.layout.f_new_seed_disclaimer,
-            R.layout.f_new_seed_pwd,
-            R.layout.f_new_seed_or_restore,
-            R.layout.f_new_seed_backup,
-            R.layout.f_new_seed_verify,
-            R.layout.f_new_seed_remove,
-            R.layout.l_dialog,
-            R.layout.f_new_seed_devicename,
-            R.layout.f_new_seed_restore
-//            R.layout.f_new_seed_verify,
-//            R.layout.f_new_seed_remove
-    )
-
-    //TODO: possible bug?
-    private val cache: MutableMap<Int, CreateWalletFragment> = HashMap()
-
+    private var allPageLayoutIds: List<Int> = allAllPageIds()
+    private val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
 
     override fun getItem(position: Int): Fragment {
-        if (cache[position] == null) {
-            cache += position to CreateWalletFragment(allPageLayoutIds[position], pager)
-        }
-        return cache[position]!!
+        val f = CreateWalletFragment(allPageLayoutIds[position], pager)
+
+        cacheFragement[position] = f
+        return f
     }
 
     override fun getCount(): Int {
         return allPageLayoutIds.size
     }
+
+    override fun setPrimaryItem(container: ViewGroup, position: Int, obj: Any ) {
+        cacheFragement[position]!!.onShowPage()
+    }
 }
+
