@@ -3,6 +3,7 @@ package org.trustnote.wallet.util
 import android.app.Activity
 import android.os.Build
 import android.view.View
+import android.widget.Button
 import org.trustnote.wallet.TApp
 
 
@@ -55,6 +56,17 @@ object AndroidUtils {
             val resId = TApp.context.resources.getIdentifier(strResName, "string", TApp.context.packageName)
             TApp.context.getString(resId)
         }
+    }
+
+    fun disableBtn(btn: Button) {
+        btn.alpha = 0.5f
+        btn.isEnabled = false
+    }
+
+    fun enableBtn(btn: Button) {
+        btn.alpha = 1f
+        btn.isEnabled = true
+
     }
 
 }

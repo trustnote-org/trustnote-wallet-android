@@ -40,6 +40,7 @@
     </style>
 
     <style name="t_err" parent="@style/t_text_base">
+        <item name="android:visibility">invisible</item>
         <item name="android:textColor">@color/t_err</item>
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:layout_width">match_parent</item>
@@ -107,6 +108,7 @@
     </style>
 
     <style name="t_layout">
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>

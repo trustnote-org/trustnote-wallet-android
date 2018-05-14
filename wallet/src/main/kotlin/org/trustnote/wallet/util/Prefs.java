@@ -397,7 +397,9 @@ public class Prefs {
     private static final String KEY_PROFILE = "TTTProfile";
     private static final File FILE_PROFILE = new File(TApp.getContext().getFilesDir(), "TTTProfile.json");
     private static final String KEY_TMP_MNEMONIC = "tmp_mnemonic";
-    private static final String KEY_HASH_PWD = "TTTProfile";
+    private static final String KEY_HASH_PWD = "PWD_HASH";
+    private static final String KEY_USER_AGREE = "USER_AGREE";
+    private static final String KEY_DEVICE_NAME = "DEVICE_NAME";
 
     public static boolean profileExist() {
         return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
@@ -421,15 +423,34 @@ public class Prefs {
         return getInstance().read(KEY_TMP_MNEMONIC);
     }
 
-    public static void writePwd(String pwd) {
+    public static void writePwdHash(String pwd) {
         getInstance().write(KEY_HASH_PWD, Utils.INSTANCE.hash(pwd));
+    }
+
+    @NotNull
+    public static String readPwdHash() {
+        return getInstance().read(KEY_HASH_PWD);
     }
 
     public static Boolean pwdExist() {
         return getInstance().isExist(KEY_HASH_PWD);
     }
 
-    public static void savePassphrase(@NotNull String passphrase) {
-
+    public static void saveUserAgree() {
+        getInstance().writeBoolean(KEY_USER_AGREE, true);
     }
+
+    public static Boolean isUserAgree() {
+        return getInstance().readBoolean(KEY_USER_AGREE, false);
+    }
+
+
+    public static void writeDeviceName(@NotNull String deviceName) {
+        getInstance().write(KEY_DEVICE_NAME, deviceName);
+    }
+
+    public static String readDeviceName() {
+        return getInstance().read(KEY_DEVICE_NAME);
+    }
+
 }

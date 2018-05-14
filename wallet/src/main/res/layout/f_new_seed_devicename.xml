@@ -2,8 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
-        style="@style/t_layout"
-        android:gravity="center">
+        style="@style/t_layout">
 
         <ImageView
             android:id="@+id/mnemonic_devicename_icon"
@@ -27,17 +26,19 @@
             android:text="@string/mnemonic_devicename_msg" />
 
         <org.trustnote.wallet.widget.ClearableEditText
-            android:id="@+id/c"
+            android:id="@+id/mnemonic_devicename_edit_text"
+            android:maxLength="20"
             style="@style/t_pwd"
+            android:layout_below="@id/mnemonic_devicename_msg"
             android:hint="@string/mnemonic_devicename_hint"
             android:inputType="text"
-            android:layout_below="@id/mnemonic_devicename_msg"
             android:text="" />
+
         <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/mnemonic_devicename_err"
             style="@style/t_err"
-            android:text="@string/detail_icon_content_description"
-            android:layout_below="@id/mnemonic_devicename_err" />
+            android:layout_below="@id/mnemonic_devicename_edit_text"
+            android:text="@string/mnemonic_devicename_err" />
 
         <Button
             android:id="@+id/mnemonic_devicename_confirm"

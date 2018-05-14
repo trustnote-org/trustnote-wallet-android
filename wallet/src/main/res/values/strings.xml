@@ -24,7 +24,6 @@
     <string name="list_error_no_network">No internet connection!</string>
     <string name="list_error_failed_fetch">Failed to fetch Github repos!</string>
 
-    <string name="detail_icon_content_description">Github Owner Avatar Icon</string>
     <string name="repo_star_icon_content_description">Repo Star Icon</string>
     <string name="repo_fork_icon_content_description">Repo Fork Icon</string>
     <string name="repo_icon_content_description">Repo Icon</string>

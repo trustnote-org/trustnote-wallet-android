@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.wallet
 
+import org.trustnote.wallet.R
 import org.trustnote.wallet.util.Prefs
 
 object CreateWalletModel {
@@ -21,20 +22,51 @@ object CreateWalletModel {
 
     fun savePassphrase(passphrase: String) {
         passphraseInRam = passphrase
-        Prefs.savePassphrase(hash(passphrase))
+        Prefs.writePwdHash(hash(passphrase))
     }
 
-    fun readPassphrase(): String {
+    fun readPwd(): String {
         if (passphraseInRam.isNotEmpty()) {
             return passphraseInRam
         }
-        TODO("Implemention Unfinished!!!")
+        return ""
+    }
+
+    fun readPwdHash(): String {
+        return Prefs.readPwdHash()
     }
 
     fun hash(passphrase: String): String {
         //TODO
         return passphrase
     }
+
+    fun userAgree() {
+        Prefs.saveUserAgree()
+    }
+
+    fun isUserAgree(): Boolean {
+        return Prefs.isUserAgree()
+    }
+
+    //TODO: R is not model logic.
+    fun getStartPageLayoutId():Int {
+        if (!Prefs.isUserAgree()) {
+            return R.layout.f_new_seed_disclaimer
+        }
+
+        if (Prefs.readDeviceName().isEmpty()) {
+            return R.layout.f_new_seed_devicename
+        }
+
+        return R.layout.f_new_seed_or_restore
+
+    }
+
+    fun saveDeviceName(deviceName: String) {
+        Prefs.writeDeviceName(deviceName)
+    }
+
 
 }
 

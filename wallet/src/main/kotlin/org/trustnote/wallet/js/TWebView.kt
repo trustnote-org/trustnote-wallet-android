@@ -97,7 +97,6 @@ class TWebView : WebView {
 
         evaluateJavascript(jsCode) { valueFromJS ->
             cb.onReceiveValue(Utils.decodeJsStr(valueFromJS))
-            Toast.makeText(context, valueFromJS, Toast.LENGTH_SHORT).show()
         }
     }
 
