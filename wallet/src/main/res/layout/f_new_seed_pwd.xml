@@ -37,20 +37,20 @@
             android:layout_below="@id/pwd_strength" />
 
         <org.trustnote.wallet.widget.ClearableEditText
-            android:id="@+id/pwd_confirm"
+            android:id="@+id/pwd_verify"
             style="@style/t_pwd"
             android:layout_below="@id/pwd_err"
             android:hint="@string/pwd_confirm_hint"
             android:text="" />
 
         <org.trustnote.wallet.widget.ErrTextView
-            android:id="@+id/pwd_confirm_err"
+            android:id="@+id/pwd_verify_err"
             style="@style/t_err"
-            android:layout_below="@id/pwd_confirm"
+            android:layout_below="@id/pwd_verify"
             android:text="@string/pwd_confirm_err" />
 
         <Button
-            android:id="@+id/btn_new_seed"
+            android:id="@+id/pwd_confirm"
             style="@style/t_btn_blue"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"

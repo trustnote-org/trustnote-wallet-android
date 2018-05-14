@@ -21,6 +21,7 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
 
     val mLayoutId = layoutId
     var mRootView: View = View(TApp.context)
+    var mNextLayoutId = 0
 
     //TODO: empty constructor.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -62,11 +63,17 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
     }
 
     fun nextPage() {
-        getMyActivity().nextPage()
+        if (mNextLayoutId != 0) {
+            getMyActivity().nextPage(mNextLayoutId)
+        }
     }
 
     fun nextPage(pageLayoutId: Int) {
         getMyActivity().nextPage(pageLayoutId)
+    }
+
+    fun nextPage(pageLayoutId: Int, nexLayoutId: Int) {
+        getMyActivity().nextPage(pageLayoutId, nexLayoutId)
     }
 
 }
@@ -76,7 +83,7 @@ class CWFragmentDisclaimer(layoutId: Int) : CreateWalletFragment(layoutId) {
     override fun initFragment(view: View) {
         view.findViewById<View>(R.id.agree).setOnClickListener {
             CreateWalletModel.userAgree()
-            nextPage(R.layout.f_new_seed_pwd)
+            nextPage(R.layout.f_new_seed_devicename)
         }
     }
 }
@@ -100,10 +107,11 @@ class CWFragmentDeviceName(layoutId: Int) : CreateWalletFragment(layoutId) {
             }
         })
 
+        editDeviceName.setText(CreateWalletModel.readDeviceName())
         val btnConfirm = view.findViewById<Button>(R.id.mnemonic_devicename_confirm)
         btnConfirm.setOnClickListener {
             CreateWalletModel.saveDeviceName(editDeviceName.text.toString())
-            nextPage(R.layout.f_new_seed_pwd)
+            nextPage(R.layout.f_new_seed_or_restore)
         }
 
 
@@ -119,22 +127,6 @@ class CWFragmentDeviceName(layoutId: Int) : CreateWalletFragment(layoutId) {
             AndroidUtils.enableBtn(btnConfirm)
         }
     }
-
-}
-
-@SuppressLint("ValidFragment")
-class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
-    override fun initFragment(view: View) {
-//        view.findViewById<View>(R.id.agree).setOnClickListener {
-//            CreateWalletModel.userAgree()
-//            nextPage(R.layout.f_new_seed_pwd)
-//        }
-    }
-
-    override fun onBackPressed() {
-        nextPage(R.layout.f_new_seed_or_restore)
-    }
-
 }
 
 @SuppressLint("ValidFragment")
@@ -143,18 +135,22 @@ class CWFragmentNewSeedOrRestore(layoutId: Int) : CreateWalletFragment(layoutId)
         val pwdExist = CreateWalletModel.readPwdHash().isNotBlank()
         var btnNewSeed = view.findViewById<Button>(R.id.btn_new_seed)
         btnNewSeed.setOnClickListener {
-            nextPage(if (pwdExist) R.layout.f_new_seed_backup else R.layout.f_new_seed_pwd)
+            if (pwdExist) {
+                nextPage(R.layout.f_new_seed_backup)
+            } else {
+                nextPage(R.layout.f_new_seed_pwd, R.layout.f_new_seed_backup)
+            }
         }
         var btnRestore = view.findViewById<Button>(R.id.btn_restore_seed)
         btnRestore.setOnClickListener {
-            nextPage(if (pwdExist) R.layout.f_new_seed_restore else R.layout.f_new_seed_pwd)
+            if (pwdExist) {
+                nextPage(R.layout.f_new_seed_restore)
+            } else {
+                nextPage(R.layout.f_new_seed_pwd, R.layout.f_new_seed_restore)
+            }
         }
     }
 
 
 }
 
-
-//    button.setAlpha(.5f);
-//    button.setClickable(false);}
-//    button.setTextColorAlpha()

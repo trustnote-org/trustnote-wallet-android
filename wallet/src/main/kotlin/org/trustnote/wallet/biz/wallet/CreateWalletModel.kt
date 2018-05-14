@@ -50,7 +50,7 @@ object CreateWalletModel {
     }
 
     //TODO: R is not model logic.
-    fun getStartPageLayoutId():Int {
+    fun getStartPageLayoutId(): Int {
         if (!Prefs.isUserAgree()) {
             return R.layout.f_new_seed_disclaimer
         }
@@ -67,6 +67,10 @@ object CreateWalletModel {
         Prefs.writeDeviceName(deviceName)
     }
 
+    fun readDeviceName(): String {
+        val deviceName = Prefs.readDeviceName()
+        return if (deviceName.isBlank()) android.os.Build.MODEL else deviceName
+    }
 
 }
 

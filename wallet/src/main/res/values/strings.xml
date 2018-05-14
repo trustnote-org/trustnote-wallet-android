@@ -85,7 +85,7 @@
 
     <string name="pwd_confirm_err">两次输入密码不一致，请重新输入</string>
     <string name="pwd_strength_warning">密码强度太弱，极易被黑客破解</string>
-    <string name="pwd_error">不少于8位字符，建议混合大小写字母、数字、特殊符号</string>
+    <string name="pwd_length_error">不少于8位字符，建议混合大小写字母、数字、特殊符号</string>
 
     <string name="agree">同意</string>
     <string name="new_mnemonic_title">备份助记词</string>

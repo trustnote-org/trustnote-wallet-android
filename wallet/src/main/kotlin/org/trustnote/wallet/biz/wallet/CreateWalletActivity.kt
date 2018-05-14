@@ -90,6 +90,12 @@ class CreateWalletActivity : BaseActivity() {
         currentFragment.onBackPressed()
     }
 
+    fun nextPage(pageLayoutId: Int, nextLayoutId: Int) {
+        val nextFragment = mPagerAdapter.getFragmentFromCache(getPagePosition(pageLayoutId))
+        nextFragment.mNextLayoutId = nextLayoutId
+        mPager.currentItem = getPagePosition(pageLayoutId)
+    }
+
 }
 
 class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : FragmentStatePagerAdapter(fm) {
