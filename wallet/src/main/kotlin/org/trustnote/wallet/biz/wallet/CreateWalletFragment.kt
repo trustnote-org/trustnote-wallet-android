@@ -14,12 +14,13 @@ import org.trustnote.wallet.util.AndroidUtils
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import org.trustnote.wallet.widget.MyDialogFragment
 
 
 @SuppressLint("ValidFragment")  //TODO: the fragment cannot re-create from tomb.
 open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
 
-    val mLayoutId = layoutId
+    private val mLayoutId = layoutId
     var mRootView: View = View(TApp.context)
     var mNextLayoutId = 0
 
@@ -29,7 +30,7 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
         return mRootView
     }
 
-    private fun getMyActivity(): CreateWalletActivity {
+    fun getMyActivity(): CreateWalletActivity {
         return getActivity() as CreateWalletActivity
     }
 
@@ -151,6 +152,21 @@ class CWFragmentNewSeedOrRestore(layoutId: Int) : CreateWalletFragment(layoutId)
         }
     }
 
-
 }
 
+@SuppressLint("ValidFragment")
+class CWFragmentBackup(layoutId: Int) : CreateWalletFragment(layoutId) {
+    override fun initFragment(view: View) {
+        var btnBackupConfirm = view.findViewById<Button>(R.id.backup_confirm)
+        btnBackupConfirm.setOnClickListener{
+            nextPage(R.layout.f_new_seed_verify)
+        }
+
+        AndroidUtils.showDialog(getMyActivity())
+    }
+
+    override fun onBackPressed() {
+        nextPage(R.layout.f_new_seed_or_restore)
+    }
+
+}

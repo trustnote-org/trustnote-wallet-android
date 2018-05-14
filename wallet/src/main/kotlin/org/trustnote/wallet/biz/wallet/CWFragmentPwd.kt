@@ -90,14 +90,14 @@ class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
     }
 
     private fun savePwdAndForward() {
-
+        val pwdString = pwd.text.toString()
+        CreateWalletModel.savePassphrase(pwdString)
         nextPage()
     }
 
     private fun isPwdStrengthOk(pwd: String): Boolean {
         return true
     }
-
 
     private fun isPwdLengthOk(pwd: String): Boolean {
         return pwd.isNotEmpty() && pwd.length >= 8

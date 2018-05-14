@@ -41,7 +41,7 @@
             android:layout_below="@id/mnemonics" />
 
         <Button
-            android:id="@+id/btn_new_seed"
+            android:id="@+id/backup_confirm"
             style="@style/t_btn_blue"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"

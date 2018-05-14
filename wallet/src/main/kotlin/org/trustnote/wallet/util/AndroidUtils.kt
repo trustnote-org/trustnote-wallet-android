@@ -1,10 +1,14 @@
 package org.trustnote.wallet.util
 
-import android.app.Activity
 import android.os.Build
+import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.widget.Button
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.widget.MyDialogFragment
+
+
 
 
 object AndroidUtils {
@@ -15,7 +19,7 @@ object AndroidUtils {
     }
 
 
-    fun hideStatusBar(activity: Activity, isShow: Boolean) {
+    fun hideStatusBar(activity: BaseActivity, isShow: Boolean) {
 
         val uiOptions = activity.getWindow().getDecorView().getSystemUiVisibility()
         var newUiOptions = uiOptions
@@ -67,6 +71,19 @@ object AndroidUtils {
         btn.alpha = 1f
         btn.isEnabled = true
 
+    }
+
+    fun showDialog(activity: FragmentActivity) {
+        val ft = activity.supportFragmentManager.beginTransaction()
+        val prev = activity.supportFragmentManager.findFragmentByTag("dialog")
+        if (prev != null) {
+            ft.remove(prev)
+        }
+        ft.addToBackStack(null)
+
+        // Create and show the dialog.
+        val newFragment = MyDialogFragment.newInstance(3)
+        newFragment.show(ft, "dialog")
     }
 
 }

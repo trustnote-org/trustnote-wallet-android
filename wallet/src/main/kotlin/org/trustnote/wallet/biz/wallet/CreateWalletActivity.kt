@@ -60,6 +60,9 @@ class CreateWalletActivity : BaseActivity() {
         adjustUIBySetting(pageSetting)
         mPager.currentItem = getPagePosition(layoutId)
 
+        findViewById<View>(R.id.titlebar_back_arrow).setOnClickListener {
+            onBackPressed()
+        }
     }
 
     companion object {
