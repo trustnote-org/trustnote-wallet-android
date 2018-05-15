@@ -1,10 +1,7 @@
 package org.trustnote.wallet.biz.wallet
 
-import android.webkit.ValueCallback
 import org.trustnote.wallet.R
-import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.util.Prefs
-import org.trustnote.wallet.util.Utils
 
 object CreateWalletModel {
 
@@ -76,5 +73,12 @@ object CreateWalletModel {
         return if (deviceName.isBlank()) android.os.Build.MODEL else deviceName
     }
 
+    fun finishedCreateOrRestore() {
+        Prefs.writeFinisheCreateOrRestore()
+    }
+
+    fun isFinisheCreateOrRestore():Boolean {
+        return Prefs.readIsFinisheCreateOrRestore()
+    }
 }
 

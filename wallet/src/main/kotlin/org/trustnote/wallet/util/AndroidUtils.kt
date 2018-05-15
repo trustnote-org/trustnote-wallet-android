@@ -1,10 +1,14 @@
 package org.trustnote.wallet.util
 
+import android.content.Intent
 import android.os.Build
 import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.widget.Button
+import org.trustnote.wallet.MAINACTIVITY_KEY_MENU_ID
+import org.trustnote.wallet.MainActivity
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.wallet.CreateWalletFragment
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.widget.MyDialogFragment
 
@@ -93,4 +97,10 @@ object AndroidUtils {
         newFragment.show(ft, "dialog")
     }
 
+
+    fun startActivity(clz: Class<out BaseActivity>) {
+        val intent = Intent(TApp.context, clz)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        TApp.context.startActivity(intent)
+    }
 }

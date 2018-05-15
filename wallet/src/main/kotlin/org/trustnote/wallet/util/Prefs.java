@@ -400,6 +400,7 @@ public class Prefs {
     private static final String KEY_HASH_PWD = "PWD_HASH";
     private static final String KEY_USER_AGREE = "USER_AGREE";
     private static final String KEY_DEVICE_NAME = "DEVICE_NAME";
+    private static final String KEY_FINISH_CREATE_OR_RESTORE = "FINISH_CREATE_OR_RESTORE";
 
     public static boolean profileExist() {
         return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
@@ -419,6 +420,7 @@ public class Prefs {
     public static void writeTmpMnemonic(String s) {
         getInstance().write(KEY_TMP_MNEMONIC, s);
     }
+
     public static String getTmpMnemonic() {
         return getInstance().read(KEY_TMP_MNEMONIC);
     }
@@ -451,6 +453,14 @@ public class Prefs {
 
     public static String readDeviceName() {
         return getInstance().read(KEY_DEVICE_NAME);
+    }
+
+    public static void writeFinisheCreateOrRestore() {
+        getInstance().writeBoolean(KEY_FINISH_CREATE_OR_RESTORE, true);
+    }
+
+    public static Boolean readIsFinisheCreateOrRestore() {
+        return getInstance().readBoolean(KEY_FINISH_CREATE_OR_RESTORE);
     }
 
 }
