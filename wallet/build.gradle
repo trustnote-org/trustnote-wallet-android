@@ -201,11 +201,12 @@ if (signPropFile.canRead()) {
 
 def publish = project.tasks.create("publishAll")
 def nowTimeAsString = getNowAsString()
+def myFileServerPath = new File(buildDir.parentFile.parentFile, "myfileserver")
+def versionPath = new File(myFileServerPath, android.defaultConfig.versionName)
+def targetPath = new File(versionPath, nowTimeAsString)
+
 android.applicationVariants.all { variant ->
     def task = project.tasks.create("publish${variant.name}Apk", Copy)
-    def myFileServerPath = new File(buildDir.parentFile.parentFile, "myfileserver")
-    def versionPath = new File(myFileServerPath, android.defaultConfig.versionName)
-    def targetPath = new File(versionPath, nowTimeAsString)
     task.from(variant.outputs[0].outputFile)
     task.into(targetPath)
 
@@ -214,12 +215,13 @@ android.applicationVariants.all { variant ->
     publish << {
         println "copy apk to myfileserver"
     }
-
 }
 
-//task cpFileToFileServer(dependsOn: war, type: Exec) {
-//    commandLine "pkill", " -9", "java"
-//}
+task syncFileServer(type: Exec) {
+    workingDir '../'
+    commandLine "./sync_fileserver"
+}
+publish.dependsOn syncFileServer
 
 def readVersionName() {
     return android.defaultConfig.versionName
