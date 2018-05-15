@@ -196,6 +196,7 @@ class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
         AndroidUtils.disableBtn(btnBackupConfirm)
         btnBackupConfirm.setOnClickListener {
             nextPage(R.layout.f_new_seed_remove)
+            CreateWalletModel.iamDone()
         }
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics_verify)
@@ -211,6 +212,79 @@ class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
 
     override fun onBackPressed() {
         nextPage(R.layout.f_new_seed_backup)
+    }
+
+}
+
+@SuppressLint("ValidFragment")
+class CWFragmentRemove(layoutId: Int) : CreateWalletFragment(layoutId) {
+
+    override fun initFragment(view: View) {
+
+        var btnRemove = view.findViewById<Button>(R.id.mnemonic_remove)
+        var btnRemoveIgnore = view.findViewById<Button>(R.id.mnemonic_remove_ignore)
+
+        btnRemove.setOnClickListener {
+            WalletManager.model.removeMnemonicFromProfile()
+            getMyActivity().iamDone()
+        }
+
+        btnRemoveIgnore.setOnClickListener {
+            getMyActivity().iamDone()
+        }
+    }
+
+    override fun onBackPressed() {
+        //Do nothing.
+    }
+
+}
+
+
+@SuppressLint("ValidFragment")
+class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
+
+    lateinit var mnemonicsGrid: MnemonicsGridView
+
+    override fun initFragment(view: View) {
+
+        mnemonicsGrid = view.findViewById(R.id.mnemonics_restore)
+        var btnRestore = view.findViewById<Button>(R.id.mnemonic_restore_remove_btn)
+        var btnRestoreRemove = view.findViewById<Button>(R.id.mnemonic_restore_btn)
+
+        btnRestore.setOnClickListener {
+            checkMnemonicAndForward(false)
+        }
+
+        btnRestoreRemove.setOnClickListener {
+            checkMnemonicAndForward(true)
+        }
+
+        mnemonicsGrid.onCheckResult = {
+            AndroidUtils.enableBtn(btnRestore, it)
+            AndroidUtils.enableBtn(btnRestoreRemove, it)
+        }
+
+        if (BuildConfig.DEBUG) {
+            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+        }
+
+    }
+
+    private fun checkMnemonicAndForward(isRemove: Boolean) {
+        val mnemonics = mnemonicsGrid.getUserInputMnemonic()
+        JSApi().isMnemonicValid(mnemonics) {
+            if (it) {
+                CreateWalletModel.iamDone(mnemonics, isRemove)
+                getMyActivity().iamDone()
+            } else {
+                mnemonicsGrid.showErr()
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        nextPage(R.layout.f_new_seed_or_restore)
     }
 
 }

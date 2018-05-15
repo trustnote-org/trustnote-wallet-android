@@ -53,6 +53,11 @@ class WalletModel() {
 
     }
 
+    fun removeMnemonicFromProfile() {
+        mProfile.mnemonic = ""
+        Prefs.writeProfile(mProfile)
+    }
+
     private fun createDefaultCredential() {
         newWallet(TTT.firstWalletName)
     }

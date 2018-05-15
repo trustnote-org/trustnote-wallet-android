@@ -34,6 +34,11 @@ class JSApi {
         return TWebView.sInstance.callJSSync("""window.Client.xPrivKey("$mnemonic");""")
     }
 
+    fun isMnemonicValid(mnemonic: String, cb: (Boolean) -> Unit) {
+        xPrivKey(mnemonic, ValueCallback {
+            cb("0" != it && it.length > 3)
+        })
+    }
 
     /**
      * 生成根公钥
@@ -241,7 +246,7 @@ class JSApi {
 
 
     //TODO: Cache the result.
-    fun getBip38WordList():List<String> {
+    fun getBip38WordList(): List<String> {
         return BIP38_WORD_LIST_EN
     }
 }

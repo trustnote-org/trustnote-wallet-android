@@ -417,13 +417,13 @@ public class Prefs {
         return Utils.INSTANCE.readFileAsTProfile(FILE_PROFILE);
     }
 
-    public static void writeTmpMnemonic(String s) {
-        getInstance().write(KEY_TMP_MNEMONIC, s);
-    }
-
-    public static String getTmpMnemonic() {
-        return getInstance().read(KEY_TMP_MNEMONIC);
-    }
+//    public static void writeTmpMnemonic(String s) {
+//        getInstance().write(KEY_TMP_MNEMONIC, s);
+//    }
+//
+//    public static String getTmpMnemonic() {
+//        return getInstance().read(KEY_TMP_MNEMONIC);
+//    }
 
     public static void writePwdHash(String pwd) {
         getInstance().write(KEY_HASH_PWD, Utils.INSTANCE.hash(pwd));

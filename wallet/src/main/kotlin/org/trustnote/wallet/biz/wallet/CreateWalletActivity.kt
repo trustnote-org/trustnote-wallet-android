@@ -33,7 +33,7 @@ class CreateWalletActivity : BaseActivity() {
 
         setupUISettings()
 
-        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        //window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
 
         setContentView(R.layout.activity_create_wallet)
 
@@ -105,6 +105,11 @@ class CreateWalletActivity : BaseActivity() {
         val nextFragment = mPagerAdapter.getFragmentFromCache(getPagePosition(pageLayoutId))
         nextFragment.mNextLayoutId = nextLayoutId
         mPager.currentItem = getPagePosition(pageLayoutId)
+    }
+
+    fun iamDone() {
+        finish()
+        AndroidUtils.startActivity(StarterActivity::class.java)
     }
 
 }

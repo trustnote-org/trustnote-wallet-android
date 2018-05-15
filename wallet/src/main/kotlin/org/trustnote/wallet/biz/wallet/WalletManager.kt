@@ -23,17 +23,17 @@ object WalletManager {
         return model.mProfile
     }
 
-    fun initWithMnemonic(removeMnemonic: Boolean) {
-        model = WalletModel(Prefs.getTmpMnemonic(), removeMnemonic)
-    }
+//    fun initWithMnemonic(removeMnemonic: Boolean) {
+//        model = WalletModel(Prefs.getTmpMnemonic(), removeMnemonic)
+//    }
 
     fun initWithMnemonic(mnemonic: String, removeMnemonic: Boolean) {
         model = WalletModel(mnemonic, removeMnemonic)
     }
 
-    fun getTmpMnemonic(): String {
-        return Prefs.getTmpMnemonic()
-    }
+//    fun getTmpMnemonic(): String {
+//        return Prefs.getTmpMnemonic()
+//    }
 
     fun getOrCreateMnemonic(): String {
         return JSApi().mnemonicSync()

@@ -30,9 +30,9 @@ fun setupUISettings() {
 
     addConfig(R.layout.f_new_seed_backup, CWFragmentBackup::class.java)
 
-    addConfig(R.layout.f_new_seed_remove)
+    addConfig(R.layout.f_new_seed_remove, CWFragmentRemove::class.java, true, false)
 
-    addConfig(R.layout.f_new_seed_restore)
+    addConfig(R.layout.f_new_seed_restore, CWFragmentRestore::class.java)
 
 }
 

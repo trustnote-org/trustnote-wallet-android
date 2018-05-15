@@ -27,7 +27,7 @@
             android:text="@string/mnemonic_remove_msg" />
 
         <Button
-            android:id="@+id/mnemonic_remove_btn"
+            android:id="@+id/mnemonic_remove"
             style="@style/t_btn_blue"
             android:layout_above="@id/mnemonic_remove_ignore"
             android:text="@string/mnemonic_remove_btn" />

@@ -58,6 +58,14 @@ class MnemonicsGridView @JvmOverloads constructor(
         gridAdapter.mMnemonicCheck = mnemonic.split(" ")
     }
 
+    fun getUserInputMnemonic(): String {
+        return gridAdapter.getAllMnemonicAsString()
+    }
+
+    fun showErr() {
+        err.visibility = View.VISIBLE
+    }
+
 }
 
 
@@ -122,11 +130,18 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         return editTextView
     }
 
+    fun getAllMnemonicAsString(): String {
+        val listOfMnemonic = List<String>(editTextCache.size) {
+            editTextCache[it]!!.text.toString()
+        }
+        return listOfMnemonic.joinToString(" ")
+    }
+
     fun checkAllWord() {
         //TODO: Bug, the first cell cannot get latest text. strange?
         for (entry in editTextCache) {
             val oneWord = entry.value.text.toString()
-            if (oneWord.length < 3 || oneWord != mMnemonicCheck[entry.key]) {
+            if (oneWord.length < 3 || (mMnemonicCheck[entry.key].isNotEmpty() && oneWord != mMnemonicCheck[entry.key])) {
                 onCheckResult(false)
                 return
             }

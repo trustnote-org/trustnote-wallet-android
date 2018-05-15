@@ -19,7 +19,7 @@
             android:text="@string/mnemonic_restore_msg" />
 
         <org.trustnote.wallet.widget.MnemonicsGridView
-            android:id = "@+id/mnemonics"
+            android:id = "@+id/mnemonics_restore"
             android:layout_marginTop="@dimen/mnemonic_margin_top"
             android:layout_marginBottom="@dimen/mnemonic_margin_top"
             android:textColor="@color/t_text"
@@ -28,13 +28,13 @@
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/mnemonic_resotre_btn"
+            android:id="@+id/mnemonic_restore_btn"
             style="@style/t_btn_blue"
-            android:layout_above="@id/mnemonic_resotre_remvoe_btn"
+            android:layout_above="@id/mnemonic_restore_remove_btn"
             android:text="@string/mnemonic_resotre_btn" />
 
         <Button
-            android:id="@+id/mnemonic_resotre_remvoe_btn"
+            android:id="@+id/mnemonic_restore_remove_btn"
             style="@style/t_btn_white"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"

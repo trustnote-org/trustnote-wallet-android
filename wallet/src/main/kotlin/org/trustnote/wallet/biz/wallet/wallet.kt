@@ -42,15 +42,20 @@ class Credential {
     val isLocal: Boolean = false
 
     @Expose(serialize = false, deserialize = false)
-    @Transient var txDetails: MutableList<Tx> = mutableListOf()
+    @Transient
+    var txDetails: MutableList<Tx> = mutableListOf()
     @Expose(serialize = false, deserialize = false)
-    @Transient var balanceDetails: List<Balance> = listOf()
+    @Transient
+    var balanceDetails: List<Balance> = listOf()
     @Expose(serialize = false, deserialize = false)
-    @Transient val myAddresses: MutableSet<MyAddresses> = mutableSetOf()
+    @Transient
+    val myAddresses: MutableSet<MyAddresses> = mutableSetOf()
     @Expose(serialize = false, deserialize = false)
-    @Transient val myReceiveAddresses: MutableSet<MyAddresses> = mutableSetOf()
+    @Transient
+    val myReceiveAddresses: MutableSet<MyAddresses> = mutableSetOf()
     @Expose(serialize = false, deserialize = false)
-    @Transient val myChangeAddresses: MutableSet<MyAddresses> = mutableSetOf()
+    @Transient
+    val myChangeAddresses: MutableSet<MyAddresses> = mutableSetOf()
 
     override fun toString(): String {
         var res = "WalletName: $walletName\n\rBalance: $balance\n\rTransactions: \n\r------------------------\n\r"

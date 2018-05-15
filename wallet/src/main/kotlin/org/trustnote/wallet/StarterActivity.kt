@@ -11,11 +11,10 @@ class StarterActivity : BaseActivity() {
     override fun injectDependencies(graph: TApplicationComponent) {
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (CreateWalletModel.isFinisheCreateOrRestore()) {
-            startMainActivityWithMenuId()
+            startMainActivityWithMenuId(R.id.action_me)
         } else {
             AndroidUtils.startActivity(CreateWalletActivity::class.java)
         }
