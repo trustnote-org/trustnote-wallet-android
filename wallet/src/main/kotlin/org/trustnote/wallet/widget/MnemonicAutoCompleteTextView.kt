@@ -10,7 +10,7 @@ import org.trustnote.wallet.js.JSApi
 class MnemonicAutoCompleteTextView constructor(context: Context, attrs: AttributeSet? = null) : AutoCompleteTextView(context, attrs) {
 
     init {
-        val wordList = JSApi().getBip39WordList()
+        val wordList = JSApi().getBip38WordList()
         val adapter = ArrayAdapter<String>(context, R.layout.item_mnemonic_autocomplete, wordList);
         this.setAdapter(adapter)
     }

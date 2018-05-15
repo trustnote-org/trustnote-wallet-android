@@ -11,6 +11,8 @@ import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.TimberFile
 import org.trustnote.wallet.biz.wallet.WalletModel
+import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Utils
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -68,5 +70,9 @@ class TApp : Application() {
         smallIconError.setBounds(0, 0, smallIconSize, smallIconSize)
 
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
+
+        Utils.runInbackground(Runnable {
+            AndroidUtils.readBip38List()
+        })
     }
 }

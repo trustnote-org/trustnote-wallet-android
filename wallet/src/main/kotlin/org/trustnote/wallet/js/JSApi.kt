@@ -241,10 +241,12 @@ class JSApi {
 
 
     //TODO: Cache the result.
-    fun getBip39WordList():Array<String> {
-        return arrayOf("thingtr", "bitcoin", "trustn", "thingg", "thiner")
+    fun getBip38WordList():List<String> {
+        return BIP38_WORD_LIST_EN
     }
 }
+
+var BIP38_WORD_LIST_EN: List<String> = mutableListOf()
 
 class JSResult {
     var result: String = ""

@@ -9,6 +9,7 @@ import org.trustnote.wallet.MAINACTIVITY_KEY_MENU_ID
 import org.trustnote.wallet.MainActivity
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.wallet.CreateWalletFragment
+import org.trustnote.wallet.js.BIP38_WORD_LIST_EN
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.widget.MyDialogFragment
 
@@ -102,5 +103,10 @@ object AndroidUtils {
         val intent = Intent(TApp.context, clz)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         TApp.context.startActivity(intent)
+    }
+
+    fun readBip38List() {
+        val s = readAssetFile("bip38wordlist_en.txt")
+        BIP38_WORD_LIST_EN = s.split("\n")
     }
 }
