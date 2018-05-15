@@ -10,7 +10,7 @@
 
     <include layout="@layout/l_new_seed_titlebar" />
 
-    <android.support.v4.view.ViewPager
+    <org.trustnote.wallet.widget.NonSwipeableViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

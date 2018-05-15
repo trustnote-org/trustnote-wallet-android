@@ -10,8 +10,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.FrameLayout
 import android.widget.GridView
+import android.widget.TextView
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
 
 
 class MnemonicsGridView @JvmOverloads constructor(
@@ -20,25 +20,53 @@ class MnemonicsGridView @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+    var gridView: GridView
+    var gridAdapter: MnemonicAdapter
+    var err: TextView
+    var onCheckResult = { isAllWordOK: Boolean -> }
+
     init {
         val view = View.inflate(context, R.layout.w_mnemonics_grid, null)
         addView(view)
-        val gridView = findViewById<GridView>(R.id.grid_view)
 
-        val wordPlaceHolder = List(12){
-            TTT.PLACEHOLDER_TTT
+        gridView = findViewById<GridView>(R.id.grid_view)
+        err = findViewById<TextView>(R.id.err)
+
+        val wordPlaceHolder = List(12) {
+            ""
         }
-        gridView.adapter = MnemonicAdapter(context, wordPlaceHolder)
+        gridAdapter = MnemonicAdapter(context, wordPlaceHolder)
+        gridView.adapter = gridAdapter
 
+        gridAdapter.onCheckResult = {
+            onCheckResult(it)
+            err.visibility = if (it) INVISIBLE else View.VISIBLE
+        }
+    }
+
+    fun setMnemonic(mnemonic: String, isVerify: Boolean) {
+
+        gridAdapter.verifyEnabled = isVerify
+        gridAdapter.mMnemonic = mnemonic.split(" ")
+
+        gridAdapter.notifyDataSetInvalidated()
+
+        err.visibility = GONE
+    }
+
+    fun setCheckMnemonic(mnemonic: String) {
+        gridAdapter.mMnemonicCheck = mnemonic.split(" ")
     }
 
 }
 
 
 class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : BaseAdapter() {
-    val mMnemonic: List<String> = mnemonic
+    var mMnemonic: List<String> = mnemonic
     var onCheckResult = { isAllWordOK: Boolean -> }
-    val editTextCache = HashMap<Int, MnemonicAutoCompleteTextView >()
+    val editTextCache = HashMap<Int, MnemonicAutoCompleteTextView>()
+    var verifyEnabled = true
+    var mMnemonicCheck: List<String> = mnemonic
 
     override fun getCount(): Int = mMnemonic.size
 
@@ -60,40 +88,45 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
             }
         }
 
-        editTextView.setText(mMnemonic[position])
-        //editTextView.setHint(mMnemonic[position])
-        //editTextView.expectedInput = mMnemonic[position]
+        editTextView.isEnabled = verifyEnabled
+
+        if (mMnemonic[position].isNotEmpty()) {
+            editTextView.setText(mMnemonic[position])
+        }
         editTextCache[position] = editTextView
 
         //setup the focus for next/enter key event.
-        val resourceId = context.getResources().getIdentifier("mnemonic_" + position, "id", context.getPackageName())
+        val resourceId = context.resources.getIdentifier("mnemonic_$position", "id", context.packageName)
         var nextPosition = position + 1
         if (nextPosition == mMnemonic.size) {
             nextPosition = 0
         }
-        val nextResourceId = context.getResources().getIdentifier("mnemonic_" + nextPosition, "id", context.getPackageName())
-        editTextView.setId(resourceId)
-        editTextView.setNextFocusForwardId(nextResourceId)
+        val nextResourceId = context.resources.getIdentifier("mnemonic_$nextPosition", "id", context.packageName)
+        editTextView.id = resourceId
+        editTextView.nextFocusForwardId = nextResourceId
 
-        editTextView.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-                checkAllWord()
-            }
+        if (verifyEnabled) {
+            editTextView.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
+                    checkAllWord()
+                }
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-        })
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+            })
+        }
 
         return editTextView
     }
 
     fun checkAllWord() {
+        //TODO: Bug, the first cell cannot get latest text. strange?
         for (entry in editTextCache) {
-            //TODO: entry.key != 0 -> bug, the first edittext always return ""
-            if (entry.key != 0 && entry.value.text.toString().length < 3) {
+            val oneWord = entry.value.text.toString()
+            if (oneWord.length < 3 || oneWord != mMnemonicCheck[entry.key]) {
                 onCheckResult(false)
                 return
             }

@@ -51,9 +51,12 @@ class CreateWalletActivity : BaseActivity() {
             }
 
             override fun onPageSelected(position: Int) {
+                switchToPage(position)
             }
 
         }
+
+        mPager.addOnPageChangeListener(pageChangeListener)
 
         val layoutId = CreateWalletModel.getStartPageLayoutId()
         val pageSetting = getPageSetting(layoutId)
@@ -74,6 +77,11 @@ class CreateWalletActivity : BaseActivity() {
         }
     }
 
+    private fun switchToPage(position: Int) {
+        if (mPagerAdapter.cacheFragement[position] != null) {
+            mPagerAdapter.cacheFragement[position]!!.onShowPage()
+        }
+    }
 
     fun adjustUIBySetting(pageSetting: PageSetting) {
         AndroidUtils.hideStatusBar(this, !pageSetting.showStatusBar)
@@ -102,7 +110,7 @@ class CreateWalletActivity : BaseActivity() {
 }
 
 class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : FragmentStatePagerAdapter(fm) {
-    private val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
+    val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
 
     override fun getItem(position: Int): Fragment {
         val f = createFragment(position)
@@ -118,8 +126,5 @@ class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : Fragment
         return allPagesSize()
     }
 
-    override fun setPrimaryItem(container: ViewGroup, position: Int, obj: Any ) {
-        cacheFragement[position]!!.onShowPage()
-    }
 }
 

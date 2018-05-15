@@ -26,7 +26,7 @@ fun setupUISettings() {
 
     addConfig(R.layout.f_new_seed_pwd, CWFragmentPwd::class.java)
 
-    addConfig(R.layout.f_new_seed_verify)
+    addConfig(R.layout.f_new_seed_verify, CWFragmentVerify::class.java)
 
     addConfig(R.layout.f_new_seed_backup, CWFragmentBackup::class.java)
 

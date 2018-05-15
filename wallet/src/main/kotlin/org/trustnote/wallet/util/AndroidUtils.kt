@@ -67,10 +67,17 @@ object AndroidUtils {
         btn.isEnabled = false
     }
 
+    fun enableBtn(btn: Button, enable: Boolean) {
+        if (enable) {
+            enableBtn(btn)
+        } else {
+            disableBtn(btn)
+        }
+    }
+
     fun enableBtn(btn: Button) {
         btn.alpha = 1f
         btn.isEnabled = true
-
     }
 
     fun showDialog(activity: FragmentActivity) {

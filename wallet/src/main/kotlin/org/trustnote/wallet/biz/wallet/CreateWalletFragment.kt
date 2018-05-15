@@ -13,8 +13,11 @@ import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.util.AndroidUtils
 import android.text.Editable
 import android.text.TextWatcher
+import android.webkit.ValueCallback
 import android.widget.EditText
-import org.trustnote.wallet.widget.MyDialogFragment
+import org.trustnote.wallet.BuildConfig
+import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.widget.MnemonicsGridView
 
 
 @SuppressLint("ValidFragment")  //TODO: the fragment cannot re-create from tomb.
@@ -150,23 +153,64 @@ class CWFragmentNewSeedOrRestore(layoutId: Int) : CreateWalletFragment(layoutId)
                 nextPage(R.layout.f_new_seed_pwd, R.layout.f_new_seed_restore)
             }
         }
+
+        generateTmpMnemonic()
+
+    }
+
+    fun generateTmpMnemonic() {
+        JSApi().mnemonic(ValueCallback {
+            CreateWalletModel.tmpMnemonic = it
+        })
     }
 
 }
 
 @SuppressLint("ValidFragment")
 class CWFragmentBackup(layoutId: Int) : CreateWalletFragment(layoutId) {
+
+    lateinit var mnemonicsGrid: MnemonicsGridView
     override fun initFragment(view: View) {
         var btnBackupConfirm = view.findViewById<Button>(R.id.backup_confirm)
-        btnBackupConfirm.setOnClickListener{
+        btnBackupConfirm.setOnClickListener {
             nextPage(R.layout.f_new_seed_verify)
         }
 
-        AndroidUtils.showDialog(getMyActivity())
+        mnemonicsGrid = view.findViewById(R.id.mnemonics)
+
+        mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, false)
     }
 
     override fun onBackPressed() {
         nextPage(R.layout.f_new_seed_or_restore)
+    }
+}
+
+@SuppressLint("ValidFragment")
+class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
+
+    lateinit var mnemonicsGrid: MnemonicsGridView
+    override fun initFragment(view: View) {
+
+        var btnBackupConfirm = view.findViewById<Button>(R.id.verify_confirmed)
+        AndroidUtils.disableBtn(btnBackupConfirm)
+        btnBackupConfirm.setOnClickListener {
+            nextPage(R.layout.f_new_seed_remove)
+        }
+
+        mnemonicsGrid = view.findViewById(R.id.mnemonics_verify)
+        mnemonicsGrid.setCheckMnemonic(CreateWalletModel.tmpMnemonic)
+        mnemonicsGrid.onCheckResult = {
+            AndroidUtils.enableBtn(btnBackupConfirm, it)
+        }
+
+        if (BuildConfig.DEBUG) {
+            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+        }
+    }
+
+    override fun onBackPressed() {
+        nextPage(R.layout.f_new_seed_backup)
     }
 
 }

@@ -1,12 +1,16 @@
 package org.trustnote.wallet.biz.wallet
 
+import android.webkit.ValueCallback
 import org.trustnote.wallet.R
+import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.util.Prefs
+import org.trustnote.wallet.util.Utils
 
 object CreateWalletModel {
 
     //TODO: should keep this in ram at most N minutes.
     var passphraseInRam: String = ""
+    var tmpMnemonic: String = ""
 
     fun getCreationProgress(): CREATE_WALLET_STATUS {
         if (Prefs.profileExist()) {

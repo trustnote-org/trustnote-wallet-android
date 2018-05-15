@@ -19,7 +19,7 @@
             android:text="@string/new_mnemonic_verify_msg" />
 
         <org.trustnote.wallet.widget.MnemonicsGridView
-            android:id = "@+id/mnemonics"
+            android:id = "@+id/mnemonics_verify"
             android:layout_marginTop="@dimen/mnemonic_margin_top"
             android:layout_marginBottom="@dimen/mnemonic_margin_top"
             android:textColor="@color/t_text"
@@ -27,9 +27,8 @@
             android:layout_below="@id/new_mnemonic_verify_msg"
             android:layout_height="wrap_content" />
 
-
         <Button
-            android:id="@+id/btn_new_seed"
+            android:id="@+id/verify_confirmed"
             style="@style/t_btn_blue"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"

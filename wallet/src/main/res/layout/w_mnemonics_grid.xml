@@ -12,4 +12,10 @@
         android:horizontalSpacing="5dp"
         android:numColumns="4" />
 
+    <org.trustnote.wallet.widget.ErrTextView
+        android:id="@+id/err"
+        style="@style/t_err"
+        android:layout_below="@id/grid_view"
+        android:text="@string/mnemonic_verify_failed" />
+
 </RelativeLayout>
