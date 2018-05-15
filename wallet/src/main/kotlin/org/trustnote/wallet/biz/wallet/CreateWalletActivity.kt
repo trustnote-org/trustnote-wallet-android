@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
@@ -33,12 +32,14 @@ class CreateWalletActivity : BaseActivity() {
 
         setupUISettings()
 
-        //window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        if (!BuildConfig.DEBUG) {
+            window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+        }
 
         setContentView(R.layout.activity_create_wallet)
 
         mPager = findViewById(R.id.view_pager)
-        mPagerAdapter = PagerAdapter(supportFragmentManager, mPager!!)
+        mPagerAdapter = PagerAdapter(supportFragmentManager)
 
         mPager.adapter = mPagerAdapter
 
@@ -51,7 +52,7 @@ class CreateWalletActivity : BaseActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                switchToPage(position)
+                //switchToPage(position)
             }
 
         }
@@ -61,12 +62,15 @@ class CreateWalletActivity : BaseActivity() {
         val layoutId = CreateWalletModel.getStartPageLayoutId()
         val pageSetting = getPageSetting(layoutId)
         adjustUIBySetting(pageSetting)
-        mPager.currentItem = getPagePosition(layoutId)
+
+        switchToPage(getPagePosition(layoutId))
 
         findViewById<View>(R.id.titlebar_back_arrow).setOnClickListener {
             onBackPressed()
         }
     }
+
+
 
     companion object {
         @JvmStatic
@@ -78,9 +82,13 @@ class CreateWalletActivity : BaseActivity() {
     }
 
     private fun switchToPage(position: Int) {
+
+        mPager.setCurrentItem(position, false)
+
         if (mPagerAdapter.cacheFragement[position] != null) {
             mPagerAdapter.cacheFragement[position]!!.onShowPage()
         }
+
     }
 
     fun adjustUIBySetting(pageSetting: PageSetting) {
@@ -93,7 +101,7 @@ class CreateWalletActivity : BaseActivity() {
     }
 
     fun nextPage(pageLayoutId: Int) {
-        mPager.currentItem = getPagePosition(pageLayoutId)
+        switchToPage(getPagePosition(pageLayoutId))
     }
 
     override fun onBackPressed() {
@@ -104,7 +112,7 @@ class CreateWalletActivity : BaseActivity() {
     fun nextPage(pageLayoutId: Int, nextLayoutId: Int) {
         val nextFragment = mPagerAdapter.getFragmentFromCache(getPagePosition(pageLayoutId))
         nextFragment.mNextLayoutId = nextLayoutId
-        mPager.currentItem = getPagePosition(pageLayoutId)
+        switchToPage(getPagePosition(pageLayoutId))
     }
 
     fun iamDone() {
@@ -114,7 +122,7 @@ class CreateWalletActivity : BaseActivity() {
 
 }
 
-class PagerAdapter(fm: FragmentManager, private val pager: ViewPager) : FragmentStatePagerAdapter(fm) {
+class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
 
     override fun getItem(position: Int): Fragment {

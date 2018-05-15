@@ -217,6 +217,9 @@ android.applicationVariants.all { variant ->
 
 }
 
+//task cpFileToFileServer(dependsOn: war, type: Exec) {
+//    commandLine "pkill", " -9", "java"
+//}
 
 def readVersionName() {
     return android.defaultConfig.versionName

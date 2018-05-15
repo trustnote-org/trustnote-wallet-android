@@ -34,7 +34,7 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
     }
 
     fun getMyActivity(): CreateWalletActivity {
-        return getActivity() as CreateWalletActivity
+        return activity as CreateWalletActivity
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
