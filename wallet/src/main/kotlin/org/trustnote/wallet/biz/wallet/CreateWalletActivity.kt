@@ -6,9 +6,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
-import android.support.v4.view.ViewPager.OnPageChangeListener
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.*
@@ -38,39 +39,28 @@ class CreateWalletActivity : BaseActivity() {
 
         setContentView(R.layout.activity_create_wallet)
 
-        mPager = findViewById(R.id.view_pager)
-        mPagerAdapter = PagerAdapter(supportFragmentManager)
+        setupViewPager()
 
-        mPager.adapter = mPagerAdapter
+        setupFirstPage()
 
-        val pageChangeListener = object : OnPageChangeListener {
-
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                //switchToPage(position)
-            }
-
+        findViewById<View>(R.id.titlebar_back_arrow).setOnClickListener {
+            pageBackClicked()
         }
 
-        mPager.addOnPageChangeListener(pageChangeListener)
+    }
 
+    private fun setupFirstPage() {
         val layoutId = CreateWalletModel.getStartPageLayoutId()
         val pageSetting = getPageSetting(layoutId)
         adjustUIBySetting(pageSetting)
-
         switchToPage(getPagePosition(layoutId))
-
-        findViewById<View>(R.id.titlebar_back_arrow).setOnClickListener {
-            onBackPressed()
-        }
     }
 
-
+    private fun setupViewPager() {
+        mPager = findViewById(R.id.view_pager)
+        mPagerAdapter = PagerAdapter(supportFragmentManager)
+        mPager.adapter = mPagerAdapter
+    }
 
     companion object {
         @JvmStatic
@@ -105,6 +95,15 @@ class CreateWalletActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
+        if (closeKeyboard()) {
+            //
+        } else {
+            pageBackClicked()
+        }
+    }
+
+    fun pageBackClicked() {
+        closeKeyboard()
         val currentFragment = mPagerAdapter.getFragmentFromCache(mPager.currentItem)
         currentFragment.onBackPressed()
     }

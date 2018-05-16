@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_white"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/page_margin_left"
-    android:paddingRight="@dimen/page_margin_left">
+    android:layout_height="match_parent">
 
-    <include layout="@layout/l_new_seed_titlebar" />
-
-    <org.trustnote.wallet.widget.NonSwipeableViewPager
-        android:id="@+id/view_pager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/bg_white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/page_margin_left"
+        android:paddingRight="@dimen/page_margin_left">
 
-</LinearLayout>
+        <include layout="@layout/l_new_seed_titlebar" />
+
+
+        <org.trustnote.wallet.widget.NonSwipeableViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <org.trustnote.wallet.widget.keyboard.CustomKeyboardView
+
+        android:id="@+id/keyboard_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
+        android:background="@color/bg_white"
+        android:keyBackground="@color/t_f_gray_2"
+        android:keyTextColor="@color/t_text"
+        android:keyTextSize="@dimen/keyboard_textsize"
+        android:visibility="gone" />
+
+</FrameLayout>

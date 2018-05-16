@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz.wallet
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,9 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.util.AndroidUtils
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
+import android.view.inputmethod.InputMethodManager
 import android.webkit.ValueCallback
 import android.widget.EditText
 import org.trustnote.wallet.BuildConfig
@@ -265,9 +268,9 @@ class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
             AndroidUtils.enableBtn(btnRestoreRemove, it)
         }
 
-        if (BuildConfig.DEBUG) {
-            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
-        }
+//        if (BuildConfig.DEBUG) {
+//            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+//        }
 
     }
 

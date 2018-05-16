@@ -4,13 +4,11 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.FrameLayout
-import android.widget.GridView
-import android.widget.TextView
+import android.widget.*
 import org.trustnote.wallet.R
 
 
@@ -89,6 +87,17 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         when (convertView == null) {
             true -> {
                 editTextView = LayoutInflater.from(context).inflate(R.layout.item_mnemonic, parent, false) as MnemonicAutoCompleteTextView
+
+                //setup the focus for next/enter key event.
+                val resourceId = context.resources.getIdentifier("mnemonic_$position", "id", context.packageName)
+                var nextPosition = position + 1
+                if (nextPosition == mMnemonic.size) {
+                    nextPosition = 0
+                }
+                val nextResourceId = context.resources.getIdentifier("mnemonic_$nextPosition", "id", context.packageName)
+                editTextView.id = resourceId
+                editTextView.nextFocusForwardId = nextResourceId
+
             }
 
             false -> {
@@ -103,15 +112,6 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         }
         editTextCache[position] = editTextView
 
-        //setup the focus for next/enter key event.
-        val resourceId = context.resources.getIdentifier("mnemonic_$position", "id", context.packageName)
-        var nextPosition = position + 1
-        if (nextPosition == mMnemonic.size) {
-            nextPosition = 0
-        }
-        val nextResourceId = context.resources.getIdentifier("mnemonic_$nextPosition", "id", context.packageName)
-        editTextView.id = resourceId
-        editTextView.nextFocusForwardId = nextResourceId
 
         if (verifyEnabled) {
             editTextView.addTextChangedListener(object : TextWatcher {
@@ -125,6 +125,18 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 }
             })
+
+            editTextView.setOnKeyListener { v, keyCode, _ ->
+                if (keyCode == KeyEvent.KEYCODE_NAVIGATE_NEXT) {
+                    val nextFocusForwardId = v.nextFocusForwardId
+                    if (nextFocusForwardId != 0) {
+                        (v.parent.parent as ViewGroup).findViewById<View>(nextFocusForwardId).requestFocus()
+                    }
+                    true
+                } else {
+                    false
+                }
+            }
         }
 
         return editTextView

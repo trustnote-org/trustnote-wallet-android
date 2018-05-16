@@ -49,4 +49,7 @@
 
     <dimen name="small_icon">14dp</dimen>
 
+    <dimen name="keyboard_textsize">18sp</dimen>
+    <dimen name="keyboard_height">64dp</dimen>
+
 </resources>
