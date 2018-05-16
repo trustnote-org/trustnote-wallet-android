@@ -14,10 +14,7 @@ class MnemonicAutoCompleteTextView constructor(context: Context, attrs: Attribut
         val adapter = WordAdapter(context, R.layout.item_mnemonic_autocomplete, wordList)
         this.setAdapter(adapter)
 
-        //inputType = InputType.TYPE_NULL
-        isCursorVisible = true
-
-        this.setOnTouchListener { v, event ->
+        this.setOnTouchListener { v, _ ->
             v.requestFocus()
             (getContext() as BaseActivity).showKeyboardWithAnimation()
             true

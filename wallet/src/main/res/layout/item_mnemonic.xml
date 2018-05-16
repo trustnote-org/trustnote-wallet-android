@@ -10,7 +10,6 @@
     android:inputType="textNoSuggestions"
     android:maxLength="8"
     android:singleLine="true"
-    android:textCursorDrawable="@color/t_blue"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:imeOptions="actionNext"

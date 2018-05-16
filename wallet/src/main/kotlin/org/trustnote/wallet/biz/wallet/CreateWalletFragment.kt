@@ -268,9 +268,9 @@ class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
             AndroidUtils.enableBtn(btnRestoreRemove, it)
         }
 
-//        if (BuildConfig.DEBUG) {
-//            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
-//        }
+        //        if (BuildConfig.DEBUG) {
+        //            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+        //        }
 
     }
 
