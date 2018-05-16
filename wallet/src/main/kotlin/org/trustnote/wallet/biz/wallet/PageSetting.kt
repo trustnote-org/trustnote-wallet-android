@@ -20,6 +20,8 @@ fun setupUISettings() {
 
     addConfig(R.layout.f_new_seed_disclaimer, CWFragmentDisclaimer::class.java, false, false)
 
+    addConfig(R.layout.f_new_seed_backup, CWFragmentBackup::class.java)
+
     addConfig(R.layout.f_new_seed_devicename, CWFragmentDeviceName::class.java, true, false)
 
     addConfig(R.layout.f_new_seed_or_restore, CWFragmentNewSeedOrRestore::class.java,false, false)
@@ -28,11 +30,10 @@ fun setupUISettings() {
 
     addConfig(R.layout.f_new_seed_verify, CWFragmentVerify::class.java)
 
-    addConfig(R.layout.f_new_seed_backup, CWFragmentBackup::class.java)
-
     addConfig(R.layout.f_new_seed_remove, CWFragmentRemove::class.java, true, false)
 
     addConfig(R.layout.f_new_seed_restore, CWFragmentRestore::class.java)
+
 
 }
 

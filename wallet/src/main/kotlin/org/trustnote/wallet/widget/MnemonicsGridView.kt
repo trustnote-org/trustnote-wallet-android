@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import org.trustnote.wallet.R
+import org.trustnote.wallet.uiframework.BaseActivity
 
 
 class MnemonicsGridView @JvmOverloads constructor(
@@ -40,6 +41,7 @@ class MnemonicsGridView @JvmOverloads constructor(
             onCheckResult(it)
             err.visibility = if (it) INVISIBLE else View.VISIBLE
         }
+
     }
 
     fun setMnemonic(mnemonic: String, isVerify: Boolean) {
@@ -104,6 +106,8 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
                 editTextView = convertView as MnemonicAutoCompleteTextView
             }
         }
+
+
 
         editTextView.isEnabled = verifyEnabled
 

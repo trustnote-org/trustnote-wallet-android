@@ -20,6 +20,7 @@ import android.webkit.ValueCallback
 import android.widget.EditText
 import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.widget.MnemonicsGridView
 
 
@@ -59,6 +60,7 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
             initFragment(mRootView!!)
             getMyActivity().adjustUIBySetting(getPageSetting(mLayoutId))
         }
+
     }
 
     open fun initFragment(view: View) {
@@ -208,9 +210,15 @@ class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
             AndroidUtils.enableBtn(btnBackupConfirm, it)
         }
 
-        if (BuildConfig.DEBUG) {
-            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
-        }
+        //        if (BuildConfig.DEBUG) {
+        //            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+        //        }
+
+        mRootView.postDelayed({
+            mRootView.findViewById<View>(R.id.mnemonic_0)?.requestFocus()
+            getMyActivity().showKeyboardWithAnimation()
+        }, 150)
+
     }
 
     override fun onBackPressed() {
@@ -271,6 +279,11 @@ class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
         //        if (BuildConfig.DEBUG) {
         //            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
         //        }
+
+        mRootView.postDelayed({
+            mRootView.findViewById<View>(R.id.mnemonic_0)?.requestFocus()
+            getMyActivity().showKeyboardWithAnimation()
+        }, 150)
 
     }
 

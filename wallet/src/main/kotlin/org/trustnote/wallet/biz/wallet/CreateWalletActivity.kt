@@ -75,8 +75,8 @@ class CreateWalletActivity : BaseActivity() {
 
         mPager.setCurrentItem(position, false)
 
-        if (mPagerAdapter.cacheFragement[position] != null) {
-            mPagerAdapter.cacheFragement[position]!!.onShowPage()
+        if (mPagerAdapter.getFragmentFromCache(position) != null) {
+            mPagerAdapter.getFragmentFromCache(position)!!.onShowPage()
         }
 
     }
@@ -105,12 +105,12 @@ class CreateWalletActivity : BaseActivity() {
     fun pageBackClicked() {
         closeKeyboard()
         val currentFragment = mPagerAdapter.getFragmentFromCache(mPager.currentItem)
-        currentFragment.onBackPressed()
+        currentFragment!!.onBackPressed()
     }
 
     fun nextPage(pageLayoutId: Int, nextLayoutId: Int) {
         val nextFragment = mPagerAdapter.getFragmentFromCache(getPagePosition(pageLayoutId))
-        nextFragment.mNextLayoutId = nextLayoutId
+        nextFragment!!.mNextLayoutId = nextLayoutId
         switchToPage(getPagePosition(pageLayoutId))
     }
 
@@ -122,16 +122,16 @@ class CreateWalletActivity : BaseActivity() {
 }
 
 class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-    val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
+    private val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
 
-    override fun getItem(position: Int): Fragment {
+    @Synchronized override fun getItem(position: Int): Fragment {
         val f = createFragment(position)
         cacheFragement[position] = f
         return f
     }
 
-    fun getFragmentFromCache(position: Int): CreateWalletFragment {
-        return cacheFragement[position]!!
+    @Synchronized fun getFragmentFromCache(position: Int): CreateWalletFragment? {
+        return cacheFragement[position]
     }
 
     override fun getCount(): Int {
