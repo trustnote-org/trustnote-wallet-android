@@ -2,6 +2,7 @@ package org.trustnote.wallet.util
 
 
 import android.net.NetworkInfo
+import android.os.Environment
 import android.widget.Toast
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
@@ -182,6 +183,16 @@ object Utils {
 
     fun hash(input: String): String {
         return input
+    }
+
+    @Synchronized fun getMySdcardDirectory(): File {
+        val pInfo = TApp.context.packageManager.getPackageInfo(TApp.context.packageName, 0)
+        val versionName = pInfo.versionName
+        val res = File(Environment.getExternalStorageDirectory(), "TTT_$versionName")
+        if (!res.exists()) {
+            res.mkdir()
+        }
+        return res
     }
 
 }

@@ -39,11 +39,14 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            manifestPlaceholders.put("appBuildType", "DEBUG")
         }
         release {
             //applicationIdSuffix '.release'
+            manifestPlaceholders.put("appBuildType", "RELEASE")
+            versionNameSuffix '-RELEASE'
             signingConfig signingConfigs.release
-
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -54,13 +57,19 @@ android {
     productFlavors {
         mainnet {
             buildConfigField "boolean", "IS_MAINNET", "true"
+            versionNameSuffix '-MAINNET'
+            manifestPlaceholders.put("appProductFlavor", "MAINNET")
         }
 
         devnet {
+            //resValue "string", "app_name", "TestNet"
+            manifestPlaceholders.put("appProductFlavor", "TESTNET")
             applicationIdSuffix ".dev"
+            versionNameSuffix '-DEVNET'
             buildConfigField "boolean", "IS_MAINNET", "false"
         }
     }
+
 
     dataBinding {
         enabled = true

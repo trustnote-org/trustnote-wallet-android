@@ -12,6 +12,10 @@ import org.trustnote.wallet.biz.wallet.CreateWalletFragment
 import org.trustnote.wallet.js.BIP38_WORD_LIST_EN
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.widget.MyDialogFragment
+import android.support.v4.content.ContextCompat
+import android.view.WindowManager
+
+
 
 
 
@@ -26,7 +30,7 @@ object AndroidUtils {
 
     fun hideStatusBar(activity: BaseActivity, isShow: Boolean) {
 
-        val uiOptions = activity.getWindow().getDecorView().getSystemUiVisibility()
+        val uiOptions = activity.window.decorView.systemUiVisibility
         var newUiOptions = uiOptions
         val isImmersiveModeEnabled = ((uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) === uiOptions)
         if (isImmersiveModeEnabled) {
@@ -40,9 +44,9 @@ object AndroidUtils {
         }
 
         // Navigation bar hiding:  Backwards compatible to ICS.
-        if (Build.VERSION.SDK_INT >= 14) {
-            newUiOptions = newUiOptions xor View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-        }
+        //        if (Build.VERSION.SDK_INT >= 14) {
+        //            newUiOptions = newUiOptions xor View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        //        }
 
         // Status bar hiding: Backwards compatible to Jellybean
         if (Build.VERSION.SDK_INT >= 16) {
@@ -53,7 +57,7 @@ object AndroidUtils {
             newUiOptions = newUiOptions xor View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         }
 
-        activity.getWindow().getDecorView().setSystemUiVisibility(newUiOptions)
+        activity.window.decorView.systemUiVisibility = newUiOptions
         //END_INCLUDE (set_ui_flags)
     }
 

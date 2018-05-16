@@ -1,12 +1,12 @@
 package org.trustnote.wallet.biz.wallet
 
-import android.os.Environment
 import org.trustnote.wallet.BuildConfig
+import org.trustnote.wallet.util.Utils
 import java.io.File
 
 object SeedManager {
 
-    val myfile = File(Environment.getExternalStorageDirectory(), "ttt.txt")
+    val myfile = File(Utils.getMySdcardDirectory(), "ttt.txt")
     init {
         saveSeedForTest(TestData.mnemonic0)
         saveSeedForTest(TestData.mnemonic1)
