@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_input_pwd"
+    android:orientation="vertical"
+    android:padding="@dimen/bg_dialog_padding_30">
+
+    <TextView
+        android:id="@+id/msg"
+        style="@style/t_title"
+        android:text="@string/pwd_exist_input_pwd"
+        android:textSize="@dimen/font_20" />
+
+    <org.trustnote.wallet.widget.ClearableEditText
+        android:id="@+id/pwd"
+        style="@style/t_pwd"
+        android:layout_below="@id/pwd_warning"
+        android:text="" />
+
+    <org.trustnote.wallet.widget.ErrTextView
+        android:id="@+id/pwd_err"
+        android:text="@string/pwd_exist_input_err"
+        style="@style/t_err" />
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/btn_gap_24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/first_button"
+            android:layout_width="@dimen/btn_width_128"
+            style="@style/t_btn_white"
+            android:text="@string/cancel" />
+
+        <View
+            android:layout_width="@dimen/line_gap_8"
+            android:layout_height="1dp" />
+
+        <Button
+            android:layout_width="@dimen/btn_width_128"
+            android:id="@+id/second_button"
+            style="@style/t_btn_blue"
+            android:text="@string/confirm" />
+
+    </LinearLayout>
+
+</LinearLayout>

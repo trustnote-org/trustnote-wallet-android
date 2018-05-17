@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
 import org.trustnote.wallet.R
+import org.trustnote.wallet.StarterActivity
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.keyboard.BasicOnKeyboardActionListener
 import org.trustnote.wallet.widget.keyboard.CustomKeyboardView
 
@@ -72,6 +74,12 @@ abstract class BaseActivity : AppCompatActivity() {
             mKeyboardView.visibility = View.VISIBLE
         }
     }
+
+    fun iamDone() {
+        finish()
+        AndroidUtils.startActivity(StarterActivity::class.java)
+    }
+
 
 }
 

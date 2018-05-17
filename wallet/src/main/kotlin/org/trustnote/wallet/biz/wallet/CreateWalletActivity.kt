@@ -112,11 +112,6 @@ class CreateWalletActivity : BaseActivity() {
         switchToPage(getPagePosition(pageLayoutId))
     }
 
-    fun iamDone() {
-        finish()
-        AndroidUtils.startActivity(StarterActivity::class.java)
-    }
-
 }
 
 class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {

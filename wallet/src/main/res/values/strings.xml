@@ -122,4 +122,9 @@
     <string name="dialog_backup_mnemonic_ask">确认已经保存了助记词？</string>
     <string name="dialog_remove_mnemonic_ask">确认删除助记词？</string>
 
+    <string name="pwd_exist_prompt">钱包已加密</string>
+    <string name="pwd_exist_clickcontinue">点击继续</string>
+    <string name="pwd_exist_input_pwd">输入密码</string>
+    <string name="pwd_exist_input_err">密码错误，请重新输入</string>
+
 </resources>

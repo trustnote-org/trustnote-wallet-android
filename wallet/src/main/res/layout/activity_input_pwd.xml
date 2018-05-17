@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/page_margin_left"
+        android:paddingRight="@dimen/page_margin_left">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_gap_24"/>
+
+        <include layout="@layout/l_new_seed_titlebar" />
+
+        <org.trustnote.wallet.widget.NonSwipeableViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -30,7 +30,7 @@ object CreateWalletModel {
         if (passphraseInRam.isNotEmpty()) {
             return passphraseInRam
         }
-        return ""
+        return Prefs.readPwdHash()
     }
 
     fun readPwdHash(): String {
@@ -91,6 +91,10 @@ object CreateWalletModel {
         finishedCreateOrRestore()
         WalletManager.initWithMnemonic(CreateWalletModel.tmpMnemonic, false)
         tmpMnemonic = ""
+    }
+
+    fun verifyPwd(pwd: String): Boolean {
+        return Prefs.readPwdHash() == hash(pwd)
     }
 }
 

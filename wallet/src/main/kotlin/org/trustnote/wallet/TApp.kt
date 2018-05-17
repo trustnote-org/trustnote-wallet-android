@@ -27,6 +27,8 @@ class TApp : Application() {
         lateinit var graph: TApplicationComponent
         var smallIconSize = 14
         lateinit var smallIconError: Drawable
+
+        var userAlreadyInputPwd = false
     }
 
     override fun onCreate() {

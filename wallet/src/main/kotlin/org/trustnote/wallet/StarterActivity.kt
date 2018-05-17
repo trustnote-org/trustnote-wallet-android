@@ -13,6 +13,13 @@ class StarterActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!TApp.userAlreadyInputPwd && CreateWalletModel.readPwd().isNotEmpty()){
+            AndroidUtils.startActivity(InputPwdActivity::class.java)
+            finish()
+            return
+        }
+
         if (CreateWalletModel.isFinisheCreateOrRestore()) {
             startMainActivityWithMenuId(R.id.action_me)
         } else {

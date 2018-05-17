@@ -34,8 +34,12 @@
     <dimen name="line_gap_42">42dp</dimen>
     <dimen name="line_gap_48">48dp</dimen>
     <dimen name="line_gap_10">10dp</dimen>
+    <dimen name="line_gap_8">8dp</dimen>
     <dimen name="line_gap_6">6dp</dimen>
+    <dimen name="line_gap_7">7dp</dimen>
 
+    <dimen name="bg_dialog_padding_30">30dp</dimen>
+    <dimen name="bg_dialog_corner_4">4dp</dimen>
     <dimen name="bg_dialog_corner">12dp</dimen>
     <dimen name="bg_dialog_padding_top">16dp</dimen>
     <dimen name="bg_dialog_padding_left">21dp</dimen>
@@ -52,5 +56,10 @@
     <dimen name="keyboard_textsize">18sp</dimen>
     <dimen name="keyboard_height">48dp</dimen>
     <dimen name="keyboard_vert_gap">6dp</dimen>
+
+    <dimen name="arrow_continue_width">4dp</dimen>
+    <dimen name="arrow_continue_height">6dp</dimen>
+    <dimen name="font_20">20sp</dimen>
+    <dimen name="btn_width_128">128dp</dimen>
 
 </resources>
