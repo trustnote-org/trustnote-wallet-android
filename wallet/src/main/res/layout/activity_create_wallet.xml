@@ -34,7 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
 
-        android:background="@color/bg_white"
+        android:padding="@dimen/keyboard_padding"
+        android:paddingTop="@dimen/line_gap_6"
+        android:background="@color/t_f_gray_2"
         android:keyBackground="@drawable/key_background"
         android:keyTextColor="@color/t_text"
         android:keyTextSize="@dimen/keyboard_textsize"

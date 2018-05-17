@@ -62,4 +62,6 @@
     <dimen name="font_20">20sp</dimen>
     <dimen name="btn_width_128">128dp</dimen>
 
+    <dimen name="keyboard_padding">2dp</dimen>
+
 </resources>
