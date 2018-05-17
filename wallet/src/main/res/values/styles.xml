@@ -63,7 +63,7 @@
     </style>
 
     <style name="t_strength_bar" parent="@style/t_text_base">
-        <item name="android:background">@color/t_strength</item>
+        <item name="android:background">@color/t_strength_none</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginBottom">@dimen/line_gap_6</item>
         <item name="android:layout_height">@dimen/pwd_strength_bar_height</item>

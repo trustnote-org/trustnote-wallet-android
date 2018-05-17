@@ -24,9 +24,8 @@
             android:layout_below="@id/pwd_warning"
             android:text="" />
 
-        <include
+        <org.trustnote.wallet.widget.PasswordStrength
             android:id="@+id/pwd_strength"
-            layout="@layout/l_pwd_strength"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/pwd" />

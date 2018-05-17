@@ -28,7 +28,7 @@
     <color name="t_bottom_line">#DDDDDD</color>
     <color name="t_err">#EF2B2B</color>
 
-    <color name="t_strength">#F2F2F2</color>
+    <color name="t_strength_none">#F2F2F2</color>
 
     <color name="t_strength_weak">#4B0052CC</color>
     <color name="t_strength_general">#960052CC</color>

@@ -1,26 +1,21 @@
 package org.trustnote.wallet.biz.wallet
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.ValueCallback
 import android.webkit.WebView
 import android.widget.Button
+import android.widget.EditText
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.util.AndroidUtils
-import android.text.Editable
-import android.text.InputType
-import android.text.TextWatcher
-import android.view.inputmethod.InputMethodManager
-import android.webkit.ValueCallback
-import android.widget.EditText
-import org.trustnote.wallet.BuildConfig
-import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
 
@@ -65,6 +60,16 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
     open fun initFragment(view: View) {
 
     }
+
+    fun showMnemonicKeyboardIfRequired() {
+        if (isCreated) {
+            mRootView.postDelayed({
+                mRootView.findViewById<View>(R.id.mnemonic_0)?.requestFocus()
+                getMyActivity().showKeyboardWithAnimation()
+            }, 150)
+        }
+    }
+
 
     open fun onBackPressed() {
         getMyActivity().finish()
@@ -226,10 +231,7 @@ class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
         //            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
         //        }
 
-        mRootView.postDelayed({
-            mRootView.findViewById<View>(R.id.mnemonic_0)?.requestFocus()
-            getMyActivity().showKeyboardWithAnimation()
-        }, 150)
+        showMnemonicKeyboardIfRequired()
 
     }
 
@@ -296,10 +298,7 @@ class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
         //            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
         //        }
 
-        mRootView.postDelayed({
-            mRootView.findViewById<View>(R.id.mnemonic_0)?.requestFocus()
-            getMyActivity().showKeyboardWithAnimation()
-        }, 150)
+        showMnemonicKeyboardIfRequired()
 
     }
 

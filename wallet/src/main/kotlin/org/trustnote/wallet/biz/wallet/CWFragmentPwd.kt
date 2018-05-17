@@ -10,6 +10,7 @@ import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.PasswordStrength
 
 @SuppressLint("ValidFragment")
 class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
@@ -19,6 +20,7 @@ class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
     lateinit var pwdVerify: EditText
     lateinit var pwdVerifyError: TextView
     lateinit var pwdError: TextView
+    lateinit var pwdStrength: PasswordStrength
     private val pwdTextWatcher: PwdTextWatcher = PwdTextWatcher()
 
     override fun initFragment(view: View) {
@@ -28,6 +30,7 @@ class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
         pwdVerify = mRootView.findViewById(R.id.pwd_verify)
         pwdError = mRootView.findViewById(R.id.pwd_err)
         pwdVerifyError = mRootView.findViewById(R.id.pwd_verify_err)
+        pwdStrength = mRootView.findViewById(R.id.pwd_strength)
 
         pwd.addTextChangedListener(pwdTextWatcher)
         pwdVerify.addTextChangedListener(pwdTextWatcher)
@@ -60,9 +63,11 @@ class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
         AndroidUtils.disableBtn(pwdConfirm)
         pwdError.visibility = View.INVISIBLE
         pwdVerifyError.visibility = View.INVISIBLE
-
+        pwdStrength.setPwd("")
 
         val pwdString = pwd.text.toString()
+
+        pwdStrength.setPwd(pwdString)
 
         val isPwdVerifyOk = (pwd.text.toString() == pwdVerify.text.toString())
         val isPwdLengthOk = isPwdLengthOk(pwdString)
