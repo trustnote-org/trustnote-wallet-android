@@ -89,19 +89,6 @@ object AndroidUtils {
         btn.isEnabled = true
     }
 
-    fun showDialog(activity: FragmentActivity) {
-        val ft = activity.supportFragmentManager.beginTransaction()
-        val prev = activity.supportFragmentManager.findFragmentByTag("dialog")
-        if (prev != null) {
-            ft.remove(prev)
-        }
-        ft.addToBackStack(null)
-
-        // Create and show the dialog.
-        val newFragment = MyDialogFragment.newInstance(3)
-        newFragment.show(ft, "dialog")
-    }
-
 
     fun startActivity(clz: Class<out BaseActivity>) {
         val intent = Intent(TApp.context, clz)

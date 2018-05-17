@@ -22,6 +22,7 @@ import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.widget.MnemonicsGridView
+import org.trustnote.wallet.widget.MyDialogFragment
 
 
 @SuppressLint("ValidFragment")  //TODO: the fragment cannot re-create from tomb.
@@ -30,6 +31,7 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
     private val mLayoutId = layoutId
     var mRootView: View = View(TApp.context)
     var mNextLayoutId = 0
+    var isCreated = false
 
     //TODO: empty constructor.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,15 +46,12 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val webView: WebView? = view.findViewById<WebView>(R.id.pwd_warning)
-        if (webView != null) {
-            val data = AndroidUtils.readAssetFile("pwd_warning.html")
-            val localData = AndroidUtils.replaceTTTTag(data)
-            webView.loadDataWithBaseURL("", localData, "text/html", "UTF-8", "")
-        }
+        isCreated = false
 
         mRootView = view
         initFragment(mRootView!!)
+
+        isCreated = true
     }
 
     fun onShowPage() {
@@ -176,14 +175,27 @@ class CWFragmentBackup(layoutId: Int) : CreateWalletFragment(layoutId) {
 
     lateinit var mnemonicsGrid: MnemonicsGridView
     override fun initFragment(view: View) {
+
         var btnBackupConfirm = view.findViewById<Button>(R.id.backup_confirm)
         btnBackupConfirm.setOnClickListener {
-            nextPage(R.layout.f_new_seed_verify)
+
+            MyDialogFragment.showDialog2Btns(getMyActivity(), R.string.dialog_backup_mnemonic_ask, {
+                nextPage(R.layout.f_new_seed_verify)
+            })
         }
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics)
 
         mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, false)
+
+        val webView: WebView = view.findViewById(R.id.pwd_warning)
+        val data = AndroidUtils.readAssetFile("pwd_warning.html")
+        val localData = AndroidUtils.replaceTTTTag(data)
+        webView.loadDataWithBaseURL("", localData, "text/html", "UTF-8", "")
+
+        if (isCreated) {
+            MyDialogFragment.showMsg(getMyActivity(), R.string.dialog_backup_mnemonic_copy)
+        }
     }
 
     override fun onBackPressed() {
@@ -236,8 +248,12 @@ class CWFragmentRemove(layoutId: Int) : CreateWalletFragment(layoutId) {
         var btnRemoveIgnore = view.findViewById<Button>(R.id.mnemonic_remove_ignore)
 
         btnRemove.setOnClickListener {
-            WalletManager.model.removeMnemonicFromProfile()
-            getMyActivity().iamDone()
+
+            MyDialogFragment.showDialog2Btns(activity, R.string.dialog_remove_mnemonic_ask, {
+                WalletManager.model.removeMnemonicFromProfile()
+                getMyActivity().iamDone()
+            })
+
         }
 
         btnRemoveIgnore.setOnClickListener {

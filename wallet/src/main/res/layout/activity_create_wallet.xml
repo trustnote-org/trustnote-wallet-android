@@ -35,7 +35,7 @@
         android:layout_gravity="bottom"
 
         android:background="@color/bg_white"
-        android:keyBackground="@color/t_f_gray_2"
+        android:keyBackground="@drawable/key_background"
         android:keyTextColor="@color/t_text"
         android:keyTextSize="@dimen/keyboard_textsize"
         android:visibility="gone" />

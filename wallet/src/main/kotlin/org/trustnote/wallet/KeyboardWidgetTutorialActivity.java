@@ -43,7 +43,7 @@ public class KeyboardWidgetTutorialActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
-//		mKeyboard = new Keyboard(this, R.xml.qwerty);
+//		mKeyboard = new Keyboard(this, R.xml.mnemonic);
 		mTargetView = (EditText) findViewById(R.id.target);
 		mTargetView.setOnTouchListener(new View.OnTouchListener() {
 

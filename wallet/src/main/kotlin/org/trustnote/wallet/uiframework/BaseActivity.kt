@@ -6,7 +6,6 @@ import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AnimationUtils
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.TApp
@@ -50,7 +49,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
         mKeyboardView = findViewById(R.id.keyboard_view)
-        mKeyboard = Keyboard(this, R.xml.qwerty)
+        mKeyboard = Keyboard(this, R.xml.mnemonic)
         mKeyboardView.keyboard = mKeyboard
         mKeyboardView.setOnKeyboardActionListener(BasicOnKeyboardActionListener(
                 this))

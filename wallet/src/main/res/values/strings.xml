@@ -5,6 +5,7 @@
     <string name="place_holder">TestTTT</string>
 
     <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
 
     <!--<string name="menu_home">Home</string>-->
     <!--<string name="menu_msg">Messages</string>-->
@@ -116,5 +117,9 @@
 
     <string name="mnemonic_devicename_hint">请输入设备名称</string>
     <string name="mnemonic_devicename_err">不超过20个字符</string>
+
+    <string name="dialog_backup_mnemonic_copy">请认真抄写助记词，不要用截屏的方式保管助记词。</string>
+    <string name="dialog_backup_mnemonic_ask">确认已经保存了助记词？</string>
+    <string name="dialog_remove_mnemonic_ask">确认删除助记词？</string>
 
 </resources>

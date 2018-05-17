@@ -1,85 +1,110 @@
 package org.trustnote.wallet.widget
 
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 
 import org.trustnote.wallet.R
 
-class MyDialogFragment : DialogFragment() {
-    internal var mNum: Int = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mNum = arguments.getInt("num")
+class MyDialogFragment() : DialogFragment() {
 
-        // Pick a style based on the num.
-        var style = DialogFragment.STYLE_NORMAL
-        var theme = 0
-        when ((mNum - 1) % 6) {
-            1 -> style = DialogFragment.STYLE_NO_TITLE
-            2 -> style = DialogFragment.STYLE_NO_FRAME
-            3 -> style = DialogFragment.STYLE_NO_INPUT
-            4 -> style = DialogFragment.STYLE_NORMAL
-            5 -> style = DialogFragment.STYLE_NORMAL
-            6 -> style = DialogFragment.STYLE_NO_TITLE
-            7 -> style = DialogFragment.STYLE_NO_FRAME
-            8 -> style = DialogFragment.STYLE_NORMAL
-        }
-        when ((mNum - 1) % 6) {
-            4 -> theme = android.R.style.Theme_Holo
-            5 -> theme = android.R.style.Theme_Holo_Light_Dialog
-            6 -> theme = android.R.style.Theme_Holo_Light
-            7 -> theme = android.R.style.Theme_Holo_Light_Panel
-            8 -> theme = android.R.style.Theme_Holo_Light
-        }
-        setStyle(style, theme)
+    var msg: String = "TTT Welcome"
+    var cancelLogic: () -> Unit = {}
+    var confirmLogic: () -> Unit = {}
+    var isTwoButtons = true
+
+    constructor(msg: String, confirmLogic: () -> Unit) : this(msg, confirmLogic, {}) {
+        isTwoButtons = false
+    }
+
+    constructor(msg: String, confirmLogic: () -> Unit, cancelLogic: () -> Unit) : this() {
+        this.msg = msg
+        this.confirmLogic = confirmLogic
+        this.cancelLogic = cancelLogic
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-//        View tv = v.findViewById(R.id.text);
-        //        ((TextView)tv).setText("Dialog #" + mNum + ": using style "
-        //                + getNameForNum(mNum));
-        //
-        //        // Watch for button clicks.
-        //        Button button = (Button)v.findViewById(R.id.show);
-        //        button.setOnClickListener(new OnClickListener() {
-        //            public void onClick(View v) {
-        //                // When button is clicked, call up to owning activity.
-        //                ((FragmentDialog)getActivity()).showDialog();
-        //            }
-        //        });
+        // Inflate the layout to use as dialog or embedded fragment
+        val view = inflater!!.inflate(R.layout.l_dialog_twobutton, container, false)
 
-        return inflater!!.inflate(R.layout.l_dialog, container, false)
+        view.findViewById<TextView>(R.id.msg).text = msg
+
+        view.findViewById<Button>(R.id.first_button).setOnClickListener {
+            dismiss()
+            cancelLogic.invoke()
+        }
+
+        view.findViewById<Button>(R.id.first_button).visibility = if (isTwoButtons) View.VISIBLE else View.GONE
+        view.findViewById<View>(R.id.line_between_btns).visibility = if (isTwoButtons) View.VISIBLE else View.GONE
+
+        view.findViewById<Button>(R.id.second_button).setOnClickListener {
+            dismiss()
+            confirmLogic.invoke()
+        }
+
+        return view
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return object : Dialog(activity, theme) {
-            override fun onBackPressed() {
-                dismiss()
-            }
+        val dialog = super.onCreateDialog(savedInstanceState)
+
+        if (dialog.window != null) {
+            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window.requestFeature(Window.FEATURE_NO_TITLE)
         }
+
+        return dialog
     }
 
     companion object {
 
-        /**
-         * Create a new instance of MyDialogFragment, providing "num"
-         * as an argument.
-         */
-        internal fun newInstance(num: Int): MyDialogFragment {
-            val f = MyDialogFragment()
-
-            // Supply num input as an argument.
-            val args = Bundle()
-            args.putInt("num", num)
-            f.arguments = args
-
-            return f
+        private fun newInstance(msg: String, confirmLogic: () -> Unit): MyDialogFragment {
+            return MyDialogFragment(msg, confirmLogic)
         }
+
+        private fun newInstance(msg: String, confirmLogic: () -> Unit, cancelLogic: () -> Unit): MyDialogFragment {
+            return MyDialogFragment(msg, confirmLogic, cancelLogic)
+        }
+
+        private fun getFragmentTransaction(activity: FragmentActivity): FragmentTransaction {
+
+            val ft = activity.supportFragmentManager.beginTransaction()
+            val prev = activity.supportFragmentManager.findFragmentByTag("dialog")
+            if (prev != null) {
+                ft.remove(prev)
+            }
+            ft.addToBackStack(null)
+            return ft
+        }
+
+        private fun showDialog1Btn(activity: FragmentActivity, msg: String, confirmLogic: () -> Unit) {
+
+            val newFragment = MyDialogFragment.newInstance(msg, confirmLogic)
+            newFragment.show(getFragmentTransaction(activity), "dialog")
+        }
+
+        fun showMsg(activity: FragmentActivity, strResId: Int) {
+            val msg = activity.getString(strResId)!!
+            showDialog1Btn(activity, msg, {})
+        }
+
+        fun showDialog2Btns(activity: FragmentActivity, strResId: Int, confirmLogic: () -> Unit) {
+            val msg = activity.getString(strResId)!!
+            val newFragment = MyDialogFragment.newInstance(msg, confirmLogic, {})
+            newFragment.show(getFragmentTransaction(activity), "dialog")
+        }
+
     }
 }

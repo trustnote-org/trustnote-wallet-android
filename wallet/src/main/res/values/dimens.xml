@@ -50,6 +50,7 @@
     <dimen name="small_icon">14dp</dimen>
 
     <dimen name="keyboard_textsize">18sp</dimen>
-    <dimen name="keyboard_height">64dp</dimen>
+    <dimen name="keyboard_height">48dp</dimen>
+    <dimen name="keyboard_vert_gap">6dp</dimen>
 
 </resources>

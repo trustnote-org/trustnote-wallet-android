@@ -6,13 +6,11 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
-import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.EditText
+import org.trustnote.wallet.*
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
-import org.trustnote.wallet.*
 
 
 class CreateWalletActivity : BaseActivity() {
@@ -124,10 +122,15 @@ class CreateWalletActivity : BaseActivity() {
 class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     private val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
 
+    //Bug: need investigate, the position is not map to the same in PageSetting.
     @Synchronized override fun getItem(position: Int): Fragment {
-        val f = createFragment(position)
-        cacheFragement[position] = f
-        return f
+        return if (cacheFragement.containsKey(position)) {
+            cacheFragement[position]!!
+        } else {
+            val f = createFragment(position)
+            cacheFragement[position] = f
+            f
+        }
     }
 
     @Synchronized fun getFragmentFromCache(position: Int): CreateWalletFragment? {

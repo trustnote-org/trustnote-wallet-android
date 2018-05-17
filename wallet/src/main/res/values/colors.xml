@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#03A9F4</color>
-    <color name="colorPrimaryDark">#0288D1</color>
+    <!--<color name="colorPrimary">#03A9F4</color>-->
+    <!--<color name="colorPrimaryDark">#0288D1</color>-->
+    <!--<color name="colorAccent">#FF9800</color>-->
+
+    <color name="colorPrimary">@color/t_blue</color>
+    <color name="colorPrimaryDark">@color/t_blue</color>
     <color name="colorAccent">#FF9800</color>
 
     <color name="bg_white">#FFFFFFFF</color>
@@ -32,7 +36,7 @@
 
     <color name="t_text">#333333</color>
 
-    <color name="bg_dialog">#CCFCFCFC</color>
+    <color name="bg_dialog">#FCFCFC</color>
     <color name="dialog_msg">#030303</color>
 
 
