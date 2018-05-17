@@ -17,12 +17,12 @@
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup, android:label">
         <activity
-            android:name="org.trustnote.wallet.MainActivity"
+            android:name="org.trustnote.wallet.biz.MainActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"></activity>
+
         <activity
-            android:name="org.trustnote.wallet.InputPwdActivity"
+            android:name="org.trustnote.wallet.biz.pwd.InputPwdActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
@@ -38,7 +38,7 @@
         </activity>
 
         <activity
-            android:name="org.trustnote.wallet.biz.wallet.CreateWalletActivity"
+            android:name="org.trustnote.wallet.biz.init.CreateWalletActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity

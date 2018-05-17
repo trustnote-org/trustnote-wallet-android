@@ -2,22 +2,11 @@ package org.trustnote.wallet.util
 
 import android.content.Intent
 import android.os.Build
-import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.widget.Button
-import org.trustnote.wallet.MAINACTIVITY_KEY_MENU_ID
-import org.trustnote.wallet.MainActivity
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.wallet.CreateWalletFragment
 import org.trustnote.wallet.js.BIP38_WORD_LIST_EN
 import org.trustnote.wallet.uiframework.BaseActivity
-import org.trustnote.wallet.widget.MyDialogFragment
-import android.support.v4.content.ContextCompat
-import android.view.WindowManager
-
-
-
-
 
 
 object AndroidUtils {

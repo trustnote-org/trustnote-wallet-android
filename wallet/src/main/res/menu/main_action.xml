@@ -6,20 +6,20 @@
         android:enabled="true"
         android:icon="@drawable/menu_wallet"
         android:title="@string/menu_wallet"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_msg"
         android:enabled="true"
         android:icon="@drawable/ttt"
         android:title="@string/menu_msg"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_me"
         android:enabled="true"
         android:icon="@drawable/ttt"
         android:title="@string/menu_me"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
 </menu>

@@ -1,8 +1,10 @@
-package org.trustnote.wallet
+package org.trustnote.wallet.biz.pwd
 
 import android.annotation.SuppressLint
 import android.view.View
-import org.trustnote.wallet.biz.wallet.CreateWalletFragment
+import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.init.CreateWalletFragment
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.widget.InputPwdDialogFragment
 

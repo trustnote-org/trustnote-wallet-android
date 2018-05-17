@@ -1,4 +1,4 @@
-package org.trustnote.wallet.biz.wallet
+package org.trustnote.wallet.biz.init
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import android.view.WindowManager
 import org.trustnote.wallet.*
+import org.trustnote.wallet.biz.startMainActivityWithMenuId
+import org.trustnote.wallet.biz.wallet.CREATE_WALLET_STATUS
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 
@@ -26,7 +28,7 @@ class CreateWalletActivity : BaseActivity() {
 
         if (CreateWalletModel.getCreationProgress() == CREATE_WALLET_STATUS.FINISHED) {
             finish()
-            startMainActivityWithMenuId(R.id.action_home)
+            startMainActivityWithMenuId(R.id.menu_me)
         }
 
         setupUISettings()

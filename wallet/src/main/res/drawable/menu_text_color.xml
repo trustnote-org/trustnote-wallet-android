@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/t_blue" android:state_checked="true">
+
+    </item>
+
+    <item android:color="@color/t_blue_gray">
+
+    </item>
+
+
+    <!--android:state_checked=["true" | "false"]-->
+    <!--android:state_enabled=["true" | "false"]-->
+
+</selector>

@@ -1,6 +1,8 @@
-package org.trustnote.wallet.biz.wallet
+package org.trustnote.wallet.biz.init
 
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.wallet.CREATE_WALLET_STATUS
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Prefs
 
 object CreateWalletModel {
@@ -83,13 +85,13 @@ object CreateWalletModel {
 
     fun iamDone(mnemonic: String, isRemove: Boolean) {
         finishedCreateOrRestore()
-        WalletManager.initWithMnemonic(CreateWalletModel.tmpMnemonic, isRemove)
+        WalletManager.initWithMnemonic(tmpMnemonic, isRemove)
         tmpMnemonic = ""
     }
 
     fun iamDone() {
         finishedCreateOrRestore()
-        WalletManager.initWithMnemonic(CreateWalletModel.tmpMnemonic, false)
+        WalletManager.initWithMnemonic(tmpMnemonic, false)
         tmpMnemonic = ""
     }
 

@@ -1,4 +1,4 @@
-package org.trustnote.wallet.biz.wallet
+package org.trustnote.wallet.biz.init
 
 import android.annotation.SuppressLint
 import android.text.Editable
@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.util.AndroidUtils
-import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.PasswordStrength
 
 @SuppressLint("ValidFragment")

@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="menu_home">首页</string>
+    <string name="menu_wallet">首页</string>
     <string name="menu_msg">消息</string>
     <string name="menu_me">我的</string>
 

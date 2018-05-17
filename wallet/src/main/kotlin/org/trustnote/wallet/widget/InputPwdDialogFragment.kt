@@ -13,10 +13,9 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 
 import org.trustnote.wallet.R
-import org.trustnote.wallet.biz.wallet.CreateWalletModel
+import org.trustnote.wallet.biz.init.CreateWalletModel
 
 
 class InputPwdDialogFragment() : DialogFragment() {

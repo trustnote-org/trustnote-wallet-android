@@ -1,4 +1,4 @@
-package org.trustnote.wallet.biz.wallet
+package org.trustnote.wallet.biz.init
 
 import org.trustnote.wallet.R
 
@@ -24,7 +24,7 @@ fun setupUISettings() {
 
     addConfig(R.layout.f_new_seed_devicename, CWFragmentDeviceName::class.java, true, false)
 
-    addConfig(R.layout.f_new_seed_or_restore, CWFragmentNewSeedOrRestore::class.java,false, false)
+    addConfig(R.layout.f_new_seed_or_restore, CWFragmentNewSeedOrRestore::class.java, false, false)
 
     addConfig(R.layout.f_new_seed_pwd, CWFragmentPwd::class.java)
 
@@ -61,7 +61,7 @@ fun getPagePosition(layoutId: Int): Int {
     return mPageLayoutIdToPosition[layoutId]!!
 }
 
-fun createFragment(position: Int): CreateWalletFragment{
+fun createFragment(position: Int): CreateWalletFragment {
     val pageSetting = getPageSettingByPosition(position)
     val cons = pageSetting.clz.constructors[0]
     return cons.newInstance(pageSetting.layoutId) as CreateWalletFragment

@@ -2,6 +2,7 @@ package org.trustnote.wallet.settings
 
 import android.webkit.ValueCallback
 import org.trustnote.wallet.BuildConfig
+import org.trustnote.wallet.biz.init.CreateWalletActivity
 
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.biz.wallet.SendPaymentInfo

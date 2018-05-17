@@ -39,6 +39,11 @@
     <color name="bg_dialog">#FCFCFC</color>
     <color name="dialog_msg">#030303</color>
 
+    <color name="t_blue_gray">#4B5461</color>
 
+    <color name="home_line">#C6CDD7</color>
+
+
+    <color name="title_bar_text">#111111</color>
 
 </resources>

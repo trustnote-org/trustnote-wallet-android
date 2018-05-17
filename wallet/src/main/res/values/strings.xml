@@ -29,8 +29,7 @@
     <string name="repo_fork_icon_content_description">Repo Fork Icon</string>
     <string name="repo_icon_content_description">Repo Icon</string>
 
-
-    <string name="menu_home">首页</string>
+    <string name="menu_wallet">钱包</string>
     <string name="menu_msg">消息</string>
     <string name="menu_me">我的</string>
 

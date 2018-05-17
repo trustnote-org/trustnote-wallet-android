@@ -1,4 +1,4 @@
-package org.trustnote.wallet
+package org.trustnote.wallet.biz
 
 import android.Manifest
 import android.content.Intent
@@ -6,7 +6,13 @@ import android.os.Bundle
 import org.trustnote.wallet.uiframework.BaseActivity
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v7.widget.Toolbar
+import android.view.Menu
 import kr.co.namee.permissiongen.PermissionGen
+import org.trustnote.wallet.BuildConfig
+import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
+import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.debugui.EmptyFragment
 import org.trustnote.wallet.settings.MeFragment
 
@@ -18,12 +24,21 @@ class MainActivity : BaseActivity() {
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
+    lateinit var mToolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
+        mToolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(mToolbar)
+
+        mToolbar.overflowIcon = resources.getDrawable(R.drawable.menu_wallet)
+        mToolbar.showOverflowMenu()
+
+        disableShiftMode(bottomNavigationView)
 
         selectPageByIntent(intent)
 
@@ -32,6 +47,11 @@ class MainActivity : BaseActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         selectPageByIntent(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_action, menu)
+        return true
     }
 
     override fun onResume() {
@@ -55,13 +75,13 @@ class MainActivity : BaseActivity() {
     private fun selectPageByIntent(intent: Intent) {
         val menuId = intent.getIntExtra(MAINACTIVITY_KEY_MENU_ID, 0)
         //TODO: should default to first page.
-        bottomNavigationView.selectedItemId = if (menuId == 0) R.id.action_me else menuId
+        bottomNavigationView.selectedItemId = if (menuId == 0) R.id.menu_me else menuId
     }
 
     fun changeFragment(menuItemId: Int) {
         var newFragment: Fragment = EmptyFragment()
         when (menuItemId) {
-            R.id.action_me -> newFragment = MeFragment()
+            R.id.menu_me -> newFragment = MeFragment()
         }
 
         supportFragmentManager.beginTransaction().replace(

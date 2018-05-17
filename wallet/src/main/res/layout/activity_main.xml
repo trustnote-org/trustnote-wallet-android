@@ -2,22 +2,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/status_bar_height"
+    android:background="@color/bg_white">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/l_toobar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation" />
+        android:layout_above="@+id/home_line" />
+
+    <View
+        android:id="@+id/home_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_dp"
+        android:layout_above="@id/bottom_navigation"
+        android:background="@color/home_line">
+
+    </View>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/bottom_menu_height"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@drawable/main_menu_bg"
-        app:itemTextColor="@drawable/main_menu_bg"
+        app:itemIconTint="@color/colorPrimaryDark"
+        app:itemTextColor="@drawable/menu_text_color"
         app:menu="@menu/main_bottom" />
 
 </RelativeLayout>

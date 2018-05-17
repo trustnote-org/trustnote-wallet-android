@@ -1,8 +1,10 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <dimen name="t_layout_padding">16dp</dimen>
 
     <dimen name="title_height">44dp</dimen>
+
+    <dimen name="one_dp">1dp</dimen>
 
     <dimen name="page_margin_left">26dp</dimen>
 
@@ -63,5 +65,13 @@
     <dimen name="btn_width_128">128dp</dimen>
 
     <dimen name="keyboard_padding">2dp</dimen>
+
+    <dimen name="bottom_menu_height">48dp</dimen>
+
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">14sp</dimen>
+
+    <dimen name="top_bar_height">44dp</dimen>
+    <dimen name="status_bar_height">24dp</dimen>
 
 </resources>
