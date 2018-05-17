@@ -5,8 +5,8 @@
     <!--<color name="colorPrimaryDark">#0288D1</color>-->
     <!--<color name="colorAccent">#FF9800</color>-->
 
-    <color name="colorPrimary">@color/t_blue</color>
-    <color name="colorPrimaryDark">@color/t_blue</color>
+    <color name="colorPrimary">@color/t_white</color>
+    <color name="colorPrimaryDark">@color/t_white</color>
     <color name="colorAccent">#FF9800</color>
 
     <color name="bg_white">#FFFFFFFF</color>

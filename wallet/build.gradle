@@ -98,6 +98,7 @@ android {
     lintOptions {
         warningsAsErrors false
         abortOnError false // Fail early.
+        disable 'ValidFragment'
         lintConfig file("lint.xml")
     }
 
