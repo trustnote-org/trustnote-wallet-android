@@ -1,5 +1,6 @@
 package org.trustnote.wallet.uiframework
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.inputmethodservice.Keyboard
 import android.os.Bundle
@@ -7,10 +8,6 @@ import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
-import org.trustnote.wallet.R
-import org.trustnote.wallet.StarterActivity
-import org.trustnote.wallet.TApplicationComponent
-import org.trustnote.wallet.TApp
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.keyboard.BasicOnKeyboardActionListener
 import org.trustnote.wallet.widget.keyboard.CustomKeyboardView
@@ -18,6 +15,8 @@ import android.databinding.adapters.CompoundButtonBindingAdapter.setChecked
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import kr.co.namee.permissiongen.PermissionGen
+import org.trustnote.wallet.*
 import java.lang.reflect.AccessibleObject.setAccessible
 import java.lang.reflect.Array.setBoolean
 
@@ -46,6 +45,16 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        if (BuildConfig.DEBUG) {
+            PermissionGen.with(this)
+                    .addRequestCode(100)
+                    .permissions(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                    .request()
+        }
+
         setupKeyboard()
     }
 

@@ -13,10 +13,12 @@ import android.widget.Button
 import android.widget.EditText
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
 
@@ -228,9 +230,9 @@ class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
             AndroidUtils.enableBtn(btnBackupConfirm, it)
         }
 
-        //        if (BuildConfig.DEBUG) {
-        //            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
-        //        }
+//                if (Utils.isUseTestData()) {
+//                    mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+//                }
 
         showMnemonicKeyboardIfRequired()
 
@@ -279,8 +281,8 @@ class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
     override fun initFragment(view: View) {
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics_restore)
-        var btnRestore = view.findViewById<Button>(R.id.mnemonic_restore_remove_btn)
-        var btnRestoreRemove = view.findViewById<Button>(R.id.mnemonic_restore_btn)
+        var btnRestore = view.findViewById<Button>(R.id.mnemonic_restore_btn)
+        var btnRestoreRemove = view.findViewById<Button>(R.id.mnemonic_restore_remove_btn)
 
         btnRestore.setOnClickListener {
             checkMnemonicAndForward(false)
@@ -295,9 +297,9 @@ class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
             AndroidUtils.enableBtn(btnRestoreRemove, it)
         }
 
-        //        if (BuildConfig.DEBUG) {
-        //            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
-        //        }
+        if (Utils.isUseTestData()) {
+            mnemonicsGrid.setMnemonic(TestData.mnemonic2, true)
+        }
 
         showMnemonicKeyboardIfRequired()
 

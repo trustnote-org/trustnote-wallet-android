@@ -143,5 +143,4 @@ class HubSocketModel {
         return true
     }
 
-
 }

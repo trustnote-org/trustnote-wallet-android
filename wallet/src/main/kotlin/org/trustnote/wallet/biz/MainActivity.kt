@@ -58,14 +58,6 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (BuildConfig.DEBUG) {
-            PermissionGen.with(this)
-                    .addRequestCode(100)
-                    .permissions(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE)
-                    .request()
-        }
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             changeFragment(item.itemId)

@@ -2,6 +2,8 @@ package org.trustnote.wallet.biz.wallet
 
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.TTT
@@ -9,6 +11,7 @@ import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.biz.tx.TxParser
+import org.trustnote.wallet.network.pojo.HubMsg
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
@@ -16,10 +19,12 @@ import java.util.concurrent.TimeUnit
 class WalletModel() {
 
     lateinit var mProfile: TProfile
+    val mSubject: Subject<Boolean> = PublishSubject.create()
 
     init {
         if (Prefs.profileExist()) {
             mProfile = Prefs.readProfile()
+            profileUpdated()
             loadDataFromDb()
         }
     }
@@ -35,6 +40,10 @@ class WalletModel() {
         }.start()
     }
 
+    fun profileExist(): Boolean {
+        return Prefs.profileExist()
+    }
+
     private fun initFromMnemonic() {
 
         //TODO: At this moment, should clear all data in DB.
@@ -43,8 +52,7 @@ class WalletModel() {
         mProfile.xPrivKey = xPrivKey
         mProfile.keyDb = xPrivKey.hashCode().toString()
 
-        Prefs.writeProfile(mProfile)
-
+        profileUpdated()
         //TODO: think more.
         HubManager.instance.reConnectHub()
 
@@ -53,9 +61,14 @@ class WalletModel() {
 
     }
 
+    private fun profileUpdated() {
+        Prefs.writeProfile(mProfile)
+        mSubject.onNext(true)
+    }
+
     fun removeMnemonicFromProfile() {
         mProfile.mnemonic = ""
-        Prefs.writeProfile(mProfile)
+        profileUpdated()
     }
 
     private fun createDefaultCredential() {
@@ -208,7 +221,8 @@ class WalletModel() {
         generateMyAddresses(newCredential, TTT.addressChangeType)
 
         DbHelper.saveWalletMyAddress(newCredential)
-        Prefs.writeProfile(mProfile)
+
+        profileUpdated()
     }
 
 
@@ -237,8 +251,6 @@ class WalletModel() {
         })
         return res
     }
-
-    var deviceName: String = "Test device name"
 
 }
 

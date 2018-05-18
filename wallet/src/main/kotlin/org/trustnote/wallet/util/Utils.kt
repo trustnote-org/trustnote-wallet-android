@@ -20,6 +20,7 @@ import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
 import com.google.gson.JsonObject
+import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.biz.wallet.TProfile
 import java.io.File
 
@@ -185,7 +186,8 @@ object Utils {
         return input
     }
 
-    @Synchronized fun getMySdcardDirectory(): File {
+    @Synchronized
+    fun getMySdcardDirectory(): File {
         val pInfo = TApp.context.packageManager.getPackageInfo(TApp.context.packageName, 0)
         val versionName = pInfo.versionName
         val res = File(Environment.getExternalStorageDirectory(), "TTT_$versionName")
@@ -195,5 +197,8 @@ object Utils {
         return res
     }
 
+    fun isUseTestData(): Boolean {
+        return BuildConfig.DEBUG && BuildConfig.FLAVOR == "devnet"
+    }
 }
 

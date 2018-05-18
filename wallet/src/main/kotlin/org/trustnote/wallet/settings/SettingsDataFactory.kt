@@ -22,7 +22,7 @@ object SettingsDataFactory {
     val GROUP_MNEMONIC = "Restore Test"
 
     fun makeSettings(): List<SettingGroup> {
-        if (BuildConfig.FLAVOR == "devnet" && BuildConfig.DEBUG) {
+        if (Utils.isUseTestData()) {
             return Arrays.asList(makeTestGroup(),
                     makeWalletGroup(), makeSeedsGroup())
         } else {

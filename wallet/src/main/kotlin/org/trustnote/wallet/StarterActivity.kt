@@ -22,13 +22,13 @@ class StarterActivity : BaseActivity() {
 //            return
 //        }
 
-//        if (CreateWalletModel.isFinisheCreateOrRestore()) {
-//            startMainActivityWithMenuId(R.id.menu_me)
-//        } else {
-//            AndroidUtils.startActivity(CreateWalletActivity::class.java)
-//        }
+        if (CreateWalletModel.isFinisheCreateOrRestore()) {
+            startMainActivityWithMenuId(R.id.menu_wallet)
+        } else {
+            AndroidUtils.startActivity(CreateWalletActivity::class.java)
+        }
 
-        startMainActivityWithMenuId(R.id.menu_wallet)
+        //startMainActivityWithMenuId(R.id.menu_wallet)
 
         finish()
     }

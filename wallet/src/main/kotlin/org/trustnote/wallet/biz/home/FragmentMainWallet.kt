@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.BaseActivity
@@ -13,6 +15,8 @@ import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.util.AndroidUtils
 
 class FragmentMainWallet : BaseFragment() {
+
+    protected val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.f_main_wallet, container, false)
@@ -25,10 +29,25 @@ class FragmentMainWallet : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+
+        val d = WalletManager.model.mSubject.observeOn(AndroidSchedulers.mainThread()).subscribe{
+            updateUI()
+        }
+        disposables.add(d)
         updateUI()
     }
 
+    override fun onPause() {
+        super.onPause()
+        disposables.clear()
+    }
+
     private fun updateUI() {
+
+        if (!WalletManager.model.profileExist()) {
+            return
+        }
+
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.credential_list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
@@ -39,8 +58,6 @@ class FragmentMainWallet : BaseFragment() {
         (activity as BaseActivity).supportActionBar?.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
 
     }
-
-    //TODO: save the adapter's state for restore.
 
 }
 

@@ -13,6 +13,8 @@
             android:layout_alignParentLeft="true"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
+            android:textColor="@color/t_blue"
+
             android:textSize="25dp"
             android:textStyle="bold" />
 

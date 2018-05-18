@@ -85,7 +85,7 @@ object CreateWalletModel {
 
     fun iamDone(mnemonic: String, isRemove: Boolean) {
         finishedCreateOrRestore()
-        WalletManager.initWithMnemonic(tmpMnemonic, isRemove)
+        WalletManager.initWithMnemonic(mnemonic, isRemove)
         tmpMnemonic = ""
     }
 
