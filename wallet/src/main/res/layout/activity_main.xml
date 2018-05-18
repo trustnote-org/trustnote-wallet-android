@@ -21,8 +21,7 @@
         android:layout_above="@+id/home_line"
         android:layout_below="@+id/toolbar"
         android:layout_marginLeft="@dimen/padding_main"
-        android:layout_marginRight="@dimen/padding_main"
-        android:background="@color/t_f_gray_2" />
+        android:layout_marginRight="@dimen/padding_main" />
 
     <View
         android:id="@+id/home_line"

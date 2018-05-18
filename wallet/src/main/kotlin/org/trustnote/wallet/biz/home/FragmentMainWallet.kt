@@ -7,11 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.uiframework.BaseFragment
-import org.trustnote.wallet.settings.SettingsDataFactory.makeSettings
+import org.trustnote.wallet.util.AndroidUtils
 
 class FragmentMainWallet : BaseFragment() {
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.f_main_wallet, container, false)
@@ -28,6 +29,14 @@ class FragmentMainWallet : BaseFragment() {
     }
 
     private fun updateUI() {
+        val recyclerView = rootView.findViewById<RecyclerView>(R.id.credential_list)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+
+        val a = CredentialAdapter(WalletManager.model.mProfile.credentials.toTypedArray())
+
+        recyclerView.adapter = a
+
+        (activity as BaseActivity).supportActionBar?.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
 
     }
 

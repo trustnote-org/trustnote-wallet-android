@@ -38,11 +38,12 @@ class MainActivity : BaseActivity() {
 
         mToolbar.overflowIcon = TApp.smallIconQuickAction
 
-        supportActionBar!!.title = "Guo"
-
         disableShiftMode(bottomNavigationView)
 
+    }
 
+    fun setToolbarTitle(s: String) {
+        supportActionBar!!.title = s
     }
 
     override fun onNewIntent(intent: Intent) {

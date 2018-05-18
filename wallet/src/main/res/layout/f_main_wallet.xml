@@ -34,10 +34,9 @@
             android:layout_gravity="top" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/wallet_list"
+            android:id="@+id/credential_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/t_blue"
             android:scrollbars="vertical" />
 
     </LinearLayout>

@@ -110,4 +110,8 @@ object AndroidUtils {
         return BitmapDrawable(TApp.context.resources, bitmapResized)
     }
 
+    fun getString(strResId: Int): String {
+        return TApp.context.resources.getString(strResId)
+    }
+
 }

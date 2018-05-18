@@ -128,4 +128,6 @@
 
     <string name="wallet_amount_subtitle">总资产 (MN)</string>
 
+    <string name="wallet_toolbar_title">WALLET</string>
+
 </resources>
