@@ -32,6 +32,7 @@
     <dimen name="line_gap_24">24dp</dimen>
     <dimen name="line_gap_14">14dp</dimen>
     <dimen name="line_gap_32">32dp</dimen>
+    <dimen name="line_gap_22">22dp</dimen>
     <dimen name="line_gap_12">12dp</dimen>
     <dimen name="line_gap_42">42dp</dimen>
     <dimen name="line_gap_48">48dp</dimen>
@@ -39,6 +40,7 @@
     <dimen name="line_gap_8">8dp</dimen>
     <dimen name="line_gap_6">6dp</dimen>
     <dimen name="line_gap_7">7dp</dimen>
+    <dimen name="line_gap_46">46dp</dimen>
 
     <dimen name="bg_dialog_padding_30">30dp</dimen>
     <dimen name="bg_dialog_corner_4">4dp</dimen>
@@ -71,7 +73,16 @@
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">14sp</dimen>
 
-    <dimen name="top_bar_height">44dp</dimen>
+    <dimen name="top_bar_height">20dp</dimen>
     <dimen name="status_bar_height">24dp</dimen>
+    <dimen name="quick_action_size">20dp</dimen>
+    <dimen name="padding_main">20dp</dimen>
+
+    <dimen name="mn_amount_b_i">46sp</dimen>
+    <dimen name="mn_amount_b_d">32sp</dimen>
+    <dimen name="mn_amount_s_i">20sp</dimen>
+    <dimen name="mn_amount_s_d">16sp</dimen>
+
+    <dimen name="main_wallet_summary_height">140dp</dimen>
 
 </resources>

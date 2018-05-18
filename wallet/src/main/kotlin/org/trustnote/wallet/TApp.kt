@@ -25,8 +25,10 @@ class TApp : Application() {
         //TODO:
         lateinit @JvmStatic var context: Context
         lateinit var graph: TApplicationComponent
+
         var smallIconSize = 14
         lateinit var smallIconError: Drawable
+        lateinit var smallIconQuickAction: Drawable
 
         var userAlreadyInputPwd = false
     }
@@ -68,8 +70,8 @@ class TApp : Application() {
         HubManager.instance
 
         smallIconSize = TApp.context.resources.getDimension(R.dimen.small_icon).toInt()
-        smallIconError = TApp.context.resources.getDrawable(R.drawable.err)
-        smallIconError.setBounds(0, 0, smallIconSize, smallIconSize)
+        smallIconError = AndroidUtils.resizeDrawable(R.drawable.err, R.dimen.small_icon)
+        smallIconQuickAction = AndroidUtils.resizeDrawable(R.drawable.quick_action, R.dimen.quick_action_size)
 
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
 

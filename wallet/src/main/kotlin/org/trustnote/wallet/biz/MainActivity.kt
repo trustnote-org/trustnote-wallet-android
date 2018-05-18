@@ -13,8 +13,9 @@ import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
+import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.debugui.EmptyFragment
-import org.trustnote.wallet.settings.MeFragment
+import org.trustnote.wallet.settings.FragmentMainMe
 
 class MainActivity : BaseActivity() {
 
@@ -35,12 +36,12 @@ class MainActivity : BaseActivity() {
         mToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mToolbar)
 
-        mToolbar.overflowIcon = resources.getDrawable(R.drawable.menu_wallet)
-        mToolbar.showOverflowMenu()
+        mToolbar.overflowIcon = TApp.smallIconQuickAction
+
+        supportActionBar!!.title = "Guo"
 
         disableShiftMode(bottomNavigationView)
 
-        selectPageByIntent(intent)
 
     }
 
@@ -70,6 +71,9 @@ class MainActivity : BaseActivity() {
             true
         }
 
+        selectPageByIntent(intent)
+
+
     }
 
     private fun selectPageByIntent(intent: Intent) {
@@ -79,9 +83,11 @@ class MainActivity : BaseActivity() {
     }
 
     fun changeFragment(menuItemId: Int) {
+        //TODO: can we do cache?
         var newFragment: Fragment = EmptyFragment()
         when (menuItemId) {
-            R.id.menu_me -> newFragment = MeFragment()
+            R.id.menu_me -> newFragment = FragmentMainMe()
+            R.id.menu_wallet -> newFragment = FragmentMainWallet()
         }
 
         supportFragmentManager.beginTransaction().replace(

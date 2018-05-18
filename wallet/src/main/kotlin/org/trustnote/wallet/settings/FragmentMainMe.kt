@@ -10,12 +10,12 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.settings.SettingsDataFactory.makeSettings
 
-class MeFragment : BaseFragment() {
+class FragmentMainMe : BaseFragment() {
 
     private var adapter: SettingsAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.me_main, container, false)
+        return inflater.inflate(R.layout.f_main_me, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

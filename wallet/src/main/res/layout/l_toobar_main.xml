@@ -2,17 +2,13 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
-    android:gravity="center_vertical"
-    android:background="@color/t_f_gray_2"
+    style="@style/ToolBarStyle"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/top_bar_height">
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    app:contentInsetStartWithNavigation="0dp">
 
-    <TextView
-        android:id="@+id/toolbar_title"
-        style="@style/Toolbar.TitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left|center_vertical"
-        android:text="@string/place_holder" />
 </android.support.v7.widget.Toolbar>
 

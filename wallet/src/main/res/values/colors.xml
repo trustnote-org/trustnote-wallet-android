@@ -42,8 +42,11 @@
     <color name="t_blue_gray">#4B5461</color>
 
     <color name="home_line">#C6CDD7</color>
+    <color name="home_line_middle">#E9EFF7</color>
 
 
     <color name="title_bar_text">#111111</color>
+
+    <color name="font_gray_amount">#666666</color>
 
 </resources>

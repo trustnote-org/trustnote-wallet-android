@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="top"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/amount"
+        style="@style/t_text_base"
+        android:singleLine="true"
+        android:text="0000."
+        android:textSize="@dimen/mn_amount_b_i" />
+
+    <TextView
+        android:id="@+id/decimal"
+        style="@style/t_text_base"
+        android:layout_alignBaseline="@id/amount"
+        android:layout_toRightOf="@id/amount"
+        android:maxLength="4"
+        android:singleLine="true"
+        android:text="0000"
+        android:textSize="@dimen/mn_amount_b_d" />
+
+</RelativeLayout>

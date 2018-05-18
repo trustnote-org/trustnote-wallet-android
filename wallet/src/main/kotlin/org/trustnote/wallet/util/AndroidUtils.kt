@@ -1,12 +1,18 @@
 package org.trustnote.wallet.util
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
 import android.widget.Button
+import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.js.BIP38_WORD_LIST_EN
 import org.trustnote.wallet.uiframework.BaseActivity
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
+
+
 
 
 object AndroidUtils {
@@ -89,4 +95,19 @@ object AndroidUtils {
         val s = readAssetFile("bip38wordlist_en.txt")
         BIP38_WORD_LIST_EN = s.split("\n")
     }
+
+//    fun resizeDrawable(drawableResId: Int, sizeResId: Int): Drawable {
+//        val size = TApp.context.resources.getDimension(sizeResId).toInt()
+//        val res = TApp.context.resources.getDrawable(drawableResId)
+//        res.setBounds(0, 0, size, size)
+//        return res
+//    }
+
+    fun resizeDrawable(drawableResId: Int, sizeResId: Int): Drawable {
+        val size = TApp.context.resources.getDimension(sizeResId).toInt()
+        val res = TApp.context.resources.getDrawable(drawableResId)
+        val bitmapResized = Bitmap.createScaledBitmap((res as BitmapDrawable).bitmap, size, size, false)
+        return BitmapDrawable(TApp.context.resources, bitmapResized)
+    }
+
 }

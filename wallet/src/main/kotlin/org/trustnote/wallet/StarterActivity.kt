@@ -21,9 +21,9 @@ class StarterActivity : BaseActivity() {
 //            finish()
 //            return
 //        }
-//
+
 //        if (CreateWalletModel.isFinisheCreateOrRestore()) {
-//            startMainActivityWithMenuId(R.id.action_me)
+//            startMainActivityWithMenuId(R.id.menu_me)
 //        } else {
 //            AndroidUtils.startActivity(CreateWalletActivity::class.java)
 //        }

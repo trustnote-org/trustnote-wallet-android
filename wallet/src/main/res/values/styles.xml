@@ -16,8 +16,14 @@
     <!-- Move to file colors.xml later-->
 
     <style name="t_text_base" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/t_title_black</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="t_text_amount_subtitle" parent="@style/t_text_base">
+        <item name="android:textColor">@color/font_gray_amount</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="t_btn" parent="@style/t_text_base"></style>
@@ -120,20 +126,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
-
+        <item name="android:itemTextAppearance">@style/ActionBar.TitleTextStyle</item>
     </style>
 
-    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
-        <item name="android:windowDisablePreview">true</item>
-        <item name="overlapAnchor">false</item>
-        <item name="android:dropDownVerticalOffset">5.0dp</item>
-        <item name="android:popupBackground">#FFF</item>
-    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -144,11 +140,20 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="ToolBarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="titleTextAppearance">@style/ActionBar.TitleTextStyle</item>
+    </style>
 
-    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownVerticalOffset">15.0dp</item>
+        <item name="android:popupBackground">#FFF</item>
+
+    </style>
+
+    <style name="ActionBar.TitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/title_bar_text</item>
     </style>
-
-
 </resources>
