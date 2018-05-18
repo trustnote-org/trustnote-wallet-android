@@ -27,7 +27,6 @@ import org.trustnote.wallet.widget.MyDialogFragment
 open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
 
     private val mLayoutId = layoutId
-    var mRootView: View = View(TApp.context)
     var mNextLayoutId = 0
     var isCreated = false
 

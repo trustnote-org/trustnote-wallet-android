@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
+
+    <LinearLayout
+        android:id="@+id/summary_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/page_margin_left"
+        android:paddingRight="@dimen/page_margin_left">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_gap_24" />
+
+        <include layout="@layout/l_top_back_arrow" />
+
+        <include layout="@layout/l_amount_summary" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_gap_10"
+        android:layout_below="@+id/summary_bar"
+        android:background="@color/tx_list_bg" />
+
+    <View
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_gap_46"
+        android:layout_below="@+id/line1" />
+
+    <TextView
+        android:id="@+id/tx_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tx_title_height"
+        android:layout_below="@+id/btn"
+        android:background="@color/tx_list_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/page_margin_left"
+        android:text="@string/tx_list_title"
+        android:textColor="@color/font_gray_amount" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tx_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tx_title"
+        android:scrollbars="vertical" />
+
+
+</RelativeLayout>

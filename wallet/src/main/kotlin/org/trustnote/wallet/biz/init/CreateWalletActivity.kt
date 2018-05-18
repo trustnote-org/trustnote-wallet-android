@@ -43,7 +43,7 @@ class CreateWalletActivity : BaseActivity() {
 
         setupFirstPage()
 
-        findViewById<View>(R.id.titlebar_back_arrow).setOnClickListener {
+        findViewById<View>(R.id.top_back_arrow).setOnClickListener {
             pageBackClicked()
         }
 
@@ -83,7 +83,7 @@ class CreateWalletActivity : BaseActivity() {
 
     fun adjustUIBySetting(pageSetting: PageSetting) {
         AndroidUtils.hideStatusBar(this, !pageSetting.showStatusBar)
-        findViewById<View>(R.id.titlebar_back_arrow).visibility = (if (pageSetting.showBackArrow) View.VISIBLE else View.INVISIBLE)
+        findViewById<View>(R.id.top_back_arrow).visibility = (if (pageSetting.showBackArrow) View.VISIBLE else View.INVISIBLE)
     }
 
     fun nextPage() {

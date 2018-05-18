@@ -43,16 +43,16 @@ class HubManager {
     }
 
     //@SuppressLint("NewApi")
-//    private fun monitorResponse(bodyType: HubMsg.BODY_TYPE, action: Consumer<HubResponse>) {
+//    private fun monitorResponse(bodyType: HubMsg.BODY_TYPE, txType: Consumer<HubResponse>) {
 ////        subject.filter { it.subjectType == bodyType }.observeOn(Schedulers.computation()).subscribe { res: HubResponse ->
-////            action.accept(res)
+////            txType.accept(res)
 ////        }
 //    }
 
     private fun monitorConnection() {
         Utils.debugLog("monitorConnection")
 //        subject.filter { it.msgType == HubMsg.MSG_TYPE.CLOSED }.observeOn(Schedulers.computation()).subscribe {
-//            //TODO: should monitor network status change event and take action.
+//            //TODO: should monitor network status change event and take txType.
 //            Thread.sleep(10000)
 //            reConnectHub()
 //        }

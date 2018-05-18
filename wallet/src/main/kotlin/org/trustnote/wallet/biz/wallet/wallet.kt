@@ -24,6 +24,7 @@ class TProfile() {
     var currentWalletIndex: Int = 0
     var mnemonicType: MNEMONIC_TYPE = MNEMONIC_TYPE.UNKNOWN
     var keyDb: String = "db"
+    var balance: Long = 0
 
 }
 
@@ -38,7 +39,7 @@ class Credential {
     val n: Int = 0
     val derivationStrategy: String = TTT.HD_DERIVATION_STRATEGY
     var account: Int = 0
-    var balance: Long = 0 //TODO: should BigInteger
+    var balance: Long = 0
     val isLocal: Boolean = false
 
     @Expose(serialize = false, deserialize = false)

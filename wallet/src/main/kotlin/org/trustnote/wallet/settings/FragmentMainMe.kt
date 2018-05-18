@@ -28,9 +28,9 @@ class FragmentMainMe : BaseFragment() {
     }
 
     private fun updateUI() {
-        val recyclerView: RecyclerView = rootView
+        val recyclerView: RecyclerView = mRootView
                 .findViewById<RecyclerView>(R.id.me_list)
-        //recyclerView.addItemDecoration(SimpleDividerItemDecoration(rootView.context))
+        //recyclerView.addItemDecoration(SimpleDividerItemDecoration(mRootView.context))
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         adapter = SettingsAdapter(context, makeSettings())

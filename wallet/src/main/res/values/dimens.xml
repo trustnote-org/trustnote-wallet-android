@@ -90,4 +90,9 @@
 
     <dimen name="item_credential_height">86dp</dimen>
 
+    <dimen name="tx_title_height">42dp</dimen>
+    <dimen name="tx_ic_size">40dp</dimen>
+    <dimen name="text_16">16sp</dimen>
+    <dimen name="text_14">14sp</dimen>
+
 </resources>

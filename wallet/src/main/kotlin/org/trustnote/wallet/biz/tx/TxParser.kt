@@ -47,7 +47,7 @@ class TxParser {
             val movement = it.value
             val unitId = it.key
             if (DbConst.UNIT_SEQUENCE_GOOD != it.value["sequence"]) {
-                val transaction = Tx(action = TxType.invalid,
+                val transaction = Tx(txType = TxType.invalid,
                         confirmations = movement["is_stable"] as Int,
                         unit = it.key,
                         fee = movement["fee"] as Long,
@@ -59,7 +59,7 @@ class TxParser {
                 val arrPayerAddresses = DbHelper.queryInputAddresses(unitId)
                 (movement["arrMyRecipients"] as MutableList<HashMap<String, Any>>).forEach {
                     val objRecipient = it
-                    val transaction = Tx(action = TxType.received,
+                    val transaction = Tx(txType = TxType.received,
                             amount = objRecipient["amount"] as Long,
                             myAddress = objRecipient["my_address"] as String,
                             arrPayerAddresses = arrPayerAddresses,
@@ -79,7 +79,7 @@ class TxParser {
                     if (txType == TxType.sent && !it.isExternal) {
                         //Do nothing
                     } else {
-                        val transaction = Tx(action = txType,
+                        val transaction = Tx(txType = txType,
                                 amount = it.amount,
                                 addressTo = it.address,
                                 confirmations = movement["is_stable"] as Int,

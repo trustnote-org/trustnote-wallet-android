@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/line_gap_46"
+    android:layout_marginTop="@dimen/line_gap_22"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/t_text_amount_subtitle"
+        android:text="@string/wallet_amount_subtitle" />
+
+    <org.trustnote.wallet.widget.TMnAmount
+        android:id="@+id/wallet_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/line_gap_8"
+        android:gravity="top" />
+</LinearLayout>

@@ -49,4 +49,11 @@
 
     <color name="font_gray_amount">#666666</color>
 
+    <color name="tx_list_bg">#F6F7F9</color>
+    <color name="tx_bottom_line">#EEEEEE</color>
+
+    <color name="tx_time">#BBBBBB</color>
+
+    <color name="tx_red">#E33B1B</color>
+
 </resources>

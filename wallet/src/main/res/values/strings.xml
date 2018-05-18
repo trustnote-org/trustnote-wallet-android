@@ -130,4 +130,7 @@
 
     <string name="wallet_toolbar_title">WALLET</string>
 
+    <string name="tx_list_title">最近交易记录</string>
+
+
 </resources>

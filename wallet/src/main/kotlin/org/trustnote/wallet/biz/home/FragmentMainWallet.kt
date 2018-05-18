@@ -13,6 +13,10 @@ import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.uiframework.BaseFragment
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.widget.TMnAmount
+import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.widget.RecyclerItemClickListener
+
 
 class FragmentMainWallet : BaseFragment() {
 
@@ -30,7 +34,7 @@ class FragmentMainWallet : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        val d = WalletManager.model.mSubject.observeOn(AndroidSchedulers.mainThread()).subscribe{
+        val d = WalletManager.model.mSubject.observeOn(AndroidSchedulers.mainThread()).subscribe {
             updateUI()
         }
         disposables.add(d)
@@ -48,14 +52,30 @@ class FragmentMainWallet : BaseFragment() {
             return
         }
 
-        val recyclerView = rootView.findViewById<RecyclerView>(R.id.credential_list)
+        val recyclerView = mRootView.findViewById<RecyclerView>(R.id.credential_list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         val a = CredentialAdapter(WalletManager.model.mProfile.credentials.toTypedArray())
 
         recyclerView.adapter = a
 
+
+        recyclerView.addOnItemTouchListener(
+                RecyclerItemClickListener(context, recyclerView, object : RecyclerItemClickListener.OnItemClickListener {
+                    override fun onItemClick(view: View, position: Int) {
+                        (activity as MainActivity).openLevel2Fragment(position)
+                    }
+
+                    override fun onLongItemClick(view: View, position: Int) {
+                    }
+                })
+        )
+
+
         (activity as BaseActivity).supportActionBar?.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
+
+        val totalBalanceView = mRootView.findViewById<TMnAmount>(R.id.wallet_summary)
+        totalBalanceView.setMnAmount(WalletManager.model.mProfile.balance)
 
     }
 

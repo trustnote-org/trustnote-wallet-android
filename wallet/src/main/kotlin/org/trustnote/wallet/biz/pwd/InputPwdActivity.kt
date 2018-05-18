@@ -46,7 +46,7 @@ class InputPwdActivity : BaseActivity() {
 
     fun adjustUIBySetting() {
         AndroidUtils.hideStatusBar(this, true)
-        findViewById<View>(R.id.titlebar_back_arrow).visibility = View.GONE
+        findViewById<View>(R.id.top_back_arrow).visibility = View.GONE
     }
 
 }

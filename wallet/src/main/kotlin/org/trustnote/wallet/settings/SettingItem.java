@@ -7,7 +7,7 @@ public class SettingItem implements Parcelable {
 
   private String name;
   private boolean isFavorite;
-  //TODO: private action.
+  //TODO: private txType.
   public Runnable action;
 
   public SettingItem(String name, boolean isFavorite) {

@@ -200,5 +200,9 @@ object Utils {
     fun isUseTestData(): Boolean {
         return BuildConfig.DEBUG && BuildConfig.FLAVOR == "devnet"
     }
+
+    fun formatAddressWithEllipse(address: String):String {
+        return if (address.isBlank()) "" else """${address.substring(0, 5)}…${address.takeLast(3)}"""
+    }
 }
 

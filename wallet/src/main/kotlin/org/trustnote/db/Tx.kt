@@ -3,7 +3,7 @@ package org.trustnote.db
 import android.arch.persistence.room.ColumnInfo
 
 data class Tx(
-        val action: TxType = TxType.invalid,
+        val txType: TxType = TxType.invalid,
         val confirmations: Int = 0,
         val unit: String,
         val fee: Long = 0,
@@ -16,7 +16,7 @@ data class Tx(
         val addressTo: String = ""
 ) {
     override fun toString(): String {
-        return "Type: $action \n\rAmount: $amount\n\rMe: $myAddress\n\rTo: $addressTo\n\r"
+        return "Type: $txType \n\rAmount: $amount\n\rMe: $myAddress\n\rTo: $addressTo\n\r"
     }
 }
 

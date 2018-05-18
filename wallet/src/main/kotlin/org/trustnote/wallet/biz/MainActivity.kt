@@ -1,21 +1,19 @@
 package org.trustnote.wallet.biz
 
-import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import org.trustnote.wallet.uiframework.BaseActivity
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import kr.co.namee.permissiongen.PermissionGen
-import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.home.FragmentMainWallet
+import org.trustnote.wallet.biz.home.FragmentMainWalletTxList
 import org.trustnote.wallet.debugui.EmptyFragment
 import org.trustnote.wallet.settings.FragmentMainMe
+import org.trustnote.wallet.uiframework.BaseActivity
 
 class MainActivity : BaseActivity() {
 
@@ -56,6 +54,29 @@ class MainActivity : BaseActivity() {
         return true
     }
 
+    fun openLevel2Fragment(position: Int) {
+
+        //mToolbar.visibility = View.GONE
+        //bottomNavigationView.visibility = View.GONE
+
+        // Create new fragment and transaction
+        val newFragment = FragmentMainWalletTxList()
+        val bundle = Bundle()
+        bundle.putInt("CREDENTIAL_INDEX", position)
+        newFragment.arguments = bundle
+        val transaction = supportFragmentManager.beginTransaction()
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack
+        transaction.replace(R.id.fragment_level2, newFragment)
+        transaction.addToBackStack(null)
+
+        // Commit the transaction
+        transaction.commit()
+
+
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -65,7 +86,6 @@ class MainActivity : BaseActivity() {
         }
 
         selectPageByIntent(intent)
-
 
     }
 

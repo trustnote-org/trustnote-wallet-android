@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_credential_height"
+        android:layout_marginLeft="@dimen/padding_main">
+
+        tx_bottom_line
+
+
+        <ImageView
+            android:id="@+id/tx_ic"
+            android:layout_width="@dimen/credential_ic_size"
+            android:layout_height="@dimen/tx_ic_size"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY" />
+
+
+        <TextView
+            android:id="@+id/tx_address"
+            style="@style/t_sub_title"
+            android:maxLength="9"
+            android:layout_alignTop="@id/tx_ic"
+            android:layout_marginLeft="@dimen/line_gap_14"
+            android:layout_toRightOf="@id/tx_ic"
+            android:maxLines="1"
+            android:text="@string/place_holder"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/tx_time"
+            style="@style/t_text_base"
+            android:layout_alignBottom="@id/tx_ic"
+            android:layout_marginLeft="@dimen/line_gap_14"
+            android:layout_toRightOf="@id/tx_ic"
+            android:maxLines="1"
+            android:text="@string/place_holder"
+            android:textColor="@color/tx_time"
+            android:textSize="@dimen/text_14" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_dp"
+            android:background="@color/tx_bottom_line"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@id/tx_time" />
+
+        <org.trustnote.wallet.widget.TMnAmount
+            android:id="@+id/tx_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/padding_main"
+            android:text="@string/place_holder"
+            android:textColor="@color/tx_red"
+            android:textSize="@dimen/text_20" />
+
+    </RelativeLayout>
+</layout>

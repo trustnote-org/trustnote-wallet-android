@@ -98,6 +98,15 @@ class WalletModel() {
         credential.balanceDetails.forEach {
             credential.balance += it.amount
         }
+
+        updateTotalBalance()
+    }
+
+    private fun updateTotalBalance() {
+        mProfile.balance = 0
+        mProfile.credentials.forEach {
+            mProfile.balance += it.balance
+        }
     }
 
     private fun updateTxs(credential: Credential) {
