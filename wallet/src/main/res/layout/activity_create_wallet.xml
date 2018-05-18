@@ -19,7 +19,6 @@
 
         <include layout="@layout/l_top_back_arrow" />
 
-
         <org.trustnote.wallet.widget.NonSwipeableViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"

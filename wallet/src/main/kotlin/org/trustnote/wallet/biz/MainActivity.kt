@@ -11,6 +11,7 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.home.FragmentMainWalletTxList
+import org.trustnote.wallet.biz.init.CreateWalletFragment
 import org.trustnote.wallet.debugui.EmptyFragment
 import org.trustnote.wallet.settings.FragmentMainMe
 import org.trustnote.wallet.uiframework.BaseActivity
@@ -54,15 +55,10 @@ class MainActivity : BaseActivity() {
         return true
     }
 
-    fun openLevel2Fragment(position: Int) {
-
-        //mToolbar.visibility = View.GONE
-        //bottomNavigationView.visibility = View.GONE
+    fun openLevel2Fragment(bundle: Bundle, clz: Class<out CreateWalletFragment>) {
 
         // Create new fragment and transaction
-        val newFragment = FragmentMainWalletTxList()
-        val bundle = Bundle()
-        bundle.putInt("CREDENTIAL_INDEX", position)
+        val newFragment = clz.newInstance()
         newFragment.arguments = bundle
         val transaction = supportFragmentManager.beginTransaction()
 
@@ -73,7 +69,6 @@ class MainActivity : BaseActivity() {
 
         // Commit the transaction
         transaction.commit()
-
 
     }
 

@@ -46,7 +46,7 @@ class TxAdapter(private val myDataset: Array<Tx>) :
         // - replace the contents of the view with that element
         holder.ic.setImageResource(R.drawable.credential_icon)
         holder.addrress.text = Utils.formatAddressWithEllipse(myDataset[position].addressTo)
-        holder.txTime.text = "TODO    TODO"
+        holder.txTime.text = Utils.formatTxTimestamp(myDataset[position].ts)
         holder.amount.setupStyle(myDataset[position].txType)
         holder.amount.setMnAmount(myDataset[position].amount)
     }

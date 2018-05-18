@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.uiframework.BaseFragment
@@ -59,11 +60,12 @@ class FragmentMainWallet : BaseFragment() {
 
         recyclerView.adapter = a
 
-
         recyclerView.addOnItemTouchListener(
                 RecyclerItemClickListener(context, recyclerView, object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
-                        (activity as MainActivity).openLevel2Fragment(position)
+                        val bundle = Bundle()
+                        bundle.putInt(TTT.KEY_CREDENTIAL_INDEX, position)
+                        (activity as MainActivity).openLevel2Fragment(bundle, FragmentMainWalletTxList::class.java)
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {

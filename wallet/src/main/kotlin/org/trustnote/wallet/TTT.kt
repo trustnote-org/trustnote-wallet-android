@@ -90,6 +90,8 @@ class TTT {
 
         const val HD_DERIVATION_STRATEGY: String = "BIP44"
 
+        const val KEY_CREDENTIAL_INDEX = "CREDENTIAL_INDEX"
+        const val KEY_TX_INDEX = "TX_INDEX"
 
     }
 }

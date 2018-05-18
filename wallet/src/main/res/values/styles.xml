@@ -19,6 +19,12 @@
         <item name="android:textColor">@color/t_title_black</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@string/place_holder</item>
+    </style>
+
+    <style name="tx_detail" parent="@style/t_text_base">
+        <item name="android:textColor">@color/font_gray_amount</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="t_text_amount_subtitle" parent="@style/t_text_base">

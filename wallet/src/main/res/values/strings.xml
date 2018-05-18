@@ -132,5 +132,12 @@
 
     <string name="tx_list_title">最近交易记录</string>
 
+    <string name="tx_sender">发送方</string>
+    <string name="tx_receiver">接收方</string>
+    <string name="tx_date">日期</string>
+    <string name="tx_unit_id">单元</string>
+
+    <string name="tx_detial_receive_title">已收到(MN）</string>
+    <string name="tx_detial_sender_title">已发送(MN）</string>
 
 </resources>

@@ -23,6 +23,7 @@ import com.google.gson.JsonObject
 import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.biz.wallet.TProfile
 import java.io.File
+import java.text.SimpleDateFormat
 
 
 object Utils {
@@ -204,5 +205,18 @@ object Utils {
     fun formatAddressWithEllipse(address: String):String {
         return if (address.isBlank()) "" else """${address.substring(0, 5)}…${address.takeLast(3)}"""
     }
+
+    fun formatTxTimestamp(ts: Long):String {
+        val date = Date(ts * 1000L)
+        val df = SimpleDateFormat("MM-dd  HH:MM")
+        return df.format(date)
+    }
+
+    fun formatTxTimestampInTxDetail(ts: Long):String {
+        val date = Date(ts * 1000L)
+        val df = SimpleDateFormat("yyyy/MM/dd HH:MM(1天前)")
+        return df.format(date)
+    }
+
 }
 

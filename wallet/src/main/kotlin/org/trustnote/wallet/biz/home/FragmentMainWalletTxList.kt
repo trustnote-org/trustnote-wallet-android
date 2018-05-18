@@ -16,6 +16,8 @@ import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.TMnAmount
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
+import android.widget.TextView
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.init.CWFragmentBackup
 import org.trustnote.wallet.biz.init.CreateWalletFragment
@@ -38,6 +40,7 @@ class FragmentMainWalletTxList : CreateWalletFragment(R.layout.f_main_wallet_tx_
         val totalBalanceView = mRootView.findViewById<TMnAmount>(R.id.wallet_summary)
         totalBalanceView.setMnAmount(WalletManager.model.mProfile.credentials[credentialIndex].balance)
 
+        mRootView.findViewById<TextView>(R.id.credential_name).text = (WalletManager.model.mProfile.credentials[credentialIndex].walletName)
 
         val recyclerView = mRootView.findViewById<RecyclerView>(R.id.tx_list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -49,7 +52,10 @@ class FragmentMainWalletTxList : CreateWalletFragment(R.layout.f_main_wallet_tx_
         recyclerView.addOnItemTouchListener(
                 RecyclerItemClickListener(context, recyclerView, object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
-                        (activity as MainActivity).openLevel2Fragment(position)
+                        val bundle = Bundle()
+                        bundle.putInt(TTT.KEY_CREDENTIAL_INDEX, credentialIndex)
+                        bundle.putInt(TTT.KEY_TX_INDEX, position)
+                        (activity as MainActivity).openLevel2Fragment(bundle, FragmentMainWalletTxDetail::class.java)
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {

@@ -112,7 +112,12 @@ class WalletModel() {
     private fun updateTxs(credential: Credential) {
         credential.txDetails.clear()
         val txs = TxParser().getTxs(credential.walletId)
-        credential.txDetails.addAll(txs)
+
+        val sortedRes = txs.sortedByDescending {
+            it.ts
+        }
+
+        credential.txDetails.addAll(sortedRes)
     }
 
     private fun loadMyAddress(credential: Credential) {

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
+
+    <LinearLayout
+        android:id="@+id/summary_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/page_margin_left"
+        android:paddingRight="@dimen/page_margin_left">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_gap_24" />
+
+        <include layout="@layout/l_top_back_arrow" />
+
+        <include layout="@layout/l_amount_summary" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/summary_bar"
+        android:paddingLeft="@dimen/padding_main">
+
+        <TextView
+            android:id="@+id/tx_sender"
+            style="@style/tx_detail"
+            android:layout_alignParentLeft="true"
+            android:text="@string/tx_sender" />
+
+        <TextView
+            android:id="@+id/tx_sender_2"
+            style="@style/tx_detail"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/padding_main"
+            android:text="@string/tx_sender" />
+
+        <View
+            android:id="@+id/line_sender"
+            android:background="@color/tx_bottom_line"
+            android:layout_below="@id/tx_sender"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_dp" />
+
+        <TextView
+            android:layout_below="@id/line_sender"
+            android:id="@+id/tx_receiver"
+            style="@style/tx_detail"
+            android:layout_alignParentLeft="true"
+            android:text="@string/tx_receiver" />
+
+        <TextView
+            android:layout_below="@id/line_sender"
+            android:id="@+id/tx_receiver_2"
+            style="@style/tx_detail"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/padding_main"
+            android:text="@string/tx_receiver" />
+
+        <View
+            android:id="@+id/line_reveiver"
+            android:background="@color/tx_bottom_line"
+            android:layout_below="@id/tx_receiver"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_dp" />
+
+        <TextView
+            android:id="@+id/tx_date"
+            style="@style/tx_detail"
+            android:layout_alignParentLeft="true"
+            android:text="@string/tx_date" />
+
+        <TextView
+            android:id="@+id/tx_date_2"
+            style="@style/tx_detail"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/padding_main"
+            android:text="@string/tx_date" />
+
+        <TextView
+            android:id="@+id/tx_unit_id"
+            style="@style/tx_detail"
+            android:layout_alignParentLeft="true"
+            android:text="@string/tx_unit_id" />
+
+        <TextView
+            android:id="@+id/tx_unit_id_2"
+            style="@style/tx_detail"
+            android:layout_alignParentRight="true"
+            android:paddingRight="@dimen/padding_main"
+            android:text="@string/tx_unit_id" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
