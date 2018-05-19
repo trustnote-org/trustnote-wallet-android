@@ -14,14 +14,14 @@ import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.biz.init.CreateWalletActivity
 
 class DebugFragment : BaseFragment() {
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.debug_main, container, false);
+    override fun getLayoutId(): Int {
+        return R.layout.debug_main
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        updateUI(view);
+
+    override fun initFragment(view: View) {
+        updateUI(view)
     }
 
     private fun updateUI(view: View) {
@@ -30,8 +30,8 @@ class DebugFragment : BaseFragment() {
         //recyclerView.addItemDecoration(SimpleDividerItemDecoration(view.context))
         recyclerView.layoutManager = LinearLayoutManager(activity)
         var data: Array<DebugItemData> = arrayOf(
-            DebugItemData(2, "Test New seed create UI"),
-                    DebugItemData(1, "Test mnomonic JS")
+                DebugItemData(2, "Test New seed create UI"),
+                DebugItemData(1, "Test mnomonic JS")
         )
 
         val adapter = DebugItemsAdapter(data)

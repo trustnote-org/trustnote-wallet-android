@@ -21,6 +21,10 @@ import org.trustnote.wallet.widget.RecyclerItemClickListener
 
 class FragmentMainWallet : BaseFragment() {
 
+    override fun getLayoutId(): Int {
+        return R.layout.f_main_wallet
+    }
+
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

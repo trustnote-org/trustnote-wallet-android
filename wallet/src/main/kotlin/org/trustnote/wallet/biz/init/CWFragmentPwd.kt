@@ -1,6 +1,5 @@
 package org.trustnote.wallet.biz.init
 
-import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -11,8 +10,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.PasswordStrength
 
-@SuppressLint("ValidFragment")
-class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
+class CWFragmentPwd : CreateWalletFragment() {
 
     lateinit var pwdConfirm: Button
     lateinit var pwd: EditText
@@ -21,6 +19,10 @@ class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
     lateinit var pwdError: TextView
     lateinit var pwdStrength: PasswordStrength
     private val pwdTextWatcher: PwdTextWatcher = PwdTextWatcher()
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_init_pwd
+    }
 
     override fun initFragment(view: View) {
 
@@ -108,7 +110,7 @@ class CWFragmentPwd(layoutId: Int) : CreateWalletFragment(layoutId) {
     }
 
     override fun onBackPressed() {
-        nextPage(R.layout.f_new_seed_or_restore)
+        nextPage(R.layout.f_init_create_or_restore)
     }
 
 }

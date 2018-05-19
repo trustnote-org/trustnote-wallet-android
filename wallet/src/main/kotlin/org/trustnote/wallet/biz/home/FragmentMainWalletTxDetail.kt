@@ -13,8 +13,11 @@ import org.trustnote.wallet.widget.FieldTextView
 import org.trustnote.wallet.widget.TMnAmount
 
 
-class FragmentMainWalletTxDetail : CreateWalletFragment(R.layout.f_main_wallet_tx_detail) {
+class FragmentMainWalletTxDetail : CreateWalletFragment() {
 
+    override fun getLayoutId(): Int {
+        return R.layout.f_main_wallet_tx_detail
+    }
     //TODO: listen the wallet update event.
     protected val disposables: CompositeDisposable = CompositeDisposable()
 

@@ -1,6 +1,5 @@
 package org.trustnote.wallet.biz.init
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,7 +11,6 @@ import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.js.JSApi
@@ -23,16 +21,13 @@ import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
 
 
-@SuppressLint("ValidFragment")  //TODO: the fragment cannot re-create from tomb.
-open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
+abstract class CreateWalletFragment : BaseFragment() {
 
-    private val mLayoutId = layoutId
     var mNextLayoutId = 0
-    var isCreated = false
 
     //TODO: empty constructor.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mRootView = inflater.inflate(mLayoutId, container, false)
+        mRootView = inflater.inflate(getLayoutId(), container, false)
         return mRootView
     }
 
@@ -40,26 +35,11 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
         return activity as CreateWalletActivity
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        isCreated = false
-
-        mRootView = view
-        initFragment(mRootView!!)
-
-        isCreated = true
-    }
-
     fun onShowPage() {
         if (mRootView is ViewGroup) {
             initFragment(mRootView!!)
-            getMyActivity().adjustUIBySetting(getPageSetting(mLayoutId))
+            getMyActivity().adjustUIBySetting(getPageSetting(getLayoutId()))
         }
-
-    }
-
-    open fun initFragment(view: View) {
 
     }
 
@@ -93,18 +73,24 @@ open class CreateWalletFragment(layoutId: Int) : BaseFragment() {
 
 }
 
-@SuppressLint("ValidFragment")
-class CWFragmentDisclaimer(layoutId: Int) : CreateWalletFragment(layoutId) {
+class CWFragmentDisclaimer : CreateWalletFragment() {
     override fun initFragment(view: View) {
         view.findViewById<View>(R.id.agree).setOnClickListener {
             CreateWalletModel.userAgree()
-            nextPage(R.layout.f_new_seed_devicename)
+            nextPage(R.layout.f_init_devicename)
         }
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_init_disclaimer
     }
 }
 
-@SuppressLint("ValidFragment")
-class CWFragmentDeviceName(layoutId: Int) : CreateWalletFragment(layoutId) {
+class CWFragmentDeviceName : CreateWalletFragment() {
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_init_devicename
+    }
 
     override fun initFragment(view: View) {
         var editDeviceName = view.findViewById<EditText>(R.id.mnemonic_devicename_edit_text)
@@ -126,7 +112,7 @@ class CWFragmentDeviceName(layoutId: Int) : CreateWalletFragment(layoutId) {
         val btnConfirm = view.findViewById<Button>(R.id.mnemonic_devicename_confirm)
         btnConfirm.setOnClickListener {
             CreateWalletModel.saveDeviceName(editDeviceName.text.toString())
-            nextPage(R.layout.f_new_seed_or_restore)
+            nextPage(R.layout.f_init_create_or_restore)
         }
 
 
@@ -144,24 +130,28 @@ class CWFragmentDeviceName(layoutId: Int) : CreateWalletFragment(layoutId) {
     }
 }
 
-@SuppressLint("ValidFragment")
-class CWFragmentNewSeedOrRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
+class CWFragmentNewSeedOrRestore : CreateWalletFragment() {
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_init_create_or_restore
+    }
+
     override fun initFragment(view: View) {
         val pwdExist = CreateWalletModel.readPwdHash().isNotBlank()
         var btnNewSeed = view.findViewById<Button>(R.id.btn_new_seed)
         btnNewSeed.setOnClickListener {
             if (pwdExist) {
-                nextPage(R.layout.f_new_seed_backup)
+                nextPage(R.layout.f_init_backup)
             } else {
-                nextPage(R.layout.f_new_seed_pwd, R.layout.f_new_seed_backup)
+                nextPage(R.layout.f_init_pwd, R.layout.f_init_backup)
             }
         }
         var btnRestore = view.findViewById<Button>(R.id.btn_restore_seed)
         btnRestore.setOnClickListener {
             if (pwdExist) {
-                nextPage(R.layout.f_new_seed_restore)
+                nextPage(R.layout.f_init_restore)
             } else {
-                nextPage(R.layout.f_new_seed_pwd, R.layout.f_new_seed_restore)
+                nextPage(R.layout.f_init_pwd, R.layout.f_init_restore)
             }
         }
 
@@ -177,8 +167,11 @@ class CWFragmentNewSeedOrRestore(layoutId: Int) : CreateWalletFragment(layoutId)
 
 }
 
-@SuppressLint("ValidFragment")
-class CWFragmentBackup(layoutId: Int) : CreateWalletFragment(layoutId) {
+class CWFragmentBackup : CreateWalletFragment() {
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_init_backup
+    }
 
     lateinit var mnemonicsGrid: MnemonicsGridView
     override fun initFragment(view: View) {
@@ -187,7 +180,7 @@ class CWFragmentBackup(layoutId: Int) : CreateWalletFragment(layoutId) {
         btnBackupConfirm.setOnClickListener {
 
             MyDialogFragment.showDialog2Btns(getMyActivity(), R.string.dialog_backup_mnemonic_ask, {
-                nextPage(R.layout.f_new_seed_verify)
+                nextPage(R.layout.f_init_verify)
             })
         }
 
@@ -206,12 +199,15 @@ class CWFragmentBackup(layoutId: Int) : CreateWalletFragment(layoutId) {
     }
 
     override fun onBackPressed() {
-        nextPage(R.layout.f_new_seed_or_restore)
+        nextPage(R.layout.f_init_create_or_restore)
     }
 }
 
-@SuppressLint("ValidFragment")
-class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
+class CWFragmentVerify : CreateWalletFragment() {
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_init_verify
+    }
 
     lateinit var mnemonicsGrid: MnemonicsGridView
     override fun initFragment(view: View) {
@@ -219,7 +215,7 @@ class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
         var btnBackupConfirm = view.findViewById<Button>(R.id.verify_confirmed)
         AndroidUtils.disableBtn(btnBackupConfirm)
         btnBackupConfirm.setOnClickListener {
-            nextPage(R.layout.f_new_seed_remove)
+            nextPage(R.layout.f_init_remove)
             CreateWalletModel.iamDone()
         }
 
@@ -238,13 +234,16 @@ class CWFragmentVerify(layoutId: Int) : CreateWalletFragment(layoutId) {
     }
 
     override fun onBackPressed() {
-        nextPage(R.layout.f_new_seed_backup)
+        nextPage(R.layout.f_init_backup)
     }
 
 }
 
-@SuppressLint("ValidFragment")
-class CWFragmentRemove(layoutId: Int) : CreateWalletFragment(layoutId) {
+class CWFragmentRemove : CreateWalletFragment() {
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_init_remove
+    }
 
     override fun initFragment(view: View) {
 
@@ -272,10 +271,13 @@ class CWFragmentRemove(layoutId: Int) : CreateWalletFragment(layoutId) {
 }
 
 
-@SuppressLint("ValidFragment")
-class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
+class CWFragmentRestore : CreateWalletFragment() {
 
     lateinit var mnemonicsGrid: MnemonicsGridView
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_init_restore
+    }
 
     override fun initFragment(view: View) {
 
@@ -317,7 +319,7 @@ class CWFragmentRestore(layoutId: Int) : CreateWalletFragment(layoutId) {
     }
 
     override fun onBackPressed() {
-        nextPage(R.layout.f_new_seed_or_restore)
+        nextPage(R.layout.f_init_create_or_restore)
     }
 
 }

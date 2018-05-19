@@ -119,18 +119,19 @@ class CreateWalletActivity : BaseActivity() {
 class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     private val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
 
-    //Bug: need investigate, the position is not map to the same in PageSetting.
-    @Synchronized override fun getItem(position: Int): Fragment {
+    @Synchronized
+    override fun getItem(position: Int): Fragment {
         return if (cacheFragement.containsKey(position)) {
             cacheFragement[position]!!
         } else {
-            val f = createFragment(position)
+            val f = getPageSettingByPosition(position).clz.newInstance()
             cacheFragement[position] = f
             f
         }
     }
 
-    @Synchronized fun getFragmentFromCache(position: Int): CreateWalletFragment? {
+    @Synchronized
+    fun getFragmentFromCache(position: Int): CreateWalletFragment? {
         return cacheFragement[position]
     }
 

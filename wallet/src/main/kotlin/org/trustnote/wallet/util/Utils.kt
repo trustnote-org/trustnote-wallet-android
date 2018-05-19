@@ -214,7 +214,7 @@ object Utils {
 
     fun formatTxTimestampInTxDetail(ts: Long):String {
         val date = Date(ts * 1000L)
-        val df = SimpleDateFormat("yyyy/MM/dd HH:MM(1天前)")
+        val df = SimpleDateFormat("yyyy/MM/dd HH:MM(详细逻辑)")
         return df.format(date)
     }
 

@@ -8,8 +8,8 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.BaseFragment
 
 class EmptyFragment : BaseFragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.debug_empty, container, false);
+    override fun getLayoutId(): Int {
+        return R.layout.debug_empty
     }
 }
 

@@ -53,7 +53,7 @@ class InputPwdActivity : BaseActivity() {
 
 class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     @Synchronized override fun getItem(position: Int): Fragment {
-        return FragmentInputPwd(R.layout.f_input_pwd)
+        return FragmentInputPwd()
     }
 
     override fun getCount(): Int {

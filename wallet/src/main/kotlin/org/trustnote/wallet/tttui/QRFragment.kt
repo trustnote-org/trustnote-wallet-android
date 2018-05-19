@@ -22,6 +22,10 @@ import org.trustnote.wallet.util.Utils
 
 class QRFragment : BaseFragment() {
 
+    override fun getLayoutId(): Int {
+        return R.layout.f_show_qrcode
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.f_show_qrcode, container, false)
     }

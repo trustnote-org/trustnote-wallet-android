@@ -55,14 +55,14 @@ object CreateWalletModel {
     //TODO: R is not model logic.
     fun getStartPageLayoutId(): Int {
         if (!Prefs.isUserAgree()) {
-            return R.layout.f_new_seed_disclaimer
+            return R.layout.f_init_disclaimer
         }
 
         if (Prefs.readDeviceName().isEmpty()) {
-            return R.layout.f_new_seed_devicename
+            return R.layout.f_init_devicename
         }
 
-        return R.layout.f_new_seed_or_restore
+        return R.layout.f_init_create_or_restore
 
     }
 

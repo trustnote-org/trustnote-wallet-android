@@ -11,13 +11,16 @@ import org.trustnote.wallet.util.Utils
 
 class SimpleFragment : BaseFragment() {
 
+    override fun getLayoutId(): Int {
+        return R.layout.f_new_wallet
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.f_new_wallet, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initFragment(view: View) {
+        super.initFragment(view)
         view!!.findViewById<View>(R.id.wallet_new_ok).setOnClickListener {
             val walletNameTV = view!!.findViewById<EditText>(R.id.wallet_new_name)
             val walletName = walletNameTV.text.toString()
@@ -30,5 +33,6 @@ class SimpleFragment : BaseFragment() {
                 })
             }
         }
+
     }
 }
