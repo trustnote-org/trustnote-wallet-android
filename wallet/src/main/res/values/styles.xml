@@ -22,7 +22,10 @@
         <item name="android:text">@string/place_holder</item>
     </style>
 
-    <style name="tx_detail" parent="@style/t_text_base">
+    <style name="tx_field" parent="@style/t_text_base">
+        <item name="android:layout_marginRight">@dimen/padding_main</item>
+        <item name="android:layout_marginBottom">@dimen/field_padding</item>
+        <item name="android:layout_marginTop">@dimen/field_padding</item>
         <item name="android:textColor">@color/font_gray_amount</item>
         <item name="android:textSize">14sp</item>
     </style>

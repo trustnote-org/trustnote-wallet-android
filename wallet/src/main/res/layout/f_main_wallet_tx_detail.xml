@@ -23,80 +23,46 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent"
         android:layout_below="@id/summary_bar"
         android:paddingLeft="@dimen/padding_main">
 
-        <TextView
+        <org.trustnote.wallet.widget.FieldTextView
             android:id="@+id/tx_sender"
-            style="@style/tx_detail"
-            android:layout_alignParentLeft="true"
-            android:text="@string/tx_sender" />
+            style="@style/tx_field"
+            android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:id="@+id/tx_sender_2"
-            style="@style/tx_detail"
-            android:layout_alignParentRight="true"
-            android:paddingRight="@dimen/padding_main"
-            android:text="@string/tx_sender" />
+        <include layout="@layout/item_line" />
 
-        <View
-            android:id="@+id/line_sender"
-            android:background="@color/tx_bottom_line"
-            android:layout_below="@id/tx_sender"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/one_dp" />
-
-        <TextView
-            android:layout_below="@id/line_sender"
+        <org.trustnote.wallet.widget.FieldTextView
             android:id="@+id/tx_receiver"
-            style="@style/tx_detail"
-            android:layout_alignParentLeft="true"
-            android:text="@string/tx_receiver" />
+            style="@style/tx_field"
+            android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:layout_below="@id/line_sender"
-            android:id="@+id/tx_receiver_2"
-            style="@style/tx_detail"
-            android:layout_alignParentRight="true"
-            android:paddingRight="@dimen/padding_main"
-            android:text="@string/tx_receiver" />
+        <include layout="@layout/item_line" />
 
-        <View
-            android:id="@+id/line_reveiver"
-            android:background="@color/tx_bottom_line"
-            android:layout_below="@id/tx_receiver"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/one_dp" />
-
-        <TextView
+        <org.trustnote.wallet.widget.FieldTextView
             android:id="@+id/tx_date"
-            style="@style/tx_detail"
-            android:layout_alignParentLeft="true"
-            android:text="@string/tx_date" />
+            style="@style/tx_field"
+            android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:id="@+id/tx_date_2"
-            style="@style/tx_detail"
-            android:layout_alignParentRight="true"
-            android:paddingRight="@dimen/padding_main"
-            android:text="@string/tx_date" />
+        <include layout="@layout/item_line" />
 
-        <TextView
-            android:id="@+id/tx_unit_id"
-            style="@style/tx_detail"
-            android:layout_alignParentLeft="true"
-            android:text="@string/tx_unit_id" />
+        <org.trustnote.wallet.widget.FieldTextView
+            android:id="@+id/tx_unit"
+            style="@style/tx_field"
+            android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:id="@+id/tx_unit_id_2"
-            style="@style/tx_detail"
-            android:layout_alignParentRight="true"
-            android:paddingRight="@dimen/padding_main"
-            android:text="@string/tx_unit_id" />
+        <include layout="@layout/item_line" />
 
-    </RelativeLayout>
+        <org.trustnote.wallet.widget.FieldTextView
+            android:id="@+id/tx_status"
+            style="@style/tx_field"
+            android:layout_alignParentLeft="true" />
+
+    </LinearLayout>
 
 </RelativeLayout>
