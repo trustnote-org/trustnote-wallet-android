@@ -6,7 +6,7 @@ import org.trustnote.wallet.R
 data class PageSetting(val layoutId: Int,
                        val showStatusBar: Boolean = true,
                        val showBackArrow: Boolean = true,
-                       val clz: Class<out CreateWalletFragment> = CreateWalletFragment::class.java)
+                       val clz: Class<out FragmentInit> = FragmentInit::class.java)
 
 val mPageConfiguration: MutableMap<Int, PageSetting> = mutableMapOf()
 val mPagePositionsToLayoutId: MutableMap<Int, Int> = mutableMapOf()
@@ -37,7 +37,7 @@ fun setupUISettings() {
 
 }
 
-fun addConfig(layoutId: Int, clz: Class<out CreateWalletFragment> = CreateWalletFragment::class.java, showStatusBar: Boolean = true, showBackArrow: Boolean = true) {
+fun addConfig(layoutId: Int, clz: Class<out FragmentInit> = FragmentInit::class.java, showStatusBar: Boolean = true, showBackArrow: Boolean = true) {
     mPageConfiguration[layoutId] = PageSetting(layoutId = layoutId, showStatusBar = showStatusBar, showBackArrow = showBackArrow, clz = clz)
     mPagePositionsToLayoutId[mPagePositionsToLayoutId.size] = layoutId
     mPageLayoutIdToPosition[layoutId] = mPageLayoutIdToPosition.size

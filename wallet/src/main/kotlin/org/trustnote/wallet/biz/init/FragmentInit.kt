@@ -14,23 +14,18 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.uiframework.BaseFragment
+import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
 
 
-abstract class CreateWalletFragment : BaseFragment() {
+abstract class FragmentInit : FragmentBase() {
 
     var mNextLayoutId = 0
 
     //TODO: empty constructor.
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mRootView = inflater.inflate(getLayoutId(), container, false)
-        return mRootView
-    }
-
     fun getMyActivity(): CreateWalletActivity {
         return activity as CreateWalletActivity
     }
@@ -73,7 +68,7 @@ abstract class CreateWalletFragment : BaseFragment() {
 
 }
 
-class CWFragmentDisclaimer : CreateWalletFragment() {
+class CWFragmentDisclaimer : FragmentInit() {
     override fun initFragment(view: View) {
         view.findViewById<View>(R.id.agree).setOnClickListener {
             CreateWalletModel.userAgree()
@@ -86,7 +81,7 @@ class CWFragmentDisclaimer : CreateWalletFragment() {
     }
 }
 
-class CWFragmentDeviceName : CreateWalletFragment() {
+class CWFragmentDeviceName : FragmentInit() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_init_devicename
@@ -130,7 +125,7 @@ class CWFragmentDeviceName : CreateWalletFragment() {
     }
 }
 
-class CWFragmentNewSeedOrRestore : CreateWalletFragment() {
+class CWFragmentNewSeedOrRestore : FragmentInit() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_init_create_or_restore
@@ -167,7 +162,7 @@ class CWFragmentNewSeedOrRestore : CreateWalletFragment() {
 
 }
 
-class CWFragmentBackup : CreateWalletFragment() {
+class CWFragmentBackup : FragmentInit() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_init_backup
@@ -203,7 +198,7 @@ class CWFragmentBackup : CreateWalletFragment() {
     }
 }
 
-class CWFragmentVerify : CreateWalletFragment() {
+class CWFragmentVerify : FragmentInit() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_init_verify
@@ -239,7 +234,7 @@ class CWFragmentVerify : CreateWalletFragment() {
 
 }
 
-class CWFragmentRemove : CreateWalletFragment() {
+class CWFragmentRemove : FragmentInit() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_init_remove
@@ -271,7 +266,7 @@ class CWFragmentRemove : CreateWalletFragment() {
 }
 
 
-class CWFragmentRestore : CreateWalletFragment() {
+class CWFragmentRestore : FragmentInit() {
 
     lateinit var mnemonicsGrid: MnemonicsGridView
 

@@ -14,37 +14,42 @@
         android:layout_marginLeft="@dimen/padding_main"
         android:layout_marginRight="@dimen/padding_main" />
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/home_line"
-        android:layout_below="@+id/toolbar"
-        android:layout_marginLeft="@dimen/padding_main"
-        android:layout_marginRight="@dimen/padding_main" />
+        android:layout_below="@+id/toolbar">
 
-    <View
-        android:id="@+id/home_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/one_dp"
-        android:layout_above="@id/bottom_navigation"
-        android:background="@color/home_line">
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/home_line"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main" />
 
-    </View>
+        <View
+            android:id="@+id/home_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_dp"
+            android:layout_above="@id/bottom_navigation"
+            android:background="@color/home_line"></View>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_menu_height"
-        android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/colorPrimaryDark"
-        app:itemTextColor="@drawable/menu_text_color"
-        app:menu="@menu/main_bottom" />
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_menu_height"
+            android:layout_alignParentBottom="true"
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@color/colorPrimaryDark"
+            app:itemTextColor="@drawable/menu_text_color"
+            app:menu="@menu/main_bottom" />
 
-    <FrameLayout
-        android:id="@+id/fragment_level2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <FrameLayout
+            android:id="@+id/fragment_level2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

@@ -2,26 +2,22 @@ package org.trustnote.wallet.biz.home
 
 import android.view.View
 import android.widget.TextView
-import io.reactivex.disposables.CompositeDisposable
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
-import org.trustnote.wallet.biz.init.CreateWalletFragment
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.FieldTextView
 import org.trustnote.wallet.widget.TMnAmount
 
-
-class FragmentMainWalletTxDetail : CreateWalletFragment() {
+class FragmentMainWalletTxDetail : FragmentMainBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_main_wallet_tx_detail
     }
-    //TODO: listen the wallet update event.
-    protected val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun initFragment(view: View) {
+        super.initFragment(view)
 
         val credentialIndex = arguments.getInt(TTT.KEY_CREDENTIAL_INDEX, 0)
         val txIndex = arguments.getInt(TTT.KEY_TX_INDEX, 0)
@@ -58,7 +54,6 @@ class FragmentMainWalletTxDetail : CreateWalletFragment() {
         fDate.setField(R.string.tx_date, Utils.formatTxTimestampInTxDetail(tx.ts))
         fUnit.setUnitField(tx.unit)
         status.setField(R.string.tx_status, "TODO")
-
 
         //TODO: status.
 

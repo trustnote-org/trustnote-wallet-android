@@ -77,6 +77,7 @@
     <dimen name="top_bar_height">20dp</dimen>
     <dimen name="status_bar_height">24dp</dimen>
     <dimen name="quick_action_size">20dp</dimen>
+    <dimen name="home_back_arrow_size">45dp</dimen>
     <dimen name="padding_main">20dp</dimen>
 
     <dimen name="mn_amount_b_i">46sp</dimen>

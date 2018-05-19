@@ -17,10 +17,10 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
-import org.trustnote.wallet.uiframework.BaseFragment
+import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.Utils
 
-class QRFragment : BaseFragment() {
+class QRFragment : FragmentBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_show_qrcode

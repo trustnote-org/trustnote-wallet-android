@@ -13,12 +13,6 @@
         android:paddingLeft="@dimen/page_margin_left"
         android:paddingRight="@dimen/page_margin_left">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_gap_24" />
-
-        <include layout="@layout/l_top_back_arrow" />
-
         <include layout="@layout/l_amount_summary" />
 
     </LinearLayout>

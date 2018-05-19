@@ -3,12 +3,12 @@ package org.trustnote.wallet.biz.pwd
 import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.init.CreateWalletFragment
+import org.trustnote.wallet.biz.init.FragmentInit
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.widget.InputPwdDialogFragment
 
 
-open class FragmentInputPwd : CreateWalletFragment() {
+open class FragmentInputPwd : FragmentInit() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_input_pwd

@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import org.trustnote.wallet.R
-import org.trustnote.wallet.uiframework.BaseFragment
+import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.Utils
 
-class SimpleFragment : BaseFragment() {
+class SimpleFragment : FragmentBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_new_wallet

@@ -29,7 +29,7 @@ class TApp : Application() {
         var smallIconSize = 14
         lateinit var smallIconError: Drawable
         lateinit var smallIconQuickAction: Drawable
-
+        lateinit var smallIconBackHome: Drawable
         var userAlreadyInputPwd = false
     }
 
@@ -72,6 +72,7 @@ class TApp : Application() {
         smallIconSize = TApp.context.resources.getDimension(R.dimen.small_icon).toInt()
         smallIconError = AndroidUtils.resizeDrawable(R.drawable.err, R.dimen.small_icon)
         smallIconQuickAction = AndroidUtils.resizeDrawable(R.drawable.quick_action, R.dimen.quick_action_size)
+        smallIconBackHome = AndroidUtils.resizeDrawable(R.drawable.arrow_left, R.dimen.home_back_arrow_size)
 
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
 

@@ -3,29 +3,29 @@ package org.trustnote.wallet.biz.home
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
-import io.reactivex.disposables.CompositeDisposable
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
-import org.trustnote.wallet.biz.init.CreateWalletFragment
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.widget.RecyclerItemClickListener
 import org.trustnote.wallet.widget.TMnAmount
 
-
-class FragmentMainWalletTxList : CreateWalletFragment() {
+class FragmentMainWalletTxList : FragmentMainBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_main_wallet_tx_list
     }
 
     //TODO: listen the wallet update event.
-    protected val disposables: CompositeDisposable = CompositeDisposable()
-
 
     override fun initFragment(view: View) {
+
+
+        super.initFragment(view)
 
         val credentialIndex = arguments.getInt("CREDENTIAL_INDEX", 0)
 

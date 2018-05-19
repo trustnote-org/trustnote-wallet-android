@@ -10,7 +10,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.PasswordStrength
 
-class CWFragmentPwd : CreateWalletFragment() {
+class CWFragmentPwd : FragmentInit() {
 
     lateinit var pwdConfirm: Button
     lateinit var pwd: EditText
@@ -58,8 +58,7 @@ class CWFragmentPwd : CreateWalletFragment() {
 
     }
 
-    private fun updateUI() {
-
+    override fun updateUI() {
 
         AndroidUtils.disableBtn(pwdConfirm)
         pwdError.visibility = View.INVISIBLE

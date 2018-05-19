@@ -1,11 +1,10 @@
 package org.trustnote.wallet.debugui
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import org.trustnote.wallet.R
-import org.trustnote.wallet.uiframework.BaseFragment
+import org.trustnote.wallet.uiframework.FragmentBase
 import android.widget.TextView
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
@@ -13,7 +12,7 @@ import android.webkit.ValueCallback
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.biz.init.CreateWalletActivity
 
-class DebugFragment : BaseFragment() {
+class DebugFragment : FragmentBase() {
     override fun getLayoutId(): Int {
         return R.layout.debug_main
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

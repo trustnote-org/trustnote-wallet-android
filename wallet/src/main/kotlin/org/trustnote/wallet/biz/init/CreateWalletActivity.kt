@@ -117,7 +117,7 @@ class CreateWalletActivity : BaseActivity() {
 }
 
 class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-    private val cacheFragement: MutableMap<Int, CreateWalletFragment> = mutableMapOf()
+    private val cacheFragement: MutableMap<Int, FragmentInit> = mutableMapOf()
 
     @Synchronized
     override fun getItem(position: Int): Fragment {
@@ -131,7 +131,7 @@ class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     }
 
     @Synchronized
-    fun getFragmentFromCache(position: Int): CreateWalletFragment? {
+    fun getFragmentFromCache(position: Int): FragmentInit? {
         return cacheFragement[position]
     }
 

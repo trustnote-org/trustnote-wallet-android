@@ -6,15 +6,18 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.home.FragmentMainWallet
-import org.trustnote.wallet.biz.home.FragmentMainWalletTxList
-import org.trustnote.wallet.biz.init.CreateWalletFragment
+import org.trustnote.wallet.biz.init.FragmentInit
 import org.trustnote.wallet.debugui.EmptyFragment
 import org.trustnote.wallet.settings.FragmentMainMe
 import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.util.AndroidUtils
 
 class MainActivity : BaseActivity() {
 
@@ -22,7 +25,7 @@ class MainActivity : BaseActivity() {
 
     }
 
-    private lateinit var bottomNavigationView: BottomNavigationView
+    lateinit var bottomNavigationView: BottomNavigationView
 
     lateinit var mToolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +42,30 @@ class MainActivity : BaseActivity() {
 
         disableShiftMode(bottomNavigationView)
 
+        setupToolbar()
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            bottomNavigationView.visibility = View.VISIBLE
+            setupToolbar()
+        }
+
+    }
+
+    private fun setupToolbar() {
+        getSupportActionBar()!!.setDisplayShowTitleEnabled(true);
+
+        //getMyActivity().getSupportActionBar()!!.closeOptionsMenu()
+        //getMyActivity().supportActionBar!!.setHomeAsUpIndicator(TApp.smallIconBackHome)
+
+        getSupportActionBar()!!.setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar()!!.setDisplayShowHomeEnabled(false);
+
+        supportActionBar?.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
     }
 
     fun setToolbarTitle(s: String) {
@@ -55,7 +82,12 @@ class MainActivity : BaseActivity() {
         return true
     }
 
-    fun openLevel2Fragment(bundle: Bundle, clz: Class<out CreateWalletFragment>) {
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        //inflater.inflate(R.menu.your_menu_xml, menu)
+//        //super.onCreateOptionsMenu(menu, inflater)
+//    }
+
+    fun openLevel2Fragment(bundle: Bundle, clz: Class<out FragmentBase>) {
 
         // Create new fragment and transaction
         val newFragment = clz.newInstance()
@@ -69,6 +101,8 @@ class MainActivity : BaseActivity() {
 
         // Commit the transaction
         transaction.commit()
+
+        //findViewById<View>(R.id.fragment_container).visibility = View.INVISIBLE
 
     }
 
