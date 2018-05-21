@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.init
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -41,6 +42,10 @@ class CWFragmentPwd : FragmentInit() {
         pwdConfirm.setOnClickListener {
             savePwdAndForward()
         }
+
+        val webView: WebView = view.findViewById(R.id.pwd_warning)
+        AndroidUtils.setupWarningWebView(webView, "PWD")
+
 
         updateUI()
     }
