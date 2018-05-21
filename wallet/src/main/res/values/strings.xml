@@ -185,5 +185,7 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="create_wallet_observer_qr_finish_import">导入签名</string>
     <string name="create_wallet_observer_qr_finish_btn">完成授权</string>
 
+    <string name="MNEMONIC_BACKUP_WARNING1">建议手写或保存在离线设备中</string>
+    <string name="MNEMONIC_BACKUP_WARNING2">建议创建完成钱包后立即恢复一次，以确保助记词正确</string>
 
 </resources>

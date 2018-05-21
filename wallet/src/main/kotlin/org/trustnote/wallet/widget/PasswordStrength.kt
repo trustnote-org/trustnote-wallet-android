@@ -34,10 +34,10 @@ class PasswordStrength constructor(context: Context,
 
     //不少于8位字符，建议混合大小写字母、数字、特殊符号
     //输入同1种符号一直显示弱；输入2、3种符号，且输入只要少于1-5位密码就是弱；6-10位密码就是中；11位以上就是强；
-    fun setPwd(pwd: String) {
+    fun computPwdStrength(pwd: String):PwdStrength {
         if (pwd.isBlank()) {
             updateUI(PwdStrength.NONE)
-            return
+            return PwdStrength.NONE
         }
 
         val hasAlphabet = isMatch(pwd,"[a-zA-Z]+")
@@ -47,25 +47,26 @@ class PasswordStrength constructor(context: Context,
         val totalCategories = hasAlphabet + hasDigital + hasNonAlphabetNumeric
 
         if (totalCategories == 1) {
-            updateUI(PwdStrength.NONE)
-            return
+            updateUI(PwdStrength.WEAK)
+            return PwdStrength.WEAK
         }
 
         if (totalCategories > 1 && pwd.length <= 5) {
             updateUI(PwdStrength.WEAK)
-            return
+            return PwdStrength.WEAK
         }
 
         if (totalCategories > 1 && pwd.length <= 10) {
             updateUI(PwdStrength.NORMAL)
-            return
+            return PwdStrength.NORMAL
         }
 
         if (totalCategories > 1 && pwd.length > 10) {
             updateUI(PwdStrength.STRONG)
-            return
+            return PwdStrength.STRONG
         }
 
+        return PwdStrength.NONE
     }
 
     private fun updateUI(pwdStrength: PwdStrength) {
@@ -95,7 +96,7 @@ class PasswordStrength constructor(context: Context,
 
 }
 
-private enum class PwdStrength {
+enum class PwdStrength {
     NONE,
     WEAK,
     NORMAL,

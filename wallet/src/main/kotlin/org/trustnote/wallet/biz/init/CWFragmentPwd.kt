@@ -10,6 +10,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.PasswordStrength
+import org.trustnote.wallet.widget.PwdStrength
 
 class CWFragmentPwd : FragmentInit() {
 
@@ -50,15 +51,15 @@ class CWFragmentPwd : FragmentInit() {
         AndroidUtils.disableBtn(pwdConfirm)
         pwdError.visibility = View.INVISIBLE
         pwdVerifyError.visibility = View.INVISIBLE
-        pwdStrength.setPwd("")
+        pwdStrength.computPwdStrength("")
 
         val pwdString = pwd.text.toString()
 
-        pwdStrength.setPwd(pwdString)
+        val pwdStrength = pwdStrength.computPwdStrength(pwdString)
 
         val isPwdVerifyOk = (pwd.text.toString() == pwdVerify.text.toString())
         val isPwdLengthOk = isPwdLengthOk(pwdString)
-        val isPwdStrengOk = isPwdStrengthOk(pwdString)
+        val isPwdStrengOk = (pwdStrength == PwdStrength.NORMAL || pwdStrength == PwdStrength.STRONG)
 
         if (isPwdVerifyOk && isPwdLengthOk) {
             AndroidUtils.enableBtn(pwdConfirm)
@@ -70,7 +71,7 @@ class CWFragmentPwd : FragmentInit() {
             pwdError.visibility = View.VISIBLE
         }
 
-        if (isPwdLengthOk && !isPwdStrengOk) {
+        if (pwdString.length > 0 && !isPwdStrengOk) {
             pwdError.setText(R.string.pwd_strength_warning)
             pwdError.visibility = View.VISIBLE
         }

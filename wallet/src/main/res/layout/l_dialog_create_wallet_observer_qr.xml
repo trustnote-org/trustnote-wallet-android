@@ -43,8 +43,7 @@
         <TextView
             android:id="@+id/create_wallet_observer_qr_msg"
             style="@style/t_text_msg"
-            android:layout_marginBottom="@dimen/line_gap_48"
-            android:layout_marginTop="@dimen/line_gap_32"
+            android:layout_marginBottom="@dimen/line_gap_32"
             android:text="@string/create_wallet_observer_qr_msg" />
 
         <Button

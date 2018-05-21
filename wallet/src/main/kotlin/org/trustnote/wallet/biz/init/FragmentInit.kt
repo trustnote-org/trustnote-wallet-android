@@ -183,8 +183,8 @@ class CWFragmentBackup : FragmentInit() {
 
         mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, false)
 
-        val webView: WebView = view.findViewById(R.id.pwd_warning)
-        AndroidUtils.setupWarningWebView(webView, "PWD")
+        val webView: WebView = view.findViewById(R.id.backup_warning)
+        AndroidUtils.setupWarningWebView(webView, "MNEMONIC_BACKUP")
 
 
         if (isCreated) {
