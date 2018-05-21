@@ -6,13 +6,13 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import android.view.Menu
-import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
+import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
 import org.trustnote.wallet.biz.home.FragmentMainWallet
-import org.trustnote.wallet.biz.init.FragmentInit
 import org.trustnote.wallet.debugui.EmptyFragment
 import org.trustnote.wallet.settings.FragmentMainMe
 import org.trustnote.wallet.uiframework.BaseActivity
@@ -56,16 +56,26 @@ class MainActivity : BaseActivity() {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_create_wallet -> {
+                openLevel2Fragment(Bundle(), FragmentMainCreateWallet::class.java)
+            }
+        }
+        return true
+    }
+
     private fun setupToolbar() {
-        getSupportActionBar()!!.setDisplayShowTitleEnabled(true);
+        val spa = supportActionBar!!
+        spa.setDisplayShowTitleEnabled(true)
 
         //getMyActivity().getSupportActionBar()!!.closeOptionsMenu()
         //getMyActivity().supportActionBar!!.setHomeAsUpIndicator(TApp.smallIconBackHome)
 
-        getSupportActionBar()!!.setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar()!!.setDisplayShowHomeEnabled(false);
+        spa.setDisplayHomeAsUpEnabled(false)
+        spa.setDisplayShowHomeEnabled(false)
 
-        supportActionBar?.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
+        spa.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
     }
 
     fun setToolbarTitle(s: String) {

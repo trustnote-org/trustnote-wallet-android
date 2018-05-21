@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.PasswordStrength
 
 class CWFragmentPwd : FragmentInit() {
@@ -18,7 +19,7 @@ class CWFragmentPwd : FragmentInit() {
     lateinit var pwdVerifyError: TextView
     lateinit var pwdError: TextView
     lateinit var pwdStrength: PasswordStrength
-    private val pwdTextWatcher: PwdTextWatcher = PwdTextWatcher()
+    private val pwdTextWatcher = MyTextWatcher(this)
 
     override fun getLayoutId(): Int {
         return R.layout.f_init_pwd
@@ -36,7 +37,6 @@ class CWFragmentPwd : FragmentInit() {
         pwd.addTextChangedListener(pwdTextWatcher)
         pwdVerify.addTextChangedListener(pwdTextWatcher)
 
-
         pwdConfirm.setOnClickListener {
             savePwdAndForward()
         }
@@ -44,19 +44,6 @@ class CWFragmentPwd : FragmentInit() {
         updateUI()
     }
 
-
-    private inner class PwdTextWatcher : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-            this@CWFragmentPwd.updateUI()
-        }
-
-    }
 
     override fun updateUI() {
 

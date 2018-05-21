@@ -151,5 +151,30 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="tx_detial_receive_title">已收到(MN）</string>
     <string name="tx_detial_sender_title">已发送(MN）</string>
 
+    <string name="action_scan">扫一扫</string>
+    <string name="action_contacts_add">添加联系人</string>
+    <string name="action_create_wallet">创建钱包</string>
+    <string name="action_my_pair_id">我的配对码</string>
+
+    <string name="create_ttt_wallet">创建TTT钱包</string>
+    <string name="create_wallet_tab_title_normal">普通钱包</string>
+    <string name="create_wallet_tab_title_observe">观察钱包</string>
+
+    <string name="create_wallet_observer_msg">观察钱包需要导入冷钱包认证码，用来日常查看账户、交易。大额资金的钱包建议使用冷钱包管理，避免泄露被盗。</string>
+
+    <string name="create_wallet_observer_scancode">冷钱包认证码</string>
+    <string name="create_wallet_observer_scancode_hint">扫描冷钱包认证码</string>
+
+
+    <string name="OVSERVER_WALLET_WARNING1">不建议使用PC端作为观察钱包</string>
+    <string name="OVSERVER_WALLET_WARNING2">观察钱包发送交易时需要冷钱包配合签名。你可以使用另一台闲置手机，开飞行模式作为冷钱包，配合离线签名。</string>
+    <string name="create_wallet_observer_startbtn">开始导入</string>
+    <string name="create_wallet_observer_howsign">如何使用冷钱包进行离线签名？</string>
+
+    <string name="create_wallet_observer_err">无效的认证码</string>
+
+    <string name="create_wallet_normal_hint">输入TTT新钱包名称</string>
+    <string name="create_wallet_normal_btn">创建钱包</string>
+
 
 </resources>

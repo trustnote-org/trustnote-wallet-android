@@ -89,6 +89,11 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="t_url" parent="@style/t_text_base">
+        <item name="android:textColor">@color/t_blue</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="t_text_msg" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_text</item>
         <item name="android:textSize">14sp</item>
@@ -128,6 +133,7 @@
     </style>
 
     <style name="t_layout">
+        <item name="android:background">@color/bg_white</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -156,12 +162,29 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="overlapAnchor">false</item>
         <item name="android:dropDownVerticalOffset">15.0dp</item>
-        <item name="android:popupBackground">#FFF</item>
-
+        <item name="android:popupBackground">@color/bg_white</item>
+        <item name="android:popupMenuStyle">@style/popupMenuStyle</item>
+        <item name="android:divider">@color/home_line_middle</item>
+        <item name="android:dividerHeight">@dimen/one_dp</item>
     </style>
 
     <style name="ActionBar.TitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/title_bar_text</item>
+    </style>
+
+    <style name="TabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/t_text_base</item>
+        <item name="tabSelectedTextColor">@color/t_text</item>
+        <item name="tabIndicatorColor">@color/t_blue</item>
+    </style>
+
+    <style name="popupMenuStyle" >
+        <item name="android:divider">@color/home_line_middle</item>
+        <item name="android:dividerHeight">@dimen/one_dp</item>
+    </style>
+
+    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>

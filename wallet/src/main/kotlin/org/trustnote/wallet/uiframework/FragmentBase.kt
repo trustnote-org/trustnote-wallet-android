@@ -41,6 +41,11 @@ abstract class FragmentBase : Fragment() {
 
     }
 
+    //TODO: try to use generic
+    fun findViewById(viewId: Int): View {
+        return mRootView.findViewById(viewId)
+    }
+
     open fun updateUI() {
 
     }

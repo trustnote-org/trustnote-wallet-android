@@ -1,6 +1,5 @@
 package org.trustnote.wallet.util
 
-
 import android.net.NetworkInfo
 import android.os.Environment
 import android.widget.Toast
@@ -25,7 +24,6 @@ import org.trustnote.wallet.biz.wallet.TProfile
 import java.io.File
 import java.text.SimpleDateFormat
 
-
 object Utils {
 
     val emptyJsonObject = JsonObject()
@@ -49,6 +47,7 @@ object Utils {
     }
 
     fun debugToast(s: String) {
+        Timber.w("TOAST" + s)
         Toast.makeText(TApp.context, s, Toast.LENGTH_SHORT).show()
     }
 
@@ -76,11 +75,14 @@ object Utils {
         Thread { runnable.run() }.start()
     }
 
+    fun runInbackground(lam: () -> Unit) {
+        Thread { lam.invoke() }.start()
+    }
+
     fun generateRandomString(length: Int): String {
         //TODO: USE crypto alg.
         return "RANDOM:" + Random().nextInt()
     }
-
 
     fun getGson(): Gson {
         return GsonBuilder()
@@ -202,17 +204,17 @@ object Utils {
         return BuildConfig.DEBUG && BuildConfig.FLAVOR == "devnet"
     }
 
-    fun formatAddressWithEllipse(address: String):String {
+    fun formatAddressWithEllipse(address: String): String {
         return if (address.isBlank()) "" else """${address.substring(0, 5)}…${address.takeLast(3)}"""
     }
 
-    fun formatTxTimestamp(ts: Long):String {
+    fun formatTxTimestamp(ts: Long): String {
         val date = Date(ts * 1000L)
         val df = SimpleDateFormat("MM-dd  HH:MM")
         return df.format(date)
     }
 
-    fun formatTxTimestampInTxDetail(ts: Long):String {
+    fun formatTxTimestampInTxDetail(ts: Long): String {
         val date = Date(ts * 1000L)
         val df = SimpleDateFormat("yyyy/MM/dd HH:MM(详细逻辑)")
         return df.format(date)

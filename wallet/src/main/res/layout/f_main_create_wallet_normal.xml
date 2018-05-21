@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_white"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/create_wallet_normal"
+            style="@style/t_pwd"
+            android:layout_marginTop="@dimen/line_gap_48"
+            android:hint="@string/create_wallet_normal_hint"
+            android:inputType="text"
+            android:maxLength="20"
+            android:text="" />
+
+        <org.trustnote.wallet.widget.ErrTextView
+            android:id="@+id/create_wallet_normal_err"
+            style="@style/t_err"
+            android:text="@string/mnemonic_devicename_err" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/create_wallet_normal_btn"
+            style="@style/t_btn_blue"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/create_wallet_normal_btn" />
+
+    </LinearLayout>
+</layout>

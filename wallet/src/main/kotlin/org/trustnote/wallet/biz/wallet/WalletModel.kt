@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.wallet
 
+import com.google.gson.JsonObject
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -264,6 +265,49 @@ class WalletModel() {
 
         })
         return res
+    }
+
+    //    TTT: {
+    //        "type": "h1",
+    //        "id": "LYnW1wl8qHyHyWjoV2CYOlYhUvE3Gj1jh5tUEFzoMn0=",
+    //        "v": 1234
+    //    }
+    fun genColdScancodeFromWalletId(observeScanRes: String): String {
+        if (observeScanRes.isBlank() || observeScanRes.length < 4) {
+            return ""
+        }
+
+        val jsonStr = observeScanRes.substring(4)
+
+        val jsonObj =  Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
+
+        val walletPubKey = jsonObj.getAsJsonPrimitive("pub").asString
+
+        val checkCode = jsonObj.getAsJsonPrimitive("v").asString
+
+        val walletId = JSApi().walletIDSync(walletPubKey)
+
+        return """TTT:{"type":"h1","id": "$walletId","v":$checkCode}"""
+    }
+
+    //    TTT: {
+    //        "type": "c1",
+    //        "name": "TTT",
+    //        "pub": "xpub6CiT96vM5krNhwFA4ro5nKJ6nq9WykFmAsP18jC1Aa3URb69rvUHw6uvU51MQPkMZQ6BLiC5C1E3Zbsm7Xob3FFhNHJkN3v9xuxfqFFKPP5",
+    //        "n": 0,
+    //        "v": 1234
+    //    }
+    fun parseObserverScanResult(scanStr: String): String {
+        if (scanStr.isBlank() || scanStr.length < 4) {
+            return ""
+        }
+
+        val jsonStr = scanStr.substring(4)
+
+        val jsonObj =  Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
+
+        return jsonObj.getAsJsonPrimitive("pub").asString
+
     }
 
 }

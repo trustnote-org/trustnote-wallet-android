@@ -184,9 +184,8 @@ class CWFragmentBackup : FragmentInit() {
         mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, false)
 
         val webView: WebView = view.findViewById(R.id.pwd_warning)
-        val data = AndroidUtils.readAssetFile("pwd_warning.html")
-        val localData = AndroidUtils.replaceTTTTag(data)
-        webView.loadDataWithBaseURL("", localData, "text/html", "UTF-8", "")
+        AndroidUtils.setupWarningWebView(webView, "PWD")
+
 
         if (isCreated) {
             MyDialogFragment.showMsg(getMyActivity(), R.string.dialog_backup_mnemonic_copy)

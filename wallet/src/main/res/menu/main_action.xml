@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/menu_wallet"
-        android:enabled="true"
-        android:icon="@drawable/menu_wallet"
-        android:title="@string/menu_wallet"
-        app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_msg"
-        android:enabled="true"
-        android:icon="@drawable/ttt"
-        android:title="@string/menu_msg"
-        app:showAsAction="never" />
+        android:id="@+id/quick_action"
+        android:icon="@drawable/quick_action"
+        android:title="@string/place_holder"
+        app:showAsAction="always">
+        <menu>
 
-    <item
-        android:id="@+id/menu_me"
-        android:enabled="true"
-        android:icon="@drawable/ttt"
-        android:title="@string/menu_me"
-        app:showAsAction="never" />
+            <item
+                android:id="@+id/action_scan"
+                android:enabled="true"
+                android:icon="@drawable/scan"
+                android:title="@string/action_scan"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_contacts_add"
+                android:enabled="true"
+                android:icon="@drawable/contacts_add"
+                android:title="@string/action_contacts_add"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_create_wallet"
+                android:enabled="true"
+                android:icon="@drawable/wallet_create"
 
+                android:title="@string/action_create_wallet"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/action_my_pair_id"
+                android:enabled="true"
+                android:icon="@drawable/my_pair_code"
+                android:title="@string/action_my_pair_id"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
 </menu>

@@ -31,7 +31,7 @@ class ClearableEditText constructor(context: Context,
     }
 
 
-    enum class Location private constructor(internal val idx: Int) {
+    enum class Location constructor(internal val idx: Int) {
         LEFT(0), RIGHT(2)
     }
 

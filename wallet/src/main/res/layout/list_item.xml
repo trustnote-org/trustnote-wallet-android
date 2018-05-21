@@ -13,6 +13,7 @@
             android:visibility="gone" />
 
         <TextView
+            android:text="@string/place_holder"
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:textColor="@color/t_blue"
