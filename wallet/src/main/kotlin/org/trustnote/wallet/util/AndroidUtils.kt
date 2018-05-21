@@ -91,12 +91,12 @@ object AndroidUtils {
         BIP38_WORD_LIST_EN = s.split("\n")
     }
 
-//    fun resizeDrawable(drawableResId: Int, sizeResId: Int): Drawable {
-//        val size = TApp.context.resources.getDimension(sizeResId).toInt()
-//        val res = TApp.context.resources.getDrawable(drawableResId)
-//        res.setBounds(0, 0, size, size)
-//        return res
-//    }
+    fun resizeErrDrawable(drawableResId: Int, sizeResId: Int): Drawable {
+        val size = TApp.context.resources.getDimension(sizeResId).toInt()
+        val res = TApp.context.resources.getDrawable(drawableResId)
+        res.setBounds(0,0,size, size)
+        return res
+    }
 
     fun resizeDrawable(drawableResId: Int, sizeResId: Int): Drawable {
         val size = TApp.context.resources.getDimension(sizeResId).toInt()

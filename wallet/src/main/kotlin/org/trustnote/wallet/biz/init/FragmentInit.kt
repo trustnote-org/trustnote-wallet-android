@@ -10,6 +10,7 @@ import android.webkit.ValueCallback
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -87,7 +88,12 @@ class CWFragmentDeviceName : FragmentInit() {
         return R.layout.f_init_devicename
     }
 
+    lateinit var err: TextView
+
     override fun initFragment(view: View) {
+
+        err = view.findViewById(R.id.mnemonic_devicename_err)
+
         var editDeviceName = view.findViewById<EditText>(R.id.mnemonic_devicename_edit_text)
         editDeviceName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -110,14 +116,20 @@ class CWFragmentDeviceName : FragmentInit() {
             nextPage(R.layout.f_init_create_or_restore)
         }
 
-
         afterDeviceNameChanged(editDeviceName.text.toString())
     }
 
     fun afterDeviceNameChanged(s: String) {
+
         val btnConfirm = mRootView.findViewById<Button>(R.id.mnemonic_devicename_confirm)
 
-        if (s.trim().isBlank()) {
+        if (s.length >= 20) {
+            err.visibility = View.VISIBLE
+        } else {
+            err.visibility = View.INVISIBLE
+        }
+
+        if (s.trim().isBlank() || s.length >= 20) {
             AndroidUtils.disableBtn(btnConfirm)
         } else {
             AndroidUtils.enableBtn(btnConfirm)
