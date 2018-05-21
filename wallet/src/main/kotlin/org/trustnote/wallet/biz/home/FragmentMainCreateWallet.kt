@@ -99,8 +99,8 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
     lateinit var textView: TextView
     lateinit var btn: Button
     var scanResultStr = ""
-    var myScanCode = ""
-
+    var myQrCode = ""
+    var observerAddress = ""
 
     override fun initFragment(view: View) {
         super.initFragment(view)
@@ -121,12 +121,21 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
 
         btn = mRootView.findViewById(R.id.create_wallet_observer_startbtn)
 
+        btn.setOnClickListener {
+            FragmentDialogCreateObserverQR.showMe(myQrCode, activity, {
+                FragmentDialogCreateObserverFinish.showMe(activity, {
+                    observerAddress = it
+                    activity.onBackPressed()
+                })
+            })
+        }
     }
 
     override fun updateUI() {
         super.updateUI()
         if (textView.text.toString().isBlank()) {
-            AndroidUtils.disableBtn(btn)
+            AndroidUtils.enableBtn(btn)
+            //AndroidUtils.disableBtn(btn)
         } else {
             AndroidUtils.enableBtn(btn)
         }
@@ -138,7 +147,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         textView.text = walletPubkey
 
         Utils.runInbackground {
-            myScanCode = WalletManager.model.genColdScancodeFromWalletId(scanResultStr)
+            myQrCode = WalletManager.model.genColdScancodeFromWalletId(scanResultStr)
         }
     }
 

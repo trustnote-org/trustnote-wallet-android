@@ -11,7 +11,12 @@ import org.trustnote.wallet.js.BIP38_WORD_LIST_EN
 import org.trustnote.wallet.uiframework.BaseActivity
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.webkit.WebView
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
 
 object AndroidUtils {
 
@@ -120,4 +125,30 @@ object AndroidUtils {
     }
 
 
+    @Throws(WriterException::class)
+    fun encodeStrAsQrBitmap(str: String, size: Int): Bitmap {
+        val result: BitMatrix
+        val width = size
+        try {
+            result = MultiFormatWriter().encode(str,
+                    BarcodeFormat.QR_CODE, width, width, null)
+        } catch (iae: IllegalArgumentException) {
+            // Unsupported format
+            // TODO: return ERR code.
+            return Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888)
+        }
+
+        val w = result.getWidth()
+        val h = result.getHeight()
+        val pixels = IntArray(w * h)
+        for (y in 0 until h) {
+            val offset = y * w
+            for (x in 0 until w) {
+                pixels[offset + x] = if (result.get(x, y)) Color.BLACK else Color.WHITE
+            }
+        }
+        val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+        bitmap.setPixels(pixels, 0, width, 0, 0, w, h)
+        return bitmap
+    }
 }

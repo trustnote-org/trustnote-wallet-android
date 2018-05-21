@@ -240,7 +240,6 @@ class WalletModel() {
         profileUpdated()
     }
 
-
     fun hubRequestCurrentWalletTxHistory() {
 
         val witnesses = DbHelper.getMyWitnesses()
@@ -277,17 +276,23 @@ class WalletModel() {
             return ""
         }
 
-        val jsonStr = observeScanRes.substring(4)
+        try {
+            val jsonStr = observeScanRes.substring(4)
 
-        val jsonObj =  Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
+            val jsonObj = Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
 
-        val walletPubKey = jsonObj.getAsJsonPrimitive("pub").asString
+            val walletPubKey = jsonObj.getAsJsonPrimitive("pub").asString
 
-        val checkCode = jsonObj.getAsJsonPrimitive("v").asString
+            val checkCode = jsonObj.getAsJsonPrimitive("v").asString
 
-        val walletId = JSApi().walletIDSync(walletPubKey)
+            val walletId = JSApi().walletIDSync(walletPubKey)
 
-        return """TTT:{"type":"h1","id": "$walletId","v":$checkCode}"""
+            return """TTT:{"type":"h1","id": "$walletId","v":$checkCode}"""
+
+        } catch (ex: Exception) {
+            Utils.logW(ex.localizedMessage)
+        }
+        return ""
     }
 
     //    TTT: {
@@ -304,10 +309,52 @@ class WalletModel() {
 
         val jsonStr = scanStr.substring(4)
 
-        val jsonObj =  Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
+        try {
+            val jsonObj = Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
+            return jsonObj.getAsJsonPrimitive("pub").asString
+        } catch (ex: Exception) {
+            Utils.logW(ex.localizedMessage)
+        }
+        return ""
 
-        return jsonObj.getAsJsonPrimitive("pub").asString
+    }
 
+    //    TTT: {
+    //        "type": "c2",
+    //        "addr": "0NEYV3ZCRAJYGJDS5UNN4EOZGNVZJXOLI",
+    //        "v": 1234
+    //    }
+    fun parseObserverAdd(scanStr: String): String {
+        if (scanStr.isBlank() || scanStr.length < 4) {
+            return ""
+        }
+
+        val jsonStr = scanStr.substring(4)
+
+        try {
+            val jsonObj = Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
+            return jsonObj.getAsJsonPrimitive("addr").asString
+        } catch (ex: Exception) {
+            Utils.logW(ex.localizedMessage)
+        }
+        return ""
+    }
+
+
+    fun isValidObserverAdd(scanStr: String): Boolean {
+        if (scanStr.isBlank() || scanStr.length < 4) {
+            return false
+        }
+
+        val jsonStr = scanStr.substring(4)
+
+        try {
+            val jsonObj = Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
+            return jsonObj.getAsJsonPrimitive("addr").asString.isNotEmpty()
+        } catch (ex: Exception) {
+            Utils.logW(ex.localizedMessage)
+        }
+        return false
     }
 
 }

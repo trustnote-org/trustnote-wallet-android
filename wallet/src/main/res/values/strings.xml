@@ -176,5 +176,14 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="create_wallet_normal_hint">输入TTT新钱包名称</string>
     <string name="create_wallet_normal_btn">创建钱包</string>
 
+    <string name="create_wallet_observer_qr_title">授权签名</string>
+    <string name="create_wallet_observer_qr_msg">请用该地址的冷钱包（v1.1.3），扫描二维码授权观察，待授权完成后进入下一步。</string>
+
+
+    <string name="create_wallet_observer_qr_finish_title">完成授权</string>
+    <string name="create_wallet_observer_qr_finish_msg">扫描授权钱包页面的二维码，导入签名</string>
+    <string name="create_wallet_observer_qr_finish_import">导入签名</string>
+    <string name="create_wallet_observer_qr_finish_btn">完成授权</string>
+
 
 </resources>

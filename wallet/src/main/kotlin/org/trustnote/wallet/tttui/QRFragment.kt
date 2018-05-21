@@ -18,6 +18,7 @@ import com.google.zxing.common.BitMatrix
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 
 class QRFragment : FragmentBase() {
@@ -36,7 +37,7 @@ class QRFragment : FragmentBase() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val bitmap = encodeAsBitmap("guodaping")
+        val bitmap = AndroidUtils.encodeStrAsQrBitmap("guodaping", 300)
         view!!.findViewById<ImageView>(R.id.qr_code_bitmap).setImageBitmap(bitmap)
 
 
@@ -59,31 +60,7 @@ class QRFragment : FragmentBase() {
 
 
 
-    @Throws(WriterException::class)
-    internal fun encodeAsBitmap(str: String): Bitmap? {
-        val result: BitMatrix
-        val width = 300
-        try {
-            result = MultiFormatWriter().encode(str,
-                    BarcodeFormat.QR_CODE, width, width, null)
-        } catch (iae: IllegalArgumentException) {
-            // Unsupported format
-            return null
-        }
 
-        val w = result.getWidth()
-        val h = result.getHeight()
-        val pixels = IntArray(w * h)
-        for (y in 0 until h) {
-            val offset = y * w
-            for (x in 0 until w) {
-                pixels[offset + x] = if (result.get(x, y)) BLACK else WHITE
-            }
-        }
-        val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
-        bitmap.setPixels(pixels, 0, width, 0, 0, w, h)
-        return bitmap
-    }
 
 
 }
