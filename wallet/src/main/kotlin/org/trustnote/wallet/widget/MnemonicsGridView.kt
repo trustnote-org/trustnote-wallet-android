@@ -156,8 +156,13 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
     fun checkAllWord() {
         //TODO: Bug, the first cell cannot get latest text. strange?
         for (entry in editTextCache) {
+//            val oneWord = entry.value.text.toString()
+//            if (oneWord.length < 3 || (mMnemonicCheck[entry.key].isNotEmpty() && oneWord != mMnemonicCheck[entry.key])) {
+//                onCheckResult(false)
+//                return
+//            }
             val oneWord = entry.value.text.toString()
-            if (oneWord.length < 3 || (mMnemonicCheck[entry.key].isNotEmpty() && oneWord != mMnemonicCheck[entry.key])) {
+            if (!entry.value.isWordInBip38 || (mMnemonicCheck[entry.key].isNotEmpty() && oneWord != mMnemonicCheck[entry.key])) {
                 onCheckResult(false)
                 return
             }

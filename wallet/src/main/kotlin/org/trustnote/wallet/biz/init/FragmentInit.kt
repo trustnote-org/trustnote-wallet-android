@@ -229,6 +229,9 @@ class CWFragmentVerify : FragmentInit() {
         mnemonicsGrid.setCheckMnemonic(CreateWalletModel.tmpMnemonic)
         mnemonicsGrid.onCheckResult = {
             AndroidUtils.enableBtn(btnBackupConfirm, it)
+            if (it) {
+                getMyActivity().closeKeyboard()
+            }
         }
 
 //                if (Utils.isUseTestData()) {
@@ -302,6 +305,11 @@ class CWFragmentRestore : FragmentInit() {
         mnemonicsGrid.onCheckResult = {
             AndroidUtils.enableBtn(btnRestore, it)
             AndroidUtils.enableBtn(btnRestoreRemove, it)
+
+            if (it) {
+                getMyActivity().closeKeyboard()
+            }
+
         }
 
         if (Utils.isUseTestData()) {
