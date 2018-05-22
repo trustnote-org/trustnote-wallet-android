@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        style="@style/t_layout">
+    <RelativeLayout style="@style/t_layout">
 
         <ImageView
             android:id="@+id/mnemonic_devicename_icon"
@@ -27,7 +26,6 @@
 
         <org.trustnote.wallet.widget.ClearableEditText
             android:id="@+id/mnemonic_devicename_edit_text"
-            android:maxLength="20"
             style="@style/t_pwd"
             android:layout_below="@id/mnemonic_devicename_msg"
             android:hint="@string/mnemonic_devicename_hint"

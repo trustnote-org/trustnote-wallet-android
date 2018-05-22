@@ -123,13 +123,13 @@ class CWFragmentDeviceName : FragmentInit() {
 
         val btnConfirm = mRootView.findViewById<Button>(R.id.mnemonic_devicename_confirm)
 
-        if (s.length >= 20) {
+        if (s.length > 20) {
             err.visibility = View.VISIBLE
         } else {
             err.visibility = View.INVISIBLE
         }
 
-        if (s.trim().isBlank() || s.length >= 20) {
+        if (s.trim().isBlank() || s.length > 20) {
             AndroidUtils.disableBtn(btnConfirm)
         } else {
             AndroidUtils.enableBtn(btnConfirm)
