@@ -16,6 +16,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MyTextWatcher
 
@@ -67,7 +68,7 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
         button = view.findViewById<Button>(R.id.create_wallet_normal_btn)
 
         button.setOnClickListener {
-            Utils.runInbackground { WalletManager.model.newWallet(editText.text.toString()) }
+            MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newWallet(editText.text.toString()) }
             activity.onBackPressed()
         }
     }
@@ -96,11 +97,11 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         return R.layout.f_main_create_wallet_observe
     }
 
-    lateinit var textView: TextView
-    lateinit var btn: Button
-    var scanResultStr = ""
-    var myQrCode = ""
-    var observerAddress = ""
+    private lateinit var textView: TextView
+    private lateinit var btn: Button
+    private var scanResultStr = ""
+    private var myQrCode = ""
+    private var observerAddress = ""
 
     override fun initFragment(view: View) {
         super.initFragment(view)
@@ -125,7 +126,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
             FragmentDialogCreateObserverQR.showMe(myQrCode, activity, {
                 FragmentDialogCreateObserverFinish.showMe(activity, {
 
-                    Utils.runInbackground {
+                    MyThreadManager.instance.runJSInNonUIThread {
                         WalletManager.model.newObserveWallet(scanResultStr)
                     }
                     observerAddress = it
@@ -150,7 +151,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         val jsonObj = WalletManager.model.parseObserverScanResult(scanResultStr)
         textView.text = jsonObj.get("pub")?.asString
 
-        Utils.runInbackground {
+        MyThreadManager.instance.runJSInNonUIThread {
             myQrCode = WalletManager.model.genColdScancodeFromWalletId(scanResultStr)
         }
     }

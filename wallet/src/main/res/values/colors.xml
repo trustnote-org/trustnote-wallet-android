@@ -56,5 +56,8 @@
 
     <color name="tx_red">#E33B1B</color>
 
+    <color name="tag_observer_wallet_line">#F6782F</color>
+    <color name="tag_observer_wallet_bg">#FFF8F4</color>
 
+    #F6782F 100%
 </resources>

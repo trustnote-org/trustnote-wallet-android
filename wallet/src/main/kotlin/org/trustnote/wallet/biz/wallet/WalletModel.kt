@@ -184,6 +184,7 @@ class WalletModel() {
         res.walletId = walletId
         res.walletName = walletTitle
         res.xPubKey = walletPubKey
+        res.isLocal = true
         return res
     }
 

@@ -63,22 +63,6 @@ object Utils {
         Timber.d(clz.simpleName + msg)
     }
 
-    //TODO: Bug?? Thread Manager
-    fun computeThread(action: () -> Any) {
-        Thread {
-            action
-        }.start()
-    }
-
-    //TODO:
-    fun runInbackground(runnable: Runnable) {
-        Thread { runnable.run() }.start()
-    }
-
-    fun runInbackground(lam: () -> Unit) {
-        Thread { lam.invoke() }.start()
-    }
-
     fun generateRandomString(length: Int): String {
         //TODO: USE crypto alg.
         return "RANDOM:" + Random().nextInt()

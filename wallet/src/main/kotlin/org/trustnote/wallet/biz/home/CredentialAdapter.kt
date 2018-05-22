@@ -22,6 +22,7 @@ class CredentialAdapter(private val myDataset: Array<Credential>) :
         val ic: ImageView = holderView.findViewById(R.id.credential_ic)
         val title: TextView = holderView.findViewById(R.id.credential_title)
         val amount: TMnAmount = holderView.findViewById(R.id.credential_amount)
+        val observerTag: TextView = holderView.findViewById(R.id.credential_observer_tag)
 
         init {
             amount.setupStyle(true)
@@ -46,6 +47,8 @@ class CredentialAdapter(private val myDataset: Array<Credential>) :
         holder.ic.setImageResource(R.drawable.credential_icon)
         holder.title.text = myDataset[position].walletName
         holder.amount.setMnAmount(myDataset[position].balance)
+
+        holder.observerTag.visibility = if (myDataset[position].isLocal) View.VISIBLE else View.INVISIBLE
     }
 
     // Return the size of your dataset (invoked by the layout manager)

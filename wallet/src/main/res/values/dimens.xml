@@ -89,6 +89,7 @@
     <dimen name="credential_ic_size">46dp</dimen>
 
     <dimen name="text_20">20sp</dimen>
+    <dimen name="text_12">12sp</dimen>
 
     <dimen name="item_credential_height">86dp</dimen>
 

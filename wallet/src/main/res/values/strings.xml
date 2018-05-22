@@ -188,4 +188,6 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="MNEMONIC_BACKUP_WARNING1">建议手写或保存在离线设备中</string>
     <string name="MNEMONIC_BACKUP_WARNING2">建议创建完成钱包后立即恢复一次，以确保助记词正确</string>
 
+    <string name="tab_observer_wallet">观察</string>
+
 </resources>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Utils
 
 class SimpleFragment : FragmentBase() {
@@ -27,10 +28,10 @@ class SimpleFragment : FragmentBase() {
             if (walletName.isNullOrBlank()) {
                 Utils.toastMsg(R.string.wallet_new_msg_emptyname)
             } else {
-                Utils.runInbackground(Runnable {
+                MyThreadManager.instance.runJSInNonUIThread {
                     WalletManager.model.newWallet(walletName)
                     activity.finish()
-                })
+                }
             }
         }
 

@@ -40,7 +40,7 @@ class Credential {
     val derivationStrategy: String = TTT.HD_DERIVATION_STRATEGY
     var account: Int = 0
     var balance: Long = 0
-    val isLocal: Boolean = false
+    var isLocal: Boolean = false
 
     @Expose(serialize = false, deserialize = false)
     @Transient

@@ -8,11 +8,8 @@ import android.webkit.WebView
 import dagger.Lazy
 import org.trustnote.wallet.js.TWebView
 import org.trustnote.wallet.network.HubManager
-import org.trustnote.wallet.util.Prefs
-import org.trustnote.wallet.util.TimberFile
 import org.trustnote.wallet.biz.wallet.WalletModel
-import org.trustnote.wallet.util.AndroidUtils
-import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.util.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -76,8 +73,8 @@ class TApp : Application() {
 
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
 
-        Utils.runInbackground(Runnable {
+        MyThreadManager.instance.runInBack {
             AndroidUtils.readBip38List()
-        })
+        }
     }
 }

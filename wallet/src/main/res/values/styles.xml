@@ -179,7 +179,7 @@
         <item name="tabIndicatorColor">@color/t_blue</item>
     </style>
 
-    <style name="popupMenuStyle" >
+    <style name="popupMenuStyle">
         <item name="android:divider">@color/home_line_middle</item>
         <item name="android:dividerHeight">@dimen/one_dp</item>
     </style>
@@ -187,4 +187,15 @@
     <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="t_observer_tag" parent="@style/t_text_base">
+        <item name="android:textColor">@color/tag_observer_wallet_line</item>
+        <item name="android:background">@drawable/bg_observer_tag</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>
