@@ -204,5 +204,19 @@ object Utils {
         return df.format(date)
     }
 
+    fun stringToJsonObject(str: String): JsonObject {
+        if (str.isBlank() || str.length < 4) {
+            return emptyJsonObject
+        }
+
+        try {
+            return Utils.getGson().fromJson(str, JsonObject::class.java)
+        } catch (ex: Exception) {
+            Utils.logW(ex.localizedMessage)
+        }
+        return emptyJsonObject
+
+    }
+
 }
 

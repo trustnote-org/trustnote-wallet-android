@@ -11,9 +11,11 @@ import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.google.gson.JsonObject
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.MyThreadManager
@@ -99,7 +101,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
 
     private lateinit var textView: TextView
     private lateinit var btn: Button
-    private var scanResultStr = ""
+    private lateinit var scanResultJson: JsonObject
     private var myQrCode = ""
     private var observerAddress = ""
 
@@ -127,13 +129,23 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
                 FragmentDialogCreateObserverFinish.showMe(activity, {
 
                     MyThreadManager.instance.runJSInNonUIThread {
-                        WalletManager.model.newObserveWallet(scanResultStr)
+                        createObserverWallet()
                     }
                     observerAddress = it
                     activity.onBackPressed()
                 })
             })
         }
+    }
+
+    private fun createObserverWallet() {
+
+        val index = scanResultJson.get("n")?.asInt
+        val pubkey = scanResultJson.get("pub")?.asString
+        val title = scanResultJson.get("name")?.asString
+
+        WalletManager.model.newObserveWallet(index ?: 0, pubkey ?: "", title ?: "")
+
     }
 
     override fun updateUI() {
@@ -147,13 +159,26 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
     }
 
     fun showScanResult(scanResultStr: String) {
-        this.scanResultStr = scanResultStr
-        val jsonObj = WalletManager.model.parseObserverScanResult(scanResultStr)
-        textView.text = jsonObj.get("pub")?.asString
+
+        textView.text = scanResultJson.get("pub")?.asString
 
         MyThreadManager.instance.runJSInNonUIThread {
-            myQrCode = WalletManager.model.genColdScancodeFromWalletId(scanResultStr)
+            myQrCode = genColdScancodeFromWalletId(scanResultJson)
         }
+    }
+
+    //    TTT: {
+    //        "type": "h1",
+    //        "id": "LYnW1wl8qHyHyWjoV2CYOlYhUvE3Gj1jh5tUEFzoMn0=",
+    //        "v": 1234
+    //    }
+    fun genColdScancodeFromWalletId(jsonObj: JsonObject): String {
+
+        val walletPubKey = jsonObj.getAsJsonPrimitive("pub")?.asString
+        val checkCode = jsonObj.getAsJsonPrimitive("v")?.asString
+        val walletId = JSApi().walletIDSync(walletPubKey ?: "")
+
+        return """TTT:{"type":"h1","id": "$walletId","v":${checkCode ?: ""}"""
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

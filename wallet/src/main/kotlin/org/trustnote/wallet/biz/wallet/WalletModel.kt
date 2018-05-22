@@ -246,12 +246,6 @@ class WalletModel() {
     }
 
     @Synchronized
-    fun newObserveWallet(scanStr: String) {
-        val json = parseObserverScanResult(scanStr)
-        newObserveWallet(json.get("n").asInt, json.get("pub").asString, json.get("name").asString)
-    }
-
-    @Synchronized
     fun newObserveWallet(walletIndex: Int, walletPubKey: String, walletTitle: String) {
         val newCredential = createObserveCredential(walletIndex, walletPubKey, walletTitle)
         mProfile.credentials.add(newCredential)
@@ -293,95 +287,6 @@ class WalletModel() {
         return res
     }
 
-    //    TTT: {
-    //        "type": "h1",
-    //        "id": "LYnW1wl8qHyHyWjoV2CYOlYhUvE3Gj1jh5tUEFzoMn0=",
-    //        "v": 1234
-    //    }
-    fun genColdScancodeFromWalletId(observeScanRes: String): String {
-        if (observeScanRes.isBlank() || observeScanRes.length < 4) {
-            return ""
-        }
-
-        try {
-            val jsonStr = observeScanRes.substring(4)
-
-            val jsonObj = Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
-
-            val walletPubKey = jsonObj.getAsJsonPrimitive("pub").asString
-
-            val checkCode = jsonObj.getAsJsonPrimitive("v").asString
-
-            val walletId = JSApi().walletIDSync(walletPubKey)
-
-            return """TTT:{"type":"h1","id": "$walletId","v":$checkCode}"""
-
-        } catch (ex: Exception) {
-            Utils.logW(ex.localizedMessage)
-        }
-        return ""
-    }
-
-    //    TTT: {
-    //        "type": "c1",
-    //        "name": "TTT",
-    //        "pub": "xpub6CiT96vM5krNhwFA4ro5nKJ6nq9WykFmAsP18jC1Aa3URb69rvUHw6uvU51MQPkMZQ6BLiC5C1E3Zbsm7Xob3FFhNHJkN3v9xuxfqFFKPP5",
-    //        "n": 0,
-    //        "v": 1234
-    //    }
-    fun parseObserverScanResult(scanStr: String): JsonObject {
-        if (scanStr.isBlank() || scanStr.length < 4) {
-            return JsonObject()
-        }
-
-        val jsonStr = scanStr.substring(4)
-
-        try {
-            return Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
-        } catch (ex: Exception) {
-            Utils.logW(ex.localizedMessage)
-        }
-        return JsonObject()
-
-    }
-
-    //    TTT: {
-    //        "type": "c2",
-    //        "addr": "0NEYV3ZCRAJYGJDS5UNN4EOZGNVZJXOLI",
-    //        "v": 1234
-    //    }
-    fun parseObserverAdd(scanStr: String): String {
-        if (scanStr.isBlank() || scanStr.length < 4) {
-            return ""
-        }
-
-        val jsonStr = scanStr.substring(4)
-
-        try {
-            val jsonObj = Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
-            return jsonObj.getAsJsonPrimitive("addr").asString
-        } catch (ex: Exception) {
-            Utils.logW(ex.localizedMessage)
-        }
-        return ""
-    }
-
-
-    fun isValidObserverAdd(scanStr: String): Boolean {
-        if (scanStr.isBlank() || scanStr.length < 4) {
-            return false
-        }
-
-        val jsonStr = scanStr.substring(4)
-
-        try {
-            val jsonObj = Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
-            return jsonObj.getAsJsonPrimitive("addr").asString.isNotEmpty()
-        } catch (ex: Exception) {
-            Utils.logW(ex.localizedMessage)
-        }
-        return false
-    }
 
 }
 

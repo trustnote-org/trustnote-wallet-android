@@ -16,9 +16,11 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import com.google.gson.JsonObject
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 
@@ -72,9 +74,23 @@ class FragmentDialogCreateObserverFinish() : DialogFragment() {
         return view
     }
 
+    //    TTT: {
+    //        "type": "c2",
+    //        "addr": "0NEYV3ZCRAJYGJDS5UNN4EOZGNVZJXOLI",
+    //        "v": 1234
+    //    }
+
+    //    TTT: {
+    //        "type": "c1",
+    //        "name": "TTT",
+    //        "pub": "xpub6CiT96vM5krNhwFA4ro5nKJ6nq9WykFmAsP18jC1Aa3URb69rvUHw6uvU51MQPkMZQ6BLiC5C1E3Zbsm7Xob3FFhNHJkN3v9xuxfqFFKPP5",
+    //        "n": 0,
+    //        "v": 1234
+    //    }
+
     fun showScanResult(scanResultStr: String) {
-        val addr: String = WalletManager.model.parseObserverAdd(scanResultStr)
-        editText.setText(addr)
+        val addr: String? = Utils.stringToJsonObject(scanResultStr).get("addr")?.asString
+        editText.setText(addr ?: "")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -110,6 +126,7 @@ class FragmentDialogCreateObserverFinish() : DialogFragment() {
 
         return dialog
     }
+
 
     companion object {
 
