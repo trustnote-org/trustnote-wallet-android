@@ -124,6 +124,10 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         btn.setOnClickListener {
             FragmentDialogCreateObserverQR.showMe(myQrCode, activity, {
                 FragmentDialogCreateObserverFinish.showMe(activity, {
+
+                    Utils.runInbackground {
+                        WalletManager.model.newObserveWallet(scanResultStr)
+                    }
                     observerAddress = it
                     activity.onBackPressed()
                 })
@@ -143,8 +147,8 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
 
     fun showScanResult(scanResultStr: String) {
         this.scanResultStr = scanResultStr
-        val walletPubkey = WalletManager.model.parseObserverScanResult(scanResultStr)
-        textView.text = walletPubkey
+        val jsonObj = WalletManager.model.parseObserverScanResult(scanResultStr)
+        textView.text = jsonObj.get("pub")?.asString
 
         Utils.runInbackground {
             myQrCode = WalletManager.model.genColdScancodeFromWalletId(scanResultStr)

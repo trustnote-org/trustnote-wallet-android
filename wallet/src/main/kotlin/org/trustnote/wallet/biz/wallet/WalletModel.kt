@@ -175,6 +175,19 @@ class WalletModel() {
 
     }
 
+    private fun createObserveCredential(walletIndex: Int, walletPubKey: String, walletTitle: String = TTT.firstWalletName): Credential {
+        val api = JSApi()
+        val walletId = Utils.decodeJsStr(api.walletIDSync(walletPubKey))
+
+        val res = Credential()
+        res.account = walletIndex
+        res.walletId = walletId
+        res.walletName = walletTitle
+        res.xPubKey = walletPubKey
+        return res
+    }
+
+
     private fun createNextCredential(profile: TProfile, credentialName: String = TTT.firstWalletName): Credential {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
@@ -227,6 +240,19 @@ class WalletModel() {
     @Synchronized
     fun newWallet(credentialName: String = TTT.firstWalletName) {
         val newCredential = createNextCredential(mProfile, credentialName)
+        mProfile.credentials.add(newCredential)
+        generateMoreAddressAndSave(newCredential)
+    }
+
+    @Synchronized
+    fun newObserveWallet(scanStr: String) {
+        val json = parseObserverScanResult(scanStr)
+        newObserveWallet(json.get("n").asInt, json.get("pub").asString, json.get("name").asString)
+    }
+
+    @Synchronized
+    fun newObserveWallet(walletIndex: Int, walletPubKey: String, walletTitle: String) {
+        val newCredential = createObserveCredential(walletIndex, walletPubKey, walletTitle)
         mProfile.credentials.add(newCredential)
         generateMoreAddressAndSave(newCredential)
     }
@@ -302,20 +328,19 @@ class WalletModel() {
     //        "n": 0,
     //        "v": 1234
     //    }
-    fun parseObserverScanResult(scanStr: String): String {
+    fun parseObserverScanResult(scanStr: String): JsonObject {
         if (scanStr.isBlank() || scanStr.length < 4) {
-            return ""
+            return JsonObject()
         }
 
         val jsonStr = scanStr.substring(4)
 
         try {
-            val jsonObj = Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
-            return jsonObj.getAsJsonPrimitive("pub").asString
+            return Utils.getGson().fromJson(jsonStr, JsonObject::class.java)
         } catch (ex: Exception) {
             Utils.logW(ex.localizedMessage)
         }
-        return ""
+        return JsonObject()
 
     }
 
