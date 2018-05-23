@@ -13,6 +13,7 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
 import org.trustnote.wallet.biz.home.FragmentMainWallet
+import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsAdd
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.debugui.EmptyFragment
 import org.trustnote.wallet.settings.FragmentMainMe
@@ -66,7 +67,9 @@ class MainActivity : BaseActivity() {
                 AndroidUtils.openDialog(this, R.layout.l_dialog_my_pairid_qr)
             }
 
-
+            R.id.action_contacts_add -> {
+                openLevel2Fragment(Bundle(), FragmentMsgsContactsAdd::class.java)
+            }
 
 
         }

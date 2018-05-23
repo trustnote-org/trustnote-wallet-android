@@ -90,6 +90,7 @@
 
     <dimen name="text_20">20sp</dimen>
     <dimen name="text_12">12sp</dimen>
+    <dimen name="text_10">10sp</dimen>
 
     <dimen name="item_credential_height">86dp</dimen>
 
@@ -103,5 +104,10 @@
     <dimen name="qr_width">160dp</dimen>
 
     <dimen name="contacts_empty_width">220dp</dimen>
+    <dimen name="bg_msg_icon_size">41dp</dimen>
+
+    <dimen name="text_18sp">18sp</dimen>
+    <dimen name="bg_msg_counter_size">15dp</dimen>
+
 
 </resources>

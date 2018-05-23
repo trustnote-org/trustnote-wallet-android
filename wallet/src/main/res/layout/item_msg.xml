@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/msg_icon"
+        android:layout_width="@dimen/bg_msg_icon_size"
+        android:layout_height="@dimen/bg_msg_icon_size"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/line_gap_16"
+        android:background="@drawable/bg_msg_icon_me"
+        android:textColor="@color/t_blue"
+        android:textSize="@dimen/text_18sp" />
+
+    <TextView
+        android:id="@+id/msg_contact_name"
+        style="@style/t_title"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/msg_icon"
+        android:text="@string/place_holder" />
+
+    <TextView
+        android:id="@+id/msg_last_msg"
+        style="@style/t_sub_title"
+        android:layout_alignLeft="@id/msg_contact_name"
+        android:layout_alignParentBottom="true"
+        android:text="@string/place_holder" />
+
+    <TextView
+        android:id="@+id/msg_time"
+        style="@style/t_text_base"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/place_holder" />
+
+    <TextView
+        android:id="@+id/msg_counter"
+        android:layout_width="@dimen/bg_msg_counter_size"
+        android:layout_height="@dimen/bg_msg_counter_size"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_msg_counter"
+        android:text="@string/place_holder_number"
+        android:textColor="@color/t_white"
+        android:textSize="@dimen/text_10" />
+</RelativeLayout>

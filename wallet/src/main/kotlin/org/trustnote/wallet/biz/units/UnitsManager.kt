@@ -56,6 +56,8 @@ class UnitsManager {
                     inputs.asset = asset
                     //TODO: check JS code.
                     inputs.address = units.authenfiers[0].address
+                    //TODO:
+                    //inputs.type = ""
                 }
 
                 outputArray.forEachIndexed { index, outputs ->

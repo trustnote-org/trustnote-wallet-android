@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <solid
+        android:color="@color/bg_msg_counter"/>
+    <size
+        android:width="@dimen/bg_msg_counter_size"
+        android:height="@dimen/bg_msg_counter_size"/>
+</shape>

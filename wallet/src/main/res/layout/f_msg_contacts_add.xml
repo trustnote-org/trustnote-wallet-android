@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_white"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_main">
+
+        <TextView
+            android:id="@+id/contacts_add_title"
+            style="@style/t_title"
+            android:paddingTop="@dimen/line_gap_32"
+            android:text="@string/contacts_add_title" />
+
+        <org.trustnote.wallet.widget.ScanLayout
+            android:id="@+id/contacts_add_scan_layoiut"
+            style="@style/t_layout"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/contacts_add_btn"
+            style="@style/t_btn_blue"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/contacts_add_btn" />
+
+    </RelativeLayout>
+</layout>

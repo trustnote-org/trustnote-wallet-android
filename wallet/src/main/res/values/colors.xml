@@ -59,5 +59,9 @@
     <color name="tag_observer_wallet_line">#F6782F</color>
     <color name="tag_observer_wallet_bg">#FFF8F4</color>
 
-    #F6782F 100%
+    <color name="bg_msg_icon_me">#EAF2FF</color>
+    <color name="bg_msg_icon_other">#FFF1DA</color>
+
+    <color name="bg_msg_counter">#FF4D46</color>
+
 </resources>

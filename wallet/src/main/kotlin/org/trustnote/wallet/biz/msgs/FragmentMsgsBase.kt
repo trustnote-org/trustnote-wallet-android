@@ -40,7 +40,26 @@ abstract class FragmentMsgsBase : FragmentBase() {
         disposables.clear()
     }
 
+
+    //TODO: DUP code.
     override fun setupToolbar() {
+        setHasOptionsMenu(true)
+
+        getMyActivity().getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
+
+        //getMyActivity().getSupportActionBar()!!.closeOptionsMenu()
+        //getMyActivity().supportActionBar!!.setHomeAsUpIndicator(TApp.smallIconBackHome)
+
+        getMyActivity().getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
+        getMyActivity().getSupportActionBar()!!.setDisplayShowHomeEnabled(true);
+
+        getMyActivity().mToolbar.setNavigationIcon(TApp.smallIconBackHome)
+        getMyActivity().mToolbar.setNavigationOnClickListener {
+            getMyActivity().onBackPressed()
+        }
+
+
+        getMyActivity().bottomNavigationView.visibility = View.INVISIBLE
 
     }
 
