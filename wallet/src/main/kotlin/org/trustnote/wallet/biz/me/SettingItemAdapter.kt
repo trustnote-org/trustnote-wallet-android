@@ -19,8 +19,8 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
     // Each data item is just a string in this case that is shown in a TextView.
     class ViewHolder(val holderView: View) : RecyclerView.ViewHolder(holderView) {
 
-        val ic: ImageView = holderView.findViewById(R.id.credential_ic)
-        val title: TextView = holderView.findViewById(R.id.credential_title)
+        val ic: ImageView = holderView.findViewById(R.id.setting_ic)
+        val title: TextView = holderView.findViewById(R.id.setting_title)
 
     }
 
@@ -30,6 +30,7 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
         // create a new view
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_setting, parent, false)
+
         // set the view's size, margins, paddings and layout parameters
         return ViewHolder(itemView)
     }
@@ -40,6 +41,10 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
         // - replace the contents of the view with that element
         //holder.ic.setImageResource(R.drawable.credential_icon)
         //holder.title.text = myDataset[position].walletName
+        holder.title.setText(myDataset[position].titleResId)
+        holder.holderView.setOnClickListener {
+            myDataset[position].lambda.invoke()
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

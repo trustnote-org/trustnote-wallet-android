@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout style="@style/t_layout">
+
+        <TextView
+            android:id="@+id/me_about_title"
+            style="@style/t_title"
+            android:layout_marginTop="@dimen/line_gap_48"
+            android:text="@string/setting_wallet_tools" />
+
+    </RelativeLayout>
+
+</layout>
