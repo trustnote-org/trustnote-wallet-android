@@ -1,5 +1,7 @@
 package org.trustnote.wallet.util
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -12,7 +14,10 @@ import org.trustnote.wallet.uiframework.BaseActivity
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.view.LayoutInflater
+import android.view.WindowManager
 import android.webkit.WebView
+import android.widget.PopupWindow
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -150,5 +155,29 @@ object AndroidUtils {
         val bitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
         bitmap.setPixels(pixels, 0, width, 0, 0, w, h)
         return bitmap
+    }
+
+
+    ///            val p = Utils.popupDisplay(activity)
+    //       p.showAsDropDown(button, -40, -780)
+
+    public fun  popupDisplay(activity: Activity) : PopupWindow
+    {
+
+        val popupWindow = PopupWindow(activity);
+
+        // inflate your layout or dynamically add view
+        val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        val  view = inflater.inflate(R.layout.item_field, null)
+
+
+        popupWindow.setFocusable(true);
+        popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        popupWindow.setContentView(view);
+
+        return popupWindow;
+
     }
 }

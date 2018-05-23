@@ -42,12 +42,12 @@ class FragmentMainWalletTxDetail : FragmentMainBase() {
                 sender.setField(R.string.tx_sender, tx.arrPayerAddresses.joinToString{
                     "$it\n"
                 })
-                receiver.setField(R.string.tx_receiver, tx.addressTo)
+                receiver.setField(R.string.tx_receiver, tx.myAddress)
             }
             else -> {
                 amountTitle.setText(R.string.tx_detial_sender_title)
-                sender.setField(R.string.tx_receiver, tx.myAddress)
-                receiver.setField(R.string.tx_receiver, tx.fee.toString())
+                sender.setField(R.string.tx_receiver, tx.addressTo)
+                receiver.setField(R.string.tx_fee, Utils.getFeeAsString(tx.fee))
             }
         }
 

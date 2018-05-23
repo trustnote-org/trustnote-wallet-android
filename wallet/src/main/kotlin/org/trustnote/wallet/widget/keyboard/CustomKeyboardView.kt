@@ -33,6 +33,7 @@ class CustomKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(c
 
 }
 
+//TODO: UI design will support below resource soon.
 //mTargetView.setOnTouchListener(object : View.OnTouchListener {
 //
 //    override fun onTouch(v: View, event: MotionEvent): Boolean {

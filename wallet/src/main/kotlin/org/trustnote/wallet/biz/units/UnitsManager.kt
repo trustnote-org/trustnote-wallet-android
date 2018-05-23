@@ -46,16 +46,21 @@ class UnitsManager {
 
                 val outputArray = Utils.parseChild(message, message.json, Outputs::class.java.canonicalName, "payload", "outputs") as List<Outputs>
 
+
+                val asset = message?.json?.getAsJsonObject("payload")?.get("asset")?.asString
+
                 inputArray.forEachIndexed { index, inputs ->
                     inputs.unit = units.unit
                     inputs.messageIndex = message.messageIndex
                     inputs.inputIndex = index
+                    inputs.asset = asset
                     //TODO: check JS code.
                     inputs.address = units.authenfiers[0].address
                 }
 
                 outputArray.forEachIndexed { index, outputs ->
                     outputs.unit = units.unit;outputs.messageIndex = message.messageIndex; outputs.outputIndex = index
+                    outputs.asset = asset
                 }
 
                 message.payload.inputs = inputArray

@@ -5,6 +5,8 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.js.JSApi
@@ -34,6 +36,9 @@ class MnemonicAutoCompleteTextView constructor(context: Context, attrs: Attribut
 
             override fun afterTextChanged(s: Editable?) {
                 isWordInBip38 = wordList.contains(text.toString())
+                if (isWordInBip38) {
+                    focusNextWord()
+                }
             }
 
         })
@@ -48,5 +53,12 @@ class MnemonicAutoCompleteTextView constructor(context: Context, attrs: Attribut
 
     var isWordInBip38 = false
 
+
+    fun focusNextWord() {
+
+        if (nextFocusForwardId != 0 && parent != null) {
+            (parent as ViewGroup).findViewById<View>(nextFocusForwardId).requestFocus()
+        }
+    }
 
 }

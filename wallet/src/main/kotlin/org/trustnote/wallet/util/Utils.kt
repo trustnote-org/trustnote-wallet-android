@@ -1,7 +1,12 @@
 package org.trustnote.wallet.util
 
+import android.app.Activity
+import android.content.Context
 import android.net.NetworkInfo
 import android.os.Environment
+import android.view.LayoutInflater
+import android.view.WindowManager
+import android.widget.PopupWindow
 import android.widget.Toast
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
@@ -20,6 +25,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import com.google.gson.JsonObject
 import org.trustnote.wallet.BuildConfig
+import org.trustnote.wallet.R
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.wallet.TProfile
 import java.io.File
 import java.text.SimpleDateFormat
@@ -204,19 +211,24 @@ object Utils {
         return df.format(date)
     }
 
-    fun stringToJsonObject(str: String): JsonObject {
+    fun scanStringToJsonObject(str: String): JsonObject {
         if (str.isBlank() || str.length < 4) {
             return emptyJsonObject
         }
 
         try {
-            return Utils.getGson().fromJson(str, JsonObject::class.java)
+            return Utils.getGson().fromJson(str.substring(4), JsonObject::class.java)
         } catch (ex: Exception) {
             Utils.logW(ex.localizedMessage)
         }
         return emptyJsonObject
 
     }
+
+    fun getFeeAsString(fee: Long): String {
+        return String.format("%.6f", fee.toFloat()/ TTT.w_coinunitValue)
+    }
+
 
 }
 

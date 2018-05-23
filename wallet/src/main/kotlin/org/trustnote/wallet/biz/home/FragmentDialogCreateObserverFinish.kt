@@ -16,11 +16,8 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
-import com.google.gson.JsonObject
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
-import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 
@@ -89,7 +86,7 @@ class FragmentDialogCreateObserverFinish() : DialogFragment() {
     //    }
 
     fun showScanResult(scanResultStr: String) {
-        val addr: String? = Utils.stringToJsonObject(scanResultStr).get("addr")?.asString
+        val addr: String? = Utils.scanStringToJsonObject(scanResultStr).get("addr")?.asString
         editText.setText(addr ?: "")
     }
 

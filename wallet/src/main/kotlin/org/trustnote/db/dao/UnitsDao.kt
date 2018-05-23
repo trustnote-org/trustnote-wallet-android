@@ -86,10 +86,10 @@ abstract class UnitsDao {
     @Query("""
         SELECT outputs.address, COALESCE(outputs.asset, 'base') as asset, sum(outputs.amount) as amount
         FROM outputs, my_addresses
-        WHERE outputs.address = my_addresses.address
+        WHERE outputs.address = my_addresses.address and outputs.asset IS NULL
         AND my_addresses.wallet = :walletId
         AND outputs.is_spent=0
-        GROUP BY outputs.address, outputs.asset
+        GROUP BY outputs.address
         ORDER BY my_addresses.address_index ASC
         """)
     abstract fun queryBalance(walletId: String): Array<Balance>
@@ -98,7 +98,7 @@ abstract class UnitsDao {
         FROM outputs JOIN inputs ON outputs.unit=inputs.src_unit
         AND outputs.message_index=inputs.src_message_index
         AND outputs.output_index=inputs.src_output_index
-        WHERE is_spent=0
+        WHERE is_spent=0 and outputs.asset IS NULL and inputs.asset IS NULL
         """)
     abstract fun querySpentOutputs(): Array<Outputs>
 
@@ -116,7 +116,7 @@ abstract class UnitsDao {
         FROM units
         JOIN outputs USING(unit)
         JOIN my_addresses USING(address)
-        WHERE wallet= :walletId
+        WHERE wallet= :walletId and asset IS NULL
         GROUP BY unit, address
         UNION
         SELECT unit, level, is_stable, sequence, address, units.creation_date as ts,
@@ -125,7 +125,7 @@ abstract class UnitsDao {
         FROM units
         JOIN inputs USING(unit)
         JOIN my_addresses USING(address)
-        WHERE wallet= :walletId
+        WHERE wallet= :walletId and asset IS NULL
         ORDER BY ts DESC
         """)
     abstract fun queryTxUnits(walletId: String): Array<TxUnits>

@@ -75,6 +75,7 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
         }
     }
 
+
     override fun updateUI() {
         super.updateUI()
 
@@ -159,7 +160,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
     }
 
     fun showScanResult(scanResultStr: String) {
-
+        scanResultJson = Utils.scanStringToJsonObject(scanResultStr)
         textView.text = scanResultJson.get("pub")?.asString
 
         MyThreadManager.instance.runJSInNonUIThread {
@@ -178,7 +179,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         val checkCode = jsonObj.getAsJsonPrimitive("v")?.asString
         val walletId = JSApi().walletIDSync(walletPubKey ?: "")
 
-        return """TTT:{"type":"h1","id": "$walletId","v":${checkCode ?: ""}"""
+        return """TTT:{"type":"h1","id": "$walletId","v":${checkCode ?: ""}}"""
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

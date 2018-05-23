@@ -8,6 +8,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TTT
 
 open class TMnAmount @JvmOverloads constructor(
         context: Context,
@@ -67,7 +68,7 @@ open class TMnAmount @JvmOverloads constructor(
 
     private fun updateUI() {
         amountView.text = """${if (txType == TxType.received) "+" else if (txType == TxType.sent) "-" else ""}${(amount / 1000000).toString()}."""
-        decimalView.text = (amount % 1000000).toString().padEnd(4, '0')
+        decimalView.text = (amount % TTT.w_coinunitValue).toString().padStart(6, '0').substring(0, 4)
 
     }
 

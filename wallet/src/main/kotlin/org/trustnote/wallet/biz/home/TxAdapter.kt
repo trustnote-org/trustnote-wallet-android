@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.db.Tx
+import org.trustnote.db.TxType
 import org.trustnote.wallet.R
 import org.trustnote.wallet.widget.TMnAmount
 import org.trustnote.wallet.util.Utils
@@ -44,11 +45,18 @@ class TxAdapter(private val myDataset: Array<Tx>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+
+        val tx = myDataset[position]
         holder.ic.setImageResource(R.drawable.credential_icon)
-        holder.addrress.text = Utils.formatAddressWithEllipse(myDataset[position].addressTo)
-        holder.txTime.text = Utils.formatTxTimestamp(myDataset[position].ts)
-        holder.amount.setupStyle(myDataset[position].txType)
-        holder.amount.setMnAmount(myDataset[position].amount)
+
+        if (tx.txType == TxType.received && tx.arrPayerAddresses.isNotEmpty()) {
+            holder.addrress.text = Utils.formatAddressWithEllipse(tx.arrPayerAddresses[0])
+        } else {
+            holder.addrress.text = Utils.formatAddressWithEllipse(tx.addressTo)
+        }
+        holder.txTime.text = Utils.formatTxTimestamp(tx.ts)
+        holder.amount.setupStyle(tx.txType)
+        holder.amount.setMnAmount(tx.amount)
     }
 
     // Return the size of your dataset (invoked by the layout manager)
