@@ -101,4 +101,7 @@
     <dimen name="field_unit_id_width">200dp</dimen>
     <dimen name="bg_qr_width">188dp</dimen>
     <dimen name="qr_width">160dp</dimen>
+
+    <dimen name="contacts_empty_width">220dp</dimen>
+
 </resources>

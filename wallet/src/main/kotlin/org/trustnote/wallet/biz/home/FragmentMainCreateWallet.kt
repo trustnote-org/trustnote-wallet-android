@@ -152,8 +152,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
     override fun updateUI() {
         super.updateUI()
         if (textView.text.toString().isBlank()) {
-            AndroidUtils.enableBtn(btn)
-            //AndroidUtils.disableBtn(btn)
+            AndroidUtils.disableBtn(btn)
         } else {
             AndroidUtils.enableBtn(btn)
         }

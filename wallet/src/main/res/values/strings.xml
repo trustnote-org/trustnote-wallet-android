@@ -191,4 +191,24 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
 
     <string name="tab_observer_wallet">观察</string>
 
+    <string name="contacts_title">联系人</string>
+    <string name="contacts_empty">没有联系人</string>
+    <string name="contacts_empty_msg">请点击右上角的“+”添加联系人</string>
+    <string name="contacts_mypair_scan_msg">使用其他设备扫描以下配对码，或将以下配对码发送给其他设备，加我好友</string>
+    <string name="contacts_mypair_scan_btn">复制配对码</string>
+
+    <string name="contacts_add_title">添加联系人</string>
+    <string name="contacts_add_pair_code">配对码</string>
+    <string name="contacts_add_hint">扫码或输入配对码</string>
+    <string name="contacts_add_btn">添加</string>
+    <string name="contacts_add_err">配对码有误，请检查后重试</string>
+    <string name="contacts_add_err_me">调皮，不能添加自己为好友</string>
+
+
+
+
+
+
+
+
 </resources>

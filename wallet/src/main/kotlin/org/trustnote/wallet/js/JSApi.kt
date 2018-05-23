@@ -4,6 +4,7 @@ import android.webkit.ValueCallback
 
 class JSApi {
 
+
     /**
      * 生成助记词
      * @method mnemonic
@@ -243,7 +244,6 @@ class JSApi {
     fun getTotalPayloadSizeSync(unit: String): String {
         return TWebView.sInstance.callJSSync("window.Client.getTotalPayloadSize($unit);")
     }
-
 
     //TODO: Cache the result.
     fun getBip38WordList(): List<String> {

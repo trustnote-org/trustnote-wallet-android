@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/contacts_empty_img"
+            android:src="@drawable/contacts_empty"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/contacts_empty_width"
+            android:layout_height="@dimen/contacts_empty_width" />
+        <TextView
+            android:id="@+id/contacts_empty_subtitle"
+            style="@style/t_sub_title"
+            android:layout_marginBottom="@dimen/line_gap_14"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/contacts_empty_img"
+            android:text="@string/contacts_empty" />
+
+        <TextView
+            android:id="@+id/contacts_empty_msg"
+            android:layout_centerHorizontal="true"
+            style="@style/t_text_msg"
+            android:layout_below="@id/contacts_empty_subtitle"
+            android:text="@string/contacts_empty_msg" />
+
+
+    </RelativeLayout>
+
+</layout>

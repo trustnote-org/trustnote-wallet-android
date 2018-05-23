@@ -11,6 +11,7 @@ class MyThreadManager {
     }
 
     private var jsExec = createExec("JSSYNC")
+    private var jsSyncInternal = createExec("JSSYNCINTERNAL")
     private var exec = createExec("ANOY", 1)
 
     fun runInBack(lambda: () -> Unit) {

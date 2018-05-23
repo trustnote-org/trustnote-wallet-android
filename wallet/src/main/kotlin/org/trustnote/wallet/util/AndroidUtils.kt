@@ -14,6 +14,9 @@ import org.trustnote.wallet.uiframework.BaseActivity
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.webkit.WebView
@@ -22,6 +25,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
+import org.trustnote.wallet.biz.FragmentDialogBase
 
 object AndroidUtils {
 
@@ -171,13 +175,38 @@ object AndroidUtils {
 
         val  view = inflater.inflate(R.layout.item_field, null)
 
-
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setContentView(view);
 
-        return popupWindow;
+        return popupWindow
 
     }
+
+    val KEY_DIALOG_FRAGMENT_TRANSACTION = "dialog"
+
+    fun getDialogFragmentTransaction(activity: FragmentActivity): FragmentTransaction {
+
+        val ft = activity.supportFragmentManager.beginTransaction()
+        val prev = activity.supportFragmentManager.findFragmentByTag(KEY_DIALOG_FRAGMENT_TRANSACTION)
+        if (prev != null) {
+            ft.remove(prev)
+        }
+
+        //ft.addToBackStack(null)
+        return ft
+    }
+
+    fun openDialog(activity: FragmentActivity, layoutId: Int, lambda: () -> Unit = {}) {
+        val f = FragmentDialogBase(layoutId)
+        showDialog(activity, f)
+    }
+
+    private fun showDialog(activity: FragmentActivity, dialogFragment: DialogFragment) {
+
+        dialogFragment.show(AndroidUtils.getDialogFragmentTransaction(activity), KEY_DIALOG_FRAGMENT_TRANSACTION)
+
+    }
+
 }
