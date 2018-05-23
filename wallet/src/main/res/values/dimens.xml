@@ -109,5 +109,8 @@
     <dimen name="text_18sp">18sp</dimen>
     <dimen name="bg_msg_counter_size">15dp</dimen>
 
+    <dimen name="icon_setting">26dp</dimen>
+    <dimen name="icon_setting_arrow">20dp</dimen>
+    <dimen name="icon_setting_arrow_margin">15dp</dimen>
 
 </resources>

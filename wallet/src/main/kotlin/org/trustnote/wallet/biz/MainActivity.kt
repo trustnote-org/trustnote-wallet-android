@@ -13,10 +13,10 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
 import org.trustnote.wallet.biz.home.FragmentMainWallet
+import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsAdd
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.debugui.EmptyFragment
-import org.trustnote.wallet.settings.FragmentMainMe
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
@@ -149,7 +149,7 @@ class MainActivity : BaseActivity() {
         //TODO: can we do cache?
         var newFragment: Fragment = EmptyFragment()
         when (menuItemId) {
-            R.id.menu_me -> newFragment = FragmentMainMe()
+            R.id.menu_me -> newFragment = FragmentMeMain()
             R.id.menu_wallet -> newFragment = FragmentMainWallet()
             R.id.menu_msg -> newFragment = FragmentMsgsContactsList()
         }

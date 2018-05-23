@@ -6,9 +6,6 @@
         android:layout_height="@dimen/item_credential_height"
         android:layout_marginLeft="@dimen/padding_main">
 
-        tx_bottom_line
-
-
         <ImageView
             android:id="@+id/tx_ic"
             android:layout_width="@dimen/credential_ic_size"
