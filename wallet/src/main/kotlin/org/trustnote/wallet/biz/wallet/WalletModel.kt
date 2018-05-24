@@ -11,20 +11,27 @@ import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.HubMsgFactory
+import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 class WalletModel() {
 
     lateinit var mProfile: TProfile
-    val mSubject: Subject<Boolean> = PublishSubject.create()
+
+    //TODO: debounce the events.
+
+    private val refreshingCredentials = LinkedBlockingQueue<Credential>()
+    private lateinit var refreshingWorker: ScheduledExecutorService
 
     init {
         if (Prefs.profileExist()) {
             mProfile = Prefs.readProfile()
-            profileUpdated()
-            loadDataFromDb()
+            startRefreshThread()
+            refreshAll()
         }
     }
 
@@ -38,36 +45,94 @@ class WalletModel() {
 
         profileUpdated()
 
-        Thread {
-//            checkAndGenPrivkey()
-//            DbHelper.dropWalletDB(mProfile.dbTag)
+        restoreBg()
+    }
 
-            //initFromMnemonic()
-        }.start()
+    fun destruct() {
+
+        HubManager.disconnect(mProfile.dbTag)
+        refreshingWorker.shutdownNow()
+        refreshingCredentials.clear()
+        //mWalletEventCenter.onComplete()
+
+    }
+
+    private fun restoreBg() {
+        MyThreadManager.instance.runWalletModelBg {
+            restore()
+        }
+    }
+
+    private fun restore() {
+        checkAndGenPrivkey()
+        DbHelper.dropWalletDB(mProfile.dbTag)
+        if (mProfile.credentials.isEmpty()) {
+            newAutoWallet()
+        }
+        refreshAll()
+    }
+
+    private fun refreshAll() {
+        mProfile.credentials.forEach {
+            refresh(it)
+        }
+    }
+
+    private fun refresh(credential: Credential) {
+        if (!refreshingCredentials.contains(credential)) {
+            refreshingCredentials.offer(credential)
+        }
     }
 
     private fun checkAndGenPrivkey() {
+        if (mProfile.xPrivKey.isEmpty()) {
+            mProfile.xPrivKey = JSApi().xPrivKeySync(mProfile.mnemonic)
+            mProfile.dbTag = mProfile.xPrivKey.takeLast(5)
+        }
     }
 
     fun profileExist(): Boolean {
         return Prefs.profileExist()
     }
 
-    private fun initFromMnemonic() {
+    private fun startRefreshThread() {
+        refreshingWorker = MyThreadManager.instance.newSingleThreadExecutor(this.toString())
+        refreshingWorker.execute {
+            while (true) {
+                refreshInternal(refreshingCredentials.take())
+            }
+        }
+    }
 
-        //TODO: At this moment, should clear all data in DB.
-        val api = JSApi()
-        val xPrivKey = api.xPrivKeySync(mProfile.mnemonic)
-        mProfile.xPrivKey = xPrivKey
+    private fun refreshInternal(credential: Credential) {
+        if (credential.isRemoved) {
+            return
+        }
 
+        readAddressFromDb(credential)
+
+        if (credential.myAddresses.isEmpty()) {
+            val newAddresses = generateNewAddress(credential)
+            DbHelper.saveWalletMyAddress(newAddresses)
+            readAddressFromDb(credential)
+        }
+
+        updateBalance(credential)
+
+        updateTxs(credential)
+
+        //TODO: notify for better UI experience.
         profileUpdated()
-        //TODO: think more.
-        HubManager.instance.reConnectHub()
 
-        monitorWallet()
-        createDefaultCredential()
+        updateUnitsFromHub(credential)
 
     }
+
+//        //TODO: think more.
+//        HubManager.instance.reConnectHub()
+//
+//        monitorWallet()
+
 
     private fun profileUpdated() {
 
@@ -75,32 +140,14 @@ class WalletModel() {
             mProfile.mnemonic = ""
         }
         Prefs.writeProfile(mProfile)
-        mSubject.onNext(true)
+
+        WalletManager.mWalletEventCenter.onNext(true)
     }
 
     fun removeMnemonicFromProfile() {
+        mProfile.removeMnemonic = true
         mProfile.mnemonic = ""
         profileUpdated()
-    }
-
-    private fun createDefaultCredential() {
-        newWallet(TTT.firstWalletName)
-    }
-
-    fun loadDataFromDb() {
-        //TODO: thread manager
-        Thread {
-            loadDataFromDbBg()
-            monitorWallet()
-        }.start()
-    }
-
-    private fun loadDataFromDbBg() {
-        mProfile.credentials.forEach {
-            loadMyAddress(it)
-            updateBalance(it)
-            updateTxs(it)
-        }
     }
 
     private fun updateBalance(credential: Credential) {
@@ -132,17 +179,30 @@ class WalletModel() {
         credential.txDetails.addAll(sortedRes)
     }
 
-    private fun loadMyAddress(credential: Credential) {
+    private fun readAddressFromDb(credential: Credential) {
         val addresses = DbHelper.queryAddressByWalletId(credential.walletId)
 
-        credential.myAddresses.clear()
-        credential.myAddresses.addAll(addresses)
+        credential.myAddresses = addresses.toSet()
 
-        credential.myReceiveAddresses.clear()
-        credential.myReceiveAddresses.addAll(addresses.filter { it.isChange == 0 })
+        credential.myReceiveAddresses = credential.myAddresses.filter { it.isChange == 0 }.toSet()
 
-        credential.myChangeAddresses.clear()
-        credential.myChangeAddresses.addAll(addresses.filter { it.isChange == 1 })
+        credential.myChangeAddresses = credential.myAddresses.filter { it.isChange == 1 }.toSet()
+
+    }
+
+
+    fun updateUnitsFromHub(credential: Credential) {
+
+        val witnesses = DbHelper.getMyWitnesses()
+        val addresses = DbHelper.queryAddressByWalletId(credential.walletId)
+
+        if (witnesses.isEmpty() || addresses.isEmpty()) {
+            return
+        }
+
+        val req = HubMsgFactory.getHistory(HubManager.instance.getCurrentHub(), witnesses, addresses)
+        HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(req)
+
     }
 
 //
@@ -150,7 +210,7 @@ class WalletModel() {
     fun monitorWallet() {
         DbHelper.monitorAddresses().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorAddresses")
-            hubRequestCurrentWalletTxHistory()
+            //hubRequestCurrentWalletTxHistory()
         }
 
         DbHelper.monitorUnits().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
@@ -162,30 +222,30 @@ class WalletModel() {
         DbHelper.monitorOutputs().delay(3L, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorOutputs")
             if (mProfile != null) {
-                loadDataFromDbBg()
+                //loadDataFromDbBg()
             }
         }
     }
 
-    private fun tryToReqMoreUnitsFromHub() {
-        mProfile.credentials.forEachIndexed { index, oneWallet ->
-            val isMore = DbHelper.shouldGenerateMoreAddress(oneWallet.walletId)
-            if (isMore) {
-                generateMoreAddressAndSave(oneWallet)
-            }
-        }
-
-        //TODO: java.util.NoSuchElementException: List is empty.
-        var lastWallet = mProfile.credentials.last()
-
-        if (lastWallet != null) {
-            val isMore = DbHelper.shouldGenerateNextWallet(lastWallet.walletId)
-            if (isMore) {
-                newWallet()
-            }
-        }
-
-    }
+//    private fun tryToReqMoreUnitsFromHub() {
+//        mProfile.credentials.forEachIndexed { index, oneWallet ->
+//            val isMore = DbHelper.shouldGenerateMoreAddress(oneWallet.walletId)
+//            if (isMore) {
+//                generateMoreAddressAndSave(oneWallet)
+//            }
+//        }
+//
+//        //TODO: java.util.NoSuchElementException: List is empty.
+//        var lastWallet = mProfile.credentials.last()
+//
+//        if (lastWallet != null) {
+//            val isMore = DbHelper.shouldGenerateNextWallet(lastWallet.walletId)
+//            if (isMore) {
+//                newWallet()
+//            }
+//        }
+//
+//    }
 
     private fun createObserveCredential(walletIndex: Int, walletPubKey: String, walletTitle: String = TTT.firstWalletName): Credential {
         val api = JSApi()
@@ -200,8 +260,7 @@ class WalletModel() {
         return res
     }
 
-
-    private fun createNextCredential(profile: TProfile, credentialName: String = TTT.firstWalletName): Credential {
+    private fun createNextCredential(profile: TProfile, credentialName: String = TTT.firstWalletName, isAuto: Boolean = true): Credential {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
         val walletPubKey = api.walletPubKeySync(profile.xPrivKey, walletIndex)
@@ -213,7 +272,7 @@ class WalletModel() {
         res.walletId = walletId
         res.walletName = walletTitle
         res.xPubKey = walletPubKey
-
+        res.isAuto = isAuto
         return res
     }
 
@@ -228,7 +287,7 @@ class WalletModel() {
         return max + 1
     }
 
-    private fun generateMyAddresses(credential: Credential, isChange: Int) {
+    private fun generateNewAddresses(credential: Credential, isChange: Int): List<MyAddresses> {
         val api = JSApi()
         val currentMaxAddress = DbHelper.getMaxAddressIndex(credential.walletId, isChange)
         val newAddressSize = if (currentMaxAddress == 0) TTT.walletAddressInitSize else TTT.walletAddressIncSteps
@@ -246,46 +305,43 @@ class WalletModel() {
             myAddress
         })
 
-        credential.myAddresses.addAll(res)
+        return res
 
     }
 
     @Synchronized
-    fun newWallet(credentialName: String = TTT.firstWalletName) {
-        val newCredential = createNextCredential(mProfile, credentialName)
+    private fun newAutoWallet(credentialName: String = TTT.firstWalletName, isAuto:Boolean = true) {
+        val newCredential = createNextCredential(mProfile, credentialName, isAuto = isAuto)
         mProfile.credentials.add(newCredential)
-        generateMoreAddressAndSave(newCredential)
+
+        refreshingCredentials.offer(newCredential)
+
+        profileUpdated()
+    }
+
+    @Synchronized
+    fun newManualWallet(credentialName: String = TTT.firstWalletName) {
+        newAutoWallet(credentialName, false)
     }
 
     @Synchronized
     fun newObserveWallet(walletIndex: Int, walletPubKey: String, walletTitle: String) {
         val newCredential = createObserveCredential(walletIndex, walletPubKey, walletTitle)
         mProfile.credentials.add(newCredential)
-        generateMoreAddressAndSave(newCredential)
-    }
-
-    private fun generateMoreAddressAndSave(newCredential: Credential) {
-        generateMyAddresses(newCredential, TTT.addressReceiveType)
-        generateMyAddresses(newCredential, TTT.addressChangeType)
-
-        DbHelper.saveWalletMyAddress(newCredential)
-
+        refreshingCredentials.offer(newCredential)
         profileUpdated()
     }
 
-    fun hubRequestCurrentWalletTxHistory() {
+    private fun generateNewAddress(newCredential: Credential): List<MyAddresses> {
+        val receiveAddresses = generateNewAddresses(newCredential, TTT.addressReceiveType)
+        val changeAddresses = generateNewAddresses(newCredential, TTT.addressReceiveType)
 
-        val witnesses = DbHelper.getMyWitnesses()
-        val addresses = DbHelper.getAllWalletAddress()
-
-        if (witnesses.isEmpty() || addresses.isEmpty()) {
-            return
-        }
-
-        val req = HubMsgFactory.getHistory(HubManager.instance.getCurrentHub(), witnesses, addresses)
-        HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(req)
-
+        val res = mutableListOf<MyAddresses>()
+        res.addAll(receiveAddresses)
+        res.addAll(changeAddresses)
+        return res.toList()
     }
+
 
     fun findNextUnusedChangeAddress(walletId: String): MyAddresses {
         var res = MyAddresses()
@@ -297,7 +353,6 @@ class WalletModel() {
         })
         return res
     }
-
 
 }
 

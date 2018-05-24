@@ -128,6 +128,8 @@ class MainActivity : BaseActivity() {
         // Commit the transaction
         transaction.commit()
 
+        bottomNavigationView.visibility = View.INVISIBLE
+
         //findViewById<View>(R.id.fragment_container).visibility = View.INVISIBLE
     }
 

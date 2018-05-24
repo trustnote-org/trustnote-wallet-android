@@ -28,7 +28,7 @@ abstract class FragmentMsgsBase : FragmentBase() {
 
         super.onResume()
 
-//        val d = WalletManager.model.mSubject.observeOn(AndroidSchedulers.mainThread()).subscribe {
+//        val d = WalletManager.model.mWalletEventCenter.observeOn(AndroidSchedulers.mainThread()).subscribe {
 //            updateUI()
 //        }
 //        disposables.add(d)

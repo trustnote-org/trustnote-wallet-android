@@ -28,7 +28,7 @@ abstract class FragmentMainBase : FragmentBase() {
 
         super.onResume()
 
-        val d = WalletManager.model.mSubject.observeOn(AndroidSchedulers.mainThread()).subscribe {
+        val d = WalletManager.mWalletEventCenter.observeOn(AndroidSchedulers.mainThread()).subscribe {
             updateUI()
         }
         disposables.add(d)
@@ -56,8 +56,6 @@ abstract class FragmentMainBase : FragmentBase() {
             getMyActivity().onBackPressed()
         }
 
-
-        getMyActivity().bottomNavigationView.visibility = View.INVISIBLE
 
     }
 

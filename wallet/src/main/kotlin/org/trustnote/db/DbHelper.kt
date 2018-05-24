@@ -5,8 +5,8 @@ import io.reactivex.Single
 import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.util.Utils
+import java.io.File
 
 @Suppress("UNCHECKED_CAST")
 object DbHelper {
@@ -15,7 +15,7 @@ object DbHelper {
         getDao().saveUnits(units)
     }
 
-    fun saveWalletMyAddress(credential: Credential) = saveWalletMyAddressInternal(credential)
+    fun saveWalletMyAddress(listAddress: List<MyAddresses>) = saveWalletMyAddressInternal(listAddress)
     fun saveMyWitnesses(myWitnesses: List<String>) {
         getDao().saveMyWitnesses(myWitnesses.mapToTypedArray {
             val res = MyWitnesses()
@@ -27,7 +27,6 @@ object DbHelper {
 
     fun getMyWitnesses(): Array<MyWitnesses> = getMyWitnessesInternal()
     fun getAllWalletAddress(walletId: String): Array<MyAddresses> = getAllWalletAddressInternal(walletId)
-    fun getAllWalletAddress(): Array<MyAddresses> = getAllWalletAddressInternal()
     fun monitorAddresses(): Observable<Array<MyAddresses>> = monitorAddressesInternal()
     fun monitorUnits(): Observable<Array<Units>> = monitorUnitsInternal()
     fun monitorOutputs(): Observable<Array<Outputs>> = monitorOutputsInternal()
@@ -68,7 +67,13 @@ object DbHelper {
         return getDao().queryUnusedChangeAddress(walletid)
     }
 
-    fun dropWalletDB(keyDb: String) {}
+    fun dropWalletDB(keyDb: String) {
+        val path = TApp.context.getDatabasePath("trustnote_$keyDb.db").path
+        val dbFile = File(path)
+        if (dbFile.exists()) {
+            dbFile.delete()
+        }
+    }
 
 }
 
@@ -104,19 +109,14 @@ fun getAllWalletAddressInternal(walletId: String): Array<MyAddresses> {
     return db.unitsDao().queryAllWalletAddress(walletId)
 }
 
-fun getAllWalletAddressInternal(): Array<MyAddresses> {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    return db.unitsDao().queryAllWalletAddress()
-}
-
 fun getMyWitnessesInternal(): Array<MyWitnesses> {
     val db = TrustNoteDataBase.getInstance(TApp.context)
     return db.unitsDao().queryMyWitnesses()
 }
 
-fun saveWalletMyAddressInternal(credential: Credential) {
+fun saveWalletMyAddressInternal(listAddress: List<MyAddresses>) {
     val db = TrustNoteDataBase.getInstance(TApp.context)
-    db.unitsDao().insertMyAddresses(credential.myAddresses.toTypedArray())
+    db.unitsDao().insertMyAddresses(listAddress.toTypedArray())
 }
 
 fun monitorAddressesInternal(): Observable<Array<MyAddresses>> {

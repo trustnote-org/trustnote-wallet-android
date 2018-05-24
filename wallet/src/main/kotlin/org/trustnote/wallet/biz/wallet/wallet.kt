@@ -26,6 +26,7 @@ class TProfile() {
     var dbTag: String = "db"
     var balance: Long = 0
     var removeMnemonic: Boolean = false
+    var isRestoreFinished: Boolean = false
 
 }
 
@@ -42,22 +43,23 @@ class Credential {
     var account: Int = 0
     var balance: Long = 0
     var isLocal: Boolean = false
+    var isAuto: Boolean = false
+    var isRemoved: Boolean = false
+
+    var txDetails: MutableList<Tx> = mutableListOf()
 
     @Expose(serialize = false, deserialize = false)
-    @Transient
-    var txDetails: MutableList<Tx> = mutableListOf()
-    @Expose(serialize = false, deserialize = false)
-    @Transient
+    @Transient  //TODO: Balance is not utxo
     var balanceDetails: List<Balance> = listOf()
     @Expose(serialize = false, deserialize = false)
     @Transient
-    val myAddresses: MutableSet<MyAddresses> = mutableSetOf()
+    var myAddresses = setOf<MyAddresses>()
     @Expose(serialize = false, deserialize = false)
     @Transient
-    val myReceiveAddresses: MutableSet<MyAddresses> = mutableSetOf()
+    var myReceiveAddresses = setOf<MyAddresses>()
     @Expose(serialize = false, deserialize = false)
     @Transient
-    val myChangeAddresses: MutableSet<MyAddresses> = mutableSetOf()
+    var myChangeAddresses = setOf<MyAddresses>()
 
     override fun toString(): String {
         var res = "WalletName: $walletName\n\rBalance: $balance\n\rTransactions: \n\r------------------------\n\r"
@@ -65,6 +67,10 @@ class Credential {
             res += it.toString() + "------------------------\n\r"
         }
         return res
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return (other is Credential && walletId == other.walletId)
     }
 }
 

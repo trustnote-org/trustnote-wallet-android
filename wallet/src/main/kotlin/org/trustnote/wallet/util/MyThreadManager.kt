@@ -10,16 +10,26 @@ class MyThreadManager {
         val instance = MyThreadManager()
     }
 
-    private var jsExec = createExec("JSSYNC")
+    private var jsNonUIExec = createExec("JSSYNC")
+    private var walletModelBg = createExec("WALLETMODEL_BG")
     private var jsSyncInternal = createExec("JSSYNCINTERNAL")
     private var exec = createExec("ANOY", 1)
+
+    fun newSingleThreadExecutor(threadTag: String): ScheduledExecutorService {
+        return createExec(threadTag)
+    }
 
     fun runInBack(lambda: () -> Unit) {
         exec.execute(lambda)
     }
 
+    fun runWalletModelBg(lambda: () -> Unit) {
+        walletModelBg.execute(lambda)
+    }
+
+
     fun runJSInNonUIThread(lambda: () -> Unit) {
-        jsExec.execute(lambda)
+        jsNonUIExec.execute(lambda)
     }
 
     private fun createExec(tag: String, poolSize: Int = 1): ScheduledExecutorService {

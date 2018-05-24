@@ -28,10 +28,10 @@ class SimpleFragment : FragmentBase() {
             if (walletName.isNullOrBlank()) {
                 Utils.toastMsg(R.string.wallet_new_msg_emptyname)
             } else {
-                MyThreadManager.instance.runJSInNonUIThread {
-                    WalletManager.model.newWallet(walletName)
-                    activity.finish()
-                }
+//                MyThreadManager.instance.runJSInNonUIThread {
+//                    WalletManager.model.newWallet(walletName)
+//                    activity.finish()
+//                }
             }
         }
 

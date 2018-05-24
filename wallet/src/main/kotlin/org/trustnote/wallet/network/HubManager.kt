@@ -20,6 +20,10 @@ class HubManager {
     companion object {
         @JvmStatic
         val instance = HubManager()
+
+        fun disconnect(dbTag: String) {
+            //TODO:
+        }
     }
 
 

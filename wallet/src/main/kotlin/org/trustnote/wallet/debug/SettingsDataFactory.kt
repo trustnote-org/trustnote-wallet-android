@@ -54,8 +54,8 @@ object SettingsDataFactory {
         res.add(testPostTx)
 
         val testHistory = SettingItem("Test: get_history, check res from log")
-        testHistory.action = Runnable { WalletManager.model.hubRequestCurrentWalletTxHistory() }
-        res.add(testHistory)
+//        testHistory.action = Runnable { WalletManager.model.hubRequestCurrentWalletTxHistory() }
+//        res.add(testHistory)
 
 
 //        val testJSSignWithDeviceMessageHash = SettingItem("testJSSignWithDeviceMessageHash", false)
@@ -90,7 +90,7 @@ object SettingsDataFactory {
     }
 
     private fun reqHistoryFromHub() {
-        WalletManager.model.hubRequestCurrentWalletTxHistory()
+//        WalletManager.model.hubRequestCurrentWalletTxHistory()
     }
 
 
