@@ -229,6 +229,8 @@ object Utils {
         return String.format("%.6f", fee.toFloat()/ TTT.w_coinunitValue)
     }
 
+    val emptyLambda = {}
+    val emptyString = ""
 
 }
 

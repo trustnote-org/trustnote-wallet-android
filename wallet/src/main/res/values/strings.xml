@@ -209,5 +209,17 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="setting_system">系统设置</string>
     <string name="setting_about">关于TrustNote</string>
 
+    <string name="setting_about_version">版本</string>
+    <string name="setting_about_hash">哈希值</string>
+    <string name="setting_about_tou">使用条款</string>
+
+    <string name="setting_system_language">语言</string>
+    <string name="setting_system_password">钱包密码</string>
+    <string name="setting_system_language_cn">简体中文</string>
+    <string name="setting_system_language_en">English</string>
+
+    <string name="setting_wallet_tools_backupmem">备份助记词</string>
+    <string name="setting_wallet_tools_restoremem">助记词恢复钱包</string>
+    <string name="setting_wallet_tools_fullsync">克隆钱包同步</string>
 
 </resources>

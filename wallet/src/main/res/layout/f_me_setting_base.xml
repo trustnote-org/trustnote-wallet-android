@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        style="@style/t_layout"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+    <RelativeLayout style="@style/t_layout">
+
+        <TextView
+            android:id="@+id/setting_title"
+            style="@style/t_title"
+            android:layout_marginBottom="@dimen/line_gap_48"
+            android:layout_marginTop="@dimen/line_gap_48"
+            android:text="@string/setting_system" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/setting_item_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/setting_title"
             android:scrollbars="vertical" />
 
     </RelativeLayout>

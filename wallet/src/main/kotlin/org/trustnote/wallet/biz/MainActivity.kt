@@ -110,21 +110,25 @@ class MainActivity : BaseActivity() {
 
     fun openLevel2Fragment(bundle: Bundle, clz: Class<out FragmentBase>) {
 
-        // Create new fragment and transaction
         val newFragment = clz.newInstance()
         newFragment.arguments = bundle
+        openLevel2Fragment(newFragment)
+
+    }
+
+    fun openLevel2Fragment(f: FragmentBase) {
+
         val transaction = supportFragmentManager.beginTransaction()
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
-        transaction.replace(R.id.fragment_level2, newFragment)
+        transaction.replace(R.id.fragment_level2, f)
         transaction.addToBackStack(null)
 
         // Commit the transaction
         transaction.commit()
 
         //findViewById<View>(R.id.fragment_container).visibility = View.INVISIBLE
-
     }
 
     override fun onResume() {
