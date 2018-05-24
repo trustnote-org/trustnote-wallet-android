@@ -4,7 +4,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.debug.FragmentMeDebug
 import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.util.Utils
 
 class FragmentMeMain : FragmentBase() {
 
@@ -18,9 +20,23 @@ class FragmentMeMain : FragmentBase() {
         val recyclerView = mRootView.findViewById<RecyclerView>(R.id.setting_item_list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        val a = SettingItemAdapter(SettingItem.getSettingMain(activity as MainActivity))
+        val fullMainSettings = mutableListOf<SettingItem>()
+        var settingsMain = SettingItem.getSettingMain(activity as MainActivity)
+        fullMainSettings.addAll(settingsMain.toList())
 
-        recyclerView.adapter = a
+        if (Utils.isUseDebugOption()) {
+
+            val debugSettings = SettingItem(titleResId = R.string.menu_debug,
+                    lambda = {
+                        val f = FragmentMeDebug()
+                        (activity as MainActivity).openLevel2Fragment(f)
+                    })
+
+            fullMainSettings.add(debugSettings)
+
+        }
+
+        recyclerView.adapter = SettingItemAdapter(fullMainSettings.toTypedArray())
 
     }
 }

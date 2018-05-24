@@ -68,6 +68,8 @@ object DbHelper {
         return getDao().queryUnusedChangeAddress(walletid)
     }
 
+    fun dropWalletDB(keyDb: String) {}
+
 }
 
 fun getDao(): UnitsDao {

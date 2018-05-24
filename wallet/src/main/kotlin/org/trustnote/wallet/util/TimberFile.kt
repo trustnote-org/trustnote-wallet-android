@@ -16,7 +16,7 @@ class TimberFile(private val context: Context) : Timber.DebugTree() {
 
         try {
 
-            val direct = File(Utils.getMySdcardDirectory(), "ttt_log")
+            val direct = File(AndroidUtils.getMySdcardDirectory(), "ttt_log")
 
             if (!direct.exists()) {
                 direct.mkdir()

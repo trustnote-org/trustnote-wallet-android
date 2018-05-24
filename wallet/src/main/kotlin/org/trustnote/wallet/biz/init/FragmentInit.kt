@@ -1,9 +1,7 @@
 package org.trustnote.wallet.biz.init
 
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
@@ -20,7 +18,6 @@ import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
-
 
 abstract class FragmentInit : FragmentBase() {
 
@@ -47,7 +44,6 @@ abstract class FragmentInit : FragmentBase() {
             }, 150)
         }
     }
-
 
     open fun onBackPressed() {
         getMyActivity().finish()
@@ -234,7 +230,7 @@ class CWFragmentVerify : FragmentInit() {
             }
         }
 
-//                if (Utils.isUseTestData()) {
+//                if (Utils.isUseDebugOption()) {
 //                    mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
 //                }
 
@@ -279,7 +275,6 @@ class CWFragmentRemove : FragmentInit() {
 
 }
 
-
 class CWFragmentRestore : FragmentInit() {
 
     lateinit var mnemonicsGrid: MnemonicsGridView
@@ -312,7 +307,7 @@ class CWFragmentRestore : FragmentInit() {
 
         }
 
-        if (Utils.isUseTestData()) {
+        if (Utils.isUseDebugOption()) {
             mnemonicsGrid.setMnemonic(TestData.mnemonic0, true)
         }
 
@@ -322,14 +317,16 @@ class CWFragmentRestore : FragmentInit() {
 
     private fun checkMnemonicAndForward(isRemove: Boolean) {
         val mnemonics = mnemonicsGrid.getUserInputMnemonic()
-        JSApi().isMnemonicValid(mnemonics) {
-            if (it) {
-                CreateWalletModel.iamDone(mnemonics, isRemove)
+
+        JSApi().xPrivKey(mnemonics, ValueCallback {
+            if (it.isNotEmpty() && "0" != it) {
+                CreateWalletModel.iamDone(mnemonics, isRemove, it)
                 getMyActivity().iamDone()
             } else {
                 mnemonicsGrid.showErr()
             }
-        }
+        })
+
     }
 
     override fun onBackPressed() {

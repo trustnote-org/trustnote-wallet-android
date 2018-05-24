@@ -35,12 +35,6 @@ class JSApi {
         return TWebView.sInstance.callJSSync("""window.Client.xPrivKey("$mnemonic");""")
     }
 
-    fun isMnemonicValid(mnemonic: String, cb: (Boolean) -> Unit) {
-        xPrivKey(mnemonic, ValueCallback {
-            cb("0" != it && it.length > 3)
-        })
-    }
-
     /**
      * 生成根公钥
      * @method xPubKey

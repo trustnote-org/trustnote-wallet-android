@@ -1,7 +1,6 @@
-package org.trustnote.wallet.settings
+package org.trustnote.wallet.debug
 
 import android.webkit.ValueCallback
-import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.biz.init.CreateWalletActivity
 
 import org.trustnote.wallet.js.JSApi
@@ -10,6 +9,7 @@ import org.trustnote.wallet.tttui.QRFragment
 import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.biz.wallet.*
 import org.trustnote.wallet.js.restoreWallet
+import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 
 import java.util.ArrayList
@@ -18,13 +18,14 @@ import java.util.Arrays
 object SettingsDataFactory {
 
     val GROUP_TEST = "Test"
+    val GROUP_TEST_OPTION = "Test Option"
     val GROUP_WALLET = "Wallet management"
     val GROUP_MNEMONIC = "Restore Test"
 
     fun makeSettings(): List<SettingGroup> {
-        if (Utils.isUseTestData()) {
+        if (Utils.isUseDebugOption()) {
             return Arrays.asList(makeTestGroup(),
-                    makeWalletGroup(), makeSeedsGroup())
+                    makeWalletGroup(), makeSeedsGroup(), makeDebugOptionGroup())
         } else {
             return Arrays.asList(makeTestGroup(),
                     makeWalletGroup())
@@ -130,6 +131,10 @@ object SettingsDataFactory {
         return SettingGroup(GROUP_MNEMONIC, makeSeedsTestCase())
     }
 
+    fun makeDebugOptionGroup(): SettingGroup {
+        return SettingGroup(GROUP_TEST_OPTION, makeDebugOption())
+    }
+
     fun makeSeedsTestCase(): List<SettingItem> {
 
         val res = ArrayList<SettingItem>()
@@ -153,5 +158,28 @@ object SettingsDataFactory {
         return res
     }
 
+
+    fun makeDebugOption(): List<SettingItem> {
+
+        val res = ArrayList<SettingItem>()
+
+        if (WalletManager.isExist()) {
+
+            val disablePwd = SettingItem("下次启动时，不用输入密码", true)
+            disablePwd.action = Runnable {
+                Prefs.writeEnablepwdForStartup(false)
+            }
+            res.add(disablePwd)
+
+            val opt2 = SettingItem("下次启动时，必须输入密码", true)
+            opt2.action = Runnable {
+                Prefs.writeEnablepwdForStartup(true)
+            }
+            res.add(opt2)
+
+        }
+
+        return res
+    }
 }
 

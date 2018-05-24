@@ -23,7 +23,7 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <!--<string name="menu_me">Me</string>-->
 
     <!--Debug related-->
-    <string name="menu_debug">Debug</string>
+    <string name="menu_debug">诊断调试</string>
     <string name="coming_soon">Coming soon&#8230;</string>
 
     <!-- Maybe useless code, just keep it for compilation -->

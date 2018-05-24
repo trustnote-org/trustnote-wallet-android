@@ -15,8 +15,8 @@ object WalletManager {
         }
     }
 
-    fun getDbKey(): String {
-        return model.mProfile.keyDb
+    fun getCurrentWalletDbTag(): String {
+        return model.mProfile.dbTag
     }
 
     fun getProfile(): TProfile {
@@ -27,8 +27,8 @@ object WalletManager {
 //        model = WalletModel(Prefs.getTmpMnemonic(), removeMnemonic)
 //    }
 
-    fun initWithMnemonic(mnemonic: String, removeMnemonic: Boolean) {
-        model = WalletModel(mnemonic, removeMnemonic)
+    fun initWithMnemonic(mnemonic: String, removeMnemonic: Boolean, privKey: String = "") {
+        model = WalletModel(mnemonic, removeMnemonic, privKey)
     }
 
 //    fun getTmpMnemonic(): String {

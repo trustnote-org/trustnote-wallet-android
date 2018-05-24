@@ -23,8 +23,9 @@ class TProfile() {
     var ecdsaPubkey: String = ""
     var currentWalletIndex: Int = 0
     var mnemonicType: MNEMONIC_TYPE = MNEMONIC_TYPE.UNKNOWN
-    var keyDb: String = "db"
+    var dbTag: String = "db"
     var balance: Long = 0
+    var removeMnemonic: Boolean = false
 
 }
 

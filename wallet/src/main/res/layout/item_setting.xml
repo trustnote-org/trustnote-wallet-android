@@ -11,7 +11,7 @@
             android:id="@+id/setting_ic"
             android:layout_width="@dimen/icon_setting"
             android:layout_height="@dimen/icon_setting"
-            android:paddingLeft="@dimen/padding_main"
+            android:layout_marginLeft="@dimen/padding_main"
             android:scaleType="fitXY"
             android:src="@drawable/icon_setting_about" />
 

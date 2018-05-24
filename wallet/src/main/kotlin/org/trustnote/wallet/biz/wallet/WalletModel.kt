@@ -1,6 +1,5 @@
 package org.trustnote.wallet.biz.wallet
 
-import com.google.gson.JsonObject
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
@@ -8,11 +7,10 @@ import io.reactivex.subjects.Subject
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.HubMsgFactory
-import org.trustnote.wallet.biz.tx.TxParser
-import org.trustnote.wallet.network.pojo.HubMsg
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
@@ -30,15 +28,25 @@ class WalletModel() {
         }
     }
 
-    constructor(mnemonic: String, shouldRemoveMnemonic: Boolean) : this() {
+    constructor(mnemonic: String, shouldRemoveMnemonic: Boolean, privKey: String) : this() {
         mProfile = TProfile()
-        if (!shouldRemoveMnemonic) {
-            mProfile.mnemonic = mnemonic
-        }
-        //TODO: thread manager
+        mProfile.mnemonic = mnemonic
+        mProfile.removeMnemonic = shouldRemoveMnemonic
+
+        mProfile.xPrivKey = privKey
+        mProfile.dbTag = privKey.takeLast(5)
+
+        profileUpdated()
+
         Thread {
-            initFromMnemonic()
+//            checkAndGenPrivkey()
+//            DbHelper.dropWalletDB(mProfile.dbTag)
+
+            //initFromMnemonic()
         }.start()
+    }
+
+    private fun checkAndGenPrivkey() {
     }
 
     fun profileExist(): Boolean {
@@ -51,7 +59,6 @@ class WalletModel() {
         val api = JSApi()
         val xPrivKey = api.xPrivKeySync(mProfile.mnemonic)
         mProfile.xPrivKey = xPrivKey
-        mProfile.keyDb = xPrivKey.hashCode().toString()
 
         profileUpdated()
         //TODO: think more.
@@ -63,6 +70,10 @@ class WalletModel() {
     }
 
     private fun profileUpdated() {
+
+        if (mProfile.removeMnemonic) {
+            mProfile.mnemonic = ""
+        }
         Prefs.writeProfile(mProfile)
         mSubject.onNext(true)
     }
@@ -144,7 +155,7 @@ class WalletModel() {
 
         DbHelper.monitorUnits().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorUnits")
-            tryToReqMoreUnitsFromHub()
+            //TODO: tryToReqMoreUnitsFromHub()
             DbHelper.fixIsSpentFlag()
         }
 
@@ -164,6 +175,7 @@ class WalletModel() {
             }
         }
 
+        //TODO: java.util.NoSuchElementException: List is empty.
         var lastWallet = mProfile.credentials.last()
 
         if (lastWallet != null) {
@@ -281,7 +293,6 @@ class WalletModel() {
                 Consumer {
                     res = it
                 }, Consumer {
-            //Issue and save new address.
 
         })
         return res

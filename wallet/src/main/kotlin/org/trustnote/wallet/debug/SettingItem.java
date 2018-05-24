@@ -1,4 +1,4 @@
-package org.trustnote.wallet.settings;
+package org.trustnote.wallet.debug;
 
 import android.os.Parcel;
 import android.os.Parcelable;

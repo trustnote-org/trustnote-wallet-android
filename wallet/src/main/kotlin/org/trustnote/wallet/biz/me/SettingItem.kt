@@ -2,6 +2,7 @@ package org.trustnote.wallet.biz.me
 
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.debug.FragmentMeDebug
 import org.trustnote.wallet.util.Utils
 
 class SettingItem(var icResId: Int = R.drawable.logo,
@@ -28,7 +29,6 @@ class SettingItem(var icResId: Int = R.drawable.logo,
                             lambda = {
                                 openSubSetting(activity, getSettingAbout(activity), R.string.setting_about)
                             })
-
             )
         }
 

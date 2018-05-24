@@ -1,15 +1,15 @@
-package org.trustnote.wallet.settings
+package org.trustnote.wallet.debug
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.FragmentBase
-import org.trustnote.wallet.settings.SettingsDataFactory.makeSettings
+import org.trustnote.wallet.debug.SettingsDataFactory.makeSettings
 
-class FragmentMainMe : FragmentBase() {
+class FragmentMeDebug : FragmentBase() {
 
     override fun getLayoutId(): Int {
-        return R.layout.f_main_me
+        return R.layout.f_me_debug
     }
 
     private var adapter: SettingsAdapter? = null

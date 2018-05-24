@@ -180,18 +180,7 @@ object Utils {
         return input
     }
 
-    @Synchronized
-    fun getMySdcardDirectory(): File {
-        val pInfo = TApp.context.packageManager.getPackageInfo(TApp.context.packageName, 0)
-        val versionName = pInfo.versionName
-        val res = File(Environment.getExternalStorageDirectory(), "TTT_$versionName")
-        if (!res.exists()) {
-            res.mkdir()
-        }
-        return res
-    }
-
-    fun isUseTestData(): Boolean {
+    fun isUseDebugOption(): Boolean {
         return BuildConfig.DEBUG && BuildConfig.FLAVOR == "devnet"
     }
 

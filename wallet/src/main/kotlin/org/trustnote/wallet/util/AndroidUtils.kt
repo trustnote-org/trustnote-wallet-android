@@ -14,6 +14,7 @@ import org.trustnote.wallet.uiframework.BaseActivity
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Environment
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
@@ -26,6 +27,8 @@ import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import org.trustnote.wallet.biz.FragmentDialogBase
+import java.io.File
+import java.util.*
 
 object AndroidUtils {
 
@@ -207,6 +210,23 @@ object AndroidUtils {
 
         dialogFragment.show(AndroidUtils.getDialogFragmentTransaction(activity), KEY_DIALOG_FRAGMENT_TRANSACTION)
 
+    }
+
+    @Synchronized
+    fun getMySdcardDirectory(): File {
+        val pInfo = TApp.context.packageManager.getPackageInfo(TApp.context.packageName, 0)
+        val versionName = pInfo.versionName
+        val res = File(Environment.getExternalStorageDirectory(), "TTT_$versionName")
+        if (!res.exists()) {
+            res.mkdir()
+        }
+        return res
+    }
+
+    fun exportDataForDebug() {
+        val source = Environment.getDataDirectory()
+        val target = File(getMySdcardDirectory(), Date().toLocaleString())
+        source.copyRecursively(target, true)
     }
 
 }

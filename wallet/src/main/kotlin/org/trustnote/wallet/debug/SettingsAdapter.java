@@ -1,4 +1,4 @@
-package org.trustnote.wallet.settings;
+package org.trustnote.wallet.debug;
 
 import android.content.Context;
 import android.view.View;
