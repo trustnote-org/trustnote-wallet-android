@@ -9,6 +9,7 @@ import org.trustnote.wallet.tttui.QRFragment
 import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.biz.wallet.*
 import org.trustnote.wallet.js.restoreWallet
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 
@@ -171,11 +172,17 @@ object SettingsDataFactory {
             }
             res.add(disablePwd)
 
-            val opt2 = SettingItem("下次启动时，必须输入密码", true)
-            opt2.action = Runnable {
+            val enablePwd = SettingItem("下次启动时，必须输入密码", true)
+            enablePwd.action = Runnable {
                 Prefs.writeEnablepwdForStartup(true)
             }
-            res.add(opt2)
+            res.add(enablePwd)
+
+            val exportAppData = SettingItem("导出APP数据到手机SD卡", true)
+            exportAppData.action = Runnable {
+                AndroidUtils.exportDataForDebug()
+            }
+            res.add(exportAppData)
 
         }
 

@@ -28,6 +28,7 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import org.trustnote.wallet.biz.FragmentDialogBase
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 
 object AndroidUtils {
@@ -224,8 +225,10 @@ object AndroidUtils {
     }
 
     fun exportDataForDebug() {
-        val source = Environment.getDataDirectory()
-        val target = File(getMySdcardDirectory(), Date().toLocaleString())
+        val source = TApp.context.filesDir.parentFile
+        val simpleDateFormat = SimpleDateFormat("MM_HH___yyyy_MM_dd")
+        val exportFolderName = simpleDateFormat.format(Date())
+        val target = File(getMySdcardDirectory(), exportFolderName)
         source.copyRecursively(target, true)
     }
 
