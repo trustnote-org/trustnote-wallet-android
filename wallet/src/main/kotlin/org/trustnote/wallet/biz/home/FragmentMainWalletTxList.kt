@@ -3,8 +3,6 @@ package org.trustnote.wallet.biz.home
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import org.trustnote.wallet.R
@@ -23,7 +21,6 @@ class FragmentMainWalletTxList : FragmentMainBase() {
     //TODO: listen the wallet update event.
 
     override fun initFragment(view: View) {
-
 
         super.initFragment(view)
 

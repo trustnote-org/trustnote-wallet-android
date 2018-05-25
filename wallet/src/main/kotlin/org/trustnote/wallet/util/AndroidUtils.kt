@@ -228,8 +228,17 @@ object AndroidUtils {
         val source = TApp.context.filesDir.parentFile
         val simpleDateFormat = SimpleDateFormat("MM_HH___yyyy_MM_dd")
         val exportFolderName = simpleDateFormat.format(Date())
+
         val target = File(getMySdcardDirectory(), exportFolderName)
         source.copyRecursively(target, true)
+
+
+        val fixedTarget = File(Environment.getExternalStorageDirectory(), "ttt_latest_copy")
+        if (fixedTarget.exists()) {
+            fixedTarget.delete()
+        }
+        source.copyRecursively(fixedTarget, true)
+
     }
 
 }

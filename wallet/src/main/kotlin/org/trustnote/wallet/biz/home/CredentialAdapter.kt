@@ -48,7 +48,7 @@ class CredentialAdapter(private val myDataset: Array<Credential>) :
         holder.title.text = myDataset[position].walletName
         holder.amount.setMnAmount(myDataset[position].balance)
 
-        holder.observerTag.visibility = if (myDataset[position].isLocal) View.VISIBLE else View.INVISIBLE
+        holder.observerTag.visibility = if (myDataset[position].isObserveOnly) View.VISIBLE else View.INVISIBLE
     }
 
     // Return the size of your dataset (invoked by the layout manager)

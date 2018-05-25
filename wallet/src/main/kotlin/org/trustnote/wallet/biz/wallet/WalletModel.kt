@@ -2,8 +2,6 @@ package org.trustnote.wallet.biz.wallet
 
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
-import io.reactivex.subjects.Subject
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.TTT
@@ -31,7 +29,6 @@ class WalletModel() {
         if (Prefs.profileExist()) {
             mProfile = Prefs.readProfile()
             startRefreshThread()
-            refreshAll()
         }
     }
 
@@ -43,9 +40,13 @@ class WalletModel() {
         mProfile.xPrivKey = privKey
         mProfile.dbTag = privKey.takeLast(5)
 
-        profileUpdated()
+        startRefreshThread()
 
         restoreBg()
+    }
+
+    fun isRefreshing(): Boolean {
+        return refreshingCredentials.isNotEmpty()
     }
 
     fun destruct() {
@@ -57,30 +58,41 @@ class WalletModel() {
 
     }
 
-    private fun restoreBg() {
+    fun restoreBg() {
         MyThreadManager.instance.runWalletModelBg {
             restore()
         }
     }
 
     private fun restore() {
+
         checkAndGenPrivkey()
-        DbHelper.dropWalletDB(mProfile.dbTag)
+
+        //DbHelper.dropWalletDB(mProfile.dbTag)
+        WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
+
+        WalletManager.getCurrentWalletDbTag()
         if (mProfile.credentials.isEmpty()) {
             newAutoWallet()
         }
+
+
         refreshAll()
     }
 
     private fun refreshAll() {
+
+        checkAndGenerateNewWallet()
+
         mProfile.credentials.forEach {
             refresh(it)
         }
+
     }
 
     private fun refresh(credential: Credential) {
         if (!refreshingCredentials.contains(credential)) {
-            refreshingCredentials.offer(credential)
+            refreshingCredentials.put(credential)
         }
     }
 
@@ -109,22 +121,29 @@ class WalletModel() {
             return
         }
 
+        if (DbHelper.shouldGenerateMoreAddress(credential.walletId)) {
+            ModelHelper.generateNewAddressAndSaveDb(credential)
+        }
+
         readAddressFromDb(credential)
 
         if (credential.myAddresses.isEmpty()) {
-            val newAddresses = generateNewAddress(credential)
-            DbHelper.saveWalletMyAddress(newAddresses)
-            readAddressFromDb(credential)
+            ModelHelper.generateNewAddressAndSaveDb(credential)
         }
+
+        DbHelper.fixIsSpentFlag()
 
         updateBalance(credential)
 
         updateTxs(credential)
 
         //TODO: notify for better UI experience.
-        profileUpdated()
-
         updateUnitsFromHub(credential)
+
+        //TODO: remove this after hubmanager has sync logic.
+        Thread.sleep(1000)
+
+        profileUpdated()
 
     }
 
@@ -132,7 +151,6 @@ class WalletModel() {
 //        HubManager.instance.reConnectHub()
 //
 //        monitorWallet()
-
 
     private fun profileUpdated() {
 
@@ -169,14 +187,13 @@ class WalletModel() {
     }
 
     private fun updateTxs(credential: Credential) {
-        credential.txDetails.clear()
         val txs = TxParser().getTxs(credential.walletId)
 
         val sortedRes = txs.sortedByDescending {
             it.ts
         }
 
-        credential.txDetails.addAll(sortedRes)
+        credential.txDetails = (sortedRes)
     }
 
     private fun readAddressFromDb(credential: Credential) {
@@ -189,7 +206,6 @@ class WalletModel() {
         credential.myChangeAddresses = credential.myAddresses.filter { it.isChange == 1 }.toSet()
 
     }
-
 
     fun updateUnitsFromHub(credential: Credential) {
 
@@ -205,7 +221,17 @@ class WalletModel() {
 
     }
 
-//
+    private fun checkAndGenerateNewWallet() {
+        if (mProfile.credentials.isEmpty()) {
+            newAutoWallet()
+        }
+
+        var lastWallet = mProfile.credentials.last { !it.isObserveOnly }
+
+        if (lastWallet != null && DbHelper.shouldGenerateNextWallet(lastWallet.walletId)) {
+            newAutoWallet()
+        }
+    }
 
     fun monitorWallet() {
         DbHelper.monitorAddresses().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
@@ -227,26 +253,6 @@ class WalletModel() {
         }
     }
 
-//    private fun tryToReqMoreUnitsFromHub() {
-//        mProfile.credentials.forEachIndexed { index, oneWallet ->
-//            val isMore = DbHelper.shouldGenerateMoreAddress(oneWallet.walletId)
-//            if (isMore) {
-//                generateMoreAddressAndSave(oneWallet)
-//            }
-//        }
-//
-//        //TODO: java.util.NoSuchElementException: List is empty.
-//        var lastWallet = mProfile.credentials.last()
-//
-//        if (lastWallet != null) {
-//            val isMore = DbHelper.shouldGenerateNextWallet(lastWallet.walletId)
-//            if (isMore) {
-//                newWallet()
-//            }
-//        }
-//
-//    }
-
     private fun createObserveCredential(walletIndex: Int, walletPubKey: String, walletTitle: String = TTT.firstWalletName): Credential {
         val api = JSApi()
         val walletId = Utils.decodeJsStr(api.walletIDSync(walletPubKey))
@@ -256,7 +262,7 @@ class WalletModel() {
         res.walletId = walletId
         res.walletName = walletTitle
         res.xPubKey = walletPubKey
-        res.isLocal = true
+        res.isObserveOnly = true
         return res
     }
 
@@ -276,45 +282,22 @@ class WalletModel() {
         return res
     }
 
-    //TODO: get the next accout from DB. regarding use can remove wallet.
     private fun findNextAccount(profile: TProfile): Int {
         var max = -1
         for (one in profile.credentials) {
-            if (one.account > max) {
+            if (!one.isObserveOnly && one.account > max) {
                 max = one.account
             }
         }
         return max + 1
     }
 
-    private fun generateNewAddresses(credential: Credential, isChange: Int): List<MyAddresses> {
-        val api = JSApi()
-        val currentMaxAddress = DbHelper.getMaxAddressIndex(credential.walletId, isChange)
-        val newAddressSize = if (currentMaxAddress == 0) TTT.walletAddressInitSize else TTT.walletAddressIncSteps
-        val res = List(newAddressSize, {
-            val myAddress = MyAddresses()
-            myAddress.account = credential.account
-            myAddress.wallet = credential.walletId
-
-            myAddress.isChange = isChange
-            myAddress.addressIndex = it + currentMaxAddress
-            myAddress.address = Utils.decodeJsStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
-            val addressPubkey = Utils.decodeJsStr(api.walletAddressPubkeySync(credential.xPubKey, isChange, myAddress.addressIndex))
-            myAddress.definition = """["sig",{"pubkey":"$addressPubkey"}]"""
-            //TODO: check above logic from JS code.
-            myAddress
-        })
-
-        return res
-
-    }
-
     @Synchronized
-    private fun newAutoWallet(credentialName: String = TTT.firstWalletName, isAuto:Boolean = true) {
+    private fun newAutoWallet(credentialName: String = TTT.firstWalletName, isAuto: Boolean = true) {
         val newCredential = createNextCredential(mProfile, credentialName, isAuto = isAuto)
         mProfile.credentials.add(newCredential)
 
-        refreshingCredentials.offer(newCredential)
+        refresh(newCredential)
 
         profileUpdated()
     }
@@ -329,19 +312,9 @@ class WalletModel() {
         val newCredential = createObserveCredential(walletIndex, walletPubKey, walletTitle)
         mProfile.credentials.add(newCredential)
         refreshingCredentials.offer(newCredential)
+        refresh(newCredential)
         profileUpdated()
     }
-
-    private fun generateNewAddress(newCredential: Credential): List<MyAddresses> {
-        val receiveAddresses = generateNewAddresses(newCredential, TTT.addressReceiveType)
-        val changeAddresses = generateNewAddresses(newCredential, TTT.addressReceiveType)
-
-        val res = mutableListOf<MyAddresses>()
-        res.addAll(receiveAddresses)
-        res.addAll(changeAddresses)
-        return res.toList()
-    }
-
 
     fun findNextUnusedChangeAddress(walletId: String): MyAddresses {
         var res = MyAddresses()

@@ -12,14 +12,23 @@ object WalletManager {
     val mWalletEventCenter: Subject<Boolean> = PublishSubject.create()
 
     lateinit var model: WalletModel
+    private var currentDbTag = ""
+
     init {
         if (Prefs.profileExist()) {
             model = WalletModel()
+            model.restoreBg()
         }
     }
 
+    @Synchronized
     fun getCurrentWalletDbTag(): String {
-        return model.mProfile.dbTag
+        return currentDbTag
+    }
+
+    @Synchronized
+    fun setCurrentWalletDbTag(tag: String) {
+        currentDbTag = tag
     }
 
     fun getProfile(): TProfile {

@@ -196,8 +196,9 @@ object Utils {
 
     fun formatTxTimestampInTxDetail(ts: Long): String {
         val date = Date(ts * 1000L)
-        val df = SimpleDateFormat("yyyy/MM/dd HH:MM(详细逻辑)")
-        return df.format(date)
+        val timeAgo = Utils.getTimeAgoForCn(ts)
+        val df = SimpleDateFormat("""yyyy/MM/dd HH:MM""")
+        return """${df.format(date)}($timeAgo)"""
     }
 
     fun scanStringToJsonObject(str: String): JsonObject {
@@ -221,5 +222,72 @@ object Utils {
     val emptyLambda = {}
     val emptyString = ""
 
+    private val SECOND_MILLIS = 1000
+    private val MINUTE_MILLIS = 60 * SECOND_MILLIS
+    private val HOUR_MILLIS = 60 * MINUTE_MILLIS
+    private val DAY_MILLIS = 24 * HOUR_MILLIS
+
+    fun getTimeAgo(time: Long): String {
+        var time = time
+        if (time < 1000000000000L) {
+            // if timestamp given in seconds, convert to millis
+            time *= 1000
+        }
+
+        val now = System.currentTimeMillis()
+        if (time > now || time <= 0) {
+            return "ERR"
+        }
+
+        // TODO: localize
+        val diff = now - time
+        return if (diff < MINUTE_MILLIS) {
+            "just now"
+        } else if (diff < 2 * MINUTE_MILLIS) {
+            "a minute ago"
+        } else if (diff < 50 * MINUTE_MILLIS) {
+            (diff / MINUTE_MILLIS).toString() + " minutes ago"
+        } else if (diff < 90 * MINUTE_MILLIS) {
+            "an hour ago"
+        } else if (diff < 24 * HOUR_MILLIS) {
+            (diff / HOUR_MILLIS).toString() + " hours ago"
+        } else if (diff < 48 * HOUR_MILLIS) {
+            "yesterday"
+        } else {
+            (diff / DAY_MILLIS).toString() + " days ago"
+        }
+    }
+
+
+    fun getTimeAgoForCn(time: Long): String {
+        var time = time
+        if (time < 1000000000000L) {
+            // if timestamp given in seconds, convert to millis
+            time *= 1000
+        }
+
+        val now = System.currentTimeMillis()
+        if (time > now || time <= 0) {
+            return "ERR"
+        }
+
+        // TODO: localize
+        val diff = now - time
+        return if (diff < MINUTE_MILLIS) {
+            "刚刚"
+        } else if (diff < 2 * MINUTE_MILLIS) {
+            "1分钟前"
+        } else if (diff < 50 * MINUTE_MILLIS) {
+            (diff / MINUTE_MILLIS).toString() + "分钟前"
+        } else if (diff < 90 * MINUTE_MILLIS) {
+            "1小时前"
+        } else if (diff < 24 * HOUR_MILLIS) {
+            (diff / HOUR_MILLIS).toString() + " 小时前"
+        } else if (diff < 48 * HOUR_MILLIS) {
+            "昨天"
+        } else {
+            (diff / DAY_MILLIS).toString() + " 天前"
+        }
+    }
 }
 

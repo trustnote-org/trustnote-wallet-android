@@ -42,11 +42,13 @@ class Credential {
     val derivationStrategy: String = TTT.HD_DERIVATION_STRATEGY
     var account: Int = 0
     var balance: Long = 0
-    var isLocal: Boolean = false
+    var isObserveOnly: Boolean = false
     var isAuto: Boolean = false
     var isRemoved: Boolean = false
 
-    var txDetails: MutableList<Tx> = mutableListOf()
+    @Expose(serialize = false, deserialize = false)
+    @Transient
+    var txDetails: List<Tx> = listOf()
 
     @Expose(serialize = false, deserialize = false)
     @Transient  //TODO: Balance is not utxo
