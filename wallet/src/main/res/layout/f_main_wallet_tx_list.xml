@@ -29,17 +29,64 @@
         android:layout_below="@+id/summary_bar"
         android:background="@color/tx_list_bg" />
 
-    <View
-        android:id="@+id/btn"
+    <LinearLayout
+        android:id="@+id/btns"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_gap_46"
-        android:layout_below="@+id/line1" />
+        android:layout_height="@dimen/line_gap_70"
+        android:layout_below="@+id/line1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/btn_transfer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/line_gap_16"
+                android:layout_height="@dimen/line_gap_16"
+                android:src="@drawable/ic_wallet_receive" />
+
+            <TextView
+                style="@style/blue_bold_16"
+                android:text="@string/wallet_transfer_btn" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/one_dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/btn_receive"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/line_gap_16"
+                android:layout_height="@dimen/line_gap_16"
+                android:src="@drawable/ic_wallet_receive" />
+
+            <TextView
+                style="@style/blue_bold_16"
+                android:text="@string/wallet_receive_btn" />
+        </LinearLayout>
+
+
+        line_gap_70
+        line_gap_70
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tx_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tx_title_height"
-        android:layout_below="@+id/btn"
+        android:layout_below="@+id/btns"
         android:background="@color/tx_list_bg"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/page_margin_left"

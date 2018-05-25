@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main">
+
+        <TextView
+            android:id="@+id/transfer_title"
+            style="@style/t_title"
+            android:layout_marginTop="@dimen/line_gap_48"
+            android:text="@string/place_holder" />
+
+        <TextView
+            android:id="@+id/transfer_balance_title"
+            style="@style/t_text_msg"
+            android:layout_below="@id/transfer_title"
+            android:layout_marginTop="@dimen/line_gap_16"
+            android:text="@string/transfer_balance_title" />
+
+        <org.trustnote.wallet.widget.TMnAmount
+            android:id="@+id/transfer_balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transfer_balance_title" />
+
+        <include
+            android:id="@+id/transfer_line_1"
+            layout="@layout/item_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_dp"
+            android:layout_below="@id/transfer_balance" />
+
+        <RelativeLayout
+            android:id="@+id/transfer_receiver_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transfer_line_1"
+            android:layout_marginTop="@dimen/line_gap_24">
+
+            <org.trustnote.wallet.widget.ClearableEditText
+                android:id="@+id/transfer_receiver_hint"
+                style="@style/t_pwd"
+                android:focusable="false"
+                android:hint="@string/transfer_receiver_hint"
+                android:inputType="text"
+                android:text="" />
+
+            <ImageView
+                android:layout_width="@dimen/ic_26"
+                android:layout_height="@dimen/ic_26"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_wallet_receive" />
+
+        </RelativeLayout>
+
+        <org.trustnote.wallet.widget.ErrTextView
+            android:id="@+id/transfer_receiver_err"
+            style="@style/t_err"
+            android:layout_below="@id/transfer_receiver_"
+            android:text="@string/transfer_receiver_err" />
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/transfer_amount"
+            style="@style/t_pwd"
+            android:layout_below="@id/transfer_receiver_err"
+            android:focusable="false"
+            android:hint="@string/transfer_amount_hint"
+            android:inputType="numberDecimal"
+            android:text="" />
+
+        <org.trustnote.wallet.widget.ErrTextView
+            android:id="@+id/transfer_receiver_err_overflow"
+            style="@style/t_err"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/transfer_receiver_"
+            android:text="@string/transfer_receiver_err_overflow" />
+
+        <TextView
+            android:id="@+id/transfer_transfer_all"
+            style="@style/t_text_msg"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/transfer_amount"
+            android:text="@string/transfer_transfer_all"
+            android:textColor="@color/t_blue" />
+
+        <Button
+            android:id="@+id/transfer_confirm"
+            style="@style/t_btn_blue"
+            android:layout_above="@id/transfer_observer_prompt_line1"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/confirm" />
+
+        <TextView
+            android:id="@+id/transfer_observer_prompt_line1"
+            style="@style/t_text_msg"
+            android:layout_width="match_parent"
+            android:layout_above="@id/transfer_observer_prompt_url"
+            android:layout_marginTop="@dimen/line_gap_24"
+            android:gravity="center"
+            android:text="@string/transfer_observer_prompt_line1" />
+
+        <TextView
+            android:id="@+id/transfer_observer_prompt_url"
+            style="@style/t_url"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/line_gap_14"
+            android:layout_marginTop="@dimen/line_gap_4"
+            android:text="@string/transfer_observer_prompt_url" />
+
+    </RelativeLayout>
+
+</layout>

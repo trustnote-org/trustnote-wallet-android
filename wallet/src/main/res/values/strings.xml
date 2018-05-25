@@ -222,4 +222,20 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="setting_wallet_tools_restoremem">助记词恢复钱包</string>
     <string name="setting_wallet_tools_fullsync">克隆钱包同步</string>
 
+    <string name="wallet_transfer_btn">转账</string>
+    <string name="wallet_receive_btn">收款</string>
+
+    <string name="transfer_balance_title">可用余额（MN)</string>
+
+    <string name="transfer_receiver_hint">接收方TrustNote钱包地址</string>
+    <string name="transfer_amount_hint">转账金额</string>
+    <string name="transfer_receiver_err">地址有误，请检查后重试</string>
+    <string name="transfer_receiver_err_overflow">金额已超过可提现余额</string>
+
+    <string name="transfer_transfer_all">全部转出</string>
+
+    <string name="transfer_observer_prompt_line1">当前为观察钱包，需要存有助记词的冷钱包配合签名。</string>
+    <string name="transfer_observer_prompt_url">查看如何进行离线签名？</string>
+
+
 </resources>

@@ -8,6 +8,7 @@ import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.wallet.FragmentWalletTransfer
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.widget.RecyclerItemClickListener
 import org.trustnote.wallet.widget.TMnAmount
@@ -39,21 +40,31 @@ class FragmentMainWalletTxList : FragmentMainBase() {
         recyclerView.adapter = a
 
         recyclerView.addOnItemTouchListener(
-                RecyclerItemClickListener(context, recyclerView, object : RecyclerItemClickListener.OnItemClickListener {
-                    override fun onItemClick(view: View, position: Int) {
-                        val bundle = Bundle()
-                        bundle.putInt(TTT.KEY_CREDENTIAL_INDEX, credentialIndex)
-                        bundle.putInt(TTT.KEY_TX_INDEX, position)
-                        (activity as MainActivity).openLevel2Fragment(bundle, FragmentMainWalletTxDetail::class.java)
-                    }
+                RecyclerItemClickListener(context,
+                        recyclerView,
+                        object : RecyclerItemClickListener.OnItemClickListener {
+                            override fun onItemClick(view: View, position: Int) {
+                                val bundle = Bundle()
+                                bundle.putInt(TTT.KEY_CREDENTIAL_INDEX, credentialIndex)
+                                bundle.putInt(TTT.KEY_TX_INDEX, position)
+                                (activity as MainActivity).openLevel2Fragment(bundle,
+                                        FragmentMainWalletTxDetail::class.java)
+                            }
 
-                    override fun onLongItemClick(view: View, position: Int) {
-                    }
-                })
+                            override fun onLongItemClick(view: View, position: Int) {
+                            }
+                        })
         )
 
-    }
+        mRootView.findViewById<View>(R.id.btn_receive).setOnClickListener {
+        }
 
+        mRootView.findViewById<View>(R.id.btn_transfer).setOnClickListener {
+            val f = FragmentWalletTransfer()
+            (activity as MainActivity).openLevel2Fragment(f)
+        }
+
+    }
 
 }
 
