@@ -47,12 +47,14 @@ open class HubRequest : HubMsg {
     }
 
     fun setResponse(hubResponse: HubResponse) {
+        Utils.debugLog("setResponse from::" + this.toString())
         this.hubResponse = hubResponse
         latch.countDown()
     }
 
     fun getResponse(): HubResponse {
         latch.await()
+        Utils.debugLog("getResponse after await from::" + this.toString())
         return hubResponse
     }
 

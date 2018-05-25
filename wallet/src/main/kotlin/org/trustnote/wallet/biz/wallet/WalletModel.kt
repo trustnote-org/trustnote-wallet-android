@@ -94,6 +94,7 @@ class WalletModel() {
 
     private fun refresh(credential: Credential) {
         if (!refreshingCredentials.contains(credential)) {
+            Utils.debugLog("""refresh put into queue--$credential""")
             refreshingCredentials.put(credential)
         }
     }
@@ -119,6 +120,7 @@ class WalletModel() {
     }
 
     private fun refreshInternal(credential: Credential) {
+        Utils.debugLog("""refreshInternal--$credential""")
         if (credential.isRemoved) {
             return
         }

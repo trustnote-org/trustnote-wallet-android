@@ -6,12 +6,8 @@ import java.nio.channels.NotYetConnectedException
 
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
+import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.Utils
-
-import org.trustnote.wallet.network.pojo.HubMsg
-import org.trustnote.wallet.network.pojo.HubResponse
-import org.trustnote.wallet.network.pojo.MSG_TYPE
-import org.trustnote.wallet.network.pojo.ReqGetMyWitnesses
 
 class HubClient : WebSocketClient {
 
@@ -47,6 +43,11 @@ class HubClient : WebSocketClient {
     fun sendHubMsg(hubMsg: HubMsg) {
         if (!isConnectCalled || isClosed || !isOpen) {
             log("try to send hub msg, but socket closed")
+            if (hubMsg is HubRequest) {
+                //TODO: too much simliar logic. put a timer inside the req in case all kind of err.
+                //pur
+                hubMsg.setResponse(HubResponse())
+            }
             return
         }
         hubMsg.lastSentTime = System.currentTimeMillis()
@@ -55,12 +56,10 @@ class HubClient : WebSocketClient {
     }
 
     override fun onOpen(handshakedata: ServerHandshake) {
+
         log("ONOPEN: " + handshakedata.toString())
         mHubSocketModel.mHeartBeatTask.start()
-
         sendHubMsg(HubMsgFactory.walletVersion())
-
-        sendHubMsg(ReqGetMyWitnesses(mHubSocketModel.mGetWitnessTag))
 
     }
 

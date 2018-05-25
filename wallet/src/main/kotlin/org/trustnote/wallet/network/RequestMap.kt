@@ -15,6 +15,7 @@ class RequestMap {
     init {
     }
 
+    //Bug: when put to cache, if the same tag already exist, the older request will never finished.
     @Synchronized
     fun put(hubMsg: HubMsg) {
         if (hubMsg.msgType == MSG_TYPE.request) {

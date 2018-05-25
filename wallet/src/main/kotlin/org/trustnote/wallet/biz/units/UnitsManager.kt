@@ -82,25 +82,5 @@ class UnitsManager {
 
     }
 
-    fun saveMyWitnesses(hubResponse: HubResponse) {
-
-
-        if (hubResponse.msgType == MSG_TYPE.empty) {
-            return
-        }
-
-        var myWitnesses = parseArray(hubResponse.responseJson as JsonArray)
-        DbHelper.saveMyWitnesses(myWitnesses)
-    }
-
-    fun parseArray(origJson: JsonArray): List<String> {
-        var gson = Utils.getGson()
-
-        val res = List<String>(origJson.size()) { index: Int ->
-            origJson[index].asString
-        }
-
-        return res
-    }
 
 }
