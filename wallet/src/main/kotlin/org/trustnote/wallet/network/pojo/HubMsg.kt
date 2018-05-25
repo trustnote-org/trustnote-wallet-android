@@ -13,6 +13,7 @@ open class HubMsg {
     var msgJson: JsonObject = Utils.emptyJsonObject
     var textFromHub: String = ""
     var lastSentTime = 0L
+    var shouldRetry = false
 
     constructor(msgType: MSG_TYPE = MSG_TYPE.empty) {
         this.msgType = msgType

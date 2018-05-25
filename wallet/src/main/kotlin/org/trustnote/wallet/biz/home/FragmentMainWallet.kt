@@ -50,7 +50,7 @@ class FragmentMainWallet : FragmentMainBase() {
             return
         }
 
-        val myAllWallets = WalletManager.model.mProfile.credentials.filter { it.balance > 0 || it.isObserveOnly }
+        val myAllWallets = WalletManager.model.mProfile.credentials.filter { !it.isAuto || it.balance > 0 || it.isObserveOnly }
         val adapter = CredentialAdapter(myAllWallets.toTypedArray())
         mRecyclerView.adapter = adapter
 

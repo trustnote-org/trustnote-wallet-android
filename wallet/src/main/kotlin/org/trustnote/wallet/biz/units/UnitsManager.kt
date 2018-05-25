@@ -5,16 +5,22 @@ import org.trustnote.db.*
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.network.pojo.HubResponse
+import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.util.Utils
 
 class UnitsManager {
     @Suppress("UNCHECKED_CAST")
-    fun saveUnits(hubResponse: HubResponse) {
+    fun saveUnits(hubResponse: HubResponse): List<Joints> {
+
+        if (hubResponse.msgType == MSG_TYPE.empty) {
+            return listOf()
+        }
+
         //TODO: too much tedious work.
         //TODO: save data to table units_authors??
         val response = hubResponse.msgJson.getAsJsonObject("response")
         if (!response.has("joints")) {
-            return
+            return listOf()
         }
 
         val jointList = Utils.parseChild(TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
@@ -46,7 +52,6 @@ class UnitsManager {
 
                 val outputArray = Utils.parseChild(message, message.json, Outputs::class.java.canonicalName, "payload", "outputs") as List<Outputs>
 
-
                 val asset = message?.json?.getAsJsonObject("payload")?.get("asset")?.asString
 
                 inputArray.forEachIndexed { index, inputs ->
@@ -73,12 +78,16 @@ class UnitsManager {
 
         DbHelper.saveUnits(jointList.mapToTypedArray { it.unit })
 
-    }
+        return jointList
 
+    }
 
     fun saveMyWitnesses(hubResponse: HubResponse) {
 
-        val db = TrustNoteDataBase.getInstance(TApp.context)
+
+        if (hubResponse.msgType == MSG_TYPE.empty) {
+            return
+        }
 
         var myWitnesses = parseArray(hubResponse.responseJson as JsonArray)
         DbHelper.saveMyWitnesses(myWitnesses)

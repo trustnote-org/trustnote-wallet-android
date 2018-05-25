@@ -1,6 +1,7 @@
 package org.trustnote.wallet.network
 
 import org.trustnote.wallet.TTT
+import org.trustnote.wallet.network.pojo.ReqHeartBeat
 import java.util.*
 
 class HeartBeatTask internal constructor(internal var walletClient: HubClient) : TimerTask() {
@@ -9,7 +10,7 @@ class HeartBeatTask internal constructor(internal var walletClient: HubClient) :
 
     override fun run() {
         if (walletClient.isOpen) {
-            walletClient.sendHubMsg(HubMsgFactory.walletHeartBeat(walletClient.mHubSocketModel))
+            walletClient.sendHubMsg(ReqHeartBeat(walletClient.mHubSocketModel.mHeartbeatTag))
         }
     }
 

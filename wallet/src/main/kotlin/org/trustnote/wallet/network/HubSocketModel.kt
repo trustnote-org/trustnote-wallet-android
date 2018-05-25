@@ -30,7 +30,7 @@ class HubSocketModel {
     lateinit var retrySubscription: Disposable
 
     fun setupRetryLogic() {
-        retrySubscription = Observable.interval(60, TimeUnit.SECONDS).observeOn(Schedulers.computation()).subscribe {
+        retrySubscription = Observable.interval(TTT.HUB_REQ_RETRY_CHECK_SECS, TimeUnit.SECONDS).observeOn(Schedulers.computation()).subscribe {
             retry()
         }
     }
@@ -45,12 +45,21 @@ class HubSocketModel {
             if (shouldRetry(hubMsg)) {
                 Utils.debugHub("retry with:" + hubMsg.toHubString())
                 mHubClient.sendHubMsg(hubMsg)
+            } else {
+                if (isTimeout(hubMsg) && hubMsg is HubRequest && hubMsg.msgType == MSG_TYPE.request) {
+                    hubMsg.setResponse(HubResponse())
+                    mRequestMap.remove(hubMsg.tag)
+                }
             }
         }
     }
 
-    private fun shouldRetry(hubMsg: HubMsg): Boolean {
+    private fun isTimeout(hubMsg: HubMsg): Boolean  {
         return (System.currentTimeMillis() - hubMsg.lastSentTime) > TTT.HUB_REQ_RETRY_SECS * 1000
+    }
+
+    private fun shouldRetry(hubMsg: HubMsg): Boolean {
+        return hubMsg.shouldRetry && isTimeout(hubMsg)
     }
 
     //TODO: for future copy.
@@ -80,6 +89,14 @@ class HubSocketModel {
     }
 
     fun dispose() {
+
+        //Clear all unfinished task.
+        for ((tag, hubMsg) in mRequestMap.getRetryMap()) {
+            if (hubMsg is HubRequest && hubMsg.msgType == MSG_TYPE.request) {
+                hubMsg.setResponse(HubResponse())
+            }
+        }
+
         if (!retrySubscription.isDisposed) {
             retrySubscription.dispose()
         }
@@ -108,38 +125,24 @@ class HubSocketModel {
 
         return handleResult
 
-
     }
 
     private fun handleResonseInternally(originRequset: HubRequest, hubResponse: HubResponse): Boolean {
 
         var handleResult = true
+        originRequset.setResponse(hubResponse)
+        originRequset.handleResponse()
+
         when (originRequset.command) {
-            HubMsgFactory.CMD_GET_WITNESSES -> handleResult = handleMyWitnesses(hubResponse)
-            HubMsgFactory.CMD_GET_HISTORY -> handleResult = handleGetHistory(hubResponse)
             HubMsgFactory.CMD_GET_PARENT_FOR_NEW_TX -> handleResult = handleGetParentForNewTx(hubResponse)
         }
 
         return handleResult
     }
 
-    private fun handleMyWitnesses(hubResponse: HubResponse): Boolean {
-        //TODO: remove below logic
-        UnitsManager().saveMyWitnesses(hubResponse)
-        return true
-    }
-
-    private fun handleGetHistory(hubResponse: HubResponse): Boolean {
-        //TODO: remove below logic
-        UnitsManager().saveUnits(hubResponse)
-        return true
-    }
-
     private fun handleGetParentForNewTx(hubResponse: HubResponse): Boolean {
         val originRequset = mRequestMap.getHubRequest(hubResponse.tag)
-        originRequset.hubResponse = hubResponse
-
-        mSubject.onNext(originRequset)
+        originRequset.setResponse(hubResponse)
         return true
     }
 

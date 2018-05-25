@@ -5,12 +5,12 @@ import org.trustnote.wallet.network.pojo.HubRequest
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.util.Utils
-
+import java.util.*
 
 class RequestMap {
 
     private val cacheTag = HashMap<String, MSG_TYPE>()
-    private val cacheReq = HashMap<String, HubMsg>()
+    private val cacheReq = Collections.synchronizedMap(HashMap<String, HubMsg>())
 
     init {
     }
@@ -30,6 +30,10 @@ class RequestMap {
         }
     }
 
+    @Synchronized
+    fun remove(tag: String) {
+        cacheReq.remove(tag)
+    }
 
     @Synchronized
     fun getExpectedResBodyType(tag: String): MSG_TYPE {
@@ -48,7 +52,7 @@ class RequestMap {
     }
 
     @Synchronized //TODO: return an iterator.
-    fun getRetryMap(): HashMap<String, HubMsg>{
+    fun getRetryMap(): Map<String, HubMsg> {
         return cacheReq
     }
 

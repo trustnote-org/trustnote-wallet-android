@@ -166,7 +166,7 @@ class UnitComposer(
     }
 
     private fun gotParentFromHub(hubRequest: HubRequest) {
-        composeUnits(hubRequest.hubResponse)
+        composeUnits(hubRequest.getResponse())
 
         postNewUnitToHub()
     }

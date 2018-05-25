@@ -12,7 +12,8 @@ class TTT {
 
         const val HUB_HEARTBEAT_FIRST_DELAY_SEC = 2
         const val HUB_HEARTBEAT_INTERVAL_SEC = 10
-        const val HUB_REQ_RETRY_SECS = 10
+        const val HUB_REQ_RETRY_SECS = 15
+        const val HUB_REQ_RETRY_CHECK_SECS = 10L
 
         const val COUNT_WITNESSES = 12
         const val MAX_WITNESS_LIST_MUTATIONS = 1

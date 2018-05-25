@@ -1,8 +1,5 @@
 package org.trustnote.wallet.network
 
-import org.trustnote.db.DbHelper
-import org.trustnote.wallet.biz.units.UnitsManager
-import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.util.Utils
 
 //TODO: test case when HubManager return empty\strange result.
@@ -25,7 +22,6 @@ class HubManager {
             //TODO:
         }
     }
-
 
 
     fun reConnectHub(oldHubSocketModel: HubSocketModel) {

@@ -11,7 +11,7 @@ import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.network.pojo.HubMsg
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.MSG_TYPE
-
+import org.trustnote.wallet.network.pojo.ReqGetMyWitnesses
 
 class HubClient : WebSocketClient {
 
@@ -57,8 +57,10 @@ class HubClient : WebSocketClient {
     override fun onOpen(handshakedata: ServerHandshake) {
         log("ONOPEN: " + handshakedata.toString())
         mHubSocketModel.mHeartBeatTask.start()
+
         sendHubMsg(HubMsgFactory.walletVersion())
-        sendHubMsg(HubMsgFactory.getWitnesses(mHubSocketModel))
+
+        sendHubMsg(ReqGetMyWitnesses(mHubSocketModel.mGetWitnessTag))
 
     }
 

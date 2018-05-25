@@ -17,6 +17,11 @@ class HubResponse : HubMsg {
         responseJson = msgJson.get(HubMsgFactory.RESPONSE) ?: Utils.emptyJsonObject
     }
 
+    constructor() : super(MSG_TYPE.empty) {
+        tag = ""
+        responseJson = Utils.emptyJsonObject
+    }
+
     constructor(responseJson: JsonObject, tag: String) : super(MSG_TYPE.response) {
         this.msgSource = MSG_SOURCE.wallet
         this.responseJson = responseJson

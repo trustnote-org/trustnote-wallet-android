@@ -42,39 +42,11 @@ object HubMsgFactory {
         return HubMsg()
     }
 
-    fun walletHeartBeat(hubSocketModel: HubSocketModel): HubRequest {
-        return HubRequest(CMD_HEARTBEAT, hubSocketModel.mHeartbeatTag)
-    }
-
     fun walletVersion(): HubJustSaying {
         return HubJustSaying(CMD_VERSION, JsonParser().parse(Utils.getGson().toJson(WalletVersion())) as JsonObject)
     }
 
-    fun getWitnesses(hubSocketModel: HubSocketModel): HubRequest {
-        return HubRequest(CMD_GET_WITNESSES, hubSocketModel.mGetWitnessTag)
-    }
-
-
     //TODO: handle the err from Hub: "response",{"tag":"RANDOM:-1208010420","response":{"error":"your history is too large, consider switching to a full client"}}]
-    fun getHistory(hubSocketModel: HubSocketModel, witnesses: Array<MyWitnesses>, myAddresses: Array<MyAddresses>): HubRequest {
-
-        val params = JsonObject()
-        val wts = JsonArray()
-        for (oneWts in witnesses) {
-            wts.add(oneWts.address)
-        }
-
-        val ads = JsonArray()
-        for (oneAds in myAddresses) {
-            ads.add(oneAds.address)
-        }
-
-        params.add("addresses", ads)
-        params.add("witnesses", wts)
-
-        return HubRequest(CMD_GET_HISTORY, hubSocketModel.mGetHistoryTag, params)
-    }
-
 
     fun getParentForNewTx(hubSocketModel: HubSocketModel, witnesses: Array<MyWitnesses>): HubRequest {
 
@@ -94,8 +66,6 @@ object HubMsgFactory {
         params.add("unit", units)
         return HubRequest(CMD_POST_JOINT, hubSocketModel.getRandomTag(), params)
     }
-
-
 
 }
 

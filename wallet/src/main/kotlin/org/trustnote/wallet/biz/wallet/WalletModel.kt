@@ -6,9 +6,11 @@ import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.tx.TxParser
+import org.trustnote.wallet.biz.units.UnitsManager
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
-import org.trustnote.wallet.network.HubMsgFactory
+import org.trustnote.wallet.network.pojo.HubResponse
+import org.trustnote.wallet.network.pojo.ReqGetHistory
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
@@ -17,6 +19,8 @@ import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 class WalletModel() {
+
+    //TODO： DbHelper.dropWalletDB(mProfile.dbTag)
 
     lateinit var mProfile: TProfile
 
@@ -68,7 +72,6 @@ class WalletModel() {
 
         checkAndGenPrivkey()
 
-        //DbHelper.dropWalletDB(mProfile.dbTag)
         WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
 
         WalletManager.getCurrentWalletDbTag()
@@ -76,13 +79,12 @@ class WalletModel() {
             newAutoWallet()
         }
 
-
         refreshAll()
     }
 
     private fun refreshAll() {
 
-        checkAndGenerateNewWallet()
+        createNewWalletIfLastWalletHasTransaction()
 
         mProfile.credentials.forEach {
             refresh(it)
@@ -138,10 +140,11 @@ class WalletModel() {
         updateTxs(credential)
 
         //TODO: notify for better UI experience.
-        updateUnitsFromHub(credential)
-
-        //TODO: remove this after hubmanager has sync logic.
-        Thread.sleep(1000)
+        val hubResponse = getUnitsFromHub(credential)
+        val res = UnitsManager().saveUnits(hubResponse)
+        if (res.isNotEmpty()) {
+            createNewWalletIfLastWalletHasTransaction()
+        }
 
         profileUpdated()
 
@@ -207,21 +210,24 @@ class WalletModel() {
 
     }
 
-    fun updateUnitsFromHub(credential: Credential) {
+    fun getUnitsFromHub(credential: Credential): HubResponse {
 
-        val witnesses = DbHelper.getMyWitnesses()
+        val witnesses = WitnessManager.getMyWitnesses()
         val addresses = DbHelper.queryAddressByWalletId(credential.walletId)
 
         if (witnesses.isEmpty() || addresses.isEmpty()) {
-            return
+            return HubResponse()
         }
 
-        val req = HubMsgFactory.getHistory(HubManager.instance.getCurrentHub(), witnesses, addresses)
+        val reqId = HubManager.instance.getCurrentHub().getRandomTag()
+        val req = ReqGetHistory(reqId, witnesses, addresses)
         HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(req)
+
+        return req.getResponse()
 
     }
 
-    private fun checkAndGenerateNewWallet() {
+    private fun createNewWalletIfLastWalletHasTransaction() {
         if (mProfile.credentials.isEmpty()) {
             newAutoWallet()
         }
