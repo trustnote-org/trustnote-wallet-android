@@ -3,8 +3,7 @@
     xmlns:ttt="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/bg_dialog_padding_30">
+    android:orientation="vertical">
 
     <org.trustnote.wallet.widget.PageHeader
         android:id="@+id/page_header"
@@ -33,7 +32,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/scan_what_title"
-            android:focusable="false"
             android:hint="@null"
             android:inputType="numberDecimal"
             android:scrollHorizontally="false"

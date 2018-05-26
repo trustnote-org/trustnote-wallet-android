@@ -289,5 +289,9 @@ object Utils {
             (diff / DAY_MILLIS).toString() + " 天前"
         }
     }
+
+    fun mnToNotes(inputAmount: String): Long {
+        return (inputAmount.toFloat() * TTT.w_coinunitValue).toLong()
+    }
 }
 

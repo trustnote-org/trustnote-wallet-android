@@ -12,6 +12,7 @@ abstract class FragmentBase : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mRootView = inflater.inflate(getLayoutId(), container, false)
+        mRootView.isClickable = true
         return mRootView
     }
 

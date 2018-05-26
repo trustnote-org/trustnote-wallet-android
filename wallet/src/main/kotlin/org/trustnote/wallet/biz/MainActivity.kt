@@ -30,6 +30,10 @@ class MainActivity : BaseActivity() {
     lateinit var bottomNavigationView: BottomNavigationView
 
     lateinit var mToolbar: Toolbar
+
+    //TODO:
+    var receiveAmount = 0L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -164,6 +168,9 @@ class MainActivity : BaseActivity() {
                 R.id.fragment_container, newFragment)
                 .commit()
     }
+
+
+
 
 }
 

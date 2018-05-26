@@ -65,6 +65,5 @@
             style="@style/t_btn_blue"
             android:text="@string/create_wallet_observer_qr_finish_btn" />
 
-
     </LinearLayout>
 </FrameLayout>

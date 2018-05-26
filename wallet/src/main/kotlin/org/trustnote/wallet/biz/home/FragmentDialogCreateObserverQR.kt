@@ -25,7 +25,7 @@ class FragmentDialogCreateObserverQR(val confirmLogic: (String) -> Unit = {}) : 
             confirmLogic.invoke("")
         }
 
-        val qrImageView = view.findViewById<ImageView>(R.id.qr_code)
+        val qrImageView = view.findViewById<ImageView>(R.id.qr_code_imageview)
         val qrWidth = org.trustnote.wallet.TApp.context.resources.getDimension(R.dimen.qr_width).toInt()
 
         val qrBitmap = AndroidUtils.encodeStrAsQrBitmap(qrStr, qrWidth)

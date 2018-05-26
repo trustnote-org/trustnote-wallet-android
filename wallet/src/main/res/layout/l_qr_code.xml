@@ -7,7 +7,7 @@
 
     <ImageView
         android:layout_centerHorizontal="true"
-        android:id="@+id/qr_code"
+        android:id="@+id/qr_code_imageview"
         android:layout_width="@dimen/qr_width"
         android:layout_height="@dimen/qr_width"
         android:layout_centerInParent="true"

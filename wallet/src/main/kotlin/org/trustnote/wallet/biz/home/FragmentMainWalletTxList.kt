@@ -58,6 +58,7 @@ class FragmentMainWalletTxList : FragmentMainBase() {
         )
 
         mRootView.findViewById<View>(R.id.btn_receive).setOnClickListener {
+            getMyActivity().receiveAmount = 0L
             val f = FragmentWalletReceive()
             (activity as MainActivity).openLevel2Fragment(f)
         }
