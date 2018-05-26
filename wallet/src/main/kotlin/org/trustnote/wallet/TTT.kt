@@ -93,6 +93,7 @@ class TTT {
 
         const val KEY_CREDENTIAL_INDEX = "CREDENTIAL_INDEX"
         const val KEY_TX_INDEX = "TX_INDEX"
+        const val KEY_QR_CODE = "KEY_QR_CODE"
 
     }
 }

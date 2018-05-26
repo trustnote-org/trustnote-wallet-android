@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ttt="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/bg_dialog_padding_30">
+
+    <org.trustnote.wallet.widget.PageHeader
+        android:id="@+id/page_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ttt:ttt_icon="@drawable/ic_wallet_receive"
+        ttt:ttt_title="@string/receive_setup_amount" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/bg_dialog_padding_30">
+
+        <TextView
+            android:id="@+id/receive_amount_label"
+            style="@style/t_text_msg"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/line_gap_10"
+            android:gravity="left"
+            android:text="@string/receive_amount_label" />
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/receive_amount_input"
+            style="@style/t_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scan_what_title"
+            android:focusable="false"
+            android:hint="@null"
+            android:inputType="numberDecimal"
+            android:scrollHorizontally="false"
+            android:text="" />
+
+        <Button
+            android:id="@+id/receive_set_amount_btn"
+            style="@style/t_btn_blue"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/bg_dialog_padding_30"
+            android:text="@string/confirm" />
+    </LinearLayout>
+
+
+</LinearLayout>

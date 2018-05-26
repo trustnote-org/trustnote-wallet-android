@@ -5,39 +5,27 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentTransaction
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.FragmentDialogBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 
-class FragmentDialogCreateObserverFinish() : DialogFragment() {
+class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}) : FragmentDialogBase(R.layout.l_dialog_create_wallet_observer_finish, confirmLogic) {
 
     var msg: String = "TTT Welcome"
-    var confirmLogic: (String) -> Unit = {}
     lateinit var btn: Button
     lateinit var editText: EditText
 
-    constructor(confirmLogic: (String) -> Unit) : this() {
-        this.confirmLogic = confirmLogic
-    }
-
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout to use as dialog or embedded fragment
-        val view = inflater!!.inflate(R.layout.l_dialog_create_wallet_observer_finish, container, false)
-
+    override fun initFragment(view: View) {
         btn = view.findViewById(R.id.create_wallet_observer_qr_finish_btn)
+        editText = view.findViewById(R.id.create_wallet_observer_qr_finish_scan_res)
 
         btn.setOnClickListener {
             dismiss()
@@ -52,7 +40,6 @@ class FragmentDialogCreateObserverFinish() : DialogFragment() {
             integrator.initiateScan()
         }
 
-        editText = view.findViewById(R.id.create_wallet_observer_qr_finish_scan_res)
 
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -68,7 +55,15 @@ class FragmentDialogCreateObserverFinish() : DialogFragment() {
 
         updateUI()
 
-        return view
+    }
+
+    private fun updateUI() {
+        val scanCode = editText.text.toString()
+        if (scanCode.isNotEmpty()) {
+            AndroidUtils.enableBtn(btn)
+        } else {
+            AndroidUtils.disableBtn(btn)
+        }
     }
 
     //    TTT: {
@@ -104,15 +99,6 @@ class FragmentDialogCreateObserverFinish() : DialogFragment() {
         }
     }
 
-    private fun updateUI() {
-        val scanCode = editText.text.toString()
-        if (scanCode.isNotEmpty()) {
-            AndroidUtils.enableBtn(btn)
-        } else {
-            AndroidUtils.disableBtn(btn)
-        }
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
 
@@ -122,27 +108,5 @@ class FragmentDialogCreateObserverFinish() : DialogFragment() {
         }
 
         return dialog
-    }
-
-
-    companion object {
-
-        private fun getFragmentTransaction(activity: FragmentActivity): FragmentTransaction {
-
-            val ft = activity.supportFragmentManager.beginTransaction()
-            val prev = activity.supportFragmentManager.findFragmentByTag("dialog")
-            if (prev != null) {
-                ft.remove(prev)
-            }
-
-            ft.addToBackStack(null)
-            return ft
-        }
-
-        fun showMe(activity: FragmentActivity, confirmLogic: (String) -> Unit) {
-            val newFragment = FragmentDialogCreateObserverFinish(confirmLogic)
-            newFragment.show(getFragmentTransaction(activity), "dialog")
-        }
-
     }
 }

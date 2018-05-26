@@ -85,6 +85,7 @@
     </style>
 
     <style name="t_sub_title" parent="@style/t_text_base">
+        <item name="android:text">@string/place_holder</item>
         <item name="android:textColor">@color/t_text</item>
         <item name="android:textSize">18sp</item>
     </style>
@@ -207,4 +208,10 @@
         <item name="android:textColor">@color/t_blue</item>
     </style>
 
+
+
+    <declare-styleable name="PageHeader">
+        <attr name="ttt_icon" format="reference" />
+        <attr name="ttt_title" format="reference" />
+    </declare-styleable>
 </resources>

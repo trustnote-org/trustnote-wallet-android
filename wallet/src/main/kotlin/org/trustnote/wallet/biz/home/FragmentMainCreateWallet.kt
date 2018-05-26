@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.google.gson.JsonObject
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.uiframework.FragmentBase
@@ -126,16 +127,21 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         btn = mRootView.findViewById(R.id.create_wallet_observer_startbtn)
 
         btn.setOnClickListener {
-            FragmentDialogCreateObserverQR.showMe(myQrCode, activity, {
-                FragmentDialogCreateObserverFinish.showMe(activity, {
 
+            val f = FragmentDialogCreateObserverQR{
+
+                AndroidUtils.openDialog(activity, FragmentDialogCreateObserverFinish{
                     MyThreadManager.instance.runJSInNonUIThread {
                         createObserverWallet()
                     }
                     observerAddress = it
                     activity.onBackPressed()
                 })
-            })
+            }
+
+            AndroidUtils.addFragmentArguments(f, TTT.KEY_QR_CODE, myQrCode)
+            AndroidUtils.openDialog(activity, f, false)
+
         }
     }
 

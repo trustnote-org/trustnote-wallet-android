@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg"
+    android:gravity="center"
+    android:paddingLeft="@dimen/page_margin"
+    android:paddingRight="@dimen/page_margin">
+
+    <FrameLayout
+        android:id="@+id/dialog_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dialog_frame"></FrameLayout>
+
+</RelativeLayout>

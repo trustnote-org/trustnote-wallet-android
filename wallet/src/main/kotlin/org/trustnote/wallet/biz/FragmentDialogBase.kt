@@ -5,21 +5,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
 
-import org.trustnote.wallet.R
-import org.trustnote.wallet.biz.init.CreateWalletModel
-import org.trustnote.wallet.util.AndroidUtils
-
-class FragmentDialogBase(private val layoutId: Int, private val confirmLogic: () -> Unit = {}) : DialogFragment() {
+open class FragmentDialogBase(private val layoutId: Int, private val confirmLogic: (String) -> Unit = {}) : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -30,10 +21,6 @@ class FragmentDialogBase(private val layoutId: Int, private val confirmLogic: ()
     }
 
     open fun initFragment(view: View) {
-//        view.findViewById<Button>(R.id.next_step).setOnClickListener {
-//            dismiss()
-//            confirmLogic.invoke()
-//        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

@@ -18,6 +18,7 @@
     <dimen name="btn_height">48dp</dimen>
 
     <dimen name="btn_corner">2dp</dimen>
+    <dimen name="dialog_corner">4dp</dimen>
 
     <dimen name="slogan_below">100dp</dimen>
 
@@ -33,6 +34,7 @@
     <dimen name="line_gap_14">14dp</dimen>
     <dimen name="line_gap_32">32dp</dimen>
     <dimen name="line_gap_22">22dp</dimen>
+    <dimen name="line_gap_20">20dp</dimen>
     <dimen name="line_gap_12">12dp</dimen>
     <dimen name="line_gap_42">42dp</dimen>
     <dimen name="line_gap_48">48dp</dimen>
@@ -116,5 +118,10 @@
     <dimen name="icon_setting_arrow_margin">15dp</dimen>
 
     <dimen name="ic_26">26dp</dimen>
+
+    <dimen name="page_margin">26dp</dimen>
+    <dimen name="page_header_height">54dp</dimen>
+    <dimen name="page_header_ic_height">26dp</dimen>
+    <dimen name="page_header_marginleft">18dp</dimen>
 
 </resources>

@@ -8,6 +8,7 @@ import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.wallet.FragmentWalletReceive
 import org.trustnote.wallet.biz.wallet.FragmentWalletTransfer
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.widget.RecyclerItemClickListener
@@ -57,6 +58,8 @@ class FragmentMainWalletTxList : FragmentMainBase() {
         )
 
         mRootView.findViewById<View>(R.id.btn_receive).setOnClickListener {
+            val f = FragmentWalletReceive()
+            (activity as MainActivity).openLevel2Fragment(f)
         }
 
         mRootView.findViewById<View>(R.id.btn_transfer).setOnClickListener {

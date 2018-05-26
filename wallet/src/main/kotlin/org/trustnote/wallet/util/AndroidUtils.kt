@@ -14,8 +14,10 @@ import org.trustnote.wallet.uiframework.BaseActivity
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
@@ -37,7 +39,6 @@ object AndroidUtils {
         val jsStream = TApp.context.assets.open(fileName)
         return jsStream.bufferedReader().use { it.readText() }
     }
-
 
     fun hideStatusBar(activity: BaseActivity, isShow: Boolean) {
 
@@ -72,8 +73,6 @@ object AndroidUtils {
         //END_INCLUDE (set_ui_flags)
     }
 
-
-
     fun disableBtn(btn: Button) {
         btn.alpha = 0.5f
         btn.isEnabled = false
@@ -92,7 +91,6 @@ object AndroidUtils {
         btn.isEnabled = true
     }
 
-
     fun startActivity(clz: Class<out BaseActivity>) {
         val intent = Intent(TApp.context, clz)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -107,7 +105,7 @@ object AndroidUtils {
     fun resizeErrDrawable(drawableResId: Int, sizeResId: Int): Drawable {
         val size = TApp.context.resources.getDimension(sizeResId).toInt()
         val res = TApp.context.resources.getDrawable(drawableResId)
-        res.setBounds(0,0,size, size)
+        res.setBounds(0, 0, size, size)
         return res
     }
 
@@ -128,15 +126,13 @@ object AndroidUtils {
         webView.loadDataWithBaseURL("", localData, "text/html", "UTF-8", "")
     }
 
-
-    fun replaceTTTTag(html:String, tag: String):String {
-        return html.replace("TTTTAG(.*)TTTTAG".toRegex()){
+    fun replaceTTTTag(html: String, tag: String): String {
+        return html.replace("TTTTAG(.*)TTTTAG".toRegex()) {
             val strResName = tag + it.groupValues[1]
             val resId = TApp.context.resources.getIdentifier(strResName, "string", TApp.context.packageName)
             TApp.context.getString(resId)
         }
     }
-
 
     @Throws(WriterException::class)
     fun encodeStrAsQrBitmap(str: String, size: Int): Bitmap {
@@ -165,19 +161,17 @@ object AndroidUtils {
         return bitmap
     }
 
-
     ///            val p = Utils.popupDisplay(activity)
     //       p.showAsDropDown(button, -40, -780)
 
-    public fun  popupDisplay(activity: Activity) : PopupWindow
-    {
+    public fun popupDisplay(activity: Activity): PopupWindow {
 
         val popupWindow = PopupWindow(activity);
 
         // inflate your layout or dynamically add view
         val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        val  view = inflater.inflate(R.layout.item_field, null)
+        val view = inflater.inflate(R.layout.item_field, null)
 
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
@@ -190,7 +184,7 @@ object AndroidUtils {
 
     val KEY_DIALOG_FRAGMENT_TRANSACTION = "dialog"
 
-    fun getDialogFragmentTransaction(activity: FragmentActivity): FragmentTransaction {
+    fun getDialogFragmentTransaction(activity: FragmentActivity, addToBackStack: Boolean = true): FragmentTransaction {
 
         val ft = activity.supportFragmentManager.beginTransaction()
         val prev = activity.supportFragmentManager.findFragmentByTag(KEY_DIALOG_FRAGMENT_TRANSACTION)
@@ -198,19 +192,19 @@ object AndroidUtils {
             ft.remove(prev)
         }
 
-        //ft.addToBackStack(null)
+        if (addToBackStack) {
+            ft.addToBackStack(null)
+        }
         return ft
     }
 
-    fun openDialog(activity: FragmentActivity, layoutId: Int, lambda: () -> Unit = {}) {
-        val f = FragmentDialogBase(layoutId)
-        showDialog(activity, f)
+    fun openDialog(activity: FragmentActivity, f: FragmentDialogBase, addToBackStack: Boolean = true) {
+        f.show(AndroidUtils.getDialogFragmentTransaction(activity), KEY_DIALOG_FRAGMENT_TRANSACTION)
     }
 
-    private fun showDialog(activity: FragmentActivity, dialogFragment: DialogFragment) {
-
-        dialogFragment.show(AndroidUtils.getDialogFragmentTransaction(activity), KEY_DIALOG_FRAGMENT_TRANSACTION)
-
+    fun openDialog(activity: FragmentActivity, layoutId: Int, lambda: () -> Unit = {}, addToBackStack: Boolean = true) {
+        val f = FragmentDialogBase(layoutId)
+        f.show(AndroidUtils.getDialogFragmentTransaction(activity, addToBackStack), KEY_DIALOG_FRAGMENT_TRANSACTION)
     }
 
     @Synchronized
@@ -232,7 +226,6 @@ object AndroidUtils {
         val target = File(getMySdcardDirectory(), exportFolderName)
         source.copyRecursively(target, true)
 
-
         val fixedTarget = File(Environment.getExternalStorageDirectory(), "ttt_latest_copy")
         if (fixedTarget.exists()) {
             fixedTarget.delete()
@@ -241,4 +234,15 @@ object AndroidUtils {
 
     }
 
+
+    private fun bundleWithKeyValue(key: String, value: String):Bundle {
+        val b = Bundle()
+        b.putString(key, value)
+        return b
+    }
+
+    fun addFragmentArguments(f: Fragment, key: String, value: String) {
+        val b = bundleWithKeyValue(key, value)
+        f.arguments = b
+    }
 }
