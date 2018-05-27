@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.wallet.R
-import org.trustnote.wallet.widget.TMnAmount
 import org.trustnote.wallet.biz.wallet.Credential
+import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.widget.TMnAmount
 
 class CredentialAdapter(private val myDataset: Array<Credential>) :
-        RecyclerView.Adapter<CredentialAdapter.ViewHolder>() {
+        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -32,8 +33,13 @@ class CredentialAdapter(private val myDataset: Array<Credential>) :
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): CredentialAdapter.ViewHolder {
-        // create a new view
+                                    viewType: Int): RecyclerView.ViewHolder {
+        if (viewType == VIEW_TYPE_HEADER) {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.l_home_hearder, parent, false)
+            return object : RecyclerView.ViewHolder(view) {
+            }
+        }
+
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_credential, parent, false)
         // set the view's size, margins, paddings and layout parameters
@@ -41,16 +47,35 @@ class CredentialAdapter(private val myDataset: Array<Credential>) :
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.ic.setImageResource(R.drawable.credential_icon)
-        holder.title.text = myDataset[position].walletName
-        holder.amount.setMnAmount(myDataset[position].balance)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
 
-        holder.observerTag.visibility = if (myDataset[position].isObserveOnly) View.VISIBLE else View.INVISIBLE
+        if (holder is ViewHolder && position > 0) {
+            val credential = myDataset[position -1]
+            holder.ic.setImageResource(R.drawable.credential_icon)
+            holder.title.text = credential.walletName
+            holder.amount.setMnAmount(credential.balance)
+
+            holder.observerTag.visibility = if (credential.isObserveOnly) View.VISIBLE else View.INVISIBLE
+            return
+        } else {
+
+            val totalBalanceView = holder!!.itemView.findViewById<TMnAmount>(R.id.wallet_summary)
+            totalBalanceView.setMnAmount(WalletManager.model.mProfile.balance)
+
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = myDataset.size
+    override fun getItemCount() = myDataset.size + 1
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_ITEM
+    }
+
+    companion object {
+        val VIEW_TYPE_ITEM = 1
+        val VIEW_TYPE_HEADER = 0
+    }
+
 }

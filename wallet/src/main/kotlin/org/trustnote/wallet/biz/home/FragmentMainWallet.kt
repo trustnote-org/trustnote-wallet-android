@@ -24,12 +24,10 @@ class FragmentMainWallet : FragmentMainBase() {
 
     lateinit var mRecyclerView: RecyclerView
     lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-    lateinit var mTotalBalanceView: TMnAmount
 
     override fun initFragment(view: View) {
         super.initFragment(view)
 
-        mTotalBalanceView = mRootView.findViewById(R.id.wallet_summary)
 
         mRecyclerView = mRootView.findViewById(R.id.credential_list)
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
@@ -67,8 +65,6 @@ class FragmentMainWallet : FragmentMainBase() {
                     }
                 })
         )
-
-        mTotalBalanceView.setMnAmount(WalletManager.model.mProfile.balance)
 
         mSwipeRefreshLayout.isRefreshing = WalletManager.model.isRefreshing()
 
