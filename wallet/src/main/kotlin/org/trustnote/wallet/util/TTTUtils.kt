@@ -16,4 +16,13 @@ object TTTUtils {
         qrImageView.setImageBitmap(qrBitmap)
     }
 
+    fun parseAddressFromQRCode(qrCode: String): String {
+        //TODO: Address RULE
+        return if (qrCode.isNotEmpty() && qrCode.length > 4) {
+            qrCode.substring(4)
+        } else {
+            ""
+        }
+    }
+
 }

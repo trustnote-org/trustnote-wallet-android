@@ -13,6 +13,8 @@ import org.trustnote.wallet.uiframework.FragmentBase
 
 abstract class FragmentPageBase: FragmentBase() {
 
+
+
     fun getMyActivity(): MainActivity {
         return activity as MainActivity
     }

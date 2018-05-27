@@ -2,7 +2,6 @@ package org.trustnote.wallet.biz.home
 
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.View
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import org.trustnote.wallet.TApp

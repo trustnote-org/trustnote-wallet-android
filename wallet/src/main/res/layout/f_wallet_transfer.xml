@@ -9,7 +9,7 @@
         <TextView
             android:id="@+id/transfer_title"
             style="@style/t_title"
-            android:layout_marginTop="@dimen/line_gap_48"
+            android:layout_marginTop="@dimen/line_gap_32"
             android:text="@string/place_holder" />
 
         <TextView
@@ -42,12 +42,12 @@
             <org.trustnote.wallet.widget.ClearableEditText
                 android:id="@+id/transfer_receiver_hint"
                 style="@style/t_pwd"
-                android:focusable="false"
                 android:hint="@string/transfer_receiver_hint"
                 android:inputType="text"
                 android:text="" />
 
             <ImageView
+                android:id="@+id/transfer_receiver_scan"
                 android:layout_width="@dimen/ic_26"
                 android:layout_height="@dimen/ic_26"
                 android:layout_alignParentRight="true"
@@ -66,7 +66,6 @@
             android:id="@+id/transfer_amount"
             style="@style/t_pwd"
             android:layout_below="@id/transfer_receiver_err"
-            android:focusable="false"
             android:hint="@string/transfer_amount_hint"
             android:inputType="numberDecimal"
             android:text="" />

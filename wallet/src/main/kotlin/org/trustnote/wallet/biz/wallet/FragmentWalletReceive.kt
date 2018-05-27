@@ -19,7 +19,6 @@ class FragmentWalletReceive : FragmentPageBase() {
     lateinit var clearAmount: TextView
     lateinit var setupAmount: TextView
     lateinit var copyBtn: Button
-    lateinit var credential: Credential
 
     override fun getLayoutId(): Int {
         return R.layout.l_dialog_wallet_receive

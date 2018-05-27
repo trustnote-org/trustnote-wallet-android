@@ -17,12 +17,8 @@ class FragmentMainWalletTxDetail : FragmentMainBase() {
         return R.layout.f_main_wallet_tx_detail
     }
 
-    lateinit var credential: Credential
     override fun initFragment(view: View) {
         super.initFragment(view)
-
-        val walletId = arguments.getString(TTT.KEY_WALLET_ID)
-        credential = WalletManager.model.findWallet(walletId)
 
         val txIndex = arguments.getInt(TTT.KEY_TX_INDEX, 0)
 

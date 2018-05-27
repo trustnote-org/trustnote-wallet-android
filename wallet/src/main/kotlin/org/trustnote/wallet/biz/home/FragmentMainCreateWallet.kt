@@ -42,7 +42,7 @@ class FragmentMainCreateWallet : FragmentMainBase() {
         viewPager.adapter = adapter
 
         // Give the TabLayout the ViewPager
-        val tabLayout = findViewById(R.id.sliding_tabs) as TabLayout
+        val tabLayout = findViewById<TabLayout>(R.id.sliding_tabs)
         tabLayout.setupWithViewPager(viewPager)
 
     }
@@ -112,15 +112,8 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         val webView: WebView = view.findViewById(R.id.create_wallet_observer_warning)
         AndroidUtils.setupWarningWebView(webView, "OVSERVER_WALLET")
 
-        mRootView.findViewById<View>(R.id.create_wallet_observer_scan).setOnClickListener {
-
-            val integrator = IntentIntegrator.forSupportFragment(this)
-            integrator.setOrientationLocked(true)
-            integrator.setBeepEnabled(true)
-            integrator.initiateScan()
-
-            //(parentFragment.activity as MainActivity).openLevel2Fragment(Bundle(), QRFragment::class.java)
-        }
+        val scanIcon = mRootView.findViewById<View>(R.id.create_wallet_observer_scan)
+        setupScan(scanIcon) { showScanResult(it)}
 
         textView = mRootView.findViewById(R.id.create_wallet_observer_input)
 
@@ -187,19 +180,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         return """TTT:{"type":"h1","id": "$walletId","v":${checkCode ?: ""}}"""
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Utils.logW("$requestCode ___  $resultCode")
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents == null) {
-                Utils.debugToast("Cancelled")
-            } else {
-                showScanResult(result.contents)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
+
 }
 
 class SimpleFragmentPagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
