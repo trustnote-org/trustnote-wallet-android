@@ -11,7 +11,7 @@ import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.widget.TMnAmount
 
-class CredentialAdapter(private val myDataset: Array<Credential>) :
+class CredentialAdapter(val myDataset: Array<Credential>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // Provide a reference to the views for each data item

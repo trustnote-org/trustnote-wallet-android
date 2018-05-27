@@ -40,6 +40,7 @@ class FragmentMainWallet : FragmentMainBase() {
                 }
         )
 
+
     }
 
     override fun updateUI() {
@@ -52,11 +53,12 @@ class FragmentMainWallet : FragmentMainBase() {
         val adapter = CredentialAdapter(myAllWallets.toTypedArray())
         mRecyclerView.adapter = adapter
 
+
         mRecyclerView.addOnItemTouchListener(
                 RecyclerItemClickListener(context, mRecyclerView, object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
                         val bundle = Bundle()
-                        bundle.putInt(TTT.KEY_CREDENTIAL_INDEX, position)
+                        bundle.putString(TTT.KEY_WALLET_ID, adapter.myDataset[position - 1].walletId)
                         (activity as MainActivity).openLevel2Fragment(bundle, FragmentMainWalletTxList::class.java)
                     }
 
@@ -65,6 +67,7 @@ class FragmentMainWallet : FragmentMainBase() {
                     }
                 })
         )
+
 
         mSwipeRefreshLayout.isRefreshing = WalletManager.model.isRefreshing()
 

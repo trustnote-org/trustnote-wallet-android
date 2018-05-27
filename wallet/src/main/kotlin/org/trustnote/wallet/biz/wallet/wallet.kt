@@ -55,13 +55,13 @@ class Credential {
     var balanceDetails: List<Balance> = listOf()
     @Expose(serialize = false, deserialize = false)
     @Transient
-    var myAddresses = setOf<MyAddresses>()
+    var myAddresses = listOf<MyAddresses>()
     @Expose(serialize = false, deserialize = false)
     @Transient
-    var myReceiveAddresses = setOf<MyAddresses>()
+    var myReceiveAddresses = listOf<MyAddresses>()
     @Expose(serialize = false, deserialize = false)
     @Transient
-    var myChangeAddresses = setOf<MyAddresses>()
+    var myChangeAddresses = listOf<MyAddresses>()
 
     override fun toString(): String {
         var res = "WalletName: $walletName\n\rBalance: $balance\n\rTransactions: \n\r------------------------\n\r"

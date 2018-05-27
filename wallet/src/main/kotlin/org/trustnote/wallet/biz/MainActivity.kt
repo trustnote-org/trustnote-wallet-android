@@ -75,7 +75,6 @@ class MainActivity : BaseActivity() {
                 openLevel2Fragment(Bundle(), FragmentMsgsContactsAdd::class.java)
             }
 
-
         }
         return true
     }
@@ -118,6 +117,15 @@ class MainActivity : BaseActivity() {
         newFragment.arguments = bundle
         openLevel2Fragment(newFragment)
 
+    }
+
+    fun openPage(f: FragmentBase) {
+        openLevel2Fragment(f)
+    }
+
+    fun openPage(f: FragmentBase, key: String, value: String) {
+        AndroidUtils.addFragmentArguments(f, key, value)
+        openLevel2Fragment(f)
     }
 
     fun openLevel2Fragment(f: FragmentBase) {
@@ -168,9 +176,6 @@ class MainActivity : BaseActivity() {
                 R.id.fragment_container, newFragment)
                 .commit()
     }
-
-
-
 
 }
 

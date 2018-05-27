@@ -5,6 +5,7 @@ import android.widget.TextView
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.FieldTextView
@@ -16,13 +17,16 @@ class FragmentMainWalletTxDetail : FragmentMainBase() {
         return R.layout.f_main_wallet_tx_detail
     }
 
+    lateinit var credential: Credential
     override fun initFragment(view: View) {
         super.initFragment(view)
 
-        val credentialIndex = arguments.getInt(TTT.KEY_CREDENTIAL_INDEX, 0)
+        val walletId = arguments.getString(TTT.KEY_WALLET_ID)
+        credential = WalletManager.model.findWallet(walletId)
+
         val txIndex = arguments.getInt(TTT.KEY_TX_INDEX, 0)
 
-        val tx = WalletManager.model.mProfile.credentials[credentialIndex].txDetails[txIndex]
+        val tx = credential.txDetails[txIndex]
 
         val amountView = mRootView.findViewById<TMnAmount>(R.id.wallet_summary)
         amountView.setupStyle(tx.txType)

@@ -204,11 +204,11 @@ class WalletModel() {
     private fun readAddressFromDb(credential: Credential) {
         val addresses = DbHelper.queryAddressByWalletId(credential.walletId)
 
-        credential.myAddresses = addresses.toSet()
+        credential.myAddresses = addresses.toList()
 
-        credential.myReceiveAddresses = credential.myAddresses.filter { it.isChange == 0 }.toSet()
+        credential.myReceiveAddresses = credential.myAddresses.filter { it.isChange == 0 }.toList()
 
-        credential.myChangeAddresses = credential.myAddresses.filter { it.isChange == 1 }.toSet()
+        credential.myChangeAddresses = credential.myAddresses.filter { it.isChange == 1 }.toList()
 
     }
 
@@ -333,6 +333,18 @@ class WalletModel() {
 
         })
         return res
+    }
+
+    fun findWallet(walletId: String): Credential {
+        return mProfile.credentials.find { it.walletId == walletId }!!
+    }
+
+    fun receiveAddress(walletId: String): String {
+        return receiveAddress(findWallet(walletId))
+    }
+
+    fun receiveAddress(credential: Credential): String {
+        return credential.myReceiveAddresses[0].address
     }
 
 }

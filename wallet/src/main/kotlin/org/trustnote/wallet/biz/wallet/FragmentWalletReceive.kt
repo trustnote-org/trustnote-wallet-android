@@ -5,8 +5,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.TMnAmount
 
 class FragmentWalletReceive : FragmentPageBase() {
@@ -17,6 +19,7 @@ class FragmentWalletReceive : FragmentPageBase() {
     lateinit var clearAmount: TextView
     lateinit var setupAmount: TextView
     lateinit var copyBtn: Button
+    lateinit var credential: Credential
 
     override fun getLayoutId(): Int {
         return R.layout.l_dialog_wallet_receive
@@ -24,6 +27,10 @@ class FragmentWalletReceive : FragmentPageBase() {
 
     override fun initFragment(view: View) {
         super.initFragment(view)
+
+        val walletId = arguments.getString(TTT.KEY_WALLET_ID)
+        credential = WalletManager.model.findWallet(walletId)
+
         addressText = mRootView.findViewById(R.id.receive_address_text)
         addressQR = mRootView.findViewById(R.id.qr_code_imageview)
         receiveAmount = mRootView.findViewById(R.id.receive_amount)
@@ -32,7 +39,7 @@ class FragmentWalletReceive : FragmentPageBase() {
         copyBtn = mRootView.findViewById(R.id.receive_btn_copy)
 
         setupAmount.setOnClickListener {
-            (activity as MainActivity).openLevel2Fragment(FragmentWalletReceiveSetAmount())
+            (activity as MainActivity).openPage(FragmentWalletReceiveSetAmount(), TTT.KEY_WALLET_ID, walletId)
         }
 
         clearAmount.setOnClickListener {
@@ -43,6 +50,11 @@ class FragmentWalletReceive : FragmentPageBase() {
     }
 
     override fun updateUI() {
+
+        addressText.text = WalletManager.model.receiveAddress(credential)
+
+        TTTUtils.setupAddressQRCode(WalletManager.model.receiveAddress(credential), addressQR)
+
         if (getMyActivity().receiveAmount == 0L) {
             receiveAmount.visibility = View.GONE
             clearAmount.visibility = View.GONE
