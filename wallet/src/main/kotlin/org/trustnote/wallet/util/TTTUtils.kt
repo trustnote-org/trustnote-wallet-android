@@ -1,7 +1,10 @@
 package org.trustnote.wallet.util
 
 import android.widget.ImageView
+import android.widget.TextView
+import org.trustnote.db.TxType
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TTT
 
 object TTTUtils {
 
@@ -23,6 +26,23 @@ object TTTUtils {
         } else {
             ""
         }
+    }
+
+    fun formatMN(view: TextView, amount: Long) {
+        view.setText(formatMN(amount))
+    }
+
+    fun formatMN(amount: Long): String {
+        return "${amount / TTT.w_coinunitValue}.${(amount % TTT.w_coinunitValue).toString().padStart(6, '0').substring(0, 4)}"
+    }
+
+    fun isValidAddress(address: String): Boolean {
+        //TODO:
+        return address.isNotEmpty()
+    }
+
+    fun isValidAmount(amount: String, balance: Long): Boolean {
+        return amount.isNotEmpty() && amount.toFloat() * TTT.w_coinunitValue <= balance
     }
 
 }

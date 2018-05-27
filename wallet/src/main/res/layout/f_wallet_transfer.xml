@@ -67,6 +67,7 @@
             style="@style/t_pwd"
             android:layout_below="@id/transfer_receiver_err"
             android:hint="@string/transfer_amount_hint"
+            android:textSize="@dimen/text_20"
             android:inputType="numberDecimal"
             android:text="" />
 
