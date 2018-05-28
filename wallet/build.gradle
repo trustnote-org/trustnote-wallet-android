@@ -3,13 +3,27 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+
+def getGitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+
 android {
 
     compileSdkVersion 26
     buildToolsVersion '27.0.3'
 
     defaultConfig {
+
         applicationId "org.trustnote.wallet"
+
+        buildConfigField "String", "GitHash", "\"${getGitHash()}\""
 
         minSdkVersion 19
         targetSdkVersion 26
@@ -288,6 +302,7 @@ task gitPull(type: Exec) {
     commandLine "git", "pull", "origin", "master:master"
     println "Git pull latest code in master branch"
 }
+
 
 preBuild.dependsOn gitPull
 

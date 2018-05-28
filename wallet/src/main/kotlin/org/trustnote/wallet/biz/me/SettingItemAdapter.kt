@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.home.CredentialAdapter
 import org.trustnote.wallet.widget.TMnAmount
 import org.trustnote.wallet.biz.wallet.Credential
 
@@ -19,9 +20,6 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
     // Each data item is just a string in this case that is shown in a TextView.
     class ViewHolder(val holderView: View) : RecyclerView.ViewHolder(holderView) {
 
-        val ic: ImageView = holderView.findViewById(R.id.setting_ic)
-        val title: TextView = holderView.findViewById(R.id.setting_title)
-
     }
 
     // Create new views (invoked by the layout manager)
@@ -29,19 +27,25 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
                                     viewType: Int): SettingItemAdapter.ViewHolder {
         // create a new view
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_setting, parent, false)
+                .inflate(if (viewType == VIEW_TYPE_ITEM) R.layout.item_setting else R.layout.item_setting_sub, parent, false)
 
         // set the view's size, margins, paddings and layout parameters
         return ViewHolder(itemView)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (myDataset[position].isSubItem) VIEW_TYPE_SUBITEM else VIEW_TYPE_ITEM
+    }
+
+
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        //holder.ic.setImageResource(R.drawable.credential_icon)
-        //holder.title.text = myDataset[position].walletName
-        holder.title.setText(myDataset[position].titleResId)
+
+        holder.holderView.findViewById<TextView>(R.id.setting_title).setText(myDataset[position].titleResId)
+
+        if (getItemViewType(position) == VIEW_TYPE_SUBITEM) {
+            holder.holderView.findViewById<TextView>(R.id.setting_value).setText(myDataset[position].value)
+        }
         holder.holderView.setOnClickListener {
             myDataset[position].lambda.invoke()
         }
@@ -49,4 +53,10 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
+
+    companion object {
+        val VIEW_TYPE_ITEM = 1
+        val VIEW_TYPE_SUBITEM = 0
+    }
+
 }

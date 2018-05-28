@@ -1,14 +1,17 @@
 package org.trustnote.wallet.biz.me
 
+import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.debug.FragmentMeDebug
 import org.trustnote.wallet.util.Utils
 
-class SettingItem(var icResId: Int = R.drawable.logo,
-                  var titleResId: Int = R.string.place_holder,
-                  var value: String = Utils.emptyString,
-                  var lambda: () -> Unit = Utils.emptyLambda) {
+class SettingItem(
+        var isSubItem: Boolean = true,
+        var icResId: Int = R.drawable.logo,
+        var titleResId: Int = R.string.place_holder,
+        var value: String = Utils.emptyString,
+        var lambda: () -> Unit = Utils.emptyLambda) {
 
     companion object {
 
@@ -40,7 +43,7 @@ class SettingItem(var icResId: Int = R.drawable.logo,
         fun getSettingAbout(activity: MainActivity): Array<SettingItem> {
             return arrayOf(
                     SettingItem(titleResId = R.string.setting_about_version),
-                    SettingItem(titleResId = R.string.setting_about_hash),
+                    SettingItem(titleResId = R.string.setting_about_hash, value = BuildConfig.GitHash),
                     SettingItem(titleResId = R.string.setting_about_tou)
             )
         }

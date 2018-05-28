@@ -1,6 +1,8 @@
 package org.trustnote.wallet.util
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -28,6 +30,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.FragmentDialogBase
 import java.io.File
 import java.text.SimpleDateFormat
@@ -234,8 +237,7 @@ object AndroidUtils {
 
     }
 
-
-    private fun bundleWithKeyValue(key: String, value: String):Bundle {
+    private fun bundleWithKeyValue(key: String, value: String): Bundle {
         val b = Bundle()
         b.putString(key, value)
         return b
@@ -245,4 +247,11 @@ object AndroidUtils {
         val b = bundleWithKeyValue(key, value)
         f.arguments = b
     }
+
+    fun copyTextToClipboard(myText: String) {
+        val clipboard = TApp.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText(TTT.KEY_TTT_QR_TAG, myText)
+        clipboard.setPrimaryClip(clip)
+    }
+
 }

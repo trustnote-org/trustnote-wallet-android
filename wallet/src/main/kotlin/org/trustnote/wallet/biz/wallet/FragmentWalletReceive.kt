@@ -5,10 +5,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.TMnAmount
 
 class FragmentWalletReceive : FragmentPageBase() {
@@ -44,6 +47,14 @@ class FragmentWalletReceive : FragmentPageBase() {
         clearAmount.setOnClickListener {
             getMyActivity().receiveAmount = 0L
             updateUI()
+        }
+
+        copyBtn.setOnClickListener {
+
+            AndroidUtils.copyTextToClipboard(TTTUtils.toAddressQRText(addressText.text.toString(), getMyActivity().receiveAmount))
+
+            Utils.toastMsg(TApp.context.getString(R.string.receive_copy_successful))
+
         }
 
     }
