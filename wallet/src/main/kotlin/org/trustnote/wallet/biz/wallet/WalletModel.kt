@@ -24,8 +24,6 @@ class WalletModel() {
 
     lateinit var mProfile: TProfile
 
-    //TODO: debounce the events.
-
     private val refreshingCredentials = LinkedBlockingQueue<Credential>()
     private lateinit var refreshingWorker: ScheduledExecutorService
 
@@ -46,7 +44,7 @@ class WalletModel() {
 
         startRefreshThread()
 
-        restoreBg()
+        fullRefreshing()
     }
 
     fun isRefreshing(): Boolean {
@@ -62,13 +60,17 @@ class WalletModel() {
 
     }
 
-    fun restoreBg() {
+    fun fullRefreshing() {
         MyThreadManager.instance.runWalletModelBg {
-            restore()
+            fullRefreshingInBackground()
         }
     }
 
-    private fun restore() {
+    fun refreshOneWallet(walletId: String) {
+        refreshOneWallet(findWallet(walletId))
+    }
+
+    private fun fullRefreshingInBackground() {
 
         checkAndGenPrivkey()
 
@@ -79,22 +81,22 @@ class WalletModel() {
             newAutoWallet()
         }
 
-        refreshAll()
+        refreshAllWallet()
     }
 
-    private fun refreshAll() {
+    private fun refreshAllWallet() {
 
         createNewWalletIfLastWalletHasTransaction()
 
         mProfile.credentials.forEach {
-            refresh(it)
+            refreshOneWallet(it)
         }
 
     }
 
-    private fun refresh(credential: Credential) {
+    private fun refreshOneWallet(credential: Credential) {
         if (!refreshingCredentials.contains(credential)) {
-            Utils.debugLog("""refresh put into queue--$credential""")
+            Utils.debugLog("""refreshOneWallet put into queue--$credential""")
             refreshingCredentials.put(credential)
         }
     }
@@ -114,13 +116,13 @@ class WalletModel() {
         refreshingWorker = MyThreadManager.instance.newSingleThreadExecutor(this.toString())
         refreshingWorker.execute {
             while (true) {
-                refreshInternal(refreshingCredentials.take())
+                refreshOneWalletImpl(refreshingCredentials.take())
             }
         }
     }
 
-    private fun refreshInternal(credential: Credential) {
-        Utils.debugLog("""refreshInternal--$credential""")
+    private fun refreshOneWalletImpl(credential: Credential) {
+        Utils.debugLog("""refreshOneWalletImpl--$credential""")
         if (credential.isRemoved) {
             return
         }
@@ -141,9 +143,11 @@ class WalletModel() {
 
         updateTxs(credential)
 
-        //TODO: notify for better UI experience.
+        //notify for better UI experience.
+        profileUpdated()
+
         val hubResponse = getUnitsFromHub(credential)
-        val res = UnitsManager().saveUnits(hubResponse)
+        val res = UnitsManager().saveUnitsFromHubResponse(hubResponse)
         if (res.isNotEmpty()) {
             createNewWalletIfLastWalletHasTransaction()
         }
@@ -151,11 +155,6 @@ class WalletModel() {
         profileUpdated()
 
     }
-
-//        //TODO: think more.
-//        HubManager.instance.reConnectHub()
-//
-//        monitorWallet()
 
     private fun profileUpdated() {
 
@@ -221,9 +220,11 @@ class WalletModel() {
             return HubResponse()
         }
 
-        val reqId = HubManager.instance.getCurrentHub().getRandomTag()
+
+        val hubModel = HubManager.instance.getCurrentHub()
+        val reqId = hubModel.getRandomTag()
         val req = ReqGetHistory(reqId, witnesses, addresses)
-        HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(req)
+        hubModel.mHubClient.sendHubMsg(req)
 
         return req.getResponse()
 
@@ -305,7 +306,7 @@ class WalletModel() {
         val newCredential = createNextCredential(mProfile, credentialName, isAuto = isAuto)
         mProfile.credentials.add(newCredential)
 
-        refresh(newCredential)
+        refreshOneWallet(newCredential)
 
         profileUpdated()
     }
@@ -320,7 +321,7 @@ class WalletModel() {
         val newCredential = createObserveCredential(walletIndex, walletPubKey, walletTitle)
         mProfile.credentials.add(newCredential)
         refreshingCredentials.offer(newCredential)
-        refresh(newCredential)
+        refreshOneWallet(newCredential)
         profileUpdated()
     }
 

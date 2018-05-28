@@ -52,7 +52,7 @@ class FragmentWalletReceive : FragmentPageBase() {
 
         addressText.text = WalletManager.model.receiveAddress(credential)
 
-        TTTUtils.setupAddressQRCode(WalletManager.model.receiveAddress(credential), addressQR)
+        TTTUtils.setupAddressQRCode(WalletManager.model.receiveAddress(credential), getMyActivity().receiveAmount, addressQR)
 
         if (getMyActivity().receiveAmount == 0L) {
             receiveAmount.visibility = View.GONE

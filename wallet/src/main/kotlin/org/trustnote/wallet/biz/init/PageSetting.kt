@@ -26,7 +26,7 @@ fun setupUISettings() {
 
     addConfig(R.layout.f_init_create_or_restore, CWFragmentNewSeedOrRestore::class.java, false, false)
 
-    addConfig(R.layout.f_init_pwd, CWFragmentPwd::class.java)
+    addConfig(R.layout.f_init_pwd, FragmentInitSetupPwd::class.java)
 
     addConfig(R.layout.f_init_verify, CWFragmentVerify::class.java)
 

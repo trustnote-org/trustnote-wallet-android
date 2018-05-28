@@ -5,8 +5,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.TMnAmount
 
@@ -51,10 +53,25 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
 
         amountText.addTextChangedListener(MyTextWatcher(this))
+
+        setTransferAddress("GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX")
+        setTransferAmount(105000)
+
     }
 
     private fun transfer() {
+        var paymentInfo = PaymentInfo()
+        paymentInfo.receiverAddress = receiverText.text.toString()
+        paymentInfo.amount = TTTUtils.parseTTTAmount(amountText.text.toString())
+        paymentInfo.walletId = credential.walletId
 
+        val unitComposer = UnitComposer(paymentInfo)
+        if (unitComposer.isOkToSendTx()) {
+            unitComposer.startSendTx()
+            activity.onBackPressed()
+        } else {
+            Utils.toastMsg("发送失败")
+        }
     }
 
     private fun setTransferAmount(transferAmount: Long) {
@@ -66,11 +83,10 @@ class FragmentWalletTransfer : FragmentWalletBase() {
             amountErr.visibility = View.VISIBLE
         }
         updateUI()
-
     }
 
-    fun handleScanRes(res: String) {
-        val address = TTTUtils.parseAddressFromQRCode(res)
+
+    private fun setTransferAddress(address: String) {
         if (TTTUtils.isValidAddress(address)) {
             receiverText.setText(address)
             receiveErr.visibility = View.INVISIBLE
@@ -78,6 +94,13 @@ class FragmentWalletTransfer : FragmentWalletBase() {
             receiverText.setText(address)
             receiveErr.visibility = View.VISIBLE
         }
+        updateUI()
+    }
+
+    private fun handleScanRes(scanRes: String) {
+        val paymentInfo = TTTUtils.parsePaymentFromQRCode(scanRes)
+        setTransferAmount(paymentInfo.amount)
+        setTransferAddress(paymentInfo.receiverAddress)
         updateUI()
     }
 

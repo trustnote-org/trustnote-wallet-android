@@ -15,6 +15,7 @@ open class FragmentInputPwd : FragmentInit() {
     }
 
     override fun initFragment(view: View) {
+
         view.findViewById<View>(R.id.pwd_exist_clickcontinue).setOnClickListener {
             InputPwdDialogFragment.showMe(activity, {
                 TApp.userAlreadyInputPwd = true

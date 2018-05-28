@@ -9,15 +9,14 @@ import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
-import org.trustnote.wallet.network.HubMsgFactory
-import org.trustnote.wallet.network.pojo.HubRequest
-import org.trustnote.wallet.network.pojo.HubResponse
-import org.trustnote.wallet.network.pojo.MSG_TYPE
-import org.trustnote.wallet.biz.wallet.SendPaymentInfo
+import org.trustnote.wallet.biz.wallet.PaymentInfo
+import org.trustnote.wallet.biz.wallet.WitnessManager
+import org.trustnote.wallet.network.pojo.*
+import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Utils
 
 class UnitComposer(
-        private val sendPaymentInfo: SendPaymentInfo
+        private val sendPaymentInfo: PaymentInfo
 ) {
     private val units = Units()
     private val messages = Messages()
@@ -26,8 +25,87 @@ class UnitComposer(
     private val changeOutput = Outputs()
     private val authors = mutableListOf<Authentifiers>()
 
-    lateinit var mGetParentRequest: HubRequest
+    lateinit var mGetParentRequest: ReqGetParents
     private val jsApi = JSApi()
+
+    fun isOkToSendTx(): Boolean {
+
+        val witnesses = WitnessManager.getMyWitnesses()
+        if (witnesses.isEmpty()) {
+            return false
+        }
+
+        val hubModel = HubManager.instance.getCurrentHub()
+        val reqId = hubModel.getRandomTag()
+        mGetParentRequest = ReqGetParents(reqId, witnesses)
+        hubModel.mHubClient.sendHubMsg(mGetParentRequest)
+
+
+        if (mGetParentRequest.getResponse().msgType == MSG_TYPE.empty) {
+            return false
+        }
+
+        return true
+
+    }
+
+    fun startSendTx() {
+
+        MyThreadManager.instance.runInBack {
+            composeUnits()
+
+            if (postNewUnitToHub()) {
+                val unitJson = Utils.toGsonObject(units)
+                val unit = UnitsManager().parseUnitFromJson(unitJson)
+                DbHelper.saveUnits(unit)
+                WalletManager.model.refreshOneWallet(sendPaymentInfo.walletId)
+            }
+        }
+    }
+
+    private fun genPayloadInputs() {
+
+        payload.inputs.clear()
+
+        val fundedAddress = DbHelper.queryFundedAddressesByAmount(sendPaymentInfo.walletId, sendPaymentInfo.amount)
+        val filterFundedAddress = filterMostFundedAddresses(fundedAddress, sendPaymentInfo.amount)
+        val addresses = mutableListOf<String>()
+
+        filterFundedAddress.forEach { addresses.add(it.address) }
+
+        val outputs = DbHelper.queryUtxoByAddress(addresses, sendPaymentInfo.lastBallMCI)
+        val res = mutableListOf<Inputs>()
+        outputs.forEach {
+            val inputs = Inputs()
+            inputs.srcUnit = it.unit
+            inputs.srcMessageIndex = it.messageIndex
+            inputs.srcOutputIndex = it.outputIndex
+            inputs.amount = it.amount
+            inputs.address = it.address
+            res.add(inputs)
+        }
+
+        payload.inputs = res
+    }
+
+    private fun filterMostFundedAddresses(rows: Array<FundedAddress>, estimatedAmount: Long): List<FundedAddress> {
+        if (estimatedAmount <= 0) {
+            return rows.asList()
+        }
+        val res = mutableListOf<FundedAddress>()
+        var accumulatedAmount = 0L
+
+        rows.forEach {
+            res.add(it)
+            accumulatedAmount += it.total
+            if (accumulatedAmount > estimatedAmount + TTT.MAX_FEE) {
+                return res
+            }
+        }
+        return res
+    }
+
+
 
     private fun initUnits() {
 
@@ -39,6 +117,8 @@ class UnitComposer(
 
         payload.outputs.add(receiverOutput)
         payload.outputs.add(changeOutput)
+
+        payload.outputs = payload.outputs.sortedBy { it.address }
 
         messages.payload = payload
         messages.payloadHash = TTT.PLACEHOLDER_HASH
@@ -52,9 +132,9 @@ class UnitComposer(
 
     }
 
-    private fun composeUnits(hubResponse: HubResponse) {
+    private fun composeUnits() {
 
-        val responseJson = hubResponse.responseJson as JsonObject
+        val responseJson = mGetParentRequest.getResponse().responseJson as JsonObject
 
         sendPaymentInfo.lastBallMCI = responseJson.get("last_stable_mc_ball_mci").asInt
 
@@ -85,7 +165,6 @@ class UnitComposer(
         payload.inputs.forEach { totalInput += it.amount }
 
         changeOutput.amount = (totalInput - sendPaymentInfo.amount - units.payloadCommission - units.headersCommission)
-
 
         Utils.debugLog("after genChange")
         Utils.debugLog(Utils.toGsonString(payload))
@@ -135,83 +214,23 @@ class UnitComposer(
         }
     }
 
-
     private fun queryOrIssueNotUsedChangeAddress(): String {
         return WalletManager.model.findNextUnusedChangeAddress(sendPaymentInfo.walletId).address
     }
 
-    fun postNewUnitToHub() {
-        val mPostJointRequest = HubMsgFactory.getPostJointRequest(HubManager.instance.getCurrentHub(), Utils.toGsonObject(units))
+    fun postNewUnitToHub(): Boolean {
 
-        HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(mPostJointRequest)
+        val hubModel = HubManager.instance.getCurrentHub()
+        val reqId = hubModel.getRandomTag()
+        val req = ReqPostJoint(reqId, Utils.toGsonObject(units))
+        hubModel.mHubClient.sendHubMsg(req)
 
-    }
+        val hubResponse = req.getResponse()
 
-    fun startSending() {
-        //        UnitComposer(sendPaymentInfo).composeUnits(hubResponse)
-        val witnesses = DbHelper.getMyWitnesses()
-
-        if (witnesses.isEmpty()) {
-            return
+        if (hubResponse.msgType == MSG_TYPE.response) {
+            return "accepted" == hubResponse.responseJson?.asString
         }
 
-        mGetParentRequest = HubMsgFactory.getParentForNewTx(HubManager.instance.getCurrentHub(), witnesses)
-
-        val subscribe = HubManager.instance.getCurrentHub().mSubject.subscribe() {
-            if (it.msgType == MSG_TYPE.request && it == mGetParentRequest) {
-                gotParentFromHub(it as HubRequest)
-            }
-        }
-        HubManager.instance.getCurrentHub().mHubClient.sendHubMsg(mGetParentRequest)
+        return false
     }
-
-    private fun gotParentFromHub(hubRequest: HubRequest) {
-        composeUnits(hubRequest.getResponse())
-
-        postNewUnitToHub()
-    }
-
-
-    private fun genPayloadInputs() {
-
-        payload.inputs.clear()
-
-        val fundedAddress = DbHelper.queryFundedAddressesByAmount(sendPaymentInfo.walletId, sendPaymentInfo.amount)
-        val filterFundedAddress = filterMostFundedAddresses(fundedAddress, sendPaymentInfo.amount)
-        val addresses = mutableListOf<String>()
-
-        filterFundedAddress.forEach { addresses.add(it.address) }
-
-        val outputs = DbHelper.queryUtxoByAddress(addresses, sendPaymentInfo.lastBallMCI)
-        val res = mutableListOf<Inputs>()
-        outputs.forEach {
-            val inputs = Inputs()
-            inputs.srcUnit = it.unit
-            inputs.srcMessageIndex = it.messageIndex
-            inputs.srcOutputIndex = it.outputIndex
-            inputs.amount = it.amount
-            inputs.address = it.address
-            res.add(inputs)
-        }
-
-        payload.inputs = res
-    }
-
-    private fun filterMostFundedAddresses(rows: Array<FundedAddress>, estimatedAmount: Long): List<FundedAddress> {
-        if (estimatedAmount <= 0) {
-            return rows.asList()
-        }
-        val res = mutableListOf<FundedAddress>()
-        var accumulatedAmount = 0L
-
-        rows.forEach {
-            res.add(it)
-            accumulatedAmount += it.total
-            if (accumulatedAmount > estimatedAmount + TTT.MAX_FEE) {
-                return res
-            }
-        }
-        return res
-    }
-
 }

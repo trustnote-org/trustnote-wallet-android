@@ -71,7 +71,7 @@ object Utils {
     }
 
     fun generateRandomString(length: Int): String {
-        //TODO: USE crypto alg.
+        //TODO: USE crypto alg from JSApi.
         return "RANDOM:" + Random().nextInt()
     }
 

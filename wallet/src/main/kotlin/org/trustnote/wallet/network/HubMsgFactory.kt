@@ -46,26 +46,6 @@ object HubMsgFactory {
         return HubJustSaying(CMD_VERSION, JsonParser().parse(Utils.getGson().toJson(WalletVersion())) as JsonObject)
     }
 
-    //TODO: handle the err from Hub: "response",{"tag":"RANDOM:-1208010420","response":{"error":"your history is too large, consider switching to a full client"}}]
-
-    fun getParentForNewTx(hubSocketModel: HubSocketModel, witnesses: Array<MyWitnesses>): HubRequest {
-
-        val params = JsonObject()
-        val wts = JsonArray()
-        for (oneWts in witnesses) {
-            wts.add(oneWts.address)
-        }
-
-        params.add("witnesses", wts)
-
-        return HubRequest(CMD_GET_PARENT_FOR_NEW_TX, hubSocketModel.getRandomTag(), params)
-    }
-
-    fun getPostJointRequest(hubSocketModel: HubSocketModel, units: JsonObject): HubRequest {
-        val params = JsonObject()
-        params.add("unit", units)
-        return HubRequest(CMD_POST_JOINT, hubSocketModel.getRandomTag(), params)
-    }
 
 }
 

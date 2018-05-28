@@ -14,8 +14,8 @@ open class HubRequest : HubMsg {
     var params: JsonObject = Utils.emptyJsonObject
     val tag: String
     var attachedInfo: Object = Object()
-    private lateinit var hubResponse: HubResponse
-    private val latch = CountDownLatch(1)
+    @Volatile lateinit var hubResponse: HubResponse
+    val latch = CountDownLatch(1)
 
     constructor(textFromHub: String) : super(textFromHub) {
         tag = msgJson.getAsJsonPrimitive(HubMsgFactory.TAG).asString
@@ -46,7 +46,11 @@ open class HubRequest : HubMsg {
 
     }
 
-    fun setResponse(hubResponse: HubResponse) {
+    @Synchronized
+    open fun setResponse(hubResponse: HubResponse) {
+        if (latch.count == 0L) {
+            return
+        }
         Utils.debugLog("setResponse from::" + this.toString())
         this.hubResponse = hubResponse
         latch.countDown()

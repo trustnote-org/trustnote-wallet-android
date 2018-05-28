@@ -24,21 +24,20 @@ class FragmentMainWalletTxList : FragmentMainBase() {
 
     //TODO: listen the wallet update event.
 
+    private lateinit var totalBalanceView: TMnAmount
+    private lateinit var credentialName: TextView
+    private lateinit var recyclerView: RecyclerView
+
+
     override fun initFragment(view: View) {
 
         super.initFragment(view)
 
-        val totalBalanceView = mRootView.findViewById<TMnAmount>(R.id.wallet_summary)
-        totalBalanceView.setMnAmount(credential.balance)
+        totalBalanceView = mRootView.findViewById<TMnAmount>(R.id.wallet_summary)
 
-        mRootView.findViewById<TextView>(R.id.credential_name).text = (credential.walletName)
+        credentialName = mRootView.findViewById(R.id.credential_name)
 
-        val recyclerView = mRootView.findViewById<RecyclerView>(R.id.tx_list)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-
-        val a = TxAdapter(credential.txDetails.toTypedArray())
-
-        recyclerView.adapter = a
+        recyclerView = mRootView.findViewById(R.id.tx_list)
 
         recyclerView.addOnItemTouchListener(
                 RecyclerItemClickListener(context,
@@ -68,6 +67,19 @@ class FragmentMainWalletTxList : FragmentMainBase() {
             AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, credential.walletId)
             (activity as MainActivity).openLevel2Fragment(f)
         }
+
+    }
+
+    override fun updateUI() {
+        super.updateUI()
+        totalBalanceView.setMnAmount(credential.balance)
+        credentialName.text = credential.walletName
+
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+
+        val a = TxAdapter(credential.txDetails.toTypedArray())
+
+        recyclerView.adapter = a
 
     }
 

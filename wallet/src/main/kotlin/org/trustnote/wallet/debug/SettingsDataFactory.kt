@@ -4,7 +4,7 @@ import android.webkit.ValueCallback
 import org.trustnote.wallet.biz.init.CreateWalletActivity
 
 import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.biz.wallet.SendPaymentInfo
+import org.trustnote.wallet.biz.wallet.PaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
 import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.biz.wallet.*
@@ -44,10 +44,9 @@ object SettingsDataFactory {
         val testPostTx = SettingItem("Test: Test post tx")
         testPostTx.action = Runnable {
 
-            val sendPaymentInfo = SendPaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 17000000L)
+            val sendPaymentInfo = PaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 17000000L)
 
-            UnitComposer(sendPaymentInfo).startSending()
-
+//            UnitComposer(sendPaymentInfo).sendTx()
 
 //            JsTest.testPostTx()
         }
@@ -56,7 +55,6 @@ object SettingsDataFactory {
         val testHistory = SettingItem("Test: get_history, check res from log")
 //        testHistory.action = Runnable { WalletManager.model.hubRequestCurrentWalletTxHistory() }
 //        res.add(testHistory)
-
 
 //        val testJSSignWithDeviceMessageHash = SettingItem("testJSSignWithDeviceMessageHash", false)
 //        testJSSignWithDeviceMessageHash.txType = Runnable {
@@ -76,11 +74,9 @@ object SettingsDataFactory {
 //        }
 //        res.add(testJSSignWithDeviceMessageHash)
 
-
 //        val testJSVerifySign = SettingItem("testJSVerifySign", false)
 //        testJSVerifySign.txType = Runnable { runTestJSVerifySign() }
 //        res.add(testJSVerifySign)
-
 
         val testQrCode = SettingItem("Test QR CODE")
         testQrCode.action = Runnable { SimpleFragmentActivity.startMe(QRFragment::class.java.canonicalName) }
@@ -92,7 +88,6 @@ object SettingsDataFactory {
     private fun reqHistoryFromHub() {
 //        WalletManager.model.hubRequestCurrentWalletTxHistory()
     }
-
 
     fun runTestJSVerifySign() {
 
@@ -158,7 +153,6 @@ object SettingsDataFactory {
 
         return res
     }
-
 
     fun makeDebugOption(): List<SettingItem> {
 

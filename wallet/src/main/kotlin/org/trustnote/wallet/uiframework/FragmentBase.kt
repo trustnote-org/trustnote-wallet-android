@@ -15,10 +15,12 @@ import org.trustnote.wallet.util.Utils
 
 abstract class FragmentBase : Fragment() {
 
+
     lateinit var credential: Credential
 
     lateinit var mRootView: View
     var isCreated = false
+    private val ttag = "TTTUI"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mRootView = inflater.inflate(getLayoutId(), container, false)
@@ -49,8 +51,16 @@ abstract class FragmentBase : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        Utils.debugLog("$ttag:${this.javaClass.canonicalName}::onResume")
         updateUI()
     }
+
+    override fun onPause() {
+        super.onPause()
+        Utils.debugLog("$ttag:${this.javaClass.canonicalName}::onPause")
+        updateUI()
+    }
+
 
     abstract fun getLayoutId(): Int
 
@@ -63,6 +73,7 @@ abstract class FragmentBase : Fragment() {
     }
 
     open fun updateUI() {
+        Utils.debugLog("$ttag:${this.javaClass.canonicalName}::updateUI")
 
     }
 

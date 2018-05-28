@@ -9,7 +9,7 @@ import org.trustnote.db.TxOutputs
 import org.trustnote.db.TxUnits
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TTT
-
+import org.trustnote.wallet.util.Utils
 
 @SuppressWarnings("unchecked")
 @Suppress("UNCHECKED_CAST")
@@ -163,10 +163,10 @@ abstract class UnitsDao {
         AND asset IS NULL
         GROUP BY address ORDER BY SUM(amount) > :estimateAmount DESC, ABS(SUM(amount) - :estimateAmount) ASC;
         """)
-        //    TODO: unclear logic.
-        //    AND NOT EXISTS (
-        //    SELECT * FROM unit_authors JOIN units USING(unit)
-        //    WHERE is_stable=0 AND unit_authors.address=outputs.address AND definition_chash IS NOT NULL)
+    //    TODO: unclear logic.
+    //    AND NOT EXISTS (
+    //    SELECT * FROM unit_authors JOIN units USING(unit)
+    //    WHERE is_stable=0 AND unit_authors.address=outputs.address AND definition_chash IS NOT NULL)
     abstract fun queryFundedAddressesByAmount(walletId: String, estimateAmount: Long): Array<FundedAddress>
 
     @Query("""
@@ -178,11 +178,10 @@ abstract class UnitsDao {
         AND is_spent=0
         AND is_stable=1
         AND sequence='good'
-        AND main_chain_index<= :lastBallMCI
+        AND main_chain_index <= :lastBallMCI
         ORDER BY amount DESC
         """)
     abstract fun queryUtxoByAddress(addressList: List<String>, lastBallMCI: Int): Array<Outputs>
-
 
     @Transaction
     open fun saveMyWitnesses(myWitnesses: Array<MyWitnesses>) {
@@ -193,14 +192,19 @@ abstract class UnitsDao {
 
     @Transaction
     open fun saveUnits(units: Array<Units>) {
-        insertUnits(units)
-        for (oneUnit in units) {
-            insertAuthentifiers(oneUnit.authenfiers.toTypedArray())
-            insertMessages(oneUnit.messages.toTypedArray())
-            for (oneMessage in oneUnit.messages) {
-                insertInputs(oneMessage.payload.inputs.toTypedArray())
-                insertOutputs(oneMessage.payload.outputs.toTypedArray())
+        try {
+            insertUnits(units)
+            for (oneUnit in units) {
+                insertAuthentifiers(oneUnit.authenfiers.toTypedArray())
+                insertMessages(oneUnit.messages.toTypedArray())
+                for (oneMessage in oneUnit.messages) {
+                    insertInputs(oneMessage.payload.inputs.toTypedArray())
+                    insertOutputs(oneMessage.payload.outputs.toTypedArray())
+                }
             }
+
+        } catch (e: Throwable) {
+            Utils.debugHub(e.localizedMessage)
         }
     }
 
@@ -232,6 +236,5 @@ abstract class UnitsDao {
             fixIsSpentFlag(it.unit, it.messageIndex, it.outputIndex)
         }
     }
-
 
 }

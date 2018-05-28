@@ -10,7 +10,6 @@ import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.widget.RecyclerItemClickListener
-import org.trustnote.wallet.widget.TMnAmount
 
 class FragmentMainWallet : FragmentMainBase() {
 
@@ -36,7 +35,7 @@ class FragmentMainWallet : FragmentMainBase() {
 
         mSwipeRefreshLayout.setOnRefreshListener(
                 SwipeRefreshLayout.OnRefreshListener {
-                    WalletManager.model.restoreBg()
+                    WalletManager.model.fullRefreshing()
                 }
         )
 
@@ -45,11 +44,12 @@ class FragmentMainWallet : FragmentMainBase() {
 
     override fun updateUI() {
 
+        super.updateUI()
         if (!WalletManager.model.profileExist()) {
             return
         }
 
-        val myAllWallets = WalletManager.model.mProfile.credentials.filter { !it.isAuto || it.balance > 0 || it.isObserveOnly }
+        val myAllWallets = WalletManager.model.mProfile.credentials.filter { (it.account == 0 && !it.isObserveOnly) || !it.isAuto || it.balance > 0 || it.isObserveOnly }
         val adapter = CredentialAdapter(myAllWallets.toTypedArray())
         mRecyclerView.adapter = adapter
 

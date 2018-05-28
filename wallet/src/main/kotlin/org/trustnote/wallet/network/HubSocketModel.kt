@@ -133,17 +133,7 @@ class HubSocketModel {
         originRequset.setResponse(hubResponse)
         originRequset.handleResponse()
 
-        when (originRequset.command) {
-            HubMsgFactory.CMD_GET_PARENT_FOR_NEW_TX -> handleResult = handleGetParentForNewTx(hubResponse)
-        }
-
         return handleResult
-    }
-
-    private fun handleGetParentForNewTx(hubResponse: HubResponse): Boolean {
-        val originRequset = mRequestMap.getHubRequest(hubResponse.tag)
-        originRequset.setResponse(hubResponse)
-        return true
     }
 
 }

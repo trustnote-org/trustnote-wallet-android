@@ -80,10 +80,10 @@ data class PublicKeyRing(
         val xPubKey: String = ""
 )
 
-data class SendPaymentInfo(
-        val walletId: String,
-        val receiverAddress: String,
-        val amount: Long,
+data class PaymentInfo(
+        var walletId: String = "",
+        var receiverAddress: String = "",
+        var amount: Long = 0,
         //TODO: remove below field.
         var lastBallMCI: Int = 0
 )

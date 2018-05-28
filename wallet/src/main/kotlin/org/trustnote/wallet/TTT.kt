@@ -78,7 +78,6 @@ class TTT {
 
         val hubAddress = if (isTestnet) "wss://raytest.trustnote.org" else "wss://eason.trustnote.org/tn"
 
-
         const val TYPICAL_FEE = 1000L
         const val MAX_FEE = 20000L
 

@@ -9,6 +9,8 @@ import org.trustnote.wallet.util.Prefs
 object WalletManager {
 
     //TODO: when create new model, should close all hub listener.
+
+    //TODO: debounce the events.
     val mWalletEventCenter: Subject<Boolean> = PublishSubject.create()
 
     lateinit var model: WalletModel
@@ -17,7 +19,7 @@ object WalletManager {
     init {
         if (Prefs.profileExist()) {
             model = WalletModel()
-            model.restoreBg()
+            model.fullRefreshing()
         }
     }
 
@@ -35,20 +37,12 @@ object WalletManager {
         return model.mProfile
     }
 
-//    fun initWithMnemonic(removeMnemonic: Boolean) {
-//        model = WalletModel(Prefs.getTmpMnemonic(), removeMnemonic)
-//    }
-
     fun initWithMnemonic(mnemonic: String, removeMnemonic: Boolean, privKey: String = "") {
         if (Prefs.profileExist()) {
             model.destruct()
         }
         model = WalletModel(mnemonic, removeMnemonic, privKey)
     }
-
-//    fun getTmpMnemonic(): String {
-//        return Prefs.getTmpMnemonic()
-//    }
 
     fun getOrCreateMnemonic(): String {
         return JSApi().mnemonicSync()

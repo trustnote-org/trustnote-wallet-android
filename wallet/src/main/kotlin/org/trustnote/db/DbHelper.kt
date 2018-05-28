@@ -15,6 +15,10 @@ object DbHelper {
         getDao().saveUnits(units)
     }
 
+    fun saveUnits(units: Units) {
+        getDao().saveUnits(arrayOf(units))
+    }
+
     fun saveWalletMyAddress(listAddress: List<MyAddresses>) = saveWalletMyAddressInternal(listAddress)
     fun saveMyWitnesses(myWitnesses: List<String>) {
         getDao().saveMyWitnesses(myWitnesses.mapToTypedArray {

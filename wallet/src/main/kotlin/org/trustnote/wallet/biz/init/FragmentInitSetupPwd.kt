@@ -9,11 +9,12 @@ import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.PasswordStrength
 import org.trustnote.wallet.widget.PwdStrength
 
-class CWFragmentPwd : FragmentInit() {
+class FragmentInitSetupPwd : FragmentInit() {
 
     lateinit var pwdConfirm: Button
     lateinit var pwd: EditText
@@ -39,6 +40,7 @@ class CWFragmentPwd : FragmentInit() {
         pwd.addTextChangedListener(pwdTextWatcher)
         pwdVerify.addTextChangedListener(pwdTextWatcher)
 
+
         pwdConfirm.setOnClickListener {
             savePwdAndForward()
         }
@@ -46,6 +48,10 @@ class CWFragmentPwd : FragmentInit() {
         val webView: WebView = view.findViewById(R.id.pwd_warning)
         AndroidUtils.setupWarningWebView(webView, "PWD")
 
+        if (Utils.isUseDebugOption()) {
+            pwd.setText("qwer1234")
+            pwdVerify.setText("qwer1234")
+        }
 
         updateUI()
     }
