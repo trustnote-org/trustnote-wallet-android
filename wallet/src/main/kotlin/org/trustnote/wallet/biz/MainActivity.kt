@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -14,6 +15,7 @@ import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
 import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.me.FragmentMeMain
+import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsAdd
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.debugui.EmptyFragment
@@ -30,6 +32,7 @@ class MainActivity : BaseActivity() {
     lateinit var bottomNavigationView: BottomNavigationView
 
     lateinit var mToolbar: Toolbar
+    lateinit var mToolbarWrapper: View
 
     //TODO:
     var receiveAmount = 0L
@@ -40,6 +43,8 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
 
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        mToolbarWrapper = findViewById(R.id.toolbar_wrapper)
 
         mToolbar = findViewById(R.id.toolbar)
         setSupportActionBar(mToolbar)
@@ -68,7 +73,7 @@ class MainActivity : BaseActivity() {
                 openLevel2Fragment(Bundle(), FragmentMainCreateWallet::class.java)
             }
             R.id.action_my_pair_id -> {
-                AndroidUtils.openDialog(this, R.layout.l_dialog_my_pairid_qr)
+                openPage(FragmentMsgMyPairId())
             }
 
             R.id.action_contacts_add -> {
@@ -105,6 +110,8 @@ class MainActivity : BaseActivity() {
         menuInflater.inflate(R.menu.main_action, menu)
         return true
     }
+
+
 
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
 //        //inflater.inflate(R.menu.your_menu_xml, menu)
@@ -176,6 +183,11 @@ class MainActivity : BaseActivity() {
                 R.id.fragment_container, newFragment)
                 .commit()
     }
+
+    fun changeToolbarBackground(colorResId : Int) {
+        mToolbarWrapper.setBackgroundDrawable(ColorDrawable(getResources().getColor(colorResId)))
+    }
+
 
 }
 

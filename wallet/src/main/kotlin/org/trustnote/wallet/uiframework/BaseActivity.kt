@@ -20,12 +20,13 @@ import org.trustnote.wallet.*
 import java.lang.reflect.AccessibleObject.setAccessible
 import java.lang.reflect.Array.setBoolean
 
-
-
 abstract class BaseActivity : AppCompatActivity() {
 
     private lateinit var mKeyboardView: CustomKeyboardView
     private lateinit var mKeyboard: Keyboard
+
+    lateinit var mRefreshingIndicator: View
+    lateinit var mErrorIndicator: View
 
     abstract fun injectDependencies(graph: TApplicationComponent)
 
@@ -35,6 +36,12 @@ abstract class BaseActivity : AppCompatActivity() {
         injectDependencies(TApp.graph)
 
         setupStatusBar()
+    }
+
+    override fun setContentView(layoutResID: Int) {
+        super.setContentView(layoutResID)
+//        mRefreshingIndicator = findViewById(R.id.refreshing_indicator)
+//        mErrorIndicator = findViewById(R.id.error_indicator)
     }
 
     private fun setupStatusBar() {
@@ -82,7 +89,6 @@ abstract class BaseActivity : AppCompatActivity() {
                 this))
     }
 
-
     fun closeKeyboard(): Boolean {
         if (mKeyboardView.visibility == View.VISIBLE) {
             mKeyboardView.visibility = View.GONE
@@ -125,5 +131,14 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
     }
+
+    fun showRefreshingUI(isShow: Boolean = false) {
+        mRefreshingIndicator.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+    fun showErrorUI(isShow: Boolean = false) {
+        mErrorIndicator.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
 }
 

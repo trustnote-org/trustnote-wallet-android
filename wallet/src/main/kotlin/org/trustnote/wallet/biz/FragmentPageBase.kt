@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
@@ -26,8 +27,13 @@ abstract class FragmentPageBase: FragmentBase() {
         return view
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        menu!!.clear() //Empty the old menu
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
     override fun setupToolbar() {
+
         setHasOptionsMenu(true)
 
         getMyActivity().getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
@@ -42,6 +48,9 @@ abstract class FragmentPageBase: FragmentBase() {
         getMyActivity().mToolbar.setNavigationOnClickListener {
             getMyActivity().onBackPressed()
         }
+
+        getMyActivity().changeToolbarBackground(R.color.page_bg)
+//        getMyActivity().getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(activity.getResources().getColor(R.color.page_bg)))
 
 
     }

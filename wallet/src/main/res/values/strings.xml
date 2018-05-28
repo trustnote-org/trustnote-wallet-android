@@ -246,5 +246,13 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
 
     <string name="receive_amount_label">收款金额(MN)</string>
 
+    <string name="mypairid_title">我的配对码</string>
+    <string name="mypairid_title_info">使用其他设备扫描以下配对码，或将以下配对码发送给其他设备，加我好友</string>
+    <string name="mypairid_copy_btn">复制配对码</string>
+
+
+
+
+
 
 </resources>

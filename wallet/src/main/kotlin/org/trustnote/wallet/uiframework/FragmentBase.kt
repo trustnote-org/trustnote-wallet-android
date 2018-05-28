@@ -106,4 +106,13 @@ abstract class FragmentBase : Fragment() {
         }
     }
 
+    fun showRefreshingUI(isShow: Boolean = false) {
+        (activity as BaseActivity).showRefreshingUI(isShow)
+    }
+
+    fun showErrorUI(isShow: Boolean = false) {
+        (activity as BaseActivity).showErrorUI(isShow)
+    }
+
+
 }

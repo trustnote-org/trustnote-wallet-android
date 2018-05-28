@@ -243,6 +243,22 @@ class JSApi {
     fun getBip38WordList(): List<String> {
         return BIP38_WORD_LIST_EN
     }
+
+    /**
+     * 生成随机字节数
+     * @method randomBytes
+     * @for Base
+     * @param {int}     字节数
+     * @return {string} 随机数的base64
+     */
+    fun randomBytesSync(num: Int): String {
+        return TWebView.sInstance.callJSSync("window.Client.randomBytes($num);")
+    }
+
+    fun randomBytes(num: Int, cb: ValueCallback<String>) {
+        return TWebView.sInstance.callJS("window.Client.randomBytes($num);", cb)
+    }
+
 }
 
 var BIP38_WORD_LIST_EN: List<String> = mutableListOf()
