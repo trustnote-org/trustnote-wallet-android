@@ -41,6 +41,15 @@ object SettingsDataFactory {
 
         val res = ArrayList<SettingItem>()
 
+        val printMyPaidId = SettingItem("打印配对码", true)
+        printMyPaidId.action = Runnable {
+            WalletManager.getMyPairId(ValueCallback {
+                Utils.debugJS(it)
+            })
+        }
+        res.add(printMyPaidId)
+
+
         val testPostTx = SettingItem("Test: Test post tx")
         testPostTx.action = Runnable {
 

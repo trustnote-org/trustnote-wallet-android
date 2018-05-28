@@ -11,6 +11,7 @@
         android:id="@+id/dialog_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/status_bar_height"
         android:background="@drawable/bg_dialog_frame"></FrameLayout>
 
 </RelativeLayout>

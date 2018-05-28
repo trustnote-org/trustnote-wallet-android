@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/toolbar"
-    style="@style/ToolBarStyle"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp"
-    app:contentInsetStartWithNavigation="0dp">
+    android:orientation="vertical">
 
-</android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/refreshing_indicator"
+        style="@style/t_sub_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/place_holder"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        style="@style/ToolBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_main"
+        android:layout_marginRight="@dimen/padding_main"
+        android:gravity="center_vertical"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp">
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/error_indicator"
+        style="@style/t_sub_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/place_holder"
+        android:visibility="gone" />
+
+</LinearLayout>
+
 

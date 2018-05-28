@@ -1,5 +1,9 @@
 package org.trustnote.wallet.network
 
+import android.webkit.ValueCallback
+import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.js.TWebView
+import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 
 //TODO: test case when HubManager return empty\strange result.
@@ -41,6 +45,8 @@ class HubManager {
     fun getCurrentHub(): HubSocketModel {
         return this.currentHub
     }
+
+
 
     //@SuppressLint("NewApi")
 //    private fun monitorResponse(bodyType: HubMsg.BODY_TYPE, txType: Consumer<HubResponse>) {

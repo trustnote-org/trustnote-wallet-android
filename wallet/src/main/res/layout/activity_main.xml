@@ -7,17 +7,15 @@
     android:background="@color/bg_white">
 
     <include
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_wrapper"
         layout="@layout/l_toobar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/padding_main"
-        android:layout_marginRight="@dimen/padding_main" />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar_wrapper">
 
         <FrameLayout
             android:id="@+id/fragment_container"

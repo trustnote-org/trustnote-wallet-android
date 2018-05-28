@@ -76,7 +76,7 @@ class TTT {
                 "curry.trustnote.org/tn",
                 "kake.trustnote.org/tn")
 
-        val hubAddress = if (isTestnet) "wss://raytest.trustnote.org" else "wss://eason.trustnote.org/tn"
+        val hubAddress = if (isTestnet) "raytest.trustnote.org" else "eason.trustnote.org/tn"
 
         const val TYPICAL_FEE = 1000L
         const val MAX_FEE = 20000L

@@ -28,6 +28,7 @@ import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.wallet.TProfile
+import org.trustnote.wallet.js.JSApi
 import java.io.File
 import java.text.SimpleDateFormat
 
@@ -216,7 +217,7 @@ object Utils {
     }
 
     fun getFeeAsString(fee: Long): String {
-        return String.format("%.6f", fee.toFloat()/ TTT.w_coinunitValue)
+        return String.format("%.6f", fee.toFloat() / TTT.w_coinunitValue)
     }
 
     val emptyLambda = {}
@@ -257,7 +258,6 @@ object Utils {
             (diff / DAY_MILLIS).toString() + " days ago"
         }
     }
-
 
     fun getTimeAgoForCn(time: Long): String {
         var time = time

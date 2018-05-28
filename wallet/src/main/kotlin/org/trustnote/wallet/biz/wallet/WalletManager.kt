@@ -1,8 +1,12 @@
 package org.trustnote.wallet.biz.wallet
 
+import android.webkit.ValueCallback
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.js.TWebView
+import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.util.Prefs
 
 
@@ -51,5 +55,27 @@ object WalletManager {
     fun isExist(): Boolean {
         return Prefs.profileExist()
     }
+
+    //TODO: move to msg module.TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@wss://raytest.trustnote.org#vhTo9cIGYKEL
+    //TODO: move to msg module.TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@shawtest.trustnote.org#xSpGdRdQTv16
+    fun getMyPairId(pairIdCallback: ValueCallback<String>) {
+        val api = JSApi()
+
+        api.randomBytes(9, ValueCallback {
+            val randomString = it
+
+            fun ecdsaPubkey(xPrivKey: String, path: String, cb: ValueCallback<String>) {
+                TWebView.sInstance.callJS("""window.Client.ecdsaPubkey("$xPrivKey", "$path");""", cb)
+            }
+
+            api.ecdsaPubkey(model.mProfile.xPrivKey, "m/1'", ValueCallback {
+                val m1Pubkey = it
+                val res = """TTT:$m1Pubkey@${TTT.hubAddress}#$randomString"""
+                pairIdCallback.onReceiveValue(res)
+            })
+
+        })
+    }
+
 
 }

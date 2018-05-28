@@ -27,7 +27,6 @@ class FragmentMainWallet : FragmentMainBase() {
     override fun initFragment(view: View) {
         super.initFragment(view)
 
-
         mRecyclerView = mRootView.findViewById(R.id.credential_list)
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
 

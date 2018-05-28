@@ -17,9 +17,13 @@ object TTTUtils {
     }
 
     fun setupAddressQRCode(address: String, amount: Long, qrImageView: ImageView) {
-        val qrWidth = org.trustnote.wallet.TApp.context.resources.getDimension(R.dimen.qr_width).toInt()
         val qrForAddress = toAddressQRText(address, amount)
-        val qrBitmap = AndroidUtils.encodeStrAsQrBitmap(qrForAddress, qrWidth)
+        setupQRCode(qrForAddress, qrImageView)
+    }
+
+    fun setupQRCode(qrcode: String, qrImageView: ImageView) {
+        val qrWidth = org.trustnote.wallet.TApp.context.resources.getDimension(R.dimen.qr_width).toInt()
+        val qrBitmap = AndroidUtils.encodeStrAsQrBitmap(qrcode, qrWidth)
         qrImageView.setImageBitmap(qrBitmap)
     }
 
