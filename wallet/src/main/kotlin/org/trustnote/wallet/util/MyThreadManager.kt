@@ -1,5 +1,6 @@
 package org.trustnote.wallet.util
 
+import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.ThreadFactory
@@ -10,6 +11,7 @@ class MyThreadManager {
         val instance = MyThreadManager()
     }
 
+    private val random = Random()
     private var jsNonUIExec = createExec("JSSYNC")
     private var walletModelBg = createExec("WALLETMODEL_BG")
     private var jsSyncInternal = createExec("JSSYNCINTERNAL")
@@ -18,6 +20,14 @@ class MyThreadManager {
     fun newSingleThreadExecutor(threadTag: String): ScheduledExecutorService {
         return createExec(threadTag)
     }
+
+    fun runLowPriorityInBack(lambda: () -> Unit) {
+        exec.execute {
+            Thread.sleep((random.nextInt(3) + 3) * 1000L)
+            lambda.invoke()
+        }
+    }
+
 
     fun runInBack(lambda: () -> Unit) {
         exec.execute(lambda)

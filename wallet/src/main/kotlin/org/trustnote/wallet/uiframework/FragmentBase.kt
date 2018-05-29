@@ -8,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.zxing.integration.android.IntentIntegrator
+import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.FragmentPageBase
+import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Utils
@@ -65,6 +68,15 @@ abstract class FragmentBase : Fragment() {
     abstract fun getLayoutId(): Int
 
     open fun setupToolbar() {
+
+        if (activity is MainActivity) {
+            val mainActivity = activity as MainActivity
+            if (this is FragmentPageBase) {
+                mainActivity.changeToolbarBackground(R.color.page_bg)
+            } else {
+                mainActivity.changeToolbarBackground(R.color.bg_white)
+            }
+        }
 
     }
 

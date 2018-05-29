@@ -402,6 +402,7 @@ public class Prefs {
     private static final String KEY_DEVICE_NAME = "DEVICE_NAME";
     private static final String KEY_FINISH_CREATE_OR_RESTORE = "FINISH_CREATE_OR_RESTORE";
     private static final String KEY_ENABLE_PWD_FOR_STARTUP = "KEY_ENABLE_PWD_FOR_STARTUP";
+    private static final String KEY_MY_PAIRD_ID = "KEY_MY_PAIRD_ID";
 
     public static boolean profileExist() {
         return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
@@ -470,6 +471,14 @@ public class Prefs {
 
     public static Boolean readEnablepwdForStartup() {
         return getInstance().readBoolean(KEY_ENABLE_PWD_FOR_STARTUP, true);
+    }
+
+    public static void writeMyPairId(String myPairId) {
+        getInstance().write(KEY_MY_PAIRD_ID, myPairId);
+    }
+
+    public static String readMyPairId() {
+        return getInstance().read(KEY_MY_PAIRD_ID);
     }
 
 

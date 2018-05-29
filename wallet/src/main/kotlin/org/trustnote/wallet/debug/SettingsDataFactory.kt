@@ -43,9 +43,9 @@ object SettingsDataFactory {
 
         val printMyPaidId = SettingItem("打印配对码", true)
         printMyPaidId.action = Runnable {
-            WalletManager.getMyPairId(ValueCallback {
-                Utils.debugJS(it)
-            })
+            val pairId = WalletManager.readAndConsumeMyPairId()
+            Utils.debugLog("PEER ID = $pairId")
+            Utils.toastMsg("PEER ID = $pairId")
         }
         res.add(printMyPaidId)
 

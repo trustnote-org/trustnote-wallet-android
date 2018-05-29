@@ -56,9 +56,15 @@ object WalletManager {
         return Prefs.profileExist()
     }
 
-    //TODO: move to msg module.TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@wss://raytest.trustnote.org#vhTo9cIGYKEL
-    //TODO: move to msg module.TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@shawtest.trustnote.org#xSpGdRdQTv16
-    fun getMyPairId(pairIdCallback: ValueCallback<String>) {
+    //TODO: move to msg module.
+    // Data sample: TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@shawtest.trustnote.org#xSpGdRdQTv16
+    fun generateMyPairIdForFutureUse() {
+
+        val res = Prefs.readMyPairId()
+        if (res.isNotEmpty()) {
+            return
+        }
+
         val api = JSApi()
 
         api.randomBytes(9, ValueCallback {
@@ -70,12 +76,24 @@ object WalletManager {
 
             api.ecdsaPubkey(model.mProfile.xPrivKey, "m/1'", ValueCallback {
                 val m1Pubkey = it
+                //TODO: since the value is pre-generated, should replace hub address
                 val res = """TTT:$m1Pubkey@${TTT.hubAddress}#$randomString"""
-                pairIdCallback.onReceiveValue(res)
+
+                Prefs.writeMyPairId(res)
             })
 
         })
     }
 
+    fun readAndConsumeMyPairId(): String {
+        val res = Prefs.readMyPairId()
+
+        if (res != null) {
+            Prefs.writeMyPairId("")
+        }
+
+        generateMyPairIdForFutureUse()
+        return res
+    }
 
 }

@@ -307,9 +307,9 @@ class CWFragmentRestore : FragmentInit() {
 
         }
 
-        if (Utils.isUseDebugOption()) {
-            mnemonicsGrid.setMnemonic(TestData.mnemonic0, true)
-        }
+//        if (Utils.isUseDebugOption()) {
+//            mnemonicsGrid.setMnemonic(TestData.mnemonic0, true)
+//        }
 
         showMnemonicKeyboardIfRequired()
 

@@ -41,15 +41,14 @@ class FragmentMsgMyPairId : FragmentPageBase() {
 
         }
 
-        WalletManager.getMyPairId(ValueCallback {
-            pairIdText.text = it
-            TTTUtils.setupQRCode(it, pairIdQR)
-        })
+        val myPairId = WalletManager.readAndConsumeMyPairId()
+
+        pairIdText.text = myPairId
+        TTTUtils.setupQRCode(myPairId, pairIdQR)
 
     }
 
     override fun updateUI() {
-
 
     }
 

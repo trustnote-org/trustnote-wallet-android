@@ -95,6 +95,9 @@ class MainActivity : BaseActivity() {
         spa.setDisplayShowHomeEnabled(false)
 
         spa.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
+
+        changeToolbarBackground(R.color.bg_white)
+
     }
 
     fun setToolbarTitle(s: String) {

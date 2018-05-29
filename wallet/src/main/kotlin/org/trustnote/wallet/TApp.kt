@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.webkit.WebView
 import dagger.Lazy
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.js.TWebView
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.biz.wallet.WalletModel
@@ -75,6 +76,10 @@ class TApp : Application() {
 
         MyThreadManager.instance.runInBack {
             AndroidUtils.readBip38List()
+        }
+
+        MyThreadManager.instance.runLowPriorityInBack {
+            WalletManager.generateMyPairIdForFutureUse()
         }
     }
 }

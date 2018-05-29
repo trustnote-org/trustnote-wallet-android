@@ -33,7 +33,7 @@ abstract class FragmentPageBase: FragmentBase() {
     }
 
     override fun setupToolbar() {
-
+        super.setupToolbar()
         setHasOptionsMenu(true)
 
         getMyActivity().getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
@@ -49,7 +49,6 @@ abstract class FragmentPageBase: FragmentBase() {
             getMyActivity().onBackPressed()
         }
 
-        getMyActivity().changeToolbarBackground(R.color.page_bg)
 //        getMyActivity().getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(activity.getResources().getColor(R.color.page_bg)))
 
 

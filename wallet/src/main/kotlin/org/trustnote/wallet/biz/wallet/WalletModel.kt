@@ -137,24 +137,39 @@ class WalletModel() {
             ModelHelper.generateNewAddressAndSaveDb(credential)
         }
 
+
+        readDataFromDb(credential)
+        //notify for better UI experience.
+        profileUpdated()
+
+        val hubResponse = getUnitsFromHub(credential)
+        val res = UnitsManager().saveUnitsFromHubResponse(hubResponse)
+        if (res.isNotEmpty() && credential == lastLocalWallet()) {
+
+            readDataFromDb(credential)
+
+            createNewWalletIfLastWalletHasTransaction()
+
+        }
+
+        profileUpdated()
+
+    }
+
+    private fun readDataFromDb(credential: Credential) {
+
         DbHelper.fixIsSpentFlag()
 
         updateBalance(credential)
 
         updateTxs(credential)
 
-        //notify for better UI experience.
-        profileUpdated()
-
-        val hubResponse = getUnitsFromHub(credential)
-        val res = UnitsManager().saveUnitsFromHubResponse(hubResponse)
-        if (res.isNotEmpty()) {
-            createNewWalletIfLastWalletHasTransaction()
-        }
-
-        profileUpdated()
-
     }
+
+    private fun lastLocalWallet(): Credential {
+        return mProfile.credentials.last { !it.isObserveOnly }
+    }
+
 
     private fun profileUpdated() {
 
