@@ -54,11 +54,17 @@ class FragmentMainWallet : FragmentMainBase() {
 
 
         mRecyclerView.addOnItemTouchListener(
-                RecyclerItemClickListener(context, mRecyclerView, object : RecyclerItemClickListener.OnItemClickListener {
+
+                RecyclerItemClickListener(context, mRecyclerView,
+                        object : RecyclerItemClickListener.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
+
                         val bundle = Bundle()
-                        bundle.putString(TTT.KEY_WALLET_ID, adapter.myDataset[position - 1].walletId)
+                        val  insideAdapter = mRecyclerView.adapter as CredentialAdapter
+                        bundle.putString(TTT.KEY_WALLET_ID, insideAdapter.myDataset[position - 1].walletId)
+
                         (activity as MainActivity).openLevel2Fragment(bundle, FragmentMainWalletTxList::class.java)
+
                     }
 
                     override fun onLongItemClick(view: View, position: Int) {

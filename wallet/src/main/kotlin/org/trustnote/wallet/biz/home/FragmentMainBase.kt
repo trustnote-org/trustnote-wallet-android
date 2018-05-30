@@ -14,7 +14,6 @@ abstract class FragmentMainBase : FragmentBase() {
 
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
-    //TODO: empty constructor.
     fun getMyActivity(): MainActivity {
         return activity as MainActivity
     }

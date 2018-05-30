@@ -78,6 +78,7 @@ class TWebView : WebView {
                 latch.countDown()
             }
         }
+
         mHandler.post(jsAction)
 
         latch.await()

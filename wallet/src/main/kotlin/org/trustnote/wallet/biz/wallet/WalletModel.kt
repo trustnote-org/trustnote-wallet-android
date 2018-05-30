@@ -294,7 +294,7 @@ class WalletModel() {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
         val walletPubKey = api.walletPubKeySync(profile.xPrivKey, walletIndex)
-        val walletId = Utils.decodeJsStr(api.walletIDSync(walletPubKey))
+        val walletId = api.walletIDSync(walletPubKey)
         val walletTitle = if (TTT.firstWalletName == credentialName) TTT.firstWalletName + ":" + walletIndex else credentialName
 
         val res = Credential()
