@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.WindowManager
+import android.view.animation.AlphaAnimation
 import android.webkit.WebView
 import android.widget.PopupWindow
 import com.google.zxing.BarcodeFormat
@@ -252,6 +253,27 @@ object AndroidUtils {
         val clipboard = TApp.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(TTT.KEY_TTT_QR_TAG, myText)
         clipboard.setPrimaryClip(clip)
+    }
+
+    fun getStatusBarHeight(): Int {
+        var result = 0
+        val resourceId = TApp.resources.getIdentifier("status_bar_height", "dimen", "android")
+
+        if (resourceId > 0) {
+            result = TApp.resources.getDimensionPixelSize(resourceId)
+        }
+        return result
+    }
+
+    fun startAlphaAnimation(v: View, duration: Long, visibility: Int) {
+        val alphaAnimation = if (visibility == View.VISIBLE)
+            AlphaAnimation(0f, 1f)
+        else
+            AlphaAnimation(1f, 0f)
+
+        alphaAnimation.duration = duration
+        alphaAnimation.fillAfter = true
+        v.startAnimation(alphaAnimation)
     }
 
 }

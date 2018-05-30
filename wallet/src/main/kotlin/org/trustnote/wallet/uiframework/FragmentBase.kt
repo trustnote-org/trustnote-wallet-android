@@ -86,7 +86,6 @@ abstract class FragmentBase : Fragment() {
 
     open fun updateUI() {
         Utils.debugLog("$ttag:${this.javaClass.canonicalName}::updateUI")
-
     }
 
     var scanResHandler: (String) -> Unit = {}

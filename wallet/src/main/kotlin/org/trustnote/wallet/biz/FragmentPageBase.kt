@@ -33,21 +33,21 @@ abstract class FragmentPageBase: FragmentBase() {
     }
 
     override fun setupToolbar() {
-        super.setupToolbar()
-        setHasOptionsMenu(true)
-
-        getMyActivity().getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
-
-        //getMyActivity().getSupportActionBar()!!.closeOptionsMenu()
-        //getMyActivity().supportActionBar!!.setHomeAsUpIndicator(TApp.smallIconBackHome)
-
-        getMyActivity().getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
-        getMyActivity().getSupportActionBar()!!.setDisplayShowHomeEnabled(true);
-
-        getMyActivity().mToolbar.setNavigationIcon(TApp.smallIconBackHome)
-        getMyActivity().mToolbar.setNavigationOnClickListener {
-            getMyActivity().onBackPressed()
-        }
+//        super.setupToolbar()
+//        setHasOptionsMenu(true)
+//
+//        getMyActivity().getSupportActionBar()!!.setDisplayShowTitleEnabled(false);
+//
+//        //getMyActivity().getSupportActionBar()!!.closeOptionsMenu()
+//        //getMyActivity().supportActionBar!!.setHomeAsUpIndicator(TApp.smallIconBackHome)
+//
+//        getMyActivity().getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
+//        getMyActivity().getSupportActionBar()!!.setDisplayShowHomeEnabled(true);
+//
+//        getMyActivity().mToolbar.setNavigationIcon(TApp.smallIconBackHome)
+//        getMyActivity().mToolbar.setNavigationOnClickListener {
+//            getMyActivity().onBackPressed()
+//        }
 
 //        getMyActivity().getSupportActionBar()!!.setBackgroundDrawable(ColorDrawable(activity.getResources().getColor(R.color.page_bg)))
 

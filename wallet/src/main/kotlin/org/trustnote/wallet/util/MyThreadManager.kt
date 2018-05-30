@@ -15,6 +15,7 @@ class MyThreadManager {
     private var jsNonUIExec = createExec("JSSYNC")
     private var walletModelBg = createExec("WALLETMODEL_BG")
     private var jsSyncInternal = createExec("JSSYNCINTERNAL")
+    private var execLowPriority = createExec("LOWPRIORITY", 1)
     private var exec = createExec("ANOY", 1)
 
     fun newSingleThreadExecutor(threadTag: String): ScheduledExecutorService {
@@ -22,7 +23,7 @@ class MyThreadManager {
     }
 
     fun runLowPriorityInBack(lambda: () -> Unit) {
-        exec.execute {
+        execLowPriority.execute {
             Thread.sleep((random.nextInt(3) + 3) * 1000L)
             lambda.invoke()
         }

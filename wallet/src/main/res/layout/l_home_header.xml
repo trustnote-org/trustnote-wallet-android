@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/l_amount_summary" />
+    <include
+        layout="@layout/l_amount_summary" />
 
     <View
         android:layout_width="match_parent"

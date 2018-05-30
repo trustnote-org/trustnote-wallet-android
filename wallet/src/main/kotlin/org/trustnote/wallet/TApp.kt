@@ -2,6 +2,7 @@ package org.trustnote.wallet
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.webkit.WebView
@@ -22,6 +23,7 @@ class TApp : Application() {
     companion object {
         //TODO:
         lateinit @JvmStatic var context: Context
+        lateinit var resources: Resources
         lateinit var graph: TApplicationComponent
 
         var smallIconSize = 14
@@ -63,6 +65,8 @@ class TApp : Application() {
         }
 
         context = this
+        TApp.resources = resources
+
         TWebView.init(this)
         Prefs.with(this)
         HubManager.instance

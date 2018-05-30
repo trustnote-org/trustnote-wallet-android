@@ -9,7 +9,6 @@ import org.trustnote.wallet.js.TWebView
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.util.Prefs
 
-
 object WalletManager {
 
     //TODO: when create new model, should close all hub listener.

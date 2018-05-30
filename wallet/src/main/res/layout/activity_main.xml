@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/status_bar_height"
     android:background="@color/bg_white">
 
-    <include
-        android:id="@+id/toolbar_wrapper"
-        layout="@layout/l_toobar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar_wrapper">
+        android:layout_height="match_parent">
+
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/home_line"
-            android:layout_marginLeft="@dimen/padding_main"
-            android:layout_marginRight="@dimen/padding_main" />
+            android:layout_below="@id/toolbar"
+            android:layout_above="@+id/home_line" />
 
         <View
             android:id="@+id/home_line"
@@ -42,12 +35,16 @@
             app:itemTextColor="@drawable/menu_text_color"
             app:menu="@menu/main_bottom" />
 
-        <FrameLayout
-            android:id="@+id/fragment_level2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
     </RelativeLayout>
 
+    <FrameLayout
+        android:id="@+id/fragment_level2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-</RelativeLayout>
+
+</FrameLayout>
+
+
+

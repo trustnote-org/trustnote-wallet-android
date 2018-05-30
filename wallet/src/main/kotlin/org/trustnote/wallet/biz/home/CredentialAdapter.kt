@@ -30,15 +30,9 @@ class CredentialAdapter(val myDataset: Array<Credential>) :
         }
     }
 
-
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == VIEW_TYPE_HEADER) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.l_home_hearder, parent, false)
-            return object : RecyclerView.ViewHolder(view) {
-            }
-        }
 
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_credential, parent, false)
@@ -49,33 +43,26 @@ class CredentialAdapter(val myDataset: Array<Credential>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
 
-        if (holder is ViewHolder && position > 0) {
-            val credential = myDataset[position -1]
+        if (holder is ViewHolder) {
+            val credential = myDataset[position]
             holder.ic.setImageResource(R.drawable.credential_icon)
             holder.title.text = credential.walletName
             holder.amount.setMnAmount(credential.balance)
 
             holder.observerTag.visibility = if (credential.isObserveOnly) View.VISIBLE else View.INVISIBLE
-            return
-        } else {
-
-            val totalBalanceView = holder!!.itemView.findViewById<TMnAmount>(R.id.wallet_summary)
-            totalBalanceView.setMnAmount(WalletManager.model.mProfile.balance)
-
         }
-
+        return
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = myDataset.size + 1
+    override fun getItemCount() = myDataset.size
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_ITEM
+        return if (position == 0) VIEW_TYPE_ITEM else VIEW_TYPE_ITEM
     }
 
     companion object {
         val VIEW_TYPE_ITEM = 1
-        val VIEW_TYPE_HEADER = 0
     }
 
 }

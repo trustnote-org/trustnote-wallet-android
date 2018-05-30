@@ -31,9 +31,6 @@ class MainActivity : BaseActivity() {
 
     lateinit var bottomNavigationView: BottomNavigationView
 
-    lateinit var mToolbar: Toolbar
-    lateinit var mToolbarWrapper: View
-
     //TODO:
     var receiveAmount = 0L
 
@@ -44,16 +41,15 @@ class MainActivity : BaseActivity() {
 
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        mToolbarWrapper = findViewById(R.id.toolbar_wrapper)
-
-        mToolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(mToolbar)
-
-        mToolbar.overflowIcon = TApp.smallIconQuickAction
+//        mToolbarWrapper = findViewById(R.id.toolbar_wrapper)
+//
+//        val mToolbar = findViewById<Toolbar>(R.id.toolbar)
+//        setSupportActionBar(mToolbar)
+//
+//        mToolbar.overflowIcon = TApp.smallIconQuickAction
 
         disableShiftMode(bottomNavigationView)
 
-        setupToolbar()
 
     }
 
@@ -62,7 +58,6 @@ class MainActivity : BaseActivity() {
 
         if (supportFragmentManager.backStackEntryCount == 0) {
             bottomNavigationView.visibility = View.VISIBLE
-            setupToolbar()
         }
 
     }
@@ -84,19 +79,24 @@ class MainActivity : BaseActivity() {
         return true
     }
 
-    private fun setupToolbar() {
-        val spa = supportActionBar!!
-        spa.setDisplayShowTitleEnabled(true)
 
-        //getMyActivity().getSupportActionBar()!!.closeOptionsMenu()
-        //getMyActivity().supportActionBar!!.setHomeAsUpIndicator(TApp.smallIconBackHome)
+    fun setupToolbar(toolbar: Toolbar) {
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        toolbar.overflowIcon = TApp.smallIconQuickAction
 
-        spa.setDisplayHomeAsUpEnabled(false)
-        spa.setDisplayShowHomeEnabled(false)
-
-        spa.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
-
-        changeToolbarBackground(R.color.bg_white)
+//        val spa = supportActionBar!!
+//        spa.setDisplayShowTitleEnabled(true)
+//
+//        //getMyActivity().getSupportActionBar()!!.closeOptionsMenu()
+//        //getMyActivity().supportActionBar!!.setHomeAsUpIndicator(TApp.smallIconBackHome)
+//
+//        spa.setDisplayHomeAsUpEnabled(false)
+//        spa.setDisplayShowHomeEnabled(false)
+//
+//        spa.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
+//
+//        changeToolbarBackground(R.color.bg_white)
 
     }
 
@@ -188,7 +188,7 @@ class MainActivity : BaseActivity() {
     }
 
     fun changeToolbarBackground(colorResId : Int) {
-        mToolbarWrapper.setBackgroundDrawable(ColorDrawable(getResources().getColor(colorResId)))
+        //mToolbarWrapper.setBackgroundDrawable(ColorDrawable(getResources().getColor(colorResId)))
     }
 
 
