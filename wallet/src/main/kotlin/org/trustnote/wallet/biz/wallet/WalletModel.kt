@@ -335,7 +335,7 @@ class WalletModel() {
     fun newObserveWallet(walletIndex: Int, walletPubKey: String, walletTitle: String) {
         val newCredential = createObserveCredential(walletIndex, walletPubKey, walletTitle)
         mProfile.credentials.add(newCredential)
-        refreshingCredentials.offer(newCredential)
+
         refreshOneWallet(newCredential)
         profileUpdated()
     }

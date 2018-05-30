@@ -6,6 +6,7 @@ import org.trustnote.db.FundedAddress
 import org.trustnote.db.Payload
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.network.HubManager
@@ -49,11 +50,9 @@ class UnitComposer(
 
     }
 
-    fun startSendTx() {
+    fun startSendTx(activity: MainActivity) {
 
         MyThreadManager.instance.runInBack {
-            composeUnits()
-
             if (postNewUnitToHub()) {
                 val unitJson = Utils.toGsonObject(units)
                 val unit = UnitsManager().parseUnitFromJson(unitJson)
@@ -105,8 +104,6 @@ class UnitComposer(
         return res
     }
 
-
-
     private fun initUnits() {
 
         receiverOutput.address = sendPaymentInfo.receiverAddress
@@ -132,7 +129,7 @@ class UnitComposer(
 
     }
 
-    private fun composeUnits() {
+    fun composeUnits() {
 
         val responseJson = mGetParentRequest.getResponse().responseJson as JsonObject
 
@@ -155,7 +152,11 @@ class UnitComposer(
         genCommission()
         genChange()
         genPayloadHash()
-        genUnitsHashAndSign()
+
+        val credential = WalletManager.model.findWallet(sendPaymentInfo.walletId)
+        if (!credential.isObserveOnly) {
+            genUnitsHashAndSign()
+        }
 
         Utils.debugLog(Utils.toGsonString(units))
     }
@@ -175,6 +176,7 @@ class UnitComposer(
         authors.forEach {
             val myAddresses = DbHelper.queryAddressByAddresdId(it.address)
             val hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
+
             val sign = jsApi.signSync(hashToSign, WalletManager.getProfile().xPrivKey, Utils.genBip44Path(myAddresses))
 
             it.authentifiers.remove("r")

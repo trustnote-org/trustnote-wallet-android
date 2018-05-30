@@ -166,6 +166,9 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         }
     }
 
+
+    //Step1: TTT:{"type": "c1","name": "TTT","pub":"xpub6CiT96vM5krNhwFA4ro5nKJ6nq9WykFmAsP18jC1Aa3URb69rvUHw6uvU51MQPkMZQ6BLiC5C1E3Zbsm7Xob3FFhNHJkN3v9xuxfqFFKPP5","n": 0,"v": 1234}
+    //Setpe: TTT:{"type": "c2","addr": "0NEYV3ZCRAJYGJDS5UNN4EOZGNVZJXOLI","v": 1234}
     //    TTT: {
     //        "type": "h1",
     //        "id": "LYnW1wl8qHyHyWjoV2CYOlYhUvE3Gj1jh5tUEFzoMn0=",

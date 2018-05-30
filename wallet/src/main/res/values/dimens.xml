@@ -45,6 +45,7 @@
     <dimen name="line_gap_7">7dp</dimen>
     <dimen name="line_gap_46">46dp</dimen>
     <dimen name="line_gap_70">70dp</dimen>
+    <dimen name="line_gap_54">54dp</dimen>
     <dimen name="field_padding">17dp</dimen>
 
     <dimen name="bg_dialog_padding_30">30dp</dimen>
@@ -123,5 +124,8 @@
     <dimen name="page_header_height">54dp</dimen>
     <dimen name="page_header_ic_height">26dp</dimen>
     <dimen name="page_header_marginleft">18dp</dimen>
+
+
+    <dimen name="item_setting_height">60dp</dimen>
 
 </resources>

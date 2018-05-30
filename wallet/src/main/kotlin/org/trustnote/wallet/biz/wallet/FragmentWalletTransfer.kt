@@ -6,9 +6,11 @@ import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.InputPwdDialogFragment
@@ -78,11 +80,16 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
 
     private fun askUserInputPwdForTransfer(unitComposer: UnitComposer) {
+
         InputPwdDialogFragment.showMe(activity, {
             TApp.userAlreadyInputPwd = true
-            unitComposer.startSendTx()
+            unitComposer.startSendTx(activity as MainActivity)
             activity.onBackPressed()
         })
+
+        MyThreadManager.instance.runInBack {
+            unitComposer.composeUnits()
+        }
 
     }
 

@@ -7,7 +7,7 @@ import org.trustnote.wallet.debug.FragmentMeDebug
 import org.trustnote.wallet.util.Utils
 
 class SettingItem(
-        var isSubItem: Boolean = true,
+        var itemType: SettingItemType = SettingItemType.ITEM_SETTING,
         var icResId: Int = R.drawable.logo,
         var titleResId: Int = R.string.place_holder,
         var value: String = Utils.emptyString,
@@ -18,17 +18,28 @@ class SettingItem(
         fun getSettingMain(activity: MainActivity): Array<SettingItem> {
             return arrayOf(
 
-                    SettingItem(titleResId = R.string.setting_wallet_tools,
+                    SettingItem(titleResId = R.string.setting_ttt_pwd, icResId = R.drawable.me_ttt_pwd,
                             lambda = {
                                 openSubSetting(activity, getSettingWalletTools(activity), R.string.setting_wallet_tools)
                             }),
+
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB),
+
+                    SettingItem(titleResId = R.string.setting_wallet_tools, icResId = R.drawable.me_wallet_tool,
+                            lambda = {
+                                openSubSetting(activity, getSettingWalletTools(activity), R.string.setting_wallet_tools)
+                            }),
+
+                    SettingItem(itemType = SettingItemType.ITEM_LINE),
 
                     SettingItem(titleResId = R.string.setting_system,
                             lambda = {
                                 openSubSetting(activity, getSettingSystem(activity), R.string.setting_system)
                             }),
 
-                    SettingItem(titleResId = R.string.setting_about,
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB),
+
+                    SettingItem(titleResId = R.string.setting_about, icResId = R.drawable.me_about,
                             lambda = {
                                 openSubSetting(activity, getSettingAbout(activity), R.string.setting_about)
                             })
@@ -64,4 +75,13 @@ class SettingItem(
         }
 
     }
+}
+
+
+enum class SettingItemType {
+    ITEM_SETTING,
+    ITEM_SETTING_SUB,
+    ITEM_LINE,
+    ITEM_GAP,
+    UNKNOWN
 }

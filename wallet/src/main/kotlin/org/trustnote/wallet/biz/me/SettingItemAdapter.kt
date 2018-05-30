@@ -25,27 +25,47 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): SettingItemAdapter.ViewHolder {
+        var resId = 0
+        when (SettingItemType.values()[viewType]) {
+            SettingItemType.ITEM_SETTING -> {
+                resId = R.layout.item_setting
+            }
+            SettingItemType.ITEM_SETTING_SUB -> {
+                resId = R.layout.item_setting_sub
+            }
+            SettingItemType.ITEM_LINE -> {
+                resId = R.layout.item_setting_line
+            }
+            SettingItemType.ITEM_GAP -> {
+                resId = R.layout.item_setting_gap
+            }
+        }
+
         // create a new view
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(if (viewType == VIEW_TYPE_ITEM) R.layout.item_setting else R.layout.item_setting_sub, parent, false)
+                .inflate(resId, parent, false)
 
         // set the view's size, margins, paddings and layout parameters
         return ViewHolder(itemView)
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (myDataset[position].isSubItem) VIEW_TYPE_SUBITEM else VIEW_TYPE_ITEM
+        return myDataset[position].itemType.ordinal
     }
-
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.holderView.findViewById<TextView>(R.id.setting_title).setText(myDataset[position].titleResId)
-
-        if (getItemViewType(position) == VIEW_TYPE_SUBITEM) {
+        if (getItemViewType(position) == SettingItemType.ITEM_SETTING_SUB.ordinal) {
             holder.holderView.findViewById<TextView>(R.id.setting_value).setText(myDataset[position].value)
+            holder.holderView.findViewById<TextView>(R.id.setting_title).setText(myDataset[position].titleResId)
         }
+
+        if (getItemViewType(position) == SettingItemType.ITEM_SETTING.ordinal) {
+            holder.holderView.findViewById<TextView>(R.id.setting_title).setText(myDataset[position].titleResId)
+            holder.holderView.findViewById<ImageView>(R.id.setting_ic).setImageResource(myDataset[position].icResId)
+        }
+
         holder.holderView.setOnClickListener {
             myDataset[position].lambda.invoke()
         }
@@ -53,10 +73,5 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
-
-    companion object {
-        val VIEW_TYPE_ITEM = 1
-        val VIEW_TYPE_SUBITEM = 0
-    }
 
 }

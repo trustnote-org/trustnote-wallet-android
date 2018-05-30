@@ -3,26 +3,29 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_credential_height"
+        android:layout_height="@dimen/item_setting_height"
         android:layout_marginLeft="@dimen/padding_main">
 
 
         <ImageView
             android:id="@+id/setting_ic"
+            android:layout_centerVertical="true"
             android:layout_width="@dimen/icon_setting"
             android:layout_height="@dimen/icon_setting"
-            android:layout_marginLeft="@dimen/padding_main"
             android:scaleType="fitXY"
             android:src="@drawable/icon_setting_about" />
 
         <TextView
             android:id="@+id/setting_title"
+            android:layout_centerVertical="true"
             style="@style/t_sub_title"
+            android:layout_marginLeft="@dimen/line_gap_8"
             android:layout_toRightOf="@id/setting_ic"
             android:text="@string/place_holder" />
 
         <ImageView
             android:layout_width="@dimen/icon_setting_arrow"
+            android:layout_centerVertical="true"
             android:layout_height="@dimen/icon_setting_arrow"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/icon_setting_arrow_margin"
