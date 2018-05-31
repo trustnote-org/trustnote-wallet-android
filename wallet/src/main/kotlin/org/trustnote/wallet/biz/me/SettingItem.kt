@@ -1,10 +1,16 @@
 package org.trustnote.wallet.biz.me
 
+import android.os.Bundle
 import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
-import org.trustnote.wallet.debug.FragmentMeDebug
+import org.trustnote.wallet.biz.home.CredentialAdapter
+import org.trustnote.wallet.biz.wallet.Credential
+import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.InputPwdDialogFragment
 
 class SettingItem(
         var itemType: SettingItemType = SettingItemType.ITEM_SETTING,
@@ -90,6 +96,41 @@ class SettingItem(
             )
         }
 
+        fun getSettingForWalletDetail(credential: Credential, activity: MainActivity): Array<SettingItem> {
+            return arrayOf(
+                    SettingItem(itemType = SettingItemType.ITEM_GAP),
+
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.me_wallet_detail_name_title,
+                            value = credential.walletName),
+
+                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.me_wallet_detail_id_title,
+                            value = credential.walletId)
+
+            )
+        }
+
+        fun getSettingMoreForColdeWalletDetail(credential: Credential, activity: MainActivity): Array<SettingItem> {
+            return arrayOf(
+                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.me_wallet_detail_label_cold_code, lambda = {
+
+                        InputPwdDialogFragment.showMe(activity, {
+
+                            TApp.userAlreadyInputPwd = true
+                            val bundle = Bundle()
+                            bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
+                            activity.openLevel2Fragment(bundle, FragmentMeWalletColdCode::class.java)
+
+                        })
+
+                    })
+            )
+        }
     }
 }
 

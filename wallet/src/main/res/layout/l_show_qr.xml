@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/bg_dialog_padding_30"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/show_qr_title"
+            style="@style/t_title"
+            android:text="@string/create_wallet_observer_qr_title"
+            android:textSize="@dimen/font_20" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/show_qr_text"
+            style="@style/t_text_msg"
+            android:paddingTop="@dimen/line_gap_42"
+            android:text="@string/create_wallet_observer_qr_msg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/line_gap_42"
+            android:layout_marginTop="@dimen/line_gap_42">
+
+            <ImageView
+                android:layout_width="@dimen/bg_qr_width"
+                android:layout_height="@dimen/bg_qr_width"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_qr_code"
+                android:scaleType="fitXY" />
+
+            <include
+                android:id="@+id/qr_code"
+                layout="@layout/l_qr_code" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/show_qr_msg"
+            style="@style/t_text_msg"
+            android:layout_marginBottom="@dimen/line_gap_32"
+            android:text="@string/create_wallet_observer_qr_msg" />
+
+        <Button
+            android:id="@+id/next_step"
+            style="@style/t_btn_blue"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/next_step" />
+
+
+    </LinearLayout>
+</FrameLayout>

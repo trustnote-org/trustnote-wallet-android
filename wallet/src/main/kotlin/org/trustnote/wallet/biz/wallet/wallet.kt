@@ -45,6 +45,7 @@ class Credential {
     var isObserveOnly: Boolean = false
     var isAuto: Boolean = false
     var isRemoved: Boolean = false
+    var deviceAddressFromObserved: String = ""
 
     @Expose(serialize = false, deserialize = false)
     @Transient
@@ -62,6 +63,7 @@ class Credential {
     @Expose(serialize = false, deserialize = false)
     @Transient
     var myChangeAddresses = listOf<MyAddresses>()
+
 
     override fun toString(): String {
         var res = "WalletName: $walletName\n\rBalance: $balance\n\rTransactions: \n\r------------------------\n\r"

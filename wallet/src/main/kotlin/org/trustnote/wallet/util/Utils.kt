@@ -35,6 +35,7 @@ import java.text.SimpleDateFormat
 object Utils {
 
     val emptyJsonObject = JsonObject()
+    val random = Random()
 
     fun debugLog(msg: String) {
         Timber.d("TTT" + msg)

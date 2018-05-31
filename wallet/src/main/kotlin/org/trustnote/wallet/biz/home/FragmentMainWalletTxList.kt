@@ -28,7 +28,6 @@ class FragmentMainWalletTxList : FragmentMainBase() {
     private lateinit var credentialName: TextView
     private lateinit var recyclerView: RecyclerView
 
-
     override fun initFragment(view: View) {
 
         super.initFragment(view)
@@ -39,22 +38,13 @@ class FragmentMainWalletTxList : FragmentMainBase() {
 
         recyclerView = mRootView.findViewById(R.id.tx_list)
 
-        recyclerView.addOnItemTouchListener(
-                RecyclerItemClickListener(context,
-                        recyclerView,
-                        object : RecyclerItemClickListener.OnItemClickListener {
-                            override fun onItemClick(view: View, position: Int) {
-                                val bundle = Bundle()
-                                bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
-                                bundle.putInt(TTT.KEY_TX_INDEX, position)
-                                (activity as MainActivity).openLevel2Fragment(bundle,
-                                        FragmentMainWalletTxDetail::class.java)
-                            }
-
-                            override fun onLongItemClick(view: View, position: Int) {
-                            }
-                        })
-        )
+        AndroidUtils.addItemClickListenerForRecycleView(recyclerView) {
+            val bundle = Bundle()
+            bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
+            bundle.putInt(TTT.KEY_TX_INDEX, it)
+            (activity as MainActivity).openLevel2Fragment(bundle,
+                    FragmentMainWalletTxDetail::class.java)
+        }
 
         mRootView.findViewById<View>(R.id.btn_receive).setOnClickListener {
             getMyActivity().receiveAmount = 0L

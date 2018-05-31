@@ -105,6 +105,7 @@ class WalletModel() {
         if (mProfile.xPrivKey.isEmpty()) {
             mProfile.xPrivKey = JSApi().xPrivKeySync(mProfile.mnemonic)
             mProfile.dbTag = mProfile.xPrivKey.takeLast(5)
+            mProfile.deviceAddress = JSApi().deviceAddressSync(mProfile.xPrivKey)
         }
     }
 

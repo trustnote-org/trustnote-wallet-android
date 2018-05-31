@@ -59,11 +59,21 @@ class MnemonicsGridView @JvmOverloads constructor(
     }
 
     fun getUserInputMnemonic(): String {
-        return gridAdapter.getAllMnemonicAsString()
+        return getAllMnemonicAsString()
     }
 
     fun showErr() {
         err.visibility = View.VISIBLE
+    }
+
+    fun getAllMnemonicAsString(): String {
+
+        val listOfMnemonic = List<String>(12) {
+            val cell = gridView.getChildAt(it) as MnemonicAutoCompleteTextView
+            cell.text.toString()
+        }
+
+        return listOfMnemonic.joinToString(" ")
     }
 
 }
@@ -72,7 +82,6 @@ class MnemonicsGridView @JvmOverloads constructor(
 class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : BaseAdapter() {
     var mMnemonic: List<String> = mnemonic
     var onCheckResult = { isAllWordOK: Boolean -> }
-    val editTextCache = HashMap<Int, MnemonicAutoCompleteTextView>()
     var verifyEnabled = true
     var mMnemonicCheck: List<String> = mnemonic
 
@@ -117,12 +126,14 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         if (mMnemonic[position].isNotEmpty()) {
             editTextView.setText(mMnemonic[position])
         }
-        editTextCache[position] = editTextView
 
         if (verifyEnabled) {
             editTextView.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(p0: Editable?) {
-                    checkAllWord()
+                    if (editTextView.parent == null) {
+                        return
+                    }
+                    checkAllWord(editTextView.parent as GridView)
                 }
 
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -145,18 +156,12 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         return editTextView
     }
 
-    fun getAllMnemonicAsString(): String {
-        val listOfMnemonic = List<String>(editTextCache.size) {
-            editTextCache[it]!!.text.toString()
-        }
-        return listOfMnemonic.joinToString(" ")
-    }
 
-    fun checkAllWord() {
-        //TODO: Bug, the first cell cannot get latest text. strange?
-        for (entry in editTextCache) {
-            val oneWord = entry.value.text.toString()
-            if (!entry.value.isWordInBip38 || (mMnemonicCheck[entry.key].isNotEmpty() && oneWord != mMnemonicCheck[entry.key])) {
+    fun checkAllWord(grid: GridView) {
+
+        for (i in 0 .. 11) {
+            val cell = grid.getChildAt(i) as MnemonicAutoCompleteTextView
+            if (!cell.isWordInBip38 || cell.text.toString() != mMnemonicCheck[i]){
                 onCheckResult(false)
                 return
             }

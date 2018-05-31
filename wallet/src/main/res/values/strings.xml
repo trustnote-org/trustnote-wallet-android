@@ -256,6 +256,20 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="me_wallet_manager">管理钱包</string>
     <string name="me_wallet_tx">交易记录</string>
 
+    <string name="me_wallet_detail_name_title">钱包名称</string>
+    <string name="me_wallet_detail_id_title">钱包ID</string>
+
+    <string name="me_wallet_detail_label_cold_code">冷钱包认证码</string>
+    <string name="me_wallet_detail_remove_btn">删除钱包</string>
+
+    <string name="me_wallet_cold_code_msg">请使用观察钱包扫描冷钱包认证码</string>
+    <string name="me_wallet_cold_code_btn">下一步，授权签名</string>
+
+    <string name="me_wallet_cold_code_sucessful_title">授权成功</string>
+    <string name="me_wallet_cold_code_sucessful_msg">使用对应观察钱包扫描上方二维码完成授权</string>
+    <string name="me_wallet_cold_code_sucessful_btn">完成</string>
+
+
 
 
 

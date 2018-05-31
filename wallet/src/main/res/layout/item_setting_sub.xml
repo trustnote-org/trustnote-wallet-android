@@ -17,7 +17,11 @@
             android:layout_centerVertical="true"
             android:id="@+id/setting_value"
             style="@style/t_sub_title"
+            android:gravity="right"
+            android:layout_width="70dp"
+            android:layout_marginLeft="@dimen/line_gap_16"
             android:layout_toLeftOf="@id/icon_setting_arrow"
+            android:layout_toRightOf="@id/setting_title"
             android:text="@string/place_holder" />
 
         <ImageView

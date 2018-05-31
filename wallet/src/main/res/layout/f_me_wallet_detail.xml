@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tx_list_bg">
+
+    <LinearLayout
+        android:background="@color/bg_white"
+        android:id="@+id/summary_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/page_margin_left"
+        android:paddingRight="@dimen/page_margin_left">
+
+        <TextView
+            android:id="@+id/credential_name"
+            style="@style/t_title"
+            android:text="@string/place_holder" />
+
+        <include layout="@layout/l_amount_summary" />
+
+    </LinearLayout>
+
+    <TextView
+        android:background="@color/bg_white"
+        android:paddingTop="@dimen/line_gap_8"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/page_margin_left"
+        android:id="@+id/credential_walletid"
+        style="@style/t_text_amount_subtitle"
+        android:layout_alignLeft="@id/summary_bar"
+        android:layout_below="@id/summary_bar"
+        android:text="@string/place_holder" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/credential_walletid"
+        android:layout_above="@id/credential_remove_btn"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/credential_remove_btn"
+        style="@style/t_btn_white"
+        android:layout_marginLeft="@dimen/page_margin_left"
+        android:layout_marginRight="@dimen/page_margin_left"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/btn_bottom_margin"
+        android:text="@string/me_wallet_detail_remove_btn" />
+
+</RelativeLayout>

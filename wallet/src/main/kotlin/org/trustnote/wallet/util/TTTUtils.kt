@@ -2,9 +2,12 @@ package org.trustnote.wallet.util
 
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.gson.JsonObject
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.PaymentInfo
+import org.trustnote.wallet.js.JSApi
 
 object TTTUtils {
 
@@ -76,6 +79,37 @@ object TTTUtils {
             return walletId.toUpperCase()
         }
         return """${walletId.substring(0, 8).toUpperCase()}...${walletId.takeLast(8).toUpperCase()}"""
+    }
+
+
+    //Step1: TTT:{"type": "c1","name": "TTT","pub":"xpub6CiT96vM5krNhwFA4ro5nKJ6nq9WykFmAsP18jC1Aa3URb69rvUHw6uvU51MQPkMZQ6BLiC5C1E3Zbsm7Xob3FFhNHJkN3v9xuxfqFFKPP5","n": 0,"v": 1234}
+    //    TTT: {
+    //        "type": "h1",
+    //        "id": "LYnW1wl8qHyHyWjoV2CYOlYhUvE3Gj1jh5tUEFzoMn0=",
+    //        "v": 1234
+    //    }
+
+    //Setp 3:
+    //    TTT: {
+    //        "type": "c2",
+    //        "addr": "0NEYV3ZCRAJYGJDS5UNN4EOZGNVZJXOLI",
+    //        "v": 1234
+    //    }
+    fun genColdScancodeStep3(myDeviceAddress: String, checkCode: Int): String {
+        return """${TTT.KEY_TTT_QR_TAG}:{"type":"c2","addr":"$myDeviceAddress","v":$checkCode}"""
+    }
+
+    fun genColdScancodeStep2(jsonObj: JsonObject): String {
+
+        val walletPubKey = jsonObj.getAsJsonPrimitive("pub")?.asString
+        val checkCode = jsonObj.getAsJsonPrimitive("v")?.asString
+        val walletId = JSApi().walletIDSync(walletPubKey ?: "")
+
+        return """${TTT.KEY_TTT_QR_TAG}:{"type":"h1","id": "$walletId","v":${checkCode ?: ""}}"""
+    }
+
+    fun genColdScancodeStep1(credential: Credential): String {
+        return """${TTT.KEY_TTT_QR_TAG}:{"type": "c1","name": "${credential.walletName}","pub":"${credential.xPubKey}","n": ${credential.account},"v":${Utils.random.nextInt(8999) + 1000}}"""
     }
 
 }
