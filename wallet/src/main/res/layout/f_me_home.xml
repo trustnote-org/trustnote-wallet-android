@@ -3,13 +3,23 @@
 
     <RelativeLayout
         style="@style/t_layout"
+        android:background="@color/home_line_middle"
         android:gravity="center_horizontal"
         android:orientation="vertical">
+
+        <include
+
+            android:id="@+id/me_header"
+            layout="@layout/l_me_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_main"></include>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/setting_item_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/me_header"
             android:scrollbars="vertical" />
 
     </RelativeLayout>

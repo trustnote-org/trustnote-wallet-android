@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout style="@style/t_layout">
+    <RelativeLayout style="@style/t_layout"
+        android:background="@color/home_line_middle">
+
 
         <TextView
+            android:background="@color/bg_white"
             android:id="@+id/setting_title"
             style="@style/t_title"
-            android:layout_marginBottom="@dimen/line_gap_48"
-            android:layout_marginTop="@dimen/line_gap_48"
+            android:layout_width="match_parent"
+            android:paddingLeft="@dimen/page_margin"
+            android:paddingRight="@dimen/page_margin"
+            android:paddingBottom="@dimen/line_gap_48"
+            android:paddingTop="@dimen/line_gap_10"
             android:text="@string/setting_system" />
 
         <android.support.v7.widget.RecyclerView

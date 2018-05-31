@@ -8,7 +8,7 @@
     >
 
     <View
-        android:layout_marginLeft="@dimen/line_gap_54"
+        android:layout_marginLeft="@dimen/padding_main"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_dp"
         android:background="@color/tx_bottom_line" />

@@ -33,6 +33,7 @@
     <dimen name="line_gap_24">24dp</dimen>
     <dimen name="line_gap_14">14dp</dimen>
     <dimen name="line_gap_32">32dp</dimen>
+    <dimen name="line_gap_36">36dp</dimen>
     <dimen name="line_gap_22">22dp</dimen>
     <dimen name="line_gap_20">20dp</dimen>
     <dimen name="line_gap_12">12dp</dimen>
@@ -119,6 +120,7 @@
     <dimen name="icon_setting_arrow_margin">15dp</dimen>
 
     <dimen name="ic_26">26dp</dimen>
+    <dimen name="ic_20">20dp</dimen>
 
     <dimen name="page_margin">20dp</dimen>
     <dimen name="page_header_height">54dp</dimen>
@@ -127,5 +129,6 @@
 
 
     <dimen name="item_setting_height">60dp</dimen>
+    <dimen name="l_me_header_padding">30dp</dimen>
 
 </resources>

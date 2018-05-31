@@ -252,6 +252,10 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="mypairid_copy_btn">复制配对码</string>
 
 
+    <string name="me_header_welcome">欢迎来到TrustNote世界</string>
+    <string name="me_wallet_manager">管理钱包</string>
+    <string name="me_wallet_tx">交易记录</string>
+
 
 
 

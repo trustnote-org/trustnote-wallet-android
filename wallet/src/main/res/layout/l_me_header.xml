@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_me_header"
+    android:paddingLeft="@dimen/l_me_header_padding"
+    android:paddingRight="@dimen/l_me_header_padding"
+    android:paddingTop="@dimen/l_me_header_padding">
+
+    <TextView
+        android:id="@+id/me_icon"
+        android:layout_width="@dimen/bg_msg_icon_size"
+        android:layout_height="@dimen/bg_msg_icon_size"
+        android:layout_marginRight="@dimen/line_gap_16"
+        android:background="@drawable/bg_msg_icon_me"
+        android:textColor="@color/t_blue"
+        android:textSize="@dimen/text_18sp" />
+
+    <TextView
+        android:id="@+id/me_device_name"
+        style="@style/t_sub_title"
+        android:layout_alignTop="@id/me_icon"
+        android:layout_toRightOf="@id/me_icon"
+        android:text="@string/place_holder" />
+
+    <ImageView
+        android:id="@+id/me_header_edit"
+        android:layout_width="@dimen/ic_20"
+        android:layout_height="@dimen/ic_20"
+        android:layout_alignBottom="@id/me_device_name"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/me_header_edit" />
+
+    <TextView
+        android:id="@+id/me_header_welcome"
+        style="@style/t_text_base"
+        android:layout_alignBottom="@id/me_icon"
+        android:layout_alignLeft="@id/me_device_name"
+        android:layout_toRightOf="@id/me_icon"
+        android:text="@string/me_header_welcome" />
+
+    <View
+        android:id="@+id/line1"
+        layout="@layout/item_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/one_dp"
+        android:layout_below="@id/me_icon"
+        android:layout_marginTop="@dimen/line_gap_36"
+        android:background="@color/tx_bottom_line" />
+
+    <LinearLayout
+        android:id="@+id/me_btns"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_gap_70"
+        android:layout_below="@+id/line1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/me_wallet_manager"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/line_gap_16"
+                android:layout_height="@dimen/line_gap_16"
+                android:src="@drawable/me_wallet_manager" />
+
+            <TextView
+                style="@style/blue_bold_16"
+                android:text="@string/me_wallet_manager" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/one_dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/me_wallet_tx"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/line_gap_16"
+                android:layout_height="@dimen/line_gap_16"
+                android:src="@drawable/me_wallet_tx" />
+
+            <TextView
+                style="@style/blue_bold_16"
+                android:text="@string/me_wallet_tx" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

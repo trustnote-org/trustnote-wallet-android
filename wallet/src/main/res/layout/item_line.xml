@@ -3,5 +3,4 @@
     android:id="@+id/line_unit"
     android:layout_width="match_parent"
     android:layout_height="@dimen/one_dp"
-    android:layout_below="@id/tx_sender"
     android:background="@color/tx_bottom_line" />

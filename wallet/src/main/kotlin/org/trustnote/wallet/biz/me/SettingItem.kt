@@ -18,14 +18,15 @@ class SettingItem(
         fun getSettingMain(activity: MainActivity): Array<SettingItem> {
             return arrayOf(
 
-                    SettingItem(titleResId = R.string.setting_ttt_pwd, icResId = R.drawable.me_ttt_pwd,
+                    SettingItem(titleResId = R.string.setting_ttt_pwd,
+                            icResId = R.drawable.me_ttt_pwd,
                             lambda = {
-                                openSubSetting(activity, getSettingWalletTools(activity), R.string.setting_wallet_tools)
                             }),
 
-                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB),
+                    SettingItem(itemType = SettingItemType.ITEM_GAP),
 
-                    SettingItem(titleResId = R.string.setting_wallet_tools, icResId = R.drawable.me_wallet_tool,
+                    SettingItem(titleResId = R.string.setting_wallet_tools,
+                            icResId = R.drawable.me_wallet_tool,
                             lambda = {
                                 openSubSetting(activity, getSettingWalletTools(activity), R.string.setting_wallet_tools)
                             }),
@@ -37,9 +38,10 @@ class SettingItem(
                                 openSubSetting(activity, getSettingSystem(activity), R.string.setting_system)
                             }),
 
-                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB),
+                    SettingItem(itemType = SettingItemType.ITEM_GAP),
 
-                    SettingItem(titleResId = R.string.setting_about, icResId = R.drawable.me_about,
+                    SettingItem(titleResId = R.string.setting_about,
+                            icResId = R.drawable.me_about,
                             lambda = {
                                 openSubSetting(activity, getSettingAbout(activity), R.string.setting_about)
                             })
@@ -53,35 +55,49 @@ class SettingItem(
 
         fun getSettingAbout(activity: MainActivity): Array<SettingItem> {
             return arrayOf(
-                    SettingItem(titleResId = R.string.setting_about_version),
-                    SettingItem(titleResId = R.string.setting_about_hash, value = BuildConfig.GitHash),
-                    SettingItem(titleResId = R.string.setting_about_tou)
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.setting_about_version),
+                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.setting_about_hash, value = BuildConfig.GitHash),
+                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.setting_about_tou)
             )
         }
 
         fun getSettingSystem(activity: MainActivity): Array<SettingItem> {
             return arrayOf(
-                    SettingItem(titleResId = R.string.setting_system_language),
-                    SettingItem(titleResId = R.string.setting_system_password)
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.setting_system_language),
+                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.setting_system_password)
             )
         }
 
         fun getSettingWalletTools(activity: MainActivity): Array<SettingItem> {
             return arrayOf(
-                    SettingItem(titleResId = R.string.setting_wallet_tools_backupmem),
-                    SettingItem(titleResId = R.string.setting_wallet_tools_restoremem),
-                    SettingItem(titleResId = R.string.setting_wallet_tools_fullsync)
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.setting_wallet_tools_backupmem),
+                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.setting_wallet_tools_restoremem),
+                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                            titleResId = R.string.setting_wallet_tools_fullsync)
             )
         }
 
     }
 }
 
-
 enum class SettingItemType {
     ITEM_SETTING,
     ITEM_SETTING_SUB,
     ITEM_LINE,
+    ITEM_LINE_SUB,
     ITEM_GAP,
     UNKNOWN
 }

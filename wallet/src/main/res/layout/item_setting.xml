@@ -2,9 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:background="@color/bg_white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_setting_height"
-        android:layout_marginLeft="@dimen/padding_main">
+        android:paddingLeft="@dimen/padding_main">
 
 
         <ImageView

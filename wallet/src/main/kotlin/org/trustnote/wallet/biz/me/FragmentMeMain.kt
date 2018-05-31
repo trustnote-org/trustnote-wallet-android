@@ -32,6 +32,7 @@ class FragmentMeMain : FragmentBase() {
                         (activity as MainActivity).openLevel2Fragment(f)
                     })
 
+            fullMainSettings.add(SettingItem(itemType = SettingItemType.ITEM_GAP))
             fullMainSettings.add(debugSettings)
 
         }
