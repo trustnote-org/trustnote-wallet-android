@@ -9,9 +9,10 @@ import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.TMnAmount
 
-class CredentialAdapter(val myDataset: Array<Credential>) :
+class CredentialAdapter(val myDataset: List<Credential>, val layoutResId:Int = R.layout.item_credential) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -24,6 +25,7 @@ class CredentialAdapter(val myDataset: Array<Credential>) :
         val title: TextView = holderView.findViewById(R.id.credential_title)
         val amount: TMnAmount = holderView.findViewById(R.id.credential_amount)
         val observerTag: TextView = holderView.findViewById(R.id.credential_observer_tag)
+        val walletid: TextView? = holderView.findViewById(R.id.credential_walletid)
 
         init {
             amount.setupStyle(true)
@@ -35,7 +37,7 @@ class CredentialAdapter(val myDataset: Array<Credential>) :
                                     viewType: Int): RecyclerView.ViewHolder {
 
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_credential, parent, false)
+                .inflate(layoutResId, parent, false)
         // set the view's size, margins, paddings and layout parameters
         return ViewHolder(itemView)
     }
@@ -50,6 +52,8 @@ class CredentialAdapter(val myDataset: Array<Credential>) :
             holder.amount.setMnAmount(credential.balance)
 
             holder.observerTag.visibility = if (credential.isObserveOnly) View.VISIBLE else View.INVISIBLE
+
+            holder.walletid?.text = TTTUtils.formatWalletId(credential.walletId)
         }
         return
     }

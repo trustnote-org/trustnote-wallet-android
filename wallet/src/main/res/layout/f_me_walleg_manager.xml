@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="@dimen/padding_main"
+        android:paddingLeft="@dimen/padding_main"
+        android:background="@color/tx_list_bg"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/me_wallet_manager"
+            style="@style/t_title"
+            android:layout_marginBottom="@dimen/line_gap_24"
+            android:text="@string/me_wallet_manager" />
+
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:id="@+id/me_header_edit"
+            android:layout_width="@dimen/ic_26"
+            android:layout_height="@dimen/ic_26"
+            android:layout_alignBottom="@id/me_wallet_manager"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/me_wallet_add" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="@dimen/line_gap_20"
+            android:id="@+id/wallet_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/me_wallet_manager"
+            android:scrollbars="vertical" />
+
+
+    </RelativeLayout>
+
+</layout>

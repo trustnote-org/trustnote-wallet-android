@@ -16,6 +16,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.RecyclerItemClickListener
 import org.trustnote.wallet.widget.TMnAmount
@@ -150,30 +151,18 @@ class FragmentMainWallet : FragmentMainBase() {
         mAmountTargetDistanceX = mAmountTitle.x + mAmountTitle.width + -mMNAmount.x
 
         val myAllWallets = WalletManager.model.mProfile.credentials.filter { (it.account == 0 && !it.isObserveOnly) || !it.isAuto || it.balance > 0 || it.isObserveOnly }
-        val adapter = CredentialAdapter(myAllWallets.toTypedArray())
+
+        val adapter = CredentialAdapter(myAllWallets)
         mRecyclerView.adapter = adapter
 
+        AndroidUtils.addItemClickListenerForRecycleView(mRecyclerView) {
 
-        mRecyclerView.addOnItemTouchListener(
+            val bundle = Bundle()
+            val insideAdapter = mRecyclerView.adapter as CredentialAdapter
+            bundle.putString(TTT.KEY_WALLET_ID, insideAdapter.myDataset[it].walletId)
+            (activity as MainActivity).openLevel2Fragment(bundle, FragmentMainWalletTxList::class.java)
 
-                RecyclerItemClickListener(context,
-                        mRecyclerView,
-                        object : RecyclerItemClickListener.OnItemClickListener {
-                            override fun onItemClick(view: View, position: Int) {
-
-                                val bundle = Bundle()
-                                val insideAdapter = mRecyclerView.adapter as CredentialAdapter
-                                bundle.putString(TTT.KEY_WALLET_ID, insideAdapter.myDataset[position].walletId)
-
-                                (activity as MainActivity).openLevel2Fragment(bundle, FragmentMainWalletTxList::class.java)
-
-                            }
-
-                            override fun onLongItemClick(view: View, position: Int) {
-
-                            }
-                        })
-        )
+        }
 
 
         mSwipeRefreshLayout.isRefreshing = WalletManager.model.isRefreshing()

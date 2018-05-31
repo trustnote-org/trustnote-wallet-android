@@ -68,4 +68,14 @@ object TTTUtils {
         return (amountStr.toFloat() * TTT.w_coinunitValue).toLong()
     }
 
+    fun formatWalletId(walletId: String): String {
+        if (walletId.isEmpty()) {
+            return "UNKNOWN"
+        }
+        if (walletId.length <= 16) {
+            return walletId.toUpperCase()
+        }
+        return """${walletId.substring(0, 8).toUpperCase()}...${walletId.takeLast(8).toUpperCase()}"""
+    }
+
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/line_gap_16"
+    android:gravity="center_horizontal">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardBackgroundColor="@color/bg_white"
+        card_view:cardCornerRadius="2dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_main">
+
+            <ImageView
+                android:id="@+id/credential_ic"
+                android:layout_width="@dimen/credential_ic_size"
+                android:layout_height="@dimen/credential_ic_size"
+                android:scaleType="fitXY"
+                android:src="@drawable/credential_icon" />
+
+            <ImageView
+
+                android:layout_width="@dimen/icon_setting_arrow"
+                android:layout_height="@dimen/icon_setting_arrow"
+                android:layout_alignBaseline="@id/credential_ic"
+                android:layout_alignBottom="@+id/credential_ic"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/credential_ic"
+                android:gravity="center"
+                android:src="@drawable/icon_setting_arrow" />
+
+            <TextView
+                android:id="@+id/credential_title"
+                style="@style/t_sub_title"
+                android:layout_alignTop="@id/credential_ic"
+                android:layout_marginLeft="@dimen/line_gap_14"
+                android:layout_toRightOf="@id/credential_ic"
+                android:text="@string/place_holder"
+                android:textSize="@dimen/text_20" />
+
+            <TextView
+                android:id="@+id/credential_observer_tag"
+                style="@style/t_observer_tag"
+                android:layout_alignBottom="@id/credential_title"
+                android:layout_marginLeft="@dimen/line_gap_10"
+                android:layout_toRightOf="@id/credential_title"
+                android:text="@string/tab_observer_wallet"
+                android:textSize="@dimen/text_12" />
+
+            <TextView
+                android:id="@+id/credential_walletid"
+                style="@style/t_text_amount_subtitle"
+                android:layout_alignBottom="@id/credential_ic"
+                android:layout_alignLeft="@id/credential_title"
+                android:text="@string/place_holder" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@id/credential_ic"
+                android:layout_marginBottom="@dimen/padding_main"
+                android:layout_marginTop="@dimen/padding_main"
+                android:background="@drawable/line_dash" />
+
+
+            <TextView
+                android:id="@+id/wallet_summary_title"
+                style="@style/t_text_amount_subtitle"
+                android:layout_below="@id/line"
+                android:text="@string/wallet_amount_subtitle" />
+
+            <org.trustnote.wallet.widget.TMnAmount
+                android:id="@+id/credential_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/line"
+                android:text="@string/place_holder"
+                android:textSize="@dimen/text_20" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
+
+

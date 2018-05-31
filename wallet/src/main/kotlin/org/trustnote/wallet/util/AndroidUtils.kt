@@ -22,6 +22,7 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
@@ -33,6 +34,10 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.FragmentDialogBase
+import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.home.CredentialAdapter
+import org.trustnote.wallet.biz.home.FragmentMainWalletTxList
+import org.trustnote.wallet.widget.RecyclerItemClickListener
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -275,5 +280,25 @@ object AndroidUtils {
         alphaAnimation.fillAfter = true
         v.startAnimation(alphaAnimation)
     }
+
+    fun addItemClickListenerForRecycleView(recyclerView: RecyclerView, lambda: (position: Int) -> Unit) {
+        recyclerView.addOnItemTouchListener(
+
+                RecyclerItemClickListener(recyclerView.context,
+                        recyclerView,
+                        object : RecyclerItemClickListener.OnItemClickListener {
+                            override fun onItemClick(view: View, position: Int) {
+                                lambda.invoke(position)
+                            }
+
+                            override fun onLongItemClick(view: View, position: Int) {
+
+                            }
+                        })
+        )
+    }
+
+
+
 
 }

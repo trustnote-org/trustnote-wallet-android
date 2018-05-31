@@ -4,7 +4,6 @@
     <RelativeLayout style="@style/t_layout"
         android:background="@color/home_line_middle">
 
-
         <TextView
             android:background="@color/bg_white"
             android:id="@+id/setting_title"

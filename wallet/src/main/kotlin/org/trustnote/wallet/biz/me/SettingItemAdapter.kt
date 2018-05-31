@@ -36,6 +36,9 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
             SettingItemType.ITEM_LINE -> {
                 resId = R.layout.item_setting_line
             }
+            SettingItemType.ITEM_LINE_SUB -> {
+                resId = R.layout.item_setting_line_sub
+            }
             SettingItemType.ITEM_GAP -> {
                 resId = R.layout.item_setting_gap
             }

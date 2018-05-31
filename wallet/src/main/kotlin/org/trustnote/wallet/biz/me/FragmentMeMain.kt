@@ -2,18 +2,34 @@ package org.trustnote.wallet.biz.me
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.init.FragmentInitSetupPwd
+import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.debug.FragmentMeDebug
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.Utils
 
-class FragmentMeMain : FragmentBase() {
+class FragmentMeMain : FragmentWalletBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_me_home
     }
 
+    lateinit var btnWalletManager: View
+    lateinit var btnWalletTx: View
+
+    override fun initFragment(view: View) {
+        super.initFragment(view)
+        btnWalletManager = findViewById(R.id.me_wallet_manager)
+        btnWalletTx = findViewById(R.id.me_wallet_tx)
+
+        btnWalletManager.setOnClickListener {
+            getMyActivity().openLevel2Fragment(FragmentMeWalletManager())
+        }
+
+    }
 
     override fun updateUI() {
 
