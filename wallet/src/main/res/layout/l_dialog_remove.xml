@@ -5,6 +5,14 @@
     android:background="@drawable/bg_dialog"
     android:orientation="vertical">
 
+    <ImageView
+
+        android:id="@+id/ic"
+        android:src="@drawable/ic_garbage_bin"
+        android:layout_marginTop="@dimen/line_gap_32"
+        android:layout_width="@dimen/ic_gabage_width"
+        android:layout_height="@dimen/ic_gabage_width" />
+
     <TextView
         android:id="@+id/msg"
         style="@style/t_text_dialog_msg"
@@ -14,12 +22,7 @@
         android:paddingLeft="@dimen/bg_dialog_padding_left"
         android:paddingRight="@dimen/bg_dialog_padding_left"
         android:paddingTop="@dimen/bg_dialog_padding_top"
-        android:text="@string/place_holder" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#C74D4D4D" />
+        android:text="@string/me_wallet_remove_wallet_msg" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,28 +32,23 @@
         <Button
             android:id="@+id/first_button"
             android:layout_width="0dp"
-            android:background="@null"
             android:layout_height="wrap_content"
-            android:textColor="#FF333333"
             android:layout_weight="1"
-            android:textSize="@dimen/dialog_btn_font"
-            android:text="@string/cancel" />
+            android:background="@null"
+            android:text="@string/cancel"
+            android:textColor="#FF333333"
+            android:textSize="@dimen/dialog_btn_font" />
 
-        <View
-            android:id="@+id/line_between_btns"
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#C74D4D4D" />
 
         <Button
             android:id="@+id/second_button"
             android:layout_width="0dp"
-            android:background="@null"
-            android:textColor="#FF007AFF"
-            android:textSize="@dimen/dialog_btn_font"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/confirm" />
+            android:background="@null"
+            android:text="@string/confirm"
+            android:textColor="#FF007AFF"
+            android:textSize="@dimen/dialog_btn_font" />
 
     </LinearLayout>
 

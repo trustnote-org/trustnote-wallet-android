@@ -1,18 +1,15 @@
 package org.trustnote.wallet.biz.me
 
-import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
-import org.trustnote.wallet.biz.home.FragmentMainWalletTxDetail
-import org.trustnote.wallet.biz.wallet.*
+import org.trustnote.wallet.biz.wallet.FragmentWalletBase
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
-import org.trustnote.wallet.widget.RecyclerItemClickListener
 import org.trustnote.wallet.widget.TMnAmount
 
 class FragmentMeWalletDetail : FragmentWalletBase() {
@@ -40,6 +37,14 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
         credentialName = mRootView.findViewById(R.id.credential_name)
 
         mRootView.findViewById<View>(R.id.credential_remove_btn).setOnClickListener {
+
+            val f = FragmentDialogMeRemoveWallet {
+                WalletManager.model.removeWallet(credential)
+                activity.onBackPressed()
+            }
+
+            AndroidUtils.openDialog(activity, f, false)
+
         }
 
         recyclerView = mRootView.findViewById(R.id.list)

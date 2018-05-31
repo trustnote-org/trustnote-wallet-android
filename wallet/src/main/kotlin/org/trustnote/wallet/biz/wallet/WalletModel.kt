@@ -88,7 +88,9 @@ class WalletModel() {
 
         createNewWalletIfLastWalletHasTransaction()
 
-        mProfile.credentials.forEach {
+        val ws = getAvaiableWalletsForUser()
+
+        ws.forEach {
             refreshOneWallet(it)
         }
 
@@ -171,7 +173,6 @@ class WalletModel() {
         return mProfile.credentials.last { !it.isObserveOnly }
     }
 
-
     private fun profileUpdated() {
 
         if (mProfile.removeMnemonic) {
@@ -235,7 +236,6 @@ class WalletModel() {
         if (witnesses.isEmpty() || addresses.isEmpty()) {
             return HubResponse()
         }
-
 
         val hubModel = HubManager.instance.getCurrentHub()
         val reqId = hubModel.getRandomTag()
@@ -362,6 +362,29 @@ class WalletModel() {
 
     fun receiveAddress(credential: Credential): String {
         return credential.myReceiveAddresses[0].address
+    }
+
+    private fun isAvaiableToUser(it: Credential): Boolean {
+        return (!it.isRemoved) && (
+                (it.account == 0 && !it.isObserveOnly)
+                        || !it.isAuto
+                        || it.balance > 0
+                        || it.isObserveOnly
+                )
+    }
+
+    fun getAvaiableWalletsForUser(): List<Credential> {
+
+        return mProfile.credentials.filter { isAvaiableToUser(it) }
+
+    }
+
+    fun removeWallet(credential: Credential) {
+        credential.isRemoved = true
+        profileUpdated()
+
+        //TODO: remove observer wallet from DB in background.
+
     }
 
 }

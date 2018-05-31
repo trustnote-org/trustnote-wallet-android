@@ -30,9 +30,7 @@ class FragmentMeWalletManager : FragmentWalletBase() {
     override fun updateUI() {
         super.updateUI()
 
-        val myAllWallets = WalletManager.model.mProfile.credentials.filter {
-            (it.account == 0 && !it.isObserveOnly) || !it.isAuto || it.balance > 0 || it.isObserveOnly
-        }
+        val myAllWallets = WalletManager.model.getAvaiableWalletsForUser()
 
         val adapter = CredentialAdapter(myAllWallets, R.layout.item_wallet_manager)
 
@@ -46,7 +44,6 @@ class FragmentMeWalletManager : FragmentWalletBase() {
             (activity as MainActivity).openLevel2Fragment(bundle, FragmentMeWalletDetail::class.java)
 
         }
-
 
     }
 }

@@ -150,7 +150,7 @@ class FragmentMainWallet : FragmentMainBase() {
         mAmountTargetDistanceY = mToolbarTitle.y - mMNAmount.y
         mAmountTargetDistanceX = mAmountTitle.x + mAmountTitle.width + -mMNAmount.x
 
-        val myAllWallets = WalletManager.model.mProfile.credentials.filter { (it.account == 0 && !it.isObserveOnly) || !it.isAuto || it.balance > 0 || it.isObserveOnly }
+        val myAllWallets = WalletManager.model.getAvaiableWalletsForUser()
 
         val adapter = CredentialAdapter(myAllWallets)
         mRecyclerView.adapter = adapter

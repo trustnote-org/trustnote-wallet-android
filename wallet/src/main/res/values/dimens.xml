@@ -131,4 +131,6 @@
     <dimen name="item_setting_height">60dp</dimen>
     <dimen name="l_me_header_padding">30dp</dimen>
 
+    <dimen name="ic_gabage_width">55dp</dimen>
+
 </resources>
