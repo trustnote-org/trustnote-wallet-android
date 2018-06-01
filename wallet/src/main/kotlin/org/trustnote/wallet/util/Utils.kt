@@ -1,12 +1,6 @@
 package org.trustnote.wallet.util
 
-import android.app.Activity
-import android.content.Context
 import android.net.NetworkInfo
-import android.os.Environment
-import android.view.LayoutInflater
-import android.view.WindowManager
-import android.widget.PopupWindow
 import android.widget.Toast
 import com.github.pwittchen.reactivenetwork.library.rx2.Connectivity
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
@@ -25,10 +19,8 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import com.google.gson.JsonObject
 import org.trustnote.wallet.BuildConfig
-import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.TProfile
-import org.trustnote.wallet.js.JSApi
 import java.io.File
 import java.text.SimpleDateFormat
 
@@ -60,6 +52,7 @@ object Utils {
         Toast.makeText(TApp.context, s, Toast.LENGTH_SHORT).show()
     }
 
+    //TODO: move to AndroidUtils.
     fun toastMsg(s: String) {
         Toast.makeText(TApp.context, s, Toast.LENGTH_SHORT).show()
     }

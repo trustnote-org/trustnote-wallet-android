@@ -8,7 +8,7 @@ import org.trustnote.db.FundedAddress
 import org.trustnote.db.TxOutputs
 import org.trustnote.db.TxUnits
 import org.trustnote.db.entity.*
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.util.Utils
 
 @SuppressWarnings("unchecked")

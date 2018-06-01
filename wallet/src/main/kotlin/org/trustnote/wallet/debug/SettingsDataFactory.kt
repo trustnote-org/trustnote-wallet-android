@@ -3,12 +3,11 @@ package org.trustnote.wallet.debug
 import android.webkit.ValueCallback
 import org.trustnote.wallet.biz.init.CreateWalletActivity
 
-import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.PaymentInfo
 import org.trustnote.wallet.tttui.QRFragment
-import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.biz.wallet.*
-import org.trustnote.wallet.js.restoreWallet
+import org.trustnote.wallet.biz.js.restoreWallet
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils

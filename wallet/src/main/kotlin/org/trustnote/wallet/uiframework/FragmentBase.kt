@@ -4,20 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Utils
+import android.view.*
 
 abstract class FragmentBase : Fragment() {
-
 
     lateinit var credential: Credential
 
@@ -26,6 +23,9 @@ abstract class FragmentBase : Fragment() {
     private val ttag = "TTTUI"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        setHasOptionsMenu(true)
+
         mRootView = inflater.inflate(getLayoutId(), container, false)
         mRootView.isClickable = true
         return mRootView
@@ -52,6 +52,15 @@ abstract class FragmentBase : Fragment() {
         setupToolbar()
     }
 
+    open fun inflateMenu(menu: Menu, inflater: MenuInflater) {
+        //inflater.inflate(R.menu.menu_parent_fragment, menu)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflateMenu(menu, inflater)
+    }
+
     override fun onResume() {
         super.onResume()
         Utils.debugLog("$ttag:${this.javaClass.canonicalName}::onResume")
@@ -63,7 +72,6 @@ abstract class FragmentBase : Fragment() {
         Utils.debugLog("$ttag:${this.javaClass.canonicalName}::onPause")
         updateUI()
     }
-
 
     abstract fun getLayoutId(): Int
 
@@ -89,7 +97,6 @@ abstract class FragmentBase : Fragment() {
     }
 
     var scanResHandler: (String) -> Unit = {}
-
 
     fun startScan(scanResHandler: (String) -> Unit = {}) {
         this.scanResHandler = scanResHandler
@@ -130,6 +137,5 @@ abstract class FragmentBase : Fragment() {
     fun showErrorUI(isShow: Boolean = false) {
         (activity as BaseActivity).showErrorUI(isShow)
     }
-
 
 }

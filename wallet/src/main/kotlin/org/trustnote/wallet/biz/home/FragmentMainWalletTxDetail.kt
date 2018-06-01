@@ -4,14 +4,13 @@ import android.view.View
 import android.widget.TextView
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
-import org.trustnote.wallet.biz.wallet.Credential
-import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.FieldTextView
 import org.trustnote.wallet.widget.TMnAmount
 
-class FragmentMainWalletTxDetail : FragmentMainBase() {
+class FragmentMainWalletTxDetail : FragmentWalletBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_main_wallet_tx_detail

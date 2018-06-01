@@ -3,10 +3,9 @@ package org.trustnote.wallet.biz.wallet
 import android.webkit.ValueCallback
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
-import org.trustnote.wallet.TTT
-import org.trustnote.wallet.js.JSApi
-import org.trustnote.wallet.js.TWebView
-import org.trustnote.wallet.network.HubManager
+import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.js.JSApi
+import org.trustnote.wallet.biz.js.TWebView
 import org.trustnote.wallet.util.Prefs
 
 object WalletManager {

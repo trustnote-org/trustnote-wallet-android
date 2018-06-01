@@ -1,12 +1,10 @@
 package org.trustnote.wallet.biz
 
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import org.trustnote.wallet.R
@@ -16,9 +14,8 @@ import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
 import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
-import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsAdd
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
-import org.trustnote.wallet.debugui.EmptyFragment
+import org.trustnote.wallet.uiframework.EmptyFragment
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
@@ -31,7 +28,6 @@ class MainActivity : BaseActivity() {
 
     lateinit var bottomNavigationView: BottomNavigationView
 
-    //TODO:
     var receiveAmount = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,15 +37,7 @@ class MainActivity : BaseActivity() {
 
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-//        mToolbarWrapper = findViewById(R.id.toolbar_wrapper)
-//
-//        val mToolbar = findViewById<Toolbar>(R.id.toolbar)
-//        setSupportActionBar(mToolbar)
-//
-//        mToolbar.overflowIcon = TApp.smallIconQuickAction
-
         disableShiftMode(bottomNavigationView)
-
 
     }
 
@@ -64,6 +52,10 @@ class MainActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_scan -> {
+                AndroidUtils.todo()
+            }
+
             R.id.action_create_wallet -> {
                 openLevel2Fragment(Bundle(), FragmentMainCreateWallet::class.java)
             }
@@ -72,13 +64,12 @@ class MainActivity : BaseActivity() {
             }
 
             R.id.action_contacts_add -> {
-                openLevel2Fragment(Bundle(), FragmentMsgsContactsAdd::class.java)
+                AndroidUtils.todo()
             }
 
         }
         return true
     }
-
 
     fun setupToolbar(toolbar: Toolbar) {
         setSupportActionBar(toolbar)
@@ -108,18 +99,6 @@ class MainActivity : BaseActivity() {
         super.onNewIntent(intent)
         selectPageByIntent(intent)
     }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_action, menu)
-        return true
-    }
-
-
-
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        //inflater.inflate(R.menu.your_menu_xml, menu)
-//        //super.onCreateOptionsMenu(menu, inflater)
-//    }
 
     fun openLevel2Fragment(bundle: Bundle, clz: Class<out FragmentBase>) {
 
@@ -187,10 +166,9 @@ class MainActivity : BaseActivity() {
                 .commit()
     }
 
-    fun changeToolbarBackground(colorResId : Int) {
+    fun changeToolbarBackground(colorResId: Int) {
         //mToolbarWrapper.setBackgroundDrawable(ColorDrawable(getResources().getColor(colorResId)))
     }
-
 
 }
 

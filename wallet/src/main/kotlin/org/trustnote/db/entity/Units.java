@@ -10,8 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import org.jetbrains.annotations.NotNull;
-import org.trustnote.wallet.TTT;
+import org.trustnote.wallet.biz.TTT;
 
 import java.lang.Integer;
 import java.lang.String;

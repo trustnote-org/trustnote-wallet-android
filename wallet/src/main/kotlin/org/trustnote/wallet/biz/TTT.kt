@@ -1,4 +1,6 @@
-package org.trustnote.wallet
+package org.trustnote.wallet.biz
+
+import org.trustnote.wallet.BuildConfig
 
 class TTT {
 

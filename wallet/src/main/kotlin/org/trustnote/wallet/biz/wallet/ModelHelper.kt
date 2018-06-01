@@ -2,8 +2,8 @@ package org.trustnote.wallet.biz.wallet
 
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
-import org.trustnote.wallet.TTT
-import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.util.Utils
 
 object ModelHelper {
@@ -13,6 +13,10 @@ object ModelHelper {
         val currentMaxAddress = DbHelper.getMaxAddressIndex(credential.walletId, isChange)
         val newAddressSize = if (currentMaxAddress == 0) TTT.walletAddressInitSize else TTT.walletAddressIncSteps
         val res = List(newAddressSize, {
+
+            //Does it really improve UI performance?
+            Thread.sleep(50)
+
             val myAddress = MyAddresses()
             myAddress.account = credential.account
             myAddress.wallet = credential.walletId

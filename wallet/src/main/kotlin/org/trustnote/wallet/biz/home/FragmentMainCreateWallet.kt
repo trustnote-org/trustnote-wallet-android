@@ -1,7 +1,6 @@
 package org.trustnote.wallet.biz.home
 
 import android.content.Context
-import android.content.Intent
 import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
@@ -12,19 +11,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import com.google.gson.JsonObject
-import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.js.JSApi
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
-import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MyTextWatcher
 
-class FragmentMainCreateWallet : FragmentMainBase() {
+class FragmentMainCreateWallet : FragmentWalletBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_main_create_wallet

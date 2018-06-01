@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import org.trustnote.wallet.R
-import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.uiframework.BaseActivity
 
 class MnemonicAutoCompleteTextView constructor(context: Context, attrs: AttributeSet? = null) : AutoCompleteTextView(context, attrs) {

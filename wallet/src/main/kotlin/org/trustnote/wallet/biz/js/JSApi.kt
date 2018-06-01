@@ -1,4 +1,4 @@
-package org.trustnote.wallet.js
+package org.trustnote.wallet.biz.js
 
 import android.webkit.ValueCallback
 

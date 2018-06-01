@@ -1,6 +1,6 @@
-package org.trustnote.wallet.data.remote
+package org.trustnote.wallet.uiframework.data.remote
 
-import org.trustnote.wallet.data.remote.model.SearchResponse
+import org.trustnote.wallet.uiframework.data.remote.model.SearchResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

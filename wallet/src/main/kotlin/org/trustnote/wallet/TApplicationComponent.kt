@@ -1,8 +1,8 @@
 package org.trustnote.wallet
 
 import dagger.Component
-import org.trustnote.wallet.data.network.NetworkModule
-import org.trustnote.wallet.data.remote.ApiModule
+import org.trustnote.wallet.uiframework.data.network.NetworkModule
+import org.trustnote.wallet.uiframework.data.remote.ApiModule
 import javax.inject.Singleton
 
 @Singleton

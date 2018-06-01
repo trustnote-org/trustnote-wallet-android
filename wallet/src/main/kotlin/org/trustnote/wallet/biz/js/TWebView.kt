@@ -1,4 +1,4 @@
-package org.trustnote.wallet.js
+package org.trustnote.wallet.biz.js
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,7 +10,6 @@ import android.webkit.CookieManager
 import android.webkit.ValueCallback
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import android.widget.Toast
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.CountDownLatch

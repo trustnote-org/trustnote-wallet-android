@@ -1,4 +1,4 @@
-package org.trustnote.wallet.data.remote
+package org.trustnote.wallet.uiframework.data.remote
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module

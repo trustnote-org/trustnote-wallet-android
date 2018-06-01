@@ -5,10 +5,10 @@ import org.trustnote.db.DbHelper
 import org.trustnote.db.FundedAddress
 import org.trustnote.db.Payload
 import org.trustnote.db.entity.*
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.biz.wallet.PaymentInfo
 import org.trustnote.wallet.biz.wallet.WitnessManager

@@ -27,11 +27,6 @@ abstract class FragmentPageBase: FragmentBase() {
         return view
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        menu!!.clear() //Empty the old menu
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
     override fun setupToolbar() {
 //        super.setupToolbar()
 //        setHasOptionsMenu(true)

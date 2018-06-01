@@ -4,10 +4,10 @@ import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.biz.units.UnitsManager
-import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.ReqGetHistory
@@ -23,7 +23,7 @@ class WalletModel() {
     //TODO： DbHelper.dropWalletDB(mProfile.dbTag)
 
     lateinit var mProfile: TProfile
-
+    var busy = false
     private val refreshingCredentials = LinkedBlockingQueue<Credential>()
     private lateinit var refreshingWorker: ScheduledExecutorService
 
@@ -48,7 +48,7 @@ class WalletModel() {
     }
 
     fun isRefreshing(): Boolean {
-        return refreshingCredentials.isNotEmpty()
+        return refreshingCredentials.isNotEmpty() || busy
     }
 
     fun destruct() {
@@ -119,7 +119,11 @@ class WalletModel() {
         refreshingWorker = MyThreadManager.instance.newSingleThreadExecutor(this.toString())
         refreshingWorker.execute {
             while (true) {
-                refreshOneWalletImpl(refreshingCredentials.take())
+
+                val credential = refreshingCredentials.take()
+                busy = true
+                refreshOneWalletImpl(credential)
+                busy = false
             }
         }
     }

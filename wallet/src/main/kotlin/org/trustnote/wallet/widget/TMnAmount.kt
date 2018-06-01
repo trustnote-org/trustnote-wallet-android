@@ -8,7 +8,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 
 open class TMnAmount @JvmOverloads constructor(
         context: Context,

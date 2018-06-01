@@ -19,11 +19,6 @@ abstract class FragmentMsgsBase : FragmentBase() {
         return activity as MainActivity
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        menu!!.clear() //Empty the old menu
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
     override fun onResume() {
 
         super.onResume()

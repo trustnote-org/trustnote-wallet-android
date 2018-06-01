@@ -7,10 +7,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
-import org.trustnote.db.DbHelper
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.TTT
-import org.trustnote.wallet.biz.units.UnitsManager
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit

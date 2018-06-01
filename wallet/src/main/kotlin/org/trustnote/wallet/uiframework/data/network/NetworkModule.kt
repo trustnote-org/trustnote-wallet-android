@@ -1,4 +1,4 @@
-package org.trustnote.wallet.data.network
+package org.trustnote.wallet.uiframework.data.network
 
 import android.content.Context
 import android.net.ConnectivityManager

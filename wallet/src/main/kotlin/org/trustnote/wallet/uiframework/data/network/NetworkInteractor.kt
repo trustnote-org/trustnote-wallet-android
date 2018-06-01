@@ -1,4 +1,4 @@
-package org.trustnote.wallet.data.network
+package org.trustnote.wallet.uiframework.data.network
 
 import io.reactivex.Completable
 

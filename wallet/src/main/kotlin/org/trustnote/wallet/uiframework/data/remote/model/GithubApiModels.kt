@@ -1,4 +1,4 @@
-package org.trustnote.wallet.data.remote.model
+package org.trustnote.wallet.uiframework.data.remote.model
 
 import android.os.Parcel
 import com.google.gson.annotations.SerializedName

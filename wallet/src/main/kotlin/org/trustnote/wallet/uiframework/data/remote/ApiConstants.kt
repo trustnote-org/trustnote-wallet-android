@@ -1,4 +1,4 @@
-package org.trustnote.wallet.data.remote
+package org.trustnote.wallet.uiframework.data.remote
 
 object ApiConstants {
     const val GITHUB_API_BASE_ENDPOINT = "https://api.github.com"

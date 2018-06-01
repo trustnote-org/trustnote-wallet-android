@@ -1,4 +1,4 @@
-package org.trustnote.wallet.debugui
+package org.trustnote.wallet.uiframework
 
 import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.FragmentBase

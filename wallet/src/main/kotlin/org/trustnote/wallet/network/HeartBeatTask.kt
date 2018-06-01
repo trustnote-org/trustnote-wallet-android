@@ -1,6 +1,6 @@
 package org.trustnote.wallet.network
 
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.network.pojo.ReqHeartBeat
 import java.util.*
 

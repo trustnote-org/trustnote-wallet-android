@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.FragmentDialogBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
@@ -30,7 +29,7 @@ class FragmentDialogScanSignResult(val checkCode: Int, val confirmLogic: (String
         val btn = view.findViewById<Button>(R.id.create_wallet_observer_qr_finish_btn)
 
         title.setText(R.string.wallet_transfer_sign_scan_title)
-        msg.visibility = View.GONE
+        msg.visibility = View.INVISIBLE
         lable.setText(R.string.wallet_transfer_sign_scan_label)
         scanRestText.setText(R.string.wallet_transfer_sign_scan_hint)
         scanErrInfo.setText(R.string.wallet_transfer_sign_scan_invalid)

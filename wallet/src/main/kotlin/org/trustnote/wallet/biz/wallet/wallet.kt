@@ -8,7 +8,7 @@ import org.trustnote.db.entity.MyAddresses
 import java.util.*
 import com.google.gson.JsonParser
 import com.google.gson.annotations.Expose
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 
 class TProfile() {
 

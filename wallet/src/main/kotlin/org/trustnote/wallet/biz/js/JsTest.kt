@@ -1,6 +1,6 @@
-package org.trustnote.wallet.js
+package org.trustnote.wallet.biz.js
 
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager

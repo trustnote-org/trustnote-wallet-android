@@ -4,11 +4,10 @@ import android.os.Bundle
 import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.MainActivity
-import org.trustnote.wallet.biz.home.CredentialAdapter
 import org.trustnote.wallet.biz.wallet.Credential
-import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.InputPwdDialogFragment
 
@@ -27,6 +26,7 @@ class SettingItem(
                     SettingItem(titleResId = R.string.setting_ttt_pwd,
                             icResId = R.drawable.me_ttt_pwd,
                             lambda = {
+                                AndroidUtils.todo()
                             }),
 
                     SettingItem(itemType = SettingItemType.ITEM_GAP),

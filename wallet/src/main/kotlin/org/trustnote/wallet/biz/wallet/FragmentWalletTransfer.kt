@@ -8,13 +8,11 @@ import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.Authentifiers
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.me.FragmentDialogAskAuthorToSigner
-import org.trustnote.wallet.biz.me.FragmentDialogAuthorizeSuccessful
 import org.trustnote.wallet.biz.me.FragmentDialogScanSignResult
 import org.trustnote.wallet.biz.units.UnitComposer
-import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils

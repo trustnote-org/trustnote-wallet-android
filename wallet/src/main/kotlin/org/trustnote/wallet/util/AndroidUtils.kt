@@ -11,14 +11,13 @@ import android.view.View
 import android.widget.Button
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.js.BIP38_WORD_LIST_EN
+import org.trustnote.wallet.biz.js.BIP38_WORD_LIST_EN
 import org.trustnote.wallet.uiframework.BaseActivity
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Environment
-import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
@@ -32,11 +31,8 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.FragmentDialogBase
-import org.trustnote.wallet.biz.MainActivity
-import org.trustnote.wallet.biz.home.CredentialAdapter
-import org.trustnote.wallet.biz.home.FragmentMainWalletTxList
 import org.trustnote.wallet.widget.RecyclerItemClickListener
 import java.io.File
 import java.text.SimpleDateFormat
@@ -299,6 +295,9 @@ object AndroidUtils {
     }
 
 
+    fun todo() {
+        Utils.toastMsg(TApp.context.getString(R.string.coming_soon))
+    }
 
 
 }

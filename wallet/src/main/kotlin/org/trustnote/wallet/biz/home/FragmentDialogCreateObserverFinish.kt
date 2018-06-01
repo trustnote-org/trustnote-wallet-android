@@ -11,6 +11,7 @@ import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.FragmentDialogBase
@@ -22,7 +23,7 @@ class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}
 
     var msg: String = "TTT Welcome"
     lateinit var btn: Button
-    lateinit var editText: EditText
+    lateinit var editText: TextView
 
     override fun initFragment(view: View) {
         btn = view.findViewById(R.id.create_wallet_observer_qr_finish_btn)
@@ -66,20 +67,6 @@ class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}
             AndroidUtils.disableBtn(btn)
         }
     }
-
-    //    TTT: {
-    //        "type": "c2",
-    //        "addr": "0NEYV3ZCRAJYGJDS5UNN4EOZGNVZJXOLI",
-    //        "v": 1234
-    //    }
-
-    //    TTT: {
-    //        "type": "c1",
-    //        "name": "TTT",
-    //        "pub": "xpub6CiT96vM5krNhwFA4ro5nKJ6nq9WykFmAsP18jC1Aa3URb69rvUHw6uvU51MQPkMZQ6BLiC5C1E3Zbsm7Xob3FFhNHJkN3v9xuxfqFFKPP5",
-    //        "n": 0,
-    //        "v": 1234
-    //    }
 
     fun showScanResult(scanResultStr: String) {
         val addr: String? = TTTUtils.scanStringToJsonObject(scanResultStr).get("addr")?.asString

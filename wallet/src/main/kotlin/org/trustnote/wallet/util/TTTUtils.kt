@@ -4,10 +4,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.google.gson.JsonObject
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TTT
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.PaymentInfo
-import org.trustnote.wallet.js.JSApi
+import org.trustnote.wallet.biz.js.JSApi
 
 object TTTUtils {
 
