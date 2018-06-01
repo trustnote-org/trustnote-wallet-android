@@ -88,7 +88,7 @@ class InputPwdDialogFragment() : DialogFragment() {
         fun showMe(activity: FragmentActivity, confirmLogic: () -> Unit) {
 
             val newFragment = InputPwdDialogFragment(confirmLogic)
-            newFragment.show(getFragmentTransaction(activity), "dialog")
+            newFragment.show(getFragmentTransaction(activity), null)
         }
 
 

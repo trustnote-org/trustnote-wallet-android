@@ -379,9 +379,19 @@ class WalletModel() {
 
     }
 
-    fun removeWallet(credential: Credential) {
+    fun canRemove(credential: Credential): Boolean {
+        return credential.isObserveOnly || credential.balance == 0L
+    }
+
+    fun removeWallet(credential: Credential): Boolean {
+
+        if (!canRemove(credential)) {
+            return false
+        }
+
         credential.isRemoved = true
         profileUpdated()
+        return true
 
         //TODO: remove observer wallet from DB in background.
 

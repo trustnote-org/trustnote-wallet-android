@@ -270,6 +270,7 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="me_wallet_cold_code_sucessful_btn">完成</string>
 
     <string name="me_wallet_remove_wallet_msg">即将删除此钱包，若您想生成该钱包，则需要您使用助记词恢复钱包！</string>
+    <string name="me_wallet_remove_wallet_deny">该钱包内有资产，无法删除钱包</string>
 
 
 

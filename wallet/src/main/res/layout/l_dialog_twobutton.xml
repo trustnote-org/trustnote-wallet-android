@@ -19,7 +19,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#C74D4D4D" />
+        android:background="@color/line_in_dialog" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:background="@null"
             android:layout_height="wrap_content"
-            android:textColor="#FF333333"
+            android:textColor="@color/t_text"
             android:layout_weight="1"
             android:textSize="@dimen/dialog_btn_font"
             android:text="@string/cancel" />
@@ -40,13 +40,13 @@
             android:id="@+id/line_between_btns"
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#C74D4D4D" />
+            android:background="@color/line_in_dialog" />
 
         <Button
             android:id="@+id/second_button"
             android:layout_width="0dp"
             android:background="@null"
-            android:textColor="#FF007AFF"
+            android:textColor="@color/btn2_text_in_dialog"
             android:textSize="@dimen/dialog_btn_font"
             android:layout_height="wrap_content"
             android:layout_weight="1"

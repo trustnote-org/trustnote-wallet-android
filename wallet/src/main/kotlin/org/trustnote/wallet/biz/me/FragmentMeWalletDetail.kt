@@ -5,11 +5,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.widget.InputPwdDialogFragment
+import org.trustnote.wallet.widget.MyDialogFragment
 import org.trustnote.wallet.widget.TMnAmount
 
 class FragmentMeWalletDetail : FragmentWalletBase() {
@@ -37,18 +41,34 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
         credentialName = mRootView.findViewById(R.id.credential_name)
 
         mRootView.findViewById<View>(R.id.credential_remove_btn).setOnClickListener {
-
-            val f = FragmentDialogMeRemoveWallet {
-                WalletManager.model.removeWallet(credential)
-                activity.onBackPressed()
-            }
-
-            AndroidUtils.openDialog(activity, f, false)
-
+            removeWallet()
         }
 
         recyclerView = mRootView.findViewById(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
+
+    }
+
+
+    private fun removeWallet() {
+
+        if (!WalletManager.model.canRemove(credential)) {
+            MyDialogFragment.showMsg(getMyActivity(), R.string.me_wallet_remove_wallet_deny)
+            return
+        }
+
+        InputPwdDialogFragment.showMe(activity, {
+            val f = FragmentDialogMeRemoveWallet {
+                val removeResult = WalletManager.model.removeWallet(credential)
+                if (removeResult) {
+                    activity.onBackPressed()
+                } else {
+                    MyDialogFragment.showMsg(getMyActivity(), R.string.me_wallet_remove_wallet_deny)
+                }
+            }
+
+            AndroidUtils.openDialog(activity, f, false)
+        })
 
     }
 

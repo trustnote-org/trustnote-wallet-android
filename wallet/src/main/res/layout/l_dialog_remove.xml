@@ -5,24 +5,33 @@
     android:background="@drawable/bg_dialog"
     android:orientation="vertical">
 
-    <ImageView
 
-        android:id="@+id/ic"
-        android:src="@drawable/ic_garbage_bin"
-        android:layout_marginTop="@dimen/line_gap_32"
-        android:layout_width="@dimen/ic_gabage_width"
-        android:layout_height="@dimen/ic_gabage_width" />
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/ic"
+            android:layout_width="@dimen/ic_gabage_width"
+            android:layout_height="@dimen/ic_gabage_width"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/line_gap_32"
+            android:src="@drawable/ic_garbage_bin" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/msg"
         style="@style/t_text_dialog_msg"
         android:layout_width="match_parent"
+        android:lineSpacingMultiplier="1.5"
         android:paddingBottom="@dimen/line_gap_12"
-        android:lineSpacingMultiplier = "1.5"
         android:paddingLeft="@dimen/bg_dialog_padding_left"
         android:paddingRight="@dimen/bg_dialog_padding_left"
         android:paddingTop="@dimen/bg_dialog_padding_top"
         android:text="@string/me_wallet_remove_wallet_msg" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +45,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:text="@string/cancel"
-            android:textColor="#FF333333"
+            android:textColor="@color/t_text"
             android:textSize="@dimen/dialog_btn_font" />
 
 
@@ -47,7 +56,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:text="@string/confirm"
-            android:textColor="#FF007AFF"
+            android:textColor="@color/btn2_text_in_dialog"
             android:textSize="@dimen/dialog_btn_font" />
 
     </LinearLayout>

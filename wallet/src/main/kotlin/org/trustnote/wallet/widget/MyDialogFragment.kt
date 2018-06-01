@@ -81,7 +81,7 @@ class MyDialogFragment() : DialogFragment() {
         private fun getFragmentTransaction(activity: FragmentActivity): FragmentTransaction {
 
             val ft = activity.supportFragmentManager.beginTransaction()
-            val prev = activity.supportFragmentManager.findFragmentByTag("dialog")
+            val prev = activity.supportFragmentManager.findFragmentByTag(null)
             if (prev != null) {
                 ft.remove(prev)
             }
@@ -92,7 +92,7 @@ class MyDialogFragment() : DialogFragment() {
         private fun showDialog1Btn(activity: FragmentActivity, msg: String, confirmLogic: () -> Unit) {
 
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic)
-            newFragment.show(getFragmentTransaction(activity), "dialog")
+            newFragment.show(getFragmentTransaction(activity), null)
         }
 
         fun showMsg(activity: FragmentActivity, strResId: Int) {
@@ -103,7 +103,7 @@ class MyDialogFragment() : DialogFragment() {
         fun showDialog2Btns(activity: FragmentActivity, strResId: Int, confirmLogic: () -> Unit) {
             val msg = activity.getString(strResId)!!
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic, {})
-            newFragment.show(getFragmentTransaction(activity), "dialog")
+            newFragment.show(getFragmentTransaction(activity), null)
         }
 
     }

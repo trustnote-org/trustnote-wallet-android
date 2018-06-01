@@ -208,12 +208,12 @@ object AndroidUtils {
     }
 
     fun openDialog(activity: FragmentActivity, f: FragmentDialogBase, addToBackStack: Boolean = true) {
-        f.show(AndroidUtils.getDialogFragmentTransaction(activity), KEY_DIALOG_FRAGMENT_TRANSACTION)
+        f.show(AndroidUtils.getDialogFragmentTransaction(activity), null)
     }
 
     fun openDialog(activity: FragmentActivity, layoutId: Int, lambda: () -> Unit = {}, addToBackStack: Boolean = true) {
         val f = FragmentDialogBase(layoutId)
-        f.show(AndroidUtils.getDialogFragmentTransaction(activity, addToBackStack), KEY_DIALOG_FRAGMENT_TRANSACTION)
+        f.show(AndroidUtils.getDialogFragmentTransaction(activity, addToBackStack), null)
     }
 
     @Synchronized
