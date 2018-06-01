@@ -272,6 +272,15 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="me_wallet_remove_wallet_msg">即将删除此钱包，若您想生成该钱包，则需要您使用助记词恢复钱包！</string>
     <string name="me_wallet_remove_wallet_deny">该钱包内有资产，无法删除钱包</string>
 
+    <string name="wallet_transfer_sign_1_title">冷钱包扫描</string>
+    <string name="wallet_transfer_sign_1_msg">请用冷钱包扫描二维码，待签名完成后进入下一步</string>
+
+    <string name="wallet_transfer_sign_scan_title">读入签名数据</string>
+    <string name="wallet_transfer_sign_scan_label">签名数据</string>
+    <string name="wallet_transfer_sign_scan_hint">扫描冷钱包签名数据二维码</string>
+    <string name="wallet_transfer_sign_scan_btn">发送交易</string>
+
+    <string name="wallet_transfer_sign_scan_invalid">无效的签名</string>
 
 
 </resources>

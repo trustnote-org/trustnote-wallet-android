@@ -90,15 +90,21 @@ abstract class FragmentBase : Fragment() {
 
     var scanResHandler: (String) -> Unit = {}
 
+
+    fun startScan(scanResHandler: (String) -> Unit = {}) {
+        this.scanResHandler = scanResHandler
+
+        val integrator = IntentIntegrator.forSupportFragment(this)
+        integrator.setOrientationLocked(true)
+        integrator.setBeepEnabled(true)
+        integrator.initiateScan()
+
+    }
+
     fun setupScan(scanIcon: View, scanResHandler: (String) -> Unit = {}) {
 
-        this.scanResHandler = scanResHandler
         scanIcon.setOnClickListener {
-
-            val integrator = IntentIntegrator.forSupportFragment(this)
-            integrator.setOrientationLocked(true)
-            integrator.setBeepEnabled(true)
-            integrator.initiateScan()
+            startScan(scanResHandler)
         }
 
     }

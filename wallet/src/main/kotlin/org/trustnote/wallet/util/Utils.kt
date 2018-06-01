@@ -203,19 +203,6 @@ object Utils {
         return """${df.format(date)}($timeAgo)"""
     }
 
-    fun scanStringToJsonObject(str: String): JsonObject {
-        if (str.isBlank() || str.length < 4) {
-            return emptyJsonObject
-        }
-
-        try {
-            return Utils.getGson().fromJson(str.substring(4), JsonObject::class.java)
-        } catch (ex: Exception) {
-            Utils.logW(ex.localizedMessage)
-        }
-        return emptyJsonObject
-
-    }
 
     fun getFeeAsString(fee: Long): String {
         return String.format("%.6f", fee.toFloat() / TTT.w_coinunitValue)

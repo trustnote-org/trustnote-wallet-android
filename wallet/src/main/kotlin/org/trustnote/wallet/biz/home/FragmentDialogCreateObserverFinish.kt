@@ -15,6 +15,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.FragmentDialogBase
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 
 class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}) : FragmentDialogBase(R.layout.l_dialog_create_wallet_observer_finish, confirmLogic) {
@@ -81,7 +82,7 @@ class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}
     //    }
 
     fun showScanResult(scanResultStr: String) {
-        val addr: String? = Utils.scanStringToJsonObject(scanResultStr).get("addr")?.asString
+        val addr: String? = TTTUtils.scanStringToJsonObject(scanResultStr).get("addr")?.asString
         editText.setText(addr ?: "")
     }
 

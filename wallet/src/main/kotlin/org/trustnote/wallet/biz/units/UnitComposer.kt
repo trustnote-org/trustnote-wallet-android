@@ -17,7 +17,7 @@ import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Utils
 
 class UnitComposer(
-        private val sendPaymentInfo: PaymentInfo
+        val sendPaymentInfo: PaymentInfo
 ) {
     private val units = Units()
     private val messages = Messages()
@@ -25,6 +25,8 @@ class UnitComposer(
     private val receiverOutput = Outputs()
     private val changeOutput = Outputs()
     private val authors = mutableListOf<Authentifiers>()
+
+    var hashToSign = ""
 
     lateinit var mGetParentRequest: ReqGetParents
     private val jsApi = JSApi()
@@ -41,7 +43,6 @@ class UnitComposer(
         mGetParentRequest = ReqGetParents(reqId, witnesses)
         hubModel.mHubClient.sendHubMsg(mGetParentRequest)
 
-
         if (mGetParentRequest.getResponse().msgType == MSG_TYPE.empty) {
             return false
         }
@@ -53,6 +54,9 @@ class UnitComposer(
     fun startSendTx(activity: MainActivity) {
 
         MyThreadManager.instance.runInBack {
+
+            units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
+
             if (postNewUnitToHub()) {
                 val unitJson = Utils.toGsonObject(units)
                 val unit = UnitsManager().parseUnitFromJson(unitJson)
@@ -153,13 +157,29 @@ class UnitComposer(
         genChange()
         genPayloadHash()
 
+        hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
+
         val credential = WalletManager.model.findWallet(sendPaymentInfo.walletId)
         if (!credential.isObserveOnly) {
-            genUnitsHashAndSign()
+            signWithEveryAuthors()
+        } else {
+
         }
 
         Utils.debugLog(Utils.toGsonString(units))
     }
+
+    fun getOneUnSignedAuthentifier(): Authentifiers? {
+        var res: Authentifiers? = null
+        authors.forEach {
+            val currentSign = it.authentifiers.get("r")?.asString
+            if (currentSign.isNullOrBlank() || currentSign == TTT.PLACEHOLDER_SIG) {
+                res = it
+            }
+        }
+        return res
+    }
+
 
     private fun genChange() {
         var totalInput = 0L
@@ -172,19 +192,13 @@ class UnitComposer(
 
     }
 
-    private fun genUnitsHashAndSign() {
+    private fun signWithEveryAuthors() {
         authors.forEach {
             val myAddresses = DbHelper.queryAddressByAddresdId(it.address)
-            val hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
-
             val sign = jsApi.signSync(hashToSign, WalletManager.getProfile().xPrivKey, Utils.genBip44Path(myAddresses))
-
             it.authentifiers.remove("r")
             it.authentifiers.addProperty("r", sign)
-
         }
-
-        units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
 
     }
 

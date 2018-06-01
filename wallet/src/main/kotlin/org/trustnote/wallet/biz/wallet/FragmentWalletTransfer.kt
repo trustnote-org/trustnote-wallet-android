@@ -4,9 +4,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import org.trustnote.db.DbHelper
+import org.trustnote.db.entity.Authentifiers
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.TTT
 import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.me.FragmentDialogAskAuthorToSigner
+import org.trustnote.wallet.biz.me.FragmentDialogAuthorizeSuccessful
+import org.trustnote.wallet.biz.me.FragmentDialogScanSignResult
 import org.trustnote.wallet.biz.units.UnitComposer
 import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
@@ -78,18 +84,56 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         }
     }
 
-
     private fun askUserInputPwdForTransfer(unitComposer: UnitComposer) {
 
         InputPwdDialogFragment.showMe(activity, {
-            TApp.userAlreadyInputPwd = true
-            unitComposer.startSendTx(activity as MainActivity)
-            activity.onBackPressed()
+            sendTxOrShowHahsToSign(unitComposer)
         })
 
         MyThreadManager.instance.runInBack {
             unitComposer.composeUnits()
         }
+
+    }
+
+    private fun sendTxOrShowHahsToSign(unitComposer: UnitComposer) {
+
+        val unSignedAuthor = unitComposer.getOneUnSignedAuthentifier()
+        if (unSignedAuthor != null) {
+            tryToGetOneAuthorSign(unSignedAuthor, unitComposer)
+        } else {
+            TApp.userAlreadyInputPwd = true
+            unitComposer.startSendTx(activity as MainActivity)
+            activity.onBackPressed()
+        }
+    }
+
+    private fun tryToGetOneAuthorSign(unSignedAuthor: Authentifiers, unitComposer: UnitComposer) {
+
+        val myAddresses = DbHelper.queryAddressByAddresdId(unSignedAuthor.address)
+        val checkCode = TTTUtils.randomCheckCode()
+
+        val qrStr = TTTUtils.getQrCodeForColdToSign(unitComposer.hashToSign,
+                Utils.genBip44Path(myAddresses),
+                unitComposer.sendPaymentInfo.receiverAddress,
+                unitComposer.sendPaymentInfo.amount,
+                checkCode)
+
+        val f = FragmentDialogAskAuthorToSigner {
+            val scanRes = FragmentDialogScanSignResult(checkCode) {
+
+                unSignedAuthor.authentifiers.remove("r")
+                unSignedAuthor.authentifiers.addProperty("r", it)
+                sendTxOrShowHahsToSign(unitComposer)
+
+            }
+
+            AndroidUtils.openDialog(activity, scanRes, false)
+
+        }
+
+        AndroidUtils.addFragmentArguments(f, TTT.KEY_QR_CODE, qrStr)
+        AndroidUtils.openDialog(activity, f, false)
 
     }
 
@@ -103,7 +147,6 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         }
         updateUI()
     }
-
 
     private fun setTransferAddress(address: String) {
         if (TTTUtils.isValidAddress(address)) {
@@ -124,6 +167,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
     }
 
     override fun updateUI() {
+
         balance.setMnAmount(credential.balance)
         title.text = credential.walletName
 

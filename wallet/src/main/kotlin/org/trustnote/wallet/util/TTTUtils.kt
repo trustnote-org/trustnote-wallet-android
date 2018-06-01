@@ -109,7 +109,61 @@ object TTTUtils {
     }
 
     fun genColdScancodeStep1(credential: Credential): String {
-        return """${TTT.KEY_TTT_QR_TAG}:{"type": "c1","name": "${credential.walletName}","pub":"${credential.xPubKey}","n": ${credential.account},"v":${Utils.random.nextInt(8999) + 1000}}"""
+        return """${TTT.KEY_TTT_QR_TAG}:{"type": "c1","name": "${credential.walletName}","pub":"${credential.xPubKey}","n": ${credential.account},"v":${randomCheckCode()}}"""
+    }
+
+    //    TTT: {
+    //        "type": "h2",
+    //        "sign": "Ujn29JQOD0yqErXL+fYofMTIiE2aX7VINhnEL2q62ww=",
+    //        "path": "m/44'/0'/2'/1/32",
+    //        "addr": "YDKTOQ7VCBQ336VGH3S5RLIWRRAUTB5O",
+    //        "amount": 1000,
+    //        "v": 1234
+    //    }
+    fun getQrCodeForColdToSign(sign: String, path: String, addr: String, amount: Long, checkCode: Int): String {
+        return """${TTT.KEY_TTT_QR_TAG}:{"type":"h2","sign":"$sign","path":"$path","addr":"$addr","amount":$amount,"v":$checkCode}"""
+    }
+
+    //    TTT: {
+    //        "type": "c3",
+    //        "sign": "cMKJdsCjSCg1iP9VLq6QFDlv3S6tRhKaXcmJhGTMWtxlKDg6tYn7Q7LqUamjRz7JMbSmAZCP/K1LM1vA1p+/wQ==",
+    //        "v": 1234
+    //    }
+    fun getQrCodeForObserver(signature: String, checkCode: Int): String {
+        return """${TTT.KEY_TTT_QR_TAG}:{"type":"c3","sign":"$signature","v":$checkCode}"""
+    }
+
+    fun checkAndParseSignature(signatureJsonStr: String, checkCode: Int): String? {
+        val json = scanStringToJsonObject(signatureJsonStr)
+        val checkCodeFromSignature = json.get("v")?.asInt
+
+        if (checkCodeFromSignature != null && checkCode == checkCodeFromSignature) {
+            return json.get("sign")?.asString
+        }
+        return ""
+    }
+
+
+    fun randomCheckCode(): Int {
+        return Utils.random.nextInt(8999) + 1000
+    }
+
+    val unitAuthentifierPlaceHolder = Utils.genJsonObject("r", TTT.PLACEHOLDER_SIG)
+
+
+    fun scanStringToJsonObject(str: String): JsonObject {
+        //TODO: make sure the protocol is TTT.
+        if (str.isBlank() || str.length < 4) {
+            return Utils.emptyJsonObject
+        }
+
+        try {
+            return Utils.getGson().fromJson(str.substring(4), JsonObject::class.java)
+        } catch (ex: Exception) {
+            Utils.logW(ex.localizedMessage)
+        }
+        return Utils.emptyJsonObject
+
     }
 
 }

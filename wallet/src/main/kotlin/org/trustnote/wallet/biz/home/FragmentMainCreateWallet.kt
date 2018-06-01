@@ -159,14 +159,13 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
     }
 
     fun showScanResult(scanResultStr: String) {
-        scanResultJson = Utils.scanStringToJsonObject(scanResultStr)
+        scanResultJson = TTTUtils.scanStringToJsonObject(scanResultStr)
         textView.text = scanResultJson.get("pub")?.asString
 
         MyThreadManager.instance.runJSInNonUIThread {
             myQrCode = TTTUtils.genColdScancodeStep2(scanResultJson)
         }
     }
-
 
 }
 

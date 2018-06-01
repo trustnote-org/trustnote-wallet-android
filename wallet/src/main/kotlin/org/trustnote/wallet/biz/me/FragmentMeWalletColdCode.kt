@@ -53,10 +53,10 @@ class FragmentMeWalletColdCode : FragmentWalletBase() {
     }
 
     private fun showScanResult(step2Str: String, step1Str: String) {
-        val step2Json = Utils.scanStringToJsonObject(step2Str)
+        val step2Json = TTTUtils.scanStringToJsonObject(step2Str)
         val checkCodeFromStep2 = step2Json.get("v")?.asInt
 
-        val step1Json = Utils.scanStringToJsonObject(step1Str)
+        val step1Json = TTTUtils.scanStringToJsonObject(step1Str)
         val checkCodeFromStep1 = step1Json.get("v")?.asInt
 
         if (compareCheckCode(checkCodeFromStep1, checkCodeFromStep2)) {

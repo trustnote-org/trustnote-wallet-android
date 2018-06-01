@@ -44,7 +44,7 @@
 
         </RelativeLayout>
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <TextView
             android:id="@+id/create_wallet_observer_qr_finish_scan_res"
             style="@style/t_pwd"
             android:layout_width="match_parent"
