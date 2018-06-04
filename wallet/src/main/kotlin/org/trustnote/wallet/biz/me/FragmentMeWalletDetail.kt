@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.InputPwdDialogFragment
@@ -78,11 +76,11 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
         totalBalanceView.setMnAmount(credential.balance)
         credentialName.text = credential.walletName
 
-        val a = SettingItem.getSettingForWalletDetail(credential, activity as MainActivity)
+        val a = SettingItem.getSettingForWalletDetail(credential, activity as ActivityMain)
         val c = mutableListOf<SettingItem>()
         c.addAll(a)
         if (!credential.isObserveOnly) {
-            val b = SettingItem.getSettingMoreForColdeWalletDetail(credential, activity as MainActivity)
+            val b = SettingItem.getSettingMoreForColdeWalletDetail(credential, activity as ActivityMain)
             c.addAll(b)
         }
 

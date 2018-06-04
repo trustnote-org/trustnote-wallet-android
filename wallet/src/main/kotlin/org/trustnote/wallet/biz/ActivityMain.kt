@@ -20,7 +20,7 @@ import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 
-class MainActivity : BaseActivity() {
+class ActivityMain : BaseActivity() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
 
@@ -69,26 +69,6 @@ class MainActivity : BaseActivity() {
 
         }
         return true
-    }
-
-    fun setupToolbar(toolbar: Toolbar) {
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-        toolbar.overflowIcon = TApp.smallIconQuickAction
-
-//        val spa = supportActionBar!!
-//        spa.setDisplayShowTitleEnabled(true)
-//
-//        //getMyActivity().getSupportActionBar()!!.closeOptionsMenu()
-//        //getMyActivity().supportActionBar!!.setHomeAsUpIndicator(TApp.smallIconBackHome)
-//
-//        spa.setDisplayHomeAsUpEnabled(false)
-//        spa.setDisplayShowHomeEnabled(false)
-//
-//        spa.title = AndroidUtils.getString(R.string.wallet_toolbar_title)
-//
-//        changeToolbarBackground(R.color.bg_white)
-
     }
 
     fun setToolbarTitle(s: String) {
@@ -165,16 +145,11 @@ class MainActivity : BaseActivity() {
                 R.id.fragment_container, newFragment)
                 .commit()
     }
-
-    fun changeToolbarBackground(colorResId: Int) {
-        //mToolbarWrapper.setBackgroundDrawable(ColorDrawable(getResources().getColor(colorResId)))
-    }
-
 }
 
 const val MAINACTIVITY_KEY_MENU_ID = "KEY_MENU_ID"
 fun startMainActivityWithMenuId(menuId: Int = 0) {
-    val intent = Intent(TApp.context, MainActivity::class.java)
+    val intent = Intent(TApp.context, ActivityMain::class.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     intent.putExtra(MAINACTIVITY_KEY_MENU_ID, menuId)
     TApp.context.startActivity(intent)

@@ -4,7 +4,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.TextView
 import org.trustnote.wallet.R
-import org.trustnote.wallet.biz.MainActivity
 import org.trustnote.wallet.uiframework.FragmentBase
 
 class FragmentMeSettingBase(val settingItems: Array<SettingItem>,

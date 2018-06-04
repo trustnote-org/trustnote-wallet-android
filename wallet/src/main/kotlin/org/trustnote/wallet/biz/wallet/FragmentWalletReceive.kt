@@ -8,7 +8,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.FragmentPageBase
-import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
@@ -41,7 +41,7 @@ class FragmentWalletReceive : FragmentPageBase() {
         copyBtn = mRootView.findViewById(R.id.receive_btn_copy)
 
         setupAmount.setOnClickListener {
-            (activity as MainActivity).openPage(FragmentWalletReceiveSetAmount(), TTT.KEY_WALLET_ID, walletId)
+            (activity as ActivityMain).openPage(FragmentWalletReceiveSetAmount(), TTT.KEY_WALLET_ID, walletId)
         }
 
         clearAmount.setOnClickListener {

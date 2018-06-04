@@ -24,8 +24,8 @@ abstract class FragmentInit : FragmentBase() {
     var mNextLayoutId = 0
 
     //TODO: empty constructor.
-    fun getMyActivity(): CreateWalletActivity {
-        return activity as CreateWalletActivity
+    fun getMyActivity(): ActivityInit {
+        return activity as ActivityInit
     }
 
     fun onShowPage() {

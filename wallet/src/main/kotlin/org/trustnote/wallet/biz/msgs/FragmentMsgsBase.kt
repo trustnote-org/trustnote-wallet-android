@@ -1,13 +1,7 @@
 package org.trustnote.wallet.biz.msgs
 
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.MainActivity
-import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.uiframework.FragmentBase
 
 abstract class FragmentMsgsBase : FragmentBase() {
@@ -15,8 +9,8 @@ abstract class FragmentMsgsBase : FragmentBase() {
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
     //TODO: empty constructor.
-    fun getMyActivity(): MainActivity {
-        return activity as MainActivity
+    fun getMyActivity(): ActivityMain {
+        return activity as ActivityMain
     }
 
     override fun onResume() {

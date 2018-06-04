@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.*
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.TMnAmount
@@ -38,20 +38,20 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
             val bundle = Bundle()
             bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
             bundle.putInt(TTT.KEY_TX_INDEX, it)
-            (activity as MainActivity).openLevel2Fragment(bundle,
+            (activity as ActivityMain).openLevel2Fragment(bundle,
                     FragmentMainWalletTxDetail::class.java)
         }
 
         mRootView.findViewById<View>(R.id.btn_receive).setOnClickListener {
             getMyActivity().receiveAmount = 0L
             val f = FragmentWalletReceive()
-            (activity as MainActivity).openPage(f, TTT.KEY_WALLET_ID, credential.walletId)
+            (activity as ActivityMain).openPage(f, TTT.KEY_WALLET_ID, credential.walletId)
         }
 
         mRootView.findViewById<View>(R.id.btn_transfer).setOnClickListener {
             val f = FragmentWalletTransfer()
             AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, credential.walletId)
-            (activity as MainActivity).openLevel2Fragment(f)
+            (activity as ActivityMain).openLevel2Fragment(f)
         }
 
     }

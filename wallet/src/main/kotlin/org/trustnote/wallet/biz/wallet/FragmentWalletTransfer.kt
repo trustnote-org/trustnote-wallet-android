@@ -9,7 +9,7 @@ import org.trustnote.db.entity.Authentifiers
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.me.FragmentDialogAskAuthorToSigner
 import org.trustnote.wallet.biz.me.FragmentDialogScanSignResult
 import org.trustnote.wallet.biz.units.UnitComposer
@@ -101,7 +101,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
             tryToGetOneAuthorSign(unSignedAuthor, unitComposer)
         } else {
             TApp.userAlreadyInputPwd = true
-            unitComposer.startSendTx(activity as MainActivity)
+            unitComposer.startSendTx(activity as ActivityMain)
             activity.onBackPressed()
         }
     }

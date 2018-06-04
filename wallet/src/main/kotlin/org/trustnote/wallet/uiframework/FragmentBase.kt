@@ -4,31 +4,38 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
+import android.support.v7.widget.Toolbar
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.FragmentPageBase
-import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Utils
 import android.view.*
+import android.widget.FrameLayout
+import android.widget.TextView
+import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.me.FragmentMeMain
 
 abstract class FragmentBase : Fragment() {
 
     lateinit var credential: Credential
 
+    var isBottomLayerUI = false
     lateinit var mRootView: View
+    lateinit var mToolbar: Toolbar
     var isCreated = false
     private val ttag = "TTTUI"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        setHasOptionsMenu(true)
-
-        mRootView = inflater.inflate(getLayoutId(), container, false)
-        mRootView.isClickable = true
-        return mRootView
+        val view = inflater.inflate(R.layout.l_f_with_toolbar, container, false)
+        mRootView = inflater.inflate(getLayoutId(), null)
+        view.findViewById<FrameLayout>(R.id.fragment_frame).addView(mRootView)
+        view.isClickable = true
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,6 +55,8 @@ abstract class FragmentBase : Fragment() {
             val walletId = arguments.getString(TTT.KEY_WALLET_ID)
             credential = WalletManager.model.findWallet(walletId)
         }
+
+        mToolbar = findViewById(R.id.toolbar)
 
         setupToolbar()
     }
@@ -77,15 +86,41 @@ abstract class FragmentBase : Fragment() {
 
     open fun setupToolbar() {
 
-        if (activity is MainActivity) {
-            val mainActivity = activity as MainActivity
+        if (activity is ActivityMain) {
             if (this is FragmentPageBase) {
-                mainActivity.changeToolbarBackground(R.color.page_bg)
+                mToolbar.setBackgroundResource(R.color.page_bg)
+            } else if (this is FragmentMeMain) {
+                mToolbar.setBackgroundResource(R.color.home_line_middle)
             } else {
-                mainActivity.changeToolbarBackground(R.color.bg_white)
+                mToolbar.setBackgroundResource(R.color.bg_white)
             }
         }
 
+        setHasOptionsMenu(true)
+
+        (activity as BaseActivity).setSupportActionBar(mToolbar)
+        val actionBar = (activity as ActivityMain).supportActionBar!!
+
+        actionBar.setDisplayShowTitleEnabled(false)
+
+        if (!isBottomLayerUI) {
+            actionBar.setDisplayHomeAsUpEnabled(!isBottomLayerUI)
+            actionBar.setDisplayShowHomeEnabled(!isBottomLayerUI)
+            mToolbar.setNavigationIcon(TApp.smallIconBackHome)
+            mToolbar.setNavigationOnClickListener {
+                activity.onBackPressed()
+            }
+        }
+
+        mToolbar.overflowIcon = TApp.smallIconQuickAction
+
+
+        mToolbar.findViewById<TextView>(R.id.toolbar_title).text = getTitle()
+
+    }
+
+    open fun getTitle(): String {
+        return ""
     }
 
     fun <T : View> findViewById(@IdRes id: Int): T {

@@ -5,7 +5,7 @@ import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
@@ -20,7 +20,7 @@ class SettingItem(
 
     companion object {
 
-        fun getSettingMain(activity: MainActivity): Array<SettingItem> {
+        fun getSettingMain(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
 
                     SettingItem(titleResId = R.string.setting_ttt_pwd,
@@ -54,12 +54,12 @@ class SettingItem(
             )
         }
 
-        private fun openSubSetting(activity: MainActivity, items: Array<SettingItem>, titielResId: Int) {
+        private fun openSubSetting(activity: ActivityMain, items: Array<SettingItem>, titielResId: Int) {
             val f = FragmentMeSettingBase(items, titielResId)
             activity.openLevel2Fragment(f)
         }
 
-        fun getSettingAbout(activity: MainActivity): Array<SettingItem> {
+        fun getSettingAbout(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.setting_about_version),
@@ -72,7 +72,7 @@ class SettingItem(
             )
         }
 
-        fun getSettingSystem(activity: MainActivity): Array<SettingItem> {
+        fun getSettingSystem(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.setting_system_language),
@@ -82,7 +82,7 @@ class SettingItem(
             )
         }
 
-        fun getSettingWalletTools(activity: MainActivity): Array<SettingItem> {
+        fun getSettingWalletTools(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.setting_wallet_tools_backupmem),
@@ -96,7 +96,7 @@ class SettingItem(
             )
         }
 
-        fun getSettingForWalletDetail(credential: Credential, activity: MainActivity): Array<SettingItem> {
+        fun getSettingForWalletDetail(credential: Credential, activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_GAP),
 
@@ -112,7 +112,7 @@ class SettingItem(
             )
         }
 
-        fun getSettingMoreForColdeWalletDetail(credential: Credential, activity: MainActivity): Array<SettingItem> {
+        fun getSettingMoreForColdeWalletDetail(credential: Credential, activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
 

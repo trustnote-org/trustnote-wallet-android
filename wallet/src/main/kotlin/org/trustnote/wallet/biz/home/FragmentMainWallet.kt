@@ -6,15 +6,17 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
+import android.widget.FrameLayout
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.ActivityMain
+import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.TMnAmount
 
@@ -24,26 +26,37 @@ class FragmentMainWallet : FragmentWalletBase() {
         return R.layout.f_main_wallet
     }
 
-    override fun setupToolbar() {
-
-    }
-
     lateinit var mRecyclerView: RecyclerView
     lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     lateinit var mAppBarLayout: AppBarLayout
     lateinit var mMNAmount: TMnAmount
     lateinit var mAmountTitle: TextView
     lateinit var mToolbarTitle: TextView
-    lateinit var mToolbar: Toolbar
 
     lateinit var mMNAmountToolbar: TMnAmount
     lateinit var mAmountTitleToolbar: TextView
+    lateinit var mMNAmountToolbarLayout: View
+    lateinit var mMNAmountHeaderLayout: View
 
-    var mAmountTitleTargetDistance = 0F
-    var mAmountTargetDistanceY = 0F
-    var mAmountTargetDistanceX = 0F
+    var currentRatio = 0f
+    var totalOffsetDistance = 0
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        val view = inflater.inflate(getLayoutId(), container, false)
+        mRootView = view
+        view.isClickable = true
+        return view
+    }
+
+    override fun getTitle(): String {
+        return TApp.context.getString(R.string.wallet_toolbar_title)
+    }
 
     override fun initFragment(view: View) {
+
+        isBottomLayerUI = true
+
         super.initFragment(view)
 
         mRecyclerView = mRootView.findViewById(R.id.credential_list)
@@ -67,30 +80,24 @@ class FragmentMainWallet : FragmentWalletBase() {
             mSwipeRefreshLayout.isEnabled = verticalOffset >= 0
 
             doAnimation(verticalOffset.toFloat())
-            //            Utils.debugLog("addOnOffsetChangedListener::${verticalOffset}")
-            //            Utils.debugLog("mAmountTitle.y::${mToolbarTitle.y}")
-            //
-            //            Utils.debugLog("mAmountTitle.y::${mAmountTitle.y}")
-            //            Utils.debugLog("mAmountTitle.y::${mAmountTitle.translationY}")
 
         })
 
         mMNAmount = findViewById(R.id.wallet_summary)
         mAmountTitle = findViewById(R.id.wallet_summary_title)
 
-        mToolbarTitle = findViewById(R.id.wallet_toolbar_title)
+        mToolbarTitle = findViewById(R.id.toolbar_title)
         mMNAmountToolbar = findViewById(R.id.toolbar_wallet_summary)
         mAmountTitleToolbar = findViewById(R.id.toolbar_wallet_summary_title)
+        mMNAmountToolbarLayout = findViewById(R.id.toolbar_wallet_summary_layout)
+        mMNAmountHeaderLayout = findViewById(R.id.amount_summary_layout)
 
-        mMNAmountToolbar.alpha = 0f
-        mAmountTitleToolbar.alpha = 0f
+        mMNAmountToolbarLayout.visibility = View.VISIBLE
+
+        mMNAmountToolbarLayout.alpha = 0f
         mToolbarTitle.alpha = 1f
 
         mMNAmountToolbar.setupStyle(true)
-
-        mToolbar = findViewById(R.id.toolbar)
-
-        getMyActivity().setupToolbar(mToolbar)
 
     }
 
@@ -103,16 +110,15 @@ class FragmentMainWallet : FragmentWalletBase() {
             return
         }
 
-        val targetDistance = mAppBarLayout.height - mToolbar.height
-        val currentRatio = Math.abs(offset) / targetDistance
+        totalOffsetDistance = mAppBarLayout.height - mToolbar.height
+
+        currentRatio = Math.abs(offset) / totalOffsetDistance
 
         mToolbarTitle.alpha = 1 - currentRatio
-        mMNAmountToolbar.alpha = currentRatio
-        mAmountTitleToolbar.alpha = currentRatio
 
+        mMNAmountToolbarLayout.alpha = currentRatio
 
-        mMNAmount.alpha = (1 - currentRatio)
-        mAmountTitle.alpha = (1 - currentRatio) * (1 - currentRatio)
+        mMNAmountHeaderLayout.alpha = (1 - currentRatio) * (1 - currentRatio)
 
         //        val expectedAmountTitleDistance = mAmountTitleTargetDistance * (1 - currentRatio)
         //        val actualAmountTitleDistance = mToolbarTitle.y - mAmountTitle.y
@@ -130,10 +136,6 @@ class FragmentMainWallet : FragmentWalletBase() {
         mMNAmount.setMnAmount(WalletManager.model.mProfile.balance)
         mMNAmountToolbar.setMnAmount(WalletManager.model.mProfile.balance)
 
-        mAmountTitleTargetDistance = mToolbarTitle.y - mAmountTitle.y
-        mAmountTargetDistanceY = mToolbarTitle.y - mMNAmount.y
-        mAmountTargetDistanceX = mAmountTitle.x + mAmountTitle.width + -mMNAmount.x
-
         val myAllWallets = WalletManager.model.getAvaiableWalletsForUser()
 
         val adapter = CredentialAdapter(myAllWallets)
@@ -144,10 +146,9 @@ class FragmentMainWallet : FragmentWalletBase() {
             val bundle = Bundle()
             val insideAdapter = mRecyclerView.adapter as CredentialAdapter
             bundle.putString(TTT.KEY_WALLET_ID, insideAdapter.myDataset[it].walletId)
-            (activity as MainActivity).openLevel2Fragment(bundle, FragmentMainWalletTxList::class.java)
+            (activity as ActivityMain).openLevel2Fragment(bundle, FragmentMainWalletTxList::class.java)
 
         }
-
 
         mSwipeRefreshLayout.isRefreshing = WalletManager.model.isRefreshing()
 

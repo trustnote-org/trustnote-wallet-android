@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.MainActivity
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.home.CredentialAdapter
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -40,7 +40,7 @@ class FragmentMeWalletManager : FragmentWalletBase() {
             val bundle = Bundle()
             val insideAdapter = mRecyclerView.adapter as CredentialAdapter
             bundle.putString(TTT.KEY_WALLET_ID, insideAdapter.myDataset[it].walletId)
-            (activity as MainActivity).openLevel2Fragment(bundle, FragmentMeWalletDetail::class.java)
+            (activity as ActivityMain).openLevel2Fragment(bundle, FragmentMeWalletDetail::class.java)
 
         }
 

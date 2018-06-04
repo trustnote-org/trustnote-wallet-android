@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 
 class FragmentMsgsContactsList : FragmentMsgsBase() {
 
@@ -15,6 +16,7 @@ class FragmentMsgsContactsList : FragmentMsgsBase() {
 
     override fun initFragment(view: View) {
 
+        isBottomLayerUI = true
 
         super.initFragment(view)
 
@@ -26,6 +28,11 @@ class FragmentMsgsContactsList : FragmentMsgsBase() {
         recyclerView.adapter = a
 
     }
+
+    override fun getTitle(): String {
+        return TApp.getString(R.string.menu_msg)
+    }
+
 
 
 }

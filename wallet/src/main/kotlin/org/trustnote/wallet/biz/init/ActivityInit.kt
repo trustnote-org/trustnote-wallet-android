@@ -15,7 +15,7 @@ import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 
 
-class CreateWalletActivity : BaseActivity() {
+class ActivityInit : BaseActivity() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
     }
@@ -65,7 +65,7 @@ class CreateWalletActivity : BaseActivity() {
     companion object {
         @JvmStatic
         fun startMe() {
-            val intent = Intent(TApp.context, CreateWalletActivity::class.java)
+            val intent = Intent(TApp.context, ActivityInit::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             TApp.context.startActivity(intent)
         }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.support.annotation.StringRes
 import android.webkit.WebView
 import dagger.Lazy
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -30,6 +31,9 @@ class TApp : Application() {
         lateinit var smallIconQuickAction: Drawable
         lateinit var smallIconBackHome: Drawable
         var userAlreadyInputPwd = false
+        fun getString(@StringRes strResId: Int): String {
+            return context.getString(strResId)
+        }
     }
 
     override fun onCreate() {
