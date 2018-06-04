@@ -19,9 +19,18 @@
             android:layout_below="@id/pwd_setup_title" />
 
         <org.trustnote.wallet.widget.ClearableEditText
-            android:id="@+id/pwd"
+            android:id="@+id/pwd_old"
             style="@style/t_pwd"
             android:layout_below="@id/pwd_warning"
+            android:layout_marginBottom="@dimen/line_gap_32"
+            android:hint="@string/me_change_pwd_old_pwd_hint"
+            android:text=""
+            android:visibility="gone" />
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/pwd"
+            style="@style/t_pwd"
+            android:layout_below="@id/pwd_old"
             android:text="" />
 
         <org.trustnote.wallet.widget.PasswordStrength
@@ -33,7 +42,8 @@
         <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/pwd_err"
             style="@style/t_err"
-            android:layout_below="@id/pwd_strength" />
+            android:layout_below="@id/pwd_strength"
+            android:layout_marginBottom="@dimen/line_gap_32" />
 
         <org.trustnote.wallet.widget.ClearableEditText
             android:id="@+id/pwd_verify"

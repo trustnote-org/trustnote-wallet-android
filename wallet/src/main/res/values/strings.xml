@@ -5,17 +5,7 @@
     <string name="place_holder">TestTTT</string>
     <string name="place_holder_address">ZKWUHD6P3CRLTX64TGPIDQ7U4PM7R7AI232342354254252</string>
     <string name="place_holder_number">10</string>
-    <string name="lorem_ttt">区块链等分布式账本技术是新型信任工具，有助于降低信任成本，提高交易效率。但是，如果不能支持海量用户和高并发就去谈应用，区块链应用落地只能是空想。\n\r将DAG数据结构与稳健的PoW共识算法巧妙结合，极大提高公有链对并发交易的支撑能力，大幅加快交易速度，但不削弱系统的去中心化属性，实现真正支持高并发的去中心化账本存储管理\n\r支持多种节点类型并拥有可适性极高的钱包架构设计，为智能手机、PC、服务器、IoT设备、以及新一代的智能设备提供一个可扩展的去中心化账本存储管理基础设施\n\r拥有可验证的智能合约系统，支持多种动态语言包括高级声明式语言，能直接描述合约期望的目标，表达能力强，易于理解，安全性高，同时还降低了合约的编写难度和出错概率\n\r</string>
 
-    <string name="lorem">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula sem a malesuada rhoncus. Pellentesque ut dolor a dui porttitor porta lacinia non libero. Nunc volutpat arcu quis quam convallis molestie. Etiam ac tristique sem, id commodo justo. Phasellus congue tincidunt lectus, at dignissim ligula maximus eu. Quisque interdum nunc eget tellus bibendum suscipit. Phasellus feugiat ultricies posuere. Nullam porta accumsan velit, ut rutrum massa fermentum eu. Nunc ac bibendum nunc. Mauris eu ultricies ipsum. Ut id dolor dui. Pellentesque dictum dui vel tempus maximus. Vivamus non nisi quis libero scelerisque pretium. Ut eu tristique justo. Sed pellentesque placerat quam, ut ultricies turpis feugiat a. Aliquam a volutpat risus.
-
-Praesent at lectus semper, suscipit elit in, facilisis massa. Phasellus sed vestibulum ante, a euismod sem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin tincidunt orci augue, a porta odio lacinia eu. Nunc in congue risus. Maecenas commodo nibh ac enim fermentum, eu sagittis massa blandit. Vestibulum elementum massa nec dapibus mollis. Etiam porta, est sit amet aliquet porta, odio elit finibus risus, id rutrum purus mi non ipsum. Nulla viverra nec enim sed venenatis.
-
-Maecenas mattis, erat et viverra euismod, neque diam porttitor tellus, in fringilla metus est id augue. Nunc at metus cursus, porttitor nisi vitae, congue diam. Curabitur ligula massa, ullamcorper eget scelerisque vel, pharetra ac sapien. Ut auctor luctus ultricies. Nullam semper tortor ac elementum luctus. In et tempus ex. Praesent sodales, dolor id volutpat elementum, ligula enim euismod odio, maximus sodales magna neque nec neque. Curabitur pretium nisl neque, consequat aliquet dui tincidunt ac. Vivamus augue nunc, aliquet eu ex a, ultrices aliquam lorem. Duis nibh lectus, ultricies vel iaculis sit amet, imperdiet id sapien. Duis scelerisque sodales metus eu rutrum. Suspendisse posuere nisi ac magna consequat, eu vestibulum ipsum venenatis. Suspendisse auctor nisi nec leo venenatis tristique.
-
-Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent vitae blandit sapien. Curabitur est sapien, lobortis sit amet facilisis vel, faucibus eu quam. Nam tempus libero at tellus tempor laoreet. Pellentesque quam lorem, tincidunt in molestie eget, dictum vel risus. Nunc gravida convallis mattis.
-    </string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
 
@@ -296,6 +286,9 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
     <string name="me_clone_sync_btn">同步钱包</string>
 
     <string name="FULLSYNC_WARNING1">不建议您克隆钱包，保护好您的助记词就是安全的。如果您遇到克隆钱包导致的数据不同步，请在两个钱包上使用克隆钱包同步功能。</string>
+
+    <string name="me_change_pwd_old_pwd_hint">请输入原密码</string>
+    <string name="me_change_pwd_old_pwd_err">原密码输入错误</string>
 
     <!--setting_wallet_tools_fullsync-->
 

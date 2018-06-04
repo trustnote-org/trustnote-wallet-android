@@ -15,8 +15,6 @@ class FragmentMeWalletFullSync : FragmentWalletBase() {
     }
 
 
-
-
     override fun initFragment(view: View) {
 
         super.initFragment(view)

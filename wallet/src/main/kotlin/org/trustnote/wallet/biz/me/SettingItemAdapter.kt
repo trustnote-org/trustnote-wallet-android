@@ -33,6 +33,9 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
             SettingItemType.ITEM_SETTING_SUB -> {
                 resId = R.layout.item_setting_sub
             }
+            SettingItemType.ITEM_CHECKED -> {
+                resId = R.layout.item_setting_checked
+            }
             SettingItemType.ITEM_LINE -> {
                 resId = R.layout.item_setting_line
             }
@@ -59,14 +62,24 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        val settingData = myDataset[position]
+
         if (getItemViewType(position) == SettingItemType.ITEM_SETTING_SUB.ordinal) {
-            holder.holderView.findViewById<TextView>(R.id.setting_value).setText(myDataset[position].value)
-            holder.holderView.findViewById<TextView>(R.id.setting_title).setText(myDataset[position].titleResId)
+            holder.holderView.findViewById<TextView>(R.id.setting_value).setText(settingData.value)
+            holder.holderView.findViewById<TextView>(R.id.setting_title).setText(settingData.titleResId)
         }
 
         if (getItemViewType(position) == SettingItemType.ITEM_SETTING.ordinal) {
-            holder.holderView.findViewById<TextView>(R.id.setting_title).setText(myDataset[position].titleResId)
-            holder.holderView.findViewById<ImageView>(R.id.setting_ic).setImageResource(myDataset[position].icResId)
+            holder.holderView.findViewById<TextView>(R.id.setting_title).setText(settingData.titleResId)
+            holder.holderView.findViewById<ImageView>(R.id.setting_ic).setImageResource(settingData.icResId)
+        }
+
+        if (getItemViewType(position) == SettingItemType.ITEM_CHECKED.ordinal) {
+
+            holder.holderView.findViewById<TextView>(R.id.setting_title).setText(settingData.titleResId)
+
+            holder.holderView.findViewById<ImageView>(R.id.ic_language_checked).visibility = if (settingData.isChecked) View.VISIBLE else View.INVISIBLE
+
         }
 
         holder.holderView.setOnClickListener {

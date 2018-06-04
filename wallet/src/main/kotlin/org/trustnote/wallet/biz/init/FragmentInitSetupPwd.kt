@@ -1,7 +1,5 @@
 package org.trustnote.wallet.biz.init
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.webkit.WebView
 import android.widget.Button
@@ -9,12 +7,11 @@ import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.util.AndroidUtils
-import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.PasswordStrength
 import org.trustnote.wallet.widget.PwdStrength
 
-class FragmentInitSetupPwd : FragmentInit() {
+open class FragmentInitSetupPwd : FragmentInit() {
 
     lateinit var pwdConfirm: Button
     lateinit var pwd: EditText
@@ -29,6 +26,7 @@ class FragmentInitSetupPwd : FragmentInit() {
     }
 
     override fun initFragment(view: View) {
+        super.initFragment(view)
 
         pwdConfirm = mRootView.findViewById(R.id.pwd_confirm)
         pwd = mRootView.findViewById(R.id.pwd)

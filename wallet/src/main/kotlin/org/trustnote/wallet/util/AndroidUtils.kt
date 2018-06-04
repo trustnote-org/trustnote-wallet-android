@@ -298,4 +298,12 @@ object AndroidUtils {
         Utils.toastMsg(TApp.context.getString(R.string.coming_soon))
     }
 
+    fun setLanguage(s: String) {
+        val res = TApp.context.getResources()
+        val dm = res.getDisplayMetrics()
+        val conf = res.getConfiguration()
+        conf.setLocale(Locale(s))
+        res.updateConfiguration(conf, dm)
+    }
+
 }

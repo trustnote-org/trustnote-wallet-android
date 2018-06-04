@@ -18,6 +18,7 @@ class SettingItem(
         var icResId: Int = R.drawable.logo,
         var titleResId: Int = R.string.place_holder,
         var value: String = Utils.emptyString,
+        var isChecked: Boolean = false,
         var lambda: () -> Unit = Utils.emptyLambda) {
 
     companion object {
@@ -76,11 +77,17 @@ class SettingItem(
 
         fun getSettingSystem(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
+
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_system_language),
+                            titleResId = R.string.setting_system_language) {
+                        selectLanguageUI(activity)
+                    },
+
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_system_password)
+                            titleResId = R.string.setting_system_password) {
+                        openChangePwdUI(activity)
+                    }
             )
         }
 
@@ -141,6 +148,24 @@ class SettingItem(
             )
         }
 
+        fun getSettingLanguages(activity: ActivityMain): Array<SettingItem> {
+            return arrayOf(
+                    SettingItem(itemType = SettingItemType.ITEM_GAP),
+
+                    SettingItem(isChecked = true, itemType = SettingItemType.ITEM_CHECKED,
+                            titleResId = R.string.language_en, lambda = {
+                        AndroidUtils.setLanguage("en")
+                    }),
+
+                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+
+                    SettingItem(isChecked = false, itemType = SettingItemType.ITEM_CHECKED,
+                            titleResId = R.string.language_cn, lambda = {
+                        AndroidUtils.setLanguage("zh")
+                    })
+            )
+        }
+
         fun backupMnemonic(activity: ActivityMain) {
 
             if (WalletManager.model.isMnemonicExist()) {
@@ -152,12 +177,22 @@ class SettingItem(
 
         fun restoreFromMnemonic(activity: ActivityMain) {
 
-            activity.openLevel2Fragment(FragmentMeWalletRestore())
+            AndroidUtils.todo()
+            //activity.openLevel2Fragment(FragmentMeWalletRestore())
         }
 
         fun fullSync(activity: ActivityMain) {
             activity.openLevel2Fragment(FragmentMeWalletFullSync())
         }
+
+        fun selectLanguageUI(activity: ActivityMain) {
+            openSubSetting(activity, getSettingLanguages(activity), R.string.setting_system_language)
+        }
+
+        fun openChangePwdUI(activity: ActivityMain) {
+            activity.openLevel2Fragment(FragmentMeChangePwd())
+        }
+
 
     }
 }
@@ -168,5 +203,15 @@ enum class SettingItemType {
     ITEM_LINE,
     ITEM_LINE_SUB,
     ITEM_GAP,
+    ITEM_CHECKED,
     UNKNOWN
 }
+
+//Resources res = context.getResources();
+//// Change locale settings in the app.
+//DisplayMetrics dm = res.getDisplayMetrics();
+//android.content.res.Configuration conf = res.getConfiguration();
+//conf.setLocale(new Locale(language_code.toLowerCase())); // API 17+ only.
+//// Use conf.locale = new Locale(...) if targeting lower versions
+//res.updateConfiguration(conf, dm);
+
