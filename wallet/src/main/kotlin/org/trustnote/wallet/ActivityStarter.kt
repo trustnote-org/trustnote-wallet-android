@@ -9,7 +9,7 @@ import org.trustnote.wallet.uiframework.BaseActivity
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 
-class StarterActivity : BaseActivity() {
+class ActivityStarter : BaseActivity() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
     }

@@ -27,7 +27,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="org.trustnote.wallet.StarterActivity"
+            android:name="org.trustnote.wallet.ActivityStarter"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>

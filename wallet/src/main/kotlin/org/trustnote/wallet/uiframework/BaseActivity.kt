@@ -11,14 +11,11 @@ import android.view.WindowManager
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.keyboard.BasicOnKeyboardActionListener
 import org.trustnote.wallet.widget.keyboard.CustomKeyboardView
-import android.databinding.adapters.CompoundButtonBindingAdapter.setChecked
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
-import java.lang.reflect.AccessibleObject.setAccessible
-import java.lang.reflect.Array.setBoolean
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -107,7 +104,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun iamDone() {
         finish()
-        AndroidUtils.startActivity(StarterActivity::class.java)
+        AndroidUtils.startActivity(ActivityStarter::class.java)
     }
 
     @SuppressLint("RestrictedApi")
