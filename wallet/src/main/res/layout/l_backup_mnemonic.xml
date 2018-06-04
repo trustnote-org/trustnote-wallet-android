@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mnemonic_backup_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/new_mnemonic_sub_title"
+        style="@style/t_sub_title"
+        android:layout_marginBottom="@dimen/line_gap_14"
+        android:text="@string/new_mnemonic_sub_title" />
+
+    <TextView
+        android:id="@+id/new_mnemonic_msg"
+        style="@style/t_text_msg"
+        android:layout_below="@id/new_mnemonic_sub_title"
+        android:text="@string/new_mnemonic_msg" />
+
+    <org.trustnote.wallet.widget.MnemonicsGridView
+        android:id="@+id/mnemonics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_mnemonic_msg"
+        android:layout_marginBottom="@dimen/mnemonic_margin_top"
+        android:layout_marginTop="@dimen/mnemonic_margin_top"
+        android:textColor="@color/t_text" />
+
+    <WebView
+        android:id="@+id/backup_warning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mnemonics" />
+</RelativeLayout>
+

@@ -6,7 +6,9 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
+import org.trustnote.wallet.biz.init.CWFragmentRestore
 import org.trustnote.wallet.biz.wallet.Credential
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.InputPwdDialogFragment
@@ -85,14 +87,21 @@ class SettingItem(
         fun getSettingWalletTools(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_wallet_tools_backupmem),
+                            titleResId = R.string.setting_wallet_tools_backupmem) {
+                        backupMnemonic(activity)
+                    },
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
 
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_wallet_tools_restoremem),
+                            titleResId = R.string.setting_wallet_tools_restoremem) {
+                        restoreFromMnemonic(activity)
+                    },
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_wallet_tools_fullsync)
+                            titleResId = R.string.setting_wallet_tools_fullsync) {
+                        fullSync(activity)
+                    }
             )
         }
 
@@ -131,6 +140,25 @@ class SettingItem(
                     })
             )
         }
+
+        fun backupMnemonic(activity: ActivityMain) {
+
+            if (WalletManager.model.isMnemonicExist()) {
+                activity.openLevel2Fragment(FragmentMeBackupMnemonic())
+            } else {
+                activity.openLevel2Fragment(FragmentMeBackupMnemonicRemoved())
+            }
+        }
+
+        fun restoreFromMnemonic(activity: ActivityMain) {
+
+            activity.openLevel2Fragment(FragmentMeWalletRestore())
+        }
+
+        fun fullSync(activity: ActivityMain) {
+            activity.openLevel2Fragment(FragmentMeWalletFullSync())
+        }
+
     }
 }
 

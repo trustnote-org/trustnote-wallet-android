@@ -13,6 +13,7 @@
         android:layout_width="@dimen/bg_msg_icon_size"
         android:layout_height="@dimen/bg_msg_icon_size"
         android:layout_marginRight="@dimen/line_gap_16"
+        android:gravity="center"
         android:background="@drawable/bg_msg_icon_me"
         android:textColor="@color/t_blue"
         android:textSize="@dimen/text_18sp" />

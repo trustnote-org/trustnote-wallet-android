@@ -87,7 +87,7 @@ object SettingsDataFactory {
 //        res.add(testJSVerifySign)
 
         val testQrCode = SettingItem("Test QR CODE")
-        testQrCode.action = Runnable { SimpleFragmentActivity.startMe(QRFragment::class.java.canonicalName) }
+        testQrCode.action = Runnable { SimpleFragmentActivityBase.startMe(QRFragment::class.java.canonicalName) }
         res.add(testQrCode)
 
         return res
@@ -124,7 +124,7 @@ object SettingsDataFactory {
             }
 
             val newWallet = SettingItem("+  New")
-            newWallet.action = Runnable { SimpleFragmentActivity.startMe(SimpleFragment::class.java.canonicalName) }
+            newWallet.action = Runnable { SimpleFragmentActivityBase.startMe(SimpleFragment::class.java.canonicalName) }
             res.add(newWallet)
         }
 

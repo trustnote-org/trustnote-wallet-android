@@ -3,11 +3,17 @@ package org.trustnote.wallet.biz.me
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.debug.FragmentMeDebug
+import org.trustnote.wallet.uiframework.FragmentEditBase
+import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Prefs
+import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 
 class FragmentMeMain : FragmentWalletBase() {
@@ -18,6 +24,8 @@ class FragmentMeMain : FragmentWalletBase() {
 
     lateinit var btnWalletManager: View
     lateinit var btnWalletTx: View
+    lateinit var meDeviceName: TextView
+    lateinit var meIcon: TextView
 
     override fun initFragment(view: View) {
         isBottomLayerUI = true
@@ -31,14 +39,23 @@ class FragmentMeMain : FragmentWalletBase() {
             getMyActivity().openLevel2Fragment(FragmentMeWalletManager())
         }
 
-    }
+        btnWalletTx.setOnClickListener { AndroidUtils.todo() }
 
+        findViewById<View>(R.id.me_header_edit).setOnClickListener { editDevicename() }
+
+        meDeviceName = findViewById(R.id.me_device_name)
+        meIcon = findViewById(R.id.me_icon)
+    }
 
     override fun getTitle(): String {
         return TApp.getString(R.string.menu_me)
     }
 
     override fun updateUI() {
+
+        meDeviceName.setText(Prefs.readDeviceName())
+
+        meIcon.setText(TTTUtils.formatIconText(Prefs.readDeviceName()))
 
         val recyclerView = mRootView.findViewById<RecyclerView>(R.id.setting_item_list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -63,5 +80,20 @@ class FragmentMeMain : FragmentWalletBase() {
         recyclerView.adapter = SettingItemAdapter(fullMainSettings.toTypedArray())
 
     }
+
+    private fun editDevicename() {
+        val f = FragmentEditBase()
+        f.setInitValue(Prefs.readDeviceName(),
+                TApp.getString(R.string.mnemonic_devicename_err),
+                {
+                    it.length <= 20
+                },
+                {
+                    Prefs.writeDeviceName(it)
+                    WalletManager.mWalletEventCenter.onNext(true)
+                })
+        openFragment(f)
+    }
+
 }
 

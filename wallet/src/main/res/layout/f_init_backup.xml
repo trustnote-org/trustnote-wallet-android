@@ -12,33 +12,11 @@
             android:layout_marginBottom="@dimen/line_gap_32"
             android:text="@string/new_mnemonic_title" />
 
-        <TextView
-            android:id="@+id/new_mnemonic_sub_title"
-            style="@style/t_sub_title"
-            android:layout_marginBottom="@dimen/line_gap_14"
-            android:layout_below="@id/new_mnemonic_title"
-            android:text="@string/new_mnemonic_sub_title" />
-
-        <TextView
-            android:id="@+id/new_mnemonic_msg"
-            style="@style/t_text_msg"
-            android:layout_below="@id/new_mnemonic_sub_title"
-            android:text="@string/new_mnemonic_msg" />
-
-        <org.trustnote.wallet.widget.MnemonicsGridView
-            android:id = "@+id/mnemonics"
-            android:layout_marginTop="@dimen/mnemonic_margin_top"
-            android:layout_marginBottom="@dimen/mnemonic_margin_top"
-            android:textColor="@color/t_text"
+        <include
+            layout="@layout/l_backup_mnemonic"
             android:layout_width="match_parent"
-            android:layout_below="@id/new_mnemonic_msg"
-            android:layout_height="wrap_content" />
-
-        <WebView
-            android:id="@+id/backup_warning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/mnemonics" />
+            android:layout_height="match_parent"
+            android:layout_below="@id/new_mnemonic_title" />
 
         <Button
             android:id="@+id/backup_confirm"

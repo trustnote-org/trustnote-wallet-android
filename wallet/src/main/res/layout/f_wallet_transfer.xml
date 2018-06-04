@@ -42,8 +42,10 @@
             <org.trustnote.wallet.widget.ClearableEditText
                 android:id="@+id/transfer_receiver_hint"
                 style="@style/t_pwd"
+                android:layout_width="match_parent"
                 android:hint="@string/transfer_receiver_hint"
-                android:inputType="text"
+                android:inputType="textMultiLine"
+                android:lines="2"
                 android:text="" />
 
             <ImageView

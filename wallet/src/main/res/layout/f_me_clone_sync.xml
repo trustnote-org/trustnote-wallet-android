@@ -12,36 +12,36 @@
             android:id="@+id/mnemonic_restore_title"
             style="@style/t_title"
             android:layout_marginBottom="@dimen/line_gap_14"
-            android:text="@string/mnemonic_restore_title" />
+            android:text="@string/me_clone_sync_title" />
 
         <TextView
             android:id="@+id/mnemonic_restore_msg"
             style="@style/t_text_msg"
             android:layout_below="@id/mnemonic_restore_title"
-            android:text="@string/mnemonic_restore_msg" />
+            android:text="@string/me_clone_sync_msg" />
 
-        <org.trustnote.wallet.widget.MnemonicsGridView
-            android:id="@+id/mnemonics_restore"
+        <ImageView
+            android:id="@+id/pp"
+            android:src="@drawable/png_clone_sync"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/mnemonic_restore_msg"
+            android:layout_width="@dimen/contacts_empty_width"
+            android:layout_height="@dimen/contacts_empty_width" />
+
+        <WebView
+            android:layout_marginTop="@dimen/line_gap_32"
+            android:id="@+id/full_sync_warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/mnemonic_restore_msg"
-            android:layout_marginBottom="@dimen/mnemonic_margin_top"
-            android:layout_marginTop="@dimen/mnemonic_margin_top"
-            android:textColor="@color/t_text" />
+            android:layout_below="@id/pp" />
 
         <Button
-            android:id="@+id/mnemonic_restore_btn"
+            android:id="@+id/me_clone_sync_btn"
             style="@style/t_btn_blue"
-            android:layout_above="@id/mnemonic_restore_remove_btn"
-            android:text="@string/mnemonic_resotre_btn" />
-
-        <Button
-            android:id="@+id/mnemonic_restore_remove_btn"
-            style="@style/t_btn_white"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"
-            android:layout_marginTop="@dimen/btn_gap_24"
-            android:text="@string/mnemonic_resotre_remove_btn" />
+            android:text="@string/me_clone_sync_btn" />
+
 
     </RelativeLayout>
 

@@ -17,7 +17,7 @@ import android.support.design.widget.BottomNavigationView
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class ActivityBase : AppCompatActivity() {
 
     private lateinit var mKeyboardView: CustomKeyboardView
     private lateinit var mKeyboard: Keyboard
@@ -104,7 +104,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun iamDone() {
         finish()
-        AndroidUtils.startActivity(ActivityStarter::class.java)
+        AndroidUtils.startActivity(ActivityBaseStarter::class.java)
     }
 
     @SuppressLint("RestrictedApi")

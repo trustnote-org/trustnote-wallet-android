@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import org.trustnote.wallet.R
-import org.trustnote.wallet.uiframework.BaseActivity
-
 
 class MnemonicsGridView @JvmOverloads constructor(
         context: Context,

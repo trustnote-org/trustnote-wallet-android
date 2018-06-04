@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
-import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.uiframework.ActivityBase
 
-class SimpleFragmentActivity : BaseActivity() {
+class SimpleFragmentActivityBase : ActivityBase() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
     }
@@ -35,7 +35,7 @@ class SimpleFragmentActivity : BaseActivity() {
 
         //TODO: It is better to use class instead class name.
         @JvmStatic fun startMe(clazzName: String) {
-            val intent = Intent(TApp.context, SimpleFragmentActivity::class.java)
+            val intent = Intent(TApp.context, SimpleFragmentActivityBase::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra(KEY_FRAGMENT_CLZ_NAME, clazzName)
             TApp.context.startActivity(intent)

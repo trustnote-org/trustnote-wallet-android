@@ -401,6 +401,15 @@ class WalletModel() {
 
     }
 
+    fun udpateCredentialName(credential: Credential, newName: String) {
+        credential.walletName = newName
+        profileUpdated()
+    }
+
+    fun isMnemonicExist(): Boolean {
+        return !mProfile.removeMnemonic
+    }
+
 }
 
 

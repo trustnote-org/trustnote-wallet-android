@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
 import org.trustnote.wallet.R
@@ -16,11 +15,11 @@ import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.uiframework.EmptyFragment
-import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 
-class ActivityMain : BaseActivity() {
+class ActivityMain : ActivityBase() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
 

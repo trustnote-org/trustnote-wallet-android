@@ -1,15 +1,15 @@
 package org.trustnote.wallet
 
 import android.os.Bundle
-import org.trustnote.wallet.biz.pwd.InputPwdActivity
+import org.trustnote.wallet.biz.pwd.InputPwdActivityBase
 import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.biz.init.ActivityInit
 import org.trustnote.wallet.biz.init.CreateWalletModel
-import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 
-class ActivityStarter : BaseActivity() {
+class ActivityBaseStarter : ActivityBase() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
     }
@@ -21,7 +21,7 @@ class ActivityStarter : BaseActivity() {
             && CreateWalletModel.readPwd().isNotEmpty()
             && Prefs.readEnablepwdForStartup()) {
 
-            AndroidUtils.startActivity(InputPwdActivity::class.java)
+            AndroidUtils.startActivity(InputPwdActivityBase::class.java)
             finish()
             return
         }

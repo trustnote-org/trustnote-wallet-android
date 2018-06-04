@@ -10,14 +10,9 @@
         android:layout_height="match_parent"
         android:background="@color/bg_white"
         android:orientation="vertical"
+        android:paddingTop="?attr/actionBarSize"
         android:paddingLeft="@dimen/page_margin_left"
         android:paddingRight="@dimen/page_margin_left">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/btn_gap_24"/>
-
-        <include layout="@layout/l_top_back_arrow" />
 
         <org.trustnote.wallet.widget.NonSwipeableViewPager
             android:id="@+id/view_pager"

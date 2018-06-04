@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/pp"
+            android:src="@drawable/png_me_already_removed_mnemonic"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/contacts_empty_width"
+            android:layout_height="@dimen/contacts_empty_width" />
+
+        <TextView
+            android:id="@+id/new_mnemonic_title"
+            android:layout_below="@id/pp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            style="@style/t_title"
+            android:text="@string/me_backup_prompt_already_removed" />
+
+
+    </RelativeLayout>
+
+</layout>

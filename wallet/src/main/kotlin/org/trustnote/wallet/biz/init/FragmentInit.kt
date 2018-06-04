@@ -22,10 +22,21 @@ import org.trustnote.wallet.widget.MyDialogFragment
 abstract class FragmentInit : FragmentBase() {
 
     var mNextLayoutId = 0
+    var fromInitActivity = true
 
     //TODO: empty constructor.
     fun getMyActivity(): ActivityInit {
         return activity as ActivityInit
+    }
+
+    override fun initFragment(view: View) {
+
+        if (fromInitActivity) {
+            isBottomLayerUI = !getPageSetting(getLayoutId()).showBackArrow
+        }
+
+        super.initFragment(view)
+
     }
 
     fun onShowPage() {
@@ -33,7 +44,6 @@ abstract class FragmentInit : FragmentBase() {
             initFragment(mRootView!!)
             getMyActivity().adjustUIBySetting(getPageSetting(getLayoutId()))
         }
-
     }
 
     fun showMnemonicKeyboardIfRequired() {
@@ -43,10 +53,6 @@ abstract class FragmentInit : FragmentBase() {
                 getMyActivity().showKeyboardWithAnimation()
             }, 150)
         }
-    }
-
-    open fun onBackPressed() {
-        getMyActivity().finish()
     }
 
     fun nextPage() {
@@ -67,6 +73,7 @@ abstract class FragmentInit : FragmentBase() {
 
 class CWFragmentDisclaimer : FragmentInit() {
     override fun initFragment(view: View) {
+        super.initFragment(view)
         view.findViewById<View>(R.id.agree).setOnClickListener {
             CreateWalletModel.userAgree()
             nextPage(R.layout.f_init_devicename)
@@ -87,6 +94,7 @@ class CWFragmentDeviceName : FragmentInit() {
     lateinit var err: TextView
 
     override fun initFragment(view: View) {
+        super.initFragment(view)
 
         err = view.findViewById(R.id.mnemonic_devicename_err)
 
@@ -140,6 +148,7 @@ class CWFragmentNewSeedOrRestore : FragmentInit() {
     }
 
     override fun initFragment(view: View) {
+        super.initFragment(view)
         val pwdExist = CreateWalletModel.readPwdHash().isNotBlank()
         var btnNewSeed = view.findViewById<Button>(R.id.btn_new_seed)
         btnNewSeed.setOnClickListener {
@@ -178,6 +187,7 @@ class CWFragmentBackup : FragmentInit() {
 
     lateinit var mnemonicsGrid: MnemonicsGridView
     override fun initFragment(view: View) {
+        super.initFragment(view)
 
         var btnBackupConfirm = view.findViewById<Button>(R.id.backup_confirm)
         btnBackupConfirm.setOnClickListener {
@@ -213,6 +223,7 @@ class CWFragmentVerify : FragmentInit() {
 
     lateinit var mnemonicsGrid: MnemonicsGridView
     override fun initFragment(view: View) {
+        super.initFragment(view)
 
         var btnBackupConfirm = view.findViewById<Button>(R.id.verify_confirmed)
         AndroidUtils.disableBtn(btnBackupConfirm)
@@ -251,6 +262,7 @@ class CWFragmentRemove : FragmentInit() {
     }
 
     override fun initFragment(view: View) {
+        super.initFragment(view)
 
         var btnRemove = view.findViewById<Button>(R.id.mnemonic_remove)
         var btnRemoveIgnore = view.findViewById<Button>(R.id.mnemonic_remove_ignore)
@@ -275,7 +287,7 @@ class CWFragmentRemove : FragmentInit() {
 
 }
 
-class CWFragmentRestore : FragmentInit() {
+open class CWFragmentRestore : FragmentInit() {
 
     lateinit var mnemonicsGrid: MnemonicsGridView
 
@@ -284,6 +296,8 @@ class CWFragmentRestore : FragmentInit() {
     }
 
     override fun initFragment(view: View) {
+
+        super.initFragment(view)
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics_restore)
         var btnRestore = view.findViewById<Button>(R.id.mnemonic_restore_btn)
@@ -320,8 +334,7 @@ class CWFragmentRestore : FragmentInit() {
 
         JSApi().xPrivKey(mnemonics, ValueCallback {
             if (it.isNotEmpty() && "0" != it) {
-                CreateWalletModel.iamDone(mnemonics, isRemove, it)
-                getMyActivity().iamDone()
+                startRestore(it, isRemove, mnemonics)
             } else {
                 mnemonicsGrid.showErr()
             }
@@ -329,8 +342,9 @@ class CWFragmentRestore : FragmentInit() {
 
     }
 
-    override fun onBackPressed() {
-        nextPage(R.layout.f_init_create_or_restore)
+    open fun startRestore(it: String, isRemove: Boolean, mnemonics: String) {
+        CreateWalletModel.iamDone(mnemonics, isRemove, it)
+        getMyActivity().iamDone()
     }
 
 }

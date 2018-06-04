@@ -8,11 +8,11 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import android.view.WindowManager
 import org.trustnote.wallet.*
-import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 
 
-class InputPwdActivity : BaseActivity() {
+class InputPwdActivityBase : ActivityBase() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
     }
@@ -46,7 +46,6 @@ class InputPwdActivity : BaseActivity() {
 
     fun adjustUIBySetting() {
         AndroidUtils.hideStatusBar(this, true)
-        findViewById<View>(R.id.top_back_arrow).visibility = View.GONE
     }
 
 }

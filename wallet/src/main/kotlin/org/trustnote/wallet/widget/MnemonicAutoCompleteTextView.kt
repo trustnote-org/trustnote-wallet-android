@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.js.JSApi
-import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.uiframework.ActivityBase
 
 class MnemonicAutoCompleteTextView constructor(context: Context, attrs: AttributeSet? = null) : AutoCompleteTextView(context, attrs) {
 
@@ -24,7 +24,7 @@ class MnemonicAutoCompleteTextView constructor(context: Context, attrs: Attribut
 
         this.setOnTouchListener { v, _ ->
             v.requestFocus()
-            (getContext() as BaseActivity).showKeyboardWithAnimation()
+            (getContext() as ActivityBase).showKeyboardWithAnimation()
             false
         }
         this.addTextChangedListener(object: TextWatcher{

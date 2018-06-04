@@ -12,7 +12,7 @@ import android.widget.Button
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.js.BIP38_WORD_LIST_EN
-import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.uiframework.ActivityBase
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -45,7 +45,7 @@ object AndroidUtils {
         return jsStream.bufferedReader().use { it.readText() }
     }
 
-    fun hideStatusBar(activity: BaseActivity, isShow: Boolean) {
+    fun hideStatusBar(activity: ActivityBase, isShow: Boolean) {
 
         val uiOptions = activity.window.decorView.systemUiVisibility
         var newUiOptions = uiOptions
@@ -96,7 +96,7 @@ object AndroidUtils {
         btn.isEnabled = true
     }
 
-    fun startActivity(clz: Class<out BaseActivity>) {
+    fun startActivity(clz: Class<out ActivityBase>) {
         val intent = Intent(TApp.context, clz)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         TApp.context.startActivity(intent)
@@ -135,7 +135,7 @@ object AndroidUtils {
         return html.replace("TTTTAG(.*)TTTTAG".toRegex()) {
             val strResName = tag + it.groupValues[1]
             val resId = TApp.context.resources.getIdentifier(strResName, "string", TApp.context.packageName)
-            TApp.context.getString(resId)
+            if (resId == 0) "" else TApp.context.getString(resId)
         }
     }
 
@@ -294,10 +294,8 @@ object AndroidUtils {
         )
     }
 
-
     fun todo() {
         Utils.toastMsg(TApp.context.getString(R.string.coming_soon))
     }
-
 
 }

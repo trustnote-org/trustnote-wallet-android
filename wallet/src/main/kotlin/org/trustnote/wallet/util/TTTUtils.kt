@@ -163,7 +163,14 @@ object TTTUtils {
             Utils.logW(ex.localizedMessage)
         }
         return Utils.emptyJsonObject
+    }
 
+    fun formatIconText(s: String): String {
+        return if (s.isNotEmpty()) {
+            s.substring(0, 1).toUpperCase()
+        } else {
+            ""
+        }
     }
 
 }

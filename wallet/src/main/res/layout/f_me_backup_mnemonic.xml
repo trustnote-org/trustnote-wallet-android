@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/t_title"
+            android:layout_marginBottom="@dimen/line_gap_32"
+            android:text="@string/setting_wallet_tools_backupmem" />
+
+        <FrameLayout
+            android:id="@+id/show_or_hide"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginBottom="@dimen/line_gap_32">
+
+            <LinearLayout
+                android:id="@+id/hide_mnemonic_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="@dimen/ic_26"
+                    android:layout_height="@dimen/ic_26"
+                    android:layout_marginRight="@dimen/line_gap_4"
+                    android:src="@drawable/ic_hide_mnemonic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/me_backup_hide"
+                    android:textColor="@color/t_blue"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/show_mnemonic_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/ic_26"
+                    android:layout_height="@dimen/ic_26"
+                    android:layout_marginRight="@dimen/line_gap_4"
+                    android:src="@drawable/ic_show_mnemonic" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/me_backup_show"
+                    android:textColor="@color/t_blue"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <include
+            android:id="@+id/mnemonic_backup_layout"
+            layout="@layout/l_backup_mnemonic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/show_or_hide" />
+
+        <Button
+            android:id="@+id/mnemonic_remove_btn"
+            style="@style/t_btn_blue"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/mnemonic_remove_btn" />
+
+    </RelativeLayout>
+
+</layout>

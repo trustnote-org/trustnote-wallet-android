@@ -11,11 +11,11 @@ import android.view.WindowManager
 import org.trustnote.wallet.*
 import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.biz.wallet.CREATE_WALLET_STATUS
-import org.trustnote.wallet.uiframework.BaseActivity
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 
 
-class ActivityInit : BaseActivity() {
+class ActivityInit : ActivityBase() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
     }
@@ -42,10 +42,6 @@ class ActivityInit : BaseActivity() {
         setupViewPager()
 
         setupFirstPage()
-
-        findViewById<View>(R.id.top_back_arrow).setOnClickListener {
-            pageBackClicked()
-        }
 
     }
 
@@ -83,8 +79,9 @@ class ActivityInit : BaseActivity() {
 
     fun adjustUIBySetting(pageSetting: PageSetting) {
         AndroidUtils.hideStatusBar(this, !pageSetting.showStatusBar)
-        findViewById<View>(R.id.top_back_arrow).visibility = (if (pageSetting.showBackArrow) View.VISIBLE else View.INVISIBLE)
     }
+
+
 
     fun nextPage() {
 

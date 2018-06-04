@@ -1,5 +1,6 @@
 package org.trustnote.wallet.uiframework
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.IdRes
@@ -14,6 +15,7 @@ import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Utils
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.TextView
 import org.trustnote.wallet.TApp
@@ -86,6 +88,7 @@ abstract class FragmentBase : Fragment() {
 
     open fun setupToolbar() {
 
+        //TODO: better to do it in xml
         if (activity is ActivityMain) {
             if (this is FragmentPageBase) {
                 mToolbar.setBackgroundResource(R.color.page_bg)
@@ -98,8 +101,8 @@ abstract class FragmentBase : Fragment() {
 
         setHasOptionsMenu(true)
 
-        (activity as BaseActivity).setSupportActionBar(mToolbar)
-        val actionBar = (activity as ActivityMain).supportActionBar!!
+        (activity as ActivityBase).setSupportActionBar(mToolbar)
+        val actionBar = (activity as ActivityBase).supportActionBar!!
 
         actionBar.setDisplayShowTitleEnabled(false)
 
@@ -108,7 +111,7 @@ abstract class FragmentBase : Fragment() {
             actionBar.setDisplayShowHomeEnabled(!isBottomLayerUI)
             mToolbar.setNavigationIcon(TApp.smallIconBackHome)
             mToolbar.setNavigationOnClickListener {
-                activity.onBackPressed()
+                onBackPressed()
             }
         }
 
@@ -166,11 +169,25 @@ abstract class FragmentBase : Fragment() {
     }
 
     fun showRefreshingUI(isShow: Boolean = false) {
-        (activity as BaseActivity).showRefreshingUI(isShow)
+        (activity as ActivityBase).showRefreshingUI(isShow)
     }
 
     fun showErrorUI(isShow: Boolean = false) {
-        (activity as BaseActivity).showErrorUI(isShow)
+        (activity as ActivityBase).showErrorUI(isShow)
+    }
+
+    fun openFragment(f: FragmentEditBase) {
+        (activity as ActivityMain).openLevel2Fragment(f)
+    }
+
+    fun hideSystemSoftKeyboard() {
+        val imm = activity.getSystemService (Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(mRootView.getWindowToken(), 0)
+    }
+
+    open fun onBackPressed() {
+        hideSystemSoftKeyboard()
+        activity.onBackPressed()
     }
 
 }

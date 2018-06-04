@@ -282,5 +282,21 @@ Praesent tincidunt lorem sit amet mi consequat cursus. Interdum et malesuada fam
 
     <string name="wallet_transfer_sign_scan_invalid">无效的签名</string>
 
+    <string name="toolbar_edit_done">完成</string>
+    <string name="wallet_name_err">不超过10个字符</string>
+
+    <string name="me_backup_hide">隐藏钱包助记词</string>
+    <string name="me_backup_show">显示钱包助记词</string>
+    <string name="me_backup_prompt_already_removed">助记词已删除</string>
+
+    <string name="me_restore_warning">请确认当前钱包中的助记词已备份，使用其他助记词恢复钱包后，当前钱包将在该设备中移除！</string>
+
+    <string name="me_clone_sync_title">克隆钱包同步</string>
+    <string name="me_clone_sync_msg">点击按钮同步</string>
+    <string name="me_clone_sync_btn">同步钱包</string>
+
+    <string name="FULLSYNC_WARNING1">不建议您克隆钱包，保护好您的助记词就是安全的。如果您遇到克隆钱包导致的数据不同步，请在两个钱包上使用克隆钱包同步功能。</string>
+
+    <!--setting_wallet_tools_fullsync-->
 
 </resources>

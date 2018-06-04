@@ -5,9 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.FragmentEditBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.InputPwdDialogFragment
@@ -27,7 +29,6 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
     private lateinit var walletId: TextView
     private lateinit var recyclerView: RecyclerView
 
-
     override fun initFragment(view: View) {
 
         super.initFragment(view)
@@ -46,7 +47,6 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
     }
-
 
     private fun removeWallet() {
 
@@ -84,8 +84,24 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
             c.addAll(b)
         }
 
+        //TODO: iff UI changes
+        c[1].lambda = { editWalletname() }
+
         recyclerView.adapter = SettingItemAdapter(c.toTypedArray())
 
+    }
+
+    private fun editWalletname() {
+        val f = FragmentEditBase()
+        f.setInitValue(credential.walletName,
+                TApp.getString(R.string.wallet_name_err),
+                {
+                    it.length <= 10
+                },
+                {
+                    WalletManager.model.udpateCredentialName(credential, it)
+                })
+        openFragment(f)
     }
 
 }
