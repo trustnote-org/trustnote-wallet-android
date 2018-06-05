@@ -1,7 +1,5 @@
 package org.trustnote.wallet.biz.init
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
@@ -10,14 +8,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
+import org.trustnote.wallet.widget.MyTextWatcher
 
 abstract class FragmentInit : FragmentBase() {
 
@@ -92,52 +91,41 @@ class CWFragmentDeviceName : FragmentInit() {
     }
 
     lateinit var err: TextView
+    lateinit var btnConfirm: Button
+    lateinit var editDeviceName: EditText
 
     override fun initFragment(view: View) {
         super.initFragment(view)
 
         err = view.findViewById(R.id.mnemonic_devicename_err)
+        btnConfirm = view.findViewById(R.id.mnemonic_devicename_confirm)
+        editDeviceName = view.findViewById(R.id.mnemonic_devicename_edit_text)
 
-        var editDeviceName = view.findViewById<EditText>(R.id.mnemonic_devicename_edit_text)
-        editDeviceName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+        editDeviceName.addTextChangedListener(MyTextWatcher(this))
 
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                afterDeviceNameChanged(s.toString())
-            }
-        })
+        editDeviceName.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) err.visibility = View.INVISIBLE }
 
         editDeviceName.setText(CreateWalletModel.readDeviceName())
-        val btnConfirm = view.findViewById<Button>(R.id.mnemonic_devicename_confirm)
+
         btnConfirm.setOnClickListener {
-            CreateWalletModel.saveDeviceName(editDeviceName.text.toString())
-            nextPage(R.layout.f_init_create_or_restore)
+
+            if (isValidInput(editDeviceName.text.toString())) {
+                CreateWalletModel.saveDeviceName(editDeviceName.text.toString())
+                nextPage(R.layout.f_init_create_or_restore)
+            } else {
+                err.visibility = View.VISIBLE
+            }
         }
 
-        afterDeviceNameChanged(editDeviceName.text.toString())
     }
 
-    fun afterDeviceNameChanged(s: String) {
+    override fun updateUI() {
+        super.updateUI()
+        AndroidUtils.enableBtnIfTextViewIsNotEmpty(editDeviceName, btnConfirm)
+    }
 
-        val btnConfirm = mRootView.findViewById<Button>(R.id.mnemonic_devicename_confirm)
-
-        if (s.length > 20) {
-            err.visibility = View.VISIBLE
-        } else {
-            err.visibility = View.INVISIBLE
-        }
-
-        if (s.trim().isBlank() || s.length > 20) {
-            AndroidUtils.disableBtn(btnConfirm)
-        } else {
-            AndroidUtils.enableBtn(btnConfirm)
-        }
+    private fun isValidInput(s: String): Boolean {
+        return s.length <= 20
     }
 }
 
@@ -241,9 +229,9 @@ class CWFragmentVerify : FragmentInit() {
             }
         }
 
-//                if (Utils.isUseDebugOption()) {
-//                    mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
-//                }
+        //                if (Utils.isUseDebugOption()) {
+        //                    mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+        //                }
 
         showMnemonicKeyboardIfRequired()
 

@@ -212,6 +212,7 @@ enum class SettingItemType {
     UNKNOWN
 }
 
+//TODO: change language settings
 //Resources res = context.getResources();
 //// Change locale settings in the app.
 //DisplayMetrics dm = res.getDisplayMetrics();

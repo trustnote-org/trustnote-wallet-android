@@ -27,6 +27,7 @@ import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.webkit.WebView
 import android.widget.PopupWindow
+import android.widget.TextView
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -329,4 +330,22 @@ object AndroidUtils {
 
     }
 
+
+    fun enableBtnIfTextViewIsNotEmpty(t: TextView, btn: Button) {
+        val s = t.text.toString()
+        if (!s.trim().isBlank()) {
+            AndroidUtils.disableBtn(btn)
+        } else {
+            AndroidUtils.enableBtn(btn)
+        }
+    }
+
+
+    fun showErrIfInvalidInput(input: TextView, err:TextView, checkLogic: (s: String) -> Boolean) {
+        if (checkLogic.invoke(input.text.toString())) {
+            err.visibility = View.INVISIBLE
+        } else {
+            err.visibility = View.VISIBLE
+        }
+    }
 }

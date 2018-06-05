@@ -18,6 +18,7 @@ open class FragmentInitSetupPwd : FragmentInit() {
     lateinit var pwdVerify: EditText
     lateinit var pwdVerifyError: TextView
     lateinit var pwdError: TextView
+    lateinit var pwdPrompt: TextView
     lateinit var pwdStrength: PasswordStrength
     private val pwdTextWatcher = MyTextWatcher(this)
 
@@ -34,6 +35,7 @@ open class FragmentInitSetupPwd : FragmentInit() {
         pwdError = mRootView.findViewById(R.id.pwd_err)
         pwdVerifyError = mRootView.findViewById(R.id.pwd_verify_err)
         pwdStrength = mRootView.findViewById(R.id.pwd_strength)
+        pwdPrompt = mRootView.findViewById(R.id.pwd_prompt)
 
         pwd.addTextChangedListener(pwdTextWatcher)
         pwdVerify.addTextChangedListener(pwdTextWatcher)
@@ -46,16 +48,22 @@ open class FragmentInitSetupPwd : FragmentInit() {
         val webView: WebView = view.findViewById(R.id.pwd_warning)
         AndroidUtils.setupWarningWebView(webView, "PWD")
 
-//        if (Utils.isUseDebugOption()) {
-//            pwd.setText("qwer1234")
-//            pwdVerify.setText("qwer1234")
-//        }
+        //        if (Utils.isUseDebugOption()) {
+        //            pwd.setText("qwer1234")
+        //            pwdVerify.setText("qwer1234")
+        //        }
 
         updateUI()
     }
 
-
     override fun updateUI() {
+
+        if (pwd.text.toString().isNotBlank() && pwdVerify.text.toString().isNotBlank()) {
+            AndroidUtils.enableBtn(pwdConfirm)
+        } else {
+            AndroidUtils.disableBtn(pwdConfirm)
+        }
+
 
         AndroidUtils.disableBtn(pwdConfirm)
         pwdError.visibility = View.INVISIBLE
@@ -66,33 +74,58 @@ open class FragmentInitSetupPwd : FragmentInit() {
 
         val pwdStrength = pwdStrength.computPwdStrength(pwdString)
 
-        val isPwdVerifyOk = (pwd.text.toString() == pwdVerify.text.toString())
+        //val isPwdVerifyOk = (pwd.text.toString() == pwdVerify.text.toString())
         val isPwdLengthOk = isPwdLengthOk(pwdString)
         val isPwdStrengOk = (pwdStrength == PwdStrength.NORMAL || pwdStrength == PwdStrength.STRONG)
 
-        if (isPwdVerifyOk && isPwdLengthOk) {
-            AndroidUtils.enableBtn(pwdConfirm)
+
+        if (pwd.text.toString().isBlank() && pwdVerify.text.toString().isBlank()) {
+            AndroidUtils.disableBtn(pwdConfirm)
+            pwdPrompt.visibility = View.VISIBLE
             return
+        } else {
+            pwdPrompt.visibility = View.INVISIBLE
         }
 
-        if (!isPwdLengthOk) {
-            pwdError.setText(R.string.pwd_length_error)
-            pwdError.visibility = View.VISIBLE
+
+        if (pwd.text.toString().isNotBlank() && pwdVerify.text.toString().isNotBlank()) {
+            AndroidUtils.enableBtn(pwdConfirm)
+        } else {
+            AndroidUtils.disableBtn(pwdConfirm)
         }
 
-        if (pwdString.length > 0 && !isPwdStrengOk) {
+
+        if (pwdString.isNotBlank() && !isPwdStrengOk) {
             pwdError.setText(R.string.pwd_strength_warning)
             pwdError.visibility = View.VISIBLE
         }
 
-        if (!isPwdVerifyOk) {
-            pwdVerifyError.visibility = View.VISIBLE
-        }
+        pwdVerifyError.visibility = View.INVISIBLE
 
     }
 
     open fun savePwdAndForward() {
+
         val pwdString = pwd.text.toString()
+
+        val pwdStrength = pwdStrength.computPwdStrength(pwdString)
+
+        val isPwdVerifyOk = (pwd.text.toString() == pwdVerify.text.toString())
+        val isPwdLengthOk = isPwdLengthOk(pwdString)
+        val isPwdStrengOk = (pwdStrength == PwdStrength.NORMAL || pwdStrength == PwdStrength.STRONG)
+
+
+        if (!isPwdLengthOk) {
+            pwdError.setText(R.string.pwd_length_error)
+            pwdError.visibility = View.VISIBLE
+            return
+        }
+
+        if (!isPwdVerifyOk) {
+            pwdVerifyError.visibility = View.VISIBLE
+            return
+        }
+
         CreateWalletModel.savePassphrase(pwdString)
         nextPage()
     }

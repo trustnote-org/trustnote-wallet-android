@@ -45,6 +45,13 @@
             android:layout_below="@id/pwd_strength"
             android:layout_marginBottom="@dimen/line_gap_32" />
 
+        <TextView
+            android:id="@+id/pwd_prompt"
+            style="@style/t_text_msg_gray"
+            android:layout_below="@id/pwd_strength"
+            android:layout_marginBottom="@dimen/line_gap_32" />
+
+
         <org.trustnote.wallet.widget.ClearableEditText
             android:id="@+id/pwd_verify"
             style="@style/t_pwd"
