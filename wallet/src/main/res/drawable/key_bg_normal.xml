@@ -1,13 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">--><!--<item android:left="2dp" android:right="2dp">--><!--<shape android:shape="rectangle">--><!--<solid android:color="@color/keyboard_key_bg" />--><!--</shape>--><!--</item>--><!--<item android:bottom="2dp">--><!--<shape android:shape="rectangle">--><!--<solid android:color="@color/keyboard_key_bg" />--><!--</shape>--><!--</item>--><!--</layer-list>-->
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:left="2dp" android:right="2dp">
+
+    <!-- Bottom 2dp Shadow -->
+    <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/colorPrimaryDark" />
+
+            <solid android:color="#d8d8d8" />
+            <corners android:radius="4dp" />
+
         </shape>
     </item>
+
+    <!-- White Top color -->
     <item android:bottom="2dp">
+
         <shape android:shape="rectangle">
-            <solid android:color="@color/colorPrimary" />
+
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="4dp" />
+
         </shape>
+
     </item>
+
+
 </layer-list>

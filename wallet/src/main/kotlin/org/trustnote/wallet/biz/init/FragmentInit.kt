@@ -216,18 +216,24 @@ class CWFragmentVerify : FragmentInit() {
         var btnBackupConfirm = view.findViewById<Button>(R.id.verify_confirmed)
         AndroidUtils.disableBtn(btnBackupConfirm)
         btnBackupConfirm.setOnClickListener {
-            nextPage(R.layout.f_init_remove)
-            CreateWalletModel.iamDone()
+
+            if (mnemonicsGrid.isVerifyOk()) {
+                nextPage(R.layout.f_init_remove)
+                CreateWalletModel.iamDone()
+            } else {
+                mnemonicsGrid.showErr()
+            }
         }
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics_verify)
         mnemonicsGrid.setCheckMnemonic(CreateWalletModel.tmpMnemonic)
         mnemonicsGrid.onCheckResult = {
             AndroidUtils.enableBtn(btnBackupConfirm, it)
-            if (it) {
-                getMyActivity().closeKeyboard()
-            }
         }
+
+        //        if (it) {
+        //            getMyActivity().closeKeyboard()
+        //        }
 
         //                if (Utils.isUseDebugOption()) {
         //                    mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
@@ -303,9 +309,9 @@ open class CWFragmentRestore : FragmentInit() {
             AndroidUtils.enableBtn(btnRestore, it)
             AndroidUtils.enableBtn(btnRestoreRemove, it)
 
-            if (it) {
-                getMyActivity().closeKeyboard()
-            }
+            //            if (it) {
+            //                getMyActivity().closeKeyboard()
+            //            }
 
         }
 

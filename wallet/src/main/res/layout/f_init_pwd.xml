@@ -47,7 +47,8 @@
 
         <TextView
             android:id="@+id/pwd_prompt"
-            style="@style/t_text_msg_gray"
+            style="@style/t_text_msg"
+            android:text="@string/pwd_length_error"
             android:layout_below="@id/pwd_strength"
             android:layout_marginBottom="@dimen/line_gap_32" />
 

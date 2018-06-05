@@ -70,5 +70,10 @@
     <color name="line_in_dialog">#C74D4D4D</color>
     <color name="btn2_text_in_dialog">#FF007AFF</color>
 
+    <color name="keyboard_bg">#CFD4DA</color>
+    <color name="keyboard_key_bg">#FFFFFF</color>
+    <color name="keyboard_font_color">#000000</color>
+
+
 
 </resources>

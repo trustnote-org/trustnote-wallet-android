@@ -30,9 +30,9 @@
 
         android:padding="@dimen/keyboard_padding"
         android:paddingTop="@dimen/line_gap_6"
-        android:background="@color/t_f_gray_2"
+        android:background="@color/keyboard_bg"
         android:keyBackground="@drawable/key_background"
-        android:keyTextColor="@color/t_text"
+        android:keyTextColor="@color/keyboard_font_color"
         android:keyTextSize="@dimen/keyboard_textsize"
         android:visibility="gone" />
 

@@ -72,19 +72,21 @@ open class FragmentInitSetupPwd : FragmentInit() {
 
         val pwdString = pwd.text.toString()
 
-        val pwdStrength = pwdStrength.computPwdStrength(pwdString)
+        val pwdStrengthValue = pwdStrength.computPwdStrength(pwdString)
 
         //val isPwdVerifyOk = (pwd.text.toString() == pwdVerify.text.toString())
         val isPwdLengthOk = isPwdLengthOk(pwdString)
-        val isPwdStrengOk = (pwdStrength == PwdStrength.NORMAL || pwdStrength == PwdStrength.STRONG)
+        val isPwdStrengOk = (pwdStrengthValue == PwdStrength.NORMAL || pwdStrengthValue == PwdStrength.STRONG)
 
 
         if (pwd.text.toString().isBlank() && pwdVerify.text.toString().isBlank()) {
             AndroidUtils.disableBtn(pwdConfirm)
             pwdPrompt.visibility = View.VISIBLE
+            pwdStrength.visibility = View.INVISIBLE
             return
         } else {
             pwdPrompt.visibility = View.INVISIBLE
+            pwdStrength.visibility = View.VISIBLE
         }
 
 

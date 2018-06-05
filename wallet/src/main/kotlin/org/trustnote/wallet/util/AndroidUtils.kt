@@ -333,7 +333,7 @@ object AndroidUtils {
 
     fun enableBtnIfTextViewIsNotEmpty(t: TextView, btn: Button) {
         val s = t.text.toString()
-        if (!s.trim().isBlank()) {
+        if (s.trim().isBlank()) {
             AndroidUtils.disableBtn(btn)
         } else {
             AndroidUtils.enableBtn(btn)

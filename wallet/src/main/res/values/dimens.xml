@@ -64,7 +64,6 @@
 
     <dimen name="small_icon">14dp</dimen>
 
-    <dimen name="keyboard_textsize">18sp</dimen>
     <dimen name="keyboard_height">48dp</dimen>
     <dimen name="keyboard_vert_gap">6dp</dimen>
 
@@ -132,5 +131,6 @@
     <dimen name="l_me_header_padding">30dp</dimen>
 
     <dimen name="ic_gabage_width">55dp</dimen>
+    <dimen name="keyboard_textsize">20sp</dimen>
 
 </resources>

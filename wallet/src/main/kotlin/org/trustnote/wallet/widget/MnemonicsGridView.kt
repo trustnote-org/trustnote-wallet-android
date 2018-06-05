@@ -37,7 +37,7 @@ class MnemonicsGridView @JvmOverloads constructor(
 
         gridAdapter.onCheckResult = {
             onCheckResult(it)
-            err.visibility = if (it) INVISIBLE else View.VISIBLE
+            err.visibility = INVISIBLE
         }
 
     }
@@ -49,7 +49,7 @@ class MnemonicsGridView @JvmOverloads constructor(
 
         gridAdapter.notifyDataSetInvalidated()
 
-        err.visibility = GONE
+        err.visibility = View.INVISIBLE
     }
 
     fun setCheckMnemonic(mnemonic: String) {
@@ -64,6 +64,16 @@ class MnemonicsGridView @JvmOverloads constructor(
         err.visibility = View.VISIBLE
     }
 
+    fun isVerifyOk(): Boolean {
+        for (i in 0 .. 11) {
+            val cell = gridView.getChildAt(i) as MnemonicAutoCompleteTextView
+            if (!cell.isWordInBip38 || cell.text.toString() != gridAdapter.mMnemonicCheck[i]){
+                return false
+            }
+        }
+        return true
+    }
+
     fun getAllMnemonicAsString(): String {
 
         val listOfMnemonic = List<String>(12) {
@@ -75,7 +85,6 @@ class MnemonicsGridView @JvmOverloads constructor(
     }
 
 }
-
 
 class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : BaseAdapter() {
     var mMnemonic: List<String> = mnemonic
@@ -106,9 +115,6 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
                 val nextResourceId = context.resources.getIdentifier("mnemonic_$nextPosition", "id", context.packageName)
                 editTextView.id = resourceId
                 editTextView.nextFocusForwardId = nextResourceId
-
-
-
 
             }
 
@@ -154,12 +160,12 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         return editTextView
     }
 
-
     fun checkAllWord(grid: GridView) {
 
-        for (i in 0 .. 11) {
+        for (i in 0..11) {
             val cell = grid.getChildAt(i) as MnemonicAutoCompleteTextView
-            if (!cell.isWordInBip38 || cell.text.toString() != mMnemonicCheck[i]){
+            //if (!cell.isWordInBip38 || cell.text.toString() != mMnemonicCheck[i]){
+            if (cell.text.toString().isEmpty()) {
                 onCheckResult(false)
                 return
             }

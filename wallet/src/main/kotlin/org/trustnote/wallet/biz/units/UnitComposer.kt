@@ -231,6 +231,7 @@ class UnitComposer(
     }
 
     private fun queryOrIssueNotUsedChangeAddress(): String {
+        //How about it cannot find unused change address
         return WalletManager.model.findNextUnusedChangeAddress(sendPaymentInfo.walletId).address
     }
 
