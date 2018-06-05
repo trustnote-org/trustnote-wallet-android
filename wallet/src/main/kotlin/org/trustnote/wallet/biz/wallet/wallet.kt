@@ -27,6 +27,7 @@ class TProfile() {
     var balance: Long = 0
     var removeMnemonic: Boolean = false
     var isRestoreFinished: Boolean = false
+    var pubKeyForPairId: String = ""
 
 }
 

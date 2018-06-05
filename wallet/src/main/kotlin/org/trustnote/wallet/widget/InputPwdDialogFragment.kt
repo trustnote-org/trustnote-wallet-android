@@ -22,12 +22,12 @@ class InputPwdDialogFragment() : DialogFragment() {
 
     var msg: String = "TTT Welcome"
     var cancelLogic: () -> Unit = {}
-    var confirmLogic: () -> Unit = {}
+    var confirmLogic: (String) -> Unit = {}
     var isTwoButtons = true
     lateinit var pwdView: EditText
     lateinit var pwdErrView: View
 
-    constructor(confirmLogic: () -> Unit) : this() {
+    constructor(confirmLogic: (String) -> Unit) : this() {
         this.confirmLogic = confirmLogic
         isTwoButtons = false
     }
@@ -42,7 +42,7 @@ class InputPwdDialogFragment() : DialogFragment() {
         }
 
         view.findViewById<Button>(R.id.second_button).setOnClickListener {
-            checkPwd()
+            checkPwd(pwdView.text.toString())
         }
 
         pwdView = view.findViewById(R.id.pwd)
@@ -50,10 +50,10 @@ class InputPwdDialogFragment() : DialogFragment() {
         return view
     }
 
-    private fun checkPwd() {
-        if (CreateWalletModel.verifyPwd(pwdView.text.toString())) {
+    private fun checkPwd(password: String) {
+        if (CreateWalletModel.verifyPwd(password)) {
             dismiss()
-            confirmLogic.invoke()
+            confirmLogic.invoke(password)
         } else {
             pwdErrView.visibility = View.VISIBLE
         }
@@ -85,7 +85,7 @@ class InputPwdDialogFragment() : DialogFragment() {
             return ft
         }
 
-        fun showMe(activity: FragmentActivity, confirmLogic: () -> Unit) {
+        fun showMe(activity: FragmentActivity, confirmLogic: (String) -> Unit) {
 
             val newFragment = InputPwdDialogFragment(confirmLogic)
             newFragment.show(getFragmentTransaction(activity), null)

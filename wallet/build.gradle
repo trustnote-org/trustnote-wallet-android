@@ -89,7 +89,7 @@ android {
     }
 
     sourceSets {
-        // Main source set is Kotlin!
+        // AesCbc source set is Kotlin!
         main.java.srcDirs += 'src/main/kotlin'
 
         // Unit tests live in src/unitTest.

@@ -69,8 +69,10 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
         button = view.findViewById<Button>(R.id.create_wallet_normal_btn)
 
         button.setOnClickListener {
+
             MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newManualWallet(editText.text.toString()) }
             activity.onBackPressed()
+
         }
     }
 

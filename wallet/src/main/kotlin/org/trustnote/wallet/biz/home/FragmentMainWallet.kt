@@ -65,7 +65,7 @@ class FragmentMainWallet : FragmentWalletBase() {
 
         mSwipeRefreshLayout.setOnRefreshListener(
                 SwipeRefreshLayout.OnRefreshListener {
-                    WalletManager.model.fullRefreshing()
+                    WalletManager.model.refreshExistWallet()
                 }
         )
 

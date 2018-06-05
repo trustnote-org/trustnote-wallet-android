@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.init
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.CREATE_WALLET_STATUS
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 
 object CreateWalletModel {
@@ -40,8 +41,7 @@ object CreateWalletModel {
     }
 
     fun hash(passphrase: String): String {
-        //TODO
-        return passphrase
+        return AndroidUtils.md5(passphrase)
     }
 
     fun userAgree() {
@@ -85,13 +85,12 @@ object CreateWalletModel {
 
     fun iamDone(mnemonic: String, isRemove: Boolean, privKey: String) {
         finishedCreateOrRestore()
-        WalletManager.initWithMnemonic(mnemonic, isRemove, privKey)
+        WalletManager.initWithMnemonic(passphraseInRam, mnemonic, isRemove, privKey)
     }
 
     fun iamDone() {
         finishedCreateOrRestore()
-        WalletManager.initWithMnemonic(tmpMnemonic, false)
-        tmpMnemonic = ""
+        WalletManager.initWithMnemonic(passphraseInRam, tmpMnemonic, false)
     }
 
     fun verifyPwd(pwd: String): Boolean {

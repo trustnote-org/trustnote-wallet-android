@@ -5,12 +5,14 @@ import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.biz.units.UnitsManager
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.ReqGetHistory
+import org.trustnote.wallet.util.AesCbc
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
@@ -34,7 +36,7 @@ class WalletModel() {
         }
     }
 
-    constructor(mnemonic: String, shouldRemoveMnemonic: Boolean, privKey: String) : this() {
+    constructor(password: String, mnemonic: String, shouldRemoveMnemonic: Boolean, privKey: String) : this() {
         mProfile = TProfile()
         mProfile.mnemonic = mnemonic
         mProfile.removeMnemonic = shouldRemoveMnemonic
@@ -44,7 +46,7 @@ class WalletModel() {
 
         startRefreshThread()
 
-        fullRefreshing()
+        fullRefreshing(password)
     }
 
     fun isRefreshing(): Boolean {
@@ -60,33 +62,41 @@ class WalletModel() {
 
     }
 
-    fun fullRefreshing() {
+    fun fullRefreshing(password: String) {
         MyThreadManager.instance.runWalletModelBg {
-            fullRefreshingInBackground()
+            fullRefreshingInBackground(password)
         }
     }
+
+    fun refreshExistWallet() {
+
+        mProfile.credentials.forEach {
+            refreshOneWallet(it)
+        }
+    }
+
 
     fun refreshOneWallet(walletId: String) {
         refreshOneWallet(findWallet(walletId))
     }
 
-    private fun fullRefreshingInBackground() {
+    private fun fullRefreshingInBackground(password: String) {
 
-        checkAndGenPrivkey()
+        checkAndGenPrivkey(password)
 
         WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
 
         WalletManager.getCurrentWalletDbTag()
         if (mProfile.credentials.isEmpty()) {
-            newAutoWallet()
+            newAutoWallet(password = password)
         }
 
-        refreshAllWallet()
+        refreshAllWallet(password)
     }
 
-    private fun refreshAllWallet() {
+    private fun refreshAllWallet(password: String) {
 
-        createNewWalletIfLastWalletHasTransaction()
+        createNewWalletIfLastWalletHasTransaction(password)
 
         val ws = getAvaiableWalletsForUser()
 
@@ -103,11 +113,13 @@ class WalletModel() {
         }
     }
 
-    private fun checkAndGenPrivkey() {
+    private fun checkAndGenPrivkey(password: String) {
         if (mProfile.xPrivKey.isEmpty()) {
-            mProfile.xPrivKey = JSApi().xPrivKeySync(mProfile.mnemonic)
-            mProfile.dbTag = mProfile.xPrivKey.takeLast(5)
-            mProfile.deviceAddress = JSApi().deviceAddressSync(mProfile.xPrivKey)
+            val privKey = JSApi().xPrivKeySync(mProfile.mnemonic)
+            mProfile.dbTag = privKey.takeLast(5)
+            mProfile.deviceAddress = JSApi().deviceAddressSync(privKey)
+            mProfile.pubKeyForPairId = JSApi().ecdsaPubkeySync(privKey, "m/1'")
+            mProfile.xPrivKey = AesCbc.encode(privKey, password)
         }
     }
 
@@ -154,8 +166,7 @@ class WalletModel() {
         if (res.isNotEmpty() && credential == lastLocalWallet()) {
 
             readDataFromDb(credential)
-
-            createNewWalletIfLastWalletHasTransaction()
+            createNewWalletIfLastWalletHasTransaction(CreateWalletModel.passphraseInRam)
 
         }
 
@@ -250,15 +261,15 @@ class WalletModel() {
 
     }
 
-    private fun createNewWalletIfLastWalletHasTransaction() {
+    private fun createNewWalletIfLastWalletHasTransaction(password: String) {
         if (mProfile.credentials.isEmpty()) {
-            newAutoWallet()
+            newAutoWallet(password)
         }
 
         var lastWallet = mProfile.credentials.last { !it.isObserveOnly }
 
         if (lastWallet != null && DbHelper.shouldGenerateNextWallet(lastWallet.walletId)) {
-            newAutoWallet()
+            newAutoWallet(password)
         }
     }
 
@@ -295,10 +306,11 @@ class WalletModel() {
         return res
     }
 
-    private fun createNextCredential(profile: TProfile, credentialName: String = TTT.firstWalletName, isAuto: Boolean = true): Credential {
+    private fun createNextCredential(password: String, profile: TProfile, credentialName: String = TTT.firstWalletName, isAuto: Boolean = true): Credential {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
-        val walletPubKey = api.walletPubKeySync(profile.xPrivKey, walletIndex)
+        val privKey = getPrivKey(password)
+        val walletPubKey = api.walletPubKeySync(privKey, walletIndex)
         val walletId = api.walletIDSync(walletPubKey)
         val walletTitle = if (TTT.firstWalletName == credentialName) TTT.firstWalletName + ":" + walletIndex else credentialName
 
@@ -322,8 +334,8 @@ class WalletModel() {
     }
 
     @Synchronized
-    private fun newAutoWallet(credentialName: String = TTT.firstWalletName, isAuto: Boolean = true) {
-        val newCredential = createNextCredential(mProfile, credentialName, isAuto = isAuto)
+    private fun newAutoWallet(password: String, credentialName: String = TTT.firstWalletName, isAuto: Boolean = true) {
+        val newCredential = createNextCredential(password, mProfile, credentialName, isAuto = isAuto)
         mProfile.credentials.add(newCredential)
 
         refreshOneWallet(newCredential)
@@ -332,8 +344,8 @@ class WalletModel() {
     }
 
     @Synchronized
-    fun newManualWallet(credentialName: String = TTT.firstWalletName) {
-        newAutoWallet(credentialName, false)
+    fun newManualWallet(password: String, credentialName: String = TTT.firstWalletName) {
+        newAutoWallet(password, credentialName, false)
     }
 
     @Synchronized
@@ -408,6 +420,25 @@ class WalletModel() {
 
     fun isMnemonicExist(): Boolean {
         return !mProfile.removeMnemonic
+    }
+
+    //TODO: move to msg module.
+    // Data sample: TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@shawtest.trustnote.org#xSpGdRdQTv16
+    fun generateMyPairId(): String {
+
+        val randomString = JSApi().randomBytesSync(9)
+        return """${TTT.KEY_TTT_QR_TAG}:${mProfile.pubKeyForPairId}@${TTT.hubAddress}#$randomString"""
+
+    }
+
+    fun getPrivKey(password: String): String {
+        return AesCbc.decode(mProfile.xPrivKey, password)
+    }
+
+    fun updatePassword(oldPwd: String, newPwd: String) {
+        val privKey = getPrivKey(oldPwd)
+        mProfile.xPrivKey = AesCbc.encode(privKey, newPwd)
+        Prefs.writeProfile(mProfile)
     }
 
 }

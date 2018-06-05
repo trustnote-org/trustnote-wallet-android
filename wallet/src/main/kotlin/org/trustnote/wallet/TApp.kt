@@ -85,8 +85,5 @@ class TApp : Application() {
             AndroidUtils.readBip38List()
         }
 
-        MyThreadManager.instance.runLowPriorityInBack {
-            WalletManager.generateMyPairIdForFutureUse()
-        }
     }
 }

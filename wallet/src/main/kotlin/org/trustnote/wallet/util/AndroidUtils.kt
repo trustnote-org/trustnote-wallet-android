@@ -306,4 +306,27 @@ object AndroidUtils {
         res.updateConfiguration(conf, dm)
     }
 
+    fun md5(s: String): String {
+        val MD5 = "MD5"
+        try {
+            // Create MD5 Hash
+            val digest = java.security.MessageDigest.getInstance(MD5)
+            digest.update(s.toByteArray())
+            val messageDigest = digest.digest()
+
+            val hexString = StringBuilder()
+            for (b in messageDigest) {
+
+                val h = String.format("%02X", b)
+                hexString.append(h)
+            }
+            return hexString.toString()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return ""
+
+    }
+
 }

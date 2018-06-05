@@ -6,8 +6,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
-import org.trustnote.wallet.widget.MnemonicsGridView
-import org.trustnote.wallet.widget.MyDialogFragment
+import org.trustnote.wallet.widget.InputPwdDialogFragment
 
 class FragmentMeWalletFullSync : FragmentWalletBase() {
     override fun getLayoutId(): Int {
@@ -23,8 +22,11 @@ class FragmentMeWalletFullSync : FragmentWalletBase() {
         AndroidUtils.setupWarningWebView(webView, "FULLSYNC")
 
         view.findViewById<View>(R.id.me_clone_sync_btn).setOnClickListener {
-            WalletManager.model.fullRefreshing()
-            activity.onBackPressed()
+
+            InputPwdDialogFragment.showMe(activity, {
+                WalletManager.model.fullRefreshing(it)
+                activity.onBackPressed()
+            })
         }
 
     }

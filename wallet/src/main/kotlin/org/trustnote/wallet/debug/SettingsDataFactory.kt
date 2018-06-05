@@ -42,12 +42,11 @@ object SettingsDataFactory {
 
         val printMyPaidId = SettingItem("打印配对码", true)
         printMyPaidId.action = Runnable {
-            val pairId = WalletManager.readAndConsumeMyPairId()
+            val pairId = WalletManager.model.generateMyPairId()
             Utils.debugLog("PEER ID = $pairId")
             Utils.toastMsg("PEER ID = $pairId")
         }
         res.add(printMyPaidId)
-
 
         val testPostTx = SettingItem("Test: Test post tx")
         testPostTx.action = Runnable {
@@ -59,32 +58,6 @@ object SettingsDataFactory {
 //            JsTest.testPostTx()
         }
         res.add(testPostTx)
-
-        val testHistory = SettingItem("Test: get_history, check res from log")
-//        testHistory.action = Runnable { WalletManager.model.hubRequestCurrentWalletTxHistory() }
-//        res.add(testHistory)
-
-//        val testJSSignWithDeviceMessageHash = SettingItem("testJSSignWithDeviceMessageHash", false)
-//        testJSSignWithDeviceMessageHash.txType = Runnable {
-//            val orignData = "{\"challenge\":\"C4q7l7jDyLVvFB9YDQu2M3J1N0PC/9NkNwbUNQLa\",\"pubkey\":\"A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw\",\"signature\":\"cphmz+vksrdwMDAUlNNXUPo+1oL7fTaYiKoI0rQNflZpOyQBZpovA3s79HTByxvWrUo2Wy/NerrpsLzaaXm/2g==\"}"
-//
-//            JSApi().getDeviceMessageHashToSign(orignData, ValueCallback { hashValue ->
-//                Utils.debugLog(hashValue)
-//
-//                //fun sign(b64_hash: String, xPrivKey: String, path: String, cb: ValueCallback<String>) {
-//
-//                JSApi().sign(hashValue, WalletManager.modelgetProfile()!!.xPrivKey, "\"m/1'\"", ValueCallback { signRes ->
-//                    Utils.debugLog(signRes)
-//
-//                    // /r1gbvHPi8NLGpKoderkk1QJHbooOrDEi81rE2sXKtYCQFDHPxCdvmPPj17czehyptxL3T7dPKK2FqACbcdyiQ==
-//                })
-//            })
-//        }
-//        res.add(testJSSignWithDeviceMessageHash)
-
-//        val testJSVerifySign = SettingItem("testJSVerifySign", false)
-//        testJSVerifySign.txType = Runnable { runTestJSVerifySign() }
-//        res.add(testJSVerifySign)
 
         val testQrCode = SettingItem("Test QR CODE")
         testQrCode.action = Runnable { SimpleFragmentActivityBase.startMe(QRFragment::class.java.canonicalName) }

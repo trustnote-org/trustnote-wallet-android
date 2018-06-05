@@ -21,7 +21,7 @@ object WalletManager {
     init {
         if (Prefs.profileExist()) {
             model = WalletModel()
-            model.fullRefreshing()
+            model.refreshExistWallet()
         }
     }
 
@@ -39,11 +39,11 @@ object WalletManager {
         return model.mProfile
     }
 
-    fun initWithMnemonic(mnemonic: String, removeMnemonic: Boolean, privKey: String = "") {
+    fun initWithMnemonic(password: String, mnemonic: String, removeMnemonic: Boolean, privKey: String = "") {
         if (Prefs.profileExist()) {
             model.destruct()
         }
-        model = WalletModel(mnemonic, removeMnemonic, privKey)
+        model = WalletModel(password, mnemonic, removeMnemonic, privKey)
     }
 
     fun getOrCreateMnemonic(): String {
@@ -52,46 +52,6 @@ object WalletManager {
 
     fun isExist(): Boolean {
         return Prefs.profileExist()
-    }
-
-    //TODO: move to msg module.
-    // Data sample: TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@shawtest.trustnote.org#xSpGdRdQTv16
-    fun generateMyPairIdForFutureUse() {
-
-        val res = Prefs.readMyPairId()
-        if (res.isNotEmpty()) {
-            return
-        }
-
-        val api = JSApi()
-
-        api.randomBytes(9, ValueCallback {
-            val randomString = it
-
-            fun ecdsaPubkey(xPrivKey: String, path: String, cb: ValueCallback<String>) {
-                TWebView.sInstance.callJS("""window.Client.ecdsaPubkey("$xPrivKey", "$path");""", cb)
-            }
-
-            api.ecdsaPubkey(model.mProfile.xPrivKey, "m/1'", ValueCallback {
-                val m1Pubkey = it
-                //TODO: since the value is pre-generated, should replace hub address
-                val res = """TTT:$m1Pubkey@${TTT.hubAddress}#$randomString"""
-
-                Prefs.writeMyPairId(res)
-            })
-
-        })
-    }
-
-    fun readAndConsumeMyPairId(): String {
-        val res = Prefs.readMyPairId()
-
-        if (res != null) {
-            Prefs.writeMyPairId("")
-        }
-
-        generateMyPairIdForFutureUse()
-        return res
     }
 
 }

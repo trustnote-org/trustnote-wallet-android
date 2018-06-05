@@ -220,7 +220,7 @@ fun isVanity(target: String, oneAddress: String): Boolean {
 
 fun createFullWalletInternal(seed: String) {
 
-    WalletManager.initWithMnemonic(seed, false)
+//    WalletManager.initWithMnemonic(seed, false)
 
     Utils.debugJS("Done")
 

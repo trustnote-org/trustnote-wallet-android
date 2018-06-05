@@ -37,7 +37,7 @@ class FragmentMsgMyPairId : FragmentPageBase() {
 
         }
 
-        val myPairId = WalletManager.readAndConsumeMyPairId()
+        val myPairId = WalletManager.model.generateMyPairId()
 
         pairIdText.text = myPairId
         TTTUtils.setupQRCode(myPairId, pairIdQR)

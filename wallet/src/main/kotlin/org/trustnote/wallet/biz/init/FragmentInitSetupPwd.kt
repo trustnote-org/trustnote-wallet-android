@@ -91,7 +91,7 @@ open class FragmentInitSetupPwd : FragmentInit() {
 
     }
 
-    private fun savePwdAndForward() {
+    open fun savePwdAndForward() {
         val pwdString = pwd.text.toString()
         CreateWalletModel.savePassphrase(pwdString)
         nextPage()

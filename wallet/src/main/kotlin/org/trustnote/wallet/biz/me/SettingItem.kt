@@ -6,7 +6,6 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
-import org.trustnote.wallet.biz.init.CWFragmentRestore
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
@@ -71,9 +70,12 @@ class SettingItem(
                             titleResId = R.string.setting_about_hash, value = BuildConfig.GitHash),
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_about_tou)
+                            titleResId = R.string.setting_about_tou) {
+                        openTou()
+                    }
             )
         }
+
 
         fun getSettingSystem(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
@@ -193,6 +195,9 @@ class SettingItem(
             activity.openLevel2Fragment(FragmentMeChangePwd())
         }
 
+        private fun openTou() {
+            AndroidUtils.todo()
+        }
 
     }
 }
