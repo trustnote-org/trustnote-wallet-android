@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_wallet"
-        android:enabled="true"
-        android:icon="@drawable/menu_wallet"
-        android:title="@string/menu_wallet"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_menu_wallet"
+        android:title="@string/menu_wallet" />
 
     <item
         android:id="@+id/menu_msg"
-        android:enabled="true"
-        android:icon="@drawable/ttt"
-        android:title="@string/menu_msg"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_menu_message"
+        android:title="@string/menu_msg"/>
 
     <item
         android:id="@+id/menu_me"
-        android:enabled="true"
-        android:icon="@drawable/ttt"
-        android:title="@string/menu_me"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_menu_me"
+        android:title="@string/menu_me" />
 
 </menu>
+
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:bottom="@dimen/line_gap_4"
+        android:drawable="@drawable/ic_quick_action"
+        android:left="@dimen/line_gap_4"
+        android:right="@dimen/line_gap_4"
+        android:top="@dimen/line_gap_4"></item>
+
+
+</layer-list>

@@ -22,8 +22,6 @@ class FragmentMeMain : FragmentWalletBase() {
         return R.layout.f_me_home
     }
 
-    lateinit var btnWalletManager: View
-    lateinit var btnWalletTx: View
     lateinit var meDeviceName: TextView
     lateinit var meIcon: TextView
 
@@ -31,15 +29,6 @@ class FragmentMeMain : FragmentWalletBase() {
         isBottomLayerUI = true
 
         super.initFragment(view)
-
-        btnWalletManager = findViewById(R.id.me_wallet_manager)
-        btnWalletTx = findViewById(R.id.me_wallet_tx)
-
-        btnWalletManager.setOnClickListener {
-            getMyActivity().openLevel2Fragment(FragmentMeWalletManager())
-        }
-
-        btnWalletTx.setOnClickListener { AndroidUtils.todo() }
 
         findViewById<View>(R.id.me_header_edit).setOnClickListener { editDevicename() }
 
@@ -53,14 +42,15 @@ class FragmentMeMain : FragmentWalletBase() {
 
     override fun updateUI() {
 
-        meDeviceName.setText(Prefs.readDeviceName())
+        meDeviceName.text = (Utils.formatWalletIdEllipse(Prefs.readDeviceName()))
 
-        meIcon.setText(TTTUtils.formatIconText(Prefs.readDeviceName()))
+        meIcon.text = (TTTUtils.formatIconText(Prefs.readDeviceName()))
 
         val recyclerView = mRootView.findViewById<RecyclerView>(R.id.setting_item_list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
         val fullMainSettings = mutableListOf<SettingItem>()
+
         var settingsMain = SettingItem.getSettingMain(activity as ActivityMain)
         fullMainSettings.addAll(settingsMain.toList())
 
@@ -88,6 +78,7 @@ class FragmentMeMain : FragmentWalletBase() {
                 {
                     it.length <= 20
                 },
+
                 {
                     Prefs.writeDeviceName(it)
                     WalletManager.mWalletEventCenter.onNext(true)

@@ -30,8 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_menu_height"
             android:layout_alignParentBottom="true"
-            app:itemBackground="@color/colorPrimary"
-            app:itemIconTint="@color/colorPrimaryDark"
+            app:itemBackground="@color/bg_white"
             app:itemTextColor="@drawable/menu_text_color"
             app:menu="@menu/main_bottom" />
 

@@ -8,7 +8,6 @@ import android.os.Build
 import android.support.annotation.StringRes
 import android.webkit.WebView
 import dagger.Lazy
-import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.biz.js.TWebView
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.util.*
@@ -30,7 +29,9 @@ class TApp : Application() {
         lateinit var smallIconError: Drawable
         lateinit var smallIconQuickAction: Drawable
         lateinit var smallIconBackHome: Drawable
-        var userAlreadyInputPwd = false
+
+        var userAlreadyInputPwd = false;//Utils.isUseDebugOption()
+
         fun getString(@StringRes strResId: Int): String {
             return context.getString(strResId)
         }
@@ -76,7 +77,7 @@ class TApp : Application() {
 
         smallIconSize = TApp.context.resources.getDimension(R.dimen.small_icon).toInt()
         smallIconError = AndroidUtils.resizeErrDrawable(R.drawable.err, R.dimen.small_icon)
-        smallIconQuickAction = AndroidUtils.resizeDrawable(R.drawable.quick_action, R.dimen.quick_action_size)
+        //smallIconQuickAction = AndroidUtils.resizeDrawable(R.drawable.ic_quick_action, R.dimen.quick_action_size)
         smallIconBackHome = AndroidUtils.resizeDrawable(R.drawable.arrow_left, R.dimen.home_back_arrow_size)
 
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)

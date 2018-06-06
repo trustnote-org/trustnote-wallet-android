@@ -183,6 +183,14 @@ object Utils {
         return if (address.isBlank()) "" else """${address.substring(0, 5)}…${address.takeLast(3)}"""
     }
 
+    fun formatWalletIdEllipse(address: String): String {
+        if (address.length <= 10) {
+            return address
+        }
+        return """${address.substring(0, 5)}…${address.takeLast(5)}"""
+    }
+
+
     fun formatTxTimestamp(ts: Long): String {
         val date = Date(ts * 1000L)
         val df = SimpleDateFormat("MM-dd  HH:MM")

@@ -5,21 +5,14 @@
     <item>
         <shape android:shape="rectangle">
 
-            <solid android:color="#d8d8d8" />
-            <corners android:radius="4dp" />
+            <solid android:color="#ffffff" />
 
         </shape>
     </item>
 
     <!-- White Top color -->
-    <item android:bottom="2dp">
+    <item android:bottom="2dp" android:drawable="@drawable/ic_quick_action">
 
-        <shape android:shape="rectangle">
-
-            <solid android:color="#FFFFFF" />
-            <corners android:radius="4dp" />
-
-        </shape>
 
     </item>
 

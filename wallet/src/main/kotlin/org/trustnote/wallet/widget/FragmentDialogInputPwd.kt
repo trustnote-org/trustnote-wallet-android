@@ -16,7 +16,7 @@ import android.widget.EditText
 
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CreateWalletModel
-
+import org.trustnote.wallet.util.AndroidUtils
 
 class FragmentDialogInputPwd() : DialogFragment() {
 
@@ -24,7 +24,7 @@ class FragmentDialogInputPwd() : DialogFragment() {
     var cancelLogic: () -> Unit = {}
     var confirmLogic: (String) -> Unit = {}
     var isTwoButtons = true
-    lateinit var pwdView: EditText
+    lateinit var pwdView: ClearableEditText
     lateinit var pwdErrView: View
 
     constructor(confirmLogic: (String) -> Unit) : this() {
@@ -45,8 +45,12 @@ class FragmentDialogInputPwd() : DialogFragment() {
             checkPwd(pwdView.text.toString())
         }
 
+
         pwdView = view.findViewById(R.id.pwd)
         pwdErrView = view.findViewById(R.id.pwd_err)
+
+        AndroidUtils.hideErrIfHasFocus(pwdView, pwdErrView)
+
         return view
     }
 
@@ -90,7 +94,6 @@ class FragmentDialogInputPwd() : DialogFragment() {
             val newFragment = FragmentDialogInputPwd(confirmLogic)
             newFragment.show(getFragmentTransaction(activity), null)
         }
-
 
     }
 }

@@ -10,7 +10,7 @@ import com.google.gson.JsonParser
 import com.google.gson.annotations.Expose
 import org.trustnote.wallet.biz.TTT
 
-class TProfile() {
+class TProfile {
 
     var mnemonic: String = ""
     var version: String = "1.0"

@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz.home
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -23,6 +24,7 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
     private lateinit var totalBalanceView: TMnAmount
     private lateinit var credentialName: TextView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
 
     override fun initFragment(view: View) {
 
@@ -54,6 +56,14 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
             (activity as ActivityMain).openLevel2Fragment(f)
         }
 
+
+        mSwipeRefreshLayout = mRootView.findViewById(R.id.swiperefresh)
+
+        mSwipeRefreshLayout.setProgressViewOffset(true, -60, 40)
+        mSwipeRefreshLayout.setOnRefreshListener {
+            WalletManager.model.refreshOneWallet(credential.walletId)
+        }
+
     }
 
     override fun updateUI() {
@@ -66,6 +76,8 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
         val a = TxAdapter(credential.txDetails.toTypedArray())
 
         recyclerView.adapter = a
+
+        mSwipeRefreshLayout.isRefreshing = WalletManager.model.isRefreshing()
 
     }
 

@@ -22,6 +22,7 @@ class ClearableEditText constructor(context: Context,
 
     private var l: OnTouchListener? = null
     private var f: OnFocusChangeListener? = null
+    var bindingErr: View? = null
 
     private val displayedDrawable: Drawable?
         get() = if (loc != null) compoundDrawables[loc.idx] else null
@@ -60,6 +61,11 @@ class ClearableEditText constructor(context: Context,
     }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
+
+        if (hasFocus()) {
+            bindingErr?.visibility = View.INVISIBLE
+        }
+
         if (displayedDrawable != null) {
             val x = event.x.toInt()
             val y = event.y.toInt()
@@ -110,6 +116,10 @@ class ClearableEditText constructor(context: Context,
     private fun onTextChanged() {
         if (isFocused) {
             setClearIconVisible(text.isNotEmpty())
+        }
+
+        if (text.isEmpty()) {
+            bindingErr?.visibility = View.INVISIBLE
         }
     }
 

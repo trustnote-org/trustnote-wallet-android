@@ -34,9 +34,10 @@ class ActivityMain : ActivityBase() {
 
         setContentView(R.layout.activity_main)
 
-        bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
 
         disableShiftMode(bottomNavigationView)
+        bottomNavigationView.setItemIconTintList(null);
 
     }
 

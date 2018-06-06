@@ -41,6 +41,14 @@ class SettingItem(
 
                     SettingItem(itemType = SettingItemType.ITEM_LINE),
 
+                    SettingItem(titleResId = R.string.me_wallet_manager,
+                            icResId = R.drawable.ic_me_wallet_manager,
+                            lambda = {
+                                activity.openLevel2Fragment(FragmentMeWalletManager())
+                            }),
+
+                    SettingItem(itemType = SettingItemType.ITEM_LINE),
+
                     SettingItem(titleResId = R.string.setting_system,
                             lambda = {
                                 openSubSetting(activity, getSettingSystem(activity), R.string.setting_system)
@@ -75,7 +83,6 @@ class SettingItem(
                     }
             )
         }
-
 
         fun getSettingSystem(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(

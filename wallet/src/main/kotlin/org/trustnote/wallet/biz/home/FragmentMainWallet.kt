@@ -61,14 +61,10 @@ class FragmentMainWallet : FragmentWalletBase() {
         mSwipeRefreshLayout = mRootView.findViewById(R.id.swiperefresh)
 
         mSwipeRefreshLayout.setProgressViewOffset(true, -60, 40)
-        //mSwipeRefreshLayout.setColorSchemeColors(Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY)
 
-        mSwipeRefreshLayout.setOnRefreshListener(
-                SwipeRefreshLayout.OnRefreshListener {
-                    WalletManager.model.refreshExistWallet()
-                }
-        )
-
+        mSwipeRefreshLayout.setOnRefreshListener {
+            WalletManager.model.refreshExistWallet()
+        }
 
         mAppBarLayout = mRootView.findViewById(R.id.main_appbar)
         mAppBarLayout.addOnOffsetChangedListener({ _, verticalOffset ->

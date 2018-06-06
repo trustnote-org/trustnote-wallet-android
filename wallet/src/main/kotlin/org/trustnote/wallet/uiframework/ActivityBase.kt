@@ -90,8 +90,8 @@ abstract class ActivityBase : AppCompatActivity() {
     }
 
     fun closeKeyboard(): Boolean {
-        if (mKeyboardView.visibility == View.VISIBLE) {
-            mKeyboardView.visibility = View.GONE
+        if (mKeyboardViewWrapper.visibility == View.VISIBLE) {
+            mKeyboardViewWrapper.visibility = View.INVISIBLE
             return true
         }
         return false

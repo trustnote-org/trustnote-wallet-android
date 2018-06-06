@@ -5,20 +5,20 @@ import org.trustnote.db.DbHelper
 import org.trustnote.db.FundedAddress
 import org.trustnote.db.Payload
 import org.trustnote.db.entity.*
-import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
-import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.js.JSApi
-import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.biz.wallet.PaymentInfo
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.biz.wallet.WitnessManager
-import org.trustnote.wallet.network.pojo.*
+import org.trustnote.wallet.network.HubManager
+import org.trustnote.wallet.network.pojo.MSG_TYPE
+import org.trustnote.wallet.network.pojo.ReqGetParents
+import org.trustnote.wallet.network.pojo.ReqPostJoint
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Utils
 
-class UnitComposer(
-        val sendPaymentInfo: PaymentInfo
-) {
+class UnitComposer(val sendPaymentInfo: PaymentInfo) {
     private val units = Units()
     private val messages = Messages()
     private val payload = Payload()

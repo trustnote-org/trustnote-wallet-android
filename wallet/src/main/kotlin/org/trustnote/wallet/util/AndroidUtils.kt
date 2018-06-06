@@ -27,6 +27,7 @@ import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.webkit.WebView
+import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.google.zxing.BarcodeFormat
@@ -35,6 +36,7 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.FragmentDialogBase
+import org.trustnote.wallet.widget.ClearableEditText
 import org.trustnote.wallet.widget.RecyclerItemClickListener
 import java.io.File
 import java.text.SimpleDateFormat
@@ -51,6 +53,7 @@ object AndroidUtils {
 
         val uiOptions = activity.window.decorView.systemUiVisibility
         var newUiOptions = uiOptions
+
         val isImmersiveModeEnabled = ((uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) === uiOptions)
         if (isImmersiveModeEnabled) {
             Utils.debugLog("Turning immersive mode mode off. ")
@@ -394,5 +397,9 @@ object AndroidUtils {
         view.setAnimation(animation)
         animation.start()
 
+    }
+
+    fun hideErrIfHasFocus(editText: ClearableEditText, errView: View) {
+        editText.bindingErr = errView
     }
 }

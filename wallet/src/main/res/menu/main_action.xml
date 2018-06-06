@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/quick_action"
-        android:icon="@drawable/quick_action"
+        android:icon="@drawable/ic_quick_action_padding"
         android:title="@string/place_holder"
         app:showAsAction="always">
         <menu>

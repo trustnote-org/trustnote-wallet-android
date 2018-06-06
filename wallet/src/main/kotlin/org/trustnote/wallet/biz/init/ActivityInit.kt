@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
-import android.view.View
 import android.view.WindowManager
 import org.trustnote.wallet.*
 import org.trustnote.wallet.biz.startMainActivityWithMenuId
@@ -37,7 +36,7 @@ class ActivityInit : ActivityBase() {
             window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         }
 
-        setContentView(R.layout.activity_create_wallet)
+        setContentView(R.layout.activity_init)
 
         setupViewPager()
 

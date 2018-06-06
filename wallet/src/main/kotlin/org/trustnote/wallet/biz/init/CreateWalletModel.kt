@@ -80,7 +80,7 @@ object CreateWalletModel {
     }
 
     fun isFinisheCreateOrRestore():Boolean {
-        return Prefs.readIsFinisheCreateOrRestore()
+        return Prefs.profileExist()
     }
 
     fun iamDone(mnemonic: String, isRemove: Boolean, privKey: String) {

@@ -41,9 +41,6 @@ class WalletModel() {
         mProfile.mnemonic = mnemonic
         mProfile.removeMnemonic = shouldRemoveMnemonic
 
-        mProfile.xPrivKey = privKey
-        mProfile.dbTag = privKey.takeLast(5)
-
         startRefreshThread()
 
         fullRefreshing(password)
@@ -120,6 +117,7 @@ class WalletModel() {
             mProfile.deviceAddress = JSApi().deviceAddressSync(privKey)
             mProfile.pubKeyForPairId = JSApi().ecdsaPubkeySync(privKey, "m/1'")
             mProfile.xPrivKey = AesCbc.encode(privKey, password)
+            walletUpdated()
         }
     }
 
@@ -159,7 +157,7 @@ class WalletModel() {
 
         readDataFromDb(credential)
         //notify for better UI experience.
-        profileUpdated()
+        walletUpdated()
 
         val hubResponse = getUnitsFromHub(credential)
         val res = UnitsManager().saveUnitsFromHubResponse(hubResponse)
@@ -170,7 +168,7 @@ class WalletModel() {
 
         }
 
-        profileUpdated()
+        walletUpdated()
 
     }
 
@@ -188,7 +186,7 @@ class WalletModel() {
         return mProfile.credentials.last { !it.isObserveOnly }
     }
 
-    private fun profileUpdated() {
+    private fun walletUpdated() {
 
         if (mProfile.removeMnemonic) {
             mProfile.mnemonic = ""
@@ -201,7 +199,7 @@ class WalletModel() {
     fun removeMnemonicFromProfile() {
         mProfile.removeMnemonic = true
         mProfile.mnemonic = ""
-        profileUpdated()
+        walletUpdated()
     }
 
     private fun updateBalance(credential: Credential) {
@@ -340,7 +338,7 @@ class WalletModel() {
 
         refreshOneWallet(newCredential)
 
-        profileUpdated()
+        walletUpdated()
     }
 
     @Synchronized
@@ -354,7 +352,7 @@ class WalletModel() {
         mProfile.credentials.add(newCredential)
 
         refreshOneWallet(newCredential)
-        profileUpdated()
+        walletUpdated()
     }
 
     fun findNextUnusedChangeAddress(walletId: String): MyAddresses {
@@ -406,7 +404,7 @@ class WalletModel() {
         }
 
         credential.isRemoved = true
-        profileUpdated()
+        walletUpdated()
         return true
 
         //TODO: remove observer wallet from DB in background.
@@ -415,7 +413,7 @@ class WalletModel() {
 
     fun udpateCredentialName(credential: Credential, newName: String) {
         credential.walletName = newName
-        profileUpdated()
+        walletUpdated()
     }
 
     fun isMnemonicExist(): Boolean {

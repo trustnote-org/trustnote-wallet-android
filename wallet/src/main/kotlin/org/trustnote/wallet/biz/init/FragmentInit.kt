@@ -5,15 +5,16 @@ import android.view.ViewGroup
 import android.webkit.ValueCallback
 import android.webkit.WebView
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.ClearableEditText
 import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
 import org.trustnote.wallet.widget.MyTextWatcher
@@ -35,6 +36,11 @@ abstract class FragmentInit : FragmentBase() {
         }
 
         super.initFragment(view)
+
+        val padding = TApp.resources.getDimensionPixelSize(R.dimen.padding_main)
+
+        mRootView.setPadding(padding, 0, padding, 0)
+
 
     }
 
@@ -92,7 +98,7 @@ class CWFragmentDeviceName : FragmentInit() {
 
     lateinit var err: TextView
     lateinit var btnConfirm: Button
-    lateinit var editDeviceName: EditText
+    lateinit var editDeviceName: ClearableEditText
 
     override fun initFragment(view: View) {
         super.initFragment(view)
@@ -106,6 +112,8 @@ class CWFragmentDeviceName : FragmentInit() {
         editDeviceName.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) err.visibility = View.INVISIBLE }
 
         editDeviceName.setText(CreateWalletModel.readDeviceName())
+
+        AndroidUtils.hideErrIfHasFocus(editDeviceName, err)
 
         btnConfirm.setOnClickListener {
 
@@ -309,15 +317,11 @@ open class CWFragmentRestore : FragmentInit() {
             AndroidUtils.enableBtn(btnRestore, it)
             AndroidUtils.enableBtn(btnRestoreRemove, it)
 
-            //            if (it) {
-            //                getMyActivity().closeKeyboard()
-            //            }
-
         }
 
-        if (Utils.isUseDebugOption()) {
-            mnemonicsGrid.setMnemonic(TestData.mnemonic0, true)
-        }
+//        if (Utils.isUseDebugOption()) {
+//            mnemonicsGrid.setMnemonic(TestData.mnemonic0, true)
+//        }
 
         showMnemonicKeyboardIfRequired()
 
