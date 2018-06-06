@@ -10,7 +10,7 @@ import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.widget.InputPwdDialogFragment
+import org.trustnote.wallet.widget.FragmentDialogInputPwd
 
 class SettingItem(
         var itemType: SettingItemType = SettingItemType.ITEM_SETTING,
@@ -137,7 +137,7 @@ class SettingItem(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.me_wallet_detail_label_cold_code, lambda = {
 
-                        InputPwdDialogFragment.showMe(activity, {
+                        FragmentDialogInputPwd.showMe(activity, {
 
                             TApp.userAlreadyInputPwd = true
                             val bundle = Bundle()

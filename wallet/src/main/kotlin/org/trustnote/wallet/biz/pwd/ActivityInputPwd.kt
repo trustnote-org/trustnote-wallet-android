@@ -12,7 +12,7 @@ import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 
 
-class InputPwdActivityBase : ActivityBase() {
+class ActivityInputPwd : ActivityBase() {
 
     override fun injectDependencies(graph: TApplicationComponent) {
     }
@@ -42,6 +42,7 @@ class InputPwdActivityBase : ActivityBase() {
     }
 
     private fun switchToPage(position: Int) {
+
     }
 
     fun adjustUIBySetting() {

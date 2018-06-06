@@ -4,7 +4,7 @@ import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CWFragmentRestore
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.widget.InputPwdDialogFragment
+import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MyDialogFragment
 
 class FragmentMeWalletRestore : CWFragmentRestore() {
@@ -18,7 +18,7 @@ class FragmentMeWalletRestore : CWFragmentRestore() {
     }
 
     override fun startRestore(privKey: String, isRemove: Boolean, mnemonics: String) {
-        InputPwdDialogFragment.showMe(activity) {
+        FragmentDialogInputPwd.showMe(activity) {
             WalletManager.initWithMnemonic(it, mnemonics, isRemove, privKey)
             onBackPressed()
         }

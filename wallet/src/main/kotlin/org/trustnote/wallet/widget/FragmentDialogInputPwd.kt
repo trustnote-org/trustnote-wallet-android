@@ -18,7 +18,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CreateWalletModel
 
 
-class InputPwdDialogFragment() : DialogFragment() {
+class FragmentDialogInputPwd() : DialogFragment() {
 
     var msg: String = "TTT Welcome"
     var cancelLogic: () -> Unit = {}
@@ -87,7 +87,7 @@ class InputPwdDialogFragment() : DialogFragment() {
 
         fun showMe(activity: FragmentActivity, confirmLogic: (String) -> Unit) {
 
-            val newFragment = InputPwdDialogFragment(confirmLogic)
+            val newFragment = FragmentDialogInputPwd(confirmLogic)
             newFragment.show(getFragmentTransaction(activity), null)
         }
 

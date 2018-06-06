@@ -3,6 +3,7 @@ package org.trustnote.wallet.widget.keyboard
 import android.app.Activity
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener
 import android.view.KeyEvent
+import org.trustnote.wallet.uiframework.ActivityBase
 
 class BasicOnKeyboardActionListener(private val mTargetActivity: Activity) : OnKeyboardActionListener {
 
@@ -46,7 +47,9 @@ class BasicOnKeyboardActionListener(private val mTargetActivity: Activity) : OnK
         var newPrimaryCode = if (primaryCode > 0) primaryCode - 68 else primaryCode
 
         if (primaryCode == -3) {
-            newPrimaryCode = KeyEvent.KEYCODE_NAVIGATE_NEXT
+            newPrimaryCode = KeyEvent.KEYCODE_ENTER
+            (mTargetActivity as ActivityBase).hideKeyboardWithAnimation()
+            return
         }
 
         if (primaryCode == -5) {

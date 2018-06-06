@@ -33,8 +33,8 @@
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-3" android:keyIcon="@drawable/sym_keyboard_done"
-            android:keyWidth="15%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-3" android:keyIcon="@drawable/keyboard_resign"
+            android:keyWidth="13%p" android:keyEdgeFlags="left"/>
         <Key android:codes="122" android:keyLabel="z"/>
         <Key android:codes="120" android:keyLabel="x"/>
         <Key android:codes="99" android:keyLabel="c"/>
@@ -42,8 +42,8 @@
         <Key android:codes="98" android:keyLabel="b"/>
         <Key android:codes="110" android:keyLabel="n"/>
         <Key android:codes="109" android:keyLabel="m"/>
-        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete"
-                android:keyWidth="15%p" android:keyEdgeFlags="right"
+        <Key android:codes="-5" android:keyIcon="@drawable/keyboard_delete"
+                android:keyWidth="13%p" android:keyEdgeFlags="right"
                 android:isRepeatable="true"/>
     </Row>
 

@@ -12,7 +12,7 @@ import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.FragmentEditBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
-import org.trustnote.wallet.widget.InputPwdDialogFragment
+import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MyDialogFragment
 import org.trustnote.wallet.widget.TMnAmount
 
@@ -55,7 +55,7 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
             return
         }
 
-        InputPwdDialogFragment.showMe(activity, {
+        FragmentDialogInputPwd.showMe(activity, {
             val f = FragmentDialogMeRemoveWallet {
                 val removeResult = WalletManager.model.removeWallet(credential)
                 if (removeResult) {

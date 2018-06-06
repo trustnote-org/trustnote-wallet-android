@@ -25,6 +25,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.webkit.WebView
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -347,5 +348,51 @@ object AndroidUtils {
         } else {
             err.visibility = View.VISIBLE
         }
+    }
+
+
+    fun showWithAnimation(view: View, animation: Animation) {
+        animation.setAnimationListener(object : Animation.AnimationListener {
+
+            override fun onAnimationStart(animation: Animation) {
+                // TODO Auto-generated method stub
+
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {
+                // TODO Auto-generated method stub
+
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                view.visibility = View.VISIBLE
+            }
+        })
+
+        view.setAnimation(animation)
+        animation.start()
+    }
+
+    fun hidewWithAnimation(view: View, animation: Animation) {
+        animation.setAnimationListener(object : Animation.AnimationListener {
+
+            override fun onAnimationStart(animation: Animation) {
+                // TODO Auto-generated method stub
+
+            }
+
+            override fun onAnimationRepeat(animation: Animation) {
+                // TODO Auto-generated method stub
+
+            }
+
+            override fun onAnimationEnd(animation: Animation) {
+                view.visibility = View.INVISIBLE
+            }
+        })
+
+        view.setAnimation(animation)
+        animation.start()
+
     }
 }

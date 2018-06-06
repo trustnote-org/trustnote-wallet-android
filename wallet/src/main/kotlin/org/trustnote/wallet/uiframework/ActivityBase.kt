@@ -14,11 +14,13 @@ import org.trustnote.wallet.widget.keyboard.CustomKeyboardView
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.view.animation.AnimationUtils
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
 
 abstract class ActivityBase : AppCompatActivity() {
 
+    private lateinit var mKeyboardViewWrapper: View
     private lateinit var mKeyboardView: CustomKeyboardView
     private lateinit var mKeyboard: Keyboard
 
@@ -79,6 +81,7 @@ abstract class ActivityBase : AppCompatActivity() {
             return
         }
 
+        mKeyboardViewWrapper = findViewById(R.id.keyboard_view_wrapper)
         mKeyboardView = findViewById(R.id.keyboard_view)
         mKeyboard = Keyboard(this, R.xml.mnemonic)
         mKeyboardView.keyboard = mKeyboard
@@ -95,16 +98,24 @@ abstract class ActivityBase : AppCompatActivity() {
     }
 
     fun showKeyboardWithAnimation() {
-        if (mKeyboardView.visibility != View.VISIBLE) {
+        if (mKeyboardViewWrapper.visibility != View.VISIBLE) {
             //            val animation = AnimationUtils.loadAnimation(this, R.anim.slide_in_bottom)
-            //            mKeyboardView.showWithAnimation(animation)
-            mKeyboardView.visibility = View.VISIBLE
+            //            AndroidUtils.showWithAnimation(mKeyboardViewWrapper, animation)
+            mKeyboardViewWrapper.visibility = View.VISIBLE
         }
+    }
+
+    fun hideKeyboardWithAnimation() {
+        mKeyboardViewWrapper.visibility = View.INVISIBLE
+        //        if (mKeyboardViewWrapper.visibility != View.GONE) {
+        //            val animation = AnimationUtils.loadAnimation(this, R.anim.slide_out_bottom)
+        //            AndroidUtils.hidewWithAnimation(mKeyboardViewWrapper, animation)
+        //        }
     }
 
     fun iamDone() {
         finish()
-        AndroidUtils.startActivity(ActivityBaseStarter::class.java)
+        AndroidUtils.startActivity(ActivityStarterChooser::class.java)
     }
 
     @SuppressLint("RestrictedApi")

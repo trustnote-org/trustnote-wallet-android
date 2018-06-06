@@ -17,7 +17,7 @@ import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.widget.InputPwdDialogFragment
+import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.TMnAmount
 
@@ -84,7 +84,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     private fun askUserInputPwdForTransfer(unitComposer: UnitComposer) {
 
-        InputPwdDialogFragment.showMe(activity, {
+        FragmentDialogInputPwd.showMe(activity, {
             sendTxOrShowHahsToSign(unitComposer)
         })
 

@@ -10,9 +10,9 @@
         android:layout_height="match_parent"
         android:background="@color/bg_white"
         android:orientation="vertical"
-        android:paddingTop="?attr/actionBarSize"
         android:paddingLeft="@dimen/page_margin_left"
-        android:paddingRight="@dimen/page_margin_left">
+        android:paddingRight="@dimen/page_margin_left"
+        android:paddingTop="?attr/actionBarSize">
 
         <org.trustnote.wallet.widget.NonSwipeableViewPager
             android:id="@+id/view_pager"
@@ -21,19 +21,30 @@
 
     </LinearLayout>
 
-    <org.trustnote.wallet.widget.keyboard.CustomKeyboardView
-
-        android:id="@+id/keyboard_view"
-        android:layout_width="fill_parent"
+    <FrameLayout
+        android:id="@+id/keyboard_view_wrapper"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-
-        android:padding="@dimen/keyboard_padding"
-        android:paddingTop="@dimen/line_gap_6"
+        android:visibility="gone"
         android:background="@color/keyboard_bg"
-        android:keyBackground="@drawable/key_background"
-        android:keyTextColor="@color/keyboard_font_color"
-        android:keyTextSize="@dimen/keyboard_textsize"
-        android:visibility="gone" />
+        android:paddingBottom="@dimen/keyboard_padding"
+        android:paddingLeft="@dimen/keyboard_padding"
+        android:paddingRight="@dimen/keyboard_padding"
+        android:paddingTop="@dimen/line_gap_16">
+
+        <org.trustnote.wallet.widget.keyboard.CustomKeyboardView
+
+            android:id="@+id/keyboard_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+
+            android:background="@color/keyboard_bg"
+            android:keyBackground="@drawable/key_background"
+            android:keyTextColor="@color/keyboard_font_color"
+            android:keyTextSize="@dimen/keyboard_textsize" />
+
+    </FrameLayout>
 
 </FrameLayout>
