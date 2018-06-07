@@ -51,9 +51,18 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
     }
 
-    fun startSendTx(activity: ActivityMain) {
+
+
+    fun startSendTx(activity: ActivityMain, password: String = "") {
 
         MyThreadManager.instance.runInBack {
+
+            val credential = WalletManager.model.findWallet(sendPaymentInfo.walletId)
+            if (password.isNotEmpty() && !credential.isObserveOnly) {
+                signWithEveryAuthors(password)
+            } else {
+
+            }
 
             units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
 
@@ -159,13 +168,6 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
         hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
 
-        val credential = WalletManager.model.findWallet(sendPaymentInfo.walletId)
-        if (!credential.isObserveOnly) {
-            signWithEveryAuthors()
-        } else {
-
-        }
-
         Utils.debugLog(Utils.toGsonString(units))
     }
 
@@ -180,7 +182,6 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         return res
     }
 
-
     private fun genChange() {
         var totalInput = 0L
         payload.inputs.forEach { totalInput += it.amount }
@@ -192,10 +193,10 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
     }
 
-    private fun signWithEveryAuthors() {
+    private fun signWithEveryAuthors(password: String) {
         authors.forEach {
             val myAddresses = DbHelper.queryAddressByAddresdId(it.address)
-            val sign = jsApi.signSync(hashToSign, WalletManager.getProfile().xPrivKey, Utils.genBip44Path(myAddresses))
+            val sign = jsApi.signSync(hashToSign, WalletManager.model.getPrivKey(password), Utils.genBip44Path(myAddresses))
             it.authentifiers.remove("r")
             it.authentifiers.addProperty("r", sign)
         }

@@ -85,7 +85,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
     private fun askUserInputPwdForTransfer(unitComposer: UnitComposer) {
 
         FragmentDialogInputPwd.showMe(activity, {
-            sendTxOrShowHahsToSign(unitComposer)
+            sendTxOrShowHahsToSign(unitComposer, it)
         })
 
         MyThreadManager.instance.runInBack {
@@ -94,14 +94,12 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     }
 
-    private fun sendTxOrShowHahsToSign(unitComposer: UnitComposer) {
-
+    private fun sendTxOrShowHahsToSign(unitComposer: UnitComposer, password: String = "") {
         val unSignedAuthor = unitComposer.getOneUnSignedAuthentifier()
-        if (unSignedAuthor != null) {
+        if (unSignedAuthor != null && credential.isObserveOnly) {
             tryToGetOneAuthorSign(unSignedAuthor, unitComposer)
         } else {
-            TApp.userAlreadyInputPwd = true
-            unitComposer.startSendTx(activity as ActivityMain)
+            unitComposer.startSendTx(activity as ActivityMain, password)
             activity.onBackPressed()
         }
     }

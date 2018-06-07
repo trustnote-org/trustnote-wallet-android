@@ -4,32 +4,7 @@
     "unit": {
       "version": "1.0",
       "alt": "1",
-      "messages": [
-        {
-          "app": "payment",
-          "payload_location": "inline",
-          "payload_hash": "1z7NQS9r5KjdtnxRS/DTSgU3bwXAFc6BJP/QDYws5Do=",
-          "payload": {
-            "outputs": [
-              {
-                "address": "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4",
-                "amount": 17000000
-              },
-              {
-                "address": "FJDDWP4AJ6I44HSKHPXXIX6RSQMH674G",
-                "amount": 21337648
-              }
-            ],
-            "inputs": [
-              {
-                "unit": "yJWsxthUK3D9AIx+hFqZEdlk0O7y+zkL+hBuSssJA60=",
-                "message_index": 0,
-                "output_index": 1
-              }
-            ]
-          }
-        }
-      ],
+
       "authors": [
         {
           "address": "TTE5JNCIVLRUPGBHFC6TDZXAW5GO6U72",
@@ -82,32 +57,7 @@
       "headers_commission": 391,
       "last_ball": "9WCk9LZTY+Y63OFPy8OrpfB4/gmZ7f7Eo3347cndcvg=",
       "last_ball_unit": "/LpqYkjGnaaKgLcgWC+cZ3FeQWEb2VQ+9DOirhXL8uc=",
-      "messages": [
-        {
-          "app": "payment",
-          "payload": {
-            "inputs": [
-              {
-                "message_index": 0,
-                "output_index": 1,
-                "unit": "YXYq7dHSw5UmAfVzaKaIEJzIx37qPnc+6IzfHzornRc="
-              }
-            ],
-            "outputs": [
-              {
-                "address": "6TYINUNQYEQFSIFAJN3RVA3LEMPKF6MA",
-                "amount": 3475368
-              },
-              {
-                "address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
-                "amount": 105000
-              }
-            ]
-          },
-          "payload_hash": "ejbSUUQqvNGnEZJqrGQBDU/Y3FsMzKZY1YxrJb/1CBw=",
-          "payload_location": "inline"
-        }
-      ],
+
       "parent_units": [
         "J9oXF9sdBxImL9GX3dXU6WYthD6jNNt4VF/oICcJrYY="
       ],

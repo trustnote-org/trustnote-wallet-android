@@ -9,6 +9,7 @@ import org.trustnote.wallet.debug.SettingsDataFactory.makeSettings
 class FragmentMeDebug : FragmentBase() {
 
     override fun getLayoutId(): Int {
+        return R.layout.f_me_debug
     }
 
     private var adapter: SettingsAdapter? = null
