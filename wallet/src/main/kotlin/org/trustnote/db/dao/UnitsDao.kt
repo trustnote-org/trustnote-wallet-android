@@ -141,7 +141,7 @@ abstract class UnitsDao {
         AND is_change = 1
         LIMIT 1
         """)
-    abstract fun queryUnusedChangeAddress(walletId: String): Single<MyAddresses>
+    abstract fun queryUnusedChangeAddress(walletId: String): Array<MyAddresses>
 
     @Query("""
         SELECT outputs.address, SUM(amount) AS amount, (my_addresses.address IS NULL) AS is_external

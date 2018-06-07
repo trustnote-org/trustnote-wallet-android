@@ -1,14 +1,13 @@
 package org.trustnote.wallet.biz.wallet
 
-import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.init.CreateWalletModel
+import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.biz.units.UnitsManager
-import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.ReqGetHistory
@@ -356,14 +355,14 @@ class WalletModel() {
     }
 
     fun findNextUnusedChangeAddress(walletId: String): MyAddresses {
-        var res = MyAddresses()
-        DbHelper.queryUnusedChangeAddress(walletId).subscribe(
-                Consumer {
-                    res = it
-                }, Consumer {
-
-        })
-        return res
+        val res = DbHelper.queryUnusedChangeAddress(walletId)
+        return if (res.isEmpty()) {
+            val newChangeAddresses = ModelHelper.generateNewAddresses(findWallet(walletId), TTT.addressChangeType)
+            DbHelper.saveWalletMyAddress(newChangeAddresses)
+            newChangeAddresses[0]
+        } else {
+            res[0]
+        }
     }
 
     fun findWallet(walletId: String): Credential {

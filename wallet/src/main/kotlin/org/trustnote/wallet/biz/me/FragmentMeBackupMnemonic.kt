@@ -8,6 +8,7 @@ import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
 
@@ -40,7 +41,9 @@ class FragmentMeBackupMnemonic : FragmentWalletBase() {
         }
 
         showLayout.setOnClickListener {
-            hideMnemonic(false)
+            FragmentDialogInputPwd.showMe(activity) {
+                hideMnemonic(false)
+            }
         }
 
         removeBtn.setOnClickListener {
@@ -57,7 +60,8 @@ class FragmentMeBackupMnemonic : FragmentWalletBase() {
         val webView: WebView = view.findViewById(R.id.backup_warning)
         AndroidUtils.setupWarningWebView(webView, "MNEMONIC_BACKUP")
 
-        hideMnemonic(false)
+
+        hideMnemonic(true)
 
     }
 

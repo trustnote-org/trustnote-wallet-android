@@ -67,7 +67,7 @@ object DbHelper {
         return getDao().queryUtxoByAddress(addressList, lastBallMCI)
     }
 
-    fun queryUnusedChangeAddress(walletid: String): Single<MyAddresses> {
+    fun queryUnusedChangeAddress(walletid: String): Array<MyAddresses> {
         return getDao().queryUnusedChangeAddress(walletid)
     }
 

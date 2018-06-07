@@ -8,7 +8,7 @@ import org.trustnote.wallet.util.Utils
 
 object ModelHelper {
 
-    private fun generateNewAddresses(credential: Credential, isChange: Int): List<MyAddresses> {
+    fun generateNewAddresses(credential: Credential, isChange: Int): List<MyAddresses> {
         val api = JSApi()
         val currentMaxAddress = DbHelper.getMaxAddressIndex(credential.walletId, isChange)
         val newAddressSize = if (currentMaxAddress == 0) TTT.walletAddressInitSize else TTT.walletAddressIncSteps
