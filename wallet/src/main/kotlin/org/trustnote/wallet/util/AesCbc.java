@@ -20,11 +20,11 @@ public class AesCbc {
     }
 
     public static String encode(String plainText, String key) throws Exception {
-        return new String(Base64.encode(encrypt(plainText, key), Base64.DEFAULT));
+        return new String(Base64.encode(encrypt(plainText, key), Base64.NO_WRAP | Base64.URL_SAFE));
     }
 
     public static String decode(String encryptText, String key) throws Exception {
-        return decrypt(Base64.decode(encryptText, Base64.DEFAULT), key);
+        return decrypt(Base64.decode(encryptText, Base64.NO_WRAP | Base64.URL_SAFE), key);
     }
 
     private static byte[] encrypt(String plainText, String key) throws Exception {

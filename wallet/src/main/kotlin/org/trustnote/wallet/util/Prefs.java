@@ -17,6 +17,90 @@ import java.util.Set;
 
 public class Prefs {
 
+    //TTT related logic ----------------------------------------------------------
+
+    //Below are Biz related logic
+    private static final String KEY_PROFILE = "TTTProfile";
+    private static final File FILE_PROFILE = new File(TApp.context.getFilesDir(), "TTTProfile.json");
+    private static final String KEY_TMP_MNEMONIC = "tmp_mnemonic";
+    private static final String KEY_HASH_PWD = "PWD_HASH";
+    private static final String KEY_USER_AGREE = "USER_AGREE";
+    private static final String KEY_DEVICE_NAME = "DEVICE_NAME";
+    private static final String KEY_FINISH_CREATE_OR_RESTORE = "FINISH_CREATE_OR_RESTORE";
+    private static final String KEY_ENABLE_PWD_FOR_STARTUP = "KEY_ENABLE_PWD_FOR_STARTUP";
+    //private static final String KEY_MY_PAIRD_ID = "KEY_MY_PAIRD_ID";
+
+    public static boolean profileExist() {
+        return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
+    }
+
+    public static void writeProfile(TProfile p) {
+        //getInstance().writeObject(KEY_PROFILE, p);
+        Utils.INSTANCE.write2File(FILE_PROFILE, p);
+        getInstance().remove(KEY_TMP_MNEMONIC);
+    }
+
+    public static TProfile readProfile() {
+        //Object res = getInstance().readObject(KEY_PROFILE, TProfile.class);
+        return Utils.INSTANCE.readFileAsTProfile(FILE_PROFILE);
+    }
+
+    public static void writePwdHash(String pwd) {
+        getInstance().write(KEY_HASH_PWD, Utils.INSTANCE.hash(pwd));
+    }
+
+    @NotNull
+    public static String readPwdHash() {
+        return getInstance().read(KEY_HASH_PWD);
+    }
+
+    public static Boolean pwdExist() {
+        return getInstance().isExist(KEY_HASH_PWD);
+    }
+
+    public static void saveUserAgree() {
+        getInstance().writeBoolean(KEY_USER_AGREE, true);
+    }
+
+    public static Boolean isUserAgree() {
+        return getInstance().readBoolean(KEY_USER_AGREE, false);
+    }
+
+
+    public static void writeDeviceName(@NotNull String deviceName) {
+        getInstance().write(KEY_DEVICE_NAME, deviceName);
+    }
+
+    public static String readDeviceName() {
+        return getInstance().read(KEY_DEVICE_NAME);
+    }
+
+    public static void writeFinisheCreateOrRestore() {
+        getInstance().writeBoolean(KEY_FINISH_CREATE_OR_RESTORE, true);
+    }
+
+    public static Boolean readIsFinisheCreateOrRestore() {
+        return getInstance().readBoolean(KEY_FINISH_CREATE_OR_RESTORE);
+    }
+
+    public static void writeEnablepwdForStartup(boolean enabled) {
+        getInstance().writeBoolean(KEY_ENABLE_PWD_FOR_STARTUP, enabled);
+    }
+
+    public static Boolean readEnablepwdForStartup() {
+        return getInstance().readBoolean(KEY_ENABLE_PWD_FOR_STARTUP, true);
+    }
+
+    //    public static void writeMyPairId(String myPairId) {
+    //        getInstance().write(KEY_MY_PAIRD_ID, myPairId);
+    //    }
+    //
+    //    public static String readMyPairId() {
+    //        return getInstance().read(KEY_MY_PAIRD_ID);
+    //    }
+
+
+    //------------------------------------------------------------------
     private static final String LENGTH = "_length";
     private static final String DEFAULT_STRING_VALUE = "";
     private static final int DEFAULT_INT_VALUE = -1;
@@ -392,94 +476,6 @@ public class Prefs {
         return json != null && !json.isEmpty();
     }
 
-
-    //Below are Biz related logic
-    private static final String KEY_PROFILE = "TTTProfile";
-    private static final File FILE_PROFILE = new File(TApp.getContext().getFilesDir(), "TTTProfile.json");
-    private static final String KEY_TMP_MNEMONIC = "tmp_mnemonic";
-    private static final String KEY_HASH_PWD = "PWD_HASH";
-    private static final String KEY_USER_AGREE = "USER_AGREE";
-    private static final String KEY_DEVICE_NAME = "DEVICE_NAME";
-    private static final String KEY_FINISH_CREATE_OR_RESTORE = "FINISH_CREATE_OR_RESTORE";
-    private static final String KEY_ENABLE_PWD_FOR_STARTUP = "KEY_ENABLE_PWD_FOR_STARTUP";
-    //private static final String KEY_MY_PAIRD_ID = "KEY_MY_PAIRD_ID";
-
-    public static boolean profileExist() {
-        return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
-    }
-
-    public static void writeProfile(TProfile p) {
-        //getInstance().writeObject(KEY_PROFILE, p);
-        Utils.INSTANCE.write2File(FILE_PROFILE, p);
-        getInstance().remove(KEY_TMP_MNEMONIC);
-    }
-
-    public static TProfile readProfile() {
-        //Object res = getInstance().readObject(KEY_PROFILE, TProfile.class);
-        return Utils.INSTANCE.readFileAsTProfile(FILE_PROFILE);
-    }
-
-//    public static void writeTmpMnemonic(String s) {
-//        getInstance().write(KEY_TMP_MNEMONIC, s);
-//    }
-//
-//    public static String getTmpMnemonic() {
-//        return getInstance().read(KEY_TMP_MNEMONIC);
-//    }
-
-    public static void writePwdHash(String pwd) {
-        getInstance().write(KEY_HASH_PWD, Utils.INSTANCE.hash(pwd));
-    }
-
-    @NotNull
-    public static String readPwdHash() {
-        return getInstance().read(KEY_HASH_PWD);
-    }
-
-    public static Boolean pwdExist() {
-        return getInstance().isExist(KEY_HASH_PWD);
-    }
-
-    public static void saveUserAgree() {
-        getInstance().writeBoolean(KEY_USER_AGREE, true);
-    }
-
-    public static Boolean isUserAgree() {
-        return getInstance().readBoolean(KEY_USER_AGREE, false);
-    }
-
-
-    public static void writeDeviceName(@NotNull String deviceName) {
-        getInstance().write(KEY_DEVICE_NAME, deviceName);
-    }
-
-    public static String readDeviceName() {
-        return getInstance().read(KEY_DEVICE_NAME);
-    }
-
-    public static void writeFinisheCreateOrRestore() {
-        getInstance().writeBoolean(KEY_FINISH_CREATE_OR_RESTORE, true);
-    }
-
-    public static Boolean readIsFinisheCreateOrRestore() {
-        return getInstance().readBoolean(KEY_FINISH_CREATE_OR_RESTORE);
-    }
-
-    public static void writeEnablepwdForStartup(boolean enabled) {
-        getInstance().writeBoolean(KEY_ENABLE_PWD_FOR_STARTUP, enabled);
-    }
-
-    public static Boolean readEnablepwdForStartup() {
-        return getInstance().readBoolean(KEY_ENABLE_PWD_FOR_STARTUP, true);
-    }
-
-    //    public static void writeMyPairId(String myPairId) {
-    //        getInstance().write(KEY_MY_PAIRD_ID, myPairId);
-    //    }
-    //
-    //    public static String readMyPairId() {
-    //        return getInstance().read(KEY_MY_PAIRD_ID);
-    //    }
 
 
 }

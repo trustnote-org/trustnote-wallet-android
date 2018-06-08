@@ -63,8 +63,10 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
         amountText.addTextChangedListener(MyTextWatcher(this))
 
-        setTransferAddress("GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX")
-        setTransferAmount(105000)
+        if (Utils.isUseDebugOption()) {
+            setTransferAddress("GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX")
+            setTransferAmount(105000)
+        }
 
     }
 
@@ -78,7 +80,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         if (unitComposer.isOkToSendTx()) {
             askUserInputPwdForTransfer(unitComposer)
         } else {
-            Utils.toastMsg("发送失败")
+            unitComposer.showFail()
         }
     }
 

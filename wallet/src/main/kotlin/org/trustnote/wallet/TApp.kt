@@ -20,14 +20,13 @@ class TApp : Application() {
     lateinit var debugTree: Lazy<Timber.DebugTree>
 
     companion object {
-        //TODO:
-        lateinit @JvmStatic var context: Context
+
+        lateinit var context: Context
         lateinit var resources: Resources
         lateinit var graph: TApplicationComponent
 
         var smallIconSize = 14
         lateinit var smallIconError: Drawable
-        lateinit var smallIconQuickAction: Drawable
         lateinit var smallIconBackHome: Drawable
 
         var userAlreadyInputPwd = Utils.isUseDebugOption()
@@ -61,9 +60,8 @@ class TApp : Application() {
     //TODO: try other way as init.
     private fun init() {
 
-
-         //disable IPv6 in emulator
-         if ("google_sdk" == Build.PRODUCT) {
+        //disable IPv6 in emulator
+        if ("google_sdk" == Build.PRODUCT) {
             java.lang.System.setProperty("java.net.preferIPv6Addresses", "false");
             java.lang.System.setProperty("java.net.preferIPv4Stack", "true");
         }
@@ -77,7 +75,6 @@ class TApp : Application() {
 
         smallIconSize = TApp.context.resources.getDimension(R.dimen.small_icon).toInt()
         smallIconError = AndroidUtils.resizeErrDrawable(R.drawable.err, R.dimen.small_icon)
-        //smallIconQuickAction = AndroidUtils.resizeDrawable(R.drawable.ic_quick_action, R.dimen.quick_action_size)
         smallIconBackHome = AndroidUtils.resizeDrawable(R.drawable.arrow_left, R.dimen.home_back_arrow_size)
 
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)

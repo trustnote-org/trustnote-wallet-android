@@ -4,7 +4,6 @@ import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.biz.units.UnitsManager
@@ -23,8 +22,10 @@ class WalletModel() {
 
     //TODO： DbHelper.dropWalletDB(mProfile.dbTag)
 
+    val TAG = WalletModel::class.java.simpleName
+
     lateinit var mProfile: TProfile
-    var busy = false
+    @Volatile var busy = false
     private val refreshingCredentials = LinkedBlockingQueue<Credential>()
     private lateinit var refreshingWorker: ScheduledExecutorService
 
@@ -46,6 +47,7 @@ class WalletModel() {
     }
 
     fun isRefreshing(): Boolean {
+        Utils.debugLog("""${TAG}:::isRefreshing refreshingCredentials.size =  ${refreshingCredentials.size} busy == ${busy}""")
         return refreshingCredentials.isNotEmpty() || busy
     }
 
@@ -59,13 +61,14 @@ class WalletModel() {
     }
 
     fun fullRefreshing(password: String) {
+        Utils.debugLog("""${TAG}:::fullRefreshing with password""")
         MyThreadManager.instance.runWalletModelBg {
             fullRefreshingInBackground(password)
         }
     }
 
     fun refreshExistWallet() {
-
+        Utils.debugLog("""${TAG}:::refreshExistWallet""")
         mProfile.credentials.forEach {
             refreshOneWallet(it)
         }
@@ -104,7 +107,7 @@ class WalletModel() {
 
     private fun refreshOneWallet(credential: Credential) {
         if (!refreshingCredentials.contains(credential)) {
-            Utils.debugLog("""refreshOneWallet put into queue--$credential""")
+            Utils.debugLog("""${TAG}refreshOneWallet put into queue--$credential""")
             refreshingCredentials.put(credential)
         }
     }
@@ -129,10 +132,19 @@ class WalletModel() {
         refreshingWorker.execute {
             while (true) {
 
+                Utils.debugLog("""${TAG} -- startRefreshThread::step1""")
+                Utils.debugLog("""${TAG} --- startRefreshThread::step1::size == ${refreshingCredentials.size}""")
                 val credential = refreshingCredentials.take()
+
+                Utils.debugLog("""${TAG}startRefreshThread move from --$credential""")
                 busy = true
+                Utils.debugLog("""${TAG} --- startRefreshThread::before refreshOneWalletImpl""")
+
                 refreshOneWalletImpl(credential)
+
                 busy = false
+                Utils.debugLog("""${TAG} --- startRefreshThread::after refreshOneWalletImpl""")
+                walletUpdated()
             }
         }
     }
@@ -159,15 +171,7 @@ class WalletModel() {
         walletUpdated()
 
         val hubResponse = getUnitsFromHub(credential)
-        val res = UnitsManager().saveUnitsFromHubResponse(hubResponse)
-        if (res.isNotEmpty() && credential == lastLocalWallet()) {
-
-            readDataFromDb(credential)
-            createNewWalletIfLastWalletHasTransaction(CreateWalletModel.passphraseInRam)
-
-        }
-
-        walletUpdated()
+        UnitsManager().saveUnitsFromHubResponse(hubResponse)
 
     }
 
@@ -186,6 +190,7 @@ class WalletModel() {
     }
 
     private fun walletUpdated() {
+        Utils.debugLog("""${TAG} --- walletUpdated""")
 
         if (mProfile.removeMnemonic) {
             mProfile.mnemonic = ""
@@ -341,7 +346,7 @@ class WalletModel() {
     }
 
     @Synchronized
-    fun newManualWallet(password: String, credentialName: String = TTT.firstWalletName) {
+    fun newManualWallet(password: String, credentialName: String) {
         newAutoWallet(password, credentialName, false)
     }
 

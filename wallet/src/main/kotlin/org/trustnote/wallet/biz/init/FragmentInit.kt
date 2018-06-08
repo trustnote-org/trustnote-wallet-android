@@ -319,9 +319,9 @@ open class CWFragmentRestore : FragmentInit() {
 
         }
 
-//        if (Utils.isUseDebugOption()) {
-//            mnemonicsGrid.setMnemonic(TestData.mnemonic0, true)
-//        }
+        if (Utils.isUseDebugOption()) {
+            mnemonicsGrid.setMnemonic(TestData.mnemonic0, true)
+        }
 
         showMnemonicKeyboardIfRequired()
 
@@ -343,6 +343,12 @@ open class CWFragmentRestore : FragmentInit() {
     open fun startRestore(it: String, isRemove: Boolean, mnemonics: String) {
         CreateWalletModel.iamDone(mnemonics, isRemove, it)
         getMyActivity().iamDone()
+    }
+
+    override fun onBackPressed() {
+
+        nextPage(R.layout.f_init_create_or_restore)
+
     }
 
 }

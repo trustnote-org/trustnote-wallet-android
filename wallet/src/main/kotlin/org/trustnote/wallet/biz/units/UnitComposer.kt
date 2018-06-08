@@ -27,6 +27,7 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
     private val authors = mutableListOf<Authentifiers>()
 
     var hashToSign = ""
+    var signFailed = false
 
     lateinit var mGetParentRequest: ReqGetParents
     private val jsApi = JSApi()
@@ -62,6 +63,11 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
                 signWithEveryAuthors(password)
             } else {
 
+            }
+
+            if (signFailed) {
+                showFail()
+                return@runInBack
             }
 
             units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
@@ -197,6 +203,11 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         authors.forEach {
             val myAddresses = DbHelper.queryAddressByAddresdId(it.address)
             val sign = jsApi.signSync(hashToSign, WalletManager.model.getPrivKey(password), Utils.genBip44Path(myAddresses))
+
+            if (sign.isEmpty() || "0" == sign) {
+                signFailed = true
+            }
+
             it.authentifiers.remove("r")
             it.authentifiers.addProperty("r", sign)
         }
@@ -250,5 +261,10 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         }
 
         return false
+    }
+
+    //TODO: how to notify UI.
+    fun showFail() {
+        Utils.toastMsg("发送失败")
     }
 }

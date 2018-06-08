@@ -19,6 +19,7 @@ import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MyTextWatcher
 
 class FragmentMainCreateWallet : FragmentWalletBase() {
@@ -70,12 +71,12 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
 
         button.setOnClickListener {
 
-            MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newManualWallet(editText.text.toString()) }
-            activity.onBackPressed()
-
+            FragmentDialogInputPwd.showMe(activity) {
+                MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newManualWallet(it, editText.text.toString()) }
+                activity.onBackPressed()
+            }
         }
     }
-
 
     override fun updateUI() {
         super.updateUI()
@@ -113,7 +114,7 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         AndroidUtils.setupWarningWebView(webView, "OVSERVER_WALLET")
 
         val scanIcon = mRootView.findViewById<View>(R.id.create_wallet_observer_scan)
-        setupScan(scanIcon) { showScanResult(it)}
+        setupScan(scanIcon) { showScanResult(it) }
 
         textView = mRootView.findViewById(R.id.create_wallet_observer_input)
 
@@ -121,9 +122,9 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
 
         btn.setOnClickListener {
 
-            val f = FragmentDialogCreateObserverQR{
+            val f = FragmentDialogCreateObserverQR {
 
-                AndroidUtils.openDialog(activity, FragmentDialogCreateObserverFinish{
+                AndroidUtils.openDialog(activity, FragmentDialogCreateObserverFinish {
                     MyThreadManager.instance.runJSInNonUIThread {
                         createObserverWallet()
                     }
