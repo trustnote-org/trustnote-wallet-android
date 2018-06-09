@@ -126,4 +126,10 @@ public class Units extends TBaseEntity {
   @Expose
   @SerializedName("authors")
   public List<Authentifiers> authenfiers;
+
+  @Ignore
+  @Expose
+  @SerializedName("earned_headers_commission_recipients")
+  public List<CommissionRecipients> commissionRecipients = null;
+
 }

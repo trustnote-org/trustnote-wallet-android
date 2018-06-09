@@ -34,8 +34,8 @@ abstract class FragmentBase : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.f_base, container, false)
-        mRootView = inflater.inflate(getLayoutId(), null)
-        view.findViewById<FrameLayout>(R.id.f_base_container).addView(mRootView)
+        val childView = inflater.inflate(getLayoutId(), null)
+        view.findViewById<FrameLayout>(R.id.f_base_container).addView(childView)
         view.isClickable = true
         return view
     }
@@ -45,7 +45,6 @@ abstract class FragmentBase : Fragment() {
         mRootView = view
         isCreated = false
 
-        mRootView = view
         initFragment(mRootView!!)
 
         isCreated = true

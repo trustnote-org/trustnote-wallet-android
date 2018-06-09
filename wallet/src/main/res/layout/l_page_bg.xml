@@ -3,15 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/page_bg"
-    android:gravity="center"
     android:paddingLeft="@dimen/page_margin"
     android:paddingRight="@dimen/page_margin">
 
-    <FrameLayout
-        android:id="@+id/dialog_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/status_bar_height"
-        android:background="@drawable/bg_dialog_frame"></FrameLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/ToolBarStyle"
+
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wallet_toolbar_title"
+            android:textColor="@color/title_bar_text"
+            android:textSize="@dimen/text_20" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/status_bar_height">
+
+        <FrameLayout
+            android:id="@+id/dialog_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/status_bar_height">
+        </FrameLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -51,7 +51,7 @@ class FragmentWalletReceive : FragmentPageBase() {
 
         copyBtn.setOnClickListener {
 
-            AndroidUtils.copyTextToClipboard(TTTUtils.toAddressQRText(addressText.text.toString(), getMyActivity().receiveAmount))
+            AndroidUtils.copyTextToClipboard(addressText.text.toString())
 
             Utils.toastMsg(TApp.context.getString(R.string.receive_copy_successful))
 

@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.wallet
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
+import org.trustnote.db.entity.Units
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.tx.TxParser
@@ -32,6 +33,7 @@ class WalletModel() {
     init {
         if (Prefs.profileExist()) {
             mProfile = Prefs.readProfile()
+            WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
             startRefreshThread()
         }
     }
@@ -83,8 +85,6 @@ class WalletModel() {
 
         checkAndGenPrivkey(password)
 
-        WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
-
         WalletManager.getCurrentWalletDbTag()
         if (mProfile.credentials.isEmpty()) {
             newAutoWallet(password = password)
@@ -116,6 +116,7 @@ class WalletModel() {
         if (mProfile.xPrivKey.isEmpty()) {
             val privKey = JSApi().xPrivKeySync(mProfile.mnemonic)
             mProfile.dbTag = privKey.takeLast(5)
+            WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
             mProfile.deviceAddress = JSApi().deviceAddressSync(privKey)
             mProfile.pubKeyForPairId = JSApi().ecdsaPubkeySync(privKey, "m/1'")
             mProfile.xPrivKey = AesCbc.encode(privKey, password)
@@ -136,14 +137,13 @@ class WalletModel() {
                 Utils.debugLog("""${TAG} --- startRefreshThread::step1::size == ${refreshingCredentials.size}""")
                 val credential = refreshingCredentials.take()
 
-                Utils.debugLog("""${TAG}startRefreshThread move from --$credential""")
+                Utils.debugLog("""${TAG}startRefreshThread::before refreshOneWalletImpl --$credential""")
                 busy = true
-                Utils.debugLog("""${TAG} --- startRefreshThread::before refreshOneWalletImpl""")
 
                 refreshOneWalletImpl(credential)
 
                 busy = false
-                Utils.debugLog("""${TAG} --- startRefreshThread::after refreshOneWalletImpl""")
+                Utils.debugLog("""${TAG}startRefreshThread::after refreshOneWalletImpl --$credential""")
                 walletUpdated()
             }
         }
@@ -172,6 +172,8 @@ class WalletModel() {
 
         val hubResponse = getUnitsFromHub(credential)
         UnitsManager().saveUnitsFromHubResponse(hubResponse)
+
+        readDataFromDb(credential)
 
     }
 
@@ -441,6 +443,14 @@ class WalletModel() {
         val privKey = getPrivKey(oldPwd)
         mProfile.xPrivKey = AesCbc.encode(privKey, newPwd)
         Prefs.writeProfile(mProfile)
+    }
+
+    fun newUnitAcceptedByHub(unit: Units, walletId: String) {
+
+        DbHelper.saveUnits(unit)
+
+        readDataFromDb(findWallet(walletId))
+        walletUpdated()
     }
 
 }

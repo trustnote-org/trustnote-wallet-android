@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.units
 
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import org.trustnote.db.DbHelper
 import org.trustnote.db.FundedAddress
@@ -72,11 +73,12 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
             units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
 
+
             if (postNewUnitToHub()) {
                 val unitJson = Utils.toGsonObject(units)
                 val unit = UnitsManager().parseUnitFromJson(unitJson)
-                DbHelper.saveUnits(unit)
-                WalletManager.model.refreshOneWallet(sendPaymentInfo.walletId)
+
+                WalletManager.model.newUnitAcceptedByHub(unit, sendPaymentInfo.walletId)
             }
         }
     }
@@ -117,7 +119,7 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
             res.add(it)
             accumulatedAmount += it.total
             if (accumulatedAmount > estimatedAmount + TTT.MAX_FEE) {
-                return res
+                return@forEach
             }
         }
         return res
@@ -215,6 +217,7 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
     }
 
     private fun genPayloadHash() {
+
         Utils.debugLog("befroe genPayloadHash")
         Utils.debugLog(Utils.toGsonString(payload))
 
@@ -240,6 +243,16 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
             authentifiers.authentifiers = Utils.genJsonObject("r", TTT.PLACEHOLDER_SIG)
             authors.add(authentifiers)
         }
+
+        if (payload.inputs.size > 1) {
+            genCommissionReceipts(payload.inputs[0])
+        }
+    }
+
+    private fun genCommissionReceipts(input: Inputs) {
+        val commissionRecipient = CommissionRecipients()
+        commissionRecipient.address = input.address
+        units.commissionRecipients = listOf(commissionRecipient)
     }
 
     private fun queryOrIssueNotUsedChangeAddress(): String {
@@ -267,4 +280,5 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
     fun showFail() {
         Utils.toastMsg("发送失败")
     }
+
 }
