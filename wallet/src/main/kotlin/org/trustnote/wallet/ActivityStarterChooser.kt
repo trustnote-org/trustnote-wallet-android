@@ -18,7 +18,7 @@ class ActivityStarterChooser : ActivityBase() {
         super.onCreate(savedInstanceState)
 
         if (!TApp.userAlreadyInputPwd
-            && CreateWalletModel.readPwd().isNotEmpty()
+            && CreateWalletModel.readPwdHash().isNotEmpty()
             && Prefs.readEnablepwdForStartup()) {
 
             AndroidUtils.startActivity(ActivityInputPwd::class.java)

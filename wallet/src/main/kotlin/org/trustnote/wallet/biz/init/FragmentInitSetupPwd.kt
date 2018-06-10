@@ -128,7 +128,8 @@ open class FragmentInitSetupPwd : FragmentInit() {
             return
         }
 
-        CreateWalletModel.savePassphrase(pwdString)
+        CreateWalletModel.savePassphraseInDisk(pwdString)
+        CreateWalletModel.savePassphraseInRam(pwdString)
         nextPage()
     }
 

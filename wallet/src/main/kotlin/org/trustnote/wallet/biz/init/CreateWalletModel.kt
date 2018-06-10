@@ -9,7 +9,7 @@ import org.trustnote.wallet.util.Prefs
 object CreateWalletModel {
 
     //TODO: should keep this in ram at most N minutes.
-    var passphraseInRam: String = ""
+    private var passphraseInRam: String = ""
     var tmpMnemonic: String = ""
 
     fun getCreationProgress(): CREATE_WALLET_STATUS {
@@ -24,16 +24,20 @@ object CreateWalletModel {
         return CREATE_WALLET_STATUS.SELECT_CREATE_OR_RESTORE
     }
 
-    fun savePassphrase(passphrase: String) {
+    fun savePassphraseInRam(passphrase: String) {
         passphraseInRam = passphrase
-        Prefs.writePwdHash(hash(passphrase))
     }
 
-    fun readPwd(): String {
-        if (passphraseInRam.isNotEmpty()) {
-            return passphraseInRam
-        }
-        return Prefs.readPwdHash()
+    fun getPassphraseInRam(): String {
+        return passphraseInRam
+    }
+
+    fun clearPassphraseInRam() {
+        passphraseInRam = ""
+    }
+
+    fun savePassphraseInDisk(passphrase: String) {
+        Prefs.writePwdHash(hash(passphrase))
     }
 
     fun readPwdHash(): String {

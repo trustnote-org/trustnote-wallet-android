@@ -36,7 +36,8 @@ class FragmentMeChangePwd : FragmentInitSetupPwd() {
         } else {
             val pwdString = pwd.text.toString()
             WalletManager.model.updatePassword(oldPwd.text.toString(), pwd.text.toString())
-            CreateWalletModel.savePassphrase(pwdString)
+            CreateWalletModel.savePassphraseInDisk(pwdString)
+            CreateWalletModel.clearPassphraseInRam()
             onBackPressed()
         }
     }

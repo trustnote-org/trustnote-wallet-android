@@ -28,6 +28,7 @@ public class Prefs {
     private static final String KEY_FINISH_CREATE_OR_RESTORE = "FINISH_CREATE_OR_RESTORE";
     private static final String KEY_ENABLE_PWD_FOR_STARTUP = "KEY_ENABLE_PWD_FOR_STARTUP";
     //private static final String KEY_MY_PAIRD_ID = "KEY_MY_PAIRD_ID";
+    private static final String KEY_IS_USER_IN_FULL_RESTORE = "KEY_IS_USER_IN_FULL_RESTORE";
 
     public static boolean profileExist() {
         return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
@@ -49,6 +50,14 @@ public class Prefs {
 
     public static void writePwdHash(String pwd) {
         getInstance().write(KEY_HASH_PWD, Utils.INSTANCE.hash(pwd));
+    }
+
+    public static Boolean isUserInFullRestore() {
+        return getInstance().readBoolean(KEY_IS_USER_IN_FULL_RESTORE);
+    }
+
+    public static void saveUserInFullRestore(boolean isInFullRestore) {
+        getInstance().writeBoolean(KEY_IS_USER_IN_FULL_RESTORE, isInFullRestore);
     }
 
     @NotNull

@@ -6,6 +6,7 @@ import org.trustnote.db.TrustNoteDataBase
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.db.entity.Units
 import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.biz.units.UnitsManager
@@ -74,6 +75,9 @@ class WalletModel() {
     }
 
     fun fullRefreshing(password: String) {
+
+        Prefs.saveUserInFullRestore(true)
+
         Utils.debugLog("""${TAG}:::fullRefreshing with password""")
         MyThreadManager.instance.runWalletModelBg {
             fullRefreshingInBackground(password)
@@ -160,7 +164,32 @@ class WalletModel() {
                 busy = false
                 Utils.debugLog("""${TAG}startRefreshThread::after refreshOneWalletImpl --$credential""")
                 walletUpdated()
+
+
+
+                maybeAddMoreWalletIfInFullRestoreProcess()
+
             }
+        }
+    }
+
+    private fun maybeAddMoreWalletIfInFullRestoreProcess() {
+
+        if (!Prefs.isUserInFullRestore() || refreshingCredentials.isNotEmpty()) {
+            return
+        }
+
+        val lastLocalWallet = lastLocalWallet()
+        if ( (lastLocalWallet.isAuto
+                        && lastLocalWallet.txDetails.isEmpty())) {
+
+            CreateWalletModel.clearPassphraseInRam()
+            Prefs.saveUserInFullRestore(false)
+
+        } else if (CreateWalletModel.getPassphraseInRam().isNotEmpty()) {
+
+            newAutoWallet(CreateWalletModel.getPassphraseInRam())
+
         }
     }
 

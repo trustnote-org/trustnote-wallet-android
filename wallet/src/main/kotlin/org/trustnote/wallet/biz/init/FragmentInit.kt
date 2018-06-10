@@ -13,6 +13,7 @@ import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.*
 
@@ -37,7 +38,6 @@ abstract class FragmentInit : FragmentBase() {
         val padding = TApp.resources.getDimensionPixelSize(R.dimen.padding_main)
 
         mRootView.setPadding(padding, 0, padding, 0)
-
 
     }
 
@@ -338,8 +338,12 @@ open class CWFragmentRestore : FragmentInit() {
     }
 
     open fun startRestore(isRemove: Boolean, mnemonics: String) {
-        if (CreateWalletModel.passphraseInRam.isEmpty()) {
+        if (CreateWalletModel.getPassphraseInRam().isEmpty()) {
             FragmentDialogInputPwd.showMe(activity) {
+
+                Prefs.saveUserInFullRestore(true)
+                CreateWalletModel.savePassphraseInRam(it)
+
                 CreateWalletModel.iamDone(mnemonics, isRemove)
                 getMyActivity().iamDone()
             }
