@@ -4,6 +4,7 @@ import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.ThreadFactory
+import java.util.concurrent.TimeUnit
 
 class MyThreadManager {
 
@@ -18,6 +19,11 @@ class MyThreadManager {
     private var execLowPriority = createExec("LOWPRIORITY", 1)
     private var exec = createExec("ANOY", 1)
 
+    fun runDealyed(delaySeconds: Long, lambda: () -> Unit) {
+        execLowPriority.schedule(lambda, delaySeconds, TimeUnit.SECONDS)
+
+    }
+
     fun newSingleThreadExecutor(threadTag: String): ScheduledExecutorService {
         return createExec(threadTag)
     }
@@ -29,7 +35,6 @@ class MyThreadManager {
         }
     }
 
-
     fun runInBack(lambda: () -> Unit) {
         exec.execute(lambda)
     }
@@ -38,11 +43,9 @@ class MyThreadManager {
         walletModelBg.execute(lambda)
     }
 
-
     fun runJSInNonUIThread(lambda: () -> Unit) {
         jsNonUIExec.execute(lambda)
     }
-
 
     private fun createExec(tag: String, poolSize: Int = 1): ScheduledExecutorService {
         return Executors.newScheduledThreadPool(1, WorkerThreadFactory(tag))

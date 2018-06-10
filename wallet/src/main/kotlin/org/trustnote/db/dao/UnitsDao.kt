@@ -40,10 +40,10 @@ abstract class UnitsDao {
         ORDER BY my_addresses.address_index DESC LIMIT :dataLimit)
         UNION
         SELECT unit from outputs WHERE outputs.address in (SELECT my_addresses.address
-        FROM my_addresses WHERE my_addresses.wallet == :walletId
+        FROM my_addresses WHERE my_addresses.wallet == :walletId and my_addresses.is_change = :isChange
         ORDER BY my_addresses.address_index DESC LIMIT :dataLimit)
         """)
-    abstract fun queryUnitForLatestWalletAddress(walletId: String, dataLimit: Int = TTT.walletAddressInitSize * 2): Array<String>
+    abstract fun queryUnitForLatestWalletAddress(walletId: String, isChange: Int, dataLimit: Int = TTT.walletAddressInitSize): Array<String>
 
     @Query("""SELECT * FROM units""")
     abstract fun monitorUnits(): Flowable<Array<Units>>
@@ -221,8 +221,8 @@ abstract class UnitsDao {
         }
     }
 
-    open fun shouldGenerateMoreAddress(walletId: String): Boolean {
-        val res = queryUnitForLatestWalletAddress(walletId)
+    open fun shouldGenerateMoreAddress(walletId: String, isChange: Int): Boolean {
+        val res = queryUnitForLatestWalletAddress(walletId, isChange)
         return res.isNotEmpty()
     }
 

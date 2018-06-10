@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.pwd
 import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.widget.FragmentDialogInputPwd

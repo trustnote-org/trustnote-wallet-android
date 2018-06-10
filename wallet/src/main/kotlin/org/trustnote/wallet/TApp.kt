@@ -29,7 +29,7 @@ class TApp : Application() {
         lateinit var smallIconError: Drawable
         lateinit var smallIconBackHome: Drawable
 
-        var userAlreadyInputPwd = Utils.isUseDebugOption()
+        var userAlreadyInputPwd = false
 
         fun getString(@StringRes strResId: Int): String {
             return context.getString(strResId)

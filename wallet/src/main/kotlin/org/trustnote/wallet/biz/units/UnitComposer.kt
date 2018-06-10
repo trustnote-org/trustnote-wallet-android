@@ -57,6 +57,14 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
     fun startSendTx(activity: ActivityMain, password: String = "") {
 
+        if (authors.isEmpty()) {
+            //TODO: this kind of fail
+            showFail()
+            //Maybe re-generate input.
+            return
+        }
+
+
         MyThreadManager.instance.runInBack {
 
             val credential = WalletManager.model.findWallet(sendPaymentInfo.walletId)
@@ -79,6 +87,8 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
                 val unit = UnitsManager().parseUnitFromJson(unitJson)
 
                 WalletManager.model.newUnitAcceptedByHub(unit, sendPaymentInfo.walletId)
+            } else {
+                showFail()
             }
         }
     }
@@ -115,11 +125,11 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         val res = mutableListOf<FundedAddress>()
         var accumulatedAmount = 0L
 
-        rows.forEach {
+        for(it in rows) {
             res.add(it)
             accumulatedAmount += it.total
             if (accumulatedAmount > estimatedAmount + TTT.MAX_FEE) {
-                return@forEach
+                return res
             }
         }
         return res
@@ -260,7 +270,7 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         return WalletManager.model.findNextUnusedChangeAddress(sendPaymentInfo.walletId).address
     }
 
-    fun postNewUnitToHub(): Boolean {
+    private fun postNewUnitToHub(): Boolean {
 
         val hubModel = HubManager.instance.getCurrentHub()
         val reqId = hubModel.getRandomTag()

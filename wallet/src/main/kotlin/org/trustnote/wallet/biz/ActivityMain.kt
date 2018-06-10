@@ -14,6 +14,8 @@ import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
+import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.biz.wallet.WalletModel
 import org.trustnote.wallet.uiframework.EmptyFragment
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
@@ -37,7 +39,9 @@ class ActivityMain : ActivityBase() {
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
         disableShiftMode(bottomNavigationView)
-        bottomNavigationView.setItemIconTintList(null);
+        bottomNavigationView.setItemIconTintList(null)
+
+        WalletManager.model.refreshExistWallet()
 
     }
 

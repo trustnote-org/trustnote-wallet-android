@@ -19,7 +19,7 @@ class HubManager {
         val instance = HubManager()
 
         fun disconnect(dbTag: String) {
-            //TODO:
+            instance.reConnectHub()
         }
     }
 

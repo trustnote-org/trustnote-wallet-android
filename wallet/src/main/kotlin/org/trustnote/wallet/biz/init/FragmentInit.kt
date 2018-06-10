@@ -14,10 +14,7 @@ import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
-import org.trustnote.wallet.widget.ClearableEditText
-import org.trustnote.wallet.widget.MnemonicsGridView
-import org.trustnote.wallet.widget.MyDialogFragment
-import org.trustnote.wallet.widget.MyTextWatcher
+import org.trustnote.wallet.widget.*
 
 abstract class FragmentInit : FragmentBase() {
 
@@ -320,7 +317,7 @@ open class CWFragmentRestore : FragmentInit() {
         }
 
         if (Utils.isUseDebugOption()) {
-            mnemonicsGrid.setMnemonic(TestData.mnemonic0, true)
+            mnemonicsGrid.setMnemonic(TestData.getTestMnemonic(), false)
         }
 
         showMnemonicKeyboardIfRequired()
@@ -332,7 +329,7 @@ open class CWFragmentRestore : FragmentInit() {
 
         JSApi().xPrivKey(mnemonics, ValueCallback {
             if (it.isNotEmpty() && "0" != it) {
-                startRestore(it, isRemove, mnemonics)
+                startRestore(isRemove, mnemonics)
             } else {
                 mnemonicsGrid.showErr()
             }
@@ -340,14 +337,25 @@ open class CWFragmentRestore : FragmentInit() {
 
     }
 
-    open fun startRestore(it: String, isRemove: Boolean, mnemonics: String) {
-        CreateWalletModel.iamDone(mnemonics, isRemove, it)
-        getMyActivity().iamDone()
+    open fun startRestore(isRemove: Boolean, mnemonics: String) {
+        if (CreateWalletModel.passphraseInRam.isEmpty()) {
+            FragmentDialogInputPwd.showMe(activity) {
+                CreateWalletModel.iamDone(mnemonics, isRemove)
+                getMyActivity().iamDone()
+            }
+        } else {
+            CreateWalletModel.iamDone(mnemonics, isRemove)
+            getMyActivity().iamDone()
+        }
     }
 
     override fun onBackPressed() {
 
-        nextPage(R.layout.f_init_create_or_restore)
+        if (fromInitActivity) {
+            nextPage(R.layout.f_init_create_or_restore)
+        } else {
+            super.onBackPressed()
+        }
 
     }
 

@@ -35,7 +35,7 @@ object DbHelper {
     fun monitorUnits(): Observable<Array<Units>> = monitorUnitsInternal()
     fun monitorOutputs(): Observable<Array<Outputs>> = monitorOutputsInternal()
 
-    fun shouldGenerateMoreAddress(walletId: String): Boolean = shouldGenerateMoreAddressInternal(walletId)
+    fun shouldGenerateMoreAddress(walletId: String, isChange: Int): Boolean = shouldGenerateMoreAddressInternal(walletId, isChange)
     fun getMaxAddressIndex(walletId: String, isChange: Int): Int = getMaxAddressIndexInternal(walletId, isChange)
     fun shouldGenerateNextWallet(walletId: String): Boolean = shouldGenerateNextWalletInternal(walletId)
 
@@ -72,10 +72,20 @@ object DbHelper {
     }
 
     fun dropWalletDB(keyDb: String) {
+
+        Utils.debugLog("${TrustNoteDataBase.TAG}dropWalletDB::$keyDb")
+
         val path = TApp.context.getDatabasePath("trustnote_$keyDb.db").path
         val dbFile = File(path)
         if (dbFile.exists()) {
+
+            val targetFile = File(TApp.context.getDatabasePath("${Utils.nowTimeAsFileName()}_trustnote_$keyDb.db").path)
+
+            Utils.debugLog("${TrustNoteDataBase.TAG}dropWalletDB::targetFile${targetFile.toString()}")
+
+            dbFile.copyTo(targetFile, true)
             dbFile.delete()
+            TrustNoteDataBase.removeDb(keyDb)
         }
     }
 
@@ -103,9 +113,9 @@ fun shouldGenerateNextWalletInternal(walletId: String): Boolean {
 }
 
 
-fun shouldGenerateMoreAddressInternal(walletId: String): Boolean {
+fun shouldGenerateMoreAddressInternal(walletId: String, isChange: Int): Boolean {
     val db = TrustNoteDataBase.getInstance(TApp.context)
-    return db.unitsDao().shouldGenerateMoreAddress(walletId)
+    return db.unitsDao().shouldGenerateMoreAddress(walletId, isChange)
 }
 
 fun getAllWalletAddressInternal(walletId: String): Array<MyAddresses> {

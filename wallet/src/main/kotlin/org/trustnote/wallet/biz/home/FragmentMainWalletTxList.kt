@@ -25,6 +25,7 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
     private lateinit var credentialName: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var receiveBtnView: View
 
     override fun initFragment(view: View) {
 
@@ -44,7 +45,9 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
                     FragmentMainWalletTxDetail::class.java)
         }
 
-        mRootView.findViewById<View>(R.id.btn_receive).setOnClickListener {
+        receiveBtnView = mRootView.findViewById<View>(R.id.btn_receive)
+
+        receiveBtnView.setOnClickListener {
             getMyActivity().receiveAmount = 0L
             val f = FragmentWalletReceive()
             (activity as ActivityMain).openPage(f, TTT.KEY_WALLET_ID, credential.walletId)
@@ -68,6 +71,9 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
 
     override fun updateUI() {
         super.updateUI()
+
+        receiveBtnView.isEnabled = credential.myReceiveAddresses.isNotEmpty()
+
         totalBalanceView.setMnAmount(credential.balance)
         credentialName.text = credential.walletName
 
@@ -79,6 +85,8 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
 
         mSwipeRefreshLayout.isRefreshing = WalletManager.model.isRefreshing()
 
+
+        mRootView.findViewById<View>(R.id.btn_receive)
     }
 
 }

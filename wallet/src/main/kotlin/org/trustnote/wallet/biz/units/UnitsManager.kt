@@ -9,7 +9,7 @@ import org.trustnote.wallet.util.Utils
 
 class UnitsManager {
     @Suppress("UNCHECKED_CAST")
-    fun saveUnitsFromHubResponse(hubResponse: HubResponse): List<Joints> {
+    fun saveUnitsFromHubResponse(hubResponse: HubResponse): List<Units> {
 
         if (hubResponse.msgType == MSG_TYPE.empty) {
             return listOf()
@@ -30,7 +30,7 @@ class UnitsManager {
 
         DbHelper.saveUnits(res)
 
-        return jointList
+        return res.toList()
 
     }
 
@@ -40,7 +40,7 @@ class UnitsManager {
         units.json = unitJson
 
         //TODO: when to stable?
-        units.isStable = 1
+        units.isStable = if (units.mainChainIndex == null || units.mainChainIndex == 0) 0 else 1
 
         units.unit = units.json.get("unit").asString
 

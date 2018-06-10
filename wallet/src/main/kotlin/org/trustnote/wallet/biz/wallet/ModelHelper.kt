@@ -34,20 +34,10 @@ object ModelHelper {
 
     }
 
-    fun generateNewAddressAndSaveDb(credential: Credential) {
-        val newAddresses = generateNewAddress(credential)
+    fun generateNewAddressAndSaveDb(credential: Credential, isChange: Int): List<MyAddresses> {
+        val newAddresses = ModelHelper.generateNewAddresses(credential, isChange)
         DbHelper.saveWalletMyAddress(newAddresses)
+        return newAddresses
     }
-
-    private fun generateNewAddress(newCredential: Credential): List<MyAddresses> {
-        val receiveAddresses = ModelHelper.generateNewAddresses(newCredential, TTT.addressReceiveType)
-        val changeAddresses = ModelHelper.generateNewAddresses(newCredential, TTT.addressChangeType)
-
-        val res = mutableListOf<MyAddresses>()
-        res.addAll(receiveAddresses)
-        res.addAll(changeAddresses)
-        return res.toList()
-    }
-
 
 }

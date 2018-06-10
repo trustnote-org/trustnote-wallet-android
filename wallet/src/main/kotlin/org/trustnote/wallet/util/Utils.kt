@@ -190,6 +190,11 @@ object Utils {
         return """${address.substring(0, 5)}…${address.takeLast(5)}"""
     }
 
+    fun nowTimeAsFileName(): String {
+        val date = Date()
+        val df = SimpleDateFormat("yyyy_MM_dd_HH_MM")
+        return df.format(date)
+    }
 
     fun formatTxTimestamp(ts: Long): String {
         val date = Date(ts * 1000L)

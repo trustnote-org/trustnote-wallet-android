@@ -6,6 +6,7 @@ import io.reactivex.subjects.Subject
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.js.TWebView
+import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.util.Prefs
 
 object WalletManager {
@@ -39,11 +40,11 @@ object WalletManager {
         return model.mProfile
     }
 
-    fun initWithMnemonic(password: String, mnemonic: String, removeMnemonic: Boolean, privKey: String = "") {
+    fun initWithMnemonic(password: String, mnemonic: String, removeMnemonic: Boolean) {
         if (Prefs.profileExist()) {
             model.destruct()
         }
-        model = WalletModel(password, mnemonic, removeMnemonic, privKey)
+        model = WalletModel(password, mnemonic, removeMnemonic)
     }
 
     fun getOrCreateMnemonic(): String {

@@ -83,9 +83,9 @@ object CreateWalletModel {
         return Prefs.profileExist()
     }
 
-    fun iamDone(mnemonic: String, isRemove: Boolean, privKey: String) {
+    fun iamDone(mnemonic: String, isRemove: Boolean) {
         finishedCreateOrRestore()
-        WalletManager.initWithMnemonic(passphraseInRam, mnemonic, isRemove, privKey)
+        WalletManager.initWithMnemonic(passphraseInRam, mnemonic, isRemove)
     }
 
     fun iamDone() {

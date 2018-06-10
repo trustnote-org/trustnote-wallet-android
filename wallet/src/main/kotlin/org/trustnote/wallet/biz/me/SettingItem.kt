@@ -186,8 +186,7 @@ class SettingItem(
 
         fun restoreFromMnemonic(activity: ActivityMain) {
 
-            AndroidUtils.todo()
-            //activity.openLevel2Fragment(FragmentMeWalletRestore())
+            activity.openLevel2Fragment(FragmentMeWalletRestore())
         }
 
         fun fullSync(activity: ActivityMain) {

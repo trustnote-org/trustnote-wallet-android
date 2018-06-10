@@ -22,7 +22,6 @@ public class Prefs {
     //Below are Biz related logic
     private static final String KEY_PROFILE = "TTTProfile";
     private static final File FILE_PROFILE = new File(TApp.context.getFilesDir(), "TTTProfile.json");
-    private static final String KEY_TMP_MNEMONIC = "tmp_mnemonic";
     private static final String KEY_HASH_PWD = "PWD_HASH";
     private static final String KEY_USER_AGREE = "USER_AGREE";
     private static final String KEY_DEVICE_NAME = "DEVICE_NAME";
@@ -34,10 +33,13 @@ public class Prefs {
         return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
     }
 
+    public static boolean removeProfile() {
+        return FILE_PROFILE.exists() && FILE_PROFILE.delete();
+    }
+
     public static void writeProfile(TProfile p) {
         //getInstance().writeObject(KEY_PROFILE, p);
         Utils.INSTANCE.write2File(FILE_PROFILE, p);
-        getInstance().remove(KEY_TMP_MNEMONIC);
     }
 
     public static TProfile readProfile() {

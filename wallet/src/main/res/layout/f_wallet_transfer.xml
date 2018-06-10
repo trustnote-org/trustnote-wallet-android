@@ -81,6 +81,7 @@
             android:text="@string/transfer_receiver_err_overflow" />
 
         <TextView
+            android:visibility="invisible"
             android:id="@+id/transfer_transfer_all"
             style="@style/t_text_msg"
             android:layout_alignParentRight="true"

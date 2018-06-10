@@ -1,362 +1,628 @@
 //"must specify earned_headers_commission_recipients when more than 1 author"}}
-[
-  {
-    "version": "1.0",
-    "alt": "1",
-    "messages": [
-      {
-        "app": "payment",
-        "payload_location": "inline",
-        "payload_hash": "Ggl1M7HFg+fmXh7z5vLCz29Zl54WBtiBKFox6SZDRKI=",
-        "payload": {
-          "outputs": [
-            {
-              "address": "PGBIXKPCN5U5GFQHL2LG4FCHNKJD7CIY",
-              "amount": 1273972
-            },
-            {
-              "address": "RISNZVFTWXOIB27JE4K5UCQIPUQV2NE7",
-              "amount": 101000000
-            }
-          ],
-          "inputs": [
-            {
-              "unit": "lttLAs6WCNQovtxVFIFR2FuM/pw2+CfEhXEHk6UamUY=",
-              "message_index": 0,
-              "output_index": 1
-            },
-            {
-              "unit": "5J/F9t3jdpRNu+v8B7LrFch/onQT/LwOTd9EKz8fmMs=",
-              "message_index": 0,
-              "output_index": 1
-            }
-          ]
-        }
-      }
-    ],
-    "authors": [
-      {
-        "address": "RISNZVFTWXOIB27JE4K5UCQIPUQV2NE7",
-        "authentifiers": {
-          "r": "nI7r08N4dsBLKiFd+xAhaoW9okWe9TacMmTX4C4bApVU8it2Xg+bkVOy1PkiLb3P8Ayw9F9xPnHZEhjRJkohaQ=="
-        }
+
+
+//duplicate definition of address OPRFMRRMJQWTH5NY2TAYWR5GLXQAFY4G, bNonserial=false"}
+
+{
+  "unit": "Ic3TDnCCmvnGn2foMfyqk6/RWZtnVjZjdl4kInjSjD8=",
+  "version": "1.0",
+  "alt": "1",
+  "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=",
+  "last_ball_unit": "lISygDn3LVgkuhbi+H6fdsNr50K5NqN0WjVZI5AfgtQ=",
+  "last_ball": "N0z5R1jdVVIFzPY2Da0D+Lc8OxhrDTY+LX8S+fD5cFg=",
+  "headers_commission": 391,
+  "payload_commission": 197,
+  "timestamp": 1528617239,
+  "parent_units": [
+    "I2DsbF0/+ArkZZJut+Grqp6aj14R2YDNU22VW/LqDPQ="
+  ],
+  "authors": [
+    {
+      "address": "FMLUAS23SJJSDT5RSFFJSFXPIT4DJR2T",
+      "authentifiers": {
+        "r": "XEkyreEOhKh4tIcpMwogUQf4kF8VsLl0ehGNmkNkaj8FcezOrrHngXDupDAIcoEJlGhh0c3wh90ihlVcuEhf9w=="
       },
-      {
-        "address": "ZVI4QSUQIHVQMLQDUDUE3MZKH3OJEXXT",
-        "authentifiers": {
-          "r": "c0gj8wYBR08ntTnTJKXgzZ23pKnOI9CcQYRIHH2UycQg1hM7amtIavRDMc6cI5zoxDzMCbaCwkHNuLTjjEyVBg=="
-        },
-        "definition": [
-          "sig",
-          {
-            "pubkey": "A/Mbo83MTrGGNFRaW9kU0U0CW2SlLkmH6FrVSEaysaFq"
-          }
-        ]
-      }
-    ],
-    "earned_headers_commission_recipients": [
-      {
-        "address": "PGBIXKPCN5U5GFQHL2LG4FCHNKJD7CIY",
-        "earned_headers_commission_share": 100
-      }
-    ],
-    "parent_units": [
-      "v3ci8SasBqZqf62P6G3VC9dLuVQu8X67yBIwob2nnkI="
-    ],
-    "last_ball": "dAk0QuzZM3ZDZ+eohE2KYpM9Ax+x0Yldpvjjja1iEyg=",
-    "last_ball_unit": "1NCCXPd78FGtOIVLY4kCfN/aWqtzmnWYcb1M8/Hn6Zw=",
-    "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=",
-    "headers_commission": 551,
-    "payload_commission": 257,
-    "unit": "p3PUEWcbal30K50J4JigKzJRj8trfKosmqsz4QSpZKQ=",
-    "timestamp": 1528523787
-  },
-
-
-
-
-
-  {
-    "unit": {
-      "version": "1.0",
-      "alt": "1",
-      "messages": [
+      "definition": [
+        "sig",
         {
-          "app": "payment",
-          "payload_location": "inline",
-          "payload_hash": "8z3syOEICcRB8DFWX6W15tTqXL5dgccUN+xDIQ8VFQg=",
-          "payload": {
-            "outputs": [
-              {
-                "address": "EPRUSH4HYEY4WSNWJ5WWV5GOD3TNEWUR",
-                "amount": 899999459
-              },
-              {
-                "address": "RISNZVFTWXOIB27JE4K5UCQIPUQV2NE7",
-                "amount": 100000000
-              }
-            ],
-            "inputs": [
-              {
-                "unit": "G2JltPc9w1pdYsE0ZwHKuy3FiKLLPJCKqjfZicMZpaA=",
-                "message_index": 0,
-                "output_index": 0
-              }
-            ]
-          }
+          "pubkey": "A0x1Hf+DWu1kpBcy0uCIuK4q+m5WmiouLEA6cyh9u3Mt"
         }
-      ],
-      "authors": [
-        {
-          "address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
-          "authentifiers": {
-            "r": "iINZaQefN9IesuIh1hZfTFC+SuhnkNRClZCifwp5dcgadfbzPSNQ3sKtC/rmzd2OsozNBEPEpySVH8/Ns0Rvvg=="
-          }
-        }
-      ],
-      "parent_units": [
-        "XUKXN/EsU+J4CSdvtDKE2uO8Rd2W1hCB4I7dB7Zqoe0="
-      ],
-      "last_ball": "Mo4M2VpqeWxeWt9H1ScPQ57vfD//eqZqAeWBh4Ojfpw=",
-      "last_ball_unit": "IWKDZR9hQPgaNgqokd3PdpOcYcjqYAuimEreCLFEKys=",
-      "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=",
-      "headers_commission": 344,
-      "payload_commission": 197,
-      "unit": "lttLAs6WCNQovtxVFIFR2FuM/pw2+CfEhXEHk6UamUY=",
-      "timestamp": 1528523159
+      ]
     }
-  },
-  {
-    "alt": "1",
-    "authors": [
-      {
-        "address": "FJDDWP4AJ6I44HSKHPXXIX6RSQMH674G",
-        "authentifiers": {
-          "r": "RPJxM5Xqu5QznYplqZfLuDb/j9lci3SU9xED56zhyUoqiruPq5a7mnp99uoBDxajU1/BvR0crM3jO7+CSYg0fA=="
-        },
-        "definition": [
-          "sig",
+  ],
+  "messages": [
+    {
+      "app": "payment",
+      "payload_hash": "etG923G7D+29F1MBGOvlH++KtSa3X8vsu82bkORAG1A=",
+      "payload_location": "inline",
+      "payload": {
+        "inputs": [
           {
-            "pubkey": "AzedMq+Pp6j1bCs9u+oXjew2RaNSdQhIC5rLCV4/tTw3"
-          }
-        ]
-      },
-      {
-        "address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
-        "authentifiers": {
-          "r": "zaSO0UdyCKFTGdsBjrNZduRrmOa/oEvprU7753xfoeZN+FNwEHXz4Eing9WOt0FwlHsmWCvyHTKpCAgkfgG/1w=="
-        },
-        "definition": [
-          "sig",
-          {
-            "pubkey": "A9YtPt68wgEzpnbsV0DRk3LXDEJC3cNnw7ioAF7iw6lD"
-          }
-        ]
-      },
-      {
-        "address": "GZDALAGRRGUVJZJRHYLCZZZF7JBGIPGZ",
-        "authentifiers": {
-          "r": "zxk6mI4pjkE6SHbffg70Qk31b+ij3KMO/BM4/os1ijBOG7RBQpFKUmgKzjBdpSZQO/DNjvm9dWObzffeEC2MMg=="
-        },
-        "definition": [
-          "sig",
-          {
-            "pubkey": "AuQefh7HebE4auTzay7M8lDpdFHgjtny6MFsGirfdnBF"
-          }
-        ]
-      },
-      {
-        "address": "KEELNI6LJH74SL4R3JJXHSWRGNESUDOR",
-        "authentifiers": {
-          "r": "F5XAiUIkoOOYCyO4Ar4Fh3MbUIQkbs5S1aBgIyKzCQxxSkxjysgxpglpYEV6RcTNYXrd+62dfS8+AEjE8m8hWQ=="
-        },
-        "definition": [
-          "sig",
-          {
-            "pubkey": "ApdOHba3e0rdRB5k61oEkfunhefcNsStFn/6s69Itkbx"
-          }
-        ]
-      },
-      {
-        "address": "MDJIX6PDOCUFJSX5N6YAFZEN2AGBEYHP",
-        "authentifiers": {
-          "r": "TqvKnMaWIt+DUf4SA/GFU6x1ETjFwTVo7EkgODPcLCpvkpGNL4KE3zdcOxJCOkVvDpbkyhAX1uKKMewljAV1yA=="
-        },
-        "definition": [
-          "sig",
-          {
-            "pubkey": "AqAKm6SwV5C1/BNqDhpsQRe/IMp2FIUzYathTmTxeZ2d"
-          }
-        ]
-      }
-    ],
-    "timestamp": 1528522798,
-    "headers_commission": 1059,
-    "last_ball": "Mo4M2VpqeWxeWt9H1ScPQ57vfD//eqZqAeWBh4Ojfpw=",
-    "last_ball_unit": "IWKDZR9hQPgaNgqokd3PdpOcYcjqYAuimEreCLFEKys=",
-    "messages": [
-      {
-        "app": "payment",
-        "payload": {
-          "inputs": [
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "G2JltPc9w1pdYsE0ZwHKuy3FiKLLPJCKqjfZicMZpaA="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "zXgtrlgatguap4ZugnuFlKhQynfbi9D9v0/Hhk1LpUA="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "zXgtrlgatguap4ZugnuFlKhQynfbi9D9v0/Hhk1LpUA="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "ge+1w8TLlUbxRk3sXxGgxsA06JLhPAZVUsp+ISI1ByQ="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "8x5ScyVyLpua0XlNvVttX9BQ3NEL1zrkBXOgWv33zFo="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "7VO0o/yOxO/nzTUAbR6irGMGZQLKfMA7Ba3iQ7ZSYxU="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "+36Ika9BnLMmLslHXojfaQInbbjuHg62n2NMyp8Z4dE="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "fuJ4+sgsjThiy37HezwNbV+lrl6lNogROLNEYWHlNiA="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "YXYq7dHSw5UmAfVzaKaIEJzIx37qPnc+6IzfHzornRc="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "/wycUe04QLMRYdBjI4AajyddESgXaiqhcOiAVhLCq6g="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "iVfNCprCmsCf9QB8wWdEA577/nJWu1/Ht1igMCWTCp8="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "gWhu33qHBvA4HQw79V5fMaXmaaKcRfk8wF2hRjRt1kY="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "ge+1w8TLlUbxRk3sXxGgxsA06JLhPAZVUsp+ISI1ByQ="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "X82eceWbgX7L3KUbGZIXXVFQxEUuIe0g1Gmn1/i9WVw="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "IqmegBqRJkFCMsjy1BYuGIkQ7ly3u+YlPl0UPvSlTsw="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "MDWajvIiW71nIFtJlyninA45RSf8dwElk26KG75KVxI="
-            },
-            {
-              "message_index": 0,
-              "output_index": 1,
-              "unit": "+grhiO2vMNdSSnA8kluAB8n6aZ0xbVGhFSaMGPz1yPo="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "fop2r/p44SF4XjUAiaD+uH0yu6d9HtQ/4fe5kSz7dJs="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "0VfSPpvSOPvAwIOjniYjnknuuUfnooNcNMAF9jFCdyw="
-            },
-            {
-              "message_index": 0,
-              "output_index": 0,
-              "unit": "jcT/Q3fOPIE7pDsGrDT4dTY3XogkhpKxMv3TlG0VRT0="
-            }
-          ],
-          "outputs": [
-            {
-              "address": "EPRUSH4HYEY4WSNWJ5WWV5GOD3TNEWUR",
-              "amount": 937422347
-            },
-            {
-              "address": "RISNZVFTWXOIB27JE4K5UCQIPUQV2NE7",
-              "amount": 100000000
-            }
-          ]
-        },
-        "payload_hash": "ZdLQGm9pgSFyYjbqMEV8IPDwIAu+raRhslJU9qXp+iA=",
-        "payload_location": "inline"
-      }
-    ],
-    "parent_units": [
-      "XUKXN/EsU+J4CSdvtDKE2uO8Rd2W1hCB4I7dB7Zqoe0="
-    ],
-    "payload_commission": 1337,
-    "unit": "ac0NaQohb/YnO12xXEYACD7UnNnB9FokZRbqydPhVnk=",
-    "version": "1.0",
-    "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="
-  },
-  {
-    "command": "post_joint",
-    "params": {
-      "unit": {
-        "alt": "1",
-        "authors": [
-          {
-            "address": "N2LPXNCHFULBPBYYAGMRTL4IFOFS5OGC",
-            "authentifiers": {
-              "r": "null"
-            },
-            "definition": [
-              "sig",
-              {
-                "pubkey": "A0wbg+BMhFc6d6Al2Bbp44+Zl4FegydxwaZsgsaEhf+9"
-              }
-            ]
+            "unit": "NBcx+wjkmy7L9b+RG8jaEjnNpuE7b9vLNJ1q1JYENoI=",
+            "message_index": 0,
+            "output_index": 0
           }
         ],
-        "timestamp": 1528337860,
-        "headers_commission": 391,
-        "last_ball": "9WCk9LZTY+Y63OFPy8OrpfB4/gmZ7f7Eo3347cndcvg=",
-        "last_ball_unit": "/LpqYkjGnaaKgLcgWC+cZ3FeQWEb2VQ+9DOirhXL8uc=",
-        "parent_units": [
-          "J9oXF9sdBxImL9GX3dXU6WYthD6jNNt4VF/oICcJrYY="
-        ],
-        "payload_commission": 197,
-        "unit": "swaiph138S/flLG7BSjneu0xunXhwK1kBKV5ec0PliA=",
-        "version": "1.0",
-        "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="
+        "outputs": [
+          {
+            "address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
+            "amount": 22000
+          },
+          {
+            "address": "TIPG3DW7MZLSI5MXB3IPJQ3MCNP3B3FE",
+            "amount": 165548
+          }
+        ]
       }
-    },
-    "tag": "RANDOM:992879872"
-  }
+    }
+  ]
+}
+
+{
+  "unit": "1gK4p0Hye0h5iPwM/BCRZyeHEd1yqPk64WBdUdkIicM=",
+  "version": "1.0",
+  "alt": "1",
+  "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=",
+  "last_ball_unit": "hQZyzdsIMDxD4POPB2x3gzIjLTCVboF0wt4NY3OESbk=",
+  "last_ball": "g5gHP0ZWfPXzkJZCA7MkWi22w0705GddGE1gymkCoOM=",
+  "headers_commission": 391,
+  "payload_commission": 197,
+  "main_chain_index": 114746,
+  "timestamp": 1528616410,
+  "parent_units": [
+    "sfrbjKljFofo0LrAYQbv4+MhGWg1BfIPH0yXvuqqSoo="
+  ],
+  "authors": [
+    {
+      "address": "XMXCQZUNP727PGRM75ECHYSVDX6TLXAZ",
+      "authentifiers": {
+        "r": "C6KHNE6SFdFm1E/AuT/hbb3Oh+cBLTL4cr+W4AWv8GVi14/efetA9b12QQGVKB8wjmHqDaiQbEhrDa8Y3SAGNg=="
+      },
+      "definition": [
+        "sig",
+        {
+          "pubkey": "Agl9a05m2n6nWF1sg/NGiRmzouhiu/tQ4PIIpyXhbUkm"
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "app": "payment",
+      "payload_hash": "1i35PtKF53nnjPqJaOOyMrR17uqg91FY0BGgC37+7E0=",
+      "payload_location": "inline",
+      "payload": {
+        "inputs": [
+          {
+            "unit": "FaC5UhybjeOPZwCtuu2sc6g/V2bXW/4oEaFyVovqHMc=",
+            "message_index": 0,
+            "output_index": 1
+          }
+        ],
+        "outputs": [
+          {
+            "address": "6PAOE5GVHCO3UAG7T3CTDWPIYHDVR663",
+            "amount": 209724
+          },
+          {
+            "address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
+            "amount": 18000
+          }
+        ]
+      }
+    }
+  ]
+},
+
+{"unit": {"alt": "1", "authors":[{"address": "IJCBKHL4PKQ2U7S7MRN5VXC3LTYZFN2X", "authentifiers": {"r":"ZTDMHKfP3Bzau/bTZSdI4LKcof6XGlqvgBnn6NF0d5pyioUyqv9r7QjJSmP447j7E15Kpgg0FcZCYYX77bVrKw=="}, "definition":["sig", {"pubkey": "AieFSrHzXIZTL8+RQmCqFcNP6q+IftnSEwmmeELE5P8v"}]}], "timestamp": 1528546774, "headers_commission": 391, "last_ball": "DdiAInaAihxyUiYkwke9J6p7mXfaudpJdRBRtgTDg9M=", "last_ball_unit": "0MNIW+GqoaJ+3Z5WQg7uKnswmqr7lReSuQxKiBLx0y0=", "messages":[{"app": "payment", "payload": {"inputs":[{"message_index": 0, "output_index": 1, "unit": "TRkEVLzBPSuovQSBHSj53dcnaHwv8lAzrqe0L6uLuxs="}], "outputs":[{"address": "AAR3WZ7B4KZW2OCFNLLHDVSIBTO3TSFT", "amount": 293664},{"address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX", "amount": 11000}]}, "payload_hash": "J4ZwxvMRnEkHSfnLOFtUqZKHpmMcMehnT80JkxmLpbY=", "payload_location": "inline"}], "parent_units":["Om2DLySDmlaI8gU86eGgHknT1XhbRrKSOLfEtwXAoZ4="], "payload_commission": 197, "unit": "RjgughgXtuJZnundeh8wNJAXDF65K27X32lTXFxoUGY=", "version": "1.0", "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="}
+
+
+
+[
+"response", {"tag": "RANDOM:2145357625", "response": {"unstable_mc_joints":[
+{"unit": {"unit": "ECtzTtumIqZFpJzPlRtgcn09zP9GrWDIAzRc9obga+A=", "version":"1.0", "alt": "1", "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=","last_ball_unit": "Yy/9DHnq0pTcdnvTYdy1Ic8B9l6LiFzUf2FggWMinJg=", "last_ball": "N+s64gv5vMIQRpz9pk/ayxExXR29e2UdwEkKE+4eV9w=", "headers_commission":344, "payload_commission": 157, "main_chain_index": 114465,"timestamp": 1528546824, "parent_units":["TtWpIJ6oDQd/x1s7rm4FHcBdik1EeSwJ3hAJ+4TOqks="], "authors":[{"address": "4QBVMWX7DRAIVV4CZEVKS3IAQAFDPFBB", "authentifiers": {"r":"04m8DkjEBz00DOkMyH8AMfrqzIuTLLBlr4JJmYDzBFdjHZhpLl/CpcwKHkNWeANRYnCaeNvsWtkVIFMiClcCOQ=="}}], "messages":[{"app": "payment", "payload_hash": "UGx62IEONIkKWZfUDVKceBXUN4BUMLJ1w+Tx6lmIfUY=", "payload_location": "inline", "payload": {"inputs":[{"unit": "Y4K23xN6B4pCe3pKtwStRBpowC3nsqAIoK46SL+Cwio=", "message_index": 0, "output_index": 0}], "outputs":[{"address": "4QBVMWX7DRAIVV4CZEVKS3IAQAFDPFBB", "amount": 68888}]}}]}}, {"unit": {"unit": "TtWpIJ6oDQd/x1s7rm4FHcBdik1EeSwJ3hAJ+4TOqks=", "version": "1.0", "alt": "1", "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=", "last_ball_unit": "m/8LFMf6CkxGg+2DT/s/1cAOQg9ivRfbj5izBBjrr18=", "last_ball": "d5OSSzeoWeFEss4jp8qxSzoNGMrB9RlE90fvKGEOVhE=", "headers_commission": 344, "payload_commission": 157, "main_chain_index": 114464, "timestamp": 1528546822, "parent_units":["aCqOi/8+BA/93WSHWeK9NtWz5OzRJ3rsg5qKJG8B1C0="], "authors":[{"address": "4VYYR2YO6NV4NTF572AUBEKJLSTM4J4E", "authentifiers": {"r":"qFQ5wcx1JUKJJhzcIHFjQG7qIRvKGp2APjY39/7W9Gp/YW9pN6pWJImtZs8+02MJoPzXYlZHXeGyasGXVNGiSA=="}}], "messages":[{"app": "payment", "payload_hash": "DHowtNXad/0X2a1PYqAs8E4+Dn7/u0u7ycmJfJNb85I=", "payload_location": "inline", "payload": {"inputs":[{"unit": "ituHuJGG5f2MLx1A/IFdEmcrQN5S8R9fKabv1W4IplY=", "message_index": 0, "output_index": 0}], "outputs":[{"address": "4VYYR2YO6NV4NTF572AUBEKJLSTM4J4E", "amount": 49349}]}}]}}, {"unit": {"unit": "aCqOi/8+BA/93WSHWeK9NtWz5OzRJ3rsg5qKJG8B1C0=", "version": "1.0", "alt": "1", "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=", "last_ball_unit": "oFuwudgDQh/EsNJFbawtRorKvBjYNZPNcjdhxZvNCkk=", "last_ball": "xmgHK4nB7LZMBPARdAHilc2kzWyXFgFCxOAMScCbbVU=", "headers_commission": 344, "payload_commission": 157, "main_chain_index": 114463, "timestamp": 1528546819, "parent_units":["y+B20L/hCg6l6iElSI/cz2fbzrBH+8x29U7IrdCcSTo="], "authors":[{"address": "34NRY6HRBMWYMJQUKBF22R7JEKXYUHHW", "authentifiers": {"r":"5/vjd2TF13IOko0z1KPaG4E7viEgTx/1zsDMqkFY4/8jA0/t8SN2qJSQXME5ffZagp411G2DynlYw6JIk9KG1g=="}}], "messages":[{"app": "payment", "payload_hash": "zSLXPX/cAir/hlJm7U3toUAoEW46MBswyvfas5wkCLY=", "payload_location": "inline", "payload": {"inputs":[{"unit": "6BWxyl2eJVqz8J2vTXZyjAixnTkO/ptP25ezk47y6Kc=", "message_index": 0, "output_index": 0}], "outputs":[{"address": "34NRY6HRBMWYMJQUKBF22R7JEKXYUHHW", "amount": 65882}]}}]}}, {"unit": {"unit": "y+B20L/hCg6l6iElSI/cz2fbzrBH+8x29U7IrdCcSTo=", "version": "1.0", "alt": "1", "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=", "last_ball_unit": "zVuNoKKb/4ynzWdGzCtpeY+bzIdHbmS25NVkxRjzrio=", "last_ball": "O7b9rSZmDczhtAZwxtwjdFhUHjZq4XnAOcKEhiMM25I=", "headers_commission": 344, "payload_commission": 157, "main_chain_index": 114462, "timestamp": 1528546817, "parent_units":["AwBZAciUoQEjsX55762+ef2UM5V2Mz6pj4hXK9j0e7I="], "authors":[{"address": "3C3OHD7WEFKV6RDF2U4M74RVK7YMDP7I", "authentifiers": {"r":"YFPY6q0ZuLReQJapqswQMRR4l1zBjem3Pe5GU8VYdoZ7oXxYVO7zV2MPCg6AR39hZ+K7JhU90T2DFijbpb56Jw=="}}], "messages":[{"app": "payment", "payload_hash": "yjJBfBWE6VWSaqxzvgsAYocspOUYFTuQ25+iZAqfQwQ=", "payload_location": "inline", "payload": {"inputs":[{"unit": "aaLUoSeQzTZAIuPVpHQSJmO697zbw3BLSoLXjEW74ps=", "message_index": 0, "output_index": 0}], "outputs":[{"address": "3C3OHD7WEFKV6RDF2U4M74RVK7YMDP7I", "amount": 68387}]}}]}}, {"unit": {"unit": "AwBZAciUoQEjsX55762+ef2UM5V2Mz6pj4hXK9j0e7I=", "version": "1.0", "alt": "1", "witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=", "last_ball_unit": "UCUgEZV/hEiIOXwjqyUYiqSB
+
+
+
+
+SELECT outputs.*
+FROM outputs JOIN inputs ON outputs.unit=inputs.src_unit
+AND outputs.message_index=inputs.src_message_index
+AND outputs.output_index=inputs.src_output_index
+WHERE is_spent=0 and outputs.asset IS NULL and inputs.asset IS NULL outputs.address = 'OPRFMRRMJQWTH5NY2TAYWR5GLXQAFY4G'
+[
+{
+"alt": "1",
+"authors": [
+{
+"address": "OPRFMRRMJQWTH5NY2TAYWR5GLXQAFY4G",
+"authentifiers": {
+"r": "BJEq/RxJzOjZo2EprphewiCACOvRK1kVHvXhfCRsnWJ9MKP00wy6KvI5AjmHS1EVvKEquLFnCax00UAd/K0RpQ=="
+},
+"definition": [
+"sig",
+{
+"pubkey": "AzQon2O/oBL43ktwCegPt3Qvdr1ipwYB+CIb1aFFJWuT"
+}
+]
+}
+],
+"earned_headers_commission_recipients": [
+{
+"address": "OPRFMRRMJQWTH5NY2TAYWR5GLXQAFY4G",
+"earned_headers_commission_share": 100
+}
+],
+"timestamp": 1528544014,
+"headers_commission": 431,
+"last_ball": "oVQFkr0+IpO5cKIcIXiK9NKCvDF1b6Z0mgW3//Y0BVM=",
+"last_ball_unit": "clj48nzW996RV4A7cSsf++Ml9wMuR3aFbdoxxvMzoWY=",
+"messages": [
+{
+"app": "payment",
+"payload": {
+"inputs": [
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "PBrGB8s8GG2h3GejhMceIHrMjsbGdyPED8PRhvqGc9I="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "gSeNBkZ7brRsa4D7VJSNQOD56/b+5fK82n7INtJqq+Y="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "YbpCUb6nUkH/cOjDhS0lHqlk5g3h3nchNiRPea6CJr8="
+}
+],
+"outputs": [
+{
+"address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
+"amount": 105000
+},
+{
+"address": "GTDA2CEG5TQHLRKSJWU4BS2YASGBVM5Y",
+"amount": 177301
+}
+]
+},
+"payload_hash": "jLxtVzui/VSTBst4x02BJgiLGbHgsyOEXHbu0vTgJYA=",
+"payload_location": "inline"
+}
+],
+"parent_units": [
+"GxDqwwCcHRHb1De6wLYPvNukuWIhS79DxnKobV81Hwc="
+],
+"payload_commission": 317,
+"unit": "ALUuB54Yhzgq/Dzpyns9yK1wvEsHiUi/RwxEzDjvD/U=",
+"version": "1.0",
+"witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="
+},
+{
+"alt": "1",
+"authors": [
+{
+"address": "OPRFMRRMJQWTH5NY2TAYWR5GLXQAFY4G",
+"authentifiers": {
+"r": "BJEq/RxJzOjZo2EprphewiCACOvRK1kVHvXhfCRsnWJ9MKP00wy6KvI5AjmHS1EVvKEquLFnCax00UAd/K0RpQ=="
+},
+"definition": [
+"sig",
+{
+"pubkey": "AzQon2O/oBL43ktwCegPt3Qvdr1ipwYB+CIb1aFFJWuT"
+}
+]
+}
+],
+"earned_headers_commission_recipients": [
+{
+"address": "OPRFMRRMJQWTH5NY2TAYWR5GLXQAFY4G",
+"earned_headers_commission_share": 100
+}
+],
+"timestamp": 1528540117,
+"headers_commission": 431,
+"last_ball": "oVQFkr0+IpO5cKIcIXiK9NKCvDF1b6Z0mgW3//Y0BVM=",
+"last_ball_unit": "clj48nzW996RV4A7cSsf++Ml9wMuR3aFbdoxxvMzoWY=",
+"messages": [
+{
+"app": "payment",
+"payload": {
+"inputs": [
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "PBrGB8s8GG2h3GejhMceIHrMjsbGdyPED8PRhvqGc9I="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "gSeNBkZ7brRsa4D7VJSNQOD56/b+5fK82n7INtJqq+Y="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "YbpCUb6nUkH/cOjDhS0lHqlk5g3h3nchNiRPea6CJr8="
+}
+],
+"outputs": [
+{
+"address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
+"amount": 105000
+},
+{
+"address": "GTDA2CEG5TQHLRKSJWU4BS2YASGBVM5Y",
+"amount": 177301
+}
+]
+},
+"payload_hash": "jLxtVzui/VSTBst4x02BJgiLGbHgsyOEXHbu0vTgJYA=",
+"payload_location": "inline"
+}
+],
+"parent_units": [
+"GxDqwwCcHRHb1De6wLYPvNukuWIhS79DxnKobV81Hwc="
+],
+"payload_commission": 317,
+"unit": "ALUuB54Yhzgq/Dzpyns9yK1wvEsHiUi/RwxEzDjvD/U=",
+"version": "1.0",
+"witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="
+},
+{
+"version": "1.0",
+"alt": "1",
+"messages": [
+{
+"app": "payment",
+"payload_location": "inline",
+"payload_hash": "Ggl1M7HFg+fmXh7z5vLCz29Zl54WBtiBKFox6SZDRKI=",
+"payload": {
+"outputs": [
+{
+"address": "PGBIXKPCN5U5GFQHL2LG4FCHNKJD7CIY",
+"amount": 1273972
+},
+{
+"address": "RISNZVFTWXOIB27JE4K5UCQIPUQV2NE7",
+"amount": 101000000
+}
+],
+"inputs": [
+{
+"unit": "lttLAs6WCNQovtxVFIFR2FuM/pw2+CfEhXEHk6UamUY=",
+"message_index": 0,
+"output_index": 1
+},
+{
+"unit": "5J/F9t3jdpRNu+v8B7LrFch/onQT/LwOTd9EKz8fmMs=",
+"message_index": 0,
+"output_index": 1
+}
+]
+}
+}
+],
+"authors": [
+{
+"address": "RISNZVFTWXOIB27JE4K5UCQIPUQV2NE7",
+"authentifiers": {
+"r": "nI7r08N4dsBLKiFd+xAhaoW9okWe9TacMmTX4C4bApVU8it2Xg+bkVOy1PkiLb3P8Ayw9F9xPnHZEhjRJkohaQ=="
+}
+},
+{
+"address": "ZVI4QSUQIHVQMLQDUDUE3MZKH3OJEXXT",
+"authentifiers": {
+"r": "c0gj8wYBR08ntTnTJKXgzZ23pKnOI9CcQYRIHH2UycQg1hM7amtIavRDMc6cI5zoxDzMCbaCwkHNuLTjjEyVBg=="
+},
+"definition": [
+"sig",
+{
+"pubkey": "A/Mbo83MTrGGNFRaW9kU0U0CW2SlLkmH6FrVSEaysaFq"
+}
+]
+}
+],
+"earned_headers_commission_recipients": [
+{
+"address": "PGBIXKPCN5U5GFQHL2LG4FCHNKJD7CIY",
+"earned_headers_commission_share": 100
+}
+],
+"parent_units": [
+"v3ci8SasBqZqf62P6G3VC9dLuVQu8X67yBIwob2nnkI="
+],
+"last_ball": "dAk0QuzZM3ZDZ+eohE2KYpM9Ax+x0Yldpvjjja1iEyg=",
+"last_ball_unit": "1NCCXPd78FGtOIVLY4kCfN/aWqtzmnWYcb1M8/Hn6Zw=",
+"witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=",
+"headers_commission": 551,
+"payload_commission": 257,
+"unit": "p3PUEWcbal30K50J4JigKzJRj8trfKosmqsz4QSpZKQ=",
+"timestamp": 1528523787
+},
+{
+"unit": {
+"version": "1.0",
+"alt": "1",
+"messages": [
+{
+"app": "payment",
+"payload_location": "inline",
+"payload_hash": "8z3syOEICcRB8DFWX6W15tTqXL5dgccUN+xDIQ8VFQg=",
+"payload": {
+"outputs": [
+{
+"address": "EPRUSH4HYEY4WSNWJ5WWV5GOD3TNEWUR",
+"amount": 899999459
+},
+{
+"address": "RISNZVFTWXOIB27JE4K5UCQIPUQV2NE7",
+"amount": 100000000
+}
+],
+"inputs": [
+{
+"unit": "G2JltPc9w1pdYsE0ZwHKuy3FiKLLPJCKqjfZicMZpaA=",
+"message_index": 0,
+"output_index": 0
+}
+]
+}
+}
+],
+"authors": [
+{
+"address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
+"authentifiers": {
+"r": "iINZaQefN9IesuIh1hZfTFC+SuhnkNRClZCifwp5dcgadfbzPSNQ3sKtC/rmzd2OsozNBEPEpySVH8/Ns0Rvvg=="
+}
+}
+],
+"parent_units": [
+"XUKXN/EsU+J4CSdvtDKE2uO8Rd2W1hCB4I7dB7Zqoe0="
+],
+"last_ball": "Mo4M2VpqeWxeWt9H1ScPQ57vfD//eqZqAeWBh4Ojfpw=",
+"last_ball_unit": "IWKDZR9hQPgaNgqokd3PdpOcYcjqYAuimEreCLFEKys=",
+"witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ=",
+"headers_commission": 344,
+"payload_commission": 197,
+"unit": "lttLAs6WCNQovtxVFIFR2FuM/pw2+CfEhXEHk6UamUY=",
+"timestamp": 1528523159
+}
+},
+{
+"alt": "1",
+"authors": [
+{
+"address": "FJDDWP4AJ6I44HSKHPXXIX6RSQMH674G",
+"authentifiers": {
+"r": "RPJxM5Xqu5QznYplqZfLuDb/j9lci3SU9xED56zhyUoqiruPq5a7mnp99uoBDxajU1/BvR0crM3jO7+CSYg0fA=="
+},
+"definition": [
+"sig",
+{
+"pubkey": "AzedMq+Pp6j1bCs9u+oXjew2RaNSdQhIC5rLCV4/tTw3"
+}
+]
+},
+{
+"address": "GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX",
+"authentifiers": {
+"r": "zaSO0UdyCKFTGdsBjrNZduRrmOa/oEvprU7753xfoeZN+FNwEHXz4Eing9WOt0FwlHsmWCvyHTKpCAgkfgG/1w=="
+},
+"definition": [
+"sig",
+{
+"pubkey": "A9YtPt68wgEzpnbsV0DRk3LXDEJC3cNnw7ioAF7iw6lD"
+}
+]
+},
+{
+"address": "GZDALAGRRGUVJZJRHYLCZZZF7JBGIPGZ",
+"authentifiers": {
+"r": "zxk6mI4pjkE6SHbffg70Qk31b+ij3KMO/BM4/os1ijBOG7RBQpFKUmgKzjBdpSZQO/DNjvm9dWObzffeEC2MMg=="
+},
+"definition": [
+"sig",
+{
+"pubkey": "AuQefh7HebE4auTzay7M8lDpdFHgjtny6MFsGirfdnBF"
+}
+]
+},
+{
+"address": "KEELNI6LJH74SL4R3JJXHSWRGNESUDOR",
+"authentifiers": {
+"r": "F5XAiUIkoOOYCyO4Ar4Fh3MbUIQkbs5S1aBgIyKzCQxxSkxjysgxpglpYEV6RcTNYXrd+62dfS8+AEjE8m8hWQ=="
+},
+"definition": [
+"sig",
+{
+"pubkey": "ApdOHba3e0rdRB5k61oEkfunhefcNsStFn/6s69Itkbx"
+}
+]
+},
+{
+"address": "MDJIX6PDOCUFJSX5N6YAFZEN2AGBEYHP",
+"authentifiers": {
+"r": "TqvKnMaWIt+DUf4SA/GFU6x1ETjFwTVo7EkgODPcLCpvkpGNL4KE3zdcOxJCOkVvDpbkyhAX1uKKMewljAV1yA=="
+},
+"definition": [
+"sig",
+{
+"pubkey": "AqAKm6SwV5C1/BNqDhpsQRe/IMp2FIUzYathTmTxeZ2d"
+}
+]
+}
+],
+"timestamp": 1528522798,
+"headers_commission": 1059,
+"last_ball": "Mo4M2VpqeWxeWt9H1ScPQ57vfD//eqZqAeWBh4Ojfpw=",
+"last_ball_unit": "IWKDZR9hQPgaNgqokd3PdpOcYcjqYAuimEreCLFEKys=",
+"messages": [
+{
+"app": "payment",
+"payload": {
+"inputs": [
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "G2JltPc9w1pdYsE0ZwHKuy3FiKLLPJCKqjfZicMZpaA="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "zXgtrlgatguap4ZugnuFlKhQynfbi9D9v0/Hhk1LpUA="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "zXgtrlgatguap4ZugnuFlKhQynfbi9D9v0/Hhk1LpUA="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "ge+1w8TLlUbxRk3sXxGgxsA06JLhPAZVUsp+ISI1ByQ="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "8x5ScyVyLpua0XlNvVttX9BQ3NEL1zrkBXOgWv33zFo="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "7VO0o/yOxO/nzTUAbR6irGMGZQLKfMA7Ba3iQ7ZSYxU="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "+36Ika9BnLMmLslHXojfaQInbbjuHg62n2NMyp8Z4dE="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "fuJ4+sgsjThiy37HezwNbV+lrl6lNogROLNEYWHlNiA="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "YXYq7dHSw5UmAfVzaKaIEJzIx37qPnc+6IzfHzornRc="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "/wycUe04QLMRYdBjI4AajyddESgXaiqhcOiAVhLCq6g="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "iVfNCprCmsCf9QB8wWdEA577/nJWu1/Ht1igMCWTCp8="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "gWhu33qHBvA4HQw79V5fMaXmaaKcRfk8wF2hRjRt1kY="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "ge+1w8TLlUbxRk3sXxGgxsA06JLhPAZVUsp+ISI1ByQ="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "X82eceWbgX7L3KUbGZIXXVFQxEUuIe0g1Gmn1/i9WVw="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "IqmegBqRJkFCMsjy1BYuGIkQ7ly3u+YlPl0UPvSlTsw="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "MDWajvIiW71nIFtJlyninA45RSf8dwElk26KG75KVxI="
+},
+{
+"message_index": 0,
+"output_index": 1,
+"unit": "+grhiO2vMNdSSnA8kluAB8n6aZ0xbVGhFSaMGPz1yPo="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "fop2r/p44SF4XjUAiaD+uH0yu6d9HtQ/4fe5kSz7dJs="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "0VfSPpvSOPvAwIOjniYjnknuuUfnooNcNMAF9jFCdyw="
+},
+{
+"message_index": 0,
+"output_index": 0,
+"unit": "jcT/Q3fOPIE7pDsGrDT4dTY3XogkhpKxMv3TlG0VRT0="
+}
+],
+"outputs": [
+{
+"address": "EPRUSH4HYEY4WSNWJ5WWV5GOD3TNEWUR",
+"amount": 937422347
+},
+{
+"address": "RISNZVFTWXOIB27JE4K5UCQIPUQV2NE7",
+"amount": 100000000
+}
+]
+},
+"payload_hash": "ZdLQGm9pgSFyYjbqMEV8IPDwIAu+raRhslJU9qXp+iA=",
+"payload_location": "inline"
+}
+],
+"parent_units": [
+"XUKXN/EsU+J4CSdvtDKE2uO8Rd2W1hCB4I7dB7Zqoe0="
+],
+"payload_commission": 1337,
+"unit": "ac0NaQohb/YnO12xXEYACD7UnNnB9FokZRbqydPhVnk=",
+"version": "1.0",
+"witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="
+},
+{
+"command": "post_joint",
+"params": {
+"unit": {
+"alt": "1",
+"authors": [
+{
+"address": "N2LPXNCHFULBPBYYAGMRTL4IFOFS5OGC",
+"authentifiers": {
+"r": "null"
+},
+"definition": [
+"sig",
+{
+"pubkey": "A0wbg+BMhFc6d6Al2Bbp44+Zl4FegydxwaZsgsaEhf+9"
+}
+]
+}
+],
+"timestamp": 1528337860,
+"headers_commission": 391,
+"last_ball": "9WCk9LZTY+Y63OFPy8OrpfB4/gmZ7f7Eo3347cndcvg=",
+"last_ball_unit": "/LpqYkjGnaaKgLcgWC+cZ3FeQWEb2VQ+9DOirhXL8uc=",
+"parent_units": [
+"J9oXF9sdBxImL9GX3dXU6WYthD6jNNt4VF/oICcJrYY="
+],
+"payload_commission": 197,
+"unit": "swaiph138S/flLG7BSjneu0xunXhwK1kBKV5ec0PliA=",
+"version": "1.0",
+"witness_list_unit": "MtzrZeOHHjqVZheuLylf0DX7zhp10nBsQX5e/+cA3PQ="
+}
+},
+"tag": "RANDOM:992879872"
+}
 ]
 
 //"error":"wrong headers commission, expected 307"}

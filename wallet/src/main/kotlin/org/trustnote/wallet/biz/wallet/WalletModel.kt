@@ -2,6 +2,7 @@ package org.trustnote.wallet.biz.wallet
 
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
+import org.trustnote.db.TrustNoteDataBase
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.db.entity.Units
 import org.trustnote.wallet.biz.TTT
@@ -26,7 +27,8 @@ class WalletModel() {
     val TAG = WalletModel::class.java.simpleName
 
     lateinit var mProfile: TProfile
-    @Volatile var busy = false
+    @Volatile
+    var busy = false
     private val refreshingCredentials = LinkedBlockingQueue<Credential>()
     private lateinit var refreshingWorker: ScheduledExecutorService
 
@@ -38,7 +40,8 @@ class WalletModel() {
         }
     }
 
-    constructor(password: String, mnemonic: String, shouldRemoveMnemonic: Boolean, privKey: String) : this() {
+    constructor(password: String, mnemonic: String, shouldRemoveMnemonic: Boolean) : this() {
+
         mProfile = TProfile()
         mProfile.mnemonic = mnemonic
         mProfile.removeMnemonic = shouldRemoveMnemonic
@@ -46,6 +49,9 @@ class WalletModel() {
         startRefreshThread()
 
         fullRefreshing(password)
+
+        walletUpdated()
+
     }
 
     fun isRefreshing(): Boolean {
@@ -58,6 +64,11 @@ class WalletModel() {
         HubManager.disconnect(mProfile.dbTag)
         refreshingWorker.shutdownNow()
         refreshingCredentials.clear()
+        busy = false
+
+        Prefs.removeProfile()
+
+        DbHelper.dropWalletDB(mProfile.dbTag)
         //mWalletEventCenter.onComplete()
 
     }
@@ -75,7 +86,6 @@ class WalletModel() {
             refreshOneWallet(it)
         }
     }
-
 
     fun refreshOneWallet(walletId: String) {
         refreshOneWallet(findWallet(walletId))
@@ -140,7 +150,12 @@ class WalletModel() {
                 Utils.debugLog("""${TAG}startRefreshThread::before refreshOneWalletImpl --$credential""")
                 busy = true
 
-                refreshOneWalletImpl(credential)
+                try {
+                    refreshOneWalletImpl(credential)
+                } catch (e: Throwable) {
+                    //TODO: show err?
+                    Utils.logW(e.toString())
+                }
 
                 busy = false
                 Utils.debugLog("""${TAG}startRefreshThread::after refreshOneWalletImpl --$credential""")
@@ -155,26 +170,52 @@ class WalletModel() {
             return
         }
 
-        if (DbHelper.shouldGenerateMoreAddress(credential.walletId)) {
-            ModelHelper.generateNewAddressAndSaveDb(credential)
-        }
-
         readAddressFromDb(credential)
 
-        if (credential.myAddresses.isEmpty()) {
-            ModelHelper.generateNewAddressAndSaveDb(credential)
+        checkIsAddressesIsEnoughAndGenerateMore(credential)
+
+        //Just for better UE.
+        readDataFromDb(credential)
+
+        var needRefreshedAddresses = credential.myAddresses.toTypedArray()
+
+        while (needRefreshedAddresses.isNotEmpty()) {
+            val hubResponse = getUnitsFromHub(needRefreshedAddresses)
+
+            val units = UnitsManager().saveUnitsFromHubResponse(hubResponse)
+
+            val unStableUnits = units.filter { it.isStable == 0 }
+
+            if (unStableUnits.isNotEmpty()) {
+                MyThreadManager.instance.runDealyed(4) {
+                    refreshOneWallet(credential.walletId)
+                }
+            }
+
+            readDataFromDb(credential)
+
+            needRefreshedAddresses = checkIsAddressesIsEnoughAndGenerateMore(credential).toTypedArray()
         }
 
+    }
 
-        readDataFromDb(credential)
-        //notify for better UI experience.
-        walletUpdated()
+    private fun checkIsAddressesIsEnoughAndGenerateMore(credential: Credential): List<MyAddresses> {
+        val res = mutableListOf<MyAddresses>()
 
-        val hubResponse = getUnitsFromHub(credential)
-        UnitsManager().saveUnitsFromHubResponse(hubResponse)
+        if (credential.myReceiveAddresses.isEmpty() || DbHelper.shouldGenerateMoreAddress(credential.walletId, TTT.addressReceiveType)) {
+            res.addAll(ModelHelper.generateNewAddressAndSaveDb(credential, TTT.addressReceiveType))
+        }
 
-        readDataFromDb(credential)
+        if (credential.myChangeAddresses.isEmpty() || DbHelper.shouldGenerateMoreAddress(credential.walletId, TTT.addressChangeType)) {
+            res.addAll(ModelHelper.generateNewAddressAndSaveDb(credential, TTT.addressChangeType))
+        }
 
+        if (res.isNotEmpty()) {
+            readAddressFromDb(credential)
+            walletUpdated()
+        }
+
+        return res
     }
 
     private fun readDataFromDb(credential: Credential) {
@@ -184,6 +225,8 @@ class WalletModel() {
         updateBalance(credential)
 
         updateTxs(credential)
+
+        walletUpdated()
 
     }
 
@@ -247,10 +290,9 @@ class WalletModel() {
 
     }
 
-    fun getUnitsFromHub(credential: Credential): HubResponse {
+    fun getUnitsFromHub(addresses: Array<MyAddresses>): HubResponse {
 
         val witnesses = WitnessManager.getMyWitnesses()
-        val addresses = DbHelper.queryAddressByWalletId(credential.walletId)
 
         if (witnesses.isEmpty() || addresses.isEmpty()) {
             return HubResponse()
@@ -447,9 +489,12 @@ class WalletModel() {
 
     fun newUnitAcceptedByHub(unit: Units, walletId: String) {
 
-        DbHelper.saveUnits(unit)
+        //DbHelper.saveUnits(unit)
 
         readDataFromDb(findWallet(walletId))
+
+        refreshOneWallet(walletId)
+
         walletUpdated()
     }
 
