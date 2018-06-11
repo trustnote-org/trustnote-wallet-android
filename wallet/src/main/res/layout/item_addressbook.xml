@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_credential_height"
+        android:background="@color/bg_white"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/t_sub_title"
+            android:layout_centerVertical="true"
+            android:text="@string/place_holder" />
+
+        <TextView
+            android:id="@+id/address"
+            style="@style/t_sub_title"
+            android:layout_below="@id/name"
+            android:text="@string/place_holder"
+            android:textColor="@color/t_hint"
+            android:textSize="@dimen/text_14" />
+
+    </RelativeLayout>
+</layout>

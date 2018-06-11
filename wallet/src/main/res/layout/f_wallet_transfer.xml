@@ -49,12 +49,12 @@
                 android:text="" />
 
             <ImageView
-                android:id="@+id/transfer_receiver_scan"
+                android:id="@+id/transfer_receiver_select"
                 android:layout_width="@dimen/ic_26"
                 android:layout_height="@dimen/ic_26"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_wallet_receive" />
+                android:src="@drawable/ic_address_book" />
 
         </RelativeLayout>
 

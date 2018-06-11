@@ -31,6 +31,7 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
     var signFailed = false
 
     lateinit var mGetParentRequest: ReqGetParents
+    lateinit var changeAddress: String
     private val jsApi = JSApi()
 
     fun isOkToSendTx(): Boolean {
@@ -138,7 +139,8 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         receiverOutput.address = sendPaymentInfo.receiverAddress
         receiverOutput.amount = sendPaymentInfo.amount
 
-        changeOutput.address = queryOrIssueNotUsedChangeAddress()
+        changeAddress = queryOrIssueNotUsedChangeAddress()
+        changeOutput.address = changeAddress
         changeOutput.amount = TTT.PLACEHOLDER_AMOUNT
 
         payload.outputs.add(receiverOutput)
@@ -255,13 +257,13 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         }
 
         if (payload.inputs.size > 1) {
-            genCommissionReceipts(payload.inputs[0])
+            genCommissionReceipts()
         }
     }
 
-    private fun genCommissionReceipts(input: Inputs) {
+    private fun genCommissionReceipts() {
         val commissionRecipient = CommissionRecipients()
-        commissionRecipient.address = input.address
+        commissionRecipient.address = changeAddress
         units.commissionRecipients = listOf(commissionRecipient)
     }
 

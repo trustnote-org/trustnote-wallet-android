@@ -8,6 +8,7 @@
 
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
+    <string name="save">保存</string>
 
     <!--<string name="menu_home">Home</string>-->
     <!--<string name="menu_msg">Messages</string>-->
@@ -293,6 +294,11 @@
     <string name="tx_confirmed">已确认</string>
     <string name="tx_unconfirmed">未确认</string>
 
+    <string name="address_book_title">地址</string>
+
+    <string name="address_book_add_title">添加地址</string>
+    <string name="address_book_label_memo">备注</string>
+    <string name="address_book_label_address">钱包地址</string>
 
 
     <!--setting_wallet_tools_fullsync-->

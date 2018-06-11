@@ -42,14 +42,13 @@ open class FragmentInitSetupPwd : FragmentInit() {
         pwd.addTextChangedListener(pwdTextWatcher)
         pwdVerify.addTextChangedListener(pwdTextWatcher)
 
-
         pwdConfirm.setOnClickListener {
             savePwdAndForward()
         }
 
         if (Utils.isDeveloperFeature()) {
             pwd.setText(TestData.password)
-            pwdConfirm.setText(TestData.password)
+            pwdVerify.setText(TestData.password)
         }
 
         val webView: WebView = view.findViewById(R.id.pwd_warning)

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/t_title"
+            android:layout_marginTop="@dimen/line_gap_48"
+            android:text="@string/address_book_add_title" />
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/address"
+            style="@style/t_pwd"
+            android:layout_below="@id/title"
+            android:hint="@string/address_book_label_address"
+            android:inputType="text"
+            android:text="" />
+
+        <ImageView
+            android:id="@+id/scan_address"
+            android:layout_width="@dimen/ic_26"
+            android:layout_height="@dimen/ic_26"
+            android:layout_alignTop="@id/address"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/scan" />
+
+
+        <org.trustnote.wallet.widget.ClearableEditText
+            android:id="@+id/memo"
+            style="@style/t_pwd"
+            android:layout_below="@id/address"
+            android:hint="@string/address_book_label_memo"
+            android:inputType="text"
+            android:text="" />
+
+
+        <Button
+            android:id="@+id/save"
+            style="@style/t_btn_blue"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:text="@string/save" />
+    </RelativeLayout>
+
+</layout>

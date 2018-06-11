@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit
 import com.google.gson.JsonObject
 import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.init.FragmentInit
 import org.trustnote.wallet.biz.wallet.TProfile
 import java.io.File
 import java.text.SimpleDateFormat
@@ -158,17 +159,17 @@ object Utils {
         return getGson().toJsonTree(o) as JsonObject
     }
 
-    fun write2File(file: File, o: Any) {
+    fun writeJson2File(file: File, o: Any) {
         file.bufferedWriter().use {
             it.write(getGson().toJson(o))
         }
     }
 
-    fun readFileAsTProfile(file: File): TProfile {
+    fun readJsonFileAsObject(file: File, clz: Class<out Object>): Object {
         if (!file.exists() || file.length() < 10) {
-            throw RuntimeException("TProfile file does not exist")
+            return clz.newInstance()
         }
-        return getGson().fromJson(file.bufferedReader(), TProfile::class.java)
+        return getGson().fromJson(file.bufferedReader(), clz)
     }
 
     fun hash(input: String): String {

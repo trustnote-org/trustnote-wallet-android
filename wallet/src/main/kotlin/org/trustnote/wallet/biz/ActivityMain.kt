@@ -58,21 +58,25 @@ class ActivityMain : ActivityBase() {
         when (item.itemId) {
             R.id.action_scan -> {
                 AndroidUtils.todo()
+                return true
             }
 
             R.id.action_create_wallet -> {
                 openLevel2Fragment(Bundle(), FragmentMainCreateWallet::class.java)
+                return true
             }
             R.id.action_my_pair_id -> {
                 openPage(FragmentMsgMyPairId())
+                return true
             }
 
             R.id.action_contacts_add -> {
                 AndroidUtils.todo()
+                return true
             }
 
         }
-        return true
+        return false
     }
 
     fun setToolbarTitle(s: String) {

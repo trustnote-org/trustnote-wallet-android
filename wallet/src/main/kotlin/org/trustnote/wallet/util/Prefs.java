@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 import org.trustnote.wallet.TApp;
+import org.trustnote.wallet.biz.me.AddressesBookDb;
 import org.trustnote.wallet.biz.wallet.TProfile;
 
 import java.io.File;
@@ -30,6 +31,19 @@ public class Prefs {
     //private static final String KEY_MY_PAIRD_ID = "KEY_MY_PAIRD_ID";
     private static final String KEY_IS_USER_IN_FULL_RESTORE = "KEY_IS_USER_IN_FULL_RESTORE";
 
+    private static final String KEY_TRANSFER_ADDRESSES = "TTTTransferAddresses";
+    private static final File FILE_TRANSFER_ADDRESSES = new File(TApp.context.getFilesDir(), "TTTTransferAddresses.json");
+
+    public static void writeTransferAddresses(AddressesBookDb db) {
+        //getInstance().writeObject(KEY_PROFILE, p);
+        Utils.INSTANCE.writeJson2File(FILE_TRANSFER_ADDRESSES, db);
+    }
+
+    public static AddressesBookDb readTransferAddressesDb() {
+        //Object res = getInstance().readObject(KEY_PROFILE, TProfile.class);
+        return (AddressesBookDb)Utils.INSTANCE.readJsonFileAsObject(FILE_TRANSFER_ADDRESSES, AddressesBookDb.class);
+    }
+
     public static boolean profileExist() {
         return FILE_PROFILE.exists() && FILE_PROFILE.length() > 13;
     }
@@ -40,12 +54,12 @@ public class Prefs {
 
     public static void writeProfile(TProfile p) {
         //getInstance().writeObject(KEY_PROFILE, p);
-        Utils.INSTANCE.write2File(FILE_PROFILE, p);
+        Utils.INSTANCE.writeJson2File(FILE_PROFILE, p);
     }
 
     public static TProfile readProfile() {
         //Object res = getInstance().readObject(KEY_PROFILE, TProfile.class);
-        return Utils.INSTANCE.readFileAsTProfile(FILE_PROFILE);
+        return (TProfile)Utils.INSTANCE.readJsonFileAsObject(FILE_PROFILE, TProfile.class);
     }
 
     public static void writePwdHash(String pwd) {

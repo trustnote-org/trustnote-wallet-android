@@ -172,7 +172,7 @@ abstract class FragmentBase : Fragment() {
         (activity as ActivityBase).showErrorUI(isShow)
     }
 
-    fun openFragment(f: FragmentEditBase) {
+    fun openFragment(f: FragmentBase) {
         (activity as ActivityMain).openLevel2Fragment(f)
     }
 

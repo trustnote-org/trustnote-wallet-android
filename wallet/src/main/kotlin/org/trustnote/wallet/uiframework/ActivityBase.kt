@@ -5,18 +5,18 @@ import android.annotation.SuppressLint
 import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.support.annotation.CallSuper
-import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.view.WindowManager
-import org.trustnote.wallet.util.AndroidUtils
-import org.trustnote.wallet.widget.keyboard.BasicOnKeyboardActionListener
-import org.trustnote.wallet.widget.keyboard.CustomKeyboardView
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
-import android.view.animation.AnimationUtils
+import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.view.WindowManager
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
+import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.keyboard.BasicOnKeyboardActionListener
+import org.trustnote.wallet.widget.keyboard.CustomKeyboardView
 
 abstract class ActivityBase : AppCompatActivity() {
 
@@ -26,6 +26,8 @@ abstract class ActivityBase : AppCompatActivity() {
 
     lateinit var mRefreshingIndicator: View
     lateinit var mErrorIndicator: View
+
+    var stringAsReturnResult: String = ""
 
     abstract fun injectDependencies(graph: TApplicationComponent)
 
@@ -135,7 +137,9 @@ abstract class ActivityBase : AppCompatActivity() {
                 item.setChecked(item.itemData.isChecked)
             }
         } catch (e: NoSuchFieldException) {
+            Utils.logW(e.toString())
         } catch (e: IllegalAccessException) {
+            Utils.logW(e.toString())
         }
 
     }
@@ -146,6 +150,18 @@ abstract class ActivityBase : AppCompatActivity() {
 
     fun showErrorUI(isShow: Boolean = false) {
         mErrorIndicator.visibility = if (isShow) View.VISIBLE else View.GONE
+    }
+
+
+    //TODO: buggy
+    fun setupStringAsReturnResult(s: String) {
+        stringAsReturnResult = s
+    }
+
+    fun readReturnResultAndClear(): String {
+        val res = stringAsReturnResult
+        stringAsReturnResult = ""
+        return res
     }
 
 }

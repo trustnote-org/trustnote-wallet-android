@@ -78,6 +78,7 @@ class TTT {
                 "curry.trustnote.org/tn",
                 "kake.trustnote.org/tn")
 
+        //TODO:
         val hubAddress = if (isTestnet) "raytest.trustnote.org" else "eason.trustnote.org/tn"
 
         const val TYPICAL_FEE = 1000L
