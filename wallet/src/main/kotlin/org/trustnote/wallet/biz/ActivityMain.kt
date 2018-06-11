@@ -56,10 +56,6 @@ class ActivityMain : ActivityBase() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_scan -> {
-                AndroidUtils.todo()
-                return true
-            }
 
             R.id.action_create_wallet -> {
                 openLevel2Fragment(Bundle(), FragmentMainCreateWallet::class.java)

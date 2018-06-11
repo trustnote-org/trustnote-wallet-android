@@ -195,7 +195,6 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     }
 
-
     override fun updateUI() {
 
         balance.setMnAmount(credential.balance)

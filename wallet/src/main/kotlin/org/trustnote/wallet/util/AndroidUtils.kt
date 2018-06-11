@@ -44,6 +44,19 @@ import java.util.*
 
 object AndroidUtils {
 
+    const val KEY_BUNDLE_TITLE: String = "KEY_TITLE"
+    const val KEY_BUNDLE_MSG: String = "KEY_MSG"
+
+    fun getTitleFromBundle(bundle: Bundle): String {
+        val res = bundle.getString(KEY_BUNDLE_TITLE)
+        return res ?: ""
+    }
+
+    fun getMsgFromBundle(bundle: Bundle): String {
+        val res = bundle.getString(KEY_BUNDLE_MSG)
+        return res ?: ""
+    }
+
     fun readAssetFile(fileName: String): String {
         val jsStream = TApp.context.assets.open(fileName)
         return jsStream.bufferedReader().use { it.readText() }

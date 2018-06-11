@@ -20,6 +20,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.me.FragmentMeMain
+import org.trustnote.wallet.util.AndroidUtils
 
 abstract class FragmentBase : Fragment() {
 
@@ -130,7 +131,7 @@ abstract class FragmentBase : Fragment() {
         Utils.debugLog("$ttag:${this.javaClass.canonicalName}::updateUI")
     }
 
-    var scanResHandler: (String) -> Unit = {}
+    private var scanResHandler: (String) -> Unit = {}
 
     fun startScan(scanResHandler: (String) -> Unit = {}) {
         this.scanResHandler = scanResHandler
@@ -185,5 +186,16 @@ abstract class FragmentBase : Fragment() {
         hideSystemSoftKeyboard()
         activity.onBackPressed()
     }
+
+    fun openSimpleInfoPage(msg: String, title: String) {
+        val bundle = Bundle()
+        bundle.putString(AndroidUtils.KEY_BUNDLE_MSG, msg)
+        bundle.putString(AndroidUtils.KEY_BUNDLE_TITLE, title)
+        val f = FragmentSimplePage()
+        f.arguments = bundle
+        openFragment(f)
+    }
+
+
 
 }

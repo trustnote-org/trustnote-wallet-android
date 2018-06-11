@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:background="@color/bg_white"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/t_title"
+            android:layout_width="match_parent"
+            android:background="@color/bg_white"
+            android:paddingTop="@dimen/line_gap_10"
+            android:text="@string/place_holder" />
+
+        <TextView
+            android:id="@+id/msg"
+            style="@style/t_text_msg"
+            android:layout_width="match_parent"
+            android:layout_below="@id/title"
+            android:background="@color/bg_white"
+            android:paddingTop="@dimen/line_gap_10"
+            android:text="@string/place_holder" />
+
+    </RelativeLayout>
+
+</layout>

@@ -16,9 +16,8 @@ class FragmentMainWalletTxDetail : FragmentWalletBase() {
         return R.layout.f_main_wallet_tx_detail
     }
 
-    override fun initFragment(view: View) {
-        super.initFragment(view)
-
+    override fun updateUI() {
+        super.updateUI()
         val txIndex = arguments.getInt(TTT.KEY_TX_INDEX, 0)
 
         val tx = credential.txDetails[txIndex]
@@ -55,7 +54,6 @@ class FragmentMainWalletTxDetail : FragmentWalletBase() {
         status.setStatus(R.string.tx_status, tx.confirmations > 0)
 
         //TODO: status.
-
     }
 
 }

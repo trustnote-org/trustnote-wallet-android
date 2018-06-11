@@ -2,6 +2,8 @@ package org.trustnote.wallet.biz.wallet
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.uiframework.FragmentBase
 
@@ -28,6 +30,12 @@ abstract class FragmentWalletBase : FragmentBase() {
     override fun onPause() {
         super.onPause()
         disposables.clear()
+    }
+
+    fun scanEveryThing() {
+        startScan {
+            openSimpleInfoPage(it, TApp.getString(R.string.scan_result_title))
+        }
     }
 
 }

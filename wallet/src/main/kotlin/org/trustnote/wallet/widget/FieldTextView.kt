@@ -45,8 +45,13 @@ open class FieldTextView @JvmOverloads constructor(
     }
 
     private fun showStatus(isStable: Boolean) {
-        if (isStable) confirmed.visibility = View.VISIBLE
-        else unconfirmed.visibility = View.VISIBLE
+        if (isStable) {
+            confirmed.visibility = View.VISIBLE
+            unconfirmed.visibility = View.GONE
+        } else {
+            confirmed.visibility = View.GONE
+            unconfirmed.visibility = View.VISIBLE
+        }
     }
 
     fun setStatus(lableResId: Int, isConfirmed: Boolean) {

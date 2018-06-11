@@ -49,6 +49,17 @@ class FragmentMainWallet : FragmentWalletBase() {
         return TApp.context.getString(R.string.wallet_toolbar_title)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_scan -> {
+                startScan {
+                    openSimpleInfoPage(it, TApp.getString(R.string.scan_result_title))
+                }
+            }
+        }
+        return false
+    }
+
     override fun initFragment(view: View) {
 
         isBottomLayerUI = true

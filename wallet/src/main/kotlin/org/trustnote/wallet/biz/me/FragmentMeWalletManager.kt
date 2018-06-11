@@ -15,7 +15,7 @@ import org.trustnote.wallet.util.AndroidUtils
 class FragmentMeWalletManager : FragmentWalletBase() {
 
     override fun getLayoutId(): Int {
-        return R.layout.f_me_walleg_manager
+        return R.layout.f_me_wallet_manager
     }
 
     lateinit var mRecyclerView: RecyclerView
