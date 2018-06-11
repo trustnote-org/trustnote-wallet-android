@@ -175,9 +175,14 @@ object Utils {
         return input
     }
 
-    fun isUseDebugOption(): Boolean {
+    fun isTesterFeature(): Boolean {
         return BuildConfig.DEBUG && BuildConfig.FLAVOR == "devnet"
     }
+
+    fun isDeveloperFeature(): Boolean {
+        return BuildConfig.DEVELOPER_MODE
+    }
+
 
     fun formatAddressWithEllipse(address: String): String {
         return if (address.isBlank()) "" else """${address.substring(0, 5)}…${address.takeLast(3)}"""

@@ -1,0 +1,1 @@
+./gradlew publishAll -PdeveloperMode=false

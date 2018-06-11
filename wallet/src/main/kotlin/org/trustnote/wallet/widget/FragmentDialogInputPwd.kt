@@ -12,12 +12,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
-import android.widget.EditText
 
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CreateWalletModel
+import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.util.AndroidUtils
-import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 
 class FragmentDialogInputPwd() : DialogFragment() {
@@ -53,8 +52,8 @@ class FragmentDialogInputPwd() : DialogFragment() {
 
         AndroidUtils.hideErrIfHasFocus(pwdView, pwdErrView)
 
-        if (Utils.isUseDebugOption()) {
-            pwdView.setText("qwer1234")
+        if (Utils.isDeveloperFeature()) {
+            pwdView.setText(TestData.password)
         }
 
         return view

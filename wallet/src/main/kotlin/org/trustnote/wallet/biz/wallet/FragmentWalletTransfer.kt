@@ -7,7 +7,6 @@ import android.widget.TextView
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.Authentifiers
 import org.trustnote.wallet.R
-import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.me.FragmentDialogAskAuthorToSigner
@@ -63,7 +62,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
         amountText.addTextChangedListener(MyTextWatcher(this))
 
-        if (Utils.isUseDebugOption()) {
+        if (Utils.isDeveloperFeature()) {
             setTransferAddress("GI6TXYXRSB4JJZJLECF3F5DOTUZ5V7MX")
             setTransferAmount(105000)
         }

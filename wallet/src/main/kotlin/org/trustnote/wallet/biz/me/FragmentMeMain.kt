@@ -11,7 +11,6 @@ import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.debug.FragmentMeDebug
 import org.trustnote.wallet.uiframework.FragmentEditBase
-import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
@@ -54,7 +53,7 @@ class FragmentMeMain : FragmentWalletBase() {
         var settingsMain = SettingItem.getSettingMain(activity as ActivityMain)
         fullMainSettings.addAll(settingsMain.toList())
 
-        if (Utils.isUseDebugOption()) {
+        if (Utils.isTesterFeature()) {
 
             val debugSettings = SettingItem(titleResId = R.string.menu_debug,
                     lambda = {

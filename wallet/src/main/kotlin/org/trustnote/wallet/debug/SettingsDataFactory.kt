@@ -23,13 +23,8 @@ object SettingsDataFactory {
     val GROUP_MNEMONIC = "Restore Test"
 
     fun makeSettings(): List<SettingGroup> {
-        if (Utils.isUseDebugOption()) {
-            return Arrays.asList(makeTestGroup(),
-                    makeWalletGroup(), makeSeedsGroup(), makeDebugOptionGroup())
-        } else {
-            return Arrays.asList(makeTestGroup(),
-                    makeWalletGroup())
-        }
+        return Arrays.asList(makeTestGroup(),
+                makeWalletGroup(), makeSeedsGroup(), makeDebugOptionGroup())
     }
 
     fun makeTestGroup(): SettingGroup {

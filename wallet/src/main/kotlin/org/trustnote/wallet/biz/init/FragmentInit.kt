@@ -240,7 +240,7 @@ class CWFragmentVerify : FragmentInit() {
         //            getMyActivity().closeKeyboard()
         //        }
 
-        //                if (Utils.isUseDebugOption()) {
+        //                if (Utils.isTesterFeature()) {
         //                    mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
         //                }
 
@@ -316,7 +316,7 @@ open class CWFragmentRestore : FragmentInit() {
 
         }
 
-        if (Utils.isUseDebugOption()) {
+        if (Utils.isDeveloperFeature()) {
             mnemonicsGrid.setMnemonic(TestData.getTestMnemonic(), false)
         }
 

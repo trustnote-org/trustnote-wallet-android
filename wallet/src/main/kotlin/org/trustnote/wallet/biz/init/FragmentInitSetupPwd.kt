@@ -6,7 +6,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.PasswordStrength
 import org.trustnote.wallet.widget.PwdStrength
@@ -43,6 +45,11 @@ open class FragmentInitSetupPwd : FragmentInit() {
 
         pwdConfirm.setOnClickListener {
             savePwdAndForward()
+        }
+
+        if (Utils.isDeveloperFeature()) {
+            pwd.setText(TestData.password)
+            pwdConfirm.setText(TestData.password)
         }
 
         val webView: WebView = view.findViewById(R.id.pwd_warning)
