@@ -38,5 +38,6 @@ abstract class FragmentWalletBase : FragmentBase() {
         }
     }
 
+
 }
 

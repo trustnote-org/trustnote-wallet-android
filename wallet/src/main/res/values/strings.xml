@@ -302,6 +302,8 @@
 
     <string name="scan_result_title">扫码结果</string>
 
+    <string name="select_wallet_title">选择付款钱包</string>
+
     <!--setting_wallet_tools_fullsync-->
 
 </resources>

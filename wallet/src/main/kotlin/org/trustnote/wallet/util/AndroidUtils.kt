@@ -257,14 +257,19 @@ object AndroidUtils {
 
     }
 
-    private fun bundleWithKeyValue(key: String, value: String): Bundle {
-        val b = Bundle()
+    private fun bundleWithKeyValue(b: Bundle, key: String, value: String): Bundle {
         b.putString(key, value)
         return b
     }
 
     fun addFragmentArguments(f: Fragment, key: String, value: String) {
-        val b = bundleWithKeyValue(key, value)
+        var b = f.arguments
+
+        if (b == null) {
+            b = Bundle()
+        }
+
+        bundleWithKeyValue(b, key, value)
         f.arguments = b
     }
 

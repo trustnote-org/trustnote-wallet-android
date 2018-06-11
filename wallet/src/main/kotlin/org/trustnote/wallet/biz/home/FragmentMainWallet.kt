@@ -12,8 +12,12 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
+import org.trustnote.wallet.biz.wallet.FragmentWalletTransfer
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.SCAN_RESULT_TYPE
+import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.widget.FragmentDialogSelectWallet
 import org.trustnote.wallet.widget.TMnAmount
 
 class FragmentMainWallet : FragmentWalletBase() {
@@ -53,11 +57,33 @@ class FragmentMainWallet : FragmentWalletBase() {
         when (item.itemId) {
             R.id.action_scan -> {
                 startScan {
-                    openSimpleInfoPage(it, TApp.getString(R.string.scan_result_title))
+                    handleScanRes(it)
                 }
+                return true
             }
         }
         return false
+    }
+
+    private fun handleScanRes(qrCode: String) {
+        val qrType = TTTUtils.parseQrCode(qrCode)
+        when (qrType) {
+
+            SCAN_RESULT_TYPE.MN_TRANSFER -> {
+                val f = FragmentDialogSelectWallet()
+                AndroidUtils.addFragmentArguments(f, TTT.KEY_TRANSFER_QRCODEW, qrCode)
+                openFragment(f)
+            }
+
+            SCAN_RESULT_TYPE.UNKNOWN -> {
+                openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
+            }
+
+            SCAN_RESULT_TYPE.TTT_PAIRID -> {
+                AndroidUtils.todo()
+                //openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
+            }
+        }
     }
 
     override fun initFragment(view: View) {

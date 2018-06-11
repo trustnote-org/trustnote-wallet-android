@@ -73,6 +73,10 @@ class FragmentWalletTransfer : FragmentWalletBase() {
             setTransferAmount(105000)
         }
 
+        if (arguments != null && arguments.containsKey(TTT.KEY_TRANSFER_QRCODEW)) {
+            handleScanRes(arguments.getString(TTT.KEY_TRANSFER_QRCODEW))
+        }
+
     }
 
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {

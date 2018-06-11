@@ -96,6 +96,7 @@ class TTT {
         const val KEY_TX_INDEX = "TX_INDEX"
         const val KEY_QR_CODE = "KEY_QR_CODE"
         const val KEY_WALLET_ID = "KEY_WALLET_ID"
+        const val KEY_TRANSFER_QRCODEW = "KEY_TRANSFER_QRCODEW"
 
         const val KEY_TTT_QR_TAG = "TTT"
 

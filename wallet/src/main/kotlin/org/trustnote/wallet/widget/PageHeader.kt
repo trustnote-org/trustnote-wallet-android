@@ -19,7 +19,7 @@ open class PageHeader @JvmOverloads constructor(
         val view = View.inflate(context, R.layout.l_page_head, null)
         addView(view)
 
-        val title = findViewById<TextView>(R.id.title)
+        val title = findViewById<TextView>(R.id.title__)
         val icon = findViewById<ImageView>(R.id.icon)
 
         val a = context.obtainStyledAttributes(attrs, R.styleable.PageHeader)

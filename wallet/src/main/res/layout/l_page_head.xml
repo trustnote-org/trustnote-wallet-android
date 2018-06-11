@@ -19,7 +19,7 @@
             android:scaleType="fitXY" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/title__"
             android:textStyle="bold"
             style="@style/t_sub_title"
             android:layout_width="match_parent"

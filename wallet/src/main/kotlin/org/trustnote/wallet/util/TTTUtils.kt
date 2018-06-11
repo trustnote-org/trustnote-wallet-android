@@ -177,4 +177,14 @@ object TTTUtils {
         return """["sig",{"pubkey":"$addressPubkey"}]"""
     }
 
+    fun parseQrCode(qrCode: String): SCAN_RESULT_TYPE {
+        return SCAN_RESULT_TYPE.MN_TRANSFER
+    }
+
+}
+
+enum class SCAN_RESULT_TYPE {
+    UNKNOWN,
+    MN_TRANSFER,
+    TTT_PAIRID
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ttt="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_dialog_frame"
+    android:orientation="vertical">
+
+    <org.trustnote.wallet.widget.PageHeader
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ttt:ttt_icon="@drawable/ic_select_wallet"
+        ttt:ttt_title="@string/select_wallet_title" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:layout_marginLeft="@dimen/padding_main"
+        android:layout_marginRight="@dimen/padding_main"
+        android:scrollbars="vertical" />
+
+
+</LinearLayout>
