@@ -53,8 +53,6 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
     }
 
-
-
     fun startSendTx(activity: ActivityMain, password: String = "") {
 
         if (authors.isEmpty()) {
@@ -125,7 +123,7 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         val res = mutableListOf<FundedAddress>()
         var accumulatedAmount = 0L
 
-        for(it in rows) {
+        for (it in rows) {
             res.add(it)
             accumulatedAmount += it.total
             if (accumulatedAmount > estimatedAmount + TTT.MAX_FEE) {
@@ -249,7 +247,9 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         myAddressesArray.forEach {
             val authentifiers = Authentifiers()
             authentifiers.address = it.address
-            authentifiers.definition = Utils.parseJsonArray(it.definition)
+            if (!DbHelper.hasDefinitions(authentifiers.address)) {
+                authentifiers.definition = Utils.parseJsonArray(it.definition)
+            }
             authentifiers.authentifiers = Utils.genJsonObject("r", TTT.PLACEHOLDER_SIG)
             authors.add(authentifiers)
         }

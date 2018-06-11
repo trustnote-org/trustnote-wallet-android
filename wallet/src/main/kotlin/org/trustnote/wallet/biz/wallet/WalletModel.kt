@@ -518,7 +518,7 @@ class WalletModel() {
 
     fun newUnitAcceptedByHub(unit: Units, walletId: String) {
 
-        //DbHelper.saveUnits(unit)
+        DbHelper.saveUnits(unit)
 
         readDataFromDb(findWallet(walletId))
 

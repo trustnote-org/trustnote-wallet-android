@@ -23,17 +23,61 @@
             android:layout_height="wrap_content"
             android:text="@string/place_holder"
             android:textColor="@color/font_gray_amount"
-            android:textSize="@dimen/text_14" />
+            android:textSize="@dimen/text_14"
+            android:visibility="gone" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/field_unit_value"
             android:layout_width="@dimen/field_unit_id_width"
             android:layout_height="wrap_content"
             android:text="@string/place_holder"
             android:textColor="@color/t_blue"
-            android:textSize="@dimen/text_14" />
+            android:textSize="@dimen/text_14"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/tx_confirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/ic_20"
+                android:layout_height="@dimen/ic_20"
+                android:src="@drawable/ic_tx_confirmed" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/line_gap_7"
+                android:text="@string/tx_confirmed"
+                android:textColor="@color/t_blue"
+                android:textSize="@dimen/text_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tx_unconfirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/ic_20"
+                android:layout_height="@dimen/ic_20"
+                android:src="@drawable/ic_tx_unconfirmed" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/line_gap_7"
+                android:text="@string/tx_unconfirmed"
+                android:textColor="@color/f_tx_unconfirmed"
+                android:textSize="@dimen/text_14" />
+        </LinearLayout>
     </FrameLayout>
 
+    f_tx_unconfirmed
 
 </RelativeLayout>

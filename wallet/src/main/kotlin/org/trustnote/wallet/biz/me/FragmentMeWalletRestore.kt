@@ -4,10 +4,8 @@ import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CWFragmentRestore
 import org.trustnote.wallet.biz.init.CreateWalletModel
-import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Prefs
-import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MyDialogFragment
 

@@ -16,6 +16,8 @@ import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 
+import kotlin.jvm.Transient;
+
 @Entity(
     tableName = "units"
 )
@@ -126,6 +128,10 @@ public class Units extends TBaseEntity {
   @Expose
   @SerializedName("authors")
   public List<Authentifiers> authenfiers;
+
+  @Ignore
+  @Transient
+  public List<Definitions> definitions;
 
   @Ignore
   @Expose

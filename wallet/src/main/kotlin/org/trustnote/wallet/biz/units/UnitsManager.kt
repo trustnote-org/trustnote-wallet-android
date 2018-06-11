@@ -5,6 +5,7 @@ import org.trustnote.db.*
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.MSG_TYPE
+import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 
 class UnitsManager {
@@ -50,8 +51,30 @@ class UnitsManager {
         authentifiersArray.forEachIndexed { _, authentifier ->
             authentifier.unit = units.unit; authentifier.parsePathAndAuthentifier()
         }
-
         units.authenfiers = authentifiersArray
+
+
+        val definitionsList = mutableListOf<Definitions>()
+        for(authentifier in authentifiersArray) {
+            if (!authentifier.json.has("definition")) {
+                continue
+            }
+            val definitions = authentifier.json.getAsJsonArray("definition")
+            for(definition in definitions) {
+                if (definition is JsonObject && definition.has("pubkey")) {
+
+                    val pubkey = TTTUtils.genDefinitions(definition.get("pubkey").asString)
+                    val definitionEntity = Definitions()
+                    definitionEntity.definition = pubkey
+                    //TODO: why address use cas chash and why 0?
+                    definitionEntity.definitionChash = authentifier.address
+                    definitionEntity.hasReferences = 0
+                    definitionsList.add(definitionEntity)
+                }
+            }
+        }
+
+        units.definitions = definitionsList
 
         val messageArray = Utils.parseChild(units, units.json, Messages::class.java.canonicalName, "messages") as List<Messages>
 

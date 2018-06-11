@@ -173,4 +173,8 @@ object TTTUtils {
         }
     }
 
+    fun genDefinitions(addressPubkey: String): String {
+        return """["sig",{"pubkey":"$addressPubkey"}]"""
+    }
+
 }

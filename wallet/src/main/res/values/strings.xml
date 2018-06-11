@@ -290,6 +290,11 @@
     <string name="me_change_pwd_old_pwd_hint">请输入原密码</string>
     <string name="me_change_pwd_old_pwd_err">原密码输入错误</string>
 
+    <string name="tx_confirmed">已确认</string>
+    <string name="tx_unconfirmed">未确认</string>
+
+
+
     <!--setting_wallet_tools_fullsync-->
 
 </resources>

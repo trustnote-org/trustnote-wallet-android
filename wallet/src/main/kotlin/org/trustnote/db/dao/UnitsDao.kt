@@ -34,6 +34,9 @@ abstract class UnitsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertAuthentifiers(outputs: Array<Authentifiers>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertDefinitions(outputs: Array<Definitions>)
+
     @Query("""
         SELECT unit FROM inputs WHERE inputs.address IN (SELECT my_addresses.address
         FROM my_addresses WHERE my_addresses.wallet == :walletId
@@ -44,6 +47,9 @@ abstract class UnitsDao {
         ORDER BY my_addresses.address_index DESC LIMIT :dataLimit)
         """)
     abstract fun queryUnitForLatestWalletAddress(walletId: String, isChange: Int, dataLimit: Int = TTT.walletAddressInitSize): Array<String>
+
+    @Query("""select count(*) from definitions where definition_chash = :address""")
+    abstract fun findDefinitions(address: String): Int
 
     @Query("""SELECT * FROM units""")
     abstract fun monitorUnits(): Flowable<Array<Units>>
@@ -195,6 +201,7 @@ abstract class UnitsDao {
         try {
             insertUnits(units)
             for (oneUnit in units) {
+                insertDefinitions(oneUnit.definitions.toTypedArray())
                 insertAuthentifiers(oneUnit.authenfiers.toTypedArray())
                 insertMessages(oneUnit.messages.toTypedArray())
                 for (oneMessage in oneUnit.messages) {
@@ -202,7 +209,6 @@ abstract class UnitsDao {
                     insertOutputs(oneMessage.payload.outputs.toTypedArray())
                 }
             }
-
         } catch (e: Throwable) {
             Utils.debugHub(e.localizedMessage)
         }

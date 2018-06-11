@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4c762e7e7cf7a7edb3f03ef557c61be5",
+    "identityHash": "61297153dbf3a6fa131e86815f8bdea6",
     "entities": [
       {
         "tableName": "my_witnesses",
@@ -453,6 +453,38 @@
         "foreignKeys": []
       },
       {
+        "tableName": "definitions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`definition_chash` TEXT NOT NULL, `definition` TEXT, `has_references` INTEGER NOT NULL, PRIMARY KEY(`definition_chash`))",
+        "fields": [
+          {
+            "fieldPath": "definitionChash",
+            "columnName": "definition_chash",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "definition",
+            "columnName": "definition",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hasReferences",
+            "columnName": "has_references",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "definition_chash"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
         "tableName": "authentifiers",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`unit` TEXT NOT NULL, `address` TEXT NOT NULL, `path` TEXT NOT NULL, `authentifier` TEXT, PRIMARY KEY(`unit`, `address`, `path`))",
         "fields": [
@@ -495,7 +527,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"4c762e7e7cf7a7edb3f03ef557c61be5\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"61297153dbf3a6fa131e86815f8bdea6\")"
     ]
   }
 }

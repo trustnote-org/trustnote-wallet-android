@@ -4,6 +4,7 @@ import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.js.JSApi
+import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 
 object ModelHelper {
@@ -25,7 +26,7 @@ object ModelHelper {
             myAddress.addressIndex = it + currentMaxAddress
             myAddress.address = Utils.decodeJsStr(api.walletAddressSync(credential.xPubKey, isChange, myAddress.addressIndex))
             val addressPubkey = Utils.decodeJsStr(api.walletAddressPubkeySync(credential.xPubKey, isChange, myAddress.addressIndex))
-            myAddress.definition = """["sig",{"pubkey":"$addressPubkey"}]"""
+            myAddress.definition = TTTUtils.genDefinitions(addressPubkey)
             //TODO: check above logic from JS code.
             myAddress
         })

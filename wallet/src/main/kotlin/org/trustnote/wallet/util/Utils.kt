@@ -192,20 +192,20 @@ object Utils {
 
     fun nowTimeAsFileName(): String {
         val date = Date()
-        val df = SimpleDateFormat("yyyy_MM_dd_HH_MM")
+        val df = SimpleDateFormat("yyyy_MM_dd_HH_mm")
         return df.format(date)
     }
 
     fun formatTxTimestamp(ts: Long): String {
         val date = Date(ts * 1000L)
-        val df = SimpleDateFormat("MM-dd  HH:MM")
+        val df = SimpleDateFormat("MM-dd  HH:mm")
         return df.format(date)
     }
 
     fun formatTxTimestampInTxDetail(ts: Long): String {
         val date = Date(ts * 1000L)
         val timeAgo = Utils.getTimeAgoForCn(ts)
-        val df = SimpleDateFormat("""yyyy/MM/dd HH:MM""")
+        val df = SimpleDateFormat("""yyyy/MM/dd HH:mm""")
         return """${df.format(date)}($timeAgo)"""
     }
 

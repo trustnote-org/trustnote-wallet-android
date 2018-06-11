@@ -1,9 +1,11 @@
 package org.trustnote.db
 
 import io.reactivex.Observable
-import io.reactivex.Single
 import org.trustnote.db.dao.UnitsDao
-import org.trustnote.db.entity.*
+import org.trustnote.db.entity.MyAddresses
+import org.trustnote.db.entity.MyWitnesses
+import org.trustnote.db.entity.Outputs
+import org.trustnote.db.entity.Units
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.util.Utils
 import java.io.File
@@ -28,6 +30,8 @@ object DbHelper {
         })
 
     }
+
+    fun hasDefinitions(address: String): Boolean = getDao().findDefinitions(address) > 0
 
     fun getMyWitnesses(): Array<MyWitnesses> = getMyWitnessesInternal()
     fun getAllWalletAddress(walletId: String): Array<MyAddresses> = getAllWalletAddressInternal(walletId)
@@ -96,58 +100,45 @@ fun getDao(): UnitsDao {
 }
 
 fun getBanlanceInternal(walletId: String): List<Balance> {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    val res = db.unitsDao().queryBalance(walletId)
-    return res.toList()
+    return getDao().queryBalance(walletId).toList()
 }
 
 fun getMaxAddressIndexInternal(walletId: String, change: Int): Int {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    val max = db.unitsDao().getMaxAddressIndex(walletId, change)
+    val max = getDao().getMaxAddressIndex(walletId, change)
     return if (max > 0) max + 1 else max
 }
 
 fun shouldGenerateNextWalletInternal(walletId: String): Boolean {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    return db.unitsDao().shouldGenerateNextWallet(walletId)
+    return getDao().shouldGenerateNextWallet(walletId)
 }
 
-
 fun shouldGenerateMoreAddressInternal(walletId: String, isChange: Int): Boolean {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    return db.unitsDao().shouldGenerateMoreAddress(walletId, isChange)
+    return getDao().shouldGenerateMoreAddress(walletId, isChange)
 }
 
 fun getAllWalletAddressInternal(walletId: String): Array<MyAddresses> {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    return db.unitsDao().queryAllWalletAddress(walletId)
+    return getDao().queryAllWalletAddress(walletId)
 }
 
 fun getMyWitnessesInternal(): Array<MyWitnesses> {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    return db.unitsDao().queryMyWitnesses()
+    return getDao().queryMyWitnesses()
 }
 
 fun saveWalletMyAddressInternal(listAddress: List<MyAddresses>) {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    db.unitsDao().insertMyAddresses(listAddress.toTypedArray())
+    getDao().insertMyAddresses(listAddress.toTypedArray())
 }
 
 fun monitorAddressesInternal(): Observable<Array<MyAddresses>> {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    return Utils.throttleDbEvent(db.unitsDao().monitorAddresses().toObservable(), 3L)
+    return Utils.throttleDbEvent(getDao().monitorAddresses().toObservable(), 3L)
 }
 
 fun monitorUnitsInternal(): Observable<Array<Units>> {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    return Utils.throttleDbEvent(db.unitsDao().monitorUnits().toObservable(), 3L)
+    return Utils.throttleDbEvent(getDao().monitorUnits().toObservable(), 3L)
 }
 
 fun monitorOutputsInternal(): Observable<Array<Outputs>> {
-    val db = TrustNoteDataBase.getInstance(TApp.context)
-    return Utils.throttleDbEvent(db.unitsDao().monitorOutputs().toObservable(), 3L)
+    return Utils.throttleDbEvent(getDao().monitorOutputs().toObservable(), 3L)
 }
-
 
 inline fun <T, reified R> List<T>.mapToTypedArray(transform: (T) -> R): Array<R> {
     return when (this) {
@@ -155,7 +146,6 @@ inline fun <T, reified R> List<T>.mapToTypedArray(transform: (T) -> R): Array<R>
         else -> with(iterator()) { Array(size) { transform(next()) } }
     }
 }
-
 
 fun queryAddressInternal(addressList: List<String>): Array<MyAddresses> {
     return getDao().queryAddress(addressList)
@@ -165,7 +155,6 @@ fun queryAddressByWalletIdInternal(walletId: String): Array<MyAddresses> {
     return getDao().queryAddressByWalletId(walletId)
 }
 
-
 fun queryAddressByAddresdIdInternal(addressId: String): MyAddresses {
 
     //How about query with no result.
@@ -174,6 +163,5 @@ fun queryAddressByAddresdIdInternal(addressId: String): MyAddresses {
 }
 
 private fun getTxsInternal(walletId: String): List<TxUnits> {
-    val dao = TrustNoteDataBase.getInstance(TApp.context).unitsDao()
-    return dao.queryTxUnits(walletId).asList()
+    return getDao().queryTxUnits(walletId).asList()
 }
