@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/page_margin_left"
-        android:paddingRight="@dimen/page_margin_left">
+        android:paddingLeft="@dimen/page_margin_26"
+        android:paddingRight="@dimen/page_margin_26">
 
         <TextView
             android:id="@+id/credential_name"
@@ -87,7 +87,7 @@
         android:layout_below="@+id/btns"
         android:background="@color/tx_list_bg"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/page_margin_left"
+        android:paddingLeft="@dimen/page_margin_26"
         android:text="@string/tx_list_title"
         android:textColor="@color/font_gray_amount" />
 

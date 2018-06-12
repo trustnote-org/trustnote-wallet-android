@@ -81,7 +81,6 @@ object TTTUtils {
         return """${walletId.substring(0, 8).toUpperCase()}...${walletId.takeLast(8).toUpperCase()}"""
     }
 
-
     //Step1: TTT:{"type": "c1","name": "TTT","pub":"xpub6CiT96vM5krNhwFA4ro5nKJ6nq9WykFmAsP18jC1Aa3URb69rvUHw6uvU51MQPkMZQ6BLiC5C1E3Zbsm7Xob3FFhNHJkN3v9xuxfqFFKPP5","n": 0,"v": 1234}
     //    TTT: {
     //        "type": "h1",
@@ -109,7 +108,7 @@ object TTTUtils {
     }
 
     fun genColdScancodeStep1(credential: Credential): String {
-        return """${TTT.KEY_TTT_QR_TAG}:{"type": "c1","name": "${credential.walletName}","pub":"${credential.xPubKey}","n": ${credential.account},"v":${randomCheckCode()}}"""
+        return """${TTT.KEY_TTT_QR_TAG}:{"type":"c1","name":"${credential.walletName}","pub":"${credential.xPubKey}","n": ${credential.account},"v":${randomCheckCode()}}"""
     }
 
     //    TTT: {
@@ -143,13 +142,11 @@ object TTTUtils {
         return ""
     }
 
-
     fun randomCheckCode(): Int {
         return Utils.random.nextInt(8999) + 1000
     }
 
     val unitAuthentifierPlaceHolder = Utils.genJsonObject("r", TTT.PLACEHOLDER_SIG)
-
 
     fun scanStringToJsonObject(str: String): JsonObject {
         //TODO: make sure the protocol is TTT.
@@ -177,8 +174,20 @@ object TTTUtils {
         return """["sig",{"pubkey":"$addressPubkey"}]"""
     }
 
-    fun parseQrCode(qrCode: String): SCAN_RESULT_TYPE {
-        return SCAN_RESULT_TYPE.MN_TRANSFER
+    val tttReceiverAddressPattern = Regex("""TTT:.{32}(\?amount=)?""")
+    val tttMyPairIdPattern = Regex("""TTT:.{16,100}@.{16,100}#.{6,20}""")
+    val tttCodeQrCodeForStep1 = Regex("""TTT:.\{"type":"c1".*\}""")
+    fun parseQrCodeType(qrCode: String): SCAN_RESULT_TYPE {
+        if (tttReceiverAddressPattern.matches(qrCode)) {
+            return SCAN_RESULT_TYPE.MN_TRANSFER
+        }
+        if (tttMyPairIdPattern.matches(qrCode)) {
+            return SCAN_RESULT_TYPE.TTT_PAIRID
+        }
+        if (tttCodeQrCodeForStep1.matches(qrCode)) {
+            return SCAN_RESULT_TYPE.COLD_WALLET
+        }
+        return SCAN_RESULT_TYPE.UNKNOWN
     }
 
 }
@@ -186,5 +195,6 @@ object TTTUtils {
 enum class SCAN_RESULT_TYPE {
     UNKNOWN,
     MN_TRANSFER,
-    TTT_PAIRID
+    TTT_PAIRID,
+    COLD_WALLET
 }

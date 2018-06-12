@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_address_book_empty"
+            android:src="@drawable/img_address_book_empty"
+            android:layout_centerHorizontal="true"
+            android:layout_width="@dimen/contacts_empty_width"
+            android:layout_height="@dimen/contacts_empty_width" />
+
+        <TextView
+            android:id="@+id/contacts_empty_subtitle"
+            style="@style/t_sub_title"
+            android:layout_marginBottom="@dimen/line_gap_14"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/img_address_book_empty"
+            android:text="@string/address_book_empty_title" />
+
+        <TextView
+            android:id="@+id/contacts_empty_msg"
+            android:layout_centerHorizontal="true"
+            style="@style/t_text_msg"
+            android:layout_below="@id/contacts_empty_subtitle"
+            android:text="@string/address_book_empty_msg" />
+
+
+    </RelativeLayout>
+
+</layout>

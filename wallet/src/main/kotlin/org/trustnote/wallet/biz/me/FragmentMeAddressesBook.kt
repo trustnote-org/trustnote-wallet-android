@@ -28,19 +28,18 @@ class FragmentMeAddressesBook : FragmentBase() {
             openFragment(FragmentMeAddressesBookAdd())
         }
 
-        AndroidUtils.addItemClickListenerForRecycleView(listView) {
-
-            val a = (listView.adapter as AddressBookAdapter).myDataset[it]
-            (activity as ActivityBase).setupStringAsReturnResult(a.address)
-            onBackPressed()
-
-        }
-
     }
 
     override fun updateUI() {
         super.updateUI()
-        listView.adapter = AddressBookAdapter(AddressesBookManager.getAddressBook())
+        val adapter = AddressBookAdapter(AddressesBookManager.getAddressBook())
+        adapter.itemClickListener = {
+            (activity as ActivityBase).setupStringAsReturnResult(it.address)
+            onBackPressed()
+        }
+
+        listView.adapter = adapter
+
     }
 }
 

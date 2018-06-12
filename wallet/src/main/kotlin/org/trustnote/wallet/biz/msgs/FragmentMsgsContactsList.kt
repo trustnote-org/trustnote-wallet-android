@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.widget.EmptyAdapter
 
 class FragmentMsgsContactsList : FragmentMsgsBase() {
 
@@ -23,7 +24,7 @@ class FragmentMsgsContactsList : FragmentMsgsBase() {
         val recyclerView = mRootView.findViewById<RecyclerView>(R.id.msg_contacts_list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        val a = EmptyAdapter(R.layout.l_contacts_empty, listOf())
+        val a = ContactsAdapter(listOf())
 
         recyclerView.adapter = a
 

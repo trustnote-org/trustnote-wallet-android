@@ -10,8 +10,8 @@
 
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:paddingLeft="@dimen/padding_main"
-        android:paddingRight="@dimen/padding_main">
+        android:paddingLeft="@dimen/page_margin_26"
+        android:paddingRight="@dimen/page_margin_26">
 
         <TextView
             android:id="@+id/toolbar_title"

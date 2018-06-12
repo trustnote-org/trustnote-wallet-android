@@ -299,6 +299,8 @@
     <string name="address_book_add_title">添加地址</string>
     <string name="address_book_label_memo">备注</string>
     <string name="address_book_label_address">钱包地址</string>
+    <string name="address_book_empty_title">没有地址</string>
+    <string name="address_book_empty_msg">请点击右上角的“+”添加地址</string>
 
     <string name="scan_result_title">扫码结果</string>
 

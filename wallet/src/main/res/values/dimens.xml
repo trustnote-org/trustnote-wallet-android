@@ -6,7 +6,7 @@
 
     <dimen name="one_dp">1dp</dimen>
 
-    <dimen name="page_margin_left">26dp</dimen>
+    <dimen name="page_margin_26">26dp</dimen>
 
     <dimen name="page_margin_bottom">64dp</dimen>
     <dimen name="btn_bottom_margin">26dp</dimen>
@@ -83,7 +83,7 @@
     <dimen name="status_bar_height">24dp</dimen>
     <dimen name="quick_action_size">20dp</dimen>
     <dimen name="home_back_arrow_size">45dp</dimen>
-    <dimen name="padding_main">20dp</dimen>
+    <dimen name="padding_main">26dp</dimen>
 
     <dimen name="mn_amount_b_i">46sp</dimen>
     <dimen name="mn_amount_b_d">32sp</dimen>

@@ -46,6 +46,12 @@ object AndroidUtils {
 
     const val KEY_BUNDLE_TITLE: String = "KEY_TITLE"
     const val KEY_BUNDLE_MSG: String = "KEY_MSG"
+    const val KEY_BUNDLE_QRCODE: String = "KEY_BUNDLE_QRCODE"
+
+    fun getQrcodeFromBundle(bundle: Bundle): String {
+        val res = bundle.getString(KEY_BUNDLE_QRCODE)
+        return res ?: ""
+    }
 
     fun getTitleFromBundle(bundle: Bundle): String {
         val res = bundle.getString(KEY_BUNDLE_TITLE)

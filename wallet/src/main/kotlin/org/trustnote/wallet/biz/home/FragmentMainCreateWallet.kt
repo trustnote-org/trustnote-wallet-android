@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.TextView
 import com.google.gson.JsonObject
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -76,6 +77,13 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
                 activity.onBackPressed()
             }
         }
+
+        if (mToolbarVisibility == View.VISIBLE) {
+            val padding = TApp.resources.getDimensionPixelSize(R.dimen.page_margin_26)
+            mRootView.setPadding(padding, 0, padding, 0)
+        }
+        showOrHideToolbar()
+
     }
 
     override fun updateUI() {
@@ -121,22 +129,35 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
         btn = mRootView.findViewById(R.id.create_wallet_observer_startbtn)
 
         btn.setOnClickListener {
-
-            val f = FragmentDialogCreateObserverQR {
-
-                AndroidUtils.openDialog(activity, FragmentDialogCreateObserverFinish {
-                    MyThreadManager.instance.runJSInNonUIThread {
-                        createObserverWallet()
-                    }
-                    observerAddress = it
-                    activity.onBackPressed()
-                })
-            }
-
-            AndroidUtils.addFragmentArguments(f, TTT.KEY_QR_CODE, myQrCode)
-            AndroidUtils.openDialog(activity, f, false)
-
+            handleCodeWalletQrCode()
         }
+
+        if (arguments != null) {
+            showScanResult(AndroidUtils.getQrcodeFromBundle(arguments))
+        }
+
+        if (mToolbarVisibility == View.VISIBLE) {
+            val padding = TApp.resources.getDimensionPixelSize(R.dimen.page_margin_26)
+            mRootView.setPadding(padding, 0, padding, 0)
+        }
+        showOrHideToolbar()
+
+    }
+
+    private fun handleCodeWalletQrCode() {
+        val f = FragmentDialogCreateObserverQR {
+
+            AndroidUtils.openDialog(activity, FragmentDialogCreateObserverFinish {
+                MyThreadManager.instance.runJSInNonUIThread {
+                    createObserverWallet()
+                }
+                observerAddress = it
+                activity.onBackPressed()
+            })
+        }
+
+        AndroidUtils.addFragmentArguments(f, TTT.KEY_QR_CODE, myQrCode)
+        AndroidUtils.openDialog(activity, f, false)
     }
 
     private fun createObserverWallet() {
@@ -176,9 +197,14 @@ class SimpleFragmentPagerAdapter(private val mContext: Context, fm: FragmentMana
 
     override fun getItem(position: Int): FragmentBase {
         return if (position == 0) {
-            FragmentMainCreateWalletNormal()
-        } else
-            FragmentMainCreateWalletObserve()
+            val f = FragmentMainCreateWalletNormal()
+            f.mToolbarVisibility = View.GONE
+            f
+        } else {
+            val f = FragmentMainCreateWalletObserve()
+            f.mToolbarVisibility = View.GONE
+            f
+        }
     }
 
     override fun getPageTitle(position: Int): CharSequence? {

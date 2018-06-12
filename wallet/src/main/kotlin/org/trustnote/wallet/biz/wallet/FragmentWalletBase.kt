@@ -5,7 +5,12 @@ import io.reactivex.disposables.CompositeDisposable
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
+import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.home.FragmentDialogCreateObserverFinish
+import org.trustnote.wallet.biz.home.FragmentDialogCreateObserverQR
 import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.MyThreadManager
 
 abstract class FragmentWalletBase : FragmentBase() {
 
@@ -37,7 +42,6 @@ abstract class FragmentWalletBase : FragmentBase() {
             openSimpleInfoPage(it, TApp.getString(R.string.scan_result_title))
         }
     }
-
 
 }
 

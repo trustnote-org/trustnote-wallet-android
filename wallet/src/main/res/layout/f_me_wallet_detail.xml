@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/page_margin_left"
-        android:paddingRight="@dimen/page_margin_left">
+        android:paddingLeft="@dimen/page_margin_26"
+        android:paddingRight="@dimen/page_margin_26">
 
         <TextView
             android:id="@+id/credential_name"
@@ -27,7 +27,7 @@
         android:background="@color/bg_white"
         android:paddingTop="@dimen/line_gap_8"
         android:layout_width="match_parent"
-        android:paddingLeft="@dimen/page_margin_left"
+        android:paddingLeft="@dimen/page_margin_26"
         android:id="@+id/credential_walletid"
         style="@style/t_text_amount_subtitle"
         android:layout_alignLeft="@id/summary_bar"
@@ -45,8 +45,8 @@
     <Button
         android:id="@+id/credential_remove_btn"
         style="@style/t_btn_white"
-        android:layout_marginLeft="@dimen/page_margin_left"
-        android:layout_marginRight="@dimen/page_margin_left"
+        android:layout_marginLeft="@dimen/page_margin_26"
+        android:layout_marginRight="@dimen/page_margin_26"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/btn_bottom_margin"
         android:text="@string/me_wallet_detail_remove_btn" />

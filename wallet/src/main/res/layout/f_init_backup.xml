@@ -3,6 +3,8 @@
 
     <RelativeLayout
         style="@style/t_layout"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 

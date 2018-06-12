@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz.msgs
 
 import android.view.View
+import android.webkit.ValueCallback
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -37,10 +38,11 @@ class FragmentMsgMyPairId : FragmentPageBase() {
 
         }
 
-        val myPairId = WalletManager.model.generateMyPairId()
+        val myPairId = WalletManager.model.generateMyPairId(ValueCallback {
+            pairIdText.text = it
+            TTTUtils.setupQRCode(it, pairIdQR)
+        })
 
-        pairIdText.text = myPairId
-        TTTUtils.setupQRCode(myPairId, pairIdQR)
 
     }
 

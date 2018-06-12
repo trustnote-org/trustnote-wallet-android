@@ -35,7 +35,7 @@ abstract class FragmentInit : FragmentBase() {
 
         super.initFragment(view)
 
-        val padding = TApp.resources.getDimensionPixelSize(R.dimen.padding_main)
+        val padding = TApp.resources.getDimensionPixelSize(R.dimen.page_margin_26)
 
         mRootView.setPadding(padding, 0, padding, 0)
 
@@ -232,17 +232,15 @@ class CWFragmentVerify : FragmentInit() {
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics_verify)
         mnemonicsGrid.setCheckMnemonic(CreateWalletModel.tmpMnemonic)
+
+        //BUG: check the cell immediately after init finished. the cell maybe fill with content for test purpose.
         mnemonicsGrid.onCheckResult = {
             AndroidUtils.enableBtn(btnBackupConfirm, it)
         }
 
-        //        if (it) {
-        //            getMyActivity().closeKeyboard()
-        //        }
-
-        //                if (Utils.isTesterFeature()) {
-        //                    mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
-        //                }
+        if (Utils.isDeveloperFeature()) {
+            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+        }
 
         showMnemonicKeyboardIfRequired()
 

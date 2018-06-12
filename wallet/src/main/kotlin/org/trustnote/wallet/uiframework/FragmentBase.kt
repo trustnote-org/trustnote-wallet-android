@@ -26,6 +26,7 @@ abstract class FragmentBase : Fragment() {
 
     lateinit var credential: Credential
 
+    var mToolbarVisibility = View.VISIBLE
     var isBottomLayerUI = false
     lateinit var mRootView: View
     lateinit var mToolbar: Toolbar
@@ -36,14 +37,18 @@ abstract class FragmentBase : Fragment() {
 
         val view = inflater.inflate(R.layout.f_base, container, false)
         val childView = inflater.inflate(getLayoutId(), null)
+
         view.findViewById<FrameLayout>(R.id.f_base_container).addView(childView)
         view.isClickable = true
+
+        mRootView = childView
+        mToolbar = view.findViewById(R.id.toolbar)
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mRootView = view
         isCreated = false
 
         initFragment(mRootView!!)
@@ -57,8 +62,6 @@ abstract class FragmentBase : Fragment() {
             val walletId = arguments.getString(TTT.KEY_WALLET_ID)
             credential = WalletManager.model.findWallet(walletId)
         }
-
-        mToolbar = findViewById(R.id.toolbar)
 
         setupToolbar()
     }
@@ -196,6 +199,9 @@ abstract class FragmentBase : Fragment() {
         openFragment(f)
     }
 
+    fun showOrHideToolbar() {
+        mToolbar.visibility = mToolbarVisibility
+    }
 
 
 }

@@ -35,25 +35,6 @@ object SettingsDataFactory {
 
         val res = ArrayList<SettingItem>()
 
-        val printMyPaidId = SettingItem("打印配对码", true)
-        printMyPaidId.action = Runnable {
-            val pairId = WalletManager.model.generateMyPairId()
-            Utils.debugLog("PEER ID = $pairId")
-            Utils.toastMsg("PEER ID = $pairId")
-        }
-        res.add(printMyPaidId)
-
-        val testPostTx = SettingItem("Test: Test post tx")
-        testPostTx.action = Runnable {
-
-            val sendPaymentInfo = PaymentInfo("LyzbDDiDedJh+fUHMFAXpWSiIw/Z1Tgve0J1+KOfT3w=", "CDZUOZARLIXSQDSUQEZKM4Z7X6AXTVS4", 17000000L)
-
-//            UnitComposer(sendPaymentInfo).sendTx()
-
-//            JsTest.testPostTx()
-        }
-        res.add(testPostTx)
-
         val testQrCode = SettingItem("Test QR CODE")
         testQrCode.action = Runnable { SimpleFragmentActivityBase.startMe(QRFragment::class.java.canonicalName) }
         res.add(testQrCode)

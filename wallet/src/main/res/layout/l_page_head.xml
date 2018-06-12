@@ -15,7 +15,7 @@
             android:layout_width="@dimen/page_header_ic_height"
             android:layout_height="@dimen/page_header_ic_height"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/page_margin_left"
+            android:layout_marginLeft="@dimen/page_margin_26"
             android:scaleType="fitXY" />
 
         <TextView

@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/page_margin_left"
-        android:paddingRight="@dimen/page_margin_left">
+        android:paddingLeft="@dimen/page_margin_26"
+        android:paddingRight="@dimen/page_margin_26">
 
         <include layout="@layout/l_amount_summary" />
 

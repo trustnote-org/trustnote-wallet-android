@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.wallet
 
+import android.webkit.ValueCallback
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.TrustNoteDataBase
@@ -499,10 +500,11 @@ class WalletModel() {
 
     //TODO: move to msg module.
     // Data sample: TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@shawtest.trustnote.org#xSpGdRdQTv16
-    fun generateMyPairId(): String {
+    fun generateMyPairId(cb: ValueCallback<String>) {
 
-        val randomString = JSApi().randomBytesSync(9)
-        return """${TTT.KEY_TTT_QR_TAG}:${mProfile.pubKeyForPairId}@${TTT.hubAddress}#$randomString"""
+        val randomString = JSApi().randomBytes(9, ValueCallback {
+            cb.onReceiveValue("""${TTT.KEY_TTT_QR_TAG}:${mProfile.pubKeyForPairId}@${TTT.hubAddress}#$it""")
+        })
 
     }
 
