@@ -76,6 +76,26 @@
                 android:textColor="@color/f_tx_unconfirmed"
                 android:textSize="@dimen/text_14" />
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/tx_invalid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="@dimen/ic_20"
+                android:layout_height="@dimen/ic_20"
+                android:src="@drawable/ic_tx_invalid" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/line_gap_7"
+                android:text="@string/tx_invalid"
+                android:textColor="@color/f_tx_unconfirmed"
+                android:textSize="@dimen/text_14" />
+        </LinearLayout>
     </FrameLayout>
 
     f_tx_unconfirmed

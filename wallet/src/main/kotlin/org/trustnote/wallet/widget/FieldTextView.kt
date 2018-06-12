@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import org.trustnote.db.TxType
 import org.trustnote.wallet.R
 
 open class FieldTextView @JvmOverloads constructor(
@@ -18,6 +19,7 @@ open class FieldTextView @JvmOverloads constructor(
     private val fieldUnitValue: TextView
     private val confirmed: View
     private val unconfirmed: View
+    private val invalid: View
 
     init {
         val view = View.inflate(context, R.layout.item_field, null)
@@ -28,6 +30,8 @@ open class FieldTextView @JvmOverloads constructor(
 
         confirmed = view.findViewById(R.id.tx_confirmed)
         unconfirmed = view.findViewById(R.id.tx_unconfirmed)
+        invalid = view.findViewById(R.id.tx_invalid)
+
     }
 
     fun setField(labelResId: Int, value: String) {
@@ -44,19 +48,25 @@ open class FieldTextView @JvmOverloads constructor(
         fieldUnitValue.visibility = View.VISIBLE
     }
 
-    private fun showStatus(isStable: Boolean) {
-        if (isStable) {
+    private fun showStatus(isStable: Boolean, txType: TxType) {
+        if (txType == TxType.invalid) {
+            invalid.visibility = View.VISIBLE
+            confirmed.visibility = View.GONE
+            unconfirmed.visibility = View.GONE
+        } else if (isStable) {
             confirmed.visibility = View.VISIBLE
             unconfirmed.visibility = View.GONE
+            invalid.visibility = View.GONE
         } else {
             confirmed.visibility = View.GONE
             unconfirmed.visibility = View.VISIBLE
+            invalid.visibility = View.GONE
         }
     }
 
-    fun setStatus(lableResId: Int, isConfirmed: Boolean) {
+    fun setStatus(lableResId: Int, isConfirmed: Boolean, txType: TxType) {
         fieldLable.setText(lableResId)
-        showStatus(isConfirmed)
+        showStatus(isConfirmed, txType)
     }
 
 }

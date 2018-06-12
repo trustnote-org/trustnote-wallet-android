@@ -214,13 +214,7 @@ class WalletModel() {
 
             val units = UnitsManager().saveUnitsFromHubResponse(hubResponse)
 
-            val unStableUnits = units.filter { it.isStable == 0 }
-
-            if (unStableUnits.isNotEmpty()) {
-                MyThreadManager.instance.runDealyed(4) {
-                    refreshOneWallet(credential.walletId)
-                }
-            }
+            // TODO: do we check DB for unstable units. then query after two minutes.
 
             readDataFromDb(credential)
 

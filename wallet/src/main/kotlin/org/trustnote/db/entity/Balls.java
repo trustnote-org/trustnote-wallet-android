@@ -2,6 +2,9 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.lang.Integer;
 import java.lang.String;
 
@@ -28,4 +31,15 @@ public class Balls extends TBaseEntity {
       name = "count_paid_witnesses"
   )
   public Integer countPaidWitnesses;
+
+  @SerializedName("is_nonserial")
+  public boolean isNonserial = false;
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof Balls) {
+      return unit != null && !unit.isEmpty() && unit.equals(((Balls)o).unit);
+    }
+    return false;
+  }
 }

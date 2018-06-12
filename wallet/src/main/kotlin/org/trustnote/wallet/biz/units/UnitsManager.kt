@@ -25,27 +25,36 @@ class UnitsManager {
 
         val jointList = Utils.parseChild(TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
 
+        val proofChainBalls = Utils.parseChild(TBaseEntity.VoidEntity, response, Balls::class.java.canonicalName, "proofchain_balls") as List<Balls>
+
+        val finalBadUnits = proofChainBalls.filter { it.isNonserial }.map { it.unit }
+
         val res = jointList.mapToTypedArray {
-            parseUnitFromJson(it.json.getAsJsonObject("unit"))
+            parseUnitFromJson(it.json.getAsJsonObject("unit"), finalBadUnits)
         }
 
         DbHelper.saveUnits(res)
+
+        val stableUnitIds = proofChainBalls.map { it.unit }
+        DbHelper.unitsStabled(stableUnitIds)
 
         return res.toList()
 
     }
 
-    fun parseUnitFromJson(unitJson: JsonObject): Units {
+
+    fun parseUnitFromJson(unitJson: JsonObject, finalBadUnits: List<String>): Units {
 
         val units = Utils.getGson().fromJson(unitJson, Units::class.java)
         units.json = unitJson
 
-        //TODO: when to stable?
-        units.isStable = if (units.mainChainIndex == null || units.mainChainIndex == 0) 0 else 1
-
         units.unit = units.json.get("unit").asString
 
-        units.sequence = DbConst.UNIT_SEQUENCE_GOOD
+        if (finalBadUnits.contains(units.unit)) {
+            units.sequence = DbConst.UNIT_SEQUENCE_FINAL_BADG
+        } else {
+            units.sequence = DbConst.UNIT_SEQUENCE_GOOD
+        }
 
         val authentifiersArray = Utils.parseChild(units, units.json, Authentifiers::class.java.canonicalName, "authors") as List<Authentifiers>
         authentifiersArray.forEachIndexed { _, authentifier ->

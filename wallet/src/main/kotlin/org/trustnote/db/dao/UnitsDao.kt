@@ -116,6 +116,11 @@ abstract class UnitsDao {
         """)
     abstract fun fixIsSpentFlag(unitId: String, messageIndex: Int, outputIndex: Int): Int
 
+    @Query("""
+        UPDATE units SET is_stable=1, is_free=0 WHERE unit IN( :unitIds) """)
+    abstract fun unitsStabled(unitIds: Array<String>): Int
+
+
     @Query("""SELECT unit, level, is_stable, sequence, address, units.creation_date as ts,
         headers_commission+payload_commission AS fee,
         SUM(amount) AS amount, address AS to_address, '' AS from_address, main_chain_index AS mci

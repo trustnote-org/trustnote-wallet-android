@@ -293,6 +293,7 @@
 
     <string name="tx_confirmed">已确认</string>
     <string name="tx_unconfirmed">未确认</string>
+    <string name="tx_invalid">无效</string>
 
     <string name="address_book_title">地址</string>
 

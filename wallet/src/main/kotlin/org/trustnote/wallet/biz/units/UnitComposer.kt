@@ -80,10 +80,9 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
             units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
 
-
             if (postNewUnitToHub()) {
                 val unitJson = Utils.toGsonObject(units)
-                val unit = UnitsManager().parseUnitFromJson(unitJson)
+                val unit = UnitsManager().parseUnitFromJson(unitJson, listOf())
 
                 WalletManager.model.newUnitAcceptedByHub(unit, sendPaymentInfo.walletId)
             } else {

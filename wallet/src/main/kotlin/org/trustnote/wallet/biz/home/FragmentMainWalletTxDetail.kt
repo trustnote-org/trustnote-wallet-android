@@ -51,7 +51,7 @@ class FragmentMainWalletTxDetail : FragmentWalletBase() {
 
         fDate.setField(R.string.tx_date, Utils.formatTxTimestampInTxDetail(tx.ts))
         fUnit.setUnitField(tx.unit)
-        status.setStatus(R.string.tx_status, tx.confirmations > 0)
+        status.setStatus(R.string.tx_status, tx.confirmations > 0, tx.txType)
 
         //TODO: status.
     }

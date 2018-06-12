@@ -17,6 +17,10 @@ object DbHelper {
         getDao().saveUnits(units)
     }
 
+    fun unitsStabled(unitIds: List<String>) {
+        getDao().unitsStabled(unitIds.toTypedArray())
+    }
+
     fun saveUnits(units: Units) {
         getDao().saveUnits(arrayOf(units))
     }
