@@ -15,8 +15,11 @@
 
     async function generateMnemonicAndAddress(userCustomerParameters) {
 
+        if (userCustomerParameters.matched_words.length == 0) {
+            appendResultList("Empty customer input")
+        }
         appendResultList("Search following word from address: " + userCustomerParameters.matched_words.join(","))
-        appendResultList(userCustomerParameters.total_mnemonics)
+        appendResultList("Total mnemonic will be genereated: " + userCustomerParameters.total_mnemonics)
 
         for(var i = 0; i < userCustomerParameters.total_mnemonics; i++) {
 
@@ -92,14 +95,14 @@
 
 
     function parserUserInputWordList(sentence) {
-        return sentence.split(/[ ,]+/);
+        return sentence.trim().split(/[ ,]+/).filter(word => word.length > 0)
     }
 
 
 </script>
 
 <form id="user_customer_parameter">
-    Matched Words:[Seperated by comma or space]
+    Matched Words:[Separated by comma or space]
     <br>
     <input id="user_customer_matched_words" type="text" name="matched_words" value="TTT" size="60">
     <br>
