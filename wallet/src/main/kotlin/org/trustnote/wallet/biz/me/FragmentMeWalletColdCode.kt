@@ -8,11 +8,12 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 
-class FragmentMeWalletColdCode : FragmentWalletBase() {
+class FragmentMeWalletColdCode : FragmentBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_me_wallet_code_code

@@ -43,15 +43,14 @@ class ActivityMain : ActivityBase() {
 
         WalletManager.model.refreshExistWallet()
 
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+            }
+        }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-
-        if (supportFragmentManager.backStackEntryCount == 0) {
-            bottomNavigationView.visibility = View.VISIBLE
-        }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -107,15 +106,12 @@ class ActivityMain : ActivityBase() {
 
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack
-        transaction.replace(R.id.fragment_level2, f)
+        transaction.add(R.id.fragment_level2, f)
         transaction.addToBackStack(null)
 
         // Commit the transaction
         transaction.commit()
 
-        bottomNavigationView.visibility = View.INVISIBLE
-
-        //findViewById<View>(R.id.fragment_container).visibility = View.INVISIBLE
     }
 
     override fun onResume() {
@@ -145,9 +141,10 @@ class ActivityMain : ActivityBase() {
             R.id.menu_msg -> newFragment = FragmentMsgsContactsList()
         }
 
-        supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container, newFragment)
-                .commit()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, newFragment)
+        transaction.commit()
+
     }
 }
 

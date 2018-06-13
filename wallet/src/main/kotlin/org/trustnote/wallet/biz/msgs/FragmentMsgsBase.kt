@@ -3,8 +3,9 @@ package org.trustnote.wallet.biz.msgs
 import io.reactivex.disposables.CompositeDisposable
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.uiframework.FragmentBaseForHomePage
 
-abstract class FragmentMsgsBase : FragmentBase() {
+abstract class FragmentMsgsBase : FragmentBaseForHomePage() {
 
     protected val disposables: CompositeDisposable = CompositeDisposable()
 

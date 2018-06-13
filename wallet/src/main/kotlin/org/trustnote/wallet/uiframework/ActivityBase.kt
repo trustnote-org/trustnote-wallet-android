@@ -41,8 +41,8 @@ abstract class ActivityBase : AppCompatActivity() {
 
     override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
-//        mRefreshingIndicator = findViewById(R.id.refreshing_indicator)
-//        mErrorIndicator = findViewById(R.id.error_indicator)
+        //        mRefreshingIndicator = findViewById(R.id.refreshing_indicator)
+        //        mErrorIndicator = findViewById(R.id.error_indicator)
     }
 
     private fun setupStatusBar() {

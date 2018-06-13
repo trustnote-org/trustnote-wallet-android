@@ -12,6 +12,7 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
+import org.trustnote.wallet.biz.wallet.FragmentWalletBaseForHomePage
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
@@ -19,7 +20,7 @@ import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.FragmentDialogSelectWallet
 import org.trustnote.wallet.widget.TMnAmount
 
-class FragmentMainWallet : FragmentWalletBase() {
+class FragmentMainWallet : FragmentWalletBaseForHomePage() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_main_wallet

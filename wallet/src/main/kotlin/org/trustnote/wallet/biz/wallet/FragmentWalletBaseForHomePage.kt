@@ -6,8 +6,9 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.uiframework.FragmentBaseForHomePage
 
-abstract class FragmentWalletBase : FragmentBase() {
+abstract class FragmentWalletBaseForHomePage : FragmentBaseForHomePage() {
 
     protected val disposables: CompositeDisposable = CompositeDisposable()
 

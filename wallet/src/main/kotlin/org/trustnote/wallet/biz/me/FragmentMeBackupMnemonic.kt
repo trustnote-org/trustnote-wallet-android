@@ -7,12 +7,13 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MnemonicsGridView
 import org.trustnote.wallet.widget.MyDialogFragment
 
-class FragmentMeBackupMnemonic : FragmentWalletBase() {
+class FragmentMeBackupMnemonic : FragmentBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_me_backup_mnemonic

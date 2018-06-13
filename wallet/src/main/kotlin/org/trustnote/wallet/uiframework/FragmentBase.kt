@@ -18,11 +18,12 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.TextView
+import me.yokeyword.swipebackfragment.SwipeBackFragment
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.util.AndroidUtils
 
-abstract class FragmentBase : Fragment() {
+abstract class FragmentBase : SwipeBackFragment() {
 
     lateinit var credential: Credential
 
@@ -44,7 +45,7 @@ abstract class FragmentBase : Fragment() {
         mRootView = childView
         mToolbar = view.findViewById(R.id.toolbar)
 
-        return view
+        return attachToSwipeBack(view)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -95,8 +96,8 @@ abstract class FragmentBase : Fragment() {
         if (activity is ActivityMain) {
             if (this is FragmentPageBase) {
                 mToolbar.setBackgroundResource(R.color.page_bg)
-            } else if (this is FragmentMeMain) {
-                mToolbar.setBackgroundResource(R.color.home_line_middle)
+//            } else if (this is FragmentMeMain) {
+//                mToolbar.setBackgroundResource(R.color.home_line_middle)
             } else {
                 mToolbar.setBackgroundResource(R.color.bg_white)
             }

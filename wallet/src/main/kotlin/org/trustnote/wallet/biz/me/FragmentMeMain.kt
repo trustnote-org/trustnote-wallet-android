@@ -8,6 +8,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
+import org.trustnote.wallet.biz.wallet.FragmentWalletBaseForHomePage
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.debug.FragmentMeDebug
 import org.trustnote.wallet.uiframework.FragmentEditBase
@@ -15,7 +16,7 @@ import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 
-class FragmentMeMain : FragmentWalletBase() {
+class FragmentMeMain : FragmentWalletBaseForHomePage() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_me_home

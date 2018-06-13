@@ -181,7 +181,7 @@ class WalletModel() {
         }
 
         val lastLocalWallet = lastLocalWallet()
-        if ( (lastLocalWallet.isAuto
+        if ((lastLocalWallet.isAuto
                         && lastLocalWallet.txDetails.isEmpty())) {
 
             CreateWalletModel.clearPassphraseInRam()
@@ -213,8 +213,6 @@ class WalletModel() {
             val hubResponse = getUnitsFromHub(needRefreshedAddresses)
 
             val units = UnitsManager().saveUnitsFromHubResponse(hubResponse)
-
-            // TODO: do we check DB for unstable units. then query after two minutes.
 
             readDataFromDb(credential)
 
@@ -518,9 +516,16 @@ class WalletModel() {
 
         readDataFromDb(findWallet(walletId))
 
+        //The first refresh will got mci from hub.
         refreshOneWallet(walletId)
 
         walletUpdated()
+
+        //The second refresh will got stable status from hub.
+        MyThreadManager.instance.runDealyed(70) {
+            refreshOneWallet(walletId)
+        }
+
     }
 
 }

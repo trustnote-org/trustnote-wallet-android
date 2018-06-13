@@ -23,7 +23,7 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.util.AndroidUtils
 
-abstract class FragmentBase : SwipeBackFragment() {
+abstract class FragmentBaseForHomePage : Fragment() {
 
     lateinit var credential: Credential
 
@@ -45,7 +45,7 @@ abstract class FragmentBase : SwipeBackFragment() {
         mRootView = childView
         mToolbar = view.findViewById(R.id.toolbar)
 
-        return attachToSwipeBack(view)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,15 +92,18 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     open fun setupToolbar() {
 
-        //TODO: better to do it in xml
+
         if (activity is ActivityMain) {
-            if (this is FragmentPageBase) {
-                mToolbar.setBackgroundResource(R.color.page_bg)
-            } else if (this is FragmentMeMain) {
+//            if (this is FragmentPageBase) {
+//                mToolbar.setBackgroundResource(R.color.page_bg)
+//            } else
+                if (this is FragmentMeMain) {
                 mToolbar.setBackgroundResource(R.color.home_line_middle)
-            } else {
-                mToolbar.setBackgroundResource(R.color.bg_white)
             }
+
+//                else {
+//                mToolbar.setBackgroundResource(R.color.bg_white)
+//            }
         }
 
         setHasOptionsMenu(true)
