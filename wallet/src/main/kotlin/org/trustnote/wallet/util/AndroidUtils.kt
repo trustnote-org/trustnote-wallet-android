@@ -47,6 +47,16 @@ object AndroidUtils {
     const val KEY_BUNDLE_TITLE: String = "KEY_TITLE"
     const val KEY_BUNDLE_MSG: String = "KEY_MSG"
     const val KEY_BUNDLE_QRCODE: String = "KEY_BUNDLE_QRCODE"
+    const val KEY_BUNDLE_ADDRESS: String = "KEY_BUNDLE_ADDRESS"
+    const val KEY_BUNDLE_MEMO: String = "KEY_BUNDLE_MEMO"
+
+    fun getStringFromBundle(arguments: Bundle?, key: String): String {
+        return if (arguments != null) {
+            arguments.getString(key) ?: ""
+        } else {
+            ""
+        }
+    }
 
     fun getQrcodeFromBundle(bundle: Bundle): String {
         val res = bundle.getString(KEY_BUNDLE_QRCODE)
@@ -426,4 +436,5 @@ object AndroidUtils {
     fun hideErrIfHasFocus(editText: ClearableEditText, errView: View) {
         editText.bindingErr = errView
     }
+
 }

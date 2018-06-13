@@ -22,6 +22,11 @@ public class TransferAddresses extends TBaseEntity {
 
 
   @Override
+  public int hashCode() {
+    return address.hashCode();
+  }
+
+  @Override
   public boolean equals(@NonNull Object o) {
     if (o == null || !(o instanceof TransferAddresses)) {
       return false;
