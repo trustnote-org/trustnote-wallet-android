@@ -10,22 +10,32 @@
 
 <script>
 
-    function generateMnemonicAndAddress() {
-        var totalMnemonic = 100
-        for(i = 0; i < totalMnemonic; i++) {
+    var WALLET_SEARCH_SCOPE = 8
+    var WALLET_ADDRESS_SEARCH_SCOPE = 40
+    var MNEMONIC_SEARCH_SCOPE = 100
+
+    async function generateMnemonicAndAddress() {
+        for(var i = 0; i < MNEMONIC_SEARCH_SCOPE; i++) {
             var mnemonic = Client.mnemonic();
             var privkey = Client.xPrivKey(mnemonic);
-            for(walletIndex = 0; walletIndex < 8; walletIndex++) {
+            for(walletIndex = 0; walletIndex < WALLET_SEARCH_SCOPE; walletIndex++) {
                 var walletPubkey = Client.walletPubKey(privkey, walletIndex)
                 checkAddressByWalletPubkey(mnemonic, walletIndex, walletPubkey)
             }
-            updateProgress(i, totalMnemonic)
+            updateProgress(i+1, MNEMONIC_SEARCH_SCOPE)
+
+            await sleep(3000);
+
         }
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     function checkAddressByWalletPubkey(mnemonic, walletIndex, walletPubkey) {
 
-        for(i = 0; i < 40; i++) {
+        for(var i = 0; i < WALLET_ADDRESS_SEARCH_SCOPE; i++) {
             var address = Client.walletAddress(walletPubkey, 0, i)
             if (isVanityAddress(address)) {
                 showVanityAddress(mnemonic, walletIndex, i, address)
@@ -65,7 +75,7 @@
     }
 
     function updateProgress(i, totalMnemonic) {
-        document.getElementById('progress_percent').innerHTML = "Steps:" + i + "  /Total:" + totalMnemonic)
+        document.getElementById('progress_percent').innerHTML = "Steps:" + i + "  /Total:" + totalMnemonic
     }
 
 </script>
@@ -73,7 +83,7 @@
 <button type="button"
         onclick="generateMnemonicAndAddress()">Let's Go
 </button>
-<p id="progress_percent"></p>
+<p id="progress_percent">progress_percent</p>
 <ul id="result_list">
 </ul>
 
