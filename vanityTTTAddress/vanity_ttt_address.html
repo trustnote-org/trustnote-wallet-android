@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<script src="core.js">
+
+</script>
+
+<body>
+
+<h2>Vanity TTT Address Hunter</h2>
+
+<script>
+
+    function generateMnemonicAndAddress() {
+        var totalMnemonic = 100
+        for(i = 0; i < totalMnemonic; i++) {
+            var mnemonic = Client.mnemonic();
+            var privkey = Client.xPrivKey(mnemonic);
+            for(walletIndex = 0; walletIndex < 8; walletIndex++) {
+                var walletPubkey = Client.walletPubKey(privkey, walletIndex)
+                checkAddressByWalletPubkey(mnemonic, walletIndex, walletPubkey)
+            }
+            updateProgress(i, totalMnemonic)
+        }
+    }
+
+    function checkAddressByWalletPubkey(mnemonic, walletIndex, walletPubkey) {
+
+        for(i = 0; i < 40; i++) {
+            var address = Client.walletAddress(walletPubkey, 0, i)
+            if (isVanityAddress(address)) {
+                showVanityAddress(mnemonic, walletIndex, i, address)
+            }
+        }
+    }
+
+    function isVanityAddress(address) {
+        //TODO: regular expression.
+        return address.startsWith('TT')
+            || address.startsWith('GUO')
+            || address.startsWith('MN')
+            || address.startsWith('MY')
+            || address.startsWith('QQ')
+            || address.startsWith('BTC')
+            || address.startsWith('ETH')
+            || address.startsWith('EOS')
+            || address.startsWith('IOT')
+            || address.startsWith('DROID')
+            || address.startsWith('ANDROID')
+
+    }
+
+    function showVanityAddress(mnemonic, walletIndex, addressIndex, address) {
+
+        appendResultList(address + "@" + mnemonic + ":::" + walletIndex + ":::" + addressIndex)
+
+    }
+
+    function appendResultList(resultItem) {
+
+          var ul = document.getElementById("result_list");
+          var li = document.createElement("li");
+          li.appendChild(document.createTextNode(resultItem));
+          ul.appendChild(li);
+
+    }
+
+    function updateProgress(i, totalMnemonic) {
+        document.getElementById('progress_percent').innerHTML = "Steps:" + i + "  /Total:" + totalMnemonic)
+    }
+
+</script>
+
+<button type="button"
+        onclick="generateMnemonicAndAddress()">Let's Go
+</button>
+<p id="progress_percent"></p>
+<ul id="result_list">
+</ul>
+
+</body>
+
+</html>
