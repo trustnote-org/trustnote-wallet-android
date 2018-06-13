@@ -10,21 +10,27 @@
 
 <script>
 
-    var WALLET_SEARCH_SCOPE = 8
-    var WALLET_ADDRESS_SEARCH_SCOPE = 40
-    var MNEMONIC_SEARCH_SCOPE = 100
+    var WALLET_INDEX_DEPTHS = 8
+    var WALLET_ADDRESS_DEPTHS = 40
 
-    async function generateMnemonicAndAddress() {
-        for(var i = 0; i < MNEMONIC_SEARCH_SCOPE; i++) {
+    async function generateMnemonicAndAddress(userCustomerParameters) {
+
+        appendResultList("Search following word from address: " + userCustomerParameters.matched_words.join(","))
+        appendResultList(userCustomerParameters.total_mnemonics)
+
+        for(var i = 0; i < userCustomerParameters.total_mnemonics; i++) {
+
             var mnemonic = Client.mnemonic();
             var privkey = Client.xPrivKey(mnemonic);
-            for(walletIndex = 0; walletIndex < WALLET_SEARCH_SCOPE; walletIndex++) {
-                var walletPubkey = Client.walletPubKey(privkey, walletIndex)
-                checkAddressByWalletPubkey(mnemonic, walletIndex, walletPubkey)
-            }
-            updateProgress(i+1, MNEMONIC_SEARCH_SCOPE)
 
-            await sleep(3000);
+            for(walletIndex = 0; walletIndex < WALLET_INDEX_DEPTHS; walletIndex++) {
+                var walletPubkey = Client.walletPubKey(privkey, walletIndex)
+                checkAddressByWalletPubkey(mnemonic, walletIndex, walletPubkey, userCustomerParameters)
+            }
+
+            updateProgress(i+1, userCustomerParameters.total_mnemonics)
+
+            await sleep(100);
 
         }
     }
@@ -33,30 +39,23 @@
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    function checkAddressByWalletPubkey(mnemonic, walletIndex, walletPubkey) {
+    function checkAddressByWalletPubkey(mnemonic, walletIndex, walletPubkey, userCustomerParameters) {
 
-        for(var i = 0; i < WALLET_ADDRESS_SEARCH_SCOPE; i++) {
+        for(var i = 0; i < WALLET_ADDRESS_DEPTHS; i++) {
             var address = Client.walletAddress(walletPubkey, 0, i)
-            if (isVanityAddress(address)) {
+            if (isVanityAddress(address, userCustomerParameters)) {
                 showVanityAddress(mnemonic, walletIndex, i, address)
             }
         }
     }
 
-    function isVanityAddress(address) {
-        //TODO: regular expression.
-        return address.startsWith('TT')
-            || address.startsWith('GUO')
-            || address.startsWith('MN')
-            || address.startsWith('MY')
-            || address.startsWith('QQ')
-            || address.startsWith('BTC')
-            || address.startsWith('ETH')
-            || address.startsWith('EOS')
-            || address.startsWith('IOT')
-            || address.startsWith('DROID')
-            || address.startsWith('ANDROID')
-
+    function isVanityAddress(address, userCustomerParameters) {
+        for(index in userCustomerParameters.matched_words) {
+            var isMatch = address.startsWith(userCustomerParameters.matched_words[index])
+            if (isMatch) {
+                return true
+            }
+        }
     }
 
     function showVanityAddress(mnemonic, walletIndex, addressIndex, address) {
@@ -78,12 +77,45 @@
         document.getElementById('progress_percent').innerHTML = "Steps:" + i + "  /Total:" + totalMnemonic
     }
 
+
+
+    function readUserInputParameter() {
+
+        var userCustomerParameters = {}
+        var userInputWords = document.getElementById('user_customer_matched_words').value
+        userCustomerParameters.matched_words = parserUserInputWordList(userInputWords)
+        userCustomerParameters.total_mnemonics = document.getElementById('user_customer_total_mnemonics').value
+
+        return userCustomerParameters
+
+    }
+
+
+    function parserUserInputWordList(sentence) {
+        return sentence.split(/[ ,]+/);
+    }
+
+
 </script>
 
+<form id="user_customer_parameter">
+    Matched Words:[Seperated by comma or space]
+    <br>
+    <input id="user_customer_matched_words" type="text" name="matched_words" value="TTT" size="60">
+    <br>
+    <br>
+    Total mnemonics:<br>
+    <input id="user_customer_total_mnemonics" type="text" name="total_mnemonics" value="1">
+    <br><br>
+</form>
 <button type="button"
-        onclick="generateMnemonicAndAddress()">Let's Go
+        onclick="generateMnemonicAndAddress(readUserInputParameter())">Go
 </button>
-<p id="progress_percent">progress_percent</p>
+
+<br>
+<p id="progress_percent">progress_percent_place_holder</p>
+<br>
+
 <ul id="result_list">
 </ul>
 
