@@ -49,6 +49,15 @@ object AndroidUtils {
     const val KEY_BUNDLE_QRCODE: String = "KEY_BUNDLE_QRCODE"
     const val KEY_BUNDLE_ADDRESS: String = "KEY_BUNDLE_ADDRESS"
     const val KEY_BUNDLE_MEMO: String = "KEY_BUNDLE_MEMO"
+    const val KEY_TAG_FOR_NEXT_PAGE: String = "KEY_TAG_FOR_NEXT_PAGE"
+
+    fun getTagForNextPage(bundle: Bundle?): Int {
+        if (bundle != null) {
+            val res = bundle.getString(KEY_TAG_FOR_NEXT_PAGE)?.toInt()
+            return res ?: 0
+        }
+        return 0
+    }
 
     fun getStringFromBundle(arguments: Bundle?, key: String): String {
         return if (arguments != null) {

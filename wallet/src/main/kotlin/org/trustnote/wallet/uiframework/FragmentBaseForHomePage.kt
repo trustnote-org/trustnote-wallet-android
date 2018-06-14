@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -18,9 +17,7 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.TextView
-import me.yokeyword.swipebackfragment.SwipeBackFragment
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.util.AndroidUtils
 
 abstract class FragmentBaseForHomePage : Fragment() {
@@ -92,6 +89,8 @@ abstract class FragmentBaseForHomePage : Fragment() {
 
     open fun setupToolbar() {
 
+<<<<<<< HEAD
+=======
 
         if (activity is ActivityMain) {
 //            if (this is FragmentPageBase) {
@@ -106,6 +105,7 @@ abstract class FragmentBaseForHomePage : Fragment() {
 //            }
         }
 
+>>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
         setHasOptionsMenu(true)
 
         (activity as ActivityBase).setSupportActionBar(mToolbar)
@@ -180,13 +180,29 @@ abstract class FragmentBaseForHomePage : Fragment() {
         (activity as ActivityBase).showErrorUI(isShow)
     }
 
-    fun openFragment(f: FragmentBase) {
-        (activity as ActivityMain).openLevel2Fragment(f)
+    fun addL2Fragment(f: FragmentBase) {
+
+        (activity as ActivityBase).addL2Fragment(f)
+
+    }
+
+    fun addFragment(f: FragmentBase) {
+
+        (activity as ActivityBase).addFragment(f)
+
+    }
+
+    fun showFragment(f: FragmentBase) {
+
+        (activity as ActivityBase).showFragment(f)
+
     }
 
     fun hideSystemSoftKeyboard() {
-        val imm = activity.getSystemService (Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mRootView.getWindowToken(), 0)
+
     }
 
     open fun onBackPressed() {
@@ -195,17 +211,18 @@ abstract class FragmentBaseForHomePage : Fragment() {
     }
 
     fun openSimpleInfoPage(msg: String, title: String) {
+
         val bundle = Bundle()
         bundle.putString(AndroidUtils.KEY_BUNDLE_MSG, msg)
         bundle.putString(AndroidUtils.KEY_BUNDLE_TITLE, title)
         val f = FragmentSimplePage()
         f.arguments = bundle
-        openFragment(f)
+        addFragment(f)
+
     }
 
     fun showOrHideToolbar() {
         mToolbar.visibility = mToolbarVisibility
     }
-
 
 }

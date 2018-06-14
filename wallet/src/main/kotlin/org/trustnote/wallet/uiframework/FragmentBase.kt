@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -20,7 +18,6 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import me.yokeyword.swipebackfragment.SwipeBackFragment
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.util.AndroidUtils
 
 abstract class FragmentBase : SwipeBackFragment() {
@@ -33,6 +30,7 @@ abstract class FragmentBase : SwipeBackFragment() {
     lateinit var mToolbar: Toolbar
     var isCreated = false
     private val ttag = "TTTUI"
+    var supportSwipeBack = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -45,7 +43,11 @@ abstract class FragmentBase : SwipeBackFragment() {
         mRootView = childView
         mToolbar = view.findViewById(R.id.toolbar)
 
+<<<<<<< HEAD
+        return if (supportSwipeBack) attachToSwipeBack(view) else view
+=======
         return attachToSwipeBack(view)
+>>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -92,6 +94,9 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     open fun setupToolbar() {
 
+<<<<<<< HEAD
+        mToolbar.setBackgroundResource(R.color.bg_white)
+=======
         //TODO: better to do it in xml
         if (activity is ActivityMain) {
             if (this is FragmentPageBase) {
@@ -102,6 +107,7 @@ abstract class FragmentBase : SwipeBackFragment() {
                 mToolbar.setBackgroundResource(R.color.bg_white)
             }
         }
+>>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
 
         setHasOptionsMenu(true)
 
@@ -177,12 +183,28 @@ abstract class FragmentBase : SwipeBackFragment() {
         (activity as ActivityBase).showErrorUI(isShow)
     }
 
-    fun openFragment(f: FragmentBase) {
-        (activity as ActivityMain).openLevel2Fragment(f)
+    fun addL2Fragment(f: FragmentBase) {
+
+        (activity as ActivityBase).addL2Fragment(f)
+
     }
 
+    fun addFragment(f: FragmentBase) {
+
+        (activity as ActivityBase).addFragment(f)
+
+    }
+
+
+    fun showFragment(f: FragmentBase) {
+
+        (activity as ActivityBase).showFragment(f)
+
+    }
+
+
     fun hideSystemSoftKeyboard() {
-        val imm = activity.getSystemService (Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mRootView.getWindowToken(), 0)
     }
 
@@ -197,12 +219,11 @@ abstract class FragmentBase : SwipeBackFragment() {
         bundle.putString(AndroidUtils.KEY_BUNDLE_TITLE, title)
         val f = FragmentSimplePage()
         f.arguments = bundle
-        openFragment(f)
+        addL2Fragment(f)
     }
 
     fun showOrHideToolbar() {
         mToolbar.visibility = mToolbarVisibility
     }
-
 
 }

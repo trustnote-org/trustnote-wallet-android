@@ -75,13 +75,13 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
             SCAN_RESULT_TYPE.MN_TRANSFER -> {
                 val f = FragmentDialogSelectWallet()
                 AndroidUtils.addFragmentArguments(f, TTT.KEY_TRANSFER_QRCODEW, qrCode)
-                openFragment(f)
+                addFragment(f)
             }
 
             SCAN_RESULT_TYPE.COLD_WALLET -> {
                 val f = FragmentMainCreateWalletObserve()
                 AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
-                openFragment(f)
+                addFragment(f)
             }
 
             SCAN_RESULT_TYPE.TTT_PAIRID -> {

@@ -122,7 +122,6 @@ open class FragmentInitSetupPwd : FragmentInit() {
         val isPwdLengthOk = isPwdLengthOk(pwdString)
         val isPwdStrengOk = (pwdStrength == PwdStrength.NORMAL || pwdStrength == PwdStrength.STRONG)
 
-
         if (!isPwdLengthOk) {
             pwdError.setText(R.string.pwd_length_error)
             pwdError.visibility = View.VISIBLE
@@ -136,7 +135,8 @@ open class FragmentInitSetupPwd : FragmentInit() {
 
         CreateWalletModel.savePassphraseInDisk(pwdString)
         CreateWalletModel.savePassphraseInRam(pwdString)
-        nextPage()
+
+        nextPage(AndroidUtils.getTagForNextPage(arguments))
     }
 
     private fun isPwdStrengthOk(pwd: String): Boolean {

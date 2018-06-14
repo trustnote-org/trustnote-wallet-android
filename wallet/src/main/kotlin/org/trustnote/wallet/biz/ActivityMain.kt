@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.view.MenuItem
-import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
@@ -15,7 +14,6 @@ import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.biz.wallet.WalletModel
 import org.trustnote.wallet.uiframework.EmptyFragment
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
@@ -87,16 +85,19 @@ class ActivityMain : ActivityBase() {
 
         val newFragment = clz.newInstance()
         newFragment.arguments = bundle
-        openLevel2Fragment(newFragment)
+        addL2Fragment(newFragment)
 
     }
 
     fun openPage(f: FragmentBase) {
-        openLevel2Fragment(f)
+        addL2Fragment(f)
     }
 
     fun openPage(f: FragmentBase, key: String, value: String) {
         AndroidUtils.addFragmentArguments(f, key, value)
+<<<<<<< HEAD
+        addL2Fragment(f)
+=======
         openLevel2Fragment(f)
     }
 
@@ -112,6 +113,7 @@ class ActivityMain : ActivityBase() {
         // Commit the transaction
         transaction.commit()
 
+>>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
     }
 
     override fun onResume() {

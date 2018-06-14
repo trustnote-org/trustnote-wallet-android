@@ -40,12 +40,18 @@ abstract class ActivityBase : AppCompatActivity() {
     }
 
     override fun setContentView(layoutResID: Int) {
+
         super.setContentView(layoutResID)
         //        mRefreshingIndicator = findViewById(R.id.refreshing_indicator)
         //        mErrorIndicator = findViewById(R.id.error_indicator)
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
     }
 
     private fun setupStatusBar() {
+
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -53,9 +59,52 @@ abstract class ActivityBase : AppCompatActivity() {
         //        if (Build.VERSION.SDK_INT >= 21) {
         //            window.statusBarColor = ContextCompat.getColor(this, R.color.bg_white)
         //        }
+
     }
 
-    open fun openFragment() {
+    open fun addFragment(f: FragmentBase) {
+
+        addFragment(f, R.id.fragment_container)
+
+    }
+
+    fun addL2Fragment(f: FragmentBase) {
+
+        addFragment(f, R.id.fragment_level2)
+
+    }
+
+    open fun addFragment(f: FragmentBase, fragmentContainerId: Int, isAddToBackStack: Boolean = true) {
+
+        val transaction = supportFragmentManager.beginTransaction()
+
+        if (isAddToBackStack) {
+
+            transaction.add(fragmentContainerId, f)
+            transaction.addToBackStack(null)
+
+        } else {
+
+            transaction.replace(fragmentContainerId, f)
+
+        }
+
+        transaction.commit()
+
+    }
+
+    open fun showFragment(f: FragmentBase) {
+        addFragment(f, R.id.fragment_container, false)
+    }
+
+    override fun onBackPressed() {
+
+        if (closeKeyboard()) {
+
+        } else {
+            super.onBackPressed()
+        }
+
     }
 
     override fun onResume() {
@@ -151,7 +200,6 @@ abstract class ActivityBase : AppCompatActivity() {
     fun showErrorUI(isShow: Boolean = false) {
         mErrorIndicator.visibility = if (isShow) View.VISIBLE else View.GONE
     }
-
 
     //TODO: buggy
     fun setupStringAsReturnResult(s: String) {

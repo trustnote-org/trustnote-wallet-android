@@ -101,7 +101,7 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
                 {
                     WalletManager.model.udpateCredentialName(credential, it)
                 })
-        openFragment(f)
+        addL2Fragment(f)
     }
 
 }

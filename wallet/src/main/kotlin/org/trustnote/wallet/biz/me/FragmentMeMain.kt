@@ -7,7 +7,10 @@ import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
+<<<<<<< HEAD
+=======
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
+>>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
 import org.trustnote.wallet.biz.wallet.FragmentWalletBaseForHomePage
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.debug.FragmentMeDebug
@@ -59,7 +62,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
             val debugSettings = SettingItem(titleResId = R.string.menu_debug,
                     lambda = {
                         val f = FragmentMeDebug()
-                        (activity as ActivityMain).openLevel2Fragment(f)
+                        (activity as ActivityMain).addL2Fragment(f)
                     })
 
             fullMainSettings.add(SettingItem(itemType = SettingItemType.ITEM_GAP))
@@ -69,6 +72,11 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
 
         recyclerView.adapter = SettingItemAdapter(fullMainSettings.toTypedArray())
 
+    }
+
+    override fun setupToolbar() {
+        super.setupToolbar()
+        mToolbar.setBackgroundResource(R.color.page_bg)
     }
 
     private fun editDevicename() {
@@ -83,7 +91,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
                     Prefs.writeDeviceName(it)
                     WalletManager.mWalletEventCenter.onNext(true)
                 })
-        openFragment(f)
+        addFragment(f)
     }
 
 }

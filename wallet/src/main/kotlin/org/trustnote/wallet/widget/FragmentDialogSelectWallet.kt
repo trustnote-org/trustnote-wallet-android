@@ -44,7 +44,7 @@ class FragmentDialogSelectWallet : FragmentPageBase() {
             val f = FragmentWalletTransfer()
             AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, walletId)
             AndroidUtils.addFragmentArguments(f, TTT.KEY_TRANSFER_QRCODEW, arguments.getString(TTT.KEY_TRANSFER_QRCODEW))
-            (activity as ActivityMain).openLevel2Fragment(f)
+            (activity as ActivityMain).addL2Fragment(f)
 
         }
 

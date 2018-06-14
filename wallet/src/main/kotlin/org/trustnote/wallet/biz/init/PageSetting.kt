@@ -44,7 +44,6 @@ fun addConfig(layoutId: Int, clz: Class<out FragmentInit> = FragmentInit::class.
 }
 
 
-
 fun getPageSetting(layoutId: Int): PageSetting {
     return mPageConfiguration[layoutId]!!
 }

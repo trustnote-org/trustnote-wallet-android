@@ -44,7 +44,7 @@ class SettingItem(
                     SettingItem(titleResId = R.string.me_wallet_manager,
                             icResId = R.drawable.ic_me_wallet_manager,
                             lambda = {
-                                activity.openLevel2Fragment(FragmentMeWalletManager())
+                                activity.addL2Fragment(FragmentMeWalletManager())
                             }),
 
                     SettingItem(itemType = SettingItemType.ITEM_LINE),
@@ -66,7 +66,7 @@ class SettingItem(
 
         private fun openSubSetting(activity: ActivityMain, items: Array<SettingItem>, titielResId: Int) {
             val f = FragmentMeSettingBase(items, titielResId)
-            activity.openLevel2Fragment(f)
+            activity.addL2Fragment(f)
         }
 
         fun getSettingAbout(activity: ActivityMain): Array<SettingItem> {
@@ -178,19 +178,19 @@ class SettingItem(
         fun backupMnemonic(activity: ActivityMain) {
 
             if (WalletManager.model.isMnemonicExist()) {
-                activity.openLevel2Fragment(FragmentMeBackupMnemonic())
+                activity.addL2Fragment(FragmentMeBackupMnemonic())
             } else {
-                activity.openLevel2Fragment(FragmentMeBackupMnemonicRemoved())
+                activity.addL2Fragment(FragmentMeBackupMnemonicRemoved())
             }
         }
 
         fun restoreFromMnemonic(activity: ActivityMain) {
 
-            activity.openLevel2Fragment(FragmentMeWalletRestore())
+            activity.addL2Fragment(FragmentMeWalletRestore())
         }
 
         fun fullSync(activity: ActivityMain) {
-            activity.openLevel2Fragment(FragmentMeWalletFullSync())
+            activity.addL2Fragment(FragmentMeWalletFullSync())
         }
 
         fun selectLanguageUI(activity: ActivityMain) {
@@ -198,7 +198,7 @@ class SettingItem(
         }
 
         fun openChangePwdUI(activity: ActivityMain) {
-            activity.openLevel2Fragment(FragmentMeChangePwd())
+            activity.addL2Fragment(FragmentMeChangePwd())
         }
 
         private fun openTou() {

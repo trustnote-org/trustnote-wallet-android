@@ -62,7 +62,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         btnConfirm.setOnClickListener { transfer() }
 
         selectAddressIcon.setOnClickListener {
-            openFragment(FragmentMeAddressesBook())
+            addL2Fragment(FragmentMeAddressesBook())
         }
 
         amountText.addTextChangedListener(MyTextWatcher(this))

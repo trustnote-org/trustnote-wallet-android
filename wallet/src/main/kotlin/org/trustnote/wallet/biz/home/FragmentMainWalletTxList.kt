@@ -56,7 +56,7 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
         mRootView.findViewById<View>(R.id.btn_transfer).setOnClickListener {
             val f = FragmentWalletTransfer()
             AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, credential.walletId)
-            (activity as ActivityMain).openLevel2Fragment(f)
+            (activity as ActivityMain).addL2Fragment(f)
         }
 
 

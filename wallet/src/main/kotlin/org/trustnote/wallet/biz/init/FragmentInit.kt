@@ -19,7 +19,6 @@ import org.trustnote.wallet.widget.*
 
 abstract class FragmentInit : FragmentBase() {
 
-    var mNextLayoutId = 0
     var fromInitActivity = true
 
     //TODO: empty constructor.
@@ -41,6 +40,20 @@ abstract class FragmentInit : FragmentBase() {
 
     }
 
+    fun nextPage(pageLayoutId: Int) {
+        val page = getPageSetting(pageLayoutId)
+        addFragment(page.clz.newInstance())
+    }
+
+
+    fun nextPage(pageLayoutId: Int, nextPageLayoutId: Int) {
+        val page = getPageSetting(pageLayoutId)
+        val f = page.clz.newInstance()
+        AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_TAG_FOR_NEXT_PAGE, nextPageLayoutId.toString())
+        addFragment(f)
+    }
+
+
     fun onShowPage() {
         if (mRootView is ViewGroup) {
             initFragment(mRootView!!)
@@ -57,28 +70,19 @@ abstract class FragmentInit : FragmentBase() {
         }
     }
 
-    fun nextPage() {
-        if (mNextLayoutId != 0) {
-            getMyActivity().nextPage(mNextLayoutId)
-        }
-    }
-
-    fun nextPage(pageLayoutId: Int) {
-        getMyActivity().nextPage(pageLayoutId)
-    }
-
-    fun nextPage(pageLayoutId: Int, nexLayoutId: Int) {
-        getMyActivity().nextPage(pageLayoutId, nexLayoutId)
-    }
-
 }
 
 class CWFragmentDisclaimer : FragmentInit() {
+
+    init {
+        supportSwipeBack = false
+    }
+
     override fun initFragment(view: View) {
         super.initFragment(view)
         view.findViewById<View>(R.id.agree).setOnClickListener {
             CreateWalletModel.userAgree()
-            nextPage(R.layout.f_init_devicename)
+            showFragment(CWFragmentDeviceName())
         }
     }
 
@@ -88,6 +92,10 @@ class CWFragmentDisclaimer : FragmentInit() {
 }
 
 class CWFragmentDeviceName : FragmentInit() {
+
+    init {
+        supportSwipeBack = false
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.f_init_devicename
@@ -115,10 +123,14 @@ class CWFragmentDeviceName : FragmentInit() {
         btnConfirm.setOnClickListener {
 
             if (isValidInput(editDeviceName.text.toString())) {
+
                 CreateWalletModel.saveDeviceName(editDeviceName.text.toString())
-                nextPage(R.layout.f_init_create_or_restore)
+                addFragment(CWFragmentNewSeedOrRestore())
+
             } else {
+
                 err.visibility = View.VISIBLE
+
             }
         }
 
@@ -135,6 +147,10 @@ class CWFragmentDeviceName : FragmentInit() {
 }
 
 class CWFragmentNewSeedOrRestore : FragmentInit() {
+
+    init {
+        supportSwipeBack = false
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.f_init_create_or_restore

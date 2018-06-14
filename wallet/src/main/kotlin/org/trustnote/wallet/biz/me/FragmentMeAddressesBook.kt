@@ -4,7 +4,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.trustnote.wallet.R
-import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
@@ -26,7 +25,7 @@ class FragmentMeAddressesBook : FragmentBase() {
         listView.layoutManager = LinearLayoutManager(activity)
 
         addIcon.setOnClickListener {
-            openFragment(FragmentMeAddressesBookAddOrEdit())
+            addL2Fragment(FragmentMeAddressesBookAddOrEdit())
         }
 
     }
@@ -44,7 +43,7 @@ class FragmentMeAddressesBook : FragmentBase() {
             val f = FragmentMeAddressesBookAddOrEdit()
             AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_ADDRESS, it.address)
             AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_MEMO, it.name)
-            openFragment(f)
+            addL2Fragment(f)
         }
 
         adapter.itemClickListener = {
