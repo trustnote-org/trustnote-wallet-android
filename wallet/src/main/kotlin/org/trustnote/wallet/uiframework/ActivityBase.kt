@@ -130,10 +130,16 @@ abstract class ActivityBase : AppCompatActivity() {
     }
 
     fun closeKeyboard(): Boolean {
+
+        if (!isKeyboardExist()){
+            return false
+        }
+
         if (mKeyboardViewWrapper.visibility == View.VISIBLE) {
             mKeyboardViewWrapper.visibility = View.INVISIBLE
             return true
         }
+
         return false
     }
 

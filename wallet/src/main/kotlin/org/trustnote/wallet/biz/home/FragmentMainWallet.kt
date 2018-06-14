@@ -56,44 +56,6 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
         return TApp.context.getString(R.string.wallet_toolbar_title)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_scan -> {
-                startScan {
-                    handleScanRes(it)
-                }
-                return true
-            }
-        }
-        return false
-    }
-
-    private fun handleScanRes(qrCode: String) {
-        val qrType = TTTUtils.parseQrCodeType(qrCode)
-        when (qrType) {
-
-            SCAN_RESULT_TYPE.MN_TRANSFER -> {
-                val f = FragmentDialogSelectWallet()
-                AndroidUtils.addFragmentArguments(f, TTT.KEY_TRANSFER_QRCODEW, qrCode)
-                addFragment(f)
-            }
-
-            SCAN_RESULT_TYPE.COLD_WALLET -> {
-                val f = FragmentMainCreateWalletObserve()
-                AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
-                addFragment(f)
-            }
-
-            SCAN_RESULT_TYPE.TTT_PAIRID -> {
-                AndroidUtils.todo()
-                //openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
-            }
-
-            SCAN_RESULT_TYPE.UNKNOWN -> {
-                openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
-            }
-        }
-    }
 
     override fun initFragment(view: View) {
 

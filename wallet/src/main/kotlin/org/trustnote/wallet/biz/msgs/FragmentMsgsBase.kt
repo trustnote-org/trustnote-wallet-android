@@ -7,6 +7,9 @@ import org.trustnote.wallet.uiframework.FragmentBaseForHomePage
 
 abstract class FragmentMsgsBase : FragmentBaseForHomePage() {
 
+
+    val model: MsgsModel = MsgsModel.instance
+
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
     //TODO: empty constructor.

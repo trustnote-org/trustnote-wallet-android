@@ -1,5 +1,8 @@
 package org.trustnote.wallet.biz.wallet
 
+import org.trustnote.db.entity.ChatMessages
+import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.util.Utils
 
 class TestData {
@@ -11,6 +14,8 @@ class TestData {
 
         const val password = "qwer1234"
 
+        val loremMessags = TApp.getString(R.string.lorem_ttt)
+
         fun getTestMnemonic(): String {
             val random = Utils.random.nextInt(4)
             when (random) {
@@ -21,6 +26,42 @@ class TestData {
             }
             return mnemonic2
         }
+
+
+        fun getRandomMessage(maxLength: Int, minLength: Int = 1): String {
+
+            val length = Utils.random.nextInt((maxLength - minLength)/2) + minLength
+            val start = Utils.random.nextInt(loremMessags.length - length)
+            val res = loremMessags.substring(start, start + length)
+
+            return if (res.isEmpty()) getRandomMessage(maxLength, minLength) else res
+
+        }
+
+
+
+        fun createATestChatMsgs(): ChatMessages {
+
+            val res = ChatMessages()
+            res.correspondentAddress = "ZKWUHD6P3CRLTX64TGPIDQ7U4PM7R7AI232342354254252"
+            res.correspondentName = TestData.getRandomMessage(8, 3)
+            res.creationDate = System.currentTimeMillis()/1000 - Utils.random.nextInt(5 * 24 * 3600)
+            res.message = TestData.getRandomMessage(138)
+            res.unReadMsgsNumber = Utils.random.nextInt(10)
+            return res
+
+        }
+
+
+        fun getHomelistForMsgs(): List<ChatMessages> {
+            var testData = mutableListOf<ChatMessages>()
+            for(i in 0 .. 20) {
+                testData.add(createATestChatMsgs())
+            }
+            return testData
+
+        }
+
 
     }
 }

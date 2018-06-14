@@ -75,6 +75,6 @@
     <color name="keyboard_font_color">#000000</color>
 
     <color name="f_tx_unconfirmed">#EE7A23</color>
-
+    <color name="f_msg_date">#BDCADB</color>
 
 </resources>

@@ -84,6 +84,7 @@
     <dimen name="quick_action_size">20dp</dimen>
     <dimen name="home_back_arrow_size">45dp</dimen>
     <dimen name="padding_main">26dp</dimen>
+    <dimen name="padding_main_20">20dp</dimen>
 
     <dimen name="mn_amount_b_i">46sp</dimen>
     <dimen name="mn_amount_b_d">32sp</dimen>
@@ -132,5 +133,6 @@
 
     <dimen name="ic_gabage_width">55dp</dimen>
     <dimen name="keyboard_textsize">20sp</dimen>
+    <dimen name="item_msg_height">90dp</dimen>
 
 </resources>

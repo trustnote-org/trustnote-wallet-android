@@ -18,7 +18,11 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import me.yokeyword.swipebackfragment.SwipeBackFragment
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.home.FragmentMainCreateWalletObserve
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.SCAN_RESULT_TYPE
+import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.widget.FragmentDialogSelectWallet
 
 abstract class FragmentBase : SwipeBackFragment() {
 
@@ -218,5 +222,46 @@ abstract class FragmentBase : SwipeBackFragment() {
     fun showOrHideToolbar() {
         mToolbar.visibility = mToolbarVisibility
     }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_scan -> {
+                startScan {
+                    handleUnknownScanRes(it)
+                }
+                return true
+            }
+        }
+        return false
+    }
+
+    fun handleUnknownScanRes(qrCode: String) {
+        val qrType = TTTUtils.parseQrCodeType(qrCode)
+        when (qrType) {
+
+            SCAN_RESULT_TYPE.MN_TRANSFER -> {
+                val f = FragmentDialogSelectWallet()
+                AndroidUtils.addFragmentArguments(f, TTT.KEY_TRANSFER_QRCODEW, qrCode)
+                addFragment(f)
+            }
+
+            SCAN_RESULT_TYPE.COLD_WALLET -> {
+                val f = FragmentMainCreateWalletObserve()
+                AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
+                addFragment(f)
+            }
+
+            SCAN_RESULT_TYPE.TTT_PAIRID -> {
+                AndroidUtils.todo()
+                //openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
+            }
+
+            SCAN_RESULT_TYPE.UNKNOWN -> {
+                openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
+            }
+        }
+    }
+
 
 }

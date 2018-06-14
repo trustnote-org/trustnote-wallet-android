@@ -3,7 +3,39 @@
     <string name="language_cn" translatable="false">中文</string>
     <string name="language_en" translatable="false">English</string>
 
-    <string name="lorem_ttt" translatable="false">区块链等分布式账本技术是新型信任工具，有助于降低信任成本，提高交易效率。但是，如果不能支持海量用户和高并发就去谈应用，区块链应用落地只能是空想。\n\r将DAG数据结构与稳健的PoW共识算法巧妙结合，极大提高公有链对并发交易的支撑能力，大幅加快交易速度，但不削弱系统的去中心化属性，实现真正支持高并发的去中心化账本存储管理\n\r支持多种节点类型并拥有可适性极高的钱包架构设计，为智能手机、PC、服务器、IoT设备、以及新一代的智能设备提供一个可扩展的去中心化账本存储管理基础设施\n\r拥有可验证的智能合约系统，支持多种动态语言包括高级声明式语言，能直接描述合约期望的目标，表达能力强，易于理解，安全性高，同时还降低了合约的编写难度和出错概率\n\r</string>
+    <string name="lorem_ttt" translatable="false">区块链等分布式账本技术是新型信任工具，有助于降低信任成本，提高交易效率。但是，如果不能支持海量用户和高并发就去谈应用，区块链应用落地只能是空想。\n\r将DAG数据结构与稳健的PoW共识算法巧妙结合，极大提高公有链对并发交易的支撑能力，大幅加快交易速度，但不削弱系统的去中心化属性，实现真正支持高并发的去中心化账本存储管理\n\r支持多种节点类型并拥有可适性极高的钱包架构设计，为智能手机、PC、服务器、IoT设备、以及新一代的智能设备提供一个可扩展的去中心化账本存储管理基础设施\n\r拥有可验证的智能合约系统，支持多种动态语言包括高级声明式语言，能直接描述合约期望的目标，表达能力强，易于理解，安全性高，同时还降低了合约的编写难度和出错概率\n\r
+尽管区块链技术发源于比特币、以太坊等加密货币，但目前，这项技术已经被运用到了各个领域中去，甚至已经处于爆发前夜。去中心化、分布式账本、点对点传输、共识算法正在成为构建未来网络空间的关键技术。
+
+    为进一步促进全球区块链行业的发展及底层技术的创新，聚集区块链行业技术人员与爱好者，区块链“底层公链”进化论暨全球DAG区块链技术联盟第三次筹备会于2月6日下午两点，正式在北京金融街威斯汀酒店举行，大会由澳大利亚TrustNote基金会主办，金色财经与猎云网联合主办。
+
+    全球DAG区块链技术联盟第三次筹备会圆满落幕 促进底层公链的进化与创新
+
+    此次活动，诚邀到了金色财经、猎云网、链世界、花儿街等行业媒体，设备链、BitcoinPizz、机器思维、布比、ECT等底层链开发机构，TrustNote的创始人周政军等莅临会议现场。在活动现场，与会嘉宾就区块链行业进展、DAG区块链技术、去中心化分布式存储等方面进行了知识分享，来自不同底层公链的创始人也以“底层公链进化论”为主题展开了激烈的圆桌会议讨论，干货满满，热闹非凡。
+
+    全球DAG区块链技术联盟第三次筹备会圆满落幕 促进底层公链的进化与创新
+
+    布比创始人兼CTO王璟
+
+    在区块链行业众览环节，布比创始人兼CTO王璟分享了“区块链技术的商用演进”的主题演讲，他认为，区块链产业发展这么多年，首次对互联网资产流通问题提出解决方案的正是比特币，以它为代表的数字货币向大众表明，数字资产可以跨国界、跨交易所。区块链在几年间走过了科普、技术创新、应用落地几个阶段，未来比拼的是区块链框架的设计与技术落地的能力。
+
+    同时，他表示区块链会有以下几个演进方向：1.算法，未来一定会从所谓的算力民主进化到算法民主；2.数据，目前区块链数据库采用的是KV数据库，数据越多运行越慢。为解决这一难点，市面上出现了KV数据库集群、冷热数据分离等解决方案，而利用物联网设备的闲置资源来解决数据库问题是未来的一种趋势；3.智能合约，现在市场上很多所谓的智能合约都是单一语言，未来有没有可能一根链上跑着不同语言开发出来的合约，而合约之间还能相互调用，这或许也是一个趋势；4.合约形式化证明，合约漏洞、安全等问题层出不穷，会出现专门做合约形式化证明的团队，来证明整个代码是没有漏洞，是安全的。
+
+    全球DAG区块链技术联盟第三次筹备会圆满落幕 促进底层公链的进化与创新
+
+    TrustNote创始人周政军
+
+    接下来，TrustNote的创始人周政军分享了“推动时代变革的高速异步的DAG公链”的主题演讲。他解释道，DAG是一种分布式账本技术，可以自建DAG图，也就是海量的钱包，并且每个钱包具备一定的P2P自主性。通过一定规则，DAG可以达到共享账本的目的，既能够快速记账，又能保证检测双花的能力。
+
+    基于DAG公有链，TrustNote试图让轻钱包既不需要中心化的服务机构参与，又能让它每一次账本同步的时间最小化。把区块链交易的每个字节成本降下来，是TrustNote深入思考的事情。
+
+    全球DAG区块链技术联盟第三次筹备会圆满落幕 促进底层公链的进化与创新
+
+    ECT创始人孟德
+
+    ECT作为TrustNote生态里的第一个落地应用，创始人孟德也在现场发表演讲，主题为“基于DAG区块链技术的价值设备物联网”。据孟德介绍，ECT主要提供基于区块链技术的物联网解决方案，其引进DAG技术，同时把DAG技术和PoW挖矿技术相结合，将节点分成主节点、全节点和微节点三类，支持完全私密转帐。ECT具有设备自主赚钱、被租赁方和被使用方可信度会越高，运行数据能让设备主更易从金融机构贷款，去中心化的设备共享等应用场景。
+
+    至此，区块链“底层公链”进化论暨全球DAG区块链技术联盟第三次筹备会圆满落幕。2017年是区块链高速发展的一年，2018年希望有更多的从业人员积极响应，促进底层公链的进化与创新，一同参与到构建区块链的美好愿景中。
+    </string>
 
     <string name="lorem" translatable="false">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula sem a malesuada rhoncus. Pellentesque ut dolor a dui porttitor porta lacinia non libero. Nunc volutpat arcu quis quam convallis molestie. Etiam ac tristique sem, id commodo justo. Phasellus congue tincidunt lectus, at dignissim ligula maximus eu. Quisque interdum nunc eget tellus bibendum suscipit. Phasellus feugiat ultricies posuere. Nullam porta accumsan velit, ut rutrum massa fermentum eu. Nunc ac bibendum nunc. Mauris eu ultricies ipsum. Ut id dolor dui. Pellentesque dictum dui vel tempus maximus. Vivamus non nisi quis libero scelerisque pretium. Ut eu tristique justo. Sed pellentesque placerat quam, ut ultricies turpis feugiat a. Aliquam a volutpat risus.

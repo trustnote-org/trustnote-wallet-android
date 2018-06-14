@@ -260,6 +260,11 @@ object Utils {
         }
     }
 
+    //TODO: 显示的时间规则：
+    // a.发生在当天的显示具体的时间，时间显示格式按照24小时制来显示eg:14:32；
+    // b.发生在前一天则显示“昨天”；
+    // c.发生在昨天之前的消息怎显示具体日期,eg:4-12；
+
     fun getTimeAgoForCn(time: Long): String {
         var time = time
         if (time < 1000000000000L) {

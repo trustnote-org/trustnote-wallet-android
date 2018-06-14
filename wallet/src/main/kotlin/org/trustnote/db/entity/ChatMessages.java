@@ -2,6 +2,8 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+
 import java.lang.Integer;
 import java.lang.String;
 
@@ -38,4 +40,11 @@ public class ChatMessages extends TBaseEntity {
       name = "type"
   )
   public String type;
+
+  @Ignore
+  public String correspondentName;
+
+  @Ignore
+  public int unReadMsgsNumber;
+
 }

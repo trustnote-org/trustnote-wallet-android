@@ -1,10 +1,15 @@
 package org.trustnote.wallet.biz.msgs
 
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
+import com.chauthai.swipereveallayout.SwipeRevealLayout
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.widget.EmptyAdapter
 
 class FragmentMsgsContactsList : FragmentMsgsBase() {
@@ -13,25 +18,44 @@ class FragmentMsgsContactsList : FragmentMsgsBase() {
         return R.layout.f_msg_home
     }
 
-    //TODO: listen the wallet update event.
-
+    lateinit var recyclerView: RecyclerView
+    lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     override fun initFragment(view: View) {
 
         isBottomLayerUI = true
 
         super.initFragment(view)
 
-        val recyclerView = mRootView.findViewById<RecyclerView>(R.id.msg_contacts_list)
+        recyclerView = mRootView.findViewById(R.id.list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        val a = ContactsAdapter(listOf())
+        mSwipeRefreshLayout = mRootView.findViewById(R.id.swiperefresh)
 
-        recyclerView.adapter = a
+        mSwipeRefreshLayout.setProgressViewOffset(true, -60, 40)
+        mSwipeRefreshLayout.setOnRefreshListener {
+            model.refreshHomeList()
+        }
+
+        model.refreshHomeList()
 
     }
 
     override fun getTitle(): String {
         return TApp.getString(R.string.menu_msg)
+    }
+
+    override fun updateUI() {
+        super.updateUI()
+
+        val a = ContactsAdapter(model.latestHomeList)
+        recyclerView.adapter = a
+
+        mSwipeRefreshLayout.isRefreshing = model.isRefreshing()
+
+    }
+
+    override fun inflateMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_action, menu)
     }
 
 
