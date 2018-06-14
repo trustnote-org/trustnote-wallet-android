@@ -7,10 +7,8 @@ import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
-<<<<<<< HEAD
-=======
+
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
->>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
 import org.trustnote.wallet.biz.wallet.FragmentWalletBaseForHomePage
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.debug.FragmentMeDebug

@@ -55,11 +55,11 @@ class ActivityMain : ActivityBase() {
         when (item.itemId) {
 
             R.id.action_create_wallet -> {
-                openLevel2Fragment(Bundle(), FragmentMainCreateWallet::class.java)
+                addL2Fragment(FragmentMainCreateWallet())
                 return true
             }
             R.id.action_my_pair_id -> {
-                openPage(FragmentMsgMyPairId())
+                addL2Fragment(FragmentMsgMyPairId())
                 return true
             }
 
@@ -79,41 +79,6 @@ class ActivityMain : ActivityBase() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         selectPageByIntent(intent)
-    }
-
-    fun openLevel2Fragment(bundle: Bundle, clz: Class<out FragmentBase>) {
-
-        val newFragment = clz.newInstance()
-        newFragment.arguments = bundle
-        addL2Fragment(newFragment)
-
-    }
-
-    fun openPage(f: FragmentBase) {
-        addL2Fragment(f)
-    }
-
-    fun openPage(f: FragmentBase, key: String, value: String) {
-        AndroidUtils.addFragmentArguments(f, key, value)
-<<<<<<< HEAD
-        addL2Fragment(f)
-=======
-        openLevel2Fragment(f)
-    }
-
-    fun openLevel2Fragment(f: FragmentBase) {
-
-        val transaction = supportFragmentManager.beginTransaction()
-
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack
-        transaction.add(R.id.fragment_level2, f)
-        transaction.addToBackStack(null)
-
-        // Commit the transaction
-        transaction.commit()
-
->>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
     }
 
     override fun onResume() {

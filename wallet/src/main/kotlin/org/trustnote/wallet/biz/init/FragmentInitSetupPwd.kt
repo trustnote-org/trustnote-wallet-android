@@ -136,6 +136,7 @@ open class FragmentInitSetupPwd : FragmentInit() {
         CreateWalletModel.savePassphraseInDisk(pwdString)
         CreateWalletModel.savePassphraseInRam(pwdString)
 
+        removeMeFromBackStack()
         nextPage(AndroidUtils.getTagForNextPage(arguments))
     }
 

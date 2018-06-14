@@ -40,7 +40,9 @@ class FragmentMeWalletManager : FragmentWalletBase() {
             val bundle = Bundle()
             val insideAdapter = mRecyclerView.adapter as CredentialAdapter
             bundle.putString(TTT.KEY_WALLET_ID, insideAdapter.myDataset[it].walletId)
-            (activity as ActivityMain).openLevel2Fragment(bundle, FragmentMeWalletDetail::class.java)
+            val f = FragmentMeWalletDetail()
+            f.arguments = bundle
+            addL2Fragment(f)
 
         }
 

@@ -39,17 +39,6 @@ abstract class ActivityBase : AppCompatActivity() {
         setupStatusBar()
     }
 
-    override fun setContentView(layoutResID: Int) {
-
-        super.setContentView(layoutResID)
-        //        mRefreshingIndicator = findViewById(R.id.refreshing_indicator)
-        //        mErrorIndicator = findViewById(R.id.error_indicator)
-<<<<<<< HEAD
-
-=======
->>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
-    }
-
     private fun setupStatusBar() {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)

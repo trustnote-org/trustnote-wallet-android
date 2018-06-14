@@ -287,21 +287,25 @@ object AndroidUtils {
         return b
     }
 
-    fun addFragmentArguments(f: Fragment, key: String, value: String) {
-        var b = f.arguments
+    fun addFragmentArguments(f: Fragment, key: String, value: String): Fragment {
 
+        var b = f.arguments
         if (b == null) {
             b = Bundle()
         }
 
         bundleWithKeyValue(b, key, value)
         f.arguments = b
+        return f
+
     }
 
     fun copyTextToClipboard(myText: String) {
+
         val clipboard = TApp.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText(TTT.KEY_TTT_QR_TAG, myText)
         clipboard.setPrimaryClip(clip)
+
     }
 
     fun getStatusBarHeight(): Int {
@@ -377,7 +381,6 @@ object AndroidUtils {
 
     }
 
-
     fun enableBtnIfTextViewIsNotEmpty(t: TextView, btn: Button) {
         val s = t.text.toString()
         if (s.trim().isBlank()) {
@@ -387,15 +390,13 @@ object AndroidUtils {
         }
     }
 
-
-    fun showErrIfInvalidInput(input: TextView, err:TextView, checkLogic: (s: String) -> Boolean) {
+    fun showErrIfInvalidInput(input: TextView, err: TextView, checkLogic: (s: String) -> Boolean) {
         if (checkLogic.invoke(input.text.toString())) {
             err.visibility = View.INVISIBLE
         } else {
             err.visibility = View.VISIBLE
         }
     }
-
 
     fun showWithAnimation(view: View, animation: Animation) {
         animation.setAnimationListener(object : Animation.AnimationListener {

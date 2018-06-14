@@ -125,7 +125,7 @@ class CWFragmentDeviceName : FragmentInit() {
             if (isValidInput(editDeviceName.text.toString())) {
 
                 CreateWalletModel.saveDeviceName(editDeviceName.text.toString())
-                addFragment(CWFragmentNewSeedOrRestore())
+                showFragment(CWFragmentNewSeedOrRestore())
 
             } else {
 

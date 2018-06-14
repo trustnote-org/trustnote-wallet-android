@@ -43,11 +43,7 @@ abstract class FragmentBase : SwipeBackFragment() {
         mRootView = childView
         mToolbar = view.findViewById(R.id.toolbar)
 
-<<<<<<< HEAD
         return if (supportSwipeBack) attachToSwipeBack(view) else view
-=======
-        return attachToSwipeBack(view)
->>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -94,20 +90,7 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     open fun setupToolbar() {
 
-<<<<<<< HEAD
         mToolbar.setBackgroundResource(R.color.bg_white)
-=======
-        //TODO: better to do it in xml
-        if (activity is ActivityMain) {
-            if (this is FragmentPageBase) {
-                mToolbar.setBackgroundResource(R.color.page_bg)
-//            } else if (this is FragmentMeMain) {
-//                mToolbar.setBackgroundResource(R.color.home_line_middle)
-            } else {
-                mToolbar.setBackgroundResource(R.color.bg_white)
-            }
-        }
->>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
 
         setHasOptionsMenu(true)
 
@@ -202,6 +185,16 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     }
 
+
+    fun removeMeFromBackStack() {
+
+        val manager = activity.supportFragmentManager
+        val trans = manager.beginTransaction()
+        trans.remove(this)
+        trans.commit()
+        //manager.popBackStack()
+
+    }
 
     fun hideSystemSoftKeyboard() {
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

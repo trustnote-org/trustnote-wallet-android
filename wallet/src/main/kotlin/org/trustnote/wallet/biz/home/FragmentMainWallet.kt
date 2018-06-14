@@ -184,7 +184,9 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
             val bundle = Bundle()
             val insideAdapter = mRecyclerView.adapter as CredentialAdapter
             bundle.putString(TTT.KEY_WALLET_ID, insideAdapter.myDataset[it].walletId)
-            (activity as ActivityMain).openLevel2Fragment(bundle, FragmentMainWalletTxList::class.java)
+            val f = FragmentMainWalletTxList()
+            f.arguments = bundle
+            addL2Fragment(f)
 
         }
 

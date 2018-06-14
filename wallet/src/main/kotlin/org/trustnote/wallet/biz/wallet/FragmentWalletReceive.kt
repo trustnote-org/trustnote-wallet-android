@@ -41,7 +41,9 @@ class FragmentWalletReceive : FragmentPageBase() {
         copyBtn = mRootView.findViewById(R.id.receive_btn_copy)
 
         setupAmount.setOnClickListener {
-            (activity as ActivityMain).openPage(FragmentWalletReceiveSetAmount(), TTT.KEY_WALLET_ID, walletId)
+            val f = FragmentWalletReceiveSetAmount()
+            AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, walletId)
+            addL2Fragment(f)
         }
 
         clearAmount.setOnClickListener {

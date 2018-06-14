@@ -149,7 +149,9 @@ class SettingItem(
                             TApp.userAlreadyInputPwd = true
                             val bundle = Bundle()
                             bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
-                            activity.openLevel2Fragment(bundle, FragmentMeWalletColdCode::class.java)
+                            val f = FragmentMeWalletColdCode()
+                            f.arguments = bundle
+                            activity.addL2Fragment(f)
 
                         })
 

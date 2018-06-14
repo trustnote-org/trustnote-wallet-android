@@ -89,23 +89,6 @@ abstract class FragmentBaseForHomePage : Fragment() {
 
     open fun setupToolbar() {
 
-<<<<<<< HEAD
-=======
-
-        if (activity is ActivityMain) {
-//            if (this is FragmentPageBase) {
-//                mToolbar.setBackgroundResource(R.color.page_bg)
-//            } else
-                if (this is FragmentMeMain) {
-                mToolbar.setBackgroundResource(R.color.home_line_middle)
-            }
-
-//                else {
-//                mToolbar.setBackgroundResource(R.color.bg_white)
-//            }
-        }
-
->>>>>>> 4c1ee6ad81d163c66a74efc88f3395afea83b14c
         setHasOptionsMenu(true)
 
         (activity as ActivityBase).setSupportActionBar(mToolbar)

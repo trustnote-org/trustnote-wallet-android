@@ -41,8 +41,9 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
             val bundle = Bundle()
             bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
             bundle.putInt(TTT.KEY_TX_INDEX, it)
-            (activity as ActivityMain).openLevel2Fragment(bundle,
-                    FragmentMainWalletTxDetail::class.java)
+            val f = FragmentMainWalletTxDetail()
+            f.arguments = bundle
+            addL2Fragment(f)
         }
 
         receiveBtnView = mRootView.findViewById<View>(R.id.btn_receive)
@@ -50,7 +51,8 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
         receiveBtnView.setOnClickListener {
             getMyActivity().receiveAmount = 0L
             val f = FragmentWalletReceive()
-            (activity as ActivityMain).openPage(f, TTT.KEY_WALLET_ID, credential.walletId)
+            AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, credential.walletId)
+            addL2Fragment(f)
         }
 
         mRootView.findViewById<View>(R.id.btn_transfer).setOnClickListener {
