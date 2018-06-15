@@ -188,7 +188,6 @@ object Utils {
         return BuildConfig.DEVELOPER_MODE
     }
 
-
     fun formatAddressWithEllipse(address: String): String {
         return if (address.isBlank()) "" else """${address.substring(0, 5)}…${address.takeLast(3)}"""
     }
@@ -214,9 +213,8 @@ object Utils {
 
     fun formatTxTimestampInTxDetail(ts: Long): String {
         val date = Date(ts * 1000L)
-        val timeAgo = Utils.getTimeAgoForCn(ts)
         val df = SimpleDateFormat("""yyyy/MM/dd HH:mm""")
-        return """${df.format(date)}($timeAgo)"""
+        return """${df.format(date)}"""
     }
 
 

@@ -9,14 +9,24 @@
     android:gravity="left">
 
     <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/place_holder"
+        android:textColor="@color/f_msg_date"
+        android:textSize="@dimen/text_14"
+        android:visibility="visible" />
 
+    <TextView
         android:id="@+id/msg"
         android:layout_width="wrap_content"
-        android:gravity="center_vertical"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_below="@id/time"
         android:layout_marginRight="@dimen/line_gap_48"
         android:background="@drawable/bg_chat_item_gray"
+        android:gravity="center_vertical"
         android:paddingBottom="@dimen/line_gap_12"
         android:paddingLeft="@dimen/line_gap_16"
         android:paddingRight="@dimen/line_gap_16"

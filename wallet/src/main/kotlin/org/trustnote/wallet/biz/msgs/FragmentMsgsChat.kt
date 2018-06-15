@@ -18,13 +18,6 @@ import org.trustnote.wallet.widget.MyDialogFragment
 
 class FragmentMsgsChat : FragmentMsgsBase() {
 
-    //TODO:
-    // 2.时间显示的规则：
-    //   a.时间按照24小时格式显示；
-    //   b.消息发生在当天的内容只显示时间，eg:14:32；
-    //   c.消息发生在前一天显示的内容为昨天+时间，eg:昨天 14:35；
-    //   d.消息发生昨天以前则显示：日期+时间，eg:4-7 14:32或是2017-4-7 14:32
-    // 3.当天的消息，以每5分钟为一个跨度的显示时间
 
     override fun getLayoutId(): Int {
         return R.layout.f_msg_chat
@@ -86,7 +79,10 @@ class FragmentMsgsChat : FragmentMsgsBase() {
     override fun updateUI() {
         super.updateUI()
 
-        val a = ChatAdapter(model.latestHomeList)
+        val latestMsgs = model.latestHomeList
+        val deboundedMsgs = getChatHistoryForDisplay(latestMsgs)
+
+        val a = ChatAdapter(deboundedMsgs)
         recyclerView.adapter = a
 
         mSwipeRefreshLayout.isRefreshing = model.isRefreshing()

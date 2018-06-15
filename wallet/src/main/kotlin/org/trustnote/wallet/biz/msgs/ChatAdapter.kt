@@ -14,7 +14,9 @@ open class ChatAdapter(private val mDatas: List<ChatMessages>) : RecyclerView.Ad
     var itemClickListener: (item: ChatMessages) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+
         val resId = when (viewType) {
+
             FromMe -> R.layout.item_chat_msg_from_me
             FromFriend -> R.layout.item_chat_msg_from_friend
 
@@ -37,6 +39,14 @@ open class ChatAdapter(private val mDatas: List<ChatMessages>) : RecyclerView.Ad
 
     fun handleItemView(holder: MyViewHolder, dataItem: ChatMessages) {
         holder.msg.setText(dataItem.message)
+        holder.dateOrTime.visibility = View.VISIBLE
+        holder.dateOrTime.setText(Utils.getTimeAgoForCn(dataItem.creationDate))
+        if (dataItem.showTimeOrDate) {
+            holder.dateOrTime.visibility = View.VISIBLE
+            holder.dateOrTime.setText(Utils.getTimeAgoForCn(dataItem.creationDate))
+        } else {
+            holder.dateOrTime.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {
@@ -57,6 +67,7 @@ open class ChatAdapter(private val mDatas: List<ChatMessages>) : RecyclerView.Ad
 class MyViewHolder(val viewType: Int, val holderView: View) : RecyclerView.ViewHolder(holderView) {
 
     val msg: TextView = holderView.findViewById(R.id.msg)
+    val dateOrTime: TextView = holderView.findViewById(R.id.time)
 
 
 }

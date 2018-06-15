@@ -53,6 +53,13 @@ public class ChatMessages extends TBaseEntity {
     //TODO:
     @Ignore
     public int msgUiType = Utils.getRandom().nextInt(2);
+
+    @Ignore
+    public boolean showTimeOrDate = false;
+
+    @Ignore
+    public boolean alreadyComputeForShow = false;
+
 }
 
 enum ChatMessageType {
