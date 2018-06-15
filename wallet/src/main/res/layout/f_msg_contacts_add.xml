@@ -12,13 +12,15 @@
         <TextView
             android:id="@+id/contacts_add_title"
             style="@style/t_title"
-            android:paddingTop="@dimen/line_gap_32"
+            android:layout_marginBottom="@dimen/line_gap_48"
+            android:paddingTop="@dimen/line_gap_8"
             android:text="@string/contacts_add_title" />
 
         <org.trustnote.wallet.widget.ScanLayout
             android:id="@+id/contacts_add_scan_layoiut"
             style="@style/t_layout"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/contacts_add_title" />
 
         <Button
             android:id="@+id/contacts_add_btn"

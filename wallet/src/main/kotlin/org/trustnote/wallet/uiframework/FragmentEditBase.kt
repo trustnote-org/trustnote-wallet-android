@@ -18,6 +18,7 @@ class FragmentEditBase : FragmentBase() {
     lateinit var mTitle: TextView
     var mInitValue = ""
     var mErrInfo = ""
+    var mPageTitle = ""
 
     lateinit var mEditText: ClearableEditText
     lateinit var mErr: ErrTextView
@@ -28,6 +29,8 @@ class FragmentEditBase : FragmentBase() {
 
         val view = inflater.inflate(getLayoutId(), container, false)
         mRootView = view
+
+        mToolbar = view.findViewById(R.id.toolbar)
         view.isClickable = true
         return view
     }
@@ -56,13 +59,18 @@ class FragmentEditBase : FragmentBase() {
 
         mEditText.addTextChangedListener(MyTextWatcher(this))
 
+        if (mPageTitle.isNotEmpty()) {
+            mTitle.setText(mPageTitle)
+        }
+
     }
 
-    fun setInitValue(value: String, errInfo: String, checkInputValidation: (String) -> Boolean = {true}, doneLogic: (String) -> Unit = {}) {
+    fun buildPage(value: String, errInfo: String, checkInputValidation: (String) -> Boolean = {true}, doneLogic: (String) -> Unit = {}, pageTitle: String = "") {
         this.mInitValue = value
         this.checkInputValidation = checkInputValidation
         this.doneLogic = doneLogic
         this.mErrInfo = errInfo
+        this.mPageTitle = pageTitle
     }
 
 

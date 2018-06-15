@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/t_title"
+        android:layout_marginBottom="@dimen/line_gap_16"
+        android:layout_marginLeft="@dimen/padding_main"
+        android:layout_marginRight="@dimen/padding_main"
+        android:layout_marginTop="@dimen/line_gap_8"
+        android:text="@string/place_holder" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/input_container"
+        android:layout_below="@id/title">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="vertical" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/input_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bg_msg_input">
+
+        <EditText
+            android:id="@+id/input"
+            android:imeOptions="actionSend"
+            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/line_gap_8"
+            android:layout_marginLeft="@dimen/line_gap_20"
+            android:layout_marginRight="@dimen/line_gap_20"
+            android:layout_marginTop="@dimen/line_gap_8"
+            android:background="@drawable/bg_chat_input"
+            android:fitsSystemWindows="true"
+            android:imeActionLabel="@string/chat_input_btn"
+            android:paddingBottom="@dimen/line_gap_7"
+            android:paddingLeft="@dimen/line_gap_14"
+            android:paddingRight="@dimen/line_gap_14"
+            android:paddingTop="@dimen/line_gap_7"
+            android:textColor="@color/t_text"
+            android:textSize="@dimen/text_16" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

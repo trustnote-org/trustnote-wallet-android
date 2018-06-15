@@ -102,6 +102,10 @@ class MyDialogFragment() : DialogFragment() {
 
         fun showDialog2Btns(activity: FragmentActivity, strResId: Int, confirmLogic: () -> Unit) {
             val msg = activity.getString(strResId)!!
+            showDialog2Btns(activity, msg, confirmLogic)
+        }
+
+        fun showDialog2Btns(activity: FragmentActivity, msg: String, confirmLogic: () -> Unit) {
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic, {})
             newFragment.show(getFragmentTransaction(activity), null)
         }

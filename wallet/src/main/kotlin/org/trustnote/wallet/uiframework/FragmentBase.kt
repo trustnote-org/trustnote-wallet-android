@@ -19,6 +19,7 @@ import android.widget.TextView
 import me.yokeyword.swipebackfragment.SwipeBackFragment
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.home.FragmentMainCreateWalletObserve
+import org.trustnote.wallet.biz.msgs.editFriendMemoName
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
@@ -226,12 +227,19 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
             R.id.action_scan -> {
                 startScan {
                     handleUnknownScanRes(it)
                 }
                 return true
             }
+
+            R.id.ic_edit_contacts_memo -> {
+                editFriendMemoName(activity as ActivityBase)
+                return true
+            }
+
         }
         return false
     }
@@ -243,18 +251,16 @@ abstract class FragmentBase : SwipeBackFragment() {
             SCAN_RESULT_TYPE.MN_TRANSFER -> {
                 val f = FragmentDialogSelectWallet()
                 AndroidUtils.addFragmentArguments(f, TTT.KEY_TRANSFER_QRCODEW, qrCode)
-                addFragment(f)
+                addL2Fragment(f)
             }
 
             SCAN_RESULT_TYPE.COLD_WALLET -> {
                 val f = FragmentMainCreateWalletObserve()
                 AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
-                addFragment(f)
+                addL2Fragment(f)
             }
 
             SCAN_RESULT_TYPE.TTT_PAIRID -> {
-                AndroidUtils.todo()
-                //openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
             }
 
             SCAN_RESULT_TYPE.UNKNOWN -> {

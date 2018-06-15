@@ -1,8 +1,8 @@
 package org.trustnote.wallet.biz.msgs
 
 import org.trustnote.db.entity.ChatMessages
+import org.trustnote.db.entity.Friend
 import org.trustnote.wallet.biz.wallet.TestData
-import org.trustnote.wallet.util.Utils
 
 class MsgsModel {
 
@@ -18,6 +18,14 @@ class MsgsModel {
 
     fun isRefreshing(): Boolean {
         return false
+    }
+
+    fun getMsgListForOneFriend(friendId: String): List<ChatMessages> {
+        return latestHomeList
+    }
+
+    fun findFriendById(friendAddress: String): Friend {
+        return TestData.createAFriend()
     }
 
 }

@@ -29,6 +29,8 @@ object Utils {
 
 
     val emptyJsonObject = JsonObject()
+
+    @JvmStatic
     val random = Random()
 
     fun debugLog(msg: String) {

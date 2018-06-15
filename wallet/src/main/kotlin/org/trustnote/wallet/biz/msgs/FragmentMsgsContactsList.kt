@@ -6,13 +6,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
-import com.chauthai.swipereveallayout.SwipeRevealLayout
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.widget.EmptyAdapter
+import org.trustnote.wallet.uiframework.ActivityBase
+import org.trustnote.wallet.uiframework.FragmentBaseForHomePage
 
-class FragmentMsgsContactsList : FragmentMsgsBase() {
+class FragmentMsgsContactsList : FragmentBaseForHomePage() {
+
+    val model: MsgsModel = MsgsModel.instance
+
 
     override fun getLayoutId(): Int {
         return R.layout.f_msg_home
@@ -48,6 +50,11 @@ class FragmentMsgsContactsList : FragmentMsgsBase() {
         super.updateUI()
 
         val a = ContactsAdapter(model.latestHomeList)
+
+        a.itemClickListener = {
+            chatWithFriend(it.correspondentAddress, activity as ActivityBase)
+        }
+
         recyclerView.adapter = a
 
         mSwipeRefreshLayout.isRefreshing = model.isRefreshing()

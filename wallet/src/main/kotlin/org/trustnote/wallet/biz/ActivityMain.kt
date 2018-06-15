@@ -63,11 +63,6 @@ class ActivityMain : ActivityBase() {
                 return true
             }
 
-            R.id.action_contacts_add -> {
-                AndroidUtils.todo()
-                return true
-            }
-
         }
         return false
     }

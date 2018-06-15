@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz.wallet
 
 import org.trustnote.db.entity.ChatMessages
+import org.trustnote.db.entity.Friend
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.util.Utils
@@ -39,7 +40,6 @@ class TestData {
         }
 
 
-
         fun createATestChatMsgs(): ChatMessages {
 
             val res = ChatMessages()
@@ -48,6 +48,16 @@ class TestData {
             res.creationDate = System.currentTimeMillis()/1000 - Utils.random.nextInt(5 * 24 * 3600)
             res.message = TestData.getRandomMessage(138)
             res.unReadMsgsNumber = Utils.random.nextInt(10)
+            return res
+
+        }
+
+
+        fun createAFriend(): Friend {
+
+            val res = Friend()
+            res.address = "ZKWUHD6P3CRLTX64TGPIDQ7U4PM7R7AI232342354254252"
+            res.name = TestData.getRandomMessage(8, 3)
             return res
 
         }

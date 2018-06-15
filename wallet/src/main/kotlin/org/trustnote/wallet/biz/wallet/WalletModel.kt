@@ -148,11 +148,9 @@ class WalletModel() {
         refreshingWorker.execute {
             while (true) {
 
-                Utils.debugLog("""${TAG} -- startRefreshThread::step1""")
-                Utils.debugLog("""${TAG} --- startRefreshThread::step1::size == ${refreshingCredentials.size}""")
+                Utils.debugLog("""${TAG} --- startRefreshThread::size == ${refreshingCredentials.size}""")
                 val credential = refreshingCredentials.take()
 
-                Utils.debugLog("""${TAG}startRefreshThread::before refreshOneWalletImpl --$credential""")
                 busy = true
 
                 try {
@@ -163,7 +161,6 @@ class WalletModel() {
                 }
 
                 busy = false
-                Utils.debugLog("""${TAG}startRefreshThread::after refreshOneWalletImpl --$credential""")
                 walletUpdated()
 
 
@@ -195,7 +192,7 @@ class WalletModel() {
     }
 
     private fun refreshOneWalletImpl(credential: Credential) {
-        Utils.debugLog("""refreshOneWalletImpl--$credential""")
+        Utils.debugLog("""${TAG}startRefreshThread::before refreshOneWalletImpl --$credential""")
         if (credential.isRemoved) {
             return
         }

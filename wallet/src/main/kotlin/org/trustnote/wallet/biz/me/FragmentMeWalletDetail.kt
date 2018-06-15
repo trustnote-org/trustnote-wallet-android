@@ -93,7 +93,7 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
 
     private fun editWalletname() {
         val f = FragmentEditBase()
-        f.setInitValue(credential.walletName,
+        f.buildPage(credential.walletName,
                 TApp.getString(R.string.wallet_name_err),
                 {
                     it.length <= 10

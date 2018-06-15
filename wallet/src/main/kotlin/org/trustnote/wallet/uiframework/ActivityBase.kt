@@ -8,9 +8,11 @@ import android.support.annotation.CallSuper
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
+import com.google.zxing.integration.android.IntentIntegrator
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
 import org.trustnote.wallet.util.AndroidUtils
@@ -57,13 +59,13 @@ abstract class ActivityBase : AppCompatActivity() {
 
     }
 
-    fun addL2Fragment(f: FragmentBase) {
+    fun addL2Fragment(f: Fragment) {
 
         addFragment(f, R.id.fragment_level2)
 
     }
 
-    open fun addFragment(f: FragmentBase, fragmentContainerId: Int, isAddToBackStack: Boolean = true) {
+    open fun addFragment(f: Fragment, fragmentContainerId: Int, isAddToBackStack: Boolean = true) {
 
         val transaction = supportFragmentManager.beginTransaction()
 
@@ -206,6 +208,8 @@ abstract class ActivityBase : AppCompatActivity() {
         stringAsReturnResult = ""
         return res
     }
+
+
 
 }
 

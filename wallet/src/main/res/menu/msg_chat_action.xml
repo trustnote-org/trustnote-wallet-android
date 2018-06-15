@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/quick_action"
+        android:icon="@drawable/ic_chat_actions"
+        android:title="@string/place_holder"
+        app:showAsAction="always">
+        <menu>
+
+            <item
+                android:id="@+id/ic_edit_contacts_memo"
+                android:enabled="true"
+                android:icon="@drawable/ic_edit_contacts_memo"
+                android:title="@string/ic_edit_contacts_memo"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/ic_remove_msg_contact"
+                android:enabled="true"
+                android:icon="@drawable/ic_remove_msg_contact"
+                android:title="@string/ic_remove_msg_contact"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/ic_clear_chat_history"
+                android:enabled="true"
+                android:icon="@drawable/ic_clear_chat_history"
+                android:title="@string/ic_clear_chat_history"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+</menu>

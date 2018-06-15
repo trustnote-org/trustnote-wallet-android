@@ -19,6 +19,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.home.FragmentMainCreateWalletObserve
+import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsAdd
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
@@ -167,7 +168,7 @@ abstract class FragmentBaseForHomePage : Fragment() {
         (activity as ActivityBase).showErrorUI(isShow)
     }
 
-    fun addL2Fragment(f: FragmentBase) {
+    fun addL2Fragment(f: Fragment) {
 
         (activity as ActivityBase).addL2Fragment(f)
 
@@ -204,7 +205,7 @@ abstract class FragmentBaseForHomePage : Fragment() {
         bundle.putString(AndroidUtils.KEY_BUNDLE_TITLE, title)
         val f = FragmentSimplePage()
         f.arguments = bundle
-        addFragment(f)
+        addL2Fragment(f)
 
     }
 
@@ -213,36 +214,47 @@ abstract class FragmentBaseForHomePage : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when (item.itemId) {
+
             R.id.action_scan -> {
                 startScan {
                     handleUnknownScanRes(it)
                 }
                 return true
             }
+
+            R.id.action_contacts_add -> {
+                addL2Fragment(FragmentMsgsContactsAdd())
+                return true
+            }
+
+
         }
         return false
     }
 
     fun handleUnknownScanRes(qrCode: String) {
+
         val qrType = TTTUtils.parseQrCodeType(qrCode)
         when (qrType) {
 
             SCAN_RESULT_TYPE.MN_TRANSFER -> {
                 val f = FragmentDialogSelectWallet()
                 AndroidUtils.addFragmentArguments(f, TTT.KEY_TRANSFER_QRCODEW, qrCode)
-                addFragment(f)
+                addL2Fragment(f)
             }
 
             SCAN_RESULT_TYPE.COLD_WALLET -> {
                 val f = FragmentMainCreateWalletObserve()
                 AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
-                addFragment(f)
+                addL2Fragment(f)
             }
 
             SCAN_RESULT_TYPE.TTT_PAIRID -> {
-                AndroidUtils.todo()
-                //openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
+                val f = FragmentMsgsContactsAdd()
+                AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
+                addL2Fragment(f)
             }
 
             SCAN_RESULT_TYPE.UNKNOWN -> {

@@ -8,7 +8,6 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.ActivityMain
 
-import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.FragmentWalletBaseForHomePage
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.debug.FragmentMeDebug
@@ -79,7 +78,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
 
     private fun editDevicename() {
         val f = FragmentEditBase()
-        f.setInitValue(Prefs.readDeviceName(),
+        f.buildPage(Prefs.readDeviceName(),
                 TApp.getString(R.string.mnemonic_devicename_err),
                 {
                     it.length <= 20
@@ -89,7 +88,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
                     Prefs.writeDeviceName(it)
                     WalletManager.mWalletEventCenter.onNext(true)
                 })
-        addFragment(f)
+        addL2Fragment(f)
     }
 
 }

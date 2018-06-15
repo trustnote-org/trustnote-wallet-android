@@ -33,6 +33,7 @@
     <dimen name="line_gap_24">24dp</dimen>
     <dimen name="line_gap_14">14dp</dimen>
     <dimen name="line_gap_32">32dp</dimen>
+    <dimen name="line_gap_60">60dp</dimen>
     <dimen name="line_gap_36">36dp</dimen>
     <dimen name="line_gap_22">22dp</dimen>
     <dimen name="line_gap_20">20dp</dimen>

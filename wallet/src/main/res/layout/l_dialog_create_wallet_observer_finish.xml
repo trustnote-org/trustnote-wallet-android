@@ -24,7 +24,6 @@
             android:layout_marginTop="@dimen/line_gap_32"
             android:text="@string/create_wallet_observer_qr_finish_msg" />
 
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">

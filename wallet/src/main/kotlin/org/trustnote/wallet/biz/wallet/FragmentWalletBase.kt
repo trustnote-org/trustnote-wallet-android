@@ -23,6 +23,7 @@ abstract class FragmentWalletBase : FragmentBase() {
         val d = WalletManager.mWalletEventCenter.observeOn(AndroidSchedulers.mainThread()).subscribe {
             updateUI()
         }
+
         disposables.add(d)
 
     }

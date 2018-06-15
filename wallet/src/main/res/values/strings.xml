@@ -191,11 +191,11 @@
     <string name="contacts_mypair_scan_btn">复制配对码</string>
 
     <string name="contacts_add_title">添加联系人</string>
-    <string name="contacts_add_pair_code">配对码</string>
+    <string name="contacts_add_pair_code_label">配对码</string>
     <string name="contacts_add_hint">扫码或输入配对码</string>
     <string name="contacts_add_btn">添加</string>
-    <string name="contacts_add_err">配对码有误，请检查后重试</string>
-    <string name="contacts_add_err_me">调皮，不能添加自己为好友</string>
+    <string name="contacts_add_pairid_format_err">配对码有误，请检查后重试</string>
+    <string name="contacts_add_err_cannot_add_myself">调皮，不能添加自己为好友</string>
 
     <string name="setting_ttt_pwd">T口令</string>
     <string name="setting_wallet_tools">钱包工具</string>
@@ -307,6 +307,18 @@
 
     <string name="select_wallet_title">选择付款钱包</string>
 
+    <string name="chat_input_btn">发送</string>
     <!--setting_wallet_tools_fullsync-->
+
+    <string name="ic_edit_contacts_memo">设置备注名</string>
+    <string name="ic_remove_msg_contact">删除联系人</string>
+    <string name="ic_clear_chat_history">清空聊天记录</string>
+
+    <string name="msg_friend_memo">不超过10个字符</string>
+
+    <string name="title_edit_friend_memo">设置备注名</string>
+
+    <string name="msg_for_remove_contacts">将联系人“%1$s”删除，同时删除与该联系人的聊天记录</string>
+    <string name="msg_for_clear_chat_history">确定要删除与“%1$s”的全部聊天记录</string>
 
 </resources>
