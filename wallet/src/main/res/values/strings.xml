@@ -321,4 +321,7 @@
     <string name="msg_for_remove_contacts">将联系人“%1$s”删除，同时删除与该联系人的聊天记录</string>
     <string name="msg_for_clear_chat_history">确定要删除与“%1$s”的全部聊天记录</string>
 
+    <string name="time_format_yesterday">昨天</string>
+
+
 </resources>

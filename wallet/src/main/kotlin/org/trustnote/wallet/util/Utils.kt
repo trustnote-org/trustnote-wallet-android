@@ -19,6 +19,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import com.google.gson.JsonObject
 import org.trustnote.wallet.BuildConfig
+import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.init.FragmentInit
 import org.trustnote.wallet.biz.wallet.TProfile
@@ -231,71 +232,48 @@ object Utils {
     private val HOUR_MILLIS = 60 * MINUTE_MILLIS
     private val DAY_MILLIS = 24 * HOUR_MILLIS
 
-    fun getTimeAgo(time: Long): String {
-        var time = time
-        if (time < 1000000000000L) {
-            // if timestamp given in seconds, convert to millis
-            time *= 1000
-        }
-
-        val now = System.currentTimeMillis()
-        if (time > now || time <= 0) {
-            return "ERR"
-        }
-
-        // TODO: localize
-        val diff = now - time
-        return if (diff < MINUTE_MILLIS) {
-            "just now"
-        } else if (diff < 2 * MINUTE_MILLIS) {
-            "a minute ago"
-        } else if (diff < 50 * MINUTE_MILLIS) {
-            (diff / MINUTE_MILLIS).toString() + " minutes ago"
-        } else if (diff < 90 * MINUTE_MILLIS) {
-            "an hour ago"
-        } else if (diff < 24 * HOUR_MILLIS) {
-            (diff / HOUR_MILLIS).toString() + " hours ago"
-        } else if (diff < 48 * HOUR_MILLIS) {
-            "yesterday"
-        } else {
-            (diff / DAY_MILLIS).toString() + " days ago"
-        }
-    }
-
     //TODO: 显示的时间规则：
     // a.发生在当天的显示具体的时间，时间显示格式按照24小时制来显示eg:14:32；
     // b.发生在前一天则显示“昨天”；
     // c.发生在昨天之前的消息怎显示具体日期,eg:4-12；
 
-    fun getTimeAgoForCn(time: Long): String {
-        var time = time
+    fun checkTime(timeOld: Long): Long {
+        var time = timeOld
         if (time < 1000000000000L) {
             // if timestamp given in seconds, convert to millis
             time *= 1000
         }
+        return time
+    }
 
+    val ONE_DAY: Long = 24 * 3600 * 1000
+    val TIME_FORMAT_TODAY: SimpleDateFormat = SimpleDateFormat("HH:mm")
+    val TIME_FORMAT_BEFORE_YESTERDAY: SimpleDateFormat = SimpleDateFormat("M-dd")
+
+    fun isToday(time: Long): Boolean {
+        return System.currentTimeMillis()/ ONE_DAY == time/ONE_DAY
+    }
+
+    fun isYesterday(time: Long): Boolean {
+        return System.currentTimeMillis()/ ONE_DAY == (time/ONE_DAY + 1)
+    }
+
+    fun getTimeAgoForCn(timeOld: Long): String {
+        val time = checkTime(timeOld)
         val now = System.currentTimeMillis()
         if (time > now || time <= 0) {
             return "ERR"
         }
 
-        // TODO: localize
-        val diff = now - time
-        return if (diff < MINUTE_MILLIS) {
-            "刚刚"
-        } else if (diff < 2 * MINUTE_MILLIS) {
-            "1分钟前"
-        } else if (diff < 50 * MINUTE_MILLIS) {
-            (diff / MINUTE_MILLIS).toString() + "分钟前"
-        } else if (diff < 90 * MINUTE_MILLIS) {
-            "1小时前"
-        } else if (diff < 24 * HOUR_MILLIS) {
-            (diff / HOUR_MILLIS).toString() + " 小时前"
-        } else if (diff < 48 * HOUR_MILLIS) {
-            "昨天"
-        } else {
-            (diff / DAY_MILLIS).toString() + " 天前"
+        if (isToday(time)) {
+            return TIME_FORMAT_TODAY.format(Date(time))
         }
+
+        if (isYesterday(time)) {
+            return TApp.getString(R.string.time_format_yesterday)
+        }
+
+        return TIME_FORMAT_BEFORE_YESTERDAY.format(Date(time))
     }
 
     fun mnToNotes(inputAmount: String): Long {
