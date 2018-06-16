@@ -13,10 +13,9 @@ import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
 
-class HubSocketModel {
+class HubModel {
 
     val mGetWitnessTag = Utils.generateRandomString(30)
-    val mHeartbeatTag = Utils.generateRandomString(30)
 
     //Maybe more than one getHistory cmd.
     val mGetHistoryTag = Utils.generateRandomString(30)

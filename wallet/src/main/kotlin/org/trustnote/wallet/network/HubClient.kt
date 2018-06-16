@@ -1,6 +1,6 @@
 package org.trustnote.wallet.network
 
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import java.net.URI
 import java.nio.channels.NotYetConnectedException
 
@@ -11,25 +11,28 @@ import org.trustnote.wallet.util.Utils
 
 class HubClient : WebSocketClient {
 
-    val mHubSocketModel: HubSocketModel
     private var isConnectCalled = false
-    private var networkMonitor : Disposable? = null
+    protected val disposables: CompositeDisposable = CompositeDisposable()
+    var mHeartBeatTask: HeartBeatTask = HeartBeatTask(this)
+    var mHubAddress: String
 
-    constructor(hubSocketModel: HubSocketModel) : super(URI(hubSocketModel.mHubAddress)) {
-        mHubSocketModel = hubSocketModel
-        mHubSocketModel.mHubClient = this
-        mHubSocketModel.mHeartBeatTask = HeartBeatTask(this)
+    constructor(hubAddress: String) : super(URI(hubAddress)) {
+        mHubAddress = hubAddress
     }
 
     @Throws(NotYetConnectedException::class)
     override fun send(text: String) {
-        super.send(text)
-        log("SENDING: $text")
+        try{
+            super.send(text)
+            log("SENDING: $text")
+        } catch (e: NotYetConnectedException) {
+            log("SEND::NotYetConnectedException::${e.localizedMessage}")
+        }
     }
 
     override fun connect() {
 
-        Utils.connectedEvent().subscribe { connectivity ->
+        val a = Utils.connectedEvent().subscribe { connectivity ->
             log("state: ${connectivity.state}, typeName: ${connectivity.typeName}")
             if (!isConnectCalled) {
                 isConnectCalled = true
@@ -38,62 +41,69 @@ class HubClient : WebSocketClient {
                 super.connect()
             }
         }
+        disposables.add(a)
     }
 
     fun sendHubMsg(hubMsg: HubMsg) {
+
+        hubMsg.actualHubAddress = mHubAddress
         if (!isConnectCalled || isClosed || !isOpen) {
             log("try to send hub msg, but socket closed")
-            if (hubMsg is HubRequest) {
-                //TODO: too much simliar logic. put a timer inside the req in case all kind of err.
-                //pur
-                hubMsg.setResponse(HubResponse())
-            }
-            return
+            hubMsg.networkErr()
+        } else {
+
+            send(hubMsg.toHubString())
+            hubMsg.lastSentTime = System.currentTimeMillis()
+
         }
-        hubMsg.lastSentTime = System.currentTimeMillis()
-        mHubSocketModel.mRequestMap.put(hubMsg)
-        send(hubMsg.toHubString())
     }
 
     override fun onOpen(handshakedata: ServerHandshake) {
 
         log("ONOPEN: " + handshakedata.toString())
-        mHubSocketModel.mHeartBeatTask.start()
+
+        mHeartBeatTask.start()
+
         sendHubMsg(HubMsgFactory.walletVersion())
+
+        HubManager.instance.hubOpened(this)
 
     }
 
     override fun onMessage(message: String) {
-        log("RECEIVED:onMessage: $message")
-        val hubMsg = HubMsgFactory.parseMsg(message)
-        mHubSocketModel.mSubject.onNext(hubMsg)
 
-        //TODO: remove the req after every thing is OK.
-        if (hubMsg.msgType == MSG_TYPE.response) {
-            mHubSocketModel.responseArrived(hubMsg as HubResponse)
-        }
+        log("RECEIVED:onMessage: $message")
+
+        HubManager.instance.onMessageArrived(mHubAddress, message)
+
     }
 
     override fun onClose(code: Int, reason: String, remote: Boolean) {
-        log("onClose:: " + "Connection closed by " + (if (remote) "remote peer" else "us") + " Code: " + code + " Reason: " + reason)
-        mHubSocketModel.mHeartBeatTask.stop()
 
-        HubManager.instance.reConnectHub(mHubSocketModel)
+        log("onClose:: " + "Connection closed by " + (if (remote) "remote peer" else "us") + " Code: " + code + " Reason: " + reason)
+        mHeartBeatTask.stop()
+
+        disposables.dispose()
+
+        HubManager.instance.hubClosed(mHubAddress)
+
     }
 
     //From test result: onError sometimes be called after onClose.
     override fun onError(ex: Exception) {
-        ex.printStackTrace()
         log("onError:: " + ex.message)
     }
 
     private fun log(msg: String) {
+
         Utils.debugHub(msg)
+
     }
 
     fun dispose() {
-        if (networkMonitor != null && !networkMonitor!!.isDisposed)
-            networkMonitor!!.dispose()
+
+        disposables.dispose()
+
     }
 
 }

@@ -14,6 +14,7 @@ open class HubMsg {
     var textFromHub: String = ""
     var lastSentTime = 0L
     var shouldRetry = false
+    var actualHubAddress: String = ""
 
     constructor(msgType: MSG_TYPE = MSG_TYPE.empty) {
         this.msgType = msgType
@@ -38,16 +39,27 @@ open class HubMsg {
         return """["${msgType}",${msgJson}]"""
     }
 
+    fun networkErr() {
+        (this as? HubRequest)?.setResponse(HubResponse(MSG_TYPE.networkerr))
+    }
+
+    fun timeout() {
+        (this as? HubRequest)?.setResponse(HubResponse(MSG_TYPE.timeout))
+    }
+
 }
 
 
 enum class MSG_TYPE {
     empty,
+    timeout,
+    networkerr,
     request,
     response,
     justsaying,
     CONNECTED,
     CLOSED,
+    unknown,
     ERROR
 }
 

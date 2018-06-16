@@ -17,7 +17,7 @@ class HubResponse : HubMsg {
         responseJson = msgJson.get(HubMsgFactory.RESPONSE) ?: Utils.emptyJsonObject
     }
 
-    constructor() : super(MSG_TYPE.empty) {
+    constructor(msgType: MSG_TYPE = MSG_TYPE.empty) : super(msgType) {
         tag = ""
         responseJson = Utils.emptyJsonObject
     }

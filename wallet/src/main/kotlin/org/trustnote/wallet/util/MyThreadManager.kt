@@ -21,7 +21,6 @@ class MyThreadManager {
 
     fun runDealyed(delaySeconds: Long, lambda: () -> Unit) {
         execLowPriority.schedule(lambda, delaySeconds, TimeUnit.SECONDS)
-
     }
 
     fun newSingleThreadExecutor(threadTag: String): ScheduledExecutorService {

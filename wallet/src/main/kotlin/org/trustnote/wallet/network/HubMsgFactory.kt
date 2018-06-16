@@ -2,10 +2,7 @@ package org.trustnote.wallet.network
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import org.trustnote.db.entity.MyAddresses
-import org.trustnote.db.entity.MyWitnesses
 import org.trustnote.wallet.util.Utils
-import com.google.gson.JsonArray
 import org.trustnote.wallet.network.pojo.*
 
 object HubMsgFactory {
@@ -23,29 +20,42 @@ object HubMsgFactory {
     const val CMD_GET_PARENT_FOR_NEW_TX = "light/get_parents_and_last_ball_and_witness_list_unit"
     const val CMD_POST_JOINT = "post_joint"
 
-    fun parseMsg(textFromHub: String): HubMsg {
-        val index = textFromHub.indexOf(',')
-        var msgType = if (index < 3) {
-            MSG_TYPE.ERROR
-        } else {
-            MSG_TYPE.valueOf(textFromHub.substring(2, index - 1))
-        }
+    fun parseMsg(hubAddress: String, textFromHub: String): HubMsg {
 
-        when (msgType) {
-            MSG_TYPE.ERROR, MSG_TYPE.empty -> return HubMsg(msgType)
-            MSG_TYPE.response -> return HubResponse(textFromHub)
-            MSG_TYPE.request -> return HubRequest(textFromHub)
+        val res: HubMsg = when (parseMsgType(textFromHub)) {
+            MSG_TYPE.ERROR, MSG_TYPE.empty -> HubMsg(MSG_TYPE.ERROR)
+            MSG_TYPE.response -> HubResponse(textFromHub)
+            MSG_TYPE.request -> HubRequest(textFromHub)
+
             else -> {
-
+                HubMsg(MSG_TYPE.unknown)
             }
         }
-        return HubMsg()
+
+        res.actualHubAddress = hubAddress
+
+        return res
+
+    }
+
+    private fun parseMsgType(textFromHub: String): MSG_TYPE {
+        var msgType = MSG_TYPE.ERROR
+        val index = textFromHub.indexOf(',')
+        try {
+
+            msgType = MSG_TYPE.valueOf(textFromHub.substring(2, index - 1))
+
+        } catch (e: RuntimeException) {
+
+            Utils.debugHub(e.localizedMessage)
+
+        }
+        return msgType
     }
 
     fun walletVersion(): HubJustSaying {
         return HubJustSaying(CMD_VERSION, JsonParser().parse(Utils.getGson().toJson(WalletVersion())) as JsonObject)
     }
-
 
 }
 
