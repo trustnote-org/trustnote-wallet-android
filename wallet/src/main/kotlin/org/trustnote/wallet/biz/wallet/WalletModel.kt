@@ -3,7 +3,6 @@ package org.trustnote.wallet.biz.wallet
 import android.webkit.ValueCallback
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
-import org.trustnote.db.TrustNoteDataBase
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.db.entity.Units
 import org.trustnote.wallet.biz.TTT
@@ -18,20 +17,17 @@ import org.trustnote.wallet.util.AesCbc
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
-import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 class WalletModel() {
 
-    //TODO： DbHelper.dropWalletDB(mProfile.dbTag)
-
     val TAG = WalletModel::class.java.simpleName
 
     lateinit var mProfile: TProfile
-    @Volatile
-    var busy = false
-    private val refreshingCredentials = LinkedBlockingQueue<Credential>()
+
+    private val refreshingCredentials = CredentialQueue()
+
     private lateinit var refreshingWorker: ScheduledExecutorService
 
     init {
@@ -57,8 +53,8 @@ class WalletModel() {
     }
 
     fun isRefreshing(): Boolean {
-        Utils.debugLog("""${TAG}:::isRefreshing refreshingCredentials.size =  ${refreshingCredentials.size} busy == ${busy}""")
-        return refreshingCredentials.isNotEmpty() || busy
+        Utils.debugLog("""${TAG}:::isRefreshing refreshingCredentials.size =  ${refreshingCredentials.size}""")
+        return refreshingCredentials.isRefreshing()
     }
 
     fun destruct() {
@@ -66,7 +62,6 @@ class WalletModel() {
         HubManager.disconnect(mProfile.dbTag)
         refreshingWorker.shutdownNow()
         refreshingCredentials.clear()
-        busy = false
 
         Prefs.removeProfile()
 
@@ -149,9 +144,9 @@ class WalletModel() {
             while (true) {
 
                 Utils.debugLog("""${TAG} --- startRefreshThread::size == ${refreshingCredentials.size}""")
+
                 val credential = refreshingCredentials.take()
 
-                busy = true
 
                 try {
                     refreshOneWalletImpl(credential)
@@ -160,7 +155,6 @@ class WalletModel() {
                     Utils.logW(e.toString())
                 }
 
-                busy = false
                 walletUpdated()
 
 
@@ -192,7 +186,7 @@ class WalletModel() {
     }
 
     private fun refreshOneWalletImpl(credential: Credential) {
-        Utils.debugLog("""${TAG}startRefreshThread::before refreshOneWalletImpl --$credential""")
+        Utils.debugLog("""${TAG}::refreshOneWalletImpl --$credential""")
         if (credential.isRemoved) {
             return
         }

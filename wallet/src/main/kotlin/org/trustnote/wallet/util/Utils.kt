@@ -249,11 +249,11 @@ object Utils {
     val TIME_FORMAT_BEFORE_YESTERDAY: SimpleDateFormat = SimpleDateFormat("M-dd")
 
     fun isToday(time: Long): Boolean {
-        return System.currentTimeMillis()/ ONE_DAY == time/ONE_DAY
+        return (System.currentTimeMillis() - timeZoneOffset)/ ONE_DAY == (time - timeZoneOffset)/ONE_DAY
     }
 
     fun isYesterday(time: Long): Boolean {
-        return System.currentTimeMillis()/ ONE_DAY == (time/ONE_DAY + 1)
+        return (System.currentTimeMillis() - timeZoneOffset)/ ONE_DAY == ((time - timeZoneOffset)/ONE_DAY + 1)
     }
 
     fun getTimeAgoForCn(timeOld: Long): String {
@@ -277,5 +277,14 @@ object Utils {
     fun mnToNotes(inputAmount: String): Long {
         return (inputAmount.toFloat() * TTT.w_coinunitValue).toLong()
     }
+
+    var timeZoneOffset: Int = 0
+
+    init {
+        val mCalendar = GregorianCalendar()
+        val mTimeZone = mCalendar.timeZone
+        timeZoneOffset = - mTimeZone.rawOffset
+    }
+
 }
 

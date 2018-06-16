@@ -48,7 +48,7 @@ class TestData {
             val res = ChatMessages()
             res.correspondentAddress = "ZKWUHD6P3CRLTX64TGPIDQ7U4PM7R7AI232342354254252"
             res.correspondentName = TestData.getRandomMessage(8, 3)
-            res.creationDate = System.currentTimeMillis()/1000 - Utils.random.nextInt(3 * 24 * 3600)
+            res.creationDate = System.currentTimeMillis()/1000 - Utils.random.nextInt(2 * 24 * 3600)
             res.message = TestData.getRandomMessage(138)
             res.unReadMsgsNumber = Utils.random.nextInt(10)
             return res
@@ -68,7 +68,7 @@ class TestData {
         fun getHomelistForMsgs(): List<ChatMessages> {
 
             var testData = mutableListOf<ChatMessages>()
-            for(i in 0 .. 200) {
+            for(i in 0 .. 60) {
                 testData.add(createATestChatMsgs())
             }
             return testData

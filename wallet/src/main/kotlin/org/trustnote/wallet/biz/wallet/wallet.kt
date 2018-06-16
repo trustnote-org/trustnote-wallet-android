@@ -74,6 +74,10 @@ class Credential {
         return res
     }
 
+    override fun hashCode(): Int {
+        return walletId.hashCode()
+    }
+
     override fun equals(other: Any?): Boolean {
         return (other is Credential && walletId == other.walletId)
     }
