@@ -190,6 +190,11 @@ object TTTUtils {
         return SCAN_RESULT_TYPE.UNKNOWN
     }
 
+    fun getDefaultHubAddressBySeed(): String {
+        //TODO:
+        return if (TTT.isTestnet) "raytest.trustnote.org" else "eason.trustnote.org/tn"
+    }
+
 }
 
 enum class SCAN_RESULT_TYPE {

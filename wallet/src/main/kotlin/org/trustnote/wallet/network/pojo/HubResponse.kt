@@ -23,7 +23,6 @@ class HubResponse : HubMsg {
     }
 
     constructor(responseJson: JsonObject, tag: String) : super(MSG_TYPE.response) {
-        this.msgSource = MSG_SOURCE.wallet
         this.responseJson = responseJson
         this.tag = tag
     }

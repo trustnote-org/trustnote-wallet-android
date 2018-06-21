@@ -20,7 +20,7 @@ object HubMsgFactory {
     const val CMD_GET_PARENT_FOR_NEW_TX = "light/get_parents_and_last_ball_and_witness_list_unit"
     const val CMD_POST_JOINT = "post_joint"
 
-    fun parseMsg(hubAddress: String, textFromHub: String): HubMsg {
+    fun parseHubMsg(hubAddress: String, textFromHub: String): HubMsg {
 
         val res: HubMsg = when (parseMsgType(textFromHub)) {
             MSG_TYPE.ERROR, MSG_TYPE.empty -> HubMsg(MSG_TYPE.ERROR)

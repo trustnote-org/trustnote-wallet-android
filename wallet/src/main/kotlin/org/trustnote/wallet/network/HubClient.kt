@@ -74,7 +74,7 @@ class HubClient : WebSocketClient {
 
         log("RECEIVED:onMessage: $message")
 
-        HubManager.instance.onMessageArrived(mHubAddress, message)
+        HubManager.instance.onMessage(mHubAddress, message)
 
     }
 

@@ -1,86 +1,185 @@
 package org.trustnote.wallet.network
 
+import android.net.NetworkInfo
+import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.network.pojo.HubMsg
+import org.trustnote.wallet.network.pojo.HubRequest
+import org.trustnote.wallet.network.pojo.HubResponse
+import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Utils
+import java.util.concurrent.TimeUnit
 
 //TODO: test case when HubManager return empty\strange result.
 
 class HubManager {
 
-    init {
-        reConnectHubWithDelay()
-    }
+    private val hubClients: MutableMap<String, HubClient> = mutableMapOf()
+    lateinit var retrySubscription: Disposable
+    private val mRequestMap = RequestMap()
+    private var isNetworkConnected: Boolean = false
 
-    //TODO: remove.
-    lateinit private var currentHub: HubModel
-    var latestWitnesses: MutableList<String> = mutableListOf()
+    init {
+        setupRetryLogic()
+        monitorNetwork()
+    }
 
     companion object {
-        @JvmStatic
         val instance = HubManager()
+    }
 
-        fun disconnect(dbTag: String) {
-            instance.reConnectHubWithDelay()
+    fun sendHubMsg(hubMsg: HubMsg) {
+        if (isNetworkConnected) {
+            sendHubMsgFromHubClient(hubMsg)
+        } else {
+            hubMsg.networkErr()
         }
     }
 
-    fun reConnectHubWithDelay(oldHubSocketModel: HubModel) {
+    private fun sendHubMsgFromHubClient(hubMsg: HubMsg) {
 
-        MyThreadManager.instance.runDealyed(TTT.HUB_WAITING_SECONDS_RECCONNECT) {
-
-            reConnectHub(oldHubSocketModel)
-
+        val hubClient = hubClients[hubMsg.targetHubAddress]
+        if (hubClient != null) {
+            hubClient.sendHubMsg(hubMsg)
+        } else {
+            //TODO: for no request type msg, discard it?
+            mRequestMap.put(hubMsg)
+            connectHub(hubMsg.targetHubAddress)
         }
-    }
 
-    private fun reConnectHub(oldHubSocketModel: HubModel) {
-        oldHubSocketModel.dispose()
-        val hubSocketModel = HubModel()
-        this.currentHub = hubSocketModel
-        val hubClient = HubClient(hubSocketModel)
-        hubClient.connect()
-        hubSocketModel.setupRetryLogic()
-    }
-
-    fun getCurrentHub(): HubModel {
-        return this.currentHub
-    }
-
-    //@SuppressLint("NewApi")
-//    private fun monitorResponse(bodyType: HubMsg.BODY_TYPE, txType: Consumer<HubResponse>) {
-////        subject.filter { it.subjectType == bodyType }.observeOn(Schedulers.computation()).subscribe { res: HubResponse ->
-////            txType.accept(res)
-////        }
-//    }
-
-    private fun monitorConnection() {
-        Utils.debugLog("monitorConnection")
-//        subject.filter { it.msgType == HubMsg.MSG_TYPE.CLOSED }.observeOn(Schedulers.computation()).subscribe {
-//            //TODO: should monitor network status change event and take txType.
-//            Thread.sleep(10000)
-//            reConnectHubWithDelay()
-//        }
     }
 
     fun hubClosed(mHubAddress: String) {
-        
+
+        val disconnectedHub = hubClients.remove(mHubAddress)
+        disconnectedHub?.dispose()
+
     }
 
     fun hubOpened(hubClient: HubClient) {
 
+        if (hubClients.containsKey(hubClient.mHubAddress)) {
+            hubClosed(hubClient.mHubAddress)
+        }
+
+        hubClients[hubClient.mHubAddress] = hubClient
+
+        sendHubMsgInQueue(hubClient.mHubAddress)
     }
 
-    fun onMessageArrived(hubAddress: String, message: String) {
-        val hubMsg = HubMsgFactory.parseMsg(hubAddress, message)
-        //TODO: hubResponse.onMessageArrived
+    private fun sendHubMsgInQueue(hubAddress: String) {
+        val reqs = mRequestMap.getRetryMap()
+        for( req in reqs.values) {
+            if (req.shouldSendWithThisHub(hubAddress)) {
+                hubClients[hubAddress]?.sendHubMsg(req)
+            }
+        }
     }
 
-//    fun getHubSubject(): Observable<HubResponse> {
-//        return subject.filter {
-//            it.msgType == HubMsg.MSG_TYPE.response && it.msgJson != null && it.msgJson.get("response") != null && it.msgJson.get("tag").asString == "bOo0Eeq5jWT8D0fwStljdp6T8JDIqaaKWEpzhQUgOvc="
-//        }
-//    }
+    fun setupRetryLogic() {
+
+        retrySubscription = Observable
+                .interval(TTT.HUB_REQ_RETRY_CHECK_SECS, TimeUnit.SECONDS)
+                .observeOn(Schedulers.computation())
+                .subscribe {
+                    retry()
+                }
+    }
+
+    private fun isTimeout(hubMsg: HubMsg): Boolean {
+        return (System.currentTimeMillis() - hubMsg.lastSentTime) > TTT.HUB_REQ_RETRY_SECS * 1000
+    }
+
+    @Synchronized
+    private fun retry() {
+        for ((tag, hubMsg) in mRequestMap.getRetryMap()) {
+            if (isTimeout(hubMsg) && hubMsg is HubRequest && hubMsg.msgType == MSG_TYPE.request) {
+                mRequestMap.remove(hubMsg.tag)
+                hubMsg.setResponse(HubResponse(MSG_TYPE.timeout))
+            }
+        }
+    }
+
+    fun dispose() {
+        //SHOULD never be called.
+        if (!retrySubscription.isDisposed) {
+            retrySubscription.dispose()
+        }
+
+    }
+
+    fun connectHubWithDelay(hubAddress: String) {
+        if (isHubActive(hubAddress)) {
+            return
+        } else {
+
+        }
+
+        MyThreadManager.instance.runDealyed(
+                Utils.random.nextInt(TTT.HUB_WAITING_SECONDS_RECCONNECT).toLong()
+        )
+        {
+            connectHub(hubAddress)
+        }
+    }
+
+    private fun connectHub(hubAddress: String) {
+        if (isHubActive(hubAddress)) {
+            return
+        } else {
+            val hubClient = HubClient(hubAddress)
+            hubClient.connect()
+            hubClients[hubAddress] = hubClient
+        }
+    }
+
+    private fun isHubActive(hubAddress: String): Boolean {
+        return hubClients.containsKey(hubAddress)
+    }
+
+    fun onMessage(hubAddress: String, message: String) {
+
+        if (!hubClients.containsKey(hubAddress)) {
+            Utils.logW("onMessage with unknown hubclient. hubaddress is: $hubAddress, message is: $message")
+            return
+        }
+
+        val hubMsg = HubMsgFactory.parseHubMsg(hubAddress, message)
+
+        if (hubMsg.msgType == MSG_TYPE.response) {
+            val tag = (hubMsg as HubResponse).tag
+            val relatedRequest = mRequestMap.getHubRequest(tag)
+            if (relatedRequest != null) {
+                relatedRequest.setResponse(hubMsg)
+                relatedRequest.handleResponse()
+                mRequestMap.remove(tag)
+            } else {
+                //TODO: where it come from?
+            }
+        }
+
+        HubModel.instance.onMessage(hubMsg)
+    }
+
+    fun monitorNetwork() {
+        ReactiveNetwork.observeNetworkConnectivity(TApp.context)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { connectivity ->
+                    isNetworkConnected = (connectivity.state == NetworkInfo.State.CONNECTED)
+                }
+    }
+
+    fun clear() {
+        mRequestMap.clear()
+        hubClients.clear()
+    }
 
 }
 

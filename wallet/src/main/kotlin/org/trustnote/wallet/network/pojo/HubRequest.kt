@@ -1,6 +1,7 @@
 package org.trustnote.wallet.network.pojo
 
 import com.google.gson.JsonObject
+import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.CountDownLatch
@@ -22,6 +23,7 @@ open class HubRequest : HubMsg {
         command = msgJson.getAsJsonPrimitive(HubMsgFactory.COMMAND).asString
         params = msgJson.getAsJsonObject(HubMsgFactory.PARAMS)
     }
+
 
     constructor(command: String, tag: String, params: JsonObject = Utils.emptyJsonObject) : super(MSG_TYPE.request) {
         this.msgSource = MSG_SOURCE.wallet

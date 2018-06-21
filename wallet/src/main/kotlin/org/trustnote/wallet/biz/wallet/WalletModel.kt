@@ -10,7 +10,7 @@ import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.biz.units.UnitsManager
-import org.trustnote.wallet.network.HubManager
+import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.ReqGetHistory
 import org.trustnote.wallet.util.AesCbc
@@ -36,6 +36,8 @@ class WalletModel() {
             WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
             startRefreshThread()
         }
+
+        HubModel.init()
     }
 
     constructor(password: String, mnemonic: String, shouldRemoveMnemonic: Boolean) : this() {
@@ -59,7 +61,7 @@ class WalletModel() {
 
     fun destruct() {
 
-        HubManager.disconnect(mProfile.dbTag)
+        HubModel.instance.clear()
         refreshingWorker.shutdownNow()
         refreshingCredentials.clear()
 
@@ -311,10 +313,8 @@ class WalletModel() {
             return HubResponse()
         }
 
-        val hubModel = HubManager.instance.getCurrentHub()
-        val reqId = hubModel.getRandomTag()
-        val req = ReqGetHistory(reqId, witnesses, addresses)
-        hubModel.mHubClient.sendHubMsg(req)
+        val req = ReqGetHistory(witnesses, addresses)
+        HubModel.instance.sendHubMsg(req)
 
         return req.getResponse()
 
@@ -481,12 +481,11 @@ class WalletModel() {
         return !mProfile.removeMnemonic
     }
 
-    //TODO: move to msg module.
     // Data sample: TTT:A1woEiM/LdDHLvTYUvlTZpsTI+82AphGZAvHalie5Nbw@shawtest.trustnote.org#xSpGdRdQTv16
     fun generateMyPairId(cb: ValueCallback<String>) {
 
-        val randomString = JSApi().randomBytes(9, ValueCallback {
-            cb.onReceiveValue("""${TTT.KEY_TTT_QR_TAG}:${mProfile.pubKeyForPairId}@${TTT.hubAddress}#$it""")
+        JSApi().randomBytes(9, ValueCallback {
+            cb.onReceiveValue("""${TTT.KEY_TTT_QR_TAG}:${mProfile.pubKeyForPairId}@${HubModel.instance.mDefaultHubAddress}#$it""")
         })
 
     }

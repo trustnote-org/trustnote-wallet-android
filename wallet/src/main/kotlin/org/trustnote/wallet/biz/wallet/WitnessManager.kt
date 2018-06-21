@@ -4,6 +4,7 @@ import com.google.gson.JsonArray
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyWitnesses
 import org.trustnote.wallet.network.HubManager
+import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.network.pojo.ReqGetMyWitnesses
@@ -16,9 +17,8 @@ object WitnessManager {
 
         var res = DbHelper.getMyWitnesses()
         if (res.isEmpty()) {
-            val hubModel = HubManager.instance.getCurrentHub()
-            val req = ReqGetMyWitnesses(hubModel.getRandomTag())
-            hubModel.mHubClient.sendHubMsg(req)
+            val req = ReqGetMyWitnesses()
+            HubModel.instance.sendHubMsg(req)
             saveMyWitnesses(req.getResponse())
 
             res = DbHelper.getMyWitnesses()

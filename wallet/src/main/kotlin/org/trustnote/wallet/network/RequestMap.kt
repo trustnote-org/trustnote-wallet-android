@@ -10,7 +10,7 @@ import java.util.*
 class RequestMap {
 
     private val cacheTag = HashMap<String, MSG_TYPE>()
-    private val cacheReq = Collections.synchronizedMap(HashMap<String, HubMsg>())
+    private val cacheReq = Collections.synchronizedMap(HashMap<String, HubRequest>())
 
     init {
     }
@@ -19,7 +19,7 @@ class RequestMap {
     @Synchronized
     fun put(hubMsg: HubMsg) {
         if (hubMsg.msgType == MSG_TYPE.request) {
-            cacheReq.put((hubMsg as HubRequest).tag, hubMsg)
+            cacheReq[(hubMsg as HubRequest).tag] = hubMsg
         }
     }
 
@@ -36,25 +36,20 @@ class RequestMap {
         cacheReq.remove(tag)
     }
 
-    @Synchronized
-    fun getExpectedResBodyType(tag: String): MSG_TYPE {
-        return cacheTag.get(tag)!!
-    }
-
     //TODO: How about Hub return a wrong tag.
     @Synchronized
-    fun getHubRequest(tag: String): HubRequest {
-        var res = cacheReq.get(tag)
-        if (res is HubRequest) {
-            return res
-        } else {
-            return HubRequest(MSG_TYPE.ERROR)
-        }
+    fun getHubRequest(tag: String): HubRequest? {
+        return cacheReq[tag]
     }
 
     @Synchronized //TODO: return an iterator.
     fun getRetryMap(): Map<String, HubMsg> {
         return cacheReq
+    }
+
+    fun clear() {
+        cacheReq.clear()
+        cacheTag.clear()
     }
 
 }

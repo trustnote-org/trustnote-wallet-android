@@ -14,7 +14,11 @@ open class HubMsg {
     var textFromHub: String = ""
     var lastSentTime = 0L
     var shouldRetry = false
+
     var actualHubAddress: String = ""
+
+    lateinit var targetHubAddress: String
+    var failHubAddress: MutableList<String> = mutableListOf()
 
     constructor(msgType: MSG_TYPE = MSG_TYPE.empty) {
         this.msgType = msgType
@@ -45,6 +49,10 @@ open class HubMsg {
 
     fun timeout() {
         (this as? HubRequest)?.setResponse(HubResponse(MSG_TYPE.timeout))
+    }
+
+    fun shouldSendWithThisHub(hubAddress: String): Boolean {
+        return hubAddress == targetHubAddress
     }
 
 }

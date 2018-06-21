@@ -13,6 +13,7 @@ import org.trustnote.wallet.biz.wallet.PaymentInfo
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.biz.wallet.WitnessManager
 import org.trustnote.wallet.network.HubManager
+import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.network.pojo.ReqGetParents
 import org.trustnote.wallet.network.pojo.ReqPostJoint
@@ -41,10 +42,8 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
             return false
         }
 
-        val hubModel = HubManager.instance.getCurrentHub()
-        val reqId = hubModel.getRandomTag()
-        mGetParentRequest = ReqGetParents(reqId, witnesses)
-        hubModel.mHubClient.sendHubMsg(mGetParentRequest)
+        mGetParentRequest = ReqGetParents(witnesses)
+        HubModel.instance.sendHubMsg(mGetParentRequest)
 
         if (mGetParentRequest.getResponse().msgType == MSG_TYPE.empty) {
             return false
@@ -273,10 +272,8 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
     private fun postNewUnitToHub(): Boolean {
 
-        val hubModel = HubManager.instance.getCurrentHub()
-        val reqId = hubModel.getRandomTag()
-        val req = ReqPostJoint(reqId, Utils.toGsonObject(units))
-        hubModel.mHubClient.sendHubMsg(req)
+        val req = ReqPostJoint(Utils.toGsonObject(units))
+        HubModel.instance.sendHubMsg(req)
 
         val hubResponse = req.getResponse()
 

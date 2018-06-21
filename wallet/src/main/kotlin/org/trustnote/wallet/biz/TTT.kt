@@ -16,7 +16,7 @@ class TTT {
         const val HUB_HEARTBEAT_INTERVAL_SEC = 10
         const val HUB_REQ_RETRY_SECS = 15
         const val HUB_REQ_RETRY_CHECK_SECS = 10L
-        const val HUB_WAITING_SECONDS_RECCONNECT = 15L
+        const val HUB_WAITING_SECONDS_RECCONNECT = 3
 
         const val COUNT_WITNESSES = 12
         const val MAX_WITNESS_LIST_MUTATIONS = 1
@@ -79,8 +79,6 @@ class TTT {
                 "curry.trustnote.org/tn",
                 "kake.trustnote.org/tn")
 
-        //TODO:
-        val hubAddress = if (isTestnet) "raytest.trustnote.org" else "eason.trustnote.org/tn"
 
         const val TYPICAL_FEE = 1000L
         const val MAX_FEE = 20000L
