@@ -71,7 +71,6 @@ class TApp : Application() {
 
         TWebView.init(this)
         Prefs.with(this)
-        HubManager.instance
 
         smallIconSize = TApp.context.resources.getDimension(R.dimen.small_icon).toInt()
         smallIconError = AndroidUtils.resizeErrDrawable(R.drawable.err, R.dimen.small_icon)

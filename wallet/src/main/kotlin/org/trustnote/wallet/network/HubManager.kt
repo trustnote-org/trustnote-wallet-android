@@ -44,12 +44,13 @@ class HubManager {
 
     private fun sendHubMsgFromHubClient(hubMsg: HubMsg) {
 
+        mRequestMap.put(hubMsg)
+
         val hubClient = hubClients[hubMsg.targetHubAddress]
         if (hubClient != null) {
             hubClient.sendHubMsg(hubMsg)
         } else {
             //TODO: for no request type msg, discard it?
-            mRequestMap.put(hubMsg)
             connectHub(hubMsg.targetHubAddress)
         }
 
@@ -65,7 +66,7 @@ class HubManager {
     fun hubOpened(hubClient: HubClient) {
 
         if (hubClients.containsKey(hubClient.mHubAddress)) {
-            hubClosed(hubClient.mHubAddress)
+            hubClients.remove(hubClient.mHubAddress)
         }
 
         hubClients[hubClient.mHubAddress] = hubClient
@@ -88,16 +89,16 @@ class HubManager {
                 .interval(TTT.HUB_REQ_RETRY_CHECK_SECS, TimeUnit.SECONDS)
                 .observeOn(Schedulers.computation())
                 .subscribe {
-                    retry()
+                    //retryOrTimeout()
                 }
     }
 
     private fun isTimeout(hubMsg: HubMsg): Boolean {
-        return (System.currentTimeMillis() - hubMsg.lastSentTime) > TTT.HUB_REQ_RETRY_SECS * 1000
+        return (System.currentTimeMillis() - hubMsg.lastSentTime) > TTT.HUB_TIMEOUT_SECS * 1000
     }
 
     @Synchronized
-    private fun retry() {
+    private fun retryOrTimeout() {
         for ((tag, hubMsg) in mRequestMap.getRetryMap()) {
             if (isTimeout(hubMsg) && hubMsg is HubRequest && hubMsg.msgType == MSG_TYPE.request) {
                 mRequestMap.remove(hubMsg.tag)
@@ -145,6 +146,9 @@ class HubManager {
 
     fun onMessage(hubAddress: String, message: String) {
 
+        //TODO: how to filter heartbeat response?? ["response",{"tag":"RANDOM:-130514320"}]
+        //TODO: send heartbean from hub manager?
+
         if (!hubClients.containsKey(hubAddress)) {
             Utils.logW("onMessage with unknown hubclient. hubaddress is: $hubAddress, message is: $message")
             return
@@ -160,7 +164,7 @@ class HubManager {
                 relatedRequest.handleResponse()
                 mRequestMap.remove(tag)
             } else {
-                //TODO: where it come from?
+                Utils.logW("onMessage with unknown request. hubaddress is: $hubAddress, message is: $message")
             }
         }
 

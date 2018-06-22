@@ -9,7 +9,7 @@ import java.util.*
 
 class RequestMap {
 
-    private val cacheTag = HashMap<String, MSG_TYPE>()
+    //private val cacheTag = HashMap<String, MSG_TYPE>()
     private val cacheReq = Collections.synchronizedMap(HashMap<String, HubRequest>())
 
     init {
@@ -49,7 +49,7 @@ class RequestMap {
 
     fun clear() {
         cacheReq.clear()
-        cacheTag.clear()
+        //cacheTag.clear()
     }
 
 }

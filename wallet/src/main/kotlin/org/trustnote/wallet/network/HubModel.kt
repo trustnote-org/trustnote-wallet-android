@@ -18,7 +18,6 @@ class HubModel {
             instance.mDefaultHubAddress = "wss://${TTTUtils.getDefaultHubAddressBySeed()}"
         }
     }
-    
 
     fun onMessage(hubMsg: HubMsg) {
 

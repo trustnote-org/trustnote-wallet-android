@@ -3,6 +3,7 @@ package org.trustnote.wallet.network.pojo
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.util.Utils
 
 open class HubMsg {
@@ -17,7 +18,7 @@ open class HubMsg {
 
     var actualHubAddress: String = ""
 
-    lateinit var targetHubAddress: String
+    var targetHubAddress: String = HubModel.instance.mDefaultHubAddress
     var failHubAddress: MutableList<String> = mutableListOf()
 
     constructor(msgType: MSG_TYPE = MSG_TYPE.empty) {
