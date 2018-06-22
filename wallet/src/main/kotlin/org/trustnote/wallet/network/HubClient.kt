@@ -53,7 +53,6 @@ class HubClient : WebSocketClient {
         } else {
 
             send(hubMsg.toHubString())
-            hubMsg.lastSentTime = System.currentTimeMillis()
 
         }
     }

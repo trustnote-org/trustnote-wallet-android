@@ -28,6 +28,7 @@ class TProfile {
     var removeMnemonic: Boolean = false
     var isRestoreFinished: Boolean = false
     var pubKeyForPairId: String = ""
+    var hubIndexForPairId: Int = 0
 
 }
 

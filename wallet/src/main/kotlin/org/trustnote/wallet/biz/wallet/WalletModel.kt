@@ -132,6 +132,7 @@ class WalletModel() {
             mProfile.deviceAddress = JSApi().deviceAddressSync(privKey)
             mProfile.pubKeyForPairId = JSApi().ecdsaPubkeySync(privKey, "m/1'")
             mProfile.xPrivKey = AesCbc.encode(privKey, password)
+            mProfile.hubIndexForPairId = ModelHelper.computeHubNumberForPairId(mProfile.mnemonic)
             walletUpdated()
         }
     }

@@ -4,6 +4,7 @@ import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.js.JSApi
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 
@@ -40,5 +41,14 @@ object ModelHelper {
         DbHelper.saveWalletMyAddress(newAddresses)
         return newAddresses
     }
+
+    // 先把助记词MD5  =  mnemonic.md5(),然后取MD5的第一个字符 char = MD5.characters.first ,
+    // 再num = String.getAscii(character:char), 最后index = num % hubs.count 得到hub = hubs[index]
+
+    fun computeHubNumberForPairId(mnemonic: String): Int {
+        val md5 = AndroidUtils.md5(mnemonic)
+        return md5.toCharArray()[0].toInt()
+    }
+
 
 }

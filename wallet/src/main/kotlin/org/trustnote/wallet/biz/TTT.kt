@@ -79,6 +79,7 @@ class TTT {
                 "curry.trustnote.org/tn",
                 "kake.trustnote.org/tn")
 
+        val hubArray = if (TTT.isTestnet) hubArrayForTestNet else hubArrayForMainNet
 
         const val TYPICAL_FEE = 1000L
         const val MAX_FEE = 20000L

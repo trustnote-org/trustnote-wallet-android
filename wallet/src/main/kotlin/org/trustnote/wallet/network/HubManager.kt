@@ -45,6 +45,7 @@ class HubManager {
     private fun sendHubMsgFromHubClient(hubMsg: HubMsg) {
 
         mRequestMap.put(hubMsg)
+        hubMsg.lastSentTime = System.currentTimeMillis()
 
         val hubClient = hubClients[hubMsg.targetHubAddress]
         if (hubClient != null) {
@@ -89,7 +90,7 @@ class HubManager {
                 .interval(TTT.HUB_REQ_RETRY_CHECK_SECS, TimeUnit.SECONDS)
                 .observeOn(Schedulers.computation())
                 .subscribe {
-                    //retryOrTimeout()
+                    retryOrTimeout()
                 }
     }
 

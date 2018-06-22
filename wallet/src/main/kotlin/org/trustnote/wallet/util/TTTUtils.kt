@@ -8,6 +8,7 @@ import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.PaymentInfo
 import org.trustnote.wallet.biz.js.JSApi
+import org.trustnote.wallet.biz.wallet.WalletManager
 
 object TTTUtils {
 
@@ -191,8 +192,9 @@ object TTTUtils {
     }
 
     fun getDefaultHubAddressBySeed(): String {
-        //TODO:
-        return if (TTT.isTestnet) "raytest.trustnote.org" else "eason.trustnote.org/tn"
+        val hubArray = TTT.hubArray
+        val hubIndex = WalletManager.model.mProfile.hubIndexForPairId / hubArray.size
+        return hubArray[hubIndex]
     }
 
 }
