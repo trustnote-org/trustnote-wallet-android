@@ -31,13 +31,15 @@ class WalletModel() {
     private lateinit var refreshingWorker: ScheduledExecutorService
 
     init {
+
         if (Prefs.profileExist()) {
             mProfile = Prefs.readProfile()
             WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
             startRefreshThread()
+            HubModel.init(mProfile.hubIndexForPairId)
         }
 
-        HubModel.init()
+
     }
 
     constructor(password: String, mnemonic: String, shouldRemoveMnemonic: Boolean) : this() {
@@ -160,8 +162,6 @@ class WalletModel() {
 
                 walletUpdated()
 
-
-
                 maybeAddMoreWalletIfInFullRestoreProcess()
 
             }
@@ -256,9 +256,13 @@ class WalletModel() {
         if (mProfile.removeMnemonic) {
             mProfile.mnemonic = ""
         }
+
         Prefs.writeProfile(mProfile)
 
         WalletManager.mWalletEventCenter.onNext(true)
+
+        HubModel.init(mProfile.hubIndexForPairId)
+
     }
 
     fun removeMnemonicFromProfile() {

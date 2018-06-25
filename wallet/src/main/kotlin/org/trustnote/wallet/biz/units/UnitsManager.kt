@@ -42,10 +42,14 @@ class UnitsManager {
 
     }
 
-
     fun parseUnitFromJson(unitJson: JsonObject, finalBadUnits: List<String>): Units {
 
         val units = Utils.getGson().fromJson(unitJson, Units::class.java)
+
+        if (units.unit == "Aj+p9o9g2su7UO1JoLNY32BMEANPQoYRR7njNkIgj88=") {
+            Utils.logW(units.unit)
+        }
+
         units.json = unitJson
 
         units.unit = units.json.get("unit").asString
@@ -62,14 +66,19 @@ class UnitsManager {
         }
         units.authenfiers = authentifiersArray
 
+        for (one in authentifiersArray) {
+            if (one.path.isEmpty()) {
+                Utils.logW(units.unit)
+            }
+        }
 
         val definitionsList = mutableListOf<Definitions>()
-        for(authentifier in authentifiersArray) {
+        for (authentifier in authentifiersArray) {
             if (!authentifier.json.has("definition")) {
                 continue
             }
             val definitions = authentifier.json.getAsJsonArray("definition")
-            for(definition in definitions) {
+            for (definition in definitions) {
                 if (definition is JsonObject && definition.has("pubkey")) {
 
                     val pubkey = TTTUtils.genDefinitions(definition.get("pubkey").asString)
@@ -122,6 +131,7 @@ class UnitsManager {
         }
 
         return units
+
     }
 
 }

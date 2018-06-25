@@ -7,10 +7,13 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import java.lang.String;
+import java.util.Map;
+import java.util.Set;
 
 @Entity(
         tableName = "authentifiers",
@@ -49,9 +52,10 @@ public class Authentifiers extends TBaseEntity {
 
     public void parsePathAndAuthentifier() {
         if (authentifiers != null) {
-            if (authentifiers.has("r")) {
-                path = "r";
-                authentifier = authentifiers.get("r").getAsString();
+            Set<Map.Entry<String, JsonElement>> entries = authentifiers.entrySet();
+            for (Map.Entry<String, JsonElement> oneEntry : entries) {
+                path = oneEntry.getKey();
+                authentifier = authentifiers.get(path).getAsString();
             }
         }
     }

@@ -14,8 +14,8 @@ class HubModel {
 
     companion object {
         val instance = HubModel()
-        fun init() {
-            instance.mDefaultHubAddress = "wss://${TTTUtils.getDefaultHubAddressBySeed()}"
+        fun init(hubNuberForPairId: Int) {
+            instance.mDefaultHubAddress = "wss://${TTTUtils.getDefaultHubAddressBySeed(hubNuberForPairId)}"
         }
     }
 

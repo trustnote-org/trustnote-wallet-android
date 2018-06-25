@@ -120,7 +120,6 @@ abstract class UnitsDao {
         UPDATE units SET is_stable=1, is_free=0 WHERE unit IN( :unitIds) """)
     abstract fun unitsStabled(unitIds: Array<String>): Int
 
-
     @Query("""SELECT unit, level, is_stable, sequence, address, units.creation_date as ts,
         headers_commission+payload_commission AS fee,
         SUM(amount) AS amount, address AS to_address, '' AS from_address, main_chain_index AS mci
@@ -203,19 +202,15 @@ abstract class UnitsDao {
 
     @Transaction
     open fun saveUnits(units: Array<Units>) {
-        try {
-            insertUnits(units)
-            for (oneUnit in units) {
-                insertDefinitions(oneUnit.definitions.toTypedArray())
-                insertAuthentifiers(oneUnit.authenfiers.toTypedArray())
-                insertMessages(oneUnit.messages.toTypedArray())
-                for (oneMessage in oneUnit.messages) {
-                    insertInputs(oneMessage.payload.inputs.toTypedArray())
-                    insertOutputs(oneMessage.payload.outputs.toTypedArray())
-                }
+        insertUnits(units)
+        for (oneUnit in units) {
+            insertDefinitions(oneUnit.definitions.toTypedArray())
+            insertAuthentifiers(oneUnit.authenfiers.toTypedArray())
+            insertMessages(oneUnit.messages.toTypedArray())
+            for (oneMessage in oneUnit.messages) {
+                insertInputs(oneMessage.payload.inputs.toTypedArray())
+                insertOutputs(oneMessage.payload.outputs.toTypedArray())
             }
-        } catch (e: Throwable) {
-            Utils.debugHub(e.localizedMessage)
         }
     }
 

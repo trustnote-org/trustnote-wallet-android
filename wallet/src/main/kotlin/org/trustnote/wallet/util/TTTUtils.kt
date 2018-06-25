@@ -191,9 +191,9 @@ object TTTUtils {
         return SCAN_RESULT_TYPE.UNKNOWN
     }
 
-    fun getDefaultHubAddressBySeed(): String {
+    fun getDefaultHubAddressBySeed(hubIndexForPairId: Int): String {
         val hubArray = TTT.hubArray
-        val hubIndex = WalletManager.model.mProfile.hubIndexForPairId / hubArray.size
+        val hubIndex = hubIndexForPairId % hubArray.size
         return hubArray[hubIndex]
     }
 
