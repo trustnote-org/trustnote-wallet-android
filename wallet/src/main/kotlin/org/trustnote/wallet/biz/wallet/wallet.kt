@@ -17,10 +17,7 @@ class TProfile {
     var createdOn: Long = Date().time
     var credentials: MutableList<Credential> = mutableListOf()
     var xPrivKey: String = ""
-    var tempDeviceKey: String = ""
-    var prevTempDeviceKey: String = ""
     var deviceAddress: String = ""
-    var ecdsaPubkey: String = ""
     var currentWalletIndex: Int = 0
     var mnemonicType: MNEMONIC_TYPE = MNEMONIC_TYPE.UNKNOWN
     var dbTag: String = "db"
@@ -30,6 +27,12 @@ class TProfile {
     var pubKeyForPairId: String = ""
     var privKeyForPairId: String = ""
     var hubIndexForPairId: Int = 0
+
+    var tempPubkey: String = ""
+    var prevTempPubkey: String = ""
+
+    var tempPrivkey: String = ""
+    var prevTempPrivkey: String = ""
 
 }
 

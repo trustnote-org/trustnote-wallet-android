@@ -278,6 +278,27 @@ class JSApi {
         return TWebView.sInstance.callJS("""window.Client.m1PrivKey("$xPrivKey");""", cb)
     }
 
+    /**
+     * 生成临时私钥
+     * @method genPrivKey
+     * @for Base
+     * @param {void}
+     * @return {string} base64编码的私钥
+     */
+    fun genPrivKeySync(): String {
+        return TWebView.sInstance.callJSSync("""window.Client.genPrivKey();""")
+    }
+
+    /**
+     * 根据临时私钥生成临时公钥
+     * @method genPubKey
+     * @for Base
+     * @param {string}  临时私钥
+     * @return {string} 临时公钥
+     */
+    fun genPubKeySync(privKey: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.genPubKey("$privKey");""")
+    }
 
 }
 

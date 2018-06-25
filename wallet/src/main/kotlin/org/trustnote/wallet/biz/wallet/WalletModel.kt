@@ -37,10 +37,27 @@ class WalletModel() {
             WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
             startRefreshThread()
             HubModel.init(mProfile.hubIndexForPairId)
+            updateTempPrivkeyBackground()
         }
 
+    }
+
+    private fun updateTempPrivkeyBackground() {
+        MyThreadManager.instance.runLowPriorityInBack {
+            updateTempPrivkey()
+        }
+    }
+
+    private fun updateTempPrivkey() {
+        mProfile.prevTempPrivkey = mProfile.tempPrivkey
+        mProfile.prevTempPubkey = mProfile.tempPubkey
+
+        val api = JSApi()
+        mProfile.tempPrivkey = api.genPrivKeySync()
+        mProfile.tempPubkey = api.genPubKeySync(mProfile.tempPrivkey)
 
     }
+
 
     constructor(password: String, mnemonic: String, shouldRemoveMnemonic: Boolean) : this() {
 
@@ -136,6 +153,8 @@ class WalletModel() {
             mProfile.privKeyForPairId = JSApi().m1PrivKeySync(privKey)
             mProfile.xPrivKey = AesCbc.encode(privKey, password)
             mProfile.hubIndexForPairId = ModelHelper.computeHubNumberForPairId(mProfile.mnemonic)
+
+            updateTempPrivkeyBackground()
             walletUpdated()
         }
     }

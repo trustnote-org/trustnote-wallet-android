@@ -3,6 +3,7 @@ package org.trustnote.wallet.network
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import org.trustnote.wallet.biz.js.JSApi
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.network.pojo.*
 
@@ -21,6 +22,7 @@ object HubMsgFactory {
     const val CMD_GET_HISTORY = "light/get_history"
     const val CMD_GET_PARENT_FOR_NEW_TX = "light/get_parents_and_last_ball_and_witness_list_unit"
     const val CMD_POST_JOINT = "post_joint"
+    const val CMD_TEMP_PUBKEY = "hub/temp_pubkey"
 
     const val SUBJECT_HUB_CHALLENGE = "hub/challenge"
     const val SUBJECT_HUB_LOGIN = "hub/login"
@@ -63,22 +65,19 @@ object HubMsgFactory {
         return HubJustSaying(CMD_VERSION, JsonParser().parse(Utils.getGson().toJson(WalletVersion())) as JsonObject)
     }
 
-    //    ["justsaying",{"subject":"hub/login","body":{"challenge":"m0dxaegeZyT/GZI//j2cMK0CdK57iF6dLqEI51gk",
-    // "pubkey":"Aki0PI8ouQau9uUATpGMwJVCFyZBw+tOkcfw34KioqTS",
-    // "signature":"f3++Cx1+gv4KC2Hf8fWoDZ65nKdhSuOJ0CfACOYfM9p3biURsVWAD9xtUX537AwBRMwksSzuOZBWibCR+W3N6w=="}}]
-    fun composeLoginBody(challenge: String, pubkey: String, privKey: String): JsonObject  {
-
+    fun signOneString(key: String, value: String): JsonObject {
         val api = JSApi()
         val jsonObject = JsonObject()
-        jsonObject.addProperty("challenge", challenge)
-        jsonObject.addProperty("pubkey", pubkey)
+        jsonObject.addProperty(key, value)
+        jsonObject.addProperty("pubkey", WalletManager.model.mProfile.pubKeyForPairId)
         val b64Hash = api.getDeviceMessageHashToSignSync(jsonObject.toString())
-        val signature = api.signSync(b64Hash, privKey, "null")
+        val signature = api.signSync(b64Hash, WalletManager.model.mProfile.privKeyForPairId, "null")
         jsonObject.addProperty("signature", signature)
 
         return jsonObject
 
     }
+
 
 }
 

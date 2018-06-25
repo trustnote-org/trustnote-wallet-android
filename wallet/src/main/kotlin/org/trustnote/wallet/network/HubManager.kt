@@ -71,11 +71,16 @@ class HubManager {
         hubClients[hubClient.mHubAddress] = hubClient
 
         sendHubMsgInQueue(hubClient.mHubAddress)
+
+    }
+
+    private fun updateMyTempPubkey() {
+        sendHubMsg(ReqTempPubkey())
     }
 
     private fun sendHubMsgInQueue(hubAddress: String) {
         val reqs = mRequestMap.getRetryMap()
-        for( req in reqs.values) {
+        for (req in reqs.values) {
             if (req.shouldSendWithThisHub(hubAddress)) {
                 hubClients[hubAddress]?.sendHubMsg(req)
             }
@@ -187,11 +192,13 @@ class HubManager {
         val hub = hubClients[HubModel.instance.mDefaultHubAddress]
 
         if (WalletManager.model != null && hub != null && hub.mChallenge.isNotEmpty()) {
-            val msg = JustSayingLogin(hub.mChallenge,
-                    WalletManager.model.mProfile.pubKeyForPairId,
-                    WalletManager.model.mProfile.privKeyForPairId)
+            val msg = JustSayingLogin(hub.mChallenge)
 
             sendHubMsg(msg)
+
+            MyThreadManager.instance.runDealyed(3) {
+                updateMyTempPubkey()
+            }
 
         }
     }
