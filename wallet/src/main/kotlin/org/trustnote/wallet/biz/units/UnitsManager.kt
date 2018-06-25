@@ -36,6 +36,8 @@ class UnitsManager {
         DbHelper.saveUnits(res)
 
         val stableUnitIds = proofChainBalls.map { it.unit }
+
+
         DbHelper.unitsStabled(stableUnitIds)
 
         return res.toList()
@@ -44,12 +46,9 @@ class UnitsManager {
 
     fun parseUnitFromJson(unitJson: JsonObject, finalBadUnits: List<String>): Units {
 
+
         val units = Utils.getGson().fromJson(unitJson, Units::class.java)
-
-        if (units.unit == "Aj+p9o9g2su7UO1JoLNY32BMEANPQoYRR7njNkIgj88=") {
-            Utils.logW(units.unit)
-        }
-
+        
         units.json = unitJson
 
         units.unit = units.json.get("unit").asString

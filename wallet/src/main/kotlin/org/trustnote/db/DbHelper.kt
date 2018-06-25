@@ -18,7 +18,15 @@ object DbHelper {
     }
 
     fun unitsStabled(unitIds: List<String>) {
-        getDao().unitsStabled(unitIds.toTypedArray())
+
+        val idArrOfArr = unitIds.withIndex().groupBy {
+            it.index / 900
+        }.map { it.value.map { it.value } }
+
+        for(ids in idArrOfArr) {
+            getDao().unitsStabled(ids.toTypedArray())
+        }
+
     }
 
     fun saveUnits(units: Units) {

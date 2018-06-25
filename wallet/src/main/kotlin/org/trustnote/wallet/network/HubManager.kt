@@ -23,7 +23,7 @@ class HubManager {
     private val hubClients: MutableMap<String, HubClient> = mutableMapOf()
     lateinit var retrySubscription: Disposable
     private val mRequestMap = RequestMap()
-    private var isNetworkConnected: Boolean = false
+    private var isNetworkConnected: Boolean = true
 
     init {
         setupRetryLogic()
