@@ -15,6 +15,7 @@ class HubClient : WebSocketClient {
     protected val disposables: CompositeDisposable = CompositeDisposable()
     var mHeartBeatTask: HeartBeatTask = HeartBeatTask(this)
     var mHubAddress: String
+    var mChallenge: String = ""
 
     constructor(hubAddress: String) : super(URI(hubAddress)) {
         mHubAddress = hubAddress
@@ -95,7 +96,7 @@ class HubClient : WebSocketClient {
 
     private fun log(msg: String) {
 
-        Utils.debugHub(msg)
+        Utils.debugHub("$msg @$mHubAddress")
 
     }
 

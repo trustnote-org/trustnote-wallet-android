@@ -8,10 +8,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.network.pojo.HubMsg
-import org.trustnote.wallet.network.pojo.HubRequest
-import org.trustnote.wallet.network.pojo.HubResponse
-import org.trustnote.wallet.network.pojo.MSG_TYPE
+import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
@@ -167,9 +165,35 @@ class HubManager {
             } else {
                 Utils.logW("onMessage with unknown request. hubaddress is: $hubAddress, message is: $message")
             }
+            return
+        }
+
+        //["justsaying",{"subject":"hub/challenge","body":"m0dxaegeZyT/GZI//j2cMK0CdK57iF6dLqEI51gk"}]
+        if (hubMsg is HubJustSaying && HubMsgFactory.SUBJECT_HUB_CHALLENGE == hubMsg.subject) {
+            hubClients[hubAddress]?.mChallenge = hubMsg.bodyJson.asString
+
+            if (hubMsg.bodyJson.asString.isNotEmpty() && HubModel.instance.mDefaultHubAddress == hubAddress) {
+                loginMyDefaultHub()
+            }
+            return
+
         }
 
         HubModel.instance.onMessage(hubMsg)
+
+    }
+
+    private fun loginMyDefaultHub() {
+        val hub = hubClients[HubModel.instance.mDefaultHubAddress]
+
+        if (WalletManager.model != null && hub != null && hub.mChallenge.isNotEmpty()) {
+            val msg = JustSayingLogin(hub.mChallenge,
+                    WalletManager.model.mProfile.pubKeyForPairId,
+                    WalletManager.model.mProfile.privKeyForPairId)
+
+            sendHubMsg(msg)
+
+        }
     }
 
     fun monitorNetwork() {

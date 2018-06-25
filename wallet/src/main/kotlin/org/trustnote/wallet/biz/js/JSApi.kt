@@ -182,8 +182,12 @@ class JSApi {
      * @param {string}  消息JSON字符串
      * @return {string} base64过的hash
      */
-    fun getDeviceMessageHashToSign(unit: String, cb: ValueCallback<String>) {
-        TWebView.sInstance.callJS("window.Client.getDeviceMessageHashToSign($unit);", cb)
+    fun getDeviceMessageHashToSignSync(jsonString: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.getDeviceMessageHashToSign($jsonString);""")
+    }
+
+    fun getDeviceMessageHashToSign(jsonString: String, cb: ValueCallback<String>) {
+        TWebView.sInstance.callJS("window.Client.getDeviceMessageHashToSign($jsonString);", cb)
     }
 
     /**
@@ -258,6 +262,22 @@ class JSApi {
     fun randomBytes(num: Int, cb: ValueCallback<String>) {
         return TWebView.sInstance.callJS("window.Client.randomBytes($num);", cb)
     }
+
+    /**
+     * 生成m/1'私钥
+     * @method m1PrivKey
+     * @for Base
+     * @param {string}  根私钥
+     * @return {string} base64编码的私钥
+     */
+    fun m1PrivKeySync(xPrivKey: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.m1PrivKey("$xPrivKey");""")
+    }
+
+    fun m1PrivKey(xPrivKey: String, cb: ValueCallback<String>) {
+        return TWebView.sInstance.callJS("""window.Client.m1PrivKey("$xPrivKey");""", cb)
+    }
+
 
 }
 

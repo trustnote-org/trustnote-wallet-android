@@ -48,7 +48,7 @@ class UnitsManager {
 
 
         val units = Utils.getGson().fromJson(unitJson, Units::class.java)
-        
+
         units.json = unitJson
 
         units.unit = units.json.get("unit").asString

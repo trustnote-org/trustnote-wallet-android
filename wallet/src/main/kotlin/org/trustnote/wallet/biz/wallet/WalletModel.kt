@@ -133,6 +133,7 @@ class WalletModel() {
             WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
             mProfile.deviceAddress = JSApi().deviceAddressSync(privKey)
             mProfile.pubKeyForPairId = JSApi().ecdsaPubkeySync(privKey, "m/1'")
+            mProfile.privKeyForPairId = JSApi().m1PrivKeySync(privKey)
             mProfile.xPrivKey = AesCbc.encode(privKey, password)
             mProfile.hubIndexForPairId = ModelHelper.computeHubNumberForPairId(mProfile.mnemonic)
             walletUpdated()
@@ -204,7 +205,10 @@ class WalletModel() {
         var needRefreshedAddresses = credential.myAddresses.toTypedArray()
 
         while (needRefreshedAddresses.isNotEmpty()) {
+
             val hubResponse = getUnitsFromHub(needRefreshedAddresses)
+
+            //TODO: err handle.
 
             val units = UnitsManager().saveUnitsFromHubResponse(hubResponse)
 
