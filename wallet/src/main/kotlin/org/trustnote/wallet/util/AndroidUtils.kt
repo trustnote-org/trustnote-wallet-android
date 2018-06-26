@@ -50,8 +50,7 @@ object AndroidUtils {
     const val KEY_BUNDLE_ADDRESS: String = "KEY_BUNDLE_ADDRESS"
     const val KEY_BUNDLE_MEMO: String = "KEY_BUNDLE_MEMO"
     const val KEY_TAG_FOR_NEXT_PAGE: String = "KEY_TAG_FOR_NEXT_PAGE"
-    const val KEY_FRIEND_ID: String = "KEY_FRIEND_ID"
-    const val KEY_PAIR_ID: String = "KEY_PAIR_ID"
+    const val KEY_CORRESPODENT_ADDRESSES: String = "KEY_CORRESPODENT_ADDRESSES"
 
     fun getTagForNextPage(bundle: Bundle?): Int {
         if (bundle != null) {

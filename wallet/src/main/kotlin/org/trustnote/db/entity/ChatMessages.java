@@ -3,6 +3,8 @@ package org.trustnote.db.entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.trustnote.wallet.util.Utils;
 
@@ -13,6 +15,8 @@ import java.lang.String;
         tableName = "chat_messages"
 )
 public class ChatMessages extends TBaseEntity {
+
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(
             name = "id"
     )
@@ -43,6 +47,11 @@ public class ChatMessages extends TBaseEntity {
     )
     public String type;
 
+    @ColumnInfo(
+            name = "is_read"
+    )
+    public int isRead;
+
     @Ignore
     public String correspondentName;
 
@@ -52,7 +61,7 @@ public class ChatMessages extends TBaseEntity {
 
     //TODO:
     @Ignore
-    public int msgUiType = Utils.getRandom().nextInt(2);
+    public int msgUiType = 0;
 
     @Ignore
     public boolean showTimeOrDate = false;

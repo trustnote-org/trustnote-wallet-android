@@ -18,7 +18,8 @@ import org.trustnote.wallet.util.Utils
         Outputs::class,
         Definitions::class,
         Authentifiers::class,
-        CorrespondentDevices::class
+        CorrespondentDevices::class,
+        ChatMessages::class
 ), version = 1)
 abstract class TrustNoteDataBase : RoomDatabase() {
 

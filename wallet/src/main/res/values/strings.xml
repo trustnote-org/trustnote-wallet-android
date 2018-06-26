@@ -322,6 +322,7 @@
     <string name="msg_for_clear_chat_history">确定要删除与“%1$s”的全部聊天记录</string>
 
     <string name="time_format_yesterday">昨天</string>
+    <string name="default_first_msg_for_friend">你已添加了%1$s，现在可以开始聊天</string>
 
 
 </resources>

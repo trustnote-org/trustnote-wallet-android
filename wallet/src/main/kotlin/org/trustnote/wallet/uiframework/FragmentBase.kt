@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar
 import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Utils
@@ -19,7 +18,6 @@ import android.widget.TextView
 import me.yokeyword.swipebackfragment.SwipeBackFragment
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.home.FragmentMainCreateWalletObserve
-import org.trustnote.wallet.biz.msgs.editFriendMemoName
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
@@ -232,11 +230,6 @@ abstract class FragmentBase : SwipeBackFragment() {
                 startScan {
                     handleUnknownScanRes(it)
                 }
-                return true
-            }
-
-            R.id.ic_edit_contacts_memo -> {
-                editFriendMemoName(activity as ActivityBase)
                 return true
             }
 

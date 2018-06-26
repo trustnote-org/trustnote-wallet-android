@@ -34,8 +34,12 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
         mSwipeRefreshLayout = mRootView.findViewById(R.id.swiperefresh)
 
         mSwipeRefreshLayout.setProgressViewOffset(true, -60, 40)
+
         mSwipeRefreshLayout.setOnRefreshListener {
+
             model.refreshHomeList()
+            mSwipeRefreshLayout.isRefreshing = false
+            updateUI()
         }
 
         model.refreshHomeList()
@@ -52,7 +56,7 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
         val a = ContactsAdapter(model.latestHomeList)
 
         a.itemClickListener = {
-            chatWithFriend(it.correspondentAddress, activity as ActivityBase)
+            chatWithFriend(it.deviceAddress, activity as ActivityBase)
         }
 
         recyclerView.adapter = a

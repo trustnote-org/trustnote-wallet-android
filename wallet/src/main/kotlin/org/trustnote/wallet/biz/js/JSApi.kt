@@ -300,6 +300,17 @@ class JSApi {
         return TWebView.sInstance.callJSSync("""window.Client.genPubKey("$privKey");""")
     }
 
+
+    /**
+     * 根据公钥生成设备地址
+     * @method getDeviceAddress
+     * @for Base
+     * @param {string}  m/1 公钥
+     * @return {string} 设备地址
+     */
+    fun getDeviceAddressSync(pubkey: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.getDeviceAddress("$pubkey");""")
+    }
 }
 
 var BIP38_WORD_LIST_EN: List<String> = mutableListOf()

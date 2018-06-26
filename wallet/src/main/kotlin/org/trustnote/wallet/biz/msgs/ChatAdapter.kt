@@ -54,7 +54,7 @@ open class ChatAdapter(private val mDatas: List<ChatMessages>) : RecyclerView.Ad
     }
 
     override fun getItemViewType(position: Int): Int {
-        return mDatas[position].msgUiType
+        return if (mDatas[position].isIncoming == 0) FromMe else FromFriend
     }
 
     companion object {

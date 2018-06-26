@@ -361,9 +361,12 @@ open class CWFragmentRestore : FragmentInit() {
                 CreateWalletModel.iamDone(mnemonics, isRemove)
                 getMyActivity().iamDone()
             }
+
         } else {
+
             CreateWalletModel.iamDone(mnemonics, isRemove)
             getMyActivity().iamDone()
+
         }
     }
 

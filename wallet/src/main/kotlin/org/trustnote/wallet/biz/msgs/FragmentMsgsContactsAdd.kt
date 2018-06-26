@@ -8,6 +8,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
@@ -19,12 +20,16 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
     lateinit var scanLayout: ScanLayout
     lateinit var btn: Button
 
+    lateinit var ownerActivity: ActivityBase
+
     override fun getLayoutId(): Int {
         return R.layout.f_msg_contacts_add
     }
 
     override fun initFragment(view: View) {
         super.initFragment(view)
+
+        ownerActivity = activity as ActivityBase
 
         scanLayout = mRootView.findViewById(R.id.contacts_add_scan_layoiut)
         btn = mRootView.findViewById(R.id.contacts_add_btn)
@@ -40,8 +45,16 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
         scanLayout.scanResult.setText(qrCode)
 
         btn.setOnClickListener {
-            Utils.toastMsg("... ...")
-            onBackPressed()
+
+            if (isQrCodeValid()) {
+                onBackPressed()
+                MsgsModel.instance.addContacts(scanLayout.scanResult.text.toString()) {
+
+                    chatWithFriend(it, ownerActivity)
+
+                }
+            }
+
         }
 
     }
@@ -71,6 +84,7 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
     }
 
     private fun isQrCodeValid(): Boolean {
+
         val res = scanLayout.scanResult.text.toString()
         val matchRes = TTTUtils.parseQrCodeType(res) == SCAN_RESULT_TYPE.TTT_PAIRID
         return if (matchRes) {
@@ -78,9 +92,11 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
         } else {
             matchRes
         }
+
     }
 
     private fun getErrInfo(): String {
+
         val res = scanLayout.scanResult.text.toString()
         val matchRes = TTTUtils.parseQrCodeType(res) == SCAN_RESULT_TYPE.TTT_PAIRID
         return if (matchRes) {
@@ -88,6 +104,7 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
         } else {
             TApp.getString(R.string.contacts_add_pairid_format_err)
         }
+
     }
 
 }

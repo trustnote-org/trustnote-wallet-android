@@ -176,7 +176,7 @@ object TTTUtils {
     }
 
     val tttReceiverAddressPattern = Regex("""TTT:.{32}(\?amount=)?""")
-    val tttMyPairIdPattern = Regex("""TTT:.{16,100}@.{16,100}#.{6,20}""")
+    val tttMyPairIdPattern = Regex("""TTT:(.{16,100})@(.{16,100})#(.{6,20})""")
     val tttCodeQrCodeForStep1 = Regex("""TTT:.\{"type":"c1".*\}""")
     fun parseQrCodeType(qrCode: String): SCAN_RESULT_TYPE {
         if (tttReceiverAddressPattern.matches(qrCode)) {
@@ -196,6 +196,8 @@ object TTTUtils {
         val hubIndex = hubIndexForPairId % hubArray.size
         return hubArray[hubIndex]
     }
+
+
 
 }
 

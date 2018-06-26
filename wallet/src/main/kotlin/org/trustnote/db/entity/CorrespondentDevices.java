@@ -58,4 +58,20 @@ public class CorrespondentDevices extends TBaseEntity {
       name = "peer_record_pref"
   )
   public Integer peerRecordPref;
+
+  @ColumnInfo(
+          name = "last_message_creation_date"
+  )
+  public long updateDate;
+
+  @ColumnInfo(
+          name = "last_message"
+  )
+  public String lastMessage;
+
+  @ColumnInfo(
+          name = "unread_counter"
+  )
+  public long unReadMsgsCounter;
+
 }

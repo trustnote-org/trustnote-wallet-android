@@ -1,11 +1,9 @@
 package org.trustnote.db
 
+import android.arch.persistence.room.Query
 import io.reactivex.Observable
 import org.trustnote.db.dao.UnitsDao
-import org.trustnote.db.entity.MyAddresses
-import org.trustnote.db.entity.MyWitnesses
-import org.trustnote.db.entity.Outputs
-import org.trustnote.db.entity.Units
+import org.trustnote.db.entity.*
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.util.Utils
 import java.io.File
@@ -33,11 +31,20 @@ object DbHelper {
         getDao().saveUnits(arrayOf(units))
     }
 
+    fun saveCorrespondentDevice(correspondentDevice: CorrespondentDevices) {
+        getDao().insertCorrespondentDevice(correspondentDevice)
+    }
+
+    fun isCorrespondentDeviceExist(pubkey: String): Boolean {
+        val res = getDao().findCorrespondentDevices(pubkey)
+        return res.isNotEmpty()
+    }
+
     fun saveWalletMyAddress(listAddress: List<MyAddresses>) = saveWalletMyAddressInternal(listAddress)
     fun saveMyWitnesses(myWitnesses: List<String>) {
         getDao().saveMyWitnesses(myWitnesses.mapToTypedArray {
             val res = MyWitnesses()
-            res.address = it as String
+            res.address = it
             res
         })
 
@@ -103,6 +110,43 @@ object DbHelper {
             dbFile.delete()
             TrustNoteDataBase.removeDb(keyDb)
         }
+    }
+
+    fun saveChatMessages(chatMessages: ChatMessages) {
+        getDao().insertChatMessages(chatMessages)
+        getDao().updateLastMessage(chatMessages.correspondentAddress, chatMessages.message, chatMessages.creationDate)
+        updateUnreadMessageCounter(chatMessages.correspondentAddress)
+    }
+
+    fun updateUnreadMessageCounter(correspondentAddress: String) {
+        getDao().updateUnreadMessageCounter(correspondentAddress)
+    }
+
+    fun queryCorrespondetnDevices(): List<CorrespondentDevices>{
+        return getDao().queryCorrespondetnDevices().asList()
+    }
+
+    fun queryChatMessages(correspondentAddress: String): List<ChatMessages> {
+        return getDao().queryChatMessages(correspondentAddress).asList()
+    }
+
+    fun readAllMessages(correspondentAddress: String) {
+        getDao().readAllMessages(correspondentAddress)
+        updateUnreadMessageCounter(correspondentAddress)
+    }
+
+    fun findCorrespondentDevice(correspondentAddress: String): CorrespondentDevices {
+        val res = getDao().findCorrespondentDevices(correspondentAddress)
+        return res[0]
+    }
+
+    fun clearChatHistory(correspondentAddresses: String) {
+        getDao().clearChatHistory(correspondentAddresses)
+    }
+
+    fun removeCorrespondentDevice(correspondentDevice: CorrespondentDevices) {
+        getDao().removeCorrespondentDevice(correspondentDevice)
+        getDao().clearChatHistory(correspondentDevice.deviceAddress)
     }
 
 }

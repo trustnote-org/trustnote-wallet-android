@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4b66ee5195b3036706351da05e1144ed",
+    "identityHash": "94612b8e99d2a0c7673622d5a6a25719",
     "entities": [
       {
         "tableName": "my_witnesses",
@@ -526,7 +526,7 @@
       },
       {
         "tableName": "correspondent_devices",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`device_address` TEXT NOT NULL, `name` TEXT, `pubkey` TEXT, `hub` TEXT, `is_confirmed` INTEGER NOT NULL, `is_indirect` INTEGER NOT NULL, `creation_date` INTEGER NOT NULL, `my_record_pref` INTEGER, `peer_record_pref` INTEGER, PRIMARY KEY(`device_address`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`device_address` TEXT NOT NULL, `name` TEXT, `pubkey` TEXT, `hub` TEXT, `is_confirmed` INTEGER NOT NULL, `is_indirect` INTEGER NOT NULL, `creation_date` INTEGER NOT NULL, `my_record_pref` INTEGER, `peer_record_pref` INTEGER, `last_message_creation_date` INTEGER NOT NULL, `last_message` TEXT, `unread_counter` INTEGER NOT NULL, PRIMARY KEY(`device_address`))",
         "fields": [
           {
             "fieldPath": "deviceAddress",
@@ -581,6 +581,24 @@
             "columnName": "peer_record_pref",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "updateDate",
+            "columnName": "last_message_creation_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastMessage",
+            "columnName": "last_message",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "unReadMsgsCounter",
+            "columnName": "unread_counter",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -591,11 +609,67 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "chat_messages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `correspondent_address` TEXT, `message` TEXT, `creation_date` INTEGER NOT NULL, `is_incoming` INTEGER NOT NULL, `type` TEXT, `is_read` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "correspondentAddress",
+            "columnName": "correspondent_address",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creationDate",
+            "columnName": "creation_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isIncoming",
+            "columnName": "is_incoming",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isRead",
+            "columnName": "is_read",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"4b66ee5195b3036706351da05e1144ed\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"94612b8e99d2a0c7673622d5a6a25719\")"
     ]
   }
 }

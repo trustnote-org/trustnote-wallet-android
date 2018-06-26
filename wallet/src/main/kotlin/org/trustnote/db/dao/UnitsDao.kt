@@ -3,10 +3,7 @@ package org.trustnote.db.dao
 import android.arch.persistence.room.*
 import io.reactivex.Flowable
 import io.reactivex.Single
-import org.trustnote.db.Balance
-import org.trustnote.db.FundedAddress
-import org.trustnote.db.TxOutputs
-import org.trustnote.db.TxUnits
+import org.trustnote.db.*
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.util.Utils
@@ -36,6 +33,12 @@ abstract class UnitsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertDefinitions(outputs: Array<Definitions>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertCorrespondentDevice(correspondentDevices: CorrespondentDevices)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertChatMessages(chatMessages: ChatMessages)
 
     @Query("""
         SELECT unit FROM inputs WHERE inputs.address IN (SELECT my_addresses.address
@@ -86,11 +89,43 @@ abstract class UnitsDao {
     @Delete
     abstract fun deleteMyWitnesses(myWitnesses: Array<MyWitnesses>)
 
+    @Query("DELETE FROM chat_messages WHERE correspondent_address = :correspondentAddresses")
+    abstract fun clearChatHistory(correspondentAddresses: String)
+
+    @Delete
+    abstract fun removeCorrespondentDevice(correspondentDevice: CorrespondentDevices)
+
     @Query("SELECT * FROM my_witnesses")
     abstract fun queryMyWitnesses(): Array<MyWitnesses>
 
-    @Query("SELECT * FROM correspondent_devices where device_address = :deviceAddress")
-    abstract fun findCorrespondentDevices(deviceAddress: String): Array<CorrespondentDevices>
+    @Query("SELECT * FROM correspondent_devices where device_address = :correspondentDevices")
+    abstract fun findCorrespondentDevices(correspondentDevices: String): Array<CorrespondentDevices>
+
+    @Query("SELECT * FROM correspondent_devices ORDER BY last_message_creation_date DESC")
+    abstract fun queryCorrespondetnDevices(): Array<CorrespondentDevices>
+
+    @Query("SELECT * FROM chat_messages where correspondent_address = :correspondentAddress")
+    abstract fun queryChatMessages(correspondentAddress: String): Array<ChatMessages>
+
+    @Query("""
+        UPDATE correspondent_devices SET unread_counter =
+        (SELECT count(*) FROM chat_messages
+            WHERE correspondent_address = :correspondentAddress and chat_messages.is_read = 0)
+        WHERE device_address = :correspondentAddress
+        """)
+    abstract fun updateUnreadMessageCounter(correspondentAddress: String): Int
+
+    @Query("""
+        UPDATE chat_messages SET is_read = 1
+        WHERE correspondent_address = :correspondentAddress
+        """)
+    abstract fun readAllMessages(correspondentAddress: String): Int
+
+    @Query("""
+        UPDATE correspondent_devices SET last_message = :lastMessage, last_message_creation_date = :lastMessageCreationDate
+        WHERE device_address = :correspondentAddress
+        """)
+    abstract fun updateLastMessage(correspondentAddress: String, lastMessage: String, lastMessageCreationDate: Long): Int
 
     @Query("""
         SELECT outputs.address, COALESCE(outputs.asset, 'base') as asset, sum(outputs.amount) as amount
