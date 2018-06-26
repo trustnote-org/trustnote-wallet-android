@@ -311,6 +311,18 @@ class JSApi {
     fun getDeviceAddressSync(pubkey: String): String {
         return TWebView.sInstance.callJSSync("""window.Client.getDeviceAddress("$pubkey");""")
     }
+
+    /**
+     * 加密消息
+     * @method createEncryptedPackage
+     * @for Base
+     * @param {string}  待加密json字符串
+     * @param {string}  公钥
+     * @return {string} 密文
+     */
+    fun createEncryptedPackageSync(jsonString: String, pubkey: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.createEncryptedPackage($jsonString,"$pubkey");""")
+    }
 }
 
 var BIP38_WORD_LIST_EN: List<String> = mutableListOf()

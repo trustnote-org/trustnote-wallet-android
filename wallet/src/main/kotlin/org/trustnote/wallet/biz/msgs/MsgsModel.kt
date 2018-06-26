@@ -1,18 +1,39 @@
 package org.trustnote.wallet.biz.msgs
 
+import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.ChatMessages
 import org.trustnote.db.entity.CorrespondentDevices
-import org.trustnote.db.entity.Friend
+import org.trustnote.db.entity.Outbox
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.js.JSApi
-import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
+import java.util.concurrent.TimeUnit
 
 class MsgsModel {
+
+
+    init {
+        monitorOutbox()
+    }
+
+    private fun monitorOutbox() {
+        DbHelper.monitorOutbox().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
+            Utils.debugLog("from monitorOutbox")
+            if (it.isNotEmpty()) {
+                val outbox = it[0]
+                sendPreparedMessageToHub(outbox)
+            }
+        }
+
+    }
+
+    private fun sendPreparedMessageToHub(outbox: Outbox) {
+        //TODO:
+    }
 
     companion object {
         val instance = MsgsModel()
@@ -33,7 +54,7 @@ class MsgsModel {
     fun queryChatMessages(correspondentAddresses: String): List<ChatMessages> {
         return DbHelper.queryChatMessages(correspondentAddresses)
     }
-    
+
     //TODO: use waitiing UI.
     fun addContacts(pairIdQrCode: String, lambda: (String) -> Unit = {}) {
         val matchRes = TTTUtils.tttMyPairIdPattern.matchEntire(pairIdQrCode)
@@ -80,6 +101,9 @@ class MsgsModel {
             chatMessages.isIncoming = 0
 
             DbHelper.saveChatMessages(chatMessages)
+        } else {
+            val outbox = composeOutboxPairingMessage(secret, correspondentDevices)
+            DbHelper.saveOutbox(outbox)
         }
 
         refreshHomeList()

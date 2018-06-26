@@ -134,6 +134,7 @@ class WalletModel() {
     }
 
     private fun checkAndGenPrivkey(password: String) {
+
         if (mProfile.xPrivKey.isEmpty()) {
             val privKey = JSApi().xPrivKeySync(mProfile.mnemonic)
             mProfile.dbTag = privKey.takeLast(5)

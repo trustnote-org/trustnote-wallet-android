@@ -50,6 +50,7 @@ object DbHelper {
 
     }
 
+
     fun hasDefinitions(address: String): Boolean = getDao().findDefinitions(address) > 0
 
     fun getMyWitnesses(): Array<MyWitnesses> = getMyWitnessesInternal()
@@ -57,6 +58,9 @@ object DbHelper {
     fun monitorAddresses(): Observable<Array<MyAddresses>> = monitorAddressesInternal()
     fun monitorUnits(): Observable<Array<Units>> = monitorUnitsInternal()
     fun monitorOutputs(): Observable<Array<Outputs>> = monitorOutputsInternal()
+    fun monitorOutbox(): Observable<Array<Outbox>> {
+        return Utils.throttleDbEvent(getDao().monitorOutbox().toObservable(), 3L)
+    }
 
     fun shouldGenerateMoreAddress(walletId: String, isChange: Int): Boolean = shouldGenerateMoreAddressInternal(walletId, isChange)
     fun getMaxAddressIndex(walletId: String, isChange: Int): Int = getMaxAddressIndexInternal(walletId, isChange)
@@ -147,6 +151,10 @@ object DbHelper {
     fun removeCorrespondentDevice(correspondentDevice: CorrespondentDevices) {
         getDao().removeCorrespondentDevice(correspondentDevice)
         getDao().clearChatHistory(correspondentDevice.deviceAddress)
+    }
+
+    fun saveOutbox(outbox: Outbox) {
+        getDao().insertOutbox(outbox)
     }
 
 }

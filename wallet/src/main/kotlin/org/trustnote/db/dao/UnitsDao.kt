@@ -40,7 +40,10 @@ abstract class UnitsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertChatMessages(chatMessages: ChatMessages)
 
-    @Query("""
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertOutbox(outbox: Outbox)
+
+        @Query("""
         SELECT unit FROM inputs WHERE inputs.address IN (SELECT my_addresses.address
         FROM my_addresses WHERE my_addresses.wallet == :walletId
         ORDER BY my_addresses.address_index DESC LIMIT :dataLimit)
@@ -56,6 +59,9 @@ abstract class UnitsDao {
 
     @Query("""SELECT * FROM units""")
     abstract fun monitorUnits(): Flowable<Array<Units>>
+
+    @Query("""SELECT * FROM outbox""")
+    abstract fun monitorOutbox(): Flowable<Array<Outbox>>
 
     @Query("""SELECT * FROM outputs""")
     abstract fun monitorOutputs(): Flowable<Array<Outputs>>
