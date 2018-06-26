@@ -8,13 +8,14 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
 
-//TODO: test case when HubManager return empty\strange result.
+//TODO: test case when HubManager return empty\unknown result.
 
 class HubManager {
 
@@ -75,7 +76,17 @@ class HubManager {
     }
 
     private fun updateMyTempPubkey() {
-        sendHubMsg(ReqTempPubkey())
+
+        //TODO: should we update the temp key every connect?
+        if (WalletManager.model.mProfile.tempPrivkey.isEmpty()) {
+
+            val api = JSApi()
+            val priv = api.genPrivKeySync()
+            val pub = api.genPubKeySync(priv)
+
+            sendHubMsg(ReqTempPubkey(pub, priv))
+        }
+
     }
 
     private fun sendHubMsgInQueue(hubAddress: String) {
@@ -196,9 +207,7 @@ class HubManager {
 
             sendHubMsg(msg)
 
-            MyThreadManager.instance.runDealyed(3) {
-                updateMyTempPubkey()
-            }
+            updateMyTempPubkey()
 
         }
     }

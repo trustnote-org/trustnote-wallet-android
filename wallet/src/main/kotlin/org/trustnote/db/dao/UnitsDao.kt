@@ -89,6 +89,9 @@ abstract class UnitsDao {
     @Query("SELECT * FROM my_witnesses")
     abstract fun queryMyWitnesses(): Array<MyWitnesses>
 
+    @Query("SELECT * FROM correspondent_devices where device_address = :deviceAddress")
+    abstract fun findCorrespondentDevices(deviceAddress: String): Array<CorrespondentDevices>
+
     @Query("""
         SELECT outputs.address, COALESCE(outputs.asset, 'base') as asset, sum(outputs.amount) as amount
         FROM outputs, my_addresses

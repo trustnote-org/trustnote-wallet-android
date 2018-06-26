@@ -2,6 +2,9 @@ package org.trustnote.db.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.lang.Integer;
 import java.lang.String;
 
@@ -12,6 +15,8 @@ public class CorrespondentDevices extends TBaseEntity {
   @ColumnInfo(
       name = "device_address"
   )
+  @PrimaryKey
+  @NonNull
   public String deviceAddress;
 
   @ColumnInfo(

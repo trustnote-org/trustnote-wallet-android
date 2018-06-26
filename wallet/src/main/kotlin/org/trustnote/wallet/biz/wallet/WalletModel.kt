@@ -37,27 +37,19 @@ class WalletModel() {
             WalletManager.setCurrentWalletDbTag(mProfile.dbTag)
             startRefreshThread()
             HubModel.init(mProfile.hubIndexForPairId)
-            updateTempPrivkeyBackground()
         }
 
     }
 
-    private fun updateTempPrivkeyBackground() {
-        MyThreadManager.instance.runLowPriorityInBack {
-            updateTempPrivkey()
-        }
-    }
+    fun updateMyTempPrivkey(pub: String, priv: String) {
 
-    private fun updateTempPrivkey() {
         mProfile.prevTempPrivkey = mProfile.tempPrivkey
         mProfile.prevTempPubkey = mProfile.tempPubkey
 
-        val api = JSApi()
-        mProfile.tempPrivkey = api.genPrivKeySync()
-        mProfile.tempPubkey = api.genPubKeySync(mProfile.tempPrivkey)
+        mProfile.tempPrivkey = priv
+        mProfile.tempPubkey = pub
 
     }
-
 
     constructor(password: String, mnemonic: String, shouldRemoveMnemonic: Boolean) : this() {
 
@@ -128,9 +120,7 @@ class WalletModel() {
 
         createNewWalletIfLastWalletHasTransaction(password)
 
-        val ws = getAvaiableWalletsForUser()
-
-        ws.forEach {
+        mProfile.credentials.forEach {
             refreshOneWallet(it)
         }
 
@@ -154,7 +144,6 @@ class WalletModel() {
             mProfile.xPrivKey = AesCbc.encode(privKey, password)
             mProfile.hubIndexForPairId = ModelHelper.computeHubNumberForPairId(mProfile.mnemonic)
 
-            updateTempPrivkeyBackground()
             walletUpdated()
         }
     }
@@ -194,16 +183,13 @@ class WalletModel() {
             return
         }
 
-        val lastLocalWallet = lastLocalWallet()
-        if ((lastLocalWallet.isAuto
-                        && lastLocalWallet.txDetails.isEmpty())) {
-
-            CreateWalletModel.clearPassphraseInRam()
-            Prefs.saveUserInFullRestore(false)
-
-        } else if (CreateWalletModel.getPassphraseInRam().isNotEmpty()) {
+        if (CreateWalletModel.getPassphraseInRam().isNotEmpty()) {
 
             newAutoWallet(CreateWalletModel.getPassphraseInRam())
+
+            //TODO: bug, it only restore one more wallet.
+            CreateWalletModel.clearPassphraseInRam()
+            Prefs.saveUserInFullRestore(false)
 
         }
     }

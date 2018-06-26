@@ -17,6 +17,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 
 class FragmentDialogInputPwd() : DialogFragment() {
@@ -62,11 +63,18 @@ class FragmentDialogInputPwd() : DialogFragment() {
     private fun checkPwd(password: String) {
         if (CreateWalletModel.verifyPwd(password)) {
             dismiss()
+            savePwdInRamOrNot(password)
             confirmLogic.invoke(password)
         } else {
             pwdErrView.visibility = View.VISIBLE
         }
 
+    }
+
+    private fun savePwdInRamOrNot(pwd: String) {
+        if (Prefs.isUserInFullRestore()) {
+            CreateWalletModel.savePassphraseInRam(pwd)
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

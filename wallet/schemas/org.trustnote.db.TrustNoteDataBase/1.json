@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "61297153dbf3a6fa131e86815f8bdea6",
+    "identityHash": "4b66ee5195b3036706351da05e1144ed",
     "entities": [
       {
         "tableName": "my_witnesses",
@@ -523,11 +523,79 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "correspondent_devices",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`device_address` TEXT NOT NULL, `name` TEXT, `pubkey` TEXT, `hub` TEXT, `is_confirmed` INTEGER NOT NULL, `is_indirect` INTEGER NOT NULL, `creation_date` INTEGER NOT NULL, `my_record_pref` INTEGER, `peer_record_pref` INTEGER, PRIMARY KEY(`device_address`))",
+        "fields": [
+          {
+            "fieldPath": "deviceAddress",
+            "columnName": "device_address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pubkey",
+            "columnName": "pubkey",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "hub",
+            "columnName": "hub",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isConfirmed",
+            "columnName": "is_confirmed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isIndirect",
+            "columnName": "is_indirect",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creationDate",
+            "columnName": "creation_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "myRecordPref",
+            "columnName": "my_record_pref",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "peerRecordPref",
+            "columnName": "peer_record_pref",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "device_address"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"61297153dbf3a6fa131e86815f8bdea6\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"4b66ee5195b3036706351da05e1144ed\")"
     ]
   }
 }

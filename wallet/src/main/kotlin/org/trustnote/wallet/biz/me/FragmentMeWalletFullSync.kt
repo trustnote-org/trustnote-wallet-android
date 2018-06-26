@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.me
 import android.view.View
 import android.webkit.WebView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
@@ -24,6 +25,8 @@ class FragmentMeWalletFullSync : FragmentWalletBase() {
         view.findViewById<View>(R.id.me_clone_sync_btn).setOnClickListener {
 
             FragmentDialogInputPwd.showMe(activity, {
+
+                CreateWalletModel.savePassphraseInRam(it)
                 WalletManager.model.fullRefreshing(it)
                 activity.onBackPressed()
             })

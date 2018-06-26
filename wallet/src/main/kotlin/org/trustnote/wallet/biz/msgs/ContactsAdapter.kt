@@ -8,9 +8,9 @@ import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.EmptyAdapter
 import org.trustnote.wallet.widget.MyViewHolder
 
-class ContactsAdapter(val myDataset: List<ChatMessages>,
-                      val layoutResId: Int = R.layout.item_msg_home,
-                      val emptyLayoutResId: Int = R.layout.item_contacts_empty) :
+class ContactsAdapter(myDataset: List<ChatMessages>,
+                      layoutResId: Int = R.layout.item_msg_home,
+                      emptyLayoutResId: Int = R.layout.item_contacts_empty) :
         EmptyAdapter<ChatMessages>(layoutResId, emptyLayoutResId, myDataset) {
 
     override fun handleItemView(holder: MyViewHolder, dataItem: ChatMessages) {
