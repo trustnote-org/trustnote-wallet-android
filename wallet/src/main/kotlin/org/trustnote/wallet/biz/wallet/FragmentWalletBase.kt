@@ -9,8 +9,6 @@ import org.trustnote.wallet.uiframework.FragmentBase
 
 abstract class FragmentWalletBase : FragmentBase() {
 
-    protected val disposables: CompositeDisposable = CompositeDisposable()
-
     //TODO: empty constructor.
     fun getMyActivity(): ActivityMain {
         return activity as ActivityMain
@@ -20,17 +18,8 @@ abstract class FragmentWalletBase : FragmentBase() {
 
         super.onResume()
 
-        val d = WalletManager.mWalletEventCenter.observeOn(AndroidSchedulers.mainThread()).subscribe {
-            updateUI()
-        }
+        listener(WalletManager.mWalletEventCenter)
 
-        disposables.add(d)
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-        disposables.clear()
     }
 
     fun scanEveryThing() {

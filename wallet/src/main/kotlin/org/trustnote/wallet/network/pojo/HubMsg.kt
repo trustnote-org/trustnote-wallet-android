@@ -18,7 +18,7 @@ open class HubMsg {
 
     var actualHubAddress: String = ""
 
-    var targetHubAddress: String = "wss://${HubModel.instance.mDefaultHubAddress}"
+    var targetHubAddress: String = HubModel.instance.mDefaultHubAddress
     var failHubAddress: MutableList<String> = mutableListOf()
 
     constructor(msgType: MSG_TYPE = MSG_TYPE.empty) {

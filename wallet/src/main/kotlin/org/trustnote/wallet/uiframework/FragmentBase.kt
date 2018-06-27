@@ -15,6 +15,9 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.TextView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.Subject
 import me.yokeyword.swipebackfragment.SwipeBackFragment
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.home.FragmentMainCreateWalletObserve
@@ -34,6 +37,8 @@ abstract class FragmentBase : SwipeBackFragment() {
     var isCreated = false
     private val ttag = "TTTUI"
     var supportSwipeBack = true
+    protected val disposables: CompositeDisposable = CompositeDisposable()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -85,8 +90,14 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     override fun onPause() {
         super.onPause()
-        Utils.debugLog("$ttag:${this.javaClass.canonicalName}::onPause")
-        updateUI()
+        disposables.clear()
+    }
+
+    fun listener(eventCenter: Subject<Boolean>, function: () -> Unit = { updateUI() }) {
+        val d = eventCenter.observeOn(AndroidSchedulers.mainThread()).subscribe {
+            function.invoke()
+        }
+        disposables.add(d)
     }
 
     abstract fun getLayoutId(): Int

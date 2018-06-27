@@ -107,6 +107,9 @@ abstract class UnitsDao {
     @Query("SELECT * FROM correspondent_devices where device_address = :correspondentDevices")
     abstract fun findCorrespondentDevices(correspondentDevices: String): Array<CorrespondentDevices>
 
+    @Query("SELECT * FROM correspondent_devices where pubkey = :ppubkey")
+    abstract fun findCorrespondentDeviceByPubkey(ppubkey: String): Array<CorrespondentDevices>
+
     @Query("SELECT * FROM correspondent_devices ORDER BY last_message_creation_date DESC")
     abstract fun queryCorrespondetnDevices(): Array<CorrespondentDevices>
 

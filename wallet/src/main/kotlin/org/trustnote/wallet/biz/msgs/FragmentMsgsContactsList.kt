@@ -15,7 +15,6 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
 
     val model: MsgsModel = MsgsModel.instance
 
-
     override fun getLayoutId(): Int {
         return R.layout.f_msg_home
     }
@@ -44,6 +43,11 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
 
         model.refreshHomeList()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        listener(model.mMessagesEventCenter)
     }
 
     override fun getTitle(): String {

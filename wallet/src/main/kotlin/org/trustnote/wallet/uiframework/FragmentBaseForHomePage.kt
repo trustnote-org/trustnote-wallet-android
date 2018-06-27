@@ -17,6 +17,9 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.TextView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.Subject
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.home.FragmentMainCreateWalletObserve
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsAdd
@@ -35,6 +38,7 @@ abstract class FragmentBaseForHomePage : Fragment() {
     lateinit var mToolbar: Toolbar
     var isCreated = false
     private val ttag = "TTTUI"
+    protected val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -57,6 +61,13 @@ abstract class FragmentBaseForHomePage : Fragment() {
         initFragment(mRootView!!)
 
         isCreated = true
+    }
+
+    fun listener(eventCenter: Subject<Boolean>, function: () -> Unit = { updateUI() }) {
+        val d = eventCenter.observeOn(AndroidSchedulers.mainThread()).subscribe {
+            function.invoke()
+        }
+        disposables.add(d)
     }
 
     open fun initFragment(view: View) {
@@ -86,8 +97,7 @@ abstract class FragmentBaseForHomePage : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        Utils.debugLog("$ttag:${this.javaClass.canonicalName}::onPause")
-        updateUI()
+        disposables.clear()
     }
 
     abstract fun getLayoutId(): Int
@@ -229,7 +239,6 @@ abstract class FragmentBaseForHomePage : Fragment() {
                 return true
             }
 
-
         }
         return false
     }
@@ -262,6 +271,5 @@ abstract class FragmentBaseForHomePage : Fragment() {
             }
         }
     }
-
 
 }

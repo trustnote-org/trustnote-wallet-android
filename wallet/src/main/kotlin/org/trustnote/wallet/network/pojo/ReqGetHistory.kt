@@ -28,9 +28,5 @@ class ReqGetHistory : HubRequest {
         setReqParams(params)
     }
 
-    override fun handleResponse(): Boolean {
-
-        return true
-    }
 
 }

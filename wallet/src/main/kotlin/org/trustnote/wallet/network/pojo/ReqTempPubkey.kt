@@ -3,9 +3,9 @@ package org.trustnote.wallet.network.pojo
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.HubMsgFactory
-import org.trustnote.wallet.network.HubMsgFactory.CMD_TEMP_PUBKEY
+import org.trustnote.wallet.network.HubMsgFactory.CMD_UPDATE_MY_TEMP_PUBKEY
 
-class ReqTempPubkey(val pub: String, val priv: String) : HubRequest(CMD_TEMP_PUBKEY, tag = HubModel.instance.getRandomTag()) {
+class ReqTempPubkey(val pub: String, val priv: String) : HubRequest(CMD_UPDATE_MY_TEMP_PUBKEY, tag = HubModel.instance.getRandomTag()) {
 
     //    ["request",{"command":"hub/temp_pubkey",
     // "params":{"temp_pubkey":"A8q7mmQEpS1ogvicDRq5xpZvKYZ94BhOuxpKNu2dUqo7",

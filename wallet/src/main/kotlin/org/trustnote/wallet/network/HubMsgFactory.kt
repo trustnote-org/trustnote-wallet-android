@@ -22,7 +22,9 @@ object HubMsgFactory {
     const val CMD_GET_HISTORY = "light/get_history"
     const val CMD_GET_PARENT_FOR_NEW_TX = "light/get_parents_and_last_ball_and_witness_list_unit"
     const val CMD_POST_JOINT = "post_joint"
-    const val CMD_TEMP_PUBKEY = "hub/temp_pubkey"
+    const val CMD_GET_TEMP_PUBKEY = "hub/get_temp_pubkey"
+    const val CMD_UPDATE_MY_TEMP_PUBKEY = "hub/temp_pubkey"
+    const val CMD_DELIVER = "hub/deliver"
 
     const val SUBJECT_HUB_CHALLENGE = "hub/challenge"
     const val SUBJECT_HUB_LOGIN = "hub/login"

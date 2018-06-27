@@ -144,6 +144,11 @@ object DbHelper {
         return res[0]
     }
 
+    fun findCorrespondentDeviceByPubkey(pubkey: String): CorrespondentDevices {
+        val res = getDao().findCorrespondentDeviceByPubkey(pubkey)
+        return res[0]
+    }
+
     fun clearChatHistory(correspondentAddresses: String) {
         getDao().clearChatHistory(correspondentAddresses)
     }
@@ -156,6 +161,7 @@ object DbHelper {
     fun saveOutbox(outbox: Outbox) {
         getDao().insertOutbox(outbox)
     }
+
 
 }
 

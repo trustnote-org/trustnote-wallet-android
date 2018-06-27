@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "94612b8e99d2a0c7673622d5a6a25719",
+    "identityHash": "c3535448a719ae94e7eb737e5a59541d",
     "entities": [
       {
         "tableName": "my_witnesses",
@@ -665,11 +665,55 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "outbox",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`message_hash` TEXT NOT NULL, `to` TEXT, `message` TEXT, `creation_date` INTEGER NOT NULL, `last_error` TEXT, PRIMARY KEY(`message_hash`))",
+        "fields": [
+          {
+            "fieldPath": "messageHash",
+            "columnName": "message_hash",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "to",
+            "columnName": "to",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "creationDate",
+            "columnName": "creation_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastError",
+            "columnName": "last_error",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "message_hash"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"94612b8e99d2a0c7673622d5a6a25719\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c3535448a719ae94e7eb737e5a59541d\")"
     ]
   }
 }

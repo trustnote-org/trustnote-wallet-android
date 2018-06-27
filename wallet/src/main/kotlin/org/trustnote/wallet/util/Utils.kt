@@ -25,6 +25,9 @@ import org.trustnote.wallet.biz.init.FragmentInit
 import org.trustnote.wallet.biz.wallet.TProfile
 import java.io.File
 import java.text.SimpleDateFormat
+import com.google.gson.JsonParser
+
+
 
 object Utils {
 
@@ -217,6 +220,10 @@ object Utils {
         return """${df.format(date)}"""
     }
 
+    fun stringToJsonElement(json: String): JsonElement {
+        var jsonParser = JsonParser()
+        return jsonParser.parse(json)
+    }
 
     fun getFeeAsString(fee: Long): String {
         return String.format("%.6f", fee.toFloat() / TTT.w_coinunitValue)

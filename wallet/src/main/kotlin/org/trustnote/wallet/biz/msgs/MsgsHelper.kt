@@ -144,7 +144,10 @@ fun composeOutboxPairingMessage(secret: String, correspondentDevices: Correspond
 
     val outbox = Outbox()
     outbox.messageHash = messageHash
-    outbox.message = messageString
+
+    //Save clean text for future sending action
+    outbox.message = paringMessage.toString()
+    //outbox.message = messageString
     outbox.to = correspondentDevices.pubkey
     outbox.creationDate = System.currentTimeMillis()/1000
 

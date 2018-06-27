@@ -22,18 +22,4 @@ class ReqGetParents : HubRequest {
     }
 
 
-    @Synchronized
-    override fun setResponse(hubResponse: HubResponse) {
-        if (latch.count == 0L) {
-            return
-        }
-        Utils.debugLog("setResponse from::" + this.toString())
-        this.hubResponse = hubResponse
-        latch.countDown()
-    }
-
-    override fun handleResponse(): Boolean {
-        return true
-    }
-
 }

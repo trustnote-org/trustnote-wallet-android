@@ -1,5 +1,6 @@
 package org.trustnote.wallet.network.pojo
 
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.HubMsgFactory
@@ -12,10 +13,11 @@ open class HubRequest : HubMsg {
     //TODO: for other request, we need continue retry until success.
 
     val command: String
-    var params: JsonObject = Utils.emptyJsonObject
+    var params: JsonElement = Utils.emptyJsonObject
     val tag: String
     var attachedInfo: Object = Object()
-    @Volatile lateinit var hubResponse: HubResponse
+    @Volatile
+    lateinit var hubResponse: HubResponse
     val latch = CountDownLatch(1)
 
     constructor(textFromHub: String) : super(textFromHub) {
@@ -23,7 +25,6 @@ open class HubRequest : HubMsg {
         command = msgJson.getAsJsonPrimitive(HubMsgFactory.COMMAND).asString
         params = msgJson.getAsJsonObject(HubMsgFactory.PARAMS)
     }
-
 
     constructor(command: String, tag: String, params: JsonObject = Utils.emptyJsonObject) : super(MSG_TYPE.request) {
         this.msgSource = MSG_SOURCE.wallet
@@ -38,7 +39,7 @@ open class HubRequest : HubMsg {
         this.tag = ""
     }
 
-    fun setReqParams(params: JsonObject) {
+    fun setReqParams(params: JsonElement) {
 
         this.params = params
         this.msgJson = JsonObject()
@@ -65,7 +66,8 @@ open class HubRequest : HubMsg {
     }
 
     open fun handleResponse(): Boolean {
-        return false
+        return true
     }
+
 
 }
