@@ -1,4 +1,4 @@
-### TTT native wallet for Android device 
+### Light Fast Sweet Wallet 
 [![Build Status](https://travis-ci.org/trustnote/trustnote-wallet-android.svg?branch=master)](https://travis-ci.org/trustnote/trustnote-wallet-android) 
 
 The project is still in its early stages
