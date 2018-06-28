@@ -40,12 +40,18 @@ class FragmentMsgsChat : FragmentMsgsBase() {
 
         super.initFragment(view)
 
+        correspondentAddresses = arguments.getString(AndroidUtils.KEY_CORRESPODENT_ADDRESSES)
+        correspondentDevices = model.findCorrespondentDevice(correspondentAddresses)!!
+
+
         title = mRootView.findViewById(R.id.title)
 
         input = mRootView.findViewById(R.id.input)
 
         recyclerView = mRootView.findViewById(R.id.list)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        val llm = LinearLayoutManager(activity)
+        llm.stackFromEnd = true
+        recyclerView.layoutManager = llm
 
         mSwipeRefreshLayout = mRootView.findViewById(R.id.swiperefresh)
 
@@ -57,8 +63,6 @@ class FragmentMsgsChat : FragmentMsgsBase() {
 
         }
 
-        correspondentAddresses = arguments.getString(AndroidUtils.KEY_CORRESPODENT_ADDRESSES)
-        correspondentDevices = model.findCorrespondentDevice(correspondentAddresses)!!
 
         input.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
@@ -99,8 +103,16 @@ class FragmentMsgsChat : FragmentMsgsBase() {
         super.onResume()
     }
 
+    override fun onPause() {
+        model.readAllMessages(correspondentAddresses)
+        super.onPause()
+    }
+
     override fun updateUI() {
         super.updateUI()
+
+        correspondentAddresses = arguments.getString(AndroidUtils.KEY_CORRESPODENT_ADDRESSES)
+        correspondentDevices = model.findCorrespondentDevice(correspondentAddresses)!!
 
         title.text = correspondentDevices.name
 

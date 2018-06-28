@@ -1,8 +1,8 @@
 package org.trustnote.wallet.network
 
-import org.trustnote.wallet.biz.msgs.MsgsModel
+import org.trustnote.wallet.biz.msgs.MessageModel
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.network.HubMsgFactory.SUBJECT_HUB_HAVE_UPDATES
+import org.trustnote.wallet.network.HubMsgFactory.SUBJECT_LIGHT_HAVE_UPDATES
 import org.trustnote.wallet.network.HubMsgFactory.SUBJECT_HUB_MESSAGE
 import org.trustnote.wallet.network.HubMsgFactory.SUBJECT_JOINT
 import org.trustnote.wallet.network.pojo.HubJustSaying
@@ -28,10 +28,10 @@ class HubModel {
     fun onMessage(hubMsg: HubMsg) {
 
         if (hubMsg is HubJustSaying && SUBJECT_HUB_MESSAGE == hubMsg.subject) {
-            MsgsModel.instance.onMessage(hubMsg)
+            MessageModel.instance.onMessage(hubMsg)
         }
 
-        if (hubMsg is HubJustSaying && SUBJECT_HUB_HAVE_UPDATES == hubMsg.subject) {
+        if (hubMsg is HubJustSaying && SUBJECT_LIGHT_HAVE_UPDATES == hubMsg.subject) {
             WalletManager.model.onMessage(hubMsg)
         }
 

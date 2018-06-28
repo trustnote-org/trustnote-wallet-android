@@ -13,7 +13,7 @@ import org.trustnote.wallet.uiframework.FragmentBaseForHomePage
 
 class FragmentMsgsContactsList : FragmentBaseForHomePage() {
 
-    val model: MsgsModel = MsgsModel.instance
+    val model: MessageModel = MessageModel.instance
 
     override fun getLayoutId(): Int {
         return R.layout.f_msg_home

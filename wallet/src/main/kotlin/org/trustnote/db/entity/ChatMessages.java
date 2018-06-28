@@ -4,9 +4,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
-import org.trustnote.wallet.util.Utils;
+import org.trustnote.wallet.R;
+import org.trustnote.wallet.TApp;
+import org.trustnote.wallet.biz.msgs.MessageModel;
+import org.trustnote.wallet.biz.msgs.TMessageType;
 
 import java.lang.Integer;
 import java.lang.String;
@@ -69,9 +71,36 @@ public class ChatMessages extends TBaseEntity {
     @Ignore
     public boolean alreadyComputeForShow = false;
 
-}
 
-enum ChatMessageType {
-    msg_from_me,
-    msg_from_you
+    public static ChatMessages createIncomingMessage(String message, String from) {
+        ChatMessages res = new ChatMessages();
+        res.creationDate = System.currentTimeMillis() / 1000;
+        res.correspondentAddress = from;
+        res.message = message;
+        res.type = TMessageType.text.name();
+        res.isIncoming = 1;
+        return res;
+    }
+
+    public static ChatMessages createOutMessage(String message, String from) {
+        ChatMessages res = new ChatMessages();
+        res.creationDate = System.currentTimeMillis() / 1000;
+        res.correspondentAddress = from;
+        res.message = message;
+        res.type = TMessageType.text.name();
+        res.isIncoming = 0;
+        return res;
+    }
+
+
+    public static ChatMessages createSystemMessage(String message, String from) {
+        ChatMessages res = new ChatMessages();
+        res.creationDate = System.currentTimeMillis() / 1000;
+        res.correspondentAddress = from;
+        res.message = message;
+        res.type = TMessageType.system.name();
+        res.isIncoming = 0;
+        return res;
+    }
+
 }

@@ -5,7 +5,7 @@ import org.trustnote.wallet.uiframework.FragmentBase
 abstract class FragmentMsgsBase : FragmentBase() {
 
 
-    val model: MsgsModel = MsgsModel.instance
+    val model: MessageModel = MessageModel.instance
 
     override fun onResume() {
         super.onResume()

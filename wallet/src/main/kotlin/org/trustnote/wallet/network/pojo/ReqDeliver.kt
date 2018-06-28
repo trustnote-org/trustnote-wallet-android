@@ -11,7 +11,7 @@ class ReqDeliver : HubRequest {
     }
 
     fun isAccepted(): Boolean {
-        return  "accepted" == getResponse().responseJson?.asString
+        return  "accepted" == (getResponse().responseJson?.asString)
     }
 
 //    ["request",{"command":"hub/deliver","params":{"encrypted_package":{"encrypted_message":"r+m+SP0tt+iYmfDGkK+fatVdRcn1TJ4kUR/zrnnSzd4uc4nHOeLmhP/tVwbv2w195xAZT1+l7A8V1s6/HjPM/PEsfRsrST6h/elKdZPHRmtCCXAAiwv82LGY8nWVdRW0IyyvcmCEkX7J+j9TLh9Z7nikjm77Y3Ou6vq5lSRjmSrlPnj14t1XCY/iNXGsbliwOrkYy4uHdDjLBYLrmjicBc8dS2SxZlrDcN6wRPiUiKl+zPMtH0VAvcWoj4/KChuAlo8PNf30DBDkITcadscUqw==","iv":"/R4C7YFYT/9g8Ymy","authtag":"CTh56+JffTrj1rKnG+Cdrg==","dh":{"sender_ephemeral_pubkey":"AjNS+oaCrGytUuJBIs/NOswrjfr4ZDSAx/e5QEWNEUAU","recipient_ephemeral_pubkey":"Atc1msG8z4HTTJyT61WKHtL6A4xQLrSmSMaclvZtJdYJ"}},

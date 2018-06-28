@@ -10,29 +10,29 @@ class HubResponse : HubMsg {
 
     val tag: String
     val responseJson: JsonElement
-    val hasError: Boolean
+    val hasErrorFromHub: Boolean
 
     constructor(textFromHub: String) : super(textFromHub) {
         tag = msgJson.getAsJsonPrimitive(HubMsgFactory.TAG).asString
 
         responseJson = msgJson.get(HubMsgFactory.RESPONSE) ?: Utils.emptyJsonObject
-        hasError = responseJson is JsonObject && responseJson.has("error")
+        hasErrorFromHub = responseJson is JsonObject && responseJson.has("error")
     }
 
     constructor(msgType: MSG_TYPE = MSG_TYPE.empty) : super(msgType) {
         tag = ""
         responseJson = Utils.emptyJsonObject
-        hasError = responseJson is JsonObject && responseJson.has("error")
+        hasErrorFromHub = responseJson is JsonObject && responseJson.has("error")
     }
 
     constructor(responseJson: JsonObject, tag: String) : super(MSG_TYPE.response) {
         this.responseJson = responseJson
         this.tag = tag
-        hasError = responseJson is JsonObject && responseJson.has("error")
+        hasErrorFromHub = responseJson is JsonObject && responseJson.has("error")
     }
 
     fun getError(): String {
-        return if (hasError) (responseJson as JsonObject).get("error").asString else ""
+        return if (hasErrorFromHub) (responseJson as JsonObject).get("error").asString else ""
     }
 
     //TODO: a sample error response.

@@ -11,9 +11,11 @@ class ReqGetTempPubkey : HubRequest {
     //    ["request",{"command":"hub/get_temp_pubkey",
     // "params":"A4WANK+q3yKjY1zrFEHDnAePNte1JazA3dppW3XZB7+9",
     // "tag":"l8lMro64mYriosRR9Upp6gCFj1Tgm/7jlz5dGQu15Ek="}]
-    constructor(pubkey: String) : super(CMD_GET_TEMP_PUBKEY, tag = HubModel.instance.getRandomTag()) {
+    constructor(pubkey: String, hubAddress: String) : super(CMD_GET_TEMP_PUBKEY, tag = HubModel.instance.getRandomTag()) {
         val params = JsonPrimitive(pubkey)
         setReqParams(params)
+        targetHubAddress = hubAddress
+
     }
 
     fun getTempPubkey(): String {

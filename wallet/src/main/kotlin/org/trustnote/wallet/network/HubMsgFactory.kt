@@ -29,7 +29,7 @@ object HubMsgFactory {
     const val SUBJECT_HUB_CHALLENGE = "hub/challenge"
     const val SUBJECT_HUB_LOGIN = "hub/login"
     const val SUBJECT_HUB_MESSAGE = "hub/message"
-    const val SUBJECT_HUB_HAVE_UPDATES = "light/have_updates"
+    const val SUBJECT_LIGHT_HAVE_UPDATES = "light/have_updates"
     const val SUBJECT_JOINT = "joint"
     const val SUBJECT_HUB_DELETE = "hub/delete"
 

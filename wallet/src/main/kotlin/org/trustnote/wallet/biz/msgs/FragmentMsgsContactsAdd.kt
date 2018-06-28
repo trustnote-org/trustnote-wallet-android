@@ -1,18 +1,14 @@
 package org.trustnote.wallet.biz.msgs
 
 import android.view.View
-import android.view.WindowManager
 import android.widget.Button
-import kotlinx.android.synthetic.main.w_mnemonics_grid.*
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
-import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.ScanLayout
 
 class FragmentMsgsContactsAdd : FragmentMsgsBase() {
@@ -48,7 +44,7 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
 
             if (isQrCodeValid()) {
                 onBackPressed()
-                MsgsModel.instance.addContacts(scanLayout.scanResult.text.toString()) {
+                MessageModel.instance.addContacts(scanLayout.scanResult.text.toString()) {
 
                     chatWithFriend(it, ownerActivity)
 

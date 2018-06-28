@@ -1,13 +1,18 @@
 package org.trustnote.wallet.biz.msgs
 
 import com.google.gson.JsonObject
+import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.ChatMessages
 import org.trustnote.db.entity.CorrespondentDevices
 import org.trustnote.db.entity.Outbox
+import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.pojo.HubJustSaying
+import org.trustnote.wallet.network.pojo.ReqDeliver
+import org.trustnote.wallet.network.pojo.ReqGetTempPubkey
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
@@ -112,38 +117,13 @@ fun composeOutboxPairingMessage(secret: String, correspondentDevices: Correspond
 
 }
 
-//Message type: text:
-//{"from":"0YUFBVGJOD64MUC2BFL2LR65FOVKJGTVI","device_hub":"kaketest.trustnote.org","subject":"text","body":"CCCC"}
-
-fun testDecrypt(s: String) {
-    val jsApi = JSApi()
-    val myProfile = WalletManager.model.mProfile
-
-    var encryptedParingMessage = jsApi.createEncryptedPackageSync(s, myProfile.tempPubkey)
-
-    //encryptedParingMessage = encryptedParingMessage.replace("""\""", """""")
-
-    val decrypt = jsApi.decryptPackage(encryptedParingMessage, myProfile.tempPrivkey, myProfile.prevTempPrivkey, myProfile.privKeyForPairId)
-
-    Utils.debugLog(decrypt)
-
-}
-
 fun composeOutboxTextMessage(body: String, correspondentDevices: CorrespondentDevices): Outbox {
 
+    val tMessage = TMessage(TMessageSubject.text.name, body)
+
     val jsApi = JSApi()
-    val myDeviceAddress = WalletManager.model.mProfile.deviceAddress
-    val myHub = HubModel.instance.mDefaultHubAddress
-
-    val paringMessage = JsonObject()
-    paringMessage.addProperty("from", myDeviceAddress)
-    paringMessage.addProperty("device_hub", myHub)
-    paringMessage.addProperty("subject", "text")
-    paringMessage.addProperty("body", body)
-
-    val encryptedParingMessage = jsApi.createEncryptedPackageSync(paringMessage.toString(), correspondentDevices.pubkey)
-
-    testDecrypt(paringMessage.toString())
+    val encryptedParingMessage = jsApi.createEncryptedPackageSync(tMessage.toJsonString(),
+            correspondentDevices.pubkey ?: WalletManager.model.mProfile.pubKeyForPairId)
 
     val objDeviceMessage = JsonObject()
     objDeviceMessage.addProperty("encrypted_package", encryptedParingMessage)
@@ -153,10 +133,7 @@ fun composeOutboxTextMessage(body: String, correspondentDevices: CorrespondentDe
 
     val outbox = Outbox()
     outbox.messageHash = messageHash
-
-    //Save clean text for future sending action
-    outbox.message = paringMessage.toString()
-    //outbox.message = messageString
+    outbox.message = tMessage.toJsonString()
     outbox.to = correspondentDevices.deviceAddress
     outbox.creationDate = System.currentTimeMillis() / 1000
 
@@ -186,19 +163,19 @@ fun onMessageCalledByMsgsModel(hubJustSaying: HubJustSaying): String {
 
     val messageJson = Utils.stringToJsonElement(decryptPackage)
 
-    if (messageJson !is JsonObject || messageJson.has("subject")) {
+    if (messageJson !is JsonObject || !messageJson.has("subject")) {
         Utils.logW("Unknown incoming message${hubJustSaying.toHubString()}")
-        return messageHash
+        return ""
     }
 
     val messageSubject = messageJson.get("subject").asString
 
     if ("pairing" == messageSubject) {
-        MsgsModel.instance.receivePairingRequest(messageJson)
+        MessageModel.instance.receivePairingRequest(messageJson)
     }
 
     if ("text" == messageSubject) {
-        MsgsModel.instance.receiveTextMessage(messageJson)
+        MessageModel.instance.receiveTextMessage(messageJson)
     }
 
     Utils.debugLog(decryptPackage)
@@ -207,5 +184,110 @@ fun onMessageCalledByMsgsModel(hubJustSaying: HubJustSaying): String {
 
 }
 
+fun getTempPubkey(correspondentDevices: CorrespondentDevices): String {
+
+    val req = ReqGetTempPubkey(correspondentDevices.pubkey, correspondentDevices.hub)
+    HubModel.instance.sendHubMsg(req)
+
+    if (req.getResponse().hasErrorFromHub) {
+
+        //TODO: save error or just ignore?
+        return ""
+    }
+
+    return req.getTempPubkey()
+
+}
+
+fun sendOutboxMessage(outbox: Outbox) {
+
+    val api = JSApi()
+    val deviceAddress = outbox.to
+
+    val correspondentDevices = DbHelper.findCorrespondentDevice(deviceAddress)
+
+    if (correspondentDevices == null) {
+        MessageModel.instance.deviceOfOutboxMessageHasBeenRemoved(outbox)
+        return
+    }
+
+    val tempPubkey = getTempPubkey(correspondentDevices)
+
+    if (tempPubkey.isEmpty()) {
+        return
+    }
+
+    var encryptedMessage = api.createEncryptedPackageSync(outbox.message, tempPubkey)
+    var encryptedMessageJson = Utils.stringToJsonElement(encryptedMessage)
+
+    val deviceMessage = TDeviceMessage(encryptedMessageJson,
+            correspondentDevices.deviceAddress,
+            WalletManager.model.mProfile.pubKeyForPairId)
+
+
+    val hash = api.getDeviceMessageHashToSignSync(deviceMessage.toJsonString())
+
+    deviceMessage.signature = api.signSync(hash, WalletManager.model.mProfile.privKeyForPairId, "null")
+
+    val reqDeliver = ReqDeliver(Utils.toGsonObject(deviceMessage))
+    reqDeliver.targetHubAddress = (correspondentDevices.hub)
+    HubModel.instance.sendHubMsg(reqDeliver)
+
+    if (reqDeliver.isAccepted()) {
+        MessageModel.instance.outboxMessageSendSuccessful(outbox)
+    } else if (reqDeliver.getResponse().hasErrorFromHub) {
+        MessageModel.instance.outboxMessageSendSuccessful(outbox)
+        //TODO: save error msg in outbox ?When to retry?
+    }
+
+}
+
+fun addOrUpdateContacts(pubkey: String, deviceAddressP: String, hubAddress: String, isConfirmed: Int, name: String, secret: String, lambda: (String) -> Unit = {}) {
+
+    val api = JSApi()
+
+    var deviceAddress = deviceAddressP
+    if (pubkey.isNotEmpty()) {
+        deviceAddress = api.getDeviceAddressSync(pubkey)
+    }
+
+    var correspondentDevices = MessageModel.instance.findCorrespondentDevice(deviceAddress)
+    val isExist = (correspondentDevices != null)
+    if (!isExist) {
+
+        correspondentDevices = CorrespondentDevices()
+        correspondentDevices.deviceAddress = deviceAddress
+        correspondentDevices.pubkey = pubkey
+        correspondentDevices.hub = hubAddress
+        correspondentDevices.creationDate = System.currentTimeMillis() / 1000
+        correspondentDevices.name = name
+
+        val message = TApp.resources.getString(R.string.default_first_msg_for_friend, correspondentDevices.name);
+        val chatMessages = ChatMessages.createSystemMessage(message, correspondentDevices.deviceAddress)
+        DbHelper.saveChatMessages(chatMessages)
+
+    } else {
+
+        correspondentDevices?.deviceAddress = deviceAddress
+        correspondentDevices?.hub = hubAddress
+        correspondentDevices?.name = name
+
+    }
+
+    if (correspondentDevices?.isConfirmed == 1 || isConfirmed == 1) {
+        correspondentDevices?.isConfirmed = 1
+    }
+
+    DbHelper.saveCorrespondentDevice(correspondentDevices!!)
+
+    val outbox = composeOutboxPairingMessage(secret, correspondentDevices)
+    DbHelper.saveOutbox(outbox)
+
+    MessageModel.instance.refreshHomeList()
+
+    lambda.invoke(correspondentDevices.deviceAddress)
+    MessageModel.instance.mMessagesEventCenter.onNext(true)
+
+}
 
 

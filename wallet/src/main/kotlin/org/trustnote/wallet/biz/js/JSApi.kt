@@ -5,6 +5,7 @@ import android.webkit.ValueCallback
 class JSApi {
 
 
+    //TODO: use struct to compose the api command.
     /**
      * 生成助记词
      * @method mnemonic
@@ -321,7 +322,9 @@ class JSApi {
      * @return {string} 密文
      */
     fun createEncryptedPackageSync(jsonString: String, pubkey: String): String {
-        return TWebView.sInstance.callJSSync("""window.Client.createEncryptedPackage($jsonString,"$pubkey");""")
+        var res = TWebView.sInstance.callJSSync("""window.Client.createEncryptedPackage($jsonString, "$pubkey");""")
+        res = res.replace("""\""", "")
+        return res
     }
 
     /**
@@ -335,7 +338,7 @@ class JSApi {
      * @return {string} 明文字符串
      */
     fun decryptPackage(objEncryptedPackage: String, privKey: String, prePrivKey: String, m1PrivKey: String): String {
-        return TWebView.sInstance.callJSSync("""window.Client.decryptPackage("$objEncryptedPackage","$privKey","$prePrivKey","$m1PrivKey");""")
+        return TWebView.sInstance.callJSSync("""window.Client.decryptPackage($objEncryptedPackage, "$privKey", "$prePrivKey", "$m1PrivKey");""")
     }
 
 }

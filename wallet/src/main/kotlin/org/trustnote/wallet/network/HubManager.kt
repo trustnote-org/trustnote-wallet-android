@@ -188,7 +188,7 @@ class HubManager {
                 relatedRequest.handleResponse()
                 mRequestMap.remove(tag)
             } else {
-                Utils.logW("onMessage with unknown request. hubaddress is: $hubAddress, message is: $message")
+                //Utils.logW("onMessage with unknown request. hubaddress is: $hubAddress, message is: $message")
             }
             return
         }
