@@ -66,10 +66,10 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
 
         if (getItemViewType(position) == SettingItemType.ITEM_SETTING_SUB.ordinal) {
             if (settingData.value.isEmpty()) {
-                holder.holderView.findViewById<TextView>(R.id.setting_value).visibility = View.GONE
+                holder.holderView.findViewById<TextView>(R.id.setting_value).visibility = View.INVISIBLE
             } else {
                 holder.holderView.findViewById<TextView>(R.id.setting_value).setText(settingData.value)
-                holder.holderView.findViewById<View>(R.id.icon_setting_arrow).visibility = View.GONE
+                holder.holderView.findViewById<View>(R.id.icon_setting_arrow).visibility = View.INVISIBLE
             }
             holder.holderView.findViewById<TextView>(R.id.setting_title).setText(settingData.titleResId)
         }

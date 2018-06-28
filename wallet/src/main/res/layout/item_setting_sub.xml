@@ -20,7 +20,7 @@
             android:gravity="right"
             android:layout_width="70dp"
             android:layout_marginLeft="@dimen/line_gap_16"
-            android:layout_toLeftOf="@id/icon_setting_arrow"
+            android:layout_alignRight="@id/icon_setting_arrow"
             android:layout_toRightOf="@id/setting_title"
             android:text="@string/place_holder" />
 

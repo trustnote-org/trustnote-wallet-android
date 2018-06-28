@@ -2,16 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout style="@style/t_layout"
-        android:background="@color/home_line_middle">
+        android:background="@color/tx_list_bg">
 
         <TextView
             android:background="@color/bg_white"
             android:id="@+id/setting_title"
             style="@style/t_title"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:paddingLeft="@dimen/page_margin"
             android:paddingRight="@dimen/page_margin"
-            android:paddingBottom="@dimen/line_gap_48"
+            android:paddingBottom="@dimen/line_gap_36"
             android:paddingTop="@dimen/line_gap_10"
             android:text="@string/setting_system" />
 

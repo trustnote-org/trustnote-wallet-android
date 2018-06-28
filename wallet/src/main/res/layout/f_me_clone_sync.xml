@@ -4,40 +4,35 @@
     <RelativeLayout
         style="@style/t_layout"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/padding_main"
-        android:paddingRight="@dimen/padding_main"
-        android:orientation="vertical">
+        android:paddingRight="@dimen/padding_main">
 
         <TextView
             android:id="@+id/mnemonic_restore_title"
             style="@style/t_title"
-            android:layout_marginBottom="@dimen/line_gap_14"
+            android:layout_marginBottom="@dimen/line_gap_32"
             android:text="@string/me_clone_sync_title" />
 
-        <TextView
-            android:id="@+id/mnemonic_restore_msg"
-            style="@style/t_text_msg"
-            android:layout_below="@id/mnemonic_restore_title"
-            android:text="@string/me_clone_sync_msg" />
 
         <ImageView
             android:id="@+id/pp"
-            android:src="@drawable/png_clone_sync"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/mnemonic_restore_msg"
             android:layout_width="@dimen/contacts_empty_width"
-            android:layout_height="@dimen/contacts_empty_width" />
+            android:layout_height="@dimen/contacts_empty_width"
+            android:layout_below="@id/mnemonic_restore_title"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/png_clone_sync" />
 
         <WebView
-            android:layout_marginTop="@dimen/line_gap_32"
             android:id="@+id/full_sync_warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pp" />
+            android:layout_below="@id/pp"
+            android:layout_marginTop="@dimen/line_gap_32" />
 
         <Button
             android:id="@+id/me_clone_sync_btn"
-            style="@style/t_btn_blue"
+            style="@style/t_btn_white"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"
             android:text="@string/me_clone_sync_btn" />

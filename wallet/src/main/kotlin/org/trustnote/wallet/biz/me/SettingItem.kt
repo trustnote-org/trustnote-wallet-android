@@ -25,13 +25,14 @@ class SettingItem(
         fun getSettingMain(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
 
-                    SettingItem(titleResId = R.string.setting_ttt_pwd,
-                            icResId = R.drawable.me_ttt_pwd,
-                            lambda = {
-                                AndroidUtils.todo()
-                            }),
-
-                    SettingItem(itemType = SettingItemType.ITEM_GAP),
+                    //Feature in future release.
+                    //                    SettingItem(titleResId = R.string.setting_ttt_pwd,
+                    //                            icResId = R.drawable.me_ttt_pwd,
+                    //                            lambda = {
+                    //                                AndroidUtils.todo()
+                    //                            }),
+                    //
+                    //                    SettingItem(itemType = SettingItemType.ITEM_GAP),
 
                     SettingItem(titleResId = R.string.setting_wallet_tools,
                             icResId = R.drawable.me_wallet_tool,
@@ -50,6 +51,7 @@ class SettingItem(
                     SettingItem(itemType = SettingItemType.ITEM_LINE),
 
                     SettingItem(titleResId = R.string.setting_system,
+                            icResId = R.drawable.ic_setting,
                             lambda = {
                                 openSubSetting(activity, getSettingSystem(activity), R.string.setting_system)
                             }),
@@ -72,7 +74,7 @@ class SettingItem(
         fun getSettingAbout(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_about_version),
+                            titleResId = R.string.setting_about_version, value = BuildConfig.VERSION_NAME),
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.setting_about_hash, value = BuildConfig.GitHash),
@@ -112,7 +114,7 @@ class SettingItem(
                             titleResId = R.string.setting_wallet_tools_restoremem) {
                         restoreFromMnemonic(activity)
                     },
-                    SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
+                    SettingItem(itemType = SettingItemType.ITEM_GAP),
 
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.setting_wallet_tools_fullsync) {

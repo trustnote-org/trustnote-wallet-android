@@ -3,6 +3,7 @@ package org.trustnote.wallet.util
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.gson.JsonObject
+import org.trustnote.db.TxType
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.Credential
@@ -198,6 +199,11 @@ object TTTUtils {
     }
 
 
+
+    fun getTxStatusDrawable(txType: TxType, confirmations: Int): Int {
+
+        return R.drawable.ic_tx_confirmed
+    }
 
 }
 

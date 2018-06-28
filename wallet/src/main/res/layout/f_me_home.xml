@@ -3,7 +3,7 @@
 
     <RelativeLayout
         style="@style/t_layout"
-        android:background="@color/home_line_middle"
+        android:background="@color/tx_list_bg"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 

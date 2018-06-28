@@ -36,13 +36,10 @@ class FragmentMsgsChat : FragmentMsgsBase() {
 
     override fun initFragment(view: View) {
 
-        isBottomLayerUI = true
-
         super.initFragment(view)
 
         correspondentAddresses = arguments.getString(AndroidUtils.KEY_CORRESPODENT_ADDRESSES)
         correspondentDevices = model.findCorrespondentDevice(correspondentAddresses)!!
-
 
         title = mRootView.findViewById(R.id.title)
 

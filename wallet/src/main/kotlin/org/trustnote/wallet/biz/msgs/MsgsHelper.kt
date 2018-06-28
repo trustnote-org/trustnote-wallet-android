@@ -147,18 +147,20 @@ fun onMessageCalledByMsgsModel(hubJustSaying: HubJustSaying): String {
         Utils.logW("Unknown incoming message${hubJustSaying.toHubString()}")
         return ""
     }
-    val message = (hubJustSaying.bodyJson as JsonObject).get("message") as JsonObject
+
+    val deviceMessage = (hubJustSaying.bodyJson as JsonObject).get("message") as JsonObject
+
     val messageHash = (hubJustSaying.bodyJson as JsonObject).get("message_hash").asString
 
-    val encryptedPackage = message.get("encrypted_package").toString()
-    val pubkey = message.get("pubkey").asString
+    val deviceMessageObj = Utils.getGson().fromJson(deviceMessage, TDeviceMessage::class.java)
 
     val api = JSApi()
     val myProfile = WalletManager.model.mProfile
 
-    var decryptPackage = api.decryptPackage(encryptedPackage,
+    var decryptPackage = api.decryptPackage(deviceMessageObj.encryptedPackage.toString(),
             myProfile.tempPrivkey,
             myProfile.prevTempPrivkey, myProfile.privKeyForPairId)
+
     decryptPackage = decryptPackage.replace("""\""", "")
 
     val messageJson = Utils.stringToJsonElement(decryptPackage)
@@ -171,7 +173,9 @@ fun onMessageCalledByMsgsModel(hubJustSaying: HubJustSaying): String {
     val messageSubject = messageJson.get("subject").asString
 
     if ("pairing" == messageSubject) {
-        MessageModel.instance.receivePairingRequest(messageJson)
+
+        MessageModel.instance.receivePairingRequest(messageJson, deviceMessageObj.pubkey)
+
     }
 
     if ("text" == messageSubject) {

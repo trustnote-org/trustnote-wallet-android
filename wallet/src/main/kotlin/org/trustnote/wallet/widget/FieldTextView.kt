@@ -50,17 +50,23 @@ open class FieldTextView @JvmOverloads constructor(
 
     private fun showStatus(isStable: Boolean, txType: TxType) {
         if (txType == TxType.invalid) {
+
             invalid.visibility = View.VISIBLE
             confirmed.visibility = View.GONE
             unconfirmed.visibility = View.GONE
+
         } else if (isStable) {
+
             confirmed.visibility = View.VISIBLE
             unconfirmed.visibility = View.GONE
             invalid.visibility = View.GONE
+
         } else {
+
             confirmed.visibility = View.GONE
             unconfirmed.visibility = View.VISIBLE
             invalid.visibility = View.GONE
+
         }
     }
 

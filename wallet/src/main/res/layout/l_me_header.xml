@@ -33,15 +33,20 @@
             android:layout_toRightOf="@id/me_icon"
             android:text="@string/place_holder" />
 
-        <ImageView
+        <FrameLayout
             android:id="@+id/me_header_edit"
-            android:layout_width="@dimen/ic_20"
-            android:layout_height="@dimen/ic_20"
-            android:layout_alignBottom="@id/me_device_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/me_header_edit" />
+            android:layout_alignTop="@id/me_device_name"
+            android:padding="@dimen/line_gap_6">
+
+            <ImageView
+                android:layout_width="@dimen/ic_20"
+                android:layout_height="@dimen/ic_20"
+                android:scaleType="fitXY"
+                android:src="@drawable/me_header_edit" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/me_header_welcome"
@@ -49,7 +54,9 @@
             android:layout_alignBottom="@id/me_icon"
             android:layout_alignLeft="@id/me_device_name"
             android:layout_toRightOf="@id/me_icon"
-            android:text="@string/me_header_welcome" />
+            android:text="@string/me_header_welcome"
+            android:textColor="@color/t_hint"
+            android:textSize="@dimen/text_14" />
 
         <View
             android:id="@+id/line1"

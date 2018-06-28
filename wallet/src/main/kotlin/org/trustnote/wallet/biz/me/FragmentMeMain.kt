@@ -2,6 +2,8 @@ package org.trustnote.wallet.biz.me
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import org.trustnote.wallet.R
@@ -73,7 +75,11 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
 
     override fun setupToolbar() {
         super.setupToolbar()
-        mToolbar.setBackgroundResource(R.color.page_bg)
+        mToolbar.setBackgroundResource(R.color.tx_list_bg)
+    }
+
+    override fun inflateMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.only_my_pair_id, menu)
     }
 
     private fun editDevicename() {

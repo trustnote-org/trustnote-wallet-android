@@ -164,7 +164,7 @@ class MessageModel {
 
     }
 
-    fun receivePairingRequest(messageJson: JsonObject) {
+    fun receivePairingRequest(messageJson: JsonObject, pubkey: String) {
 
         val body = messageJson.get("body") as JsonObject
 
@@ -173,7 +173,9 @@ class MessageModel {
         val isConfirmed = 1
         val name = body.get("device_name").asString
 
-        addOrUpdateContacts("", deviceAddress, hub, isConfirmed, name, "")
+        addOrUpdateContacts(pubkey, deviceAddress, hub, isConfirmed, name, "")
+
+        //pong back with device name is necessary.
 
     }
 

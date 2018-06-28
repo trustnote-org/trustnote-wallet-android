@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import org.trustnote.db.TxType
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
@@ -81,7 +82,9 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
 
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        val a = TxAdapter(credential.txDetails.toTypedArray())
+        val a = TxAdapter(credential.txDetails.filter {
+            TxType.moved != it.txType
+        }.toTypedArray())
 
         recyclerView.adapter = a
 
