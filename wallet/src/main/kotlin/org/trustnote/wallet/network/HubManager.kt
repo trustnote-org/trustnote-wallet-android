@@ -78,13 +78,22 @@ class HubManager {
     private fun updateMyTempPubkey() {
 
         //TODO: should we update the temp key every connect?
-        if (WalletManager.model.mProfile.tempPrivkey.isEmpty()) {
+        val myProfile = WalletManager.model.mProfile
+        if (myProfile.prevTempPrivkey.isEmpty()
+                || myProfile.tempPrivkey.isEmpty()) {
 
             val api = JSApi()
             val priv = api.genPrivKeySync()
             val pub = api.genPubKeySync(priv)
 
             sendHubMsg(ReqTempPubkey(pub, priv))
+        } else {
+            val api = JSApi()
+            val priv = api.genPrivKeySync()
+            val pub = api.genPubKeySync(priv)
+
+            sendHubMsg(ReqTempPubkey(pub, priv))
+//            sendHubMsg(ReqTempPubkey(myProfile.tempPubkey, myProfile.tempPrivkey))
         }
 
     }

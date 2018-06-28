@@ -112,8 +112,7 @@ object Utils {
     }
 
     fun decodeJsStr(jsString: String): String {
-        //TODO: just remove first and last double quota.
-        return jsString.filterNot { it == '"' }
+        return jsString.removePrefix("\"").removeSuffix("\"")
     }
 
     fun encodeJsStr(planeStr: String): String {

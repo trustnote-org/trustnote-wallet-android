@@ -58,12 +58,13 @@ class FragmentMsgsChat : FragmentMsgsBase() {
         }
 
         correspondentAddresses = arguments.getString(AndroidUtils.KEY_CORRESPODENT_ADDRESSES)
-        correspondentDevices = model.findCorrespondentDevice(correspondentAddresses)
+        correspondentDevices = model.findCorrespondentDevice(correspondentAddresses)!!
 
         input.setOnEditorActionListener(object : TextView.OnEditorActionListener {
             override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
                 var handled = false
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    sendMessage(input.text.toString())
                     input.setText("")
                     handled = true
 
@@ -79,6 +80,14 @@ class FragmentMsgsChat : FragmentMsgsBase() {
 
         })
 
+    }
+
+    private fun sendMessage(messages: String) {
+        if (messages.isEmpty()) {
+            return
+        }
+
+        model.sendTextMessage(messages, correspondentDevices)
     }
 
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {

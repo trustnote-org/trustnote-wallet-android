@@ -21,7 +21,7 @@ object DbHelper {
             it.index / 900
         }.map { it.value.map { it.value } }
 
-        for(ids in idArrOfArr) {
+        for (ids in idArrOfArr) {
             getDao().unitsStabled(ids.toTypedArray())
         }
 
@@ -49,7 +49,6 @@ object DbHelper {
         })
 
     }
-
 
     fun hasDefinitions(address: String): Boolean = getDao().findDefinitions(address) > 0
 
@@ -126,7 +125,7 @@ object DbHelper {
         getDao().updateUnreadMessageCounter(correspondentAddress)
     }
 
-    fun queryCorrespondetnDevices(): List<CorrespondentDevices>{
+    fun queryCorrespondetnDevices(): List<CorrespondentDevices> {
         return getDao().queryCorrespondetnDevices().asList()
     }
 
@@ -139,14 +138,14 @@ object DbHelper {
         updateUnreadMessageCounter(correspondentAddress)
     }
 
-    fun findCorrespondentDevice(correspondentAddress: String): CorrespondentDevices {
+    fun findCorrespondentDevice(correspondentAddress: String): CorrespondentDevices? {
         val res = getDao().findCorrespondentDevices(correspondentAddress)
-        return res[0]
+        return if (res.isEmpty()) null else res[0]
     }
 
-    fun findCorrespondentDeviceByPubkey(pubkey: String): CorrespondentDevices {
+    fun findCorrespondentDeviceByPubkey(pubkey: String): CorrespondentDevices? {
         val res = getDao().findCorrespondentDeviceByPubkey(pubkey)
-        return res[0]
+        return if (res.isEmpty()) null else res[0]
     }
 
     fun clearChatHistory(correspondentAddresses: String) {
@@ -162,6 +161,9 @@ object DbHelper {
         getDao().insertOutbox(outbox)
     }
 
+    fun removeMsgInOutbox(outbox: Outbox) {
+        getDao().deleteOutbox(outbox)
+    }
 
 }
 

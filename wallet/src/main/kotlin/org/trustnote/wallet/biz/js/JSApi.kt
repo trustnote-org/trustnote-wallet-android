@@ -323,6 +323,21 @@ class JSApi {
     fun createEncryptedPackageSync(jsonString: String, pubkey: String): String {
         return TWebView.sInstance.callJSSync("""window.Client.createEncryptedPackage($jsonString,"$pubkey");""")
     }
+
+    /**
+     * 解密消息
+     * @method decryptPackage
+     * @for Base
+     * @param {string}  待解密字符串
+     * @param {string}  临时私钥
+     * @param {string}  上一个临时私钥
+     * @param {string}  m/1私钥
+     * @return {string} 明文字符串
+     */
+    fun decryptPackage(objEncryptedPackage: String, privKey: String, prePrivKey: String, m1PrivKey: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.decryptPackage("$objEncryptedPackage","$privKey","$prePrivKey","$m1PrivKey");""")
+    }
+
 }
 
 var BIP38_WORD_LIST_EN: List<String> = mutableListOf()

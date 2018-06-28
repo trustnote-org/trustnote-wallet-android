@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz.wallet
 
 import android.webkit.ValueCallback
+import com.google.gson.JsonObject
 import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
@@ -11,6 +12,7 @@ import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.biz.units.UnitsManager
 import org.trustnote.wallet.network.HubModel
+import org.trustnote.wallet.network.pojo.HubJustSaying
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.ReqGetHistory
 import org.trustnote.wallet.util.AesCbc
@@ -48,6 +50,13 @@ class WalletModel() {
 
         mProfile.tempPrivkey = priv
         mProfile.tempPubkey = pub
+
+        if (mProfile.prevTempPrivkey.isEmpty()) {
+            mProfile.prevTempPrivkey = mProfile.tempPrivkey
+            mProfile.prevTempPubkey = mProfile.tempPubkey
+        }
+
+        Prefs.writeProfile(mProfile)
 
     }
 
@@ -98,6 +107,7 @@ class WalletModel() {
         mProfile.credentials.forEach {
             refreshOneWallet(it)
         }
+        walletUpdated()
     }
 
     fun refreshOneWallet(walletId: String) {
@@ -515,22 +525,36 @@ class WalletModel() {
         Prefs.writeProfile(mProfile)
     }
 
-    fun newUnitAcceptedByHub(unit: Units, walletId: String) {
+    fun newUnitAcceptedByHub(unit: Units, walletId: String = "") {
 
         DbHelper.saveUnits(unit)
 
-        readDataFromDb(findWallet(walletId))
-
-        //The first refresh will got mci from hub.
-        refreshOneWallet(walletId)
+        if (walletId.isNotEmpty()) {
+            readDataFromDb(findWallet(walletId))
+        } else {
+            mProfile.credentials.forEach {
+                readDataFromDb(it)
+            }
+        }
 
         walletUpdated()
 
-        //The second refresh will got stable status from hub.
-        MyThreadManager.instance.runDealyed(70) {
-            refreshOneWallet(walletId)
-        }
+    }
 
+    fun onMessage(hubMsg: HubJustSaying) {
+
+        Utils.debugLog("WalletModel::onMessage")
+        refreshExistWallet()
+
+    }
+
+    fun onNewJoint(hubMsg: HubJustSaying) {
+
+        Utils.debugLog("WalletModel::onNewJoint")
+
+        val unitJson = (hubMsg.bodyJson as JsonObject).get("unit") as JsonObject
+        val units = UnitsManager().parseUnitFromJson(unitJson, listOf())
+        newUnitAcceptedByHub(units)
     }
 
 }

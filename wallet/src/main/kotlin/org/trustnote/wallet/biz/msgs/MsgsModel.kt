@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz.msgs
 
 import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.Subject
@@ -13,9 +14,12 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.network.HubModel
+import org.trustnote.wallet.network.HubMsgFactory.SUBJECT_HUB_DELETE
+import org.trustnote.wallet.network.pojo.HubJustSaying
 import org.trustnote.wallet.network.pojo.ReqDeliver
 import org.trustnote.wallet.network.pojo.ReqGetTempPubkey
 import org.trustnote.wallet.util.MyThreadManager
+import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 import java.util.concurrent.TimeUnit
@@ -39,11 +43,19 @@ class MsgsModel {
 
     private fun sendPreparedMessageToHub(outbox: Outbox) {
 
+        //TODO: below logic is unclear.
+
         val api = JSApi()
         val pubkey = outbox.to
-        val correspondentDevices = DbHelper.findCorrespondentDeviceByPubkey(pubkey)
 
-        val req = ReqGetTempPubkey(pubkey)
+        val correspondentDevices = DbHelper.findCorrespondentDevice(pubkey)
+
+        if (correspondentDevices == null) {
+            outboxMessageDeviceRemoved(outbox)
+            return
+        }
+
+        val req = ReqGetTempPubkey(correspondentDevices.pubkey)
         req.targetHubAddress = (correspondentDevices.hub)
         HubModel.instance.sendHubMsg(req)
 
@@ -57,7 +69,7 @@ class MsgsModel {
             val tempPubkey = req.getTempPubkey()
 
             var encryptedParingMessage = api.createEncryptedPackageSync(outbox.message, tempPubkey)
-            encryptedParingMessage = encryptedParingMessage.replace("""\""", """"""")
+            encryptedParingMessage = encryptedParingMessage.replace("""\""", "")
             val objDeviceMessage = JsonObject()
             objDeviceMessage.add("encrypted_package", Utils.stringToJsonElement(encryptedParingMessage))
             objDeviceMessage.addProperty("to", correspondentDevices.deviceAddress)
@@ -73,8 +85,11 @@ class MsgsModel {
             val reqDeliver = ReqDeliver(objDeviceMessage)
             reqDeliver.targetHubAddress = (correspondentDevices.hub)
             HubModel.instance.sendHubMsg(reqDeliver)
-            val deliverRes = reqDeliver.getResponse()
-            Utils.debugLog(deliverRes.responseJson.toString())
+            if (reqDeliver.isAccepted()) {
+                sendMessageSuccessful(outbox)
+            } else {
+                //TODO: save error msg in outbox ?When to retry?
+            }
 
         }
 
@@ -124,6 +139,31 @@ class MsgsModel {
 
     }
 
+    fun sendTextMessage(message: String, correspondentDevices: CorrespondentDevices) {
+        MyThreadManager.instance.runInBack {
+            sendTextMessageBackground(message, correspondentDevices)
+        }
+    }
+
+    fun sendTextMessageBackground(message: String, correspondentDevices: CorrespondentDevices) {
+
+        val outbox = composeOutboxTextMessage(message, correspondentDevices)
+        DbHelper.saveOutbox(outbox)
+
+        val chatMessages = ChatMessages()
+
+        chatMessages.creationDate = System.currentTimeMillis() / 1000
+        chatMessages.correspondentAddress = correspondentDevices.deviceAddress
+        chatMessages.message = message
+        chatMessages.type = MSG_TYPE_TEXT
+        chatMessages.isIncoming = 0
+
+        DbHelper.saveChatMessages(chatMessages)
+
+        updated()
+
+    }
+
     fun addContacts(pubkey: String, hubAddress: String, secret: String, lambda: (String) -> Unit = {}) {
 
         val correspondentDevices = CorrespondentDevices()
@@ -145,7 +185,7 @@ class MsgsModel {
         if (!isExist) {
             val chatMessages = ChatMessages()
 
-            chatMessages.creationDate = System.currentTimeMillis()
+            chatMessages.creationDate = System.currentTimeMillis() / 1000
             chatMessages.correspondentAddress = correspondentDevices.deviceAddress
             chatMessages.message = TApp.resources.getString(R.string.default_first_msg_for_friend, correspondentDevices.name)
             chatMessages.type = MSG_TYPE_SYSTEM
@@ -173,7 +213,7 @@ class MsgsModel {
         updated()
     }
 
-    fun findCorrespondentDevice(correspondentAddresses: String): CorrespondentDevices {
+    fun findCorrespondentDevice(correspondentAddresses: String): CorrespondentDevices? {
         return DbHelper.findCorrespondentDevice(correspondentAddresses)
     }
 
@@ -195,6 +235,62 @@ class MsgsModel {
         DbHelper.removeCorrespondentDevice(correspondentDevices)
         //TODO: also remove message in outbox
         updated()
+    }
+
+    fun outboxMessageDeviceRemoved(outbox: Outbox) {
+        DbHelper.removeMsgInOutbox(outbox)
+        updated()
+    }
+
+    fun sendMessageSuccessful(outbox: Outbox) {
+        DbHelper.removeMsgInOutbox(outbox)
+        updated()
+    }
+
+    fun onMessage(hubJustSaying: HubJustSaying) {
+        val messageHash = onMessageCalledByMsgsModel(hubJustSaying)
+        deleteMessageInHubCache(messageHash)
+    }
+
+    fun deleteMessageInHubCache(messageHash: String) {
+        val hubJustSaying = HubJustSaying(SUBJECT_HUB_DELETE, JsonPrimitive(messageHash))
+        HubModel.instance.sendHubMsg(hubJustSaying)
+    }
+
+    fun receiveTextMessage(messageJson: JsonObject) {
+
+        val correspondentDevices = findCorrespondentDevice(messageJson.get("from").asString)
+                ?: return
+
+        val chatMessages = ChatMessages()
+
+        chatMessages.creationDate = System.currentTimeMillis() / 1000
+        chatMessages.correspondentAddress = correspondentDevices.deviceAddress
+        chatMessages.message = messageJson.get("body").asString
+        chatMessages.type = MSG_TYPE_TEXT
+        chatMessages.isIncoming = 1
+
+        DbHelper.saveChatMessages(chatMessages)
+        updated()
+
+    }
+
+    fun receivePairingRequest(messageJson: JsonObject) {
+
+        val correspondentDevices = CorrespondentDevices()
+
+        val body = messageJson.get("body") as JsonObject
+
+        correspondentDevices.deviceAddress = messageJson.get("from").asString
+        correspondentDevices.hub = messageJson.get("device_hub").asString
+
+        correspondentDevices.creationDate = System.currentTimeMillis() / 1000
+        correspondentDevices.isConfirmed = 1
+        correspondentDevices.name = body.get("device_name").asString
+
+        DbHelper.saveCorrespondentDevice(correspondentDevices)
+        updated()
+
     }
 
 }

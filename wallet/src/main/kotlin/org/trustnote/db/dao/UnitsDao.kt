@@ -43,6 +43,9 @@ abstract class UnitsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insertOutbox(outbox: Outbox)
 
+    @Delete
+    abstract fun deleteOutbox(outbox: Outbox)
+
         @Query("""
         SELECT unit FROM inputs WHERE inputs.address IN (SELECT my_addresses.address
         FROM my_addresses WHERE my_addresses.wallet == :walletId

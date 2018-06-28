@@ -7,6 +7,7 @@ import org.trustnote.db.entity.Outbox
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.network.HubModel
+import org.trustnote.wallet.network.pojo.HubJustSaying
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
@@ -71,50 +72,6 @@ fun <T> debounceByDifferentInteger(data: List<T>, toInteger: (T) -> Long, update
     }
 }
 
-
-//一. 加好友
-//
-//1. 扫码得到对方
-//pubkey
-//hub
-//secret
-//
-//2. 用对方的pubkey得到对方的device_address,
-//然后把信息存到 correspondent_devices 表里
-//name为new
-//is_confirmed = 0
-//
-//3. 得到自己
-//secret,
-//device_pubkey,
-//device_address,
-//hub
-//
-//4. 组成消息body内容
-//body = {
-//    pairing_secret: 对方的secret,
-//    device_name: 自己的device_name,
-//    reverse_pairing_secret: 自己的secret         //（看步骤12）主动发送配对的时候有值，被添加时发送配对为空
-//}
-//
-//封装消息内容，设置消息类型
-//json = {
-//    from: 我的设备地址,
-//    device_hub: 我的hub,
-//    subject: "pairing",
-//    body: body
-//};
-//
-//用对方公钥加密json包
-//var objDeviceMessage = {
-//    encrypted_package: 已加密的Json包
-//};
-//对 objDeviceMessage 做 getBase64Hash 作为 message_hash
-//然后把message_hash , 对方设备地址 , objDeviceMessage转为字符串，放入outbox表里
-
-//{"from":"0YUFBVGJOD64MUC2BFL2LR65FOVKJGTVI","device_hub":"shawtest.trustnote.org","subject":"pairing","body":{"pairing_secret":"ePCLeojvdvf6","device_name":"Nexus 6P","reverse_pairing_secret":"o4zCp/fpczeY"}}
-//06-25 18:26:35.106 30270 30270 I chromium: [INFO:CONSOLE(48)] "will encrypt and send to 0CREQS2362HYCHNKVCU4ZBSNHAVVLASKM: {"from":"0YUFBVGJOD64MUC2BFL2LR65FOVKJGTVI","device_hub":"shawtest.trustnote.org","subject":"pairing","body":{"pairing_secret":"ePCLeojvdvf6","device_name":"Nexus 6P","reverse_pairing_secret":"o4zCp/fpczeY"}}
-
 fun composeOutboxPairingMessage(secret: String, correspondentDevices: CorrespondentDevices): Outbox {
 
     val jsApi = JSApi()
@@ -148,9 +105,107 @@ fun composeOutboxPairingMessage(secret: String, correspondentDevices: Correspond
     //Save clean text for future sending action
     outbox.message = paringMessage.toString()
     //outbox.message = messageString
-    outbox.to = correspondentDevices.pubkey
-    outbox.creationDate = System.currentTimeMillis()/1000
+    outbox.to = correspondentDevices.deviceAddress
+    outbox.creationDate = System.currentTimeMillis() / 1000
 
     return outbox
 
 }
+
+//Message type: text:
+//{"from":"0YUFBVGJOD64MUC2BFL2LR65FOVKJGTVI","device_hub":"kaketest.trustnote.org","subject":"text","body":"CCCC"}
+
+fun testDecrypt(s: String) {
+    val jsApi = JSApi()
+    val myProfile = WalletManager.model.mProfile
+
+    var encryptedParingMessage = jsApi.createEncryptedPackageSync(s, myProfile.tempPubkey)
+
+    //encryptedParingMessage = encryptedParingMessage.replace("""\""", """""")
+
+    val decrypt = jsApi.decryptPackage(encryptedParingMessage, myProfile.tempPrivkey, myProfile.prevTempPrivkey, myProfile.privKeyForPairId)
+
+    Utils.debugLog(decrypt)
+
+}
+
+fun composeOutboxTextMessage(body: String, correspondentDevices: CorrespondentDevices): Outbox {
+
+    val jsApi = JSApi()
+    val myDeviceAddress = WalletManager.model.mProfile.deviceAddress
+    val myHub = HubModel.instance.mDefaultHubAddress
+
+    val paringMessage = JsonObject()
+    paringMessage.addProperty("from", myDeviceAddress)
+    paringMessage.addProperty("device_hub", myHub)
+    paringMessage.addProperty("subject", "text")
+    paringMessage.addProperty("body", body)
+
+    val encryptedParingMessage = jsApi.createEncryptedPackageSync(paringMessage.toString(), correspondentDevices.pubkey)
+
+    testDecrypt(paringMessage.toString())
+
+    val objDeviceMessage = JsonObject()
+    objDeviceMessage.addProperty("encrypted_package", encryptedParingMessage)
+
+    val messageString = objDeviceMessage.toString()
+    val messageHash = jsApi.getBase64HashSync(messageString)
+
+    val outbox = Outbox()
+    outbox.messageHash = messageHash
+
+    //Save clean text for future sending action
+    outbox.message = paringMessage.toString()
+    //outbox.message = messageString
+    outbox.to = correspondentDevices.deviceAddress
+    outbox.creationDate = System.currentTimeMillis() / 1000
+
+    return outbox
+
+}
+
+fun onMessageCalledByMsgsModel(hubJustSaying: HubJustSaying): String {
+
+    if (hubJustSaying.bodyJson !is JsonObject) {
+        Utils.logW("Unknown incoming message${hubJustSaying.toHubString()}")
+        return ""
+    }
+    val message = (hubJustSaying.bodyJson as JsonObject).get("message") as JsonObject
+    val messageHash = (hubJustSaying.bodyJson as JsonObject).get("message_hash").asString
+
+    val encryptedPackage = message.get("encrypted_package").toString()
+    val pubkey = message.get("pubkey").asString
+
+    val api = JSApi()
+    val myProfile = WalletManager.model.mProfile
+
+    var decryptPackage = api.decryptPackage(encryptedPackage,
+            myProfile.tempPrivkey,
+            myProfile.prevTempPrivkey, myProfile.privKeyForPairId)
+    decryptPackage = decryptPackage.replace("""\""", "")
+
+    val messageJson = Utils.stringToJsonElement(decryptPackage)
+
+    if (messageJson !is JsonObject || messageJson.has("subject")) {
+        Utils.logW("Unknown incoming message${hubJustSaying.toHubString()}")
+        return messageHash
+    }
+
+    val messageSubject = messageJson.get("subject").asString
+
+    if ("pairing" == messageSubject) {
+        MsgsModel.instance.receivePairingRequest(messageJson)
+    }
+
+    if ("text" == messageSubject) {
+        MsgsModel.instance.receiveTextMessage(messageJson)
+    }
+
+    Utils.debugLog(decryptPackage)
+
+    return messageHash
+
+}
+
+
+
