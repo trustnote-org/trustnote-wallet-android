@@ -52,7 +52,9 @@ open class FragmentInitSetupPwd : FragmentInit() {
         }
 
         val webView: WebView = view.findViewById(R.id.pwd_warning)
-        AndroidUtils.setupWarningWebView(webView, "PWD")
+
+        AndroidUtils.setupWarningWebView(webView, R.string.PWD_WARNING1,
+                R.string.PWD_WARNING2)
 
         //        if (Utils.isUseDebugOption()) {
         //            pwd.setText("qwer1234")

@@ -17,15 +17,23 @@
             android:text="@string/me_wallet_manager"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/me_header_edit"
-            android:layout_width="@dimen/ic_26"
-            android:layout_height="@dimen/ic_26"
-            android:layout_alignBottom="@id/me_wallet_manager"
+        <FrameLayout
+            android:id="@+id/me_wallet_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/me_wallet_manager"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/me_wallet_add" />
+            android:padding="@dimen/line_gap_6"
+            android:paddingRight="0dp">
+
+            <ImageView
+                android:layout_width="@dimen/ic_26"
+                android:layout_height="@dimen/ic_26"
+                android:scaleType="fitXY"
+                android:src="@drawable/me_wallet_add" />
+
+        </FrameLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/wallet_list"

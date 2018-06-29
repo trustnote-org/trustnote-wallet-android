@@ -20,7 +20,8 @@ class FragmentMeWalletFullSync : FragmentWalletBase() {
         super.initFragment(view)
 
         val webView: WebView = view.findViewById(R.id.full_sync_warning)
-        AndroidUtils.setupWarningWebView(webView, "FULLSYNC")
+
+        AndroidUtils.setupWarningWebView(webView, R.string.FULLSYNC_WARNING1)
 
         view.findViewById<View>(R.id.me_clone_sync_btn).setOnClickListener {
 

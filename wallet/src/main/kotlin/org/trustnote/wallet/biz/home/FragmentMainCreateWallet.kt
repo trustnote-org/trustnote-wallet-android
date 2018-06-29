@@ -119,7 +119,9 @@ class FragmentMainCreateWalletObserve : FragmentBase() {
     override fun initFragment(view: View) {
         super.initFragment(view)
         val webView: WebView = view.findViewById(R.id.create_wallet_observer_warning)
-        AndroidUtils.setupWarningWebView(webView, "OVSERVER_WALLET")
+
+        AndroidUtils.setupWarningWebView(webView, R.string.OVSERVER_WALLET_WARNING1,
+                R.string.OVSERVER_WALLET_WARNING2)
 
         val scanIcon = mRootView.findViewById<View>(R.id.create_wallet_observer_scan)
         setupScan(scanIcon) { showScanResult(it) }

@@ -6,21 +6,28 @@
         android:layout_height="@dimen/item_credential_height"
         android:layout_marginLeft="@dimen/padding_main">
 
-        <ImageView
-            android:id="@+id/tx_ic"
-            android:layout_width="@dimen/credential_ic_size"
-            android:layout_height="@dimen/tx_ic_size"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY" />
 
+        <FrameLayout
+            android:id="@+id/tx_ic_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/line_gap_12">
+
+            <ImageView
+                android:id="@+id/tx_ic"
+                android:layout_width="@dimen/ic_24"
+                android:layout_height="@dimen/ic_24"
+                android:scaleType="fitXY" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tx_address"
             style="@style/t_sub_title"
-            android:maxLength="9"
-            android:layout_alignTop="@id/tx_ic"
+            android:layout_alignTop="@id/tx_ic_layout"
             android:layout_marginLeft="@dimen/line_gap_14"
-            android:layout_toRightOf="@id/tx_ic"
+            android:layout_toRightOf="@id/tx_ic_layout"
+            android:maxLength="9"
             android:maxLines="1"
             android:text="@string/place_holder"
             android:textSize="@dimen/text_16" />
@@ -28,9 +35,9 @@
         <TextView
             android:id="@+id/tx_time"
             style="@style/t_text_base"
-            android:layout_alignBottom="@id/tx_ic"
+            android:layout_alignBottom="@id/tx_ic_layout"
             android:layout_marginLeft="@dimen/line_gap_14"
-            android:layout_toRightOf="@id/tx_ic"
+            android:layout_toRightOf="@id/tx_ic_layout"
             android:maxLines="1"
             android:text="@string/place_holder"
             android:textColor="@color/tx_time"
@@ -39,9 +46,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_dp"
-            android:background="@color/tx_bottom_line"
+            android:layout_alignLeft="@id/tx_time"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@id/tx_time" />
+            android:background="@color/tx_bottom_line" />
 
         <org.trustnote.wallet.widget.TMnAmount
             android:id="@+id/tx_amount"

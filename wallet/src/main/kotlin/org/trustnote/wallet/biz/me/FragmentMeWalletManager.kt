@@ -8,6 +8,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.home.CredentialAdapter
+import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
@@ -24,6 +25,16 @@ class FragmentMeWalletManager : FragmentWalletBase() {
         super.initFragment(view)
         mRecyclerView = view.findViewById(R.id.wallet_list)
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
+
+        findViewById<View>(R.id.me_wallet_add).setOnClickListener {
+            addL2Fragment(FragmentMainCreateWallet())
+        }
+
+    }
+
+    override fun setupToolbar() {
+        super.setupToolbar()
+        mToolbar.setBackgroundResource(R.color.tx_list_bg)
     }
 
     override fun updateUI() {

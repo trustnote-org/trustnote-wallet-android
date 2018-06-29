@@ -9,6 +9,7 @@ import android.widget.TextView
 import org.trustnote.db.Tx
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
+import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.TMnAmount
 import org.trustnote.wallet.util.Utils
 
@@ -47,7 +48,8 @@ class TxAdapter(private val myDataset: Array<Tx>) :
         // - replace the contents of the view with that element
 
         val tx = myDataset[position]
-        holder.ic.setImageResource(R.drawable.credential_icon)
+        val statusDrawableResId = TTTUtils.getTxStatusDrawable(tx.txType, tx.confirmations > 0)
+        holder.ic.setImageResource(statusDrawableResId)
 
         if (tx.txType == TxType.received && tx.arrPayerAddresses.isNotEmpty()) {
             holder.addrress.text = Utils.formatAddressWithEllipse(tx.arrPayerAddresses[0])

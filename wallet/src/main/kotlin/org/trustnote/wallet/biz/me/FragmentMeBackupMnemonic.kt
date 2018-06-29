@@ -59,8 +59,9 @@ class FragmentMeBackupMnemonic : FragmentBase() {
         mnemonicsGrid.setMnemonic(WalletManager.model.mProfile.mnemonic, false)
 
         val webView: WebView = view.findViewById(R.id.backup_warning)
-        AndroidUtils.setupWarningWebView(webView, "MNEMONIC_BACKUP")
 
+        AndroidUtils.setupWarningWebView(webView, R.string.MNEMONIC_BACKUP_WARNING1,
+                R.string.MNEMONIC_BACKUP_WARNING2)
 
         hideMnemonic(true)
 

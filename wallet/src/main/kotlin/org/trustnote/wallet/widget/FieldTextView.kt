@@ -4,9 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
+import org.trustnote.wallet.util.TTTUtils
 
 open class FieldTextView @JvmOverloads constructor(
         context: Context,
@@ -17,9 +19,9 @@ open class FieldTextView @JvmOverloads constructor(
     private val fieldLable: TextView
     private val fieldValue: TextView
     private val fieldUnitValue: TextView
-    private val confirmed: View
-    private val unconfirmed: View
-    private val invalid: View
+    private val statusLayout: View
+    private val statusImageView: ImageView
+    private val statusTextView: TextView
 
     init {
         val view = View.inflate(context, R.layout.item_field, null)
@@ -28,10 +30,9 @@ open class FieldTextView @JvmOverloads constructor(
         fieldValue = view.findViewById(R.id.field_value)
         fieldUnitValue = view.findViewById(R.id.field_unit_value)
 
-        confirmed = view.findViewById(R.id.tx_confirmed)
-        unconfirmed = view.findViewById(R.id.tx_unconfirmed)
-        invalid = view.findViewById(R.id.tx_invalid)
-
+        statusImageView = view.findViewById(R.id.tx_status_img)
+        statusTextView = view.findViewById(R.id.tx_status_text)
+        statusLayout = view.findViewById(R.id.tx_status_layout)
     }
 
     fun setField(labelResId: Int, value: String) {
@@ -49,25 +50,10 @@ open class FieldTextView @JvmOverloads constructor(
     }
 
     private fun showStatus(isStable: Boolean, txType: TxType) {
-        if (txType == TxType.invalid) {
-
-            invalid.visibility = View.VISIBLE
-            confirmed.visibility = View.GONE
-            unconfirmed.visibility = View.GONE
-
-        } else if (isStable) {
-
-            confirmed.visibility = View.VISIBLE
-            unconfirmed.visibility = View.GONE
-            invalid.visibility = View.GONE
-
-        } else {
-
-            confirmed.visibility = View.GONE
-            unconfirmed.visibility = View.VISIBLE
-            invalid.visibility = View.GONE
-
-        }
+        statusLayout.visibility = View.VISIBLE
+        statusImageView.setImageResource(TTTUtils.getTxStatusDrawable(txType, isStable))
+        statusTextView.setText(TTTUtils.getTxStatusTextRes(txType, isStable))
+        statusTextView.setTextColor(TTTUtils.getTxStatusTextColor(txType, isStable))
     }
 
     fun setStatus(lableResId: Int, isConfirmed: Boolean, txType: TxType) {

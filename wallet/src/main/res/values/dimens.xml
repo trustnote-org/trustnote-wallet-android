@@ -122,6 +122,7 @@
 
     <dimen name="ic_26">26dp</dimen>
     <dimen name="ic_20">20dp</dimen>
+    <dimen name="ic_24">24dp</dimen>
 
     <dimen name="page_margin">20dp</dimen>
     <dimen name="page_header_height">54dp</dimen>

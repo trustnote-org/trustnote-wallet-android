@@ -5,6 +5,7 @@ import android.widget.TextView
 import com.google.gson.JsonObject
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.PaymentInfo
@@ -198,11 +199,36 @@ object TTTUtils {
         return hubArray[hubIndex]
     }
 
+    fun getTxStatusDrawable(txType: TxType, isStable: Boolean): Int {
 
+        if (txType == TxType.invalid) {
+            return R.drawable.ic_tx_invalid
+        } else if (txType == TxType.received) {
+            return if (!isStable) R.drawable.ic_tx_rcv_unconfirmed else R.drawable.ic_tx_rcv_confirmed
+        } else if (txType == TxType.sent) {
+            return if (!isStable) R.drawable.ic_tx_send_unconfirmed else R.drawable.ic_tx_send_confirmed
+        }
+        return R.drawable.ic_tx_invalid
+    }
 
-    fun getTxStatusDrawable(txType: TxType, confirmations: Int): Int {
+    fun getTxStatusTextRes(txType: TxType, isStable: Boolean): Int {
 
-        return R.drawable.ic_tx_confirmed
+        if (txType == TxType.invalid) {
+            return R.string.tx_invalid
+        } else {
+            return if (!isStable) R.string.tx_unconfirmed else R.string.tx_confirmed
+        }
+        return R.string.tx_invalid
+    }
+
+    fun getTxStatusTextColor(txType: TxType, isStable: Boolean): Int {
+        var colorResId = 0
+        colorResId = if (txType == TxType.invalid) {
+            R.color.f_tx_unconfirmed
+        } else {
+            if (!isStable) R.color.f_tx_unconfirmed else R.color.t_blue
+        }
+        return TApp.resources.getColor(colorResId)
     }
 
 }

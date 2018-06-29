@@ -169,18 +169,26 @@ object AndroidUtils {
         return TApp.context.resources.getString(strResId)
     }
 
-    fun setupWarningWebView(webView: WebView, tag: String) {
-        val data = AndroidUtils.readAssetFile("pwd_warning.html")
-        val localData = AndroidUtils.replaceTTTTag(data, tag)
-        webView.loadDataWithBaseURL("", localData, "text/html", "UTF-8", "")
+    fun setupWarningWebView(webView: WebView, vararg warnings: Int) {
+        val stringList = warnings.map {
+            TApp.getString(it)
+        }
+        setupWarningWebView(webView, stringList)
     }
 
-    fun replaceTTTTag(html: String, tag: String): String {
-        return html.replace("TTTTAG(.*)TTTTAG".toRegex()) {
-            val strResName = tag + it.groupValues[1]
-            val resId = TApp.context.resources.getIdentifier(strResName, "string", TApp.context.packageName)
-            if (resId == 0) "" else TApp.context.getString(resId)
+    fun setupWarningWebView(webView: WebView, items: List<String>) {
+        val newList = items.map {
+            """<li class="str">$it</li>"""
         }
+
+        val data = AndroidUtils.readAssetFile("html_list.html")
+
+        val localData = data.replace("WILL_REPLACE_PROGRAMATICALLY", newList.joinToString(" ") {
+            it
+        })
+
+        webView.loadDataWithBaseURL("", localData, "text/html", "UTF-8", "")
+
     }
 
     @Throws(WriterException::class)
