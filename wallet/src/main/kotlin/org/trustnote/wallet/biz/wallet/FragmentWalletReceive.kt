@@ -12,6 +12,7 @@ import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.PageHeader
 import org.trustnote.wallet.widget.TMnAmount
 
 class FragmentWalletReceive : FragmentPageBase() {
@@ -22,6 +23,7 @@ class FragmentWalletReceive : FragmentPageBase() {
     lateinit var clearAmount: TextView
     lateinit var setupAmount: TextView
     lateinit var copyBtn: Button
+    var mnAmount = 0L
 
     override fun getLayoutId(): Int {
         return R.layout.l_dialog_wallet_receive
@@ -29,6 +31,10 @@ class FragmentWalletReceive : FragmentPageBase() {
 
     override fun initFragment(view: View) {
         super.initFragment(view)
+
+        mRootView.findViewById<PageHeader>(R.id.page_header).closeAction = {
+            onBackPressed()
+        }
 
         val walletId = arguments.getString(TTT.KEY_WALLET_ID)
         credential = WalletManager.model.findWallet(walletId)
@@ -43,11 +49,15 @@ class FragmentWalletReceive : FragmentPageBase() {
         setupAmount.setOnClickListener {
             val f = FragmentWalletReceiveSetAmount()
             AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, walletId)
+            f.doneAction = {
+                mnAmount = it
+                updateUI()
+            }
             addL2Fragment(f)
         }
 
         clearAmount.setOnClickListener {
-            getMyActivity().receiveAmount = 0L
+            mnAmount = 0L
             updateUI()
         }
 
@@ -65,9 +75,9 @@ class FragmentWalletReceive : FragmentPageBase() {
 
         addressText.text = WalletManager.model.receiveAddress(credential)
 
-        TTTUtils.setupAddressQRCode(WalletManager.model.receiveAddress(credential), getMyActivity().receiveAmount, addressQR)
+        TTTUtils.setupAddressQRCode(WalletManager.model.receiveAddress(credential), mnAmount, addressQR)
 
-        if (getMyActivity().receiveAmount == 0L) {
+        if (mnAmount == 0L) {
             receiveAmount.visibility = View.GONE
             clearAmount.visibility = View.GONE
             setupAmount.visibility = View.VISIBLE
@@ -75,7 +85,7 @@ class FragmentWalletReceive : FragmentPageBase() {
             receiveAmount.visibility = View.VISIBLE
             clearAmount.visibility = View.VISIBLE
             setupAmount.visibility = View.GONE
-            receiveAmount.setMnAmount(getMyActivity().receiveAmount)
+            receiveAmount.setMnAmount(mnAmount)
         }
 
     }

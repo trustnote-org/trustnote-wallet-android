@@ -114,7 +114,9 @@ class UnitsManager {
                 inputs.asset = asset
 
                 //TODO: check JS code.
+                //TODO: Check DB for input address
                 inputs.address = units.authenfiers[0].address
+
                 //TODO:
                 //inputs.type = ""
             }

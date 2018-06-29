@@ -27,8 +27,6 @@ class ActivityMain : ActivityBase() {
 
     lateinit var bottomNavigationView: BottomNavigationView
 
-    var receiveAmount = 0L
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -3,14 +3,13 @@
     xmlns:ttt="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_dialog_frame"
     android:orientation="vertical">
 
     <org.trustnote.wallet.widget.PageHeader
         android:id="@+id/page_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ttt:ttt_icon="@drawable/ic_wallet_receive"
+        ttt:ttt_icon="@drawable/ic_dialog_my_rcv_address"
         ttt:ttt_title="@string/receive_title" />
 
     <TextView

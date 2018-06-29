@@ -2,11 +2,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:bottom="@dimen/line_gap_4"
+        android:bottom="@dimen/ic_action_padding"
         android:drawable="@drawable/ic_quick_action"
-        android:left="@dimen/line_gap_4"
-        android:right="@dimen/line_gap_4"
-        android:top="@dimen/line_gap_4"></item>
-
+        android:left="@dimen/ic_action_padding"
+        android:right="@dimen/ic_action_padding"
+        android:top="@dimen/ic_action_padding"></item>
 
 </layer-list>

@@ -137,4 +137,5 @@
     <dimen name="keyboard_textsize">20sp</dimen>
     <dimen name="item_msg_height">90dp</dimen>
 
+    <dimen name="ic_action_padding">8dp</dimen>
 </resources>

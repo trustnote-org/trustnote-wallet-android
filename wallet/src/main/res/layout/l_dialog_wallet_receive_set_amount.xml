@@ -9,7 +9,7 @@
         android:id="@+id/page_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ttt:ttt_icon="@drawable/ic_wallet_receive"
+        ttt:ttt_icon="@null"
         ttt:ttt_title="@string/receive_setup_amount" />
 
     <LinearLayout

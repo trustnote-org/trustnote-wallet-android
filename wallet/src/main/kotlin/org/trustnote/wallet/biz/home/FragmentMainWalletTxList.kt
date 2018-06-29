@@ -50,8 +50,8 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
         receiveBtnView = mRootView.findViewById<View>(R.id.btn_receive)
 
         receiveBtnView.setOnClickListener {
-            getMyActivity().receiveAmount = 0L
             val f = FragmentWalletReceive()
+            f.mnAmount = 0L
             AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, credential.walletId)
             addL2Fragment(f)
         }

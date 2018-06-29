@@ -226,7 +226,7 @@ class WalletModel() {
 
             //TODO: err handle.
 
-            val units = UnitsManager().saveUnitsFromHubResponse(hubResponse)
+            UnitsManager().saveUnitsFromHubResponse(hubResponse)
 
             readDataFromDb(credential)
 
@@ -238,14 +238,17 @@ class WalletModel() {
     private fun checkIsAddressesIsEnoughAndGenerateMore(credential: Credential): List<MyAddresses> {
         val res = mutableListOf<MyAddresses>()
 
-        if (credential.myReceiveAddresses.isEmpty() || DbHelper.shouldGenerateMoreAddress(credential.walletId, TTT.addressReceiveType)) {
+        if (credential.myReceiveAddresses.isEmpty()
+                || DbHelper.shouldGenerateMoreAddress(credential.walletId, TTT.addressReceiveType)) {
             res.addAll(ModelHelper.generateNewAddressAndSaveDb(credential, TTT.addressReceiveType))
         }
 
-        if (credential.myChangeAddresses.isEmpty() || DbHelper.shouldGenerateMoreAddress(credential.walletId, TTT.addressChangeType)) {
+        if (credential.myChangeAddresses.isEmpty()
+                || DbHelper.shouldGenerateMoreAddress(credential.walletId, TTT.addressChangeType)) {
             res.addAll(ModelHelper.generateNewAddressAndSaveDb(credential, TTT.addressChangeType))
         }
 
+        //TODO: remove
         if (res.isNotEmpty()) {
             readAddressFromDb(credential)
             walletUpdated()

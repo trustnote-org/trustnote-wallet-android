@@ -12,6 +12,7 @@ import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.PageHeader
 
 class FragmentMsgMyPairId : FragmentPageBase() {
 
@@ -25,6 +26,10 @@ class FragmentMsgMyPairId : FragmentPageBase() {
 
     override fun initFragment(view: View) {
         super.initFragment(view)
+
+        mRootView.findViewById<PageHeader>(R.id.page_header).closeAction = {
+            onBackPressed()
+        }
 
         pairIdQR = mRootView.findViewById(R.id.qr_code_imageview)
         pairIdText = mRootView.findViewById(R.id.mypairid_text)

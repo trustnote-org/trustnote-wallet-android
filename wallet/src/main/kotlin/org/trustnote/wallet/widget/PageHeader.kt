@@ -14,6 +14,7 @@ open class PageHeader @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : RelativeLayout(context, attrs, defStyleAttr) {
 
+    var closeAction: () -> Unit = {}
 
     init {
         val view = View.inflate(context, R.layout.l_page_head, null)
@@ -26,6 +27,10 @@ open class PageHeader @JvmOverloads constructor(
 
         title.text = a.getString(R.styleable.PageHeader_ttt_title)
         icon.setImageDrawable(a.getDrawable(R.styleable.PageHeader_ttt_icon))
+
+        findViewById<View>(R.id.ic_dialog_close).setOnClickListener {
+            closeAction.invoke()
+        }
 
     }
 
