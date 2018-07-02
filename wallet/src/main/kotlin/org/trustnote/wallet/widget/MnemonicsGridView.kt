@@ -17,7 +17,7 @@ class MnemonicsGridView @JvmOverloads constructor(
     var gridView: GridView
     var gridAdapter: MnemonicAdapter
     var err: TextView
-    var onCheckResult = { isAllWordOK: Boolean -> }
+    var onCheckResult = { isAllWordOK: Boolean, isLastCellUpdate: Boolean -> Unit }
 
     init {
         val view = View.inflate(context, R.layout.w_mnemonics_grid, null)
@@ -33,8 +33,8 @@ class MnemonicsGridView @JvmOverloads constructor(
 
         gridView.adapter = gridAdapter
 
-        gridAdapter.onCheckResult = {
-            onCheckResult(it)
+        gridAdapter.onCheckResult = { isAllWordOK, isLastCellUpdate ->
+            onCheckResult(isAllWordOK, isLastCellUpdate)
             err.visibility = INVISIBLE
         }
 
@@ -91,7 +91,7 @@ class MnemonicsGridView @JvmOverloads constructor(
 
 class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : BaseAdapter() {
     var mMnemonic: List<String> = mnemonic
-    var onCheckResult = { isAllWordOK: Boolean -> }
+    var onCheckResult = { isAllWordOK: Boolean, isLastCellUpdate: Boolean -> }
     var verifyEnabled = true
     var mMnemonicCheck: List<String> = mnemonic
 
@@ -140,7 +140,8 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
                     if (editTextView.parent == null) {
                         return
                     }
-                    checkAllWord(editTextView.parent as GridView)
+                    checkAllWord(editTextView.parent as GridView, position == 11)
+
                 }
 
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -164,32 +165,34 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         return editTextView
     }
 
-    fun checkAllWord(grid: GridView) {
+    fun checkAllWord(grid: GridView, isLastCellUpdate: Boolean) {
 
         if (grid.childCount < 12) {
             return
         }
 
+
+        var isLastCellworkInBip38 = false
         for (i in 0..11) {
             val cell = grid.getChildAt(i) as MnemonicAutoCompleteTextView
             //if (!cell.isWordInBip38 || cell.text.toString() != mMnemonicCheck[i]){
             if (cell.text.toString().isEmpty()) {
-                onCheckResult(false)
-                return
+                onCheckResult(false,  isLastCellUpdate)
+            }
+            if (i == 11) {
+                isLastCellworkInBip38 = cell.isWordInBip38
             }
         }
-        onCheckResult(true)
+        onCheckResult(true, isLastCellUpdate && isLastCellworkInBip38)
     }
 
     fun checkAllWord(mMnemonic: List<String>) {
         for (i in 0..11) {
             if (mMnemonic.isEmpty()) {
-                onCheckResult(false)
-                return
+                onCheckResult(false, true)
             }
         }
-        onCheckResult(true)
-
+        onCheckResult(true, true)
     }
 
 }

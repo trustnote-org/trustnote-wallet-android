@@ -17,7 +17,8 @@ import org.trustnote.wallet.uiframework.ActivityBase
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 
-class MnemonicAutoCompleteTextView constructor(context: Context, attrs: AttributeSet? = null) : AutoCompleteTextView(context, attrs) {
+class MnemonicAutoCompleteTextView constructor(context: Context, attrs: AttributeSet? = null)
+    : AutoCompleteTextView(context, attrs) {
 
     init {
         val wordList = JSApi().getBip38WordList().toMutableList()
@@ -27,6 +28,7 @@ class MnemonicAutoCompleteTextView constructor(context: Context, attrs: Attribut
         setRawInputType(InputType.TYPE_CLASS_TEXT)
         setTextIsSelectable(true)
 
+        // Below code will cause UI glitch.
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             showSoftInputOnFocus = false
         }

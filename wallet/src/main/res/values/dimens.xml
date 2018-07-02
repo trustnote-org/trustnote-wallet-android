@@ -61,7 +61,7 @@
     <dimen name="f_mnemonic_autocomplete">14sp</dimen>
     <dimen name="f_mnemonic">16sp</dimen>
 
-    <dimen name="mnemonic_margin_top">26dp</dimen>
+    <dimen name="mnemonic_margin_top">22dp</dimen>
 
     <dimen name="small_icon">14dp</dimen>
 

@@ -69,6 +69,11 @@ class ActivityMain : ActivityBase() {
         supportActionBar!!.title = s
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        TApp.userAlreadyInputPwd = false
+    }
+
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         selectPageByIntent(intent)

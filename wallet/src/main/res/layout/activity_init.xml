@@ -37,7 +37,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-
+            android:shadowColor="@android:color/transparent"
             android:background="@color/keyboard_bg"
             android:keyBackground="@drawable/key_background"
             android:keyTextColor="@color/keyboard_font_color"

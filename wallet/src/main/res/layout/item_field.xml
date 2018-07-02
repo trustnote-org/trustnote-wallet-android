@@ -15,32 +15,37 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true">
+        android:layout_toRightOf="@id/field_label"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/line_gap_16">
 
         <TextView
             android:id="@+id/field_value"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/place_holder"
+            android:gravity="right"
             android:textColor="@color/font_gray_amount"
             android:textSize="@dimen/text_14"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/field_unit_value"
-            android:layout_width="@dimen/field_unit_id_width"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/place_holder"
+            android:gravity="right"
             android:textColor="@color/t_blue"
             android:textSize="@dimen/text_14"
             android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/tx_status_layout"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/tx_status_img"
@@ -58,7 +63,5 @@
                 android:textSize="@dimen/text_14" />
         </LinearLayout>
     </FrameLayout>
-
-    f_tx_unconfirmed
 
 </RelativeLayout>

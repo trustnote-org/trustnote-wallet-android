@@ -93,6 +93,7 @@
     <string name="agree">同意</string>
     <string name="new_mnemonic_title">备份助记词</string>
     <string name="new_mnemonic_sub_title">最后一步：立即备份你的12个助记词</string>
+    <string name="backup_mnemonic_sub_title">立即备份你的12个助记词</string>
 
     <string name="new_mnemonic_msg">您只能用这些单词恢复钱包！一旦丢失，资产将无法找回！一旦泄露，资产将会被盗！</string>
 

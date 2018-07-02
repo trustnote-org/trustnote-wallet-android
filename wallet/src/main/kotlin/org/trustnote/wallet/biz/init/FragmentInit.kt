@@ -11,6 +11,7 @@ import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
@@ -250,8 +251,13 @@ class CWFragmentVerify : FragmentInit() {
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics_verify)
         //BUG: check the cell immediately after init finished. the cell maybe fill with content for test purpose.
-        mnemonicsGrid.onCheckResult = {
-            AndroidUtils.enableBtn(btnBackupConfirm, it)
+        mnemonicsGrid.onCheckResult = {isAllWordOK, isLastCellUpdate ->
+            AndroidUtils.enableBtn(btnBackupConfirm, isAllWordOK)
+
+            if (isLastCellUpdate && isAllWordOK) {
+                (activity as ActivityBase).hideKeyboardWithAnimation()
+            }
+
         }
 
         showMnemonicKeyboardIfRequired()
@@ -330,14 +336,18 @@ open class CWFragmentRestore : FragmentInit() {
             checkMnemonicAndForward(true)
         }
 
-        mnemonicsGrid.onCheckResult = {
-            AndroidUtils.enableBtn(btnRestore, it)
-            AndroidUtils.enableBtn(btnRestoreRemove, it)
+        mnemonicsGrid.onCheckResult = { isAllworkDone, isLastCellUpdate ->
+
+            AndroidUtils.enableBtn(btnRestore, isAllworkDone)
+            AndroidUtils.enableBtn(btnRestoreRemove, isAllworkDone)
+            if (isAllworkDone && isLastCellUpdate) {
+                (activity as ActivityBase).hideKeyboardWithAnimation()
+            }
 
         }
 
         if (Utils.isDeveloperFeature()) {
-            mnemonicsGrid.setMnemonic(TestData.getTestMnemonic(), false)
+            mnemonicsGrid.setMnemonic(TestData.getTestMnemonic(), true)
         }
 
         showMnemonicKeyboardIfRequired()

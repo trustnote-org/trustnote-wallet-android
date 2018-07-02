@@ -1,14 +1,38 @@
-
 package org.trustnote.wallet.widget.keyboard
 
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Typeface
+import android.inputmethodservice.Keyboard
 import android.inputmethodservice.KeyboardView
 import android.util.AttributeSet
+import org.trustnote.wallet.TApp
+import org.trustnote.wallet.R
 
 class CustomKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(context, attrs) {
 
-
-
+//    override fun onDraw(canvas: Canvas) {
+//        super.onDraw(canvas)
+//
+//        val paint = Paint()
+//
+//        paint.textSize = TApp.resources.getDimensionPixelSize(R.dimen.keyboard_textsize).toFloat()
+//        paint.typeface = Typeface.DEFAULT_BOLD
+//
+//        val keys = keyboard.keys
+//
+//        for (key in keys) {
+//
+//            if (key.label != null) {
+//                val keyLabel = key.label.toString();
+//                canvas.drawText(keyLabel, key.x.toFloat() + key.width, key.y.toFloat() + key.height, paint)
+//            } else if (key.icon != null) {
+//                key.icon.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+//                key.icon.draw(canvas); }
+//        }
+//
+//    }
 }
 
 //TODO: UI design will support below resource soon.
@@ -24,7 +48,6 @@ class CustomKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(c
 //})
 
 //mKeyboardView.setKeyboard(mKeyboard)
-
 
 //key_selector.xml:
 //<?xml version="1.0" encoding="utf-8"?>

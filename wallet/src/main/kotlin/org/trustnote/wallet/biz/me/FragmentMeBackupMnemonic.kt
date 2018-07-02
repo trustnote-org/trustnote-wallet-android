@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.me
 import android.view.View
 import android.webkit.WebView
 import android.widget.Button
+import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
@@ -25,10 +26,14 @@ class FragmentMeBackupMnemonic : FragmentBase() {
     lateinit var showLayout: View
     lateinit var backupLayout: View
     lateinit var removeBtn: Button
+    lateinit var subTitle: TextView
 
     override fun initFragment(view: View) {
 
         super.initFragment(view)
+
+        subTitle = findViewById(R.id.new_mnemonic_sub_title)
+        subTitle.setText(R.string.backup_mnemonic_sub_title)
 
         hideLayout = findViewById(R.id.hide_mnemonic_layout)
         showLayout = findViewById(R.id.show_mnemonic_layout)

@@ -26,6 +26,10 @@ class CredentialQueue() {
         queue.put(credential)
     }
 
+    fun currentCredentialFinished() {
+        currentCredential = null
+    }
+
     fun take(): Credential {
         currentCredential = null
         currentCredential = queue.take()

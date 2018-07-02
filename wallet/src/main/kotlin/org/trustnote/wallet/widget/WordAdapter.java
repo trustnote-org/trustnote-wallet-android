@@ -15,7 +15,7 @@ public class WordAdapter extends ArrayAdapter<String> {
     public WordAdapter(Context context, int textViewResourceId, List<String> items) {
         super(context, textViewResourceId, items);
         this.items = items;
-        tempItems = new ArrayList(items);
+        tempItems = new ArrayList(this.items);
         suggestions = new ArrayList();
     }
 

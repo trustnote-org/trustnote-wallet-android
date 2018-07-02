@@ -177,6 +177,8 @@ object TTTUtils {
         return """["sig",{"pubkey":"$addressPubkey"}]"""
     }
 
+
+    //TODO:should copy from JS code:: tttMyPairIdPattern:: /^([w\/+]{44})@([w.:\/-]+)#([w\/+-]+)$/
     val tttReceiverAddressPattern = Regex("""TTT:.{32}(\?amount=)?""")
     val tttMyPairIdPattern = Regex("""TTT:(.{16,100})@(.{16,100})#(.{6,20})""")
     val tttCodeQrCodeForStep1 = Regex("""TTT:.\{"type":"c1".*\}""")

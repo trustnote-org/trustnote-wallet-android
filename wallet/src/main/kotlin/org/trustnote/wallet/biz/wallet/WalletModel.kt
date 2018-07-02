@@ -172,13 +172,14 @@ class WalletModel() {
 
                 val credential = refreshingCredentials.take()
 
-
                 try {
                     refreshOneWalletImpl(credential)
                 } catch (e: Throwable) {
                     //TODO: show err?
                     Utils.logW(e.toString())
                 }
+
+                refreshingCredentials.currentCredentialFinished()
 
                 walletUpdated()
 
@@ -399,7 +400,9 @@ class WalletModel() {
         val privKey = getPrivKey(password)
         val walletPubKey = api.walletPubKeySync(privKey, walletIndex)
         val walletId = api.walletIDSync(walletPubKey)
-        val walletTitle = if (TTT.firstWalletName == credentialName) TTT.firstWalletName + ":" + walletIndex else credentialName
+        val walletDisplayIndex = walletIndex + 1
+        val walletIndexInName = if (walletDisplayIndex < 10) "0$walletDisplayIndex" else walletDisplayIndex.toString()
+        val walletTitle = if (TTT.firstWalletName == credentialName) TTT.firstWalletName + walletIndexInName else credentialName
 
         val res = Credential()
         res.account = walletIndex
