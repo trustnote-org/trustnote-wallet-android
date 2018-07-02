@@ -1,11 +1,10 @@
 package org.trustnote.wallet.biz.msgs
 
+import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.uiframework.ActivityBase
@@ -18,6 +17,7 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
     override fun getLayoutId(): Int {
         return R.layout.f_msg_home
     }
+
 
     lateinit var recyclerView: RecyclerView
     lateinit var mSwipeRefreshLayout: SwipeRefreshLayout

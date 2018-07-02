@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_my_pair_id"
-        android:icon="@drawable/my_pair_code"
+        android:icon="@drawable/ic_my_pair_code_padding"
         android:title="@string/place_holder"
         app:showAsAction="always">
     </item>

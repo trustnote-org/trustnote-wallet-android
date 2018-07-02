@@ -1,10 +1,9 @@
 package org.trustnote.wallet.biz.me
 
+import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
+import android.view.*
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp

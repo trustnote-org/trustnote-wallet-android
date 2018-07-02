@@ -24,14 +24,14 @@
             <item
                 android:id="@+id/action_create_wallet"
                 android:enabled="true"
-                android:icon="@drawable/wallet_create"
+                android:icon="@drawable/ic_wallet_create_padding"
 
                 android:title="@string/action_create_wallet"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/action_my_pair_id"
                 android:enabled="true"
-                android:icon="@drawable/my_pair_code"
+                android:icon="@drawable/ic_my_pair_code_padding"
                 android:title="@string/action_my_pair_id"
                 app:showAsAction="never" />
         </menu>

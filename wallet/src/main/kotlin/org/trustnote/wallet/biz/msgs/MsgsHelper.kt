@@ -255,7 +255,7 @@ fun addOrUpdateContacts(pubkey: String, deviceAddressP: String, hubAddress: Stri
         deviceAddress = api.getDeviceAddressSync(pubkey)
     }
 
-    var correspondentDevices = MessageModel.instance.findCorrespondentDevice(deviceAddress)
+    var correspondentDevices = DbHelper.findCorrespondentDevice(deviceAddress)
     val isExist = (correspondentDevices != null)
     if (!isExist) {
 

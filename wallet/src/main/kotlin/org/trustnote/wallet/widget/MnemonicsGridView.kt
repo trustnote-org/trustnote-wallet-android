@@ -4,10 +4,7 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import org.trustnote.wallet.R
 
@@ -33,6 +30,7 @@ class MnemonicsGridView @JvmOverloads constructor(
             ""
         }
         gridAdapter = MnemonicAdapter(context, wordPlaceHolder)
+
         gridView.adapter = gridAdapter
 
         gridAdapter.onCheckResult = {
@@ -50,10 +48,15 @@ class MnemonicsGridView @JvmOverloads constructor(
         gridAdapter.notifyDataSetInvalidated()
 
         err.visibility = View.INVISIBLE
+
+        gridAdapter.checkAllWord(gridAdapter.mMnemonic)
+
     }
 
     fun setCheckMnemonic(mnemonic: String) {
+
         gridAdapter.mMnemonicCheck = mnemonic.split(" ")
+
     }
 
     fun getUserInputMnemonic(): String {
@@ -65,9 +68,9 @@ class MnemonicsGridView @JvmOverloads constructor(
     }
 
     fun isVerifyOk(): Boolean {
-        for (i in 0 .. 11) {
+        for (i in 0..11) {
             val cell = gridView.getChildAt(i) as MnemonicAutoCompleteTextView
-            if (!cell.isWordInBip38 || cell.text.toString() != gridAdapter.mMnemonicCheck[i]){
+            if (!cell.isWordInBip38 || cell.text.toString() != gridAdapter.mMnemonicCheck[i]) {
                 return false
             }
         }
@@ -155,12 +158,17 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
                     false
                 }
             }
+
         }
 
         return editTextView
     }
 
     fun checkAllWord(grid: GridView) {
+
+        if (grid.childCount < 12) {
+            return
+        }
 
         for (i in 0..11) {
             val cell = grid.getChildAt(i) as MnemonicAutoCompleteTextView
@@ -172,4 +180,16 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         }
         onCheckResult(true)
     }
+
+    fun checkAllWord(mMnemonic: List<String>) {
+        for (i in 0..11) {
+            if (mMnemonic.isEmpty()) {
+                onCheckResult(false)
+                return
+            }
+        }
+        onCheckResult(true)
+
+    }
+
 }

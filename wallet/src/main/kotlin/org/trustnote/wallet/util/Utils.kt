@@ -187,7 +187,7 @@ object Utils {
     }
 
     fun isDeveloperFeature(): Boolean {
-        return BuildConfig.DEVELOPER_MODE
+        return false;//BuildConfig.DEVELOPER_MODE
     }
 
     fun formatAddressWithEllipse(address: String): String {

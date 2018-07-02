@@ -232,10 +232,11 @@ class CWFragmentVerify : FragmentInit() {
     }
 
     lateinit var mnemonicsGrid: MnemonicsGridView
+    lateinit var btnBackupConfirm: Button
     override fun initFragment(view: View) {
         super.initFragment(view)
 
-        var btnBackupConfirm = view.findViewById<Button>(R.id.verify_confirmed)
+        btnBackupConfirm = view.findViewById(R.id.verify_confirmed)
         AndroidUtils.disableBtn(btnBackupConfirm)
         btnBackupConfirm.setOnClickListener {
 
@@ -248,20 +249,24 @@ class CWFragmentVerify : FragmentInit() {
         }
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics_verify)
-        mnemonicsGrid.setCheckMnemonic(CreateWalletModel.tmpMnemonic)
-
         //BUG: check the cell immediately after init finished. the cell maybe fill with content for test purpose.
         mnemonicsGrid.onCheckResult = {
             AndroidUtils.enableBtn(btnBackupConfirm, it)
         }
 
-        if (Utils.isDeveloperFeature()) {
-            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
-        }
-
         showMnemonicKeyboardIfRequired()
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        mnemonicsGrid.setCheckMnemonic(CreateWalletModel.tmpMnemonic)
+
+        if (Utils.isDeveloperFeature()) {
+            mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
+        }
+    }
+
 
     override fun onBackPressed() {
         nextPage(R.layout.f_init_backup)
@@ -350,6 +355,10 @@ open class CWFragmentRestore : FragmentInit() {
             }
         })
 
+    }
+
+    override fun updateUI() {
+        super.updateUI()
     }
 
     open fun startRestore(isRemove: Boolean, mnemonics: String) {
