@@ -115,7 +115,14 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
                 if (nextPosition == mMnemonic.size) {
                     nextPosition = 0
                 }
-                val nextResourceId = context.resources.getIdentifier("mnemonic_$nextPosition", "id", context.packageName)
+
+                var nextResourceId = context.resources.getIdentifier("mnemonic_$nextPosition", "id", context.packageName)
+
+                //Disable the loop
+                if (nextPosition == 0) {
+                    nextResourceId = 0
+                }
+
                 editTextView.id = resourceId
                 editTextView.nextFocusForwardId = nextResourceId
 

@@ -46,6 +46,9 @@ class MnemonicAutoCompleteTextView constructor(context: Context, attrs: Attribut
             false
         }
 
+        this.setOnItemClickListener { parent, view, position, id ->
+            focusNextWord()
+        }
 
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -57,10 +60,9 @@ class MnemonicAutoCompleteTextView constructor(context: Context, attrs: Attribut
             override fun afterTextChanged(s: Editable?) {
                 isWordInBip38 = wordList.contains(text.toString())
                 if (isWordInBip38) {
-                    focusNextWord()
+                    //focusNextWord()
                 }
             }
-
         })
 
     }

@@ -122,6 +122,7 @@
     </style>
 
     <style name="t_btn_blue" parent="@style/t_text_base">
+        <item name="android:stateListAnimator">@null</item>
         <item name="android:text">@string/next_step</item>
         <item name="android:background">@drawable/t_btn_bg</item>
         <item name="android:layout_width">match_parent</item>

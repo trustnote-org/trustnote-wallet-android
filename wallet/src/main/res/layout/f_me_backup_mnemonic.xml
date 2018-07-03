@@ -40,6 +40,22 @@
                     android:text="@string/me_backup_hide"
                     android:textColor="@color/t_blue"
                     android:textSize="18sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+
+                <ImageView
+                    android:id="@+id/hide_mnemonic_layout_arrow_hide"
+                    android:layout_width="@dimen/ic_26"
+                    android:layout_height="@dimen/ic_26"
+                    android:rotation="180"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/show_or_hide" />
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -61,6 +77,18 @@
                     android:text="@string/me_backup_show"
                     android:textColor="@color/t_blue"
                     android:textSize="18sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/hide_mnemonic_layout_arrow_show"
+                    android:layout_width="@dimen/ic_26"
+                    android:layout_height="@dimen/ic_26"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/show_or_hide" />
 
             </LinearLayout>
         </FrameLayout>

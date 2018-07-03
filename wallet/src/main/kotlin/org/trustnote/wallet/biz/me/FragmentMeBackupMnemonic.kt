@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.me
 import android.view.View
 import android.webkit.WebView
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.init.CreateWalletModel

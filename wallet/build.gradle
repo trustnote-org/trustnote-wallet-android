@@ -31,7 +31,7 @@ android {
 
         buildConfigField "boolean", "DEVELOPER_MODE", developerMode("true")
 
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 26
 
         // Enable VectorDrawableCompat for API < 21
