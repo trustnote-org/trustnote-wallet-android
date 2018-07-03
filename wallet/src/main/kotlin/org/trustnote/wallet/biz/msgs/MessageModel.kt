@@ -208,5 +208,14 @@ class MessageModel : ModelBase() {
         return DbHelper.findCorrespondentDevice(correspondentAddresses)
     }
 
+    fun hasUnreadMessage(): Boolean {
+        for(one in latestHomeList) {
+            if (one.unReadMsgsCounter > 0) {
+                return true
+            }
+        }
+        return false
+    }
+
 }
 

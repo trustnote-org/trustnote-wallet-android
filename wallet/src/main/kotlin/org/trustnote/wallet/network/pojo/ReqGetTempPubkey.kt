@@ -19,7 +19,7 @@ class ReqGetTempPubkey : HubRequest {
     }
 
     fun getTempPubkey(): String {
-        return (getResponse().responseJson as JsonObject).get("temp_pubkey").asString
+        return ((getResponse().responseJson as JsonObject).get("temp_pubkey")?.asString)?:""
     }
 
     //["response",{"tag":"l8lMro64mYriosRR9Upp6gCFj1Tgm/7jlz5dGQu15Ek=",

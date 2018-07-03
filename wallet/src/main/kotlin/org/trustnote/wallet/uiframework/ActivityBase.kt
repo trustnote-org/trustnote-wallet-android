@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
 import com.google.zxing.integration.android.IntentIntegrator
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.Subject
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
 import org.trustnote.wallet.util.AndroidUtils
@@ -30,6 +33,8 @@ abstract class ActivityBase : AppCompatActivity() {
     lateinit var mErrorIndicator: View
 
     var stringAsReturnResult: String = ""
+    protected val disposables: CompositeDisposable = CompositeDisposable()
+
 
     abstract fun injectDependencies(graph: TApplicationComponent)
 
@@ -209,6 +214,17 @@ abstract class ActivityBase : AppCompatActivity() {
         return res
     }
 
+    override fun onPause() {
+        super.onPause()
+        disposables.clear()
+    }
+
+    fun listener(eventCenter: Subject<Boolean>, function: () -> Unit = {  }) {
+        val d = eventCenter.observeOn(AndroidSchedulers.mainThread()).subscribe {
+            function.invoke()
+        }
+        disposables.add(d)
+    }
 
 
 }

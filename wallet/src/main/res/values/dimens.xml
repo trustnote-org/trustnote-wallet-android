@@ -96,6 +96,7 @@
     <dimen name="credential_ic_size">46dp</dimen>
 
     <dimen name="text_20">20sp</dimen>
+    <dimen name="text_18">18sp</dimen>
     <dimen name="text_12">12sp</dimen>
     <dimen name="text_10">10sp</dimen>
 

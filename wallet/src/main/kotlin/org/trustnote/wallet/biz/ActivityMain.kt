@@ -13,6 +13,7 @@ import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
+import org.trustnote.wallet.biz.msgs.MessageModel
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.EmptyFragment
 import org.trustnote.wallet.uiframework.ActivityBase
@@ -48,6 +49,7 @@ class ActivityMain : ActivityBase() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -89,6 +91,10 @@ class ActivityMain : ActivityBase() {
 
         selectPageByIntent(intent)
 
+        listener(MessageModel.instance.mMessagesEventCenter) {
+            updateMsgIconInBottomNavigation()
+        }
+
     }
 
     private fun selectPageByIntent(intent: Intent) {
@@ -110,6 +116,14 @@ class ActivityMain : ActivityBase() {
         transaction.replace(R.id.fragment_container, newFragment)
         transaction.commit()
 
+    }
+
+    private fun updateMsgIconInBottomNavigation() {
+        val menu = bottomNavigationView.menu
+        val isUnread = MessageModel.instance.hasUnreadMessage()
+        menu.findItem(R.id.menu_msg).setIcon(
+                if (isUnread) R.drawable.ic_menu_message_unread
+                else R.drawable.ic_menu_message)
     }
 }
 

@@ -20,7 +20,7 @@
             android:name="org.trustnote.wallet.biz.ActivityMain"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <activity
             android:name="org.trustnote.wallet.biz.pwd.ActivityInputPwd"
