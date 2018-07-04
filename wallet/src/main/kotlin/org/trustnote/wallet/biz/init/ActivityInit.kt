@@ -2,16 +2,15 @@ package org.trustnote.wallet.biz.init
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
 import android.view.WindowManager
-import org.trustnote.wallet.*
+import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
+import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.biz.wallet.CREATE_WALLET_STATUS
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Utils
 
 class ActivityInit : ActivityBase() {
 
@@ -28,7 +27,7 @@ class ActivityInit : ActivityBase() {
 
         setupUISettings()
 
-        if (!BuildConfig.DEBUG) {
+        if (!Utils.isDeveloperFeature()) {
             window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         }
 
