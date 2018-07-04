@@ -11,6 +11,7 @@
 
     <color name="bg_white">#FFFFFFFF</color>
 
+
     <color name="gray_light">#e0e0e0</color>
 
     <color name="t_title_black">#FF111111</color>
@@ -63,7 +64,7 @@
 
     <color name="bg_msg_counter">#FF4D46</color>
 
-    <color name="page_bg">#DDD3DFF1</color>
+    <color name="page_bg">#E0D3DFF1</color>
     <color name="page_title_bg">#F6F7F9</color>
 
     <color name="line_in_dialog">#C74D4D4D</color>

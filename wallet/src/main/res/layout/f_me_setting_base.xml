@@ -10,8 +10,8 @@
             style="@style/t_title"
             android:textStyle="bold"
             android:layout_width="match_parent"
-            android:paddingLeft="@dimen/page_margin"
-            android:paddingRight="@dimen/page_margin"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main"
             android:paddingBottom="@dimen/line_gap_36"
             android:paddingTop="@dimen/line_gap_10"
             android:text="@string/setting_system" />

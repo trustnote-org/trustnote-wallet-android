@@ -16,6 +16,7 @@ import org.trustnote.wallet.util.Utils
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -110,15 +111,18 @@ abstract class FragmentBaseForHomePage : Fragment() {
         val actionBar = (activity as ActivityBase).supportActionBar!!
 
         actionBar.setDisplayShowTitleEnabled(false)
+        actionBar.setDisplayHomeAsUpEnabled(false)
+        actionBar.setDisplayShowHomeEnabled(false)
 
         if (!isBottomLayerUI) {
-            actionBar.setDisplayHomeAsUpEnabled(!isBottomLayerUI)
-            actionBar.setDisplayShowHomeEnabled(!isBottomLayerUI)
-            mToolbar.setNavigationIcon(TApp.smallIconBackHome)
-            mToolbar.setNavigationOnClickListener {
+            mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow)?.setOnClickListener {
                 onBackPressed()
             }
+        } else {
+            mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow)?.visibility = View.INVISIBLE
         }
+
+        mToolbar.findViewById<TextView>(R.id.toolbar_title).text = getTitle()
 
         mToolbar.findViewById<TextView>(R.id.toolbar_title).text = getTitle()
 

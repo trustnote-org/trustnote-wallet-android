@@ -40,6 +40,7 @@
     <style name="t_title" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_title_black</item>
         <item name="android:gravity">left</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
     </style>
 
@@ -99,6 +100,8 @@
 
     <style name="t_text_msg" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_text</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+        <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">14sp</item>
     </style>
 
