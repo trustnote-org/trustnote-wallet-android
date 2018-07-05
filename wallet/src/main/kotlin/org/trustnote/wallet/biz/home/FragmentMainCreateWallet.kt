@@ -105,6 +105,18 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
     }
 }
 
+class FragmentMainCreateWalletObserveEmpty : FragmentBase() {
+    override fun getLayoutId(): Int {
+        return R.layout.f_empty
+    }
+
+    override fun initFragment(view: View) {
+        this.isBottomLayerUI = true
+        super.initFragment(view)
+    }
+}
+
+
 class FragmentMainCreateWalletObserve : FragmentBase() {
     override fun getLayoutId(): Int {
         return R.layout.f_main_create_wallet_observe
@@ -203,7 +215,7 @@ class SimpleFragmentPagerAdapter(private val mContext: Context, fm: FragmentMana
             f.mToolbarVisibility = View.GONE
             f
         } else {
-            val f = FragmentMainCreateWalletObserve()
+            val f = FragmentMainCreateWalletObserveEmpty()
             f.mToolbarVisibility = View.GONE
             f
         }

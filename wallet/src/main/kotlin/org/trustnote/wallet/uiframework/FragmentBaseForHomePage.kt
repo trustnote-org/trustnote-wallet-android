@@ -165,7 +165,7 @@ abstract class FragmentBaseForHomePage : Fragment() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
-                Utils.debugToast("Cancelled")
+
             } else {
                 scanResHandler.invoke(result.contents ?: "")
             }

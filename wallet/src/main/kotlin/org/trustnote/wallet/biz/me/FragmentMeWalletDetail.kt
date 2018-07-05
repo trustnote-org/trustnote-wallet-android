@@ -79,10 +79,10 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
         val a = SettingItem.getSettingForWalletDetail(credential, activity as ActivityMain)
         val c = mutableListOf<SettingItem>()
         c.addAll(a)
-        if (!credential.isObserveOnly) {
-            val b = SettingItem.getSettingMoreForColdeWalletDetail(credential, activity as ActivityMain)
-            c.addAll(b)
-        }
+        //        if (!credential.isObserveOnly) {
+        //            val b = SettingItem.getSettingMoreForColdeWalletDetail(credential, activity as ActivityMain)
+        //            c.addAll(b)
+        //        }
 
         //TODO: iff UI changes
         c[1].lambda = { editWalletname() }

@@ -84,7 +84,7 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
 
         val a = TxAdapter(credential.txDetails.filter {
             TxType.moved != it.txType
-        }.toTypedArray())
+        })
 
         recyclerView.adapter = a
 

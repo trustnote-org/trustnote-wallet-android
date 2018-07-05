@@ -6,6 +6,7 @@
 
     <TextView
         android:id="@+id/empty_view_text"
+        style="@style/t_text_msg_gray"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
@@ -13,7 +14,6 @@
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="@string/coming_soon"
-        android:textSize="50sp"
-        android:typeface="sans" />
+        android:textSize="16sp" />
 
 </layout>

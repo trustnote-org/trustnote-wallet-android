@@ -2,10 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
+        android:background="@color/bg_white"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_credential_height"
-        android:layout_marginLeft="@dimen/padding_main">
-
+        android:paddingLeft="@dimen/padding_main">
 
         <FrameLayout
             android:id="@+id/tx_ic_layout"
@@ -21,32 +21,37 @@
                 android:scaleType="fitXY" />
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/tx_address"
-            style="@style/t_sub_title"
-            android:layout_alignTop="@id/tx_ic_layout"
+        <LinearLayout
+            android:id="@+id/tx_time_address"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/line_gap_14"
             android:layout_toRightOf="@id/tx_ic_layout"
-            android:maxLength="9"
-            android:maxLines="1"
-            android:text="@string/place_holder"
-            android:textSize="@dimen/text_16" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tx_address"
+                style="@style/t_sub_title"
+                android:layout_marginBottom="@dimen/line_gap_4"
+                android:maxLength="9"
+                android:maxLines="1"
+                android:text="@string/place_holder"
+                android:textSize="@dimen/text_16" />
 
-        <TextView
-            android:id="@+id/tx_time"
-            style="@style/t_text_base"
-            android:layout_alignBottom="@id/tx_ic_layout"
-            android:layout_marginLeft="@dimen/line_gap_14"
-            android:layout_toRightOf="@id/tx_ic_layout"
-            android:maxLines="1"
-            android:text="@string/place_holder"
-            android:textColor="@color/tx_time"
-            android:textSize="@dimen/text_14" />
+            <TextView
+                android:id="@+id/tx_time"
+                style="@style/t_text_base"
+                android:maxLines="1"
+                android:text="@string/place_holder"
+                android:textColor="@color/tx_time"
+                android:textSize="@dimen/text_14" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/one_dp"
-            android:layout_alignLeft="@id/tx_time"
+            android:layout_height="@dimen/half_dp"
+            android:layout_alignLeft="@id/tx_time_address"
             android:layout_alignParentBottom="true"
             android:background="@color/tx_bottom_line" />
 

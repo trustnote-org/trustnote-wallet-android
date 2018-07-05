@@ -327,6 +327,7 @@
 
     <string name="title_edit_devicename">个人信息</string>
 
+    <string name="tx_empty_msg">暂无记录哦~</string>
 
 
 </resources>
