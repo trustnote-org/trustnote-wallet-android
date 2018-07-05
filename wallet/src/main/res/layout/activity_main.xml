@@ -33,7 +33,6 @@
             app:itemTextColor="@drawable/menu_text_color"
             app:menu="@menu/main_bottom" />
 
-
     </RelativeLayout>
 
     <FrameLayout

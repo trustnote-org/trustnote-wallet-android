@@ -148,7 +148,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
+        <item name="actionOverflowMenuStyle">@style/overflow_menu</item>
         <item name="android:itemTextAppearance">@style/ActionBar.TitleTextStyle</item>
     </style>
 
@@ -165,19 +165,21 @@
         <item name="titleTextAppearance">@style/ActionBar.TitleTextStyle</item>
     </style>
 
-    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+    <style name="overflow_menu" parent="Widget.AppCompat.PopupMenu.Overflow">
         <item name="android:windowDisablePreview">true</item>
         <item name="overlapAnchor">false</item>
         <item name="android:dropDownVerticalOffset">15.0dp</item>
         <item name="android:popupBackground">@color/bg_white</item>
         <item name="android:popupMenuStyle">@style/popupMenuStyle</item>
-        <item name="android:divider">@color/home_line_middle</item>
+        <item name="android:divider">@color/tx_red</item>
         <item name="android:dividerHeight">@dimen/one_dp</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <item name="android:dropDownHorizontalOffset">@dimen/line_gap_12</item>
     </style>
 
     <style name="ActionBar.TitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/title_bar_text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/t_text</item>
     </style>
 
     <style name="TabLayout" parent="Widget.Design.TabLayout">
@@ -187,7 +189,7 @@
     </style>
 
     <style name="popupMenuStyle">
-        <item name="android:divider">@color/home_line_middle</item>
+        <item name="android:divider">@color/tx_red</item>
         <item name="android:dividerHeight">@dimen/one_dp</item>
     </style>
 
@@ -217,5 +219,6 @@
     <declare-styleable name="PageHeader">
         <attr name="ttt_icon" format="reference" />
         <attr name="ttt_title" format="reference" />
+        <attr name="ttt_title_middle" format="reference" />
     </declare-styleable>
 </resources>

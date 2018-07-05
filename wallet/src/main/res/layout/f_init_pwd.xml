@@ -33,31 +33,42 @@
             android:layout_below="@id/pwd_old"
             android:text="" />
 
-        <org.trustnote.wallet.widget.PasswordStrength
-            android:id="@+id/pwd_strength"
+        <FrameLayout
+            android:id="@+id/pwd_prompt_or_err"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pwd" />
+            android:layout_below="@id/pwd"
+            android:layout_marginBottom="@dimen/line_gap_12">
 
-        <org.trustnote.wallet.widget.ErrTextView
-            android:id="@+id/pwd_err"
-            style="@style/t_err"
-            android:layout_below="@id/pwd_strength"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/pwd_prompt"
-            style="@style/t_text_msg"
-            android:textSize="@dimen/text_12"
-            android:textColor="@color/tx_time"
-            android:text="@string/pwd_length_error"
-            android:layout_below="@id/pwd_strength"
-            android:layout_marginBottom="@dimen/line_gap_12" />
+                <org.trustnote.wallet.widget.PasswordStrength
+                    android:id="@+id/pwd_strength"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <org.trustnote.wallet.widget.ErrTextView
+                    android:id="@+id/pwd_err"
+                    style="@style/t_err" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/pwd_prompt"
+                style="@style/t_text_msg"
+                android:text="@string/pwd_length_error"
+                android:textColor="@color/tx_time"
+                android:textSize="@dimen/text_12" />
+        </FrameLayout>
 
 
         <org.trustnote.wallet.widget.ClearableEditText
             android:id="@+id/pwd_verify"
             style="@style/t_pwd"
-            android:layout_below="@id/pwd_err"
+            android:layout_below="@id/pwd_prompt_or_err"
             android:hint="@string/pwd_confirm_hint"
             android:text="" />
 

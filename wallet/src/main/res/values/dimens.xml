@@ -5,6 +5,7 @@
     <dimen name="title_height">44dp</dimen>
 
     <dimen name="one_dp">1dp</dimen>
+    <dimen name="half_dp">0.5dp</dimen>
 
     <dimen name="page_margin_26">26dp</dimen>
 
@@ -37,6 +38,7 @@
     <dimen name="line_gap_36">36dp</dimen>
     <dimen name="line_gap_22">22dp</dimen>
     <dimen name="line_gap_20">20dp</dimen>
+    <dimen name="line_gap_28">28dp</dimen>
     <dimen name="line_gap_12">12dp</dimen>
     <dimen name="line_gap_42">42dp</dimen>
     <dimen name="line_gap_48">48dp</dimen>
@@ -49,6 +51,9 @@
     <dimen name="line_gap_70">70dp</dimen>
     <dimen name="line_gap_54">54dp</dimen>
     <dimen name="field_padding">17dp</dimen>
+
+    <dimen name="line_widthg_2">2dp</dimen>
+
 
     <dimen name="bg_dialog_padding_30">30dp</dimen>
     <dimen name="bg_dialog_corner_4">4dp</dimen>
@@ -118,7 +123,7 @@
     <dimen name="bg_msg_counter_size">15dp</dimen>
 
     <dimen name="icon_setting">26dp</dimen>
-    <dimen name="icon_setting_arrow">20dp</dimen>
+    <dimen name="icon_setting_arrow">26dp</dimen>
     <dimen name="icon_setting_arrow_margin">15dp</dimen>
 
     <dimen name="ic_26">26dp</dimen>
@@ -138,5 +143,6 @@
     <dimen name="keyboard_textsize">20sp</dimen>
     <dimen name="item_msg_height">90dp</dimen>
 
-    <dimen name="ic_action_padding">8dp</dimen>
+    <dimen name="ic_action_padding">4dp</dimen>
+    <dimen name="ic_action_padding_6">6dp</dimen>
 </resources>

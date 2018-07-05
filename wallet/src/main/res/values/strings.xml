@@ -106,7 +106,7 @@
     <string name="mnemonic_verify_success_title">助记词验证正确</string>
 
     <string name="mnemonic_remove_msg">您的助记词正确，为了确保您的钱包安全，建议您删除显示在设备中的助记词</string>
-    <string name="mnemonic_remove_ignore">跳过</string>
+    <string name="mnemonic_remove_ignore">暂不删除</string>
     <string name="mnemonic_remove_btn">删除助记词</string>
 
     <string name="mnemonic_restore_title">恢复钱包</string>
@@ -324,6 +324,9 @@
 
     <string name="time_format_yesterday">昨天</string>
     <string name="default_first_msg_for_friend">你已添加了%1$s，现在可以开始聊天</string>
+
+    <string name="title_edit_devicename">个人信息</string>
+
 
 
 </resources>

@@ -26,7 +26,7 @@
             android:layout_height="@dimen/ic_26"
             android:layout_alignTop="@id/address"
             android:layout_alignParentRight="true"
-            android:src="@drawable/scan" />
+            android:src="@drawable/action_scan" />
 
 
         <org.trustnote.wallet.widget.ClearableEditText

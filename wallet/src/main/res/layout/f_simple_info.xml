@@ -3,11 +3,13 @@
 
     <RelativeLayout
         style="@style/t_layout"
-        android:background="@color/bg_white"
+        android:background="@color/tx_list_bg"
+        android:paddingTop="@dimen/line_gap_24"
         android:paddingLeft="@dimen/padding_main"
         android:paddingRight="@dimen/padding_main">
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/title"
             style="@style/t_title"
             android:layout_width="match_parent"
@@ -19,9 +21,6 @@
             android:id="@+id/msg"
             style="@style/t_text_msg"
             android:layout_width="match_parent"
-            android:layout_below="@id/title"
-            android:background="@color/bg_white"
-            android:paddingTop="@dimen/line_gap_10"
             android:text="@string/place_holder" />
 
     </RelativeLayout>

@@ -3,7 +3,7 @@
 
     <item
         android:bottom="@dimen/ic_action_padding"
-        android:drawable="@drawable/my_pair_code"
+        android:drawable="@drawable/ic_my_pair_code"
         android:left="@dimen/ic_action_padding"
         android:right="@dimen/ic_action_padding"
         android:top="@dimen/ic_action_padding"></item>

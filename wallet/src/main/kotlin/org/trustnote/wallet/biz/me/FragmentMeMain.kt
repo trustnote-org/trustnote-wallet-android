@@ -92,7 +92,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
                 {
                     Prefs.writeDeviceName(it)
                     WalletManager.mWalletEventCenter.onNext(true)
-                })
+                }, TApp.getString(R.string.title_edit_devicename))
         addL2Fragment(f)
     }
 

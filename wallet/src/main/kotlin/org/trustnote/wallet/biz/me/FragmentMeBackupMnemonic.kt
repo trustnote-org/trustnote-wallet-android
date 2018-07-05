@@ -28,6 +28,7 @@ class FragmentMeBackupMnemonic : FragmentBase() {
     lateinit var backupLayout: View
     lateinit var removeBtn: Button
     lateinit var subTitle: TextView
+    lateinit var backupWarning: View
 
     override fun initFragment(view: View) {
 
@@ -42,6 +43,8 @@ class FragmentMeBackupMnemonic : FragmentBase() {
         backupLayout = findViewById(R.id.mnemonic_backup_layout)
 
         removeBtn = findViewById(R.id.mnemonic_remove_btn)
+
+        backupWarning = findViewById(R.id.backup_warning)
 
         hideLayout.setOnClickListener {
             hideMnemonic(true)
@@ -78,6 +81,7 @@ class FragmentMeBackupMnemonic : FragmentBase() {
         hideLayout.visibility = if (isHide) View.INVISIBLE else View.VISIBLE
         showLayout.visibility = if (isHide) View.VISIBLE else View.INVISIBLE
         removeBtn.visibility = if (isHide) View.INVISIBLE else View.VISIBLE
+        backupWarning.visibility = if (isHide) View.INVISIBLE else View.VISIBLE
     }
 }
 

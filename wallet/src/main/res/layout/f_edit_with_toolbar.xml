@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white">
@@ -10,17 +12,13 @@
 
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:paddingLeft="@dimen/padding_main"
-        android:paddingRight="@dimen/padding_main">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/wallet_toolbar_title"
-            android:textColor="@color/title_bar_text"
-            android:textSize="@dimen/text_20"
-            android:visibility="gone" />
+        android:contentInsetRight="0dp"
+        android:contentInsetEnd="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetEnd="0dp"
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main_20">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,29 +39,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:gravity="right"
                 android:text="@string/toolbar_edit_done"
-                android:textColor="@color/t_blue"
-                android:textSize="@dimen/text_16" />
+                android:textColor="@color/action_text"
+                android:textSize="@dimen/text_16"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
-    <org.trustnote.wallet.widget.ClearableEditText
-        android:id="@+id/input_text"
-        style="@style/t_pwd"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_marginLeft="@dimen/padding_main"
-        android:layout_marginRight="@dimen/padding_main"
-        android:inputType="text"
-        android:text="" />
+        android:background="@color/tx_list_bg"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/line_gap_10">
 
-    <org.trustnote.wallet.widget.ErrTextView
-        android:id="@+id/input_err"
-        style="@style/t_err"
-        android:layout_marginLeft="@dimen/padding_main"
-        android:layout_marginRight="@dimen/padding_main"
-        android:layout_below="@id/input_text"
-        android:text="@string/mnemonic_devicename_err" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white">
+
+            <org.trustnote.wallet.widget.ClearableEditText
+                android:id="@+id/input_text"
+                style="@style/t_pwd"
+                android:layout_marginLeft="@dimen/padding_main"
+                android:layout_marginRight="@dimen/padding_main"
+                android:inputType="text"
+                android:text="" />
+
+        </FrameLayout>
+
+        <org.trustnote.wallet.widget.ErrTextView
+            android:id="@+id/input_err"
+            style="@style/t_err"
+            android:layout_below="@id/input_text"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main"
+            android:text="@string/mnemonic_devicename_err" />
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
 
     private lateinit var inputAmount: EditText
     private lateinit var btnConfirm: Button
+    lateinit var pageHeader: PageHeader
     lateinit var doneAction: (Long) -> Unit
 
     override fun getLayoutId(): Int {
@@ -31,10 +32,18 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
 
         btnConfirm.setOnClickListener {
 
+            hideSystemSoftKeyboard()
             getMyActivity().onBackPressed()
             doneAction.invoke(Utils.mnToNotes(inputAmount.text.toString()))
 
         }
+
+        pageHeader = findViewById(R.id.page_header)
+        pageHeader.hideCloseBtn()
+        fixOutmostLayoutPaddingBottom(R.dimen.line_gap_70)
+
+        showSystemSoftKeyboard(inputAmount, activity)
+
     }
 
 

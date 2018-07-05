@@ -7,6 +7,7 @@
     <TextView
         android:id="@+id/new_mnemonic_sub_title"
         style="@style/t_sub_title"
+        android:textStyle="bold"
         android:layout_marginBottom="@dimen/line_gap_10"
         android:text="@string/new_mnemonic_sub_title" />
 
@@ -24,10 +25,5 @@
         android:layout_marginTop="@dimen/mnemonic_margin_top"
         android:textColor="@color/t_text" />
 
-    <WebView
-        android:id="@+id/backup_warning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mnemonics" />
 </RelativeLayout>
 

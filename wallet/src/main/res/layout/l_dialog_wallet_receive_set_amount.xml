@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ttt:ttt_icon="@null"
-        ttt:ttt_title="@string/receive_setup_amount" />
+        ttt:ttt_title="@null"
+        ttt:ttt_title_middle="@string/receive_setup_amount" />
 
     <LinearLayout
         android:layout_width="match_parent"

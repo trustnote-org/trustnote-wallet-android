@@ -31,6 +31,7 @@ import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
@@ -196,8 +197,11 @@ object AndroidUtils {
         val result: BitMatrix
         val width = size
         try {
+            val hints  = EnumMap<EncodeHintType, Object>(EncodeHintType::class.java)
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8" as Object)
+            hints.put(EncodeHintType.MARGIN, 0 as Object)
             result = MultiFormatWriter().encode(str,
-                    BarcodeFormat.QR_CODE, width, width, null)
+                    BarcodeFormat.QR_CODE, width, width, hints)
         } catch (iae: IllegalArgumentException) {
             // Unsupported format
             // TODO: return ERR code.

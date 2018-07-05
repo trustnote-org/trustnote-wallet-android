@@ -23,6 +23,7 @@ class FragmentWalletReceive : FragmentPageBase() {
     lateinit var clearAmount: TextView
     lateinit var setupAmount: TextView
     lateinit var copyBtn: Button
+    lateinit var pageHeader: PageHeader
     var mnAmount = 0L
 
     override fun getLayoutId(): Int {
@@ -45,6 +46,9 @@ class FragmentWalletReceive : FragmentPageBase() {
         clearAmount = mRootView.findViewById(R.id.receive_clear_amount)
         setupAmount = mRootView.findViewById(R.id.receive_setup_amount)
         copyBtn = mRootView.findViewById(R.id.receive_btn_copy)
+
+        pageHeader = findViewById(R.id.page_header)
+        pageHeader.hideCloseBtn()
 
         setupAmount.setOnClickListener {
             val f = FragmentWalletReceiveSetAmount()

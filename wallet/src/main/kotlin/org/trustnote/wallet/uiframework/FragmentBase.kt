@@ -26,6 +26,8 @@ import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.FragmentDialogSelectWallet
+import android.app.Activity
+import android.widget.EditText
 
 abstract class FragmentBase : SwipeBackFragment() {
 
@@ -39,7 +41,6 @@ abstract class FragmentBase : SwipeBackFragment() {
     private val ttag = "TTTUI"
     var supportSwipeBack = true
     protected val disposables: CompositeDisposable = CompositeDisposable()
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -117,14 +118,14 @@ abstract class FragmentBase : SwipeBackFragment() {
         actionBar.setDisplayShowHomeEnabled(false)
 
         if (!isBottomLayerUI) {
-            mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow).setOnClickListener {
+            mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow)?.setOnClickListener {
                 onBackPressed()
             }
         } else {
-            mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow).visibility = View.INVISIBLE
+            mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow)?.visibility = View.INVISIBLE
         }
 
-        mToolbar.findViewById<TextView>(R.id.toolbar_title).text = getTitle()
+        mToolbar.findViewById<TextView>(R.id.toolbar_title)?.text = getTitle()
 
     }
 
@@ -165,7 +166,7 @@ abstract class FragmentBase : SwipeBackFragment() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
-                Utils.debugToast("Cancelled")
+                Utils.debugLog("action_scan cancelled")
             } else {
                 scanResHandler.invoke(result.contents ?: "")
             }
@@ -194,13 +195,11 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     }
 
-
     fun showFragment(f: FragmentBase) {
 
         (activity as ActivityBase).showFragment(f)
 
     }
-
 
     fun removeMeFromBackStack() {
 
@@ -215,6 +214,12 @@ abstract class FragmentBase : SwipeBackFragment() {
     fun hideSystemSoftKeyboard() {
         val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(mRootView.getWindowToken(), 0)
+    }
+
+    fun showSystemSoftKeyboard(mEtSearch: EditText, context: Context) {
+        mEtSearch.requestFocus()
+        val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
     }
 
     open fun onBackPressed() {
@@ -234,7 +239,6 @@ abstract class FragmentBase : SwipeBackFragment() {
     fun showOrHideToolbar() {
         mToolbar.visibility = mToolbarVisibility
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -260,20 +264,19 @@ abstract class FragmentBase : SwipeBackFragment() {
                 addL2Fragment(f)
             }
 
-            SCAN_RESULT_TYPE.COLD_WALLET -> {
-                val f = FragmentMainCreateWalletObserve()
-                AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
-                addL2Fragment(f)
-            }
+            //            SCAN_RESULT_TYPE.COLD_WALLET -> {
+            //                val f = FragmentMainCreateWalletObserve()
+            //                AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
+            //                addL2Fragment(f)
+            //            }
 
             SCAN_RESULT_TYPE.TTT_PAIRID -> {
             }
 
-            SCAN_RESULT_TYPE.UNKNOWN -> {
+            SCAN_RESULT_TYPE.COLD_WALLET, SCAN_RESULT_TYPE.UNKNOWN -> {
                 openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
             }
         }
     }
-
 
 }

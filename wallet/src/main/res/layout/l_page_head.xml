@@ -15,7 +15,7 @@
             android:layout_width="@dimen/ic_26"
             android:layout_height="@dimen/ic_26"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/page_margin_26"
+            android:layout_marginLeft="@dimen/padding_main_20"
             android:scaleType="fitXY" />
 
         <TextView
@@ -25,6 +25,16 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/line_gap_10"
             android:layout_toRightOf="@id/icon"
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/title_middle"
+            android:gravity="center"
+            style="@style/t_sub_title"
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:textSize="@dimen/text_16"
             android:textStyle="bold" />
 

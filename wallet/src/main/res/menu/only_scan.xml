@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/action_scan_receive_address"
-        android:icon="@drawable/scan"
+        android:icon="@drawable/ic_scan_gray_action_padding"
         android:title="@string/place_holder"
         app:showAsAction="always">
     </item>

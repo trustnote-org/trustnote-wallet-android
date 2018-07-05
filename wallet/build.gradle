@@ -327,6 +327,6 @@ task gitPull(type: Exec) {
 }
 
 
-preBuild.dependsOn gitPull
+//preBuild.dependsOn gitPull
 
 build.finalizedBy publishAll

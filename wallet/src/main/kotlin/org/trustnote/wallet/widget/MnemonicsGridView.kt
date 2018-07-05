@@ -178,13 +178,13 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
             return
         }
 
-
         var isLastCellworkInBip38 = false
         for (i in 0..11) {
             val cell = grid.getChildAt(i) as MnemonicAutoCompleteTextView
             //if (!cell.isWordInBip38 || cell.text.toString() != mMnemonicCheck[i]){
             if (cell.text.toString().isEmpty()) {
                 onCheckResult(false,  isLastCellUpdate)
+                return
             }
             if (i == 11) {
                 isLastCellworkInBip38 = cell.isWordInBip38
@@ -197,6 +197,7 @@ class MnemonicAdapter(private val context: Context, mnemonic: List<String>) : Ba
         for (i in 0..11) {
             if (mMnemonic.isEmpty()) {
                 onCheckResult(false, true)
+                return
             }
         }
         onCheckResult(true, true)

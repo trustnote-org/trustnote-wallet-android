@@ -3,34 +3,44 @@
 
     <RelativeLayout
         style="@style/t_layout"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:gravity="center_horizontal">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="@dimen/logo_width"
-            android:layout_height="@dimen/logo_height"
-            android:scaleType="fitXY"
-            android:layout_centerInParent="true"
-            android:layout_above="@id/slogan"
-            android:layout_marginBottom="@dimen/line_gap_16"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/slogan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+        <RelativeLayout
+            android:layout_above="@id/btn_new_seed"
             android:gravity="center"
-            android:text="@string/ttt_slogan"
-            android:textColor="@color/t_blue"
-            android:textSize="22sp" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/logo"
+                    android:layout_width="@dimen/logo_width"
+                    android:layout_height="@dimen/logo_height"
+                    android:scaleType="fitXY"
+                    android:layout_marginBottom="@dimen/line_gap_16"
+                    android:src="@drawable/logo" />
+
+                <TextView
+                    android:id="@+id/slogan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/ttt_slogan"
+                    android:textColor="@color/t_blue"
+                    android:textSize="22sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_new_seed"
             style="@style/t_btn_blue"
+            android:layout_marginTop="?attr/actionBarSize"
             android:layout_above="@id/btn_restore_seed"
-            android:layout_marginTop="@dimen/slogan_below"
             android:text="@string/create_seed" />
 
         <Button

@@ -64,10 +64,10 @@
 
     <color name="bg_msg_counter">#FF4D46</color>
 
-    <color name="page_bg">#E0D3DFF1</color>
+    <color name="page_bg">#F0D3DFF1</color>
     <color name="page_title_bg">#F6F7F9</color>
 
-    <color name="line_in_dialog">#C74D4D4D</color>
+    <color name="line_in_dialog">#A74D4D4D</color>
     <color name="btn2_text_in_dialog">#FF007AFF</color>
 
     <color name="keyboard_bg">#CFD4DA</color>
@@ -77,5 +77,8 @@
     <color name="f_tx_unconfirmed">#EE7A23</color>
     <color name="f_msg_date">#BDCADB</color>
     <color name="bg_msg_input">#F8F9FB</color>
+
+    <color name="action_text">#0076FF</color>
+
 
 </resources>

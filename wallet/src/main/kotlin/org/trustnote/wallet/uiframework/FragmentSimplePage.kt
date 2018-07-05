@@ -20,5 +20,9 @@ class FragmentSimplePage : FragmentBase() {
         msg.text = (AndroidUtils.getMsgFromBundle(arguments))
     }
 
+    override fun getTitle(): String {
+        return AndroidUtils.getTitleFromBundle(arguments)
+    }
+
 }
 

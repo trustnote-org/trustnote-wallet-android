@@ -29,6 +29,7 @@
             style="@style/t_pwd"
             android:layout_below="@id/mnemonic_devicename_msg"
             android:hint="@string/mnemonic_devicename_hint"
+            android:layout_marginTop="@dimen/line_gap_48"
             android:inputType="text"
             android:text="" />
 

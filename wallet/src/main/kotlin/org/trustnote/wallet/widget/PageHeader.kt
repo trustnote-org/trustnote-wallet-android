@@ -21,11 +21,13 @@ open class PageHeader @JvmOverloads constructor(
         addView(view)
 
         val title = findViewById<TextView>(R.id.title__)
+        val titleMiddle = findViewById<TextView>(R.id.title_middle)
         val icon = findViewById<ImageView>(R.id.icon)
 
         val a = context.obtainStyledAttributes(attrs, R.styleable.PageHeader)
 
         title.text = a.getString(R.styleable.PageHeader_ttt_title)
+        titleMiddle.text = a.getString(R.styleable.PageHeader_ttt_title_middle)
         icon.setImageDrawable(a.getDrawable(R.styleable.PageHeader_ttt_icon))
 
         findViewById<View>(R.id.ic_dialog_close).setOnClickListener {
@@ -34,6 +36,9 @@ open class PageHeader @JvmOverloads constructor(
 
     }
 
+    fun hideCloseBtn() {
+        findViewById<ImageView>(R.id.ic_dialog_close)?.visibility = View.INVISIBLE
+    }
 
 }
 

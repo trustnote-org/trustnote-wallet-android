@@ -1,0 +1,22 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/half_dp"
+        android:background="@color/tx_red"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/place_holder"
+        android:textColor="@color/tx_red"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:textAppearance="?attr/textAppearanceListItemSmall"/>
+
+</LinearLayout>
