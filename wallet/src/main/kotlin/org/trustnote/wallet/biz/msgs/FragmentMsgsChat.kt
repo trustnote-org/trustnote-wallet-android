@@ -116,7 +116,7 @@ class FragmentMsgsChat : FragmentMsgsBase() {
         val latestMsgs = model.queryChatMessages(correspondentAddresses)
         val deboundedMsgs = getChatHistoryForDisplay(latestMsgs)
 
-        (recyclerView.layoutManager as LinearLayoutManager).stackFromEnd = deboundedMsgs.size >= 4
+        (recyclerView.layoutManager as LinearLayoutManager).stackFromEnd = deboundedMsgs.size >= 7
 
         val a = ChatAdapter(deboundedMsgs)
         recyclerView.adapter = a

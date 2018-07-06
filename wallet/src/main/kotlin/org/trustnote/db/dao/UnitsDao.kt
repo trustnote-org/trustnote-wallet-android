@@ -63,7 +63,7 @@ abstract class UnitsDao {
     @Query("""SELECT * FROM units""")
     abstract fun monitorUnits(): Flowable<Array<Units>>
 
-    @Query("""SELECT * FROM outbox""")
+    @Query("""SELECT * FROM outbox ORDER BY creation_date DESC limit 1""")
     abstract fun monitorOutbox(): Flowable<Array<Outbox>>
 
     @Query("""SELECT * FROM outputs""")

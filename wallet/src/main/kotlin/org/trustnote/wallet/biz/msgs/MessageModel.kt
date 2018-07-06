@@ -34,7 +34,8 @@ class MessageModel : ModelBase() {
     var latestHomeList: List<CorrespondentDevices> = listOf()
 
     private fun monitorOutbox() {
-        DbHelper.monitorOutbox().debounce(3, TimeUnit.SECONDS).subscribeOn(Schedulers.io()).subscribe {
+
+        DbHelper.monitorOutbox().debounce(3, TimeUnit.SECONDS).observeOn(Schedulers.io()).subscribeOn(Schedulers.io()).subscribe {
             Utils.debugLog("from monitorOutbox")
             if (it.isNotEmpty()) {
                 val outbox = it[0]
@@ -209,7 +210,7 @@ class MessageModel : ModelBase() {
     }
 
     fun hasUnreadMessage(): Boolean {
-        for(one in latestHomeList) {
+        for (one in latestHomeList) {
             if (one.unReadMsgsCounter > 0) {
                 return true
             }

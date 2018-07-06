@@ -47,9 +47,8 @@ class FragmentDialogInputPwd() : DialogFragment() {
             checkPwd(pwdView.text.toString())
         }
 
-
         pwdView = view.findViewById(R.id.pwd)
-        //pwdView.transformationMethod = MyPasswordTransformationMethod()
+        pwdView.transformationMethod = MyPasswordTransformationMethod()
 
         pwdErrView = view.findViewById(R.id.pwd_err)
 
