@@ -13,7 +13,7 @@
             layout="@layout/l_me_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_main"></include>
+            android:layout_margin="@dimen/padding_main_20"></include>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/setting_item_list"

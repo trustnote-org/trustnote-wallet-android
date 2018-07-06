@@ -30,18 +30,27 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
             SettingItemType.ITEM_SETTING -> {
                 resId = R.layout.item_setting
             }
+
             SettingItemType.ITEM_SETTING_SUB -> {
                 resId = R.layout.item_setting_sub
             }
+
             SettingItemType.ITEM_CHECKED -> {
                 resId = R.layout.item_setting_checked
             }
+
             SettingItemType.ITEM_LINE -> {
                 resId = R.layout.item_setting_line
             }
+
             SettingItemType.ITEM_LINE_SUB -> {
                 resId = R.layout.item_setting_line_sub
             }
+
+            SettingItemType.ITEM_FIELD -> {
+                resId = R.layout.item_setting_field
+            }
+
             SettingItemType.ITEM_GAP -> {
                 resId = R.layout.item_setting_gap
             }
@@ -64,13 +73,20 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
 
         val settingData = myDataset[position]
 
-        if (getItemViewType(position) == SettingItemType.ITEM_SETTING_SUB.ordinal) {
+        if (getItemViewType(position) == SettingItemType.ITEM_SETTING_SUB.ordinal ||
+                getItemViewType(position) == SettingItemType.ITEM_FIELD.ordinal) {
+
             if (settingData.value.isEmpty()) {
                 holder.holderView.findViewById<TextView>(R.id.setting_value).visibility = View.INVISIBLE
             } else {
                 holder.holderView.findViewById<TextView>(R.id.setting_value).setText(settingData.value)
                 holder.holderView.findViewById<View>(R.id.icon_setting_arrow).visibility = View.INVISIBLE
             }
+
+            if (settingData.showArrow) {
+                holder.holderView.findViewById<View>(R.id.icon_setting_arrow).visibility = View.VISIBLE
+            }
+
             holder.holderView.findViewById<TextView>(R.id.setting_title).setText(settingData.titleResId)
         }
 

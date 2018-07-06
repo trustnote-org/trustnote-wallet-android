@@ -6,10 +6,10 @@
     android:background="@color/tx_list_bg">
 
     <LinearLayout
-        android:background="@color/bg_white"
         android:id="@+id/summary_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bg_white"
         android:orientation="vertical"
         android:paddingLeft="@dimen/page_margin_26"
         android:paddingRight="@dimen/page_margin_26">
@@ -24,31 +24,32 @@
     </LinearLayout>
 
     <TextView
-        android:background="@color/bg_white"
-        android:paddingTop="@dimen/line_gap_8"
-        android:layout_width="match_parent"
-        android:paddingLeft="@dimen/page_margin_26"
         android:id="@+id/credential_walletid"
         style="@style/t_text_amount_subtitle"
+        android:layout_width="match_parent"
         android:layout_alignLeft="@id/summary_bar"
         android:layout_below="@id/summary_bar"
+        android:background="@color/bg_white"
+        android:paddingBottom="@dimen/line_gap_24"
+        android:paddingLeft="@dimen/page_margin_26"
+        android:paddingTop="@dimen/line_gap_8"
         android:text="@string/place_holder" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/credential_walletid"
         android:layout_above="@id/credential_remove_btn"
+        android:layout_below="@id/credential_walletid"
         android:scrollbars="vertical" />
 
     <Button
         android:id="@+id/credential_remove_btn"
         style="@style/t_btn_white"
-        android:layout_marginLeft="@dimen/page_margin_26"
-        android:layout_marginRight="@dimen/page_margin_26"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/btn_bottom_margin"
+        android:layout_marginLeft="@dimen/page_margin_26"
+        android:layout_marginRight="@dimen/page_margin_26"
         android:text="@string/me_wallet_detail_remove_btn" />
 
 </RelativeLayout>

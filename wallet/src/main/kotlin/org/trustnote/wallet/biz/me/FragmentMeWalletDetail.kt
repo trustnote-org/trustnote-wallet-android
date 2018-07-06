@@ -100,7 +100,7 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
                 },
                 {
                     WalletManager.model.udpateCredentialName(credential, it)
-                })
+                }, TApp.getString(R.string.me_wallet_detail_name_title))
         addL2Fragment(f)
     }
 

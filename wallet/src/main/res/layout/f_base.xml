@@ -23,11 +23,24 @@
                 android:src="@drawable/arrow_left" />
 
             <TextView
+                android:visibility="gone"
+                android:id="@+id/toolbar_title_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:text="@string/wallet_toolbar_title"
+                android:textColor="@color/title_bar_text"
+                android:textSize="@dimen/text_20" />
+
+            <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:textStyle="bold"
                 android:text="@string/wallet_toolbar_title"
                 android:textColor="@color/title_bar_text"
                 android:textSize="@dimen/text_20" />

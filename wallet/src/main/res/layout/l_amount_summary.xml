@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/wallet_summary_title"
         style="@style/t_text_amount_subtitle"
-        android:text="@string/wallet_amount_subtitle" />
+        android:text="@string/wallet_amount_subtitle_manager" />
 
     <org.trustnote.wallet.widget.TMnAmount
         android:id="@+id/wallet_summary"

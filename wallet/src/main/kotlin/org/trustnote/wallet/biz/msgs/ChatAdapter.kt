@@ -19,6 +19,7 @@ open class ChatAdapter(private val mDatas: List<ChatMessages>) : RecyclerView.Ad
 
             FromMe -> R.layout.item_chat_msg_from_me
             FromFriend -> R.layout.item_chat_msg_from_friend
+            FromSystem -> R.layout.item_chat_msg_from_system
 
             else -> R.layout.item_chat_msg_from_me
         }
@@ -54,12 +55,18 @@ open class ChatAdapter(private val mDatas: List<ChatMessages>) : RecyclerView.Ad
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (mDatas[position].isIncoming == 0) FromMe else FromFriend
+        val chatMessages = mDatas[position]
+        return when {
+            TMessageType.system.name == chatMessages.type -> FromSystem
+            chatMessages.isIncoming == 0 -> FromMe
+            else -> FromFriend
+        }
     }
 
     companion object {
         val FromMe = 0
         val FromFriend = 1
+        val FromSystem = 2
     }
 
 }
@@ -68,6 +75,5 @@ class MyViewHolder(val viewType: Int, val holderView: View) : RecyclerView.ViewH
 
     val msg: TextView = holderView.findViewById(R.id.msg)
     val dateOrTime: TextView = holderView.findViewById(R.id.time)
-
 
 }

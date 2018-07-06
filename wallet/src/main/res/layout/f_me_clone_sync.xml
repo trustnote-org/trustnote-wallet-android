@@ -14,21 +14,36 @@
             android:layout_marginBottom="@dimen/line_gap_32"
             android:text="@string/me_clone_sync_title" />
 
-
-        <ImageView
-            android:id="@+id/pp"
-            android:layout_width="@dimen/contacts_empty_width"
-            android:layout_height="@dimen/contacts_empty_width"
+        <TextView
+            android:id="@+id/mnemonic_restore_msg"
+            style="@style/t_text_msg"
             android:layout_below="@id/mnemonic_restore_title"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/png_clone_sync" />
+            android:text="@string/me_clone_sync_title"
+            android:textColor="@color/font_gray_amount" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:layout_above="@id/full_sync_warning"
+            android:layout_below="@id/mnemonic_restore_msg"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/pp"
+                android:layout_width="@dimen/contacts_empty_width"
+                android:layout_height="@dimen/contacts_empty_width"
+                android:src="@drawable/png_clone_sync" />
+
+        </FrameLayout>
 
         <WebView
             android:id="@+id/full_sync_warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pp"
-            android:layout_marginTop="@dimen/line_gap_32" />
+            android:layout_above="@id/me_clone_sync_btn"
+            android:layout_marginBottom="@dimen/line_gap_32" />
 
         <Button
             android:id="@+id/me_clone_sync_btn"

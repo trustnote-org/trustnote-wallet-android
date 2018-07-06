@@ -8,7 +8,9 @@ import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.FragmentEditBase
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.FragmentDialogInputPwd
 
@@ -18,6 +20,7 @@ class SettingItem(
         var titleResId: Int = R.string.place_holder,
         var value: String = Utils.emptyString,
         var isChecked: Boolean = false,
+        var showArrow: Boolean = false,
         var lambda: () -> Unit = Utils.emptyLambda) {
 
     companion object {
@@ -127,12 +130,13 @@ class SettingItem(
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_GAP),
 
-                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                    SettingItem(itemType = SettingItemType.ITEM_FIELD,
                             titleResId = R.string.me_wallet_detail_name_title,
-                            value = credential.walletName),
+                            value = credential.walletName,
+                            showArrow = true),
 
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
-                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                    SettingItem(itemType = SettingItemType.ITEM_FIELD,
                             titleResId = R.string.me_wallet_detail_id_title,
                             value = credential.walletId)
 
@@ -219,6 +223,7 @@ enum class SettingItemType {
     ITEM_LINE_SUB,
     ITEM_GAP,
     ITEM_CHECKED,
+    ITEM_FIELD,
     UNKNOWN
 }
 

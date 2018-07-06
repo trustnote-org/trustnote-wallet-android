@@ -17,7 +17,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_main">
+            android:paddingBottom="@dimen/line_gap_12"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main"
+            android:paddingTop="@dimen/padding_main_20"
+
+            >
 
             <ImageView
                 android:id="@+id/credential_ic"
@@ -67,8 +72,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_below="@id/credential_ic"
-                android:layout_marginBottom="@dimen/padding_main"
-                android:layout_marginTop="@dimen/padding_main"
+                android:layout_marginBottom="@dimen/line_gap_16"
+                android:layout_marginTop="@dimen/padding_main_20"
                 android:background="@drawable/line_dash" />
 
 
@@ -76,7 +81,8 @@
                 android:id="@+id/wallet_summary_title"
                 style="@style/t_text_amount_subtitle"
                 android:layout_below="@id/line"
-                android:text="@string/wallet_amount_subtitle" />
+                android:text="@string/wallet_amount_subtitle_manager"
+                android:textColor="@color/t_hint" />
 
             <org.trustnote.wallet.widget.TMnAmount
                 android:id="@+id/credential_amount"

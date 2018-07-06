@@ -80,5 +80,7 @@
 
     <color name="action_text">#0076FF</color>
 
+    <color name="f_chat_message_from_system">#8EA0B8</color>
+
 
 </resources>

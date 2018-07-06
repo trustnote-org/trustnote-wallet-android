@@ -202,7 +202,6 @@ class FragmentWalletTransfer : FragmentWalletBase() {
     override fun updateUI() {
 
         balance.setMnAmount(credential.balance)
-        title.text = credential.walletName
 
 
         if (TTTUtils.isValidAddress(receiverText.text.toString())

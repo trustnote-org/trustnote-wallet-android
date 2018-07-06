@@ -42,7 +42,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/toolbar_title"
+            android:id="@+id/toolbar_title_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/wallet_toolbar_title"

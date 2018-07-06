@@ -49,6 +49,8 @@ class FragmentDialogInputPwd() : DialogFragment() {
 
 
         pwdView = view.findViewById(R.id.pwd)
+        //pwdView.transformationMethod = MyPasswordTransformationMethod()
+
         pwdErrView = view.findViewById(R.id.pwd_err)
 
         AndroidUtils.hideErrIfHasFocus(pwdView, pwdErrView)

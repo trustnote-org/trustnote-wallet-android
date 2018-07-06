@@ -10,7 +10,7 @@
             android:id="@+id/transfer_title"
             style="@style/t_title"
             android:layout_marginTop="@dimen/line_gap_32"
-            android:text="@string/place_holder" />
+            android:text="@string/ttt_transfer_title" />
 
         <TextView
             android:id="@+id/transfer_balance_title"

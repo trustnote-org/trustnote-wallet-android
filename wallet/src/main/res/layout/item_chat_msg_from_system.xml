@@ -6,8 +6,7 @@
     android:layout_marginLeft="@dimen/padding_main"
     android:layout_marginRight="@dimen/padding_main"
     android:layout_marginTop="@dimen/line_gap_8"
-    android:gravity="right">
-
+    android:gravity="center_horizontal">
 
     <TextView
         android:id="@+id/time"
@@ -23,17 +22,17 @@
         android:id="@+id/msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/time"
-        android:layout_marginLeft="@dimen/line_gap_48"
-        android:background="@drawable/bg_chat_item_blue"
-        android:gravity="center_vertical"
-        android:paddingBottom="@dimen/line_gap_8"
-        android:paddingLeft="@dimen/line_gap_12"
-        android:paddingRight="@dimen/line_gap_12"
-        android:paddingTop="@dimen/line_gap_8"
+        android:layout_marginRight="@dimen/line_gap_48"
+        android:background="@drawable/bg_chat_message_from_system"
+        android:gravity="center"
+        android:paddingBottom="@dimen/line_gap_4"
+        android:paddingLeft="@dimen/line_gap_8"
+        android:paddingRight="@dimen/line_gap_8"
+        android:paddingTop="@dimen/line_gap_4"
         android:text="@string/place_holder"
-        android:textColor="@color/t_f_white"
-        android:textSize="@dimen/text_16" />
+        android:textColor="@color/f_chat_message_from_system"
+        android:textSize="@dimen/text_14" />
 
 </RelativeLayout>

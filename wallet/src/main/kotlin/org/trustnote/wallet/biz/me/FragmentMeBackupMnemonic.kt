@@ -59,7 +59,8 @@ class FragmentMeBackupMnemonic : FragmentBase() {
         removeBtn.setOnClickListener {
             MyDialogFragment.showDialog2Btns(activity, R.string.dialog_remove_mnemonic_ask, {
                 WalletManager.model.removeMnemonicFromProfile()
-                onBackPressed()
+                removeMeFromBackStack()
+                addL2Fragment(FragmentMeBackupMnemonicRemoved())
             })
         }
 

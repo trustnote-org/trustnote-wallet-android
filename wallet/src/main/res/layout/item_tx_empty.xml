@@ -3,6 +3,7 @@
 
     <RelativeLayout
         style="@style/t_layout"
+        android:background="@color/tx_list_bg"
         android:gravity="center_vertical"
         android:orientation="vertical">
 

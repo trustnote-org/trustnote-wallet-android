@@ -80,6 +80,7 @@ class FragmentEditBase : FragmentBase() {
         val isValid = checkInputValidation.invoke(mEditText.text.toString())
         mErr.visibility = if (isValid) View.INVISIBLE else View.VISIBLE
 
+
     }
 
 

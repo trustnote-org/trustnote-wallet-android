@@ -81,7 +81,7 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
         mMNAmount = findViewById(R.id.wallet_summary)
         mAmountTitle = findViewById(R.id.wallet_summary_title)
 
-        mToolbarTitle = findViewById(R.id.toolbar_title)
+        mToolbarTitle = findViewById(R.id.toolbar_title_left)
         mMNAmountToolbar = findViewById(R.id.toolbar_wallet_summary)
         mAmountTitleToolbar = findViewById(R.id.toolbar_wallet_summary_title)
         mMNAmountToolbarLayout = findViewById(R.id.toolbar_wallet_summary_layout)

@@ -120,11 +120,12 @@ abstract class FragmentBaseForHomePage : Fragment() {
             }
         } else {
             mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow)?.visibility = View.INVISIBLE
+            mToolbar.findViewById<TextView>(R.id.toolbar_title_left)?.text = getTitle()
+            mToolbar.findViewById<TextView>(R.id.toolbar_title_left)?.visibility = View.VISIBLE
+            mToolbar.findViewById<TextView>(R.id.toolbar_title)?.visibility = View.INVISIBLE
         }
 
-        mToolbar.findViewById<TextView>(R.id.toolbar_title).text = getTitle()
 
-        mToolbar.findViewById<TextView>(R.id.toolbar_title).text = getTitle()
 
     }
 

@@ -563,6 +563,12 @@ class WalletModel() {
         newUnitAcceptedByHub(units)
     }
 
+    fun updateWalletName(credential: Credential, newName: String) {
+        val wallet = findWallet(credential.walletId)
+        wallet.walletName = newName
+        walletUpdated()
+    }
+
 }
 
 
