@@ -19,7 +19,6 @@ public class MyPasswordTransformationMethod extends PasswordTransformationMethod
         public char charAt(int index) {
             return '・'; //●⚫ This is the important part
         }
-
         //「∙•」「•」「・」「●」，分别叫做「Bullet Operator」、「Bullet」、「Katakana Middle Dot」、「Black Circle」
 
         public int length() {

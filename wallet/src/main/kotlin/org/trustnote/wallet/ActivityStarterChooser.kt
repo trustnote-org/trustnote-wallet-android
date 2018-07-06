@@ -5,6 +5,7 @@ import org.trustnote.wallet.biz.pwd.ActivityInputPwd
 import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.biz.init.ActivityInit
 import org.trustnote.wallet.biz.init.CreateWalletModel
+import org.trustnote.wallet.biz.startMainActivityAfterLanguageChanged
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
@@ -17,6 +18,11 @@ class ActivityStarterChooser : ActivityBase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val isFromChangeLanguage = intent.getBooleanExtra(AndroidUtils.KEY_FROM_CHANGE_LANGUAGE, false)
+        if (isFromChangeLanguage) {
+            TApp.userAlreadyInputPwd = true
+        }
+
         if (!TApp.userAlreadyInputPwd
             && CreateWalletModel.readPwdHash().isNotEmpty()
             && Prefs.readEnablepwdForStartup()) {
@@ -27,7 +33,11 @@ class ActivityStarterChooser : ActivityBase() {
         }
 
         if (CreateWalletModel.isFinisheCreateOrRestore()) {
-            startMainActivityWithMenuId(R.id.menu_wallet)
+            if (isFromChangeLanguage) {
+                startMainActivityAfterLanguageChanged()
+            } else {
+                startMainActivityWithMenuId(R.id.menu_wallet)
+            }
         } else {
             AndroidUtils.startActivity(ActivityInit::class.java)
         }

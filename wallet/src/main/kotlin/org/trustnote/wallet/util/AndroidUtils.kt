@@ -35,6 +35,8 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
+import org.trustnote.wallet.ActivityStarterChooser
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.FragmentDialogBase
 import org.trustnote.wallet.widget.ClearableEditText
@@ -52,6 +54,7 @@ object AndroidUtils {
     const val KEY_BUNDLE_MEMO: String = "KEY_BUNDLE_MEMO"
     const val KEY_TAG_FOR_NEXT_PAGE: String = "KEY_TAG_FOR_NEXT_PAGE"
     const val KEY_CORRESPODENT_ADDRESSES: String = "KEY_CORRESPODENT_ADDRESSES"
+    const val KEY_FROM_CHANGE_LANGUAGE: String = "KEY_FROM_CHANGE_LANGUAGE"
 
     fun getTagForNextPage(bundle: Bundle?): Int {
         if (bundle != null) {
@@ -197,7 +200,7 @@ object AndroidUtils {
         val result: BitMatrix
         val width = size
         try {
-            val hints  = EnumMap<EncodeHintType, Object>(EncodeHintType::class.java)
+            val hints = EnumMap<EncodeHintType, Object>(EncodeHintType::class.java)
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8" as Object)
             hints.put(EncodeHintType.MARGIN, 0 as Object)
             result = MultiFormatWriter().encode(str,
@@ -363,14 +366,6 @@ object AndroidUtils {
         Utils.toastMsg(TApp.context.getString(R.string.coming_soon))
     }
 
-    fun setLanguage(s: String) {
-        val res = TApp.context.getResources()
-        val dm = res.getDisplayMetrics()
-        val conf = res.getConfiguration()
-        conf.setLocale(Locale(s))
-        res.updateConfiguration(conf, dm)
-    }
-
     fun md5(s: String): String {
         val MD5 = "MD5"
         try {
@@ -458,6 +453,35 @@ object AndroidUtils {
 
     fun hideErrIfHasFocus(editText: ClearableEditText, errView: View) {
         editText.bindingErr = errView
+    }
+
+    fun setLanguage(lang: String, activity: Activity) {
+
+        Prefs.writeDefaultLanguage(lang)
+
+        val myLocale = Locale(lang)
+        Locale.setDefault(myLocale)
+
+        val dm = TApp.resources.getDisplayMetrics()
+        val conf = TApp.resources.getConfiguration()
+        conf.locale = myLocale
+        TApp.resources.updateConfiguration(conf, dm)
+
+        val refresh = Intent(activity, ActivityStarterChooser::class.java)
+        refresh.putExtra(AndroidUtils.KEY_FROM_CHANGE_LANGUAGE, true)
+
+        activity.startActivity(refresh)
+        activity.finish()
+    }
+
+    fun setLanguage(lang: String) {
+        val myLocale = Locale(lang)
+        Locale.setDefault(myLocale)
+
+        val dm = TApp.resources.getDisplayMetrics()
+        val conf = TApp.resources.getConfiguration()
+        conf.locale = myLocale
+        TApp.resources.updateConfiguration(conf, dm)
     }
 
 }

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="language_cn" translatable="false">中文</string>
+    <string name="language_zh" translatable="false">简体中文</string>
     <string name="language_en" translatable="false">English</string>
 
     <string name="lorem_ttt" translatable="false">区块链等分布式账本技术是新型信任工具，有助于降低信任成本，提高交易效率。但是，如果不能支持海量用户和高并发就去谈应用，区块链应用落地只能是空想。\n\r将DAG数据结构与稳健的PoW共识算法巧妙结合，极大提高公有链对并发交易的支撑能力，大幅加快交易速度，但不削弱系统的去中心化属性，实现真正支持高并发的去中心化账本存储管理\n\r支持多种节点类型并拥有可适性极高的钱包架构设计，为智能手机、PC、服务器、IoT设备、以及新一代的智能设备提供一个可扩展的去中心化账本存储管理基础设施\n\r拥有可验证的智能合约系统，支持多种动态语言包括高级声明式语言，能直接描述合约期望的目标，表达能力强，易于理解，安全性高，同时还降低了合约的编写难度和出错概率\n\r

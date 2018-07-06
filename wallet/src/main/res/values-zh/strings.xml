@@ -32,7 +32,7 @@
     <string name="repo_fork_icon_content_description">Repo Fork Icon</string>
     <string name="repo_icon_content_description">Repo Icon</string>
 
-    <string name="menu_wallet">钱包EN</string>
+    <string name="menu_wallet">钱包</string>
     <string name="menu_msg">消息</string>
     <string name="menu_me">我的</string>
 
@@ -200,7 +200,7 @@
     <string name="contacts_add_err_cannot_add_myself">调皮，不能添加自己为好友</string>
 
     <string name="setting_ttt_pwd">T口令</string>
-    <string name="setting_wallet_tools">钱包工具EN</string>
+    <string name="setting_wallet_tools">钱包工具</string>
     <string name="setting_system">系统设置</string>
     <string name="setting_about">关于TrustNote</string>
 

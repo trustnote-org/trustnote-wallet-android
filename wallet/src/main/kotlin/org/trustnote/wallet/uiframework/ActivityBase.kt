@@ -2,6 +2,7 @@ package org.trustnote.wallet.uiframework
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.support.annotation.CallSuper
@@ -19,9 +20,12 @@ import io.reactivex.subjects.Subject
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.ContextWrapper
 import org.trustnote.wallet.widget.keyboard.BasicOnKeyboardActionListener
 import org.trustnote.wallet.widget.keyboard.CustomKeyboardView
+import java.util.*
 
 abstract class ActivityBase : AppCompatActivity() {
 
@@ -226,6 +230,17 @@ abstract class ActivityBase : AppCompatActivity() {
         disposables.add(d)
     }
 
+    override fun attachBaseContext(newBase: Context) {
+
+        val language = Prefs.readDefaultLanguage()
+        var newLocale = Locale.getDefault()
+        if (language.isNotEmpty()) {
+            newLocale = Locale(language)
+        }
+
+        val context = ContextWrapper.wrap(newBase, newLocale)
+        super.attachBaseContext(context)
+    }
 
 }
 

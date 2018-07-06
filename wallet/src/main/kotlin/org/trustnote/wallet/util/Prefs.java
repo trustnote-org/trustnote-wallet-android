@@ -30,6 +30,7 @@ public class Prefs {
     private static final String KEY_ENABLE_PWD_FOR_STARTUP = "KEY_ENABLE_PWD_FOR_STARTUP";
     //private static final String KEY_MY_PAIRD_ID = "KEY_MY_PAIRD_ID";
     private static final String KEY_IS_USER_IN_FULL_RESTORE = "KEY_IS_USER_IN_FULL_RESTORE";
+    private static final String KEY_LANGUAGE_DEFAULT = "KEY_LANGUAGE_DEFAULT";
 
     private static final String KEY_TRANSFER_ADDRESSES = "TTTTransferAddresses";
     private static final File FILE_TRANSFER_ADDRESSES = new File(TApp.context.getFilesDir(), "TTTTransferAddresses.json");
@@ -41,7 +42,7 @@ public class Prefs {
 
     public static AddressesBookDb readTransferAddressesDb() {
         //Object res = getInstance().readObject(KEY_PROFILE, TProfile.class);
-        return (AddressesBookDb)Utils.INSTANCE.readJsonFileAsObject(FILE_TRANSFER_ADDRESSES, AddressesBookDb.class);
+        return (AddressesBookDb) Utils.INSTANCE.readJsonFileAsObject(FILE_TRANSFER_ADDRESSES, AddressesBookDb.class);
     }
 
     public static boolean profileExist() {
@@ -59,7 +60,7 @@ public class Prefs {
 
     public static TProfile readProfile() {
         //Object res = getInstance().readObject(KEY_PROFILE, TProfile.class);
-        return (TProfile)Utils.INSTANCE.readJsonFileAsObject(FILE_PROFILE, TProfile.class);
+        return (TProfile) Utils.INSTANCE.readJsonFileAsObject(FILE_PROFILE, TProfile.class);
     }
 
     public static void writePwdHash(String pwd) {
@@ -114,6 +115,14 @@ public class Prefs {
 
     public static Boolean readEnablepwdForStartup() {
         return getInstance().readBoolean(KEY_ENABLE_PWD_FOR_STARTUP, true);
+    }
+
+    public static String readDefaultLanguage() {
+        return getInstance().read(KEY_LANGUAGE_DEFAULT, "");
+    }
+
+    public static void writeDefaultLanguage(String language) {
+        getInstance().write(KEY_LANGUAGE_DEFAULT, language);
     }
 
     //    public static void writeMyPairId(String myPairId) {
@@ -500,7 +509,6 @@ public class Prefs {
         String json = read(what);
         return json != null && !json.isEmpty();
     }
-
 
 
 }

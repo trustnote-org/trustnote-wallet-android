@@ -69,7 +69,7 @@ class SettingItem(
             )
         }
 
-        private fun openSubSetting(activity: ActivityMain, items: Array<SettingItem>, titielResId: Int) {
+        fun openSubSetting(activity: ActivityMain, items: Array<SettingItem>, titielResId: Int) {
             val f = FragmentMeSettingBase(items, titielResId)
             activity.addL2Fragment(f)
         }
@@ -90,10 +90,11 @@ class SettingItem(
         }
 
         fun getSettingSystem(activity: ActivityMain): Array<SettingItem> {
+
             return arrayOf(
 
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_system_language) {
+                            titleResId = R.string.setting_system_language, showArrow = true, value = getCurrentLanguageAsString()) {
                         selectLanguageUI(activity)
                     },
 
@@ -169,16 +170,16 @@ class SettingItem(
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_GAP),
 
-                    SettingItem(isChecked = true, itemType = SettingItemType.ITEM_CHECKED,
+                    SettingItem(isChecked = !isZh(), itemType = SettingItemType.ITEM_CHECKED,
                             titleResId = R.string.language_en, lambda = {
-                        AndroidUtils.setLanguage("en")
+                        AndroidUtils.setLanguage("en", activity)
                     }),
 
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
 
-                    SettingItem(isChecked = false, itemType = SettingItemType.ITEM_CHECKED,
-                            titleResId = R.string.language_cn, lambda = {
-                        AndroidUtils.setLanguage("zh")
+                    SettingItem(isChecked = isZh(), itemType = SettingItemType.ITEM_CHECKED,
+                            titleResId = R.string.language_zh, lambda = {
+                        AndroidUtils.setLanguage("zh", activity)
                     })
             )
         }
@@ -213,6 +214,19 @@ class SettingItem(
             AndroidUtils.todo()
         }
 
+        private fun isZh(): Boolean {
+            return "zh" == TApp.resources.configuration.locale?.language
+        }
+
+        private fun getCurrentLanguageAsString(): String {
+
+            return if ("zh" == TApp.resources.configuration.locale?.language) {
+                TApp.resources.getString(R.string.language_zh)
+            } else {
+                TApp.resources.getString(R.string.language_en)
+            }
+        }
+
     }
 }
 
@@ -226,13 +240,4 @@ enum class SettingItemType {
     ITEM_FIELD,
     UNKNOWN
 }
-
-//TODO: change language settings
-//Resources res = context.getResources();
-//// Change locale settings in the app.
-//DisplayMetrics dm = res.getDisplayMetrics();
-//android.content.res.Configuration conf = res.getConfiguration();
-//conf.setLocale(new Locale(language_code.toLowerCase())); // API 17+ only.
-//// Use conf.locale = new Locale(...) if targeting lower versions
-//res.updateConfiguration(conf, dm);
 

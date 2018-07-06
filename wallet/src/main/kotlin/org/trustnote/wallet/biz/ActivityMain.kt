@@ -11,13 +11,13 @@ import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
 import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.me.FragmentMeMain
+import org.trustnote.wallet.biz.me.SettingItem
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.biz.msgs.MessageModel
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.uiframework.EmptyFragment
 import org.trustnote.wallet.uiframework.ActivityBase
-import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.uiframework.EmptyFragment
 import org.trustnote.wallet.util.AndroidUtils
 
 class ActivityMain : ActivityBase() {
@@ -44,6 +44,7 @@ class ActivityMain : ActivityBase() {
             if (supportFragmentManager.backStackEntryCount == 0) {
             }
         }
+
     }
 
     override fun onBackPressed() {
@@ -81,6 +82,10 @@ class ActivityMain : ActivityBase() {
         selectPageByIntent(intent)
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -91,16 +96,31 @@ class ActivityMain : ActivityBase() {
 
         selectPageByIntent(intent)
 
+
+
         listener(MessageModel.instance.mMessagesEventCenter) {
             updateMsgIconInBottomNavigation()
         }
 
+
     }
 
     private fun selectPageByIntent(intent: Intent) {
+
         val menuId = intent.getIntExtra(MAINACTIVITY_KEY_MENU_ID, 0)
         //TODO: should default to first page.
-        bottomNavigationView.selectedItemId = if (menuId == 0) R.id.menu_me else menuId
+        if (menuId != 0) {
+            bottomNavigationView.selectedItemId = if (menuId == 0) R.id.menu_me else menuId
+            intent.removeExtra(MAINACTIVITY_KEY_MENU_ID)
+        }
+
+        val isFromLanguageChange = intent.getBooleanExtra(AndroidUtils.KEY_FROM_CHANGE_LANGUAGE, false)
+        if (isFromLanguageChange) {
+            intent.removeExtra(AndroidUtils.KEY_FROM_CHANGE_LANGUAGE)
+            SettingItem.openSubSetting(this, SettingItem.getSettingSystem(this), R.string.setting_system)
+            SettingItem.selectLanguageUI(this)
+        }
+
     }
 
     fun changeFragment(menuItemId: Int) {
@@ -132,5 +152,13 @@ fun startMainActivityWithMenuId(menuId: Int = 0) {
     val intent = Intent(TApp.context, ActivityMain::class.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     intent.putExtra(MAINACTIVITY_KEY_MENU_ID, menuId)
+    TApp.context.startActivity(intent)
+}
+
+fun startMainActivityAfterLanguageChanged() {
+    val intent = Intent(TApp.context, ActivityMain::class.java)
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    intent.putExtra(MAINACTIVITY_KEY_MENU_ID, R.id.menu_wallet)
+    intent.putExtra(AndroidUtils.KEY_FROM_CHANGE_LANGUAGE, true)
     TApp.context.startActivity(intent)
 }
