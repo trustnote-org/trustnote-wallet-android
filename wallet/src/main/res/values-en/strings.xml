@@ -143,11 +143,24 @@
     <string name="welcome_to_trustnote">Welcome to TrustNote Wallet</string>
     <string name="welcome_hint_wallet_name">Please enter the device name</string>
     <string name="ttt_slogan">Trust  ·  Token  ·  Things</string>
+    <string name="test_seed">dragon test equip crew file acoustic public myth alley siege vanish luggage</string>
+    <string name="wallet_toolbar_title">WALLET</string>
+    <string name="tx_sender">Sender</string>
+    <string name="tx_receiver">Receiver</string>
+    <string name="tx_fee">Fee</string>
+    <string name="default_first_msg_for_friend">You have added %1$s as friend, now you can start to chat</string>
+
+    <string name="time_format_yesterday">Yesterday</string>
+    <string name="msg_for_remove_contacts">Delete the contact person "%1$s" and delete the chat record with the contact</string>
+    <string name="transfer_balance_title">Remaining balance（MN)</string>
+    <string name="tx_date">Date</string>
+    <string name="tx_unit_id">Unit</string>
+    <string name="tx_status">Status</string>
+
 
     <string name="welcome_security_warning">您的钱包将在此设备上创建，请确认设备足够安全，并及时备份钱包。此外，在钱包设置中，您可以设置交易密码。</string>
     <string name="new_seed_dont_screenshot">请勿截图</string>
     <string name="new_seed_copy_title">抄写下您的钱包口令</string>
-    <string name="test_seed">dragon test equip crew file acoustic public myth alley siege vanish luggage</string>
     <string name="mnemonic_check_failed">无效的口令</string>
     <string name="mnemonic_check_ok">您的口令正确，为了保证您的钱包安全，建议您删掉口令</string>
     <string name="mnemonic_remove">删除口令</string>
@@ -161,15 +174,8 @@
     <string name="pwd_hint">请输入钱包密码</string>
     <string name="backup_mnemonic_sub_title">立即备份你的12个助记词</string>
     <string name="dialog_backup_mnemonic_ask">确认已经保存了助记词？</string>
-    <string name="wallet_amount_subtitle">总资产 (MN)</string>
-    <string name="wallet_amount_subtitle_manager">资产 (MN)</string>
-    <string name="wallet_toolbar_title">WALLET</string>
-    <string name="tx_sender">发送方</string>
-    <string name="tx_receiver">接收方</string>
-    <string name="tx_fee">费用</string>
-    <string name="tx_date">日期</string>
-    <string name="tx_unit_id">单元</string>
-    <string name="tx_status">状态</string>
+    <string name="wallet_amount_subtitle">Total Assets (MN)</string>
+    <string name="wallet_amount_subtitle_manager">Assets (MN)</string>
     <string name="tx_detial_receive_title">已收到(MN）</string>
     <string name="tx_detial_sender_title">已发送(MN）</string>
     <string name="create_wallet_observer_msg">观察钱包需要导入冷钱包认证码，用来日常查看账户、交易。大额资金的钱包建议使用冷钱包管理，避免泄露被盗。</string>
@@ -186,9 +192,6 @@
     <string name="contacts_title">联系人</string>
     <string name="contacts_empty">没有联系人</string>
     <string name="setting_ttt_pwd">T口令</string>
-    <string name="setting_system_language_cn">简体中文</string>
-    <string name="setting_system_language_en">English</string>
-    <string name="transfer_balance_title">可用余额（MN)</string>
     <string name="transfer_receiver_hint">接收方TrustNote钱包地址</string>
     <string name="transfer_receiver_err_overflow">金额已超过可提现余额</string>
     <string name="receive_copy_successful">复制成功</string>
@@ -208,10 +211,26 @@
     <string name="scan_result_title">扫码结果</string>
     <string name="select_wallet_title">选择付款钱包</string>
     <string name="chat_input_btn">发送</string>
-    <string name="msg_for_remove_contacts">将联系人“%1$s”删除，同时删除与该联系人的聊天记录</string>
     <string name="msg_for_clear_chat_history">确定要删除与“%1$s”的全部聊天记录</string>
-    <string name="time_format_yesterday">昨天</string>
-    <string name="default_first_msg_for_friend">你已添加了%1$s，现在可以开始聊天</string>
+
     <string name="tx_empty_msg">暂无记录哦~</string>
 
+
+    <!-- Missing duplicate value  -->
+    <string name="app_name">TestTTT</string>
+    <string name="create_seed">Create the wallet</string>
+    <string name="restore_seed">Restore Mnemonic</string>
+    <string name="wallet_new_name">Wallet name</string>
+    <string name="new_mnemonic_title">Backup Mnemonic</string>
+    <string name="action_contacts_add">Add Contacts</string>
+    <string name="action_create_wallet">Create the wallet</string>
+    <string name="action_my_pair_id">My Matching Code</string>
+    <string name="create_wallet_observer_scancode">Cold wallet authentication code</string>
+    <string name="create_wallet_observer_qr_finish_title">完成授权</string>
+    <string name="contacts_mypair_scan_msg">Use other device to scan the QT code below, or send the QR code to other devices, add me as friends</string>
+    <string name="contacts_mypair_scan_btn">Copy Device Code</string>
+    <string name="setting_wallet_tools_fullsync">Sync Cloned Wallets</string>
+    <string name="me_wallet_cold_code_sucessful_btn">Complete</string>
+    <string name="wallet_name_err">No more than 10 characters</string>
+    <string name="ic_edit_contacts_memo">Set Alias</string>
 </resources>
