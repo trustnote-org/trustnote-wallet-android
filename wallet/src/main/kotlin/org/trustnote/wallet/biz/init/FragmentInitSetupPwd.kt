@@ -151,7 +151,11 @@ open class FragmentInitSetupPwd : FragmentInit() {
     }
 
     override fun onBackPressed() {
-        nextPage(R.layout.f_init_create_or_restore)
+        if (fromInitActivity) {
+            nextPage(R.layout.f_init_create_or_restore)
+        } else {
+            super.onBackPressed()
+        }
     }
 
 }

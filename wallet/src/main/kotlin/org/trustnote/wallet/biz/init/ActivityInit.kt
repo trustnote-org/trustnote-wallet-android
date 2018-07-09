@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.init
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
@@ -27,7 +28,7 @@ class ActivityInit : ActivityBase() {
 
         setupUISettings()
 
-        if (!Utils.isDeveloperFeature()) {
+        if (BuildConfig.DEBUG || !Utils.isDeveloperFeature()) {
             window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         }
 

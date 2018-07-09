@@ -5,7 +5,10 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.EditText
@@ -66,6 +69,20 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
         editText = view.findViewById(R.id.create_wallet_normal)
         editText.addTextChangedListener(textWatcher)
 
+        editText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                /*隐藏软键盘*///TODO: REUSE code:
+                val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE)
+                        as InputMethodManager
+                if (inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0)
+                }
+                return true
+            }
+        }
+        )
+
+
         err = view.findViewById<EditText>(R.id.create_wallet_normal_err)
 
         button = view.findViewById<Button>(R.id.create_wallet_normal_btn)
@@ -115,7 +132,6 @@ class FragmentMainCreateWalletObserveEmpty : FragmentBase() {
         super.initFragment(view)
     }
 }
-
 
 class FragmentMainCreateWalletObserve : FragmentBase() {
     override fun getLayoutId(): Int {

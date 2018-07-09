@@ -1,17 +1,6 @@
 <resources>
 
     <item name="mnemonic_0" type="id" />
-    <item name="mnemonic_1" type="id" />
-    <item name="mnemonic_2" type="id" />
-    <item name="mnemonic_3" type="id" />
-    <item name="mnemonic_4" type="id" />
-    <item name="mnemonic_5" type="id" />
-    <item name="mnemonic_6" type="id" />
-    <item name="mnemonic_7" type="id" />
-    <item name="mnemonic_8" type="id" />
-    <item name="mnemonic_9" type="id" />
-    <item name="mnemonic_10" type="id" />
-    <item name="mnemonic_11" type="id" />
 
     <!-- Move to file colors.xml later-->
 
@@ -34,8 +23,6 @@
         <item name="android:textColor">@color/font_gray_amount</item>
         <item name="android:textSize">14sp</item>
     </style>
-
-    <style name="t_btn" parent="@style/t_text_base"></style>
 
     <style name="t_title" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_title_black</item>
@@ -64,12 +51,6 @@
         <item name="android:layout_marginTop">@dimen/line_gap_10</item>
         <item name="android:textSize">14sp</item>
         <item name="android:text">@string/place_holder</item>
-    </style>
-
-    <style name="t_line" parent="@style/t_text_base">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/t_bottom_line</item>
     </style>
 
     <style name="t_strength" parent="@style/t_text_base">
@@ -156,10 +137,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ToolBarStyle" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="titleTextAppearance">@style/ActionBar.TitleTextStyle</item>

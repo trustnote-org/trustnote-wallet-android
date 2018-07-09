@@ -49,7 +49,6 @@
         </FrameLayout>
 
         <TextView
-            android:id="@+id/me_header_welcome"
             style="@style/t_text_base"
             android:layout_alignBottom="@id/me_icon"
             android:layout_alignLeft="@id/me_device_name"

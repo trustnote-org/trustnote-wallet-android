@@ -23,7 +23,6 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/ic"
                 android:layout_width="@dimen/ic_gabage_width"
                 android:layout_height="@dimen/ic_gabage_width"
                 android:layout_centerHorizontal="true"

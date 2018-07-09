@@ -14,7 +14,6 @@
         ttt:ttt_title="@string/mypairid_title" />
 
     <TextView
-        android:id="@+id/mypairid_title_info"
         style="@style/t_text_msg"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/line_gap_20"

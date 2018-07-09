@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    style="@style/ToolBarStyle"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:paddingLeft="@dimen/page_margin_26">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/toolbar_left_arrow"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/toolbar_title_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/wallet_toolbar_title"
+            android:textColor="@color/title_bar_text"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/wallet_toolbar_title"
+            android:textColor="@color/title_bar_text"
+            android:textSize="@dimen/text_20"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>
+
+
+
+
+
+

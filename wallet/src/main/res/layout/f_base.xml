@@ -4,51 +4,12 @@
     android:layout_height="match_parent"
     android:background="@color/bg_white">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/ToolBarStyle"
+    <include
+        layout="@layout/l_toolbar_normal"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:paddingLeft="@dimen/page_margin_26">
+        android:paddingLeft="@dimen/page_margin_26" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/toolbar_left_arrow"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/arrow_left" />
-
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/toolbar_title_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:textStyle="bold"
-                android:text="@string/wallet_toolbar_title"
-                android:textColor="@color/title_bar_text"
-                android:textSize="@dimen/text_20" />
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:textStyle="bold"
-                android:text="@string/wallet_toolbar_title"
-                android:textColor="@color/title_bar_text"
-                android:textSize="@dimen/text_20" />
-
-        </RelativeLayout>
-
-
-    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/f_base_container"

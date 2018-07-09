@@ -5,14 +5,18 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.inputmethodservice.Keyboard
 import android.os.Bundle
+import android.os.IBinder
 import android.support.annotation.CallSuper
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import com.google.zxing.integration.android.IntentIntegrator
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -38,7 +42,6 @@ abstract class ActivityBase : AppCompatActivity() {
 
     var stringAsReturnResult: String = ""
     protected val disposables: CompositeDisposable = CompositeDisposable()
-
 
     abstract fun injectDependencies(graph: TApplicationComponent)
 
@@ -142,7 +145,7 @@ abstract class ActivityBase : AppCompatActivity() {
 
     fun closeKeyboard(): Boolean {
 
-        if (!isKeyboardExist()){
+        if (!isKeyboardExist()) {
             return false
         }
 
@@ -223,7 +226,7 @@ abstract class ActivityBase : AppCompatActivity() {
         disposables.clear()
     }
 
-    fun listener(eventCenter: Subject<Boolean>, function: () -> Unit = {  }) {
+    fun listener(eventCenter: Subject<Boolean>, function: () -> Unit = { }) {
         val d = eventCenter.observeOn(AndroidSchedulers.mainThread()).subscribe {
             function.invoke()
         }
@@ -241,6 +244,42 @@ abstract class ActivityBase : AppCompatActivity() {
         val context = ContextWrapper.wrap(newBase, newLocale)
         super.attachBaseContext(context)
     }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            val view = getCurrentFocus()
+            if (view != null && isShouldHideKeyBord(view, ev)) {
+                hideSoftInput(view.getWindowToken())
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    private fun hideSoftInput(windowToken: IBinder) {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE)
+                as InputMethodManager
+        if (inputMethodManager.isActive()) {
+            inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+        }
+
+    }
+
+    /**
+     * 判定当前是否需要隐藏
+     */
+    fun isShouldHideKeyBord(v: View, ev: MotionEvent): Boolean {
+        if (v != null && (v is EditText)) {
+            val l = IntArray(2)
+            v.getLocationInWindow(l);
+            val left = l[0];
+            val top = l[1]
+            val bottom = top + v.getHeight()
+            val right = left + v.getWidth();
+            return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
+        }
+        return false
+    }
+
 
 }
 

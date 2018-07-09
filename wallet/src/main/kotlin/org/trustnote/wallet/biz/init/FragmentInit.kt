@@ -195,6 +195,8 @@ class CWFragmentBackup : FragmentInit() {
         return R.layout.f_init_backup
     }
 
+    var alreadyShowDialogWarning = false
+
     lateinit var mnemonicsGrid: MnemonicsGridView
     override fun initFragment(view: View) {
         super.initFragment(view)
@@ -216,8 +218,9 @@ class CWFragmentBackup : FragmentInit() {
                 R.string.MNEMONIC_BACKUP_WARNING2)
 
 
-        if (isCreated) {
+        if (!alreadyShowDialogWarning) {
             MyDialogFragment.showMsg(getMyActivity(), R.string.dialog_backup_mnemonic_copy)
+            alreadyShowDialogWarning = true
         }
     }
 

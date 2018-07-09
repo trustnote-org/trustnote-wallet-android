@@ -5,25 +5,16 @@
     <!--<color name="colorPrimaryDark">#0288D1</color>-->
     <!--<color name="colorAccent">#FF9800</color>-->
 
-    <color name="colorPrimary">@color/t_white</color>
-    <color name="colorPrimaryDark">@color/t_white</color>
-    <color name="colorAccent">#FF9800</color>
-
     <color name="bg_white">#FFFFFFFF</color>
 
 
-    <color name="gray_light">#e0e0e0</color>
-
     <color name="t_title_black">#FF111111</color>
-    <color name="t_bg_warning">#FF111111</color>
 
     <color name="t_f_gray">#bbb</color>
-    <color name="t_f_gray_2">#aaa</color>
     <color name="t_f_white">#FFFFFFFF</color>
 
     <color name="t_white">#FFFFFFFF</color>
     <color name="t_blue">#FF0052CC</color>
-    <color name="t_f_red">#B22</color>
     <color name="t_hint">#999999</color>
 
     <color name="t_bottom_line">#DDDDDD</color>
@@ -60,11 +51,10 @@
     <color name="tag_observer_wallet_bg">#FFF8F4</color>
 
     <color name="bg_msg_icon_me">#EAF2FF</color>
-    <color name="bg_msg_icon_other">#FFF1DA</color>
 
     <color name="bg_msg_counter">#FF4D46</color>
 
-    <color name="page_bg">#F0D3DFF1</color>
+    <color name="page_bg">#F5D3DFF1</color>
     <color name="page_title_bg">#F6F7F9</color>
 
     <color name="line_in_dialog">#A74D4D4D</color>
