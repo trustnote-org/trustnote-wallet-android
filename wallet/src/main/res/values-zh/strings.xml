@@ -284,7 +284,8 @@
 
     <string name="ttt_transfer_title">TTT转账</string>
 
-    <string name="messages_contacts_title">联系人~</string>
+    <string name="messages_contacts_title">联系人</string>
 
+    <string name="message_contacts_add_hint">扫码或输入配对码</string>
 
 </resources>

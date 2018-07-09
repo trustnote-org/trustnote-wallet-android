@@ -23,6 +23,7 @@ import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.widget.ClearableEditText
 import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MyTextWatcher
 
@@ -57,7 +58,7 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
         return R.layout.f_main_create_wallet_normal
     }
 
-    lateinit var editText: EditText
+    lateinit var editText: ClearableEditText
     lateinit var button: Button
     lateinit var err: TextView
 
@@ -85,14 +86,21 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
 
         err = view.findViewById<EditText>(R.id.create_wallet_normal_err)
 
+        AndroidUtils.hideErrIfHasFocus(editText, err)
+
         button = view.findViewById<Button>(R.id.create_wallet_normal_btn)
 
         button.setOnClickListener {
 
-            FragmentDialogInputPwd.showMe(activity) {
-                MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newManualWallet(it, editText.text.toString()) }
-                activity.onBackPressed()
+            if (editText.text.toString().trim().length > 10) {
+                err.visibility = View.VISIBLE
+            } else {
+                FragmentDialogInputPwd.showMe(activity) {
+                    MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newManualWallet(it, editText.text.toString().trim()) }
+                    activity.onBackPressed()
+                }
             }
+
         }
 
         if (mToolbarVisibility == View.VISIBLE) {

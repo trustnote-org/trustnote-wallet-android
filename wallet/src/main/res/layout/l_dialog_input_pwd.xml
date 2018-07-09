@@ -15,10 +15,9 @@
     <org.trustnote.wallet.widget.ClearableEditText
         android:id="@+id/pwd"
         style="@style/t_pwd"
-        android:letterSpacing="0.3"
-        android:textSize="@dimen/text_10"
+        android:letterSpacing="0.23"
         android:layout_below="@id/pwd_warning"
-        android:text="aaa" />
+        android:text="" />
 
     <org.trustnote.wallet.widget.ErrTextView
         android:id="@+id/pwd_err"

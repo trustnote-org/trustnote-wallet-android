@@ -9,6 +9,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.TApplicationComponent
 import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
+import org.trustnote.wallet.biz.home.FragmentMainCreateWalletNormal
 import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.me.SettingItem
@@ -56,7 +57,7 @@ class ActivityMain : ActivityBase() {
         when (item.itemId) {
 
             R.id.action_create_wallet -> {
-                addL2Fragment(FragmentMainCreateWallet())
+                addL2Fragment(FragmentMainCreateWalletNormal())
                 return true
             }
             R.id.action_my_pair_id -> {

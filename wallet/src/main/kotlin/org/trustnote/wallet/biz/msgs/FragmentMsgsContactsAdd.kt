@@ -37,6 +37,8 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
 
         scanLayout.scanTitle.setText(TApp.getString(R.string.contacts_add_pair_code_label))
 
+        scanLayout.scanResult.setHint(TApp.getString(R.string.message_contacts_add_hint))
+
         val qrCode = AndroidUtils.getQrcodeFromBundle(arguments)
         scanLayout.scanResult.setText(qrCode)
 

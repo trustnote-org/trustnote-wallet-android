@@ -198,5 +198,7 @@ correct</string>
     <string name="ic_edit_contacts_memo">Set Alias</string>
 
     <string name="messages_contacts_title">Contacts</string>
+    <string name="message_contacts_add_hint">Scan or enter the device code</string>
+
 
 </resources>

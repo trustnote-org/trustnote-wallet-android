@@ -274,7 +274,7 @@ fun addOrUpdateContacts(pubkey: String, deviceAddressP: String, hubAddress: Stri
 
         correspondentDevices?.deviceAddress = deviceAddress
         correspondentDevices?.hub = hubAddress
-        correspondentDevices?.name = name
+        //correspondentDevices?.name = name
 
     }
 

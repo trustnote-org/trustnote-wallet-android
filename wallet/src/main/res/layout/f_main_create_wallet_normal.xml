@@ -8,6 +8,11 @@
         android:gravity="top"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/create_ttt_wallet"
+            style="@style/t_title"
+            android:text="@string/create_ttt_wallet" />
+
         <org.trustnote.wallet.widget.ClearableEditText
             android:id="@+id/create_wallet_normal"
             style="@style/t_pwd"
@@ -20,7 +25,7 @@
         <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/create_wallet_normal_err"
             style="@style/t_err"
-            android:text="@string/mnemonic_devicename_err" />
+            android:text="@string/wallet_name_err" />
 
         <View
             android:layout_width="match_parent"

@@ -4,10 +4,10 @@ import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.init.CreateWalletModel
+import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.widget.FragmentDialogInputPwd
-
 
 open class FragmentInputPwd : FragmentBase() {
 
@@ -29,6 +29,7 @@ open class FragmentInputPwd : FragmentBase() {
         view.findViewById<View>(R.id.pwd_exist_clickcontinue).setOnClickListener {
             FragmentDialogInputPwd.showMe(activity, {
                 TApp.userAlreadyInputPwd = true
+
                 (activity as ActivityBase).iamDone()
             })
         }

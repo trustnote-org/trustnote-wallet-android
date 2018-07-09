@@ -23,6 +23,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
+import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
@@ -174,8 +175,8 @@ abstract class ActivityBase : AppCompatActivity() {
     }
 
     fun iamDone() {
-        finish()
         AndroidUtils.startActivity(ActivityStarterChooser::class.java)
+        finish()
     }
 
     @SuppressLint("RestrictedApi")
