@@ -264,6 +264,7 @@ fun addOrUpdateContacts(pubkey: String, deviceAddressP: String, hubAddress: Stri
         correspondentDevices.pubkey = pubkey
         correspondentDevices.hub = hubAddress
         correspondentDevices.creationDate = System.currentTimeMillis() / 1000
+        correspondentDevices.updateDate = System.currentTimeMillis() / 1000
         correspondentDevices.name = name
 
         val message = TApp.resources.getString(R.string.default_first_msg_for_friend, correspondentDevices.name);

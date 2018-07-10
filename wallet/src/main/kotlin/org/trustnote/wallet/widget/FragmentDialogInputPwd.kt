@@ -23,6 +23,7 @@ import org.trustnote.wallet.util.Utils
 class FragmentDialogInputPwd() : DialogFragment() {
 
     var msg: String = "TTT Welcome"
+
     var cancelLogic: () -> Unit = {}
     var confirmLogic: (String) -> Unit = {}
     var isTwoButtons = true

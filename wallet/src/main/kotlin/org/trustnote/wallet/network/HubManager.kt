@@ -43,10 +43,15 @@ class HubManager {
 
     private fun sendHubMsgFromHubClient(hubMsg: HubMsg) {
 
+        val hubClient = hubClients[hubMsg.targetHubAddress]
+        if (hubClient != null && !hubClient.isOpen) {
+            hubMsg.networkErr()
+            return
+        }
+
         mRequestMap.put(hubMsg)
         hubMsg.lastSentTime = System.currentTimeMillis()
 
-        val hubClient = hubClients[hubMsg.targetHubAddress]
         if (hubClient != null) {
             hubClient.sendHubMsg(hubMsg)
         } else {

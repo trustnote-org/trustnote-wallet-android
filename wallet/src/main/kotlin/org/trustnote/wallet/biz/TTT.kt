@@ -14,7 +14,7 @@ class TTT {
 
         const val HUB_HEARTBEAT_FIRST_DELAY_SEC_MAX = 10
         const val HUB_HEARTBEAT_INTERVAL_SEC = 10
-        const val HUB_TIMEOUT_SECS = 30
+        const val HUB_TIMEOUT_SECS = 10
         const val HUB_REQ_RETRY_CHECK_SECS = 10L
         const val HUB_WAITING_SECONDS_RECCONNECT = 3
 
@@ -80,6 +80,8 @@ class TTT {
                 "kake.trustnote.org/tn")
 
         val hubArray = if (TTT.isTestnet) hubArrayForTestNet else hubArrayForMainNet
+
+        val hubStable = if (TTT.isTestnet) "kaketest.trustnote.org" else "stable.trustnote.org/tn"
 
         const val TYPICAL_FEE = 1000L
         const val MAX_FEE = 20000L

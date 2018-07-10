@@ -31,7 +31,15 @@ class HubResponse : HubMsg {
         hasErrorFromHub = responseJson is JsonObject && responseJson.has("error")
     }
 
-    fun getError(): String {
+    fun hasError(): Boolean{
+
+        return when (msgType) {
+            MSG_TYPE.empty, MSG_TYPE.timeout, MSG_TYPE.networkerr, MSG_TYPE.ERROR -> true
+            else -> false
+        }
+    }
+
+    fun getHubError(): String {
         return if (hasErrorFromHub) (responseJson as JsonObject).get("error").asString else ""
     }
 

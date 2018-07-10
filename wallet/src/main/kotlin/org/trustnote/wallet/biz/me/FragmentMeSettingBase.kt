@@ -9,6 +9,9 @@ import org.trustnote.wallet.uiframework.FragmentBase
 class FragmentMeSettingBase(val settingItems: Array<SettingItem>,
                             val titlResId: Int) : FragmentBase() {
 
+//    TODO:  Use static SettingItem and refer it by index.
+//    AndroidRuntime: Caused by: android.support.v4.app.Fragment$InstantiationException: Unable to instantiate fragment org.trustnote.wallet.biz.me.FragmentMeSettingBase: could not find Fragment constructor
+
     override fun getLayoutId(): Int {
         return R.layout.f_me_setting_base
     }

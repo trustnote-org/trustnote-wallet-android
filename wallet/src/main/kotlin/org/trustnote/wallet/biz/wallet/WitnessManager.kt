@@ -19,7 +19,10 @@ object WitnessManager {
         if (res.isEmpty()) {
             val req = ReqGetMyWitnesses()
             HubModel.instance.sendHubMsg(req)
-            saveMyWitnesses(req.getResponse())
+
+            if (!req.getResponse().hasError()) {
+                saveMyWitnesses(req.getResponse())
+            }
 
             res = DbHelper.getMyWitnesses()
         }

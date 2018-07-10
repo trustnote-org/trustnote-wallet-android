@@ -28,29 +28,25 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
     private val changeOutput = Outputs()
     private val authors = mutableListOf<Authentifiers>()
 
+    lateinit var mGetParentRequest: ReqGetParents
+
     var hashToSign = ""
     var signFailed = false
 
-    lateinit var mGetParentRequest: ReqGetParents
     lateinit var changeAddress: String
     private val jsApi = JSApi()
 
     fun isOkToSendTx(): Boolean {
 
-        val witnesses = WitnessManager.getMyWitnesses()
-        if (witnesses.isEmpty()) {
+        if (WalletManager.model.mGetParentRequest == null) {
             return false
+        } else {
+            mGetParentRequest = WalletManager.model.mGetParentRequest!!
+            if (mGetParentRequest.getResponse().hasError()) {
+                return false
+            }
+            return true
         }
-
-        mGetParentRequest = ReqGetParents(witnesses)
-        HubModel.instance.sendHubMsg(mGetParentRequest)
-
-        if (mGetParentRequest.getResponse().msgType == MSG_TYPE.empty) {
-            return false
-        }
-
-        return true
-
     }
 
     fun startSendTx(activity: ActivityMain, password: String = "") {

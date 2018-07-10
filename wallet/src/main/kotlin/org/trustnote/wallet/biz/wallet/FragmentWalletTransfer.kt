@@ -77,6 +77,8 @@ class FragmentWalletTransfer : FragmentWalletBase() {
             handleScanRes(arguments.getString(TTT.KEY_TRANSFER_QRCODEW))
         }
 
+        WalletManager.model.prepareForTransfer()
+
     }
 
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {
@@ -96,6 +98,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
     }
 
     private fun transfer() {
+
         var paymentInfo = PaymentInfo()
         paymentInfo.receiverAddress = receiverText.text.toString()
         paymentInfo.amount = TTTUtils.parseTTTAmount(amountText.text.toString())

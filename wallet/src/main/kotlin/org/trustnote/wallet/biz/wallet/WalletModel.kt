@@ -15,6 +15,7 @@ import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.pojo.HubJustSaying
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.ReqGetHistory
+import org.trustnote.wallet.network.pojo.ReqGetParents
 import org.trustnote.wallet.util.AesCbc
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Prefs
@@ -31,6 +32,7 @@ class WalletModel() {
     private val refreshingCredentials = CredentialQueue()
 
     private lateinit var refreshingWorker: ScheduledExecutorService
+    var mGetParentRequest: ReqGetParents? = null
 
     init {
 
@@ -40,6 +42,24 @@ class WalletModel() {
             startRefreshThread()
             HubModel.init(mProfile.hubIndexForPairId)
         }
+
+    }
+
+    fun prepareForTransfer() {
+        MyThreadManager.instance.runWalletModelBg {
+            updateLatestGetParentRequest()
+        }
+    }
+
+    private fun updateLatestGetParentRequest() {
+
+        val witnesses = WitnessManager.getMyWitnesses()
+        if (witnesses.isEmpty()) {
+            return
+        }
+
+        mGetParentRequest = ReqGetParents(witnesses)
+        HubModel.instance.sendHubMsg(mGetParentRequest!!)
 
     }
 
