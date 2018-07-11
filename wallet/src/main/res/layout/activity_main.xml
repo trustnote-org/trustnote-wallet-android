@@ -40,31 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <FrameLayout
-        android:id="@+id/keyboard_view_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/keyboard_bg"
-        android:paddingBottom="@dimen/keyboard_padding"
-        android:paddingLeft="@dimen/keyboard_padding"
-        android:paddingRight="@dimen/keyboard_padding"
-        android:paddingTop="@dimen/line_gap_16"
-        android:visibility="gone">
+    <include layout="@layout/l_mnemonic_keyboard" />
 
-        <org.trustnote.wallet.widget.keyboard.CustomKeyboardView
-
-            android:id="@+id/keyboard_view"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/keyboard_bg"
-            android:keyBackground="@drawable/key_background"
-            android:keyTextColor="@color/keyboard_font_color"
-            android:keyTextSize="@dimen/keyboard_textsize"
-            android:shadowColor="@android:color/transparent" />
-
-    </FrameLayout>
 </FrameLayout>
 
 
