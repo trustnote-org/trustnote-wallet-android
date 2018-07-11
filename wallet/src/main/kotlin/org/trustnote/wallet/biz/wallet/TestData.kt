@@ -14,6 +14,26 @@ class TestData {
         const val mnemonic2 = "together knife slab material electric broom wagon heart harvest side copper vote"
         const val mnemonic3 = "upset noble bulb mixture essay clinic regular waste ladder real evil wisdom"
 
+        const val newVersionInfo =
+                """
+                    {
+                            "version": "2.0.1",
+                            "ignore": true,
+                            "msg": {
+                            "en": [
+                            "Support scan code to login iToken platform",
+                            "Support scan code to make payment in iToken platform",
+                            "Optimize Smart Contract"
+                            ],
+                            "cn": [
+                            "新增扫码登录iToken平台",
+                            "新增扫码支付iToken平台订单",
+                            "优化智能合约相关问题"
+                            ]
+                            }
+                    }
+                """
+
         const val password = "qwer1234"
 
         val loremMessags = TApp.getString(R.string.lorem_ttt)
@@ -31,10 +51,9 @@ class TestData {
             return mnemonic2
         }
 
-
         fun getRandomMessage(maxLength: Int, minLength: Int = 1): String {
 
-            val length = Utils.random.nextInt((maxLength - minLength)/2) + minLength
+            val length = Utils.random.nextInt((maxLength - minLength) / 2) + minLength
             val start = Utils.random.nextInt(loremMessags.length - length)
             val res = loremMessags.substring(start, start + length)
 
@@ -42,19 +61,17 @@ class TestData {
 
         }
 
-
         fun createATestChatMsgs(): ChatMessages {
 
             val res = ChatMessages()
             res.correspondentAddress = "ZKWUHD6P3CRLTX64TGPIDQ7U4PM7R7AI232342354254252"
             res.correspondentName = TestData.getRandomMessage(8, 3)
-            res.creationDate = System.currentTimeMillis()/1000 - Utils.random.nextInt(2 * 24 * 3600)
+            res.creationDate = System.currentTimeMillis() / 1000 - Utils.random.nextInt(2 * 24 * 3600)
             res.message = TestData.getRandomMessage(138)
             res.unReadMsgsNumber = Utils.random.nextInt(10)
             return res
 
         }
-
 
         fun createAFriend(): Friend {
 
@@ -68,13 +85,12 @@ class TestData {
         fun getHomelistForMsgs(): List<ChatMessages> {
 
             var testData = mutableListOf<ChatMessages>()
-            for(i in 0 .. 60) {
+            for (i in 0..60) {
                 testData.add(createATestChatMsgs())
             }
             return testData
 
         }
-
 
     }
 }

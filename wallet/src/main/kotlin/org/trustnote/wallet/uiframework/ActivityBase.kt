@@ -23,11 +23,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.startMainActivityWithMenuId
+import org.trustnote.wallet.biz.upgrade.isNewerVersion
+import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.network.pojo.WalletNewVersion
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.ContextWrapper
+import org.trustnote.wallet.widget.MyDialogFragment
 import org.trustnote.wallet.widget.keyboard.BasicOnKeyboardActionListener
 import org.trustnote.wallet.widget.keyboard.CustomKeyboardView
 import java.util.*
@@ -123,7 +128,54 @@ abstract class ActivityBase : AppCompatActivity() {
                     .request()
         }
 
+        listener(WalletManager.mUpgradeEventCenter) {
+            handleUpgradeEvent()
+        }
+
         setupKeyboard()
+    }
+
+    private fun handleUpgradeEvent() {
+        val walletNewVersion = Prefs.readUpgradeInfo()
+        if (walletNewVersion != null && !walletNewVersion.ignore) {
+            handleUpgradeEvent(walletNewVersion)
+        }
+    }
+
+    private fun handleUpgradeEvent(walletNewVersion: WalletNewVersion) {
+        if (isNewerVersion(walletNewVersion.version)) {
+            val title = TApp.resources.getString(R.string.upgrade_title)
+
+            val msgList = mutableListOf<String>()
+            msgList.add(title)
+            msgList.addAll(walletNewVersion.getUpgradeItems(this))
+            val msg = msgList.joinToString("\n\r")
+
+            if (!walletNewVersion.ignore) {
+                MyDialogFragment.showDialog1Btn(this, msg, false) {
+                    AndroidUtils.openSystemBrowser(TTT.TTT_UPGRADE_WEB_SITE)
+                }
+            } else {
+                MyDialogFragment.showDialog2Btns(this, msg) {
+                    AndroidUtils.openSystemBrowser(TTT.TTT_UPGRADE_WEB_SITE)
+                }
+            }
+        }
+    }
+
+    fun checkUpgradeInfoFromPrefs() {
+
+        val walletNewVersion = Prefs.readUpgradeInfo()
+
+        if (walletNewVersion != null && isNewerVersion(walletNewVersion.version)) {
+
+            handleUpgradeEvent(walletNewVersion)
+
+        } else {
+
+            MyDialogFragment.showMsg(this, R.string.upgrade_already_latest_version)
+
+        }
     }
 
     private fun isKeyboardExist(): Boolean {
@@ -280,7 +332,6 @@ abstract class ActivityBase : AppCompatActivity() {
         }
         return false
     }
-
 
 }
 

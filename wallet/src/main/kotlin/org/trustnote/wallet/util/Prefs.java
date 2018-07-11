@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.trustnote.wallet.TApp;
 import org.trustnote.wallet.biz.me.AddressesBookDb;
 import org.trustnote.wallet.biz.wallet.TProfile;
+import org.trustnote.wallet.network.pojo.WalletNewVersion;
 
 import java.io.File;
 import java.util.LinkedHashSet;
@@ -31,14 +32,28 @@ public class Prefs {
     //private static final String KEY_MY_PAIRD_ID = "KEY_MY_PAIRD_ID";
     private static final String KEY_IS_USER_IN_FULL_RESTORE = "KEY_IS_USER_IN_FULL_RESTORE";
     private static final String KEY_LANGUAGE_DEFAULT = "KEY_LANGUAGE_DEFAULT";
+    private static final String KEY_HUB_LATEST_VERSION_INFO = "KEY_HUB_LATEST_VERSION_INFO";
 
     private static final String KEY_TRANSFER_ADDRESSES = "TTTTransferAddresses";
     private static final File FILE_TRANSFER_ADDRESSES = new File(TApp.context.getFilesDir(), "TTTTransferAddresses.json");
 
     public static void writeTransferAddresses(AddressesBookDb db) {
-        //getInstance().writeObject(KEY_PROFILE, p);
         Utils.INSTANCE.writeJson2File(FILE_TRANSFER_ADDRESSES, db);
     }
+
+    public static void writeUpgradeInfo(String s) {
+        getInstance().write(KEY_HUB_LATEST_VERSION_INFO, s);
+    }
+
+    public static WalletNewVersion readUpgradeInfo() {
+        Object res = getInstance().readObject(KEY_HUB_LATEST_VERSION_INFO, WalletNewVersion.class);
+        if (res instanceof  WalletNewVersion) {
+            return (WalletNewVersion)res;
+        } else {
+            return null;
+        }
+    }
+
 
     public static AddressesBookDb readTransferAddressesDb() {
         //Object res = getInstance().readObject(KEY_PROFILE, TProfile.class);

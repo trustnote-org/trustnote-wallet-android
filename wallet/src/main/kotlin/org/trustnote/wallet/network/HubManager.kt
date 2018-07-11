@@ -1,5 +1,7 @@
 package org.trustnote.wallet.network
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import io.reactivex.Observable
@@ -9,6 +11,8 @@ import io.reactivex.schedulers.Schedulers
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.js.JSApi
+import org.trustnote.wallet.biz.upgrade.newVersionFound
+import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.MyThreadManager
@@ -34,6 +38,11 @@ class HubManager {
     }
 
     fun sendHubMsg(hubMsg: HubMsg) {
+
+        if (!isNetworkConnected) {
+            updateNetworkStatus()
+        }
+
         if (isNetworkConnected) {
             sendHubMsgFromHubClient(hubMsg)
         } else {
@@ -44,6 +53,7 @@ class HubManager {
     private fun sendHubMsgFromHubClient(hubMsg: HubMsg) {
 
         val hubClient = hubClients[hubMsg.targetHubAddress]
+
         if (hubClient != null && !hubClient.isOpen) {
             hubMsg.networkErr()
             return
@@ -65,6 +75,8 @@ class HubManager {
 
         val disconnectedHub = hubClients.remove(mHubAddress)
         disconnectedHub?.dispose()
+
+        connectHub(mHubAddress)
 
     }
 
@@ -209,6 +221,20 @@ class HubManager {
 
         }
 
+        if (hubMsg is HubJustSaying && HubMsgFactory.CMD_NEW_VERSION_FROM_HUB == hubMsg.subject) {
+
+            newVersionFound(hubMsg.bodyJson.asString)
+            return
+
+        }
+
+        if (hubMsg is HubJustSaying && HubMsgFactory.CMD_VERSION == hubMsg.subject) {
+
+            newVersionFound(TestData.newVersionInfo)
+            return
+
+        }
+
         HubModel.instance.onMessage(hubMsg)
 
     }
@@ -231,8 +257,14 @@ class HubManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { connectivity ->
-                    isNetworkConnected = (connectivity.state == NetworkInfo.State.CONNECTED)
+                    updateNetworkStatus()
                 }
+    }
+
+    private fun updateNetworkStatus() {
+        val cm = TApp.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        isNetworkConnected = (activeNetwork?.isConnected == true)
     }
 
     fun clear() {

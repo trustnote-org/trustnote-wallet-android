@@ -6,16 +6,14 @@ import io.reactivex.schedulers.Schedulers
 import org.trustnote.db.DbHelper
 import org.trustnote.db.entity.MyAddresses
 import org.trustnote.db.entity.Units
+import org.trustnote.wallet.BuildConfig
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.tx.TxParser
 import org.trustnote.wallet.biz.units.UnitsManager
 import org.trustnote.wallet.network.HubModel
-import org.trustnote.wallet.network.pojo.HubJustSaying
-import org.trustnote.wallet.network.pojo.HubResponse
-import org.trustnote.wallet.network.pojo.ReqGetHistory
-import org.trustnote.wallet.network.pojo.ReqGetParents
+import org.trustnote.wallet.network.pojo.*
 import org.trustnote.wallet.util.AesCbc
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.Prefs
@@ -588,6 +586,7 @@ class WalletModel() {
         wallet.walletName = newName
         walletUpdated()
     }
+
 
 }
 

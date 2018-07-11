@@ -200,5 +200,9 @@ correct</string>
     <string name="messages_contacts_title">Contacts</string>
     <string name="message_contacts_add_hint">Scan or enter the device code</string>
 
+    <string name="upgrade_download">前往下载</string>
+    <string name="upgrade_title">系统升级</string>
+    <string name="upgrade_ignore">忽略</string>
+    <string name="upgrade_already_latest_version">已经是最新版本</string>
 
 </resources>

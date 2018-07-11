@@ -8,6 +8,7 @@ import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentEditBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
@@ -77,7 +78,9 @@ class SettingItem(
         fun getSettingAbout(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_about_version, value = BuildConfig.VERSION_NAME),
+                            titleResId = R.string.setting_about_version, value = BuildConfig.VERSION_NAME){
+                        (activity as ActivityBase).checkUpgradeInfoFromPrefs()
+                    },
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.setting_about_hash, value = BuildConfig.GitHash),
@@ -170,14 +173,14 @@ class SettingItem(
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_GAP),
 
-                    SettingItem(isChecked = !isZh(), itemType = SettingItemType.ITEM_CHECKED,
+                    SettingItem(isChecked = !AndroidUtils.isZh(activity), itemType = SettingItemType.ITEM_CHECKED,
                             titleResId = R.string.language_en, lambda = {
                         AndroidUtils.setLanguage("en", activity)
                     }),
 
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
 
-                    SettingItem(isChecked = isZh(), itemType = SettingItemType.ITEM_CHECKED,
+                    SettingItem(isChecked = AndroidUtils.isZh(activity), itemType = SettingItemType.ITEM_CHECKED,
                             titleResId = R.string.language_zh, lambda = {
                         AndroidUtils.setLanguage("zh", activity)
                     })
@@ -212,10 +215,6 @@ class SettingItem(
 
         private fun openTou() {
             AndroidUtils.todo()
-        }
-
-        private fun isZh(): Boolean {
-            return "zh" == TApp.resources.configuration.locale?.language
         }
 
         private fun getCurrentLanguageAsString(): String {

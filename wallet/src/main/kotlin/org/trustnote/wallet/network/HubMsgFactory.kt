@@ -18,6 +18,9 @@ object HubMsgFactory {
 
     const val CMD_HEARTBEAT = "heartbeat"
     const val CMD_VERSION = "version"
+
+    const val CMD_NEW_VERSION_FROM_HUB = "new_version"
+
     const val CMD_GET_WITNESSES = "get_witnesses"
     const val CMD_GET_HISTORY = "light/get_history"
     const val CMD_GET_PARENT_FOR_NEW_TX = "light/get_parents_and_last_ball_and_witness_list_unit"

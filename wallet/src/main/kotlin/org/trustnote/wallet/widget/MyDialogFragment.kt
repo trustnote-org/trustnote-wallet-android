@@ -50,7 +50,9 @@ class MyDialogFragment() : DialogFragment() {
         view.findViewById<View>(R.id.line_between_btns).visibility = if (isTwoButtons) View.VISIBLE else View.GONE
 
         view.findViewById<Button>(R.id.second_button).setOnClickListener {
-            dismiss()
+            if (isCancelable) {
+                dismiss()
+            }
             confirmLogic.invoke()
         }
 
@@ -89,15 +91,16 @@ class MyDialogFragment() : DialogFragment() {
             return ft
         }
 
-        private fun showDialog1Btn(activity: FragmentActivity, msg: String, confirmLogic: () -> Unit) {
+        fun showDialog1Btn(activity: FragmentActivity, msg: String, isCancelable: Boolean = true, confirmLogic: () -> Unit) {
 
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic)
+            newFragment.isCancelable = isCancelable
             newFragment.show(getFragmentTransaction(activity), null)
         }
 
         fun showMsg(activity: FragmentActivity, strResId: Int) {
             val msg = activity.getString(strResId)!!
-            showDialog1Btn(activity, msg, {})
+            showDialog1Btn(activity, msg) {}
         }
 
         fun showDialog2Btns(activity: FragmentActivity, strResId: Int, confirmLogic: () -> Unit) {

@@ -15,6 +15,7 @@ object WalletManager {
 
     //TODO: debounce the events.
     val mWalletEventCenter: Subject<Boolean> = PublishSubject.create()
+    val mUpgradeEventCenter: Subject<Boolean> = PublishSubject.create()
 
     lateinit var model: WalletModel
     private var currentDbTag = ""

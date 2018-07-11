@@ -102,6 +102,8 @@ class TTT {
 
         const val KEY_TTT_QR_TAG = "TTT"
 
+        const val TTT_UPGRADE_WEB_SITE = "https://trustnote.org/"
+
     }
 }
 

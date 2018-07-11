@@ -16,6 +16,7 @@ import org.trustnote.wallet.uiframework.ActivityBase
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.support.v4.app.Fragment
@@ -474,6 +475,11 @@ object AndroidUtils {
         activity.finish()
     }
 
+    @JvmStatic
+    fun isZh(context: Context): Boolean {
+        return "zh" == context.resources.configuration.locale?.language
+    }
+
     fun setLanguage(lang: String) {
         val myLocale = Locale(lang)
         Locale.setDefault(myLocale)
@@ -482,6 +488,12 @@ object AndroidUtils {
         val conf = TApp.resources.getConfiguration()
         conf.locale = myLocale
         TApp.resources.updateConfiguration(conf, dm)
+    }
+
+    fun openSystemBrowser(urlWithHttp: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(urlWithHttp))
+        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        TApp.context.startActivity(browserIntent)
     }
 
 }
