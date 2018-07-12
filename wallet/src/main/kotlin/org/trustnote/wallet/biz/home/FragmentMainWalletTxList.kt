@@ -10,7 +10,9 @@ import org.trustnote.db.TxType
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
+import org.trustnote.wallet.biz.msgs.chatWithFriend
 import org.trustnote.wallet.biz.wallet.*
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.TMnAmount
 
@@ -37,15 +39,6 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
         credentialName = mRootView.findViewById(R.id.credential_name)
 
         recyclerView = mRootView.findViewById(R.id.tx_list)
-
-        AndroidUtils.addItemClickListenerForRecycleView(recyclerView) {
-            val bundle = Bundle()
-            bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
-            bundle.putInt(TTT.KEY_TX_INDEX, it)
-            val f = FragmentMainWalletTxDetail()
-            f.arguments = bundle
-            addL2Fragment(f)
-        }
 
         receiveBtnView = mRootView.findViewById<View>(R.id.btn_receive)
 
@@ -85,6 +78,15 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
         val a = TxAdapter(credential.txDetails.filter {
             TxType.moved != it.txType
         })
+
+        a.itemClickListener = {index, _ ->
+            val bundle = Bundle()
+            bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
+            bundle.putInt(TTT.KEY_TX_INDEX, index)
+            val f = FragmentMainWalletTxDetail()
+            f.arguments = bundle
+            addL2Fragment(f)
+        }
 
         recyclerView.adapter = a
 

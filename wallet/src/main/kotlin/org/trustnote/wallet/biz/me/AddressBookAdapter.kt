@@ -36,12 +36,6 @@ class AddressBookAdapter(val myDataset: List<TransferAddresses>,
             removeLambda.invoke(dataItem)
         }
 
-
-        holder.itemView.findViewById<View>(R.id.item_data).setOnClickListener {
-            itemClickListener.invoke(dataItem)
-        }
-
-
         viewBinderHelper.bind(holder.itemView.findViewById(R.id.swipe_reveal_layout), dataItem.address)
 
     }

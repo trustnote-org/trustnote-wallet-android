@@ -19,7 +19,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_behavior="org.trustnote.wallet.biz.home.FlingBehavior">
 
                 <android.support.design.widget.CollapsingToolbarLayout

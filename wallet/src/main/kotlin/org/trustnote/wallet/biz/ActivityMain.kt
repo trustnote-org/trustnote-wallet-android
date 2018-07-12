@@ -36,6 +36,8 @@ class ActivityMain : ActivityBase() {
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
+        AndroidUtils.changeIconSizeForBottomNavigation(bottomNavigationView)
+
         disableShiftMode(bottomNavigationView)
         bottomNavigationView.setItemIconTintList(null)
 

@@ -23,6 +23,7 @@
             android:id="@+id/field_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textIsSelectable="true"
             android:text="@string/place_holder"
             android:gravity="right"
             android:textColor="@color/font_gray_amount"
@@ -35,6 +36,7 @@
             android:layout_height="wrap_content"
             android:text="@string/place_holder"
             android:gravity="right"
+            android:textIsSelectable="true"
             android:textColor="@color/t_blue"
             android:textSize="@dimen/text_14"
             android:visibility="gone" />

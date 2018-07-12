@@ -46,8 +46,8 @@ class FragmentMeAddressesBook : FragmentBase() {
             addL2Fragment(f)
         }
 
-        adapter.itemClickListener = {
-            (activity as ActivityBase).setupStringAsReturnResult(it.address)
+        adapter.itemClickListener = {_, item ->
+            (activity as ActivityBase).setupStringAsReturnResult(item.address)
             onBackPressed()
         }
 

@@ -18,7 +18,6 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
         return R.layout.f_msg_home
     }
 
-
     lateinit var recyclerView: RecyclerView
     lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     override fun initFragment(view: View) {
@@ -59,8 +58,8 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
 
         val a = ContactsAdapter(model.latestHomeList)
 
-        a.itemClickListener = {
-            chatWithFriend(it.deviceAddress, activity as ActivityBase)
+        a.itemClickListener = { _, item ->
+            chatWithFriend(item.deviceAddress, activity as ActivityBase)
         }
 
         recyclerView.adapter = a
@@ -72,8 +71,6 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_action, menu)
     }
-
-
 
 }
 

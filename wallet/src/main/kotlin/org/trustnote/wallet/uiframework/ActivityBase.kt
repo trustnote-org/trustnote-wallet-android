@@ -87,6 +87,8 @@ abstract class ActivityBase : AppCompatActivity() {
 
         val transaction = supportFragmentManager.beginTransaction()
 
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+
         if (isAddToBackStack) {
 
             transaction.add(fragmentContainerId, f)
@@ -97,6 +99,7 @@ abstract class ActivityBase : AppCompatActivity() {
             transaction.replace(fragmentContainerId, f)
 
         }
+
 
         transaction.commit()
 

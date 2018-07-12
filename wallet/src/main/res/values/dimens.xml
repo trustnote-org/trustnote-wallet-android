@@ -1,5 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <integer name="fragment_animation_time">300</integer>
+
     <dimen name="one_dp">1dp</dimen>
     <dimen name="half_dp">0.5dp</dimen>
 
@@ -28,6 +30,7 @@
     <dimen name="line_gap_22">22dp</dimen>
     <dimen name="line_gap_20">20dp</dimen>
     <dimen name="line_gap_28">28dp</dimen>
+    <dimen name="line_gap_26">26dp</dimen>
     <dimen name="line_gap_12">12dp</dimen>
     <dimen name="line_gap_42">42dp</dimen>
     <dimen name="line_gap_48">48dp</dimen>

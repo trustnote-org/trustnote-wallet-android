@@ -16,6 +16,7 @@
         android:gravity="center"
         android:text="@string/place_holder"
         android:textColor="@color/f_msg_date"
+        android:textIsSelectable="true"
         android:textSize="@dimen/text_14"
         android:visibility="visible" />
 
@@ -34,6 +35,7 @@
         android:paddingTop="@dimen/line_gap_8"
         android:text="@string/place_holder"
         android:textColor="@color/t_f_white"
+        android:textIsSelectable="true"
         android:textSize="@dimen/text_16" />
 
 </RelativeLayout>

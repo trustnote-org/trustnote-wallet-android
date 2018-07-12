@@ -8,7 +8,6 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
-import android.widget.Button
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.js.BIP38_WORD_LIST_EN
@@ -19,18 +18,19 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.support.design.internal.BottomNavigationMenuView
+import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.RecyclerView
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.webkit.WebView
-import android.widget.EditText
-import android.widget.PopupWindow
-import android.widget.TextView
+import android.widget.*
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.MultiFormatWriter
@@ -494,6 +494,20 @@ object AndroidUtils {
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(urlWithHttp))
         browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         TApp.context.startActivity(browserIntent)
+    }
+
+    fun changeIconSizeForBottomNavigation(bottomNavigationView: BottomNavigationView) {
+        val menuView = bottomNavigationView.getChildAt(0) as BottomNavigationMenuView
+        for (i in 0 .. (menuView.childCount - 1)) {
+            val iconView = menuView.getChildAt(i).findViewById<ImageView>(android.support.design.R.id.icon)
+            val layoutParams = iconView.layoutParams
+            val width = TApp.resources.getDimensionPixelSize(R.dimen.line_gap_28)
+            val height = TApp.resources.getDimensionPixelSize(R.dimen.line_gap_26)
+            layoutParams.width = width
+            layoutParams.height = height
+            iconView.scaleType = ImageView.ScaleType.FIT_XY
+            iconView.layoutParams = layoutParams
+        }
     }
 
 }

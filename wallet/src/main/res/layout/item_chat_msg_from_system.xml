@@ -15,6 +15,7 @@
         android:gravity="center"
         android:text="@string/place_holder"
         android:textColor="@color/f_msg_date"
+        android:textIsSelectable="true"
         android:textSize="@dimen/text_14"
         android:visibility="visible" />
 
@@ -22,8 +23,8 @@
         android:id="@+id/msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/time"
+        android:layout_centerHorizontal="true"
         android:layout_marginRight="@dimen/line_gap_48"
         android:background="@drawable/bg_chat_message_from_system"
         android:gravity="center"
@@ -33,6 +34,7 @@
         android:paddingTop="@dimen/line_gap_4"
         android:text="@string/place_holder"
         android:textColor="@color/f_chat_message_from_system"
+        android:textIsSelectable="true"
         android:textSize="@dimen/text_14" />
 
 </RelativeLayout>

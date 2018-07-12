@@ -8,7 +8,7 @@ import android.view.ViewGroup
 open class EmptyAdapter<T : Any>(val layoutId: Int, val emptyLayoutId: Int,
                                     private val mDatas: List<T>) : RecyclerView.Adapter<MyViewHolder>() {
 
-    var itemClickListener: (item: T) -> Unit = {}
+    var itemClickListener: (index: Int, item: T) -> Unit = { _, _ -> }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val resId = if (viewType == VIEW_TYPE_EMPTY) emptyLayoutId else layoutId
@@ -20,7 +20,7 @@ open class EmptyAdapter<T : Any>(val layoutId: Int, val emptyLayoutId: Int,
         //TODO: how about the first item.
         if (getItemViewType(position) == VIEW_TYPE_ITEM) {
             holder.itemView.setOnClickListener {
-                itemClickListener.invoke(mDatas[position])
+                itemClickListener.invoke(position, mDatas[position])
             }
             handleItemView(holder, mDatas[position])
         }
