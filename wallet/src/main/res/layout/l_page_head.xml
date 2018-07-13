@@ -38,7 +38,6 @@
             android:textSize="@dimen/text_16"
             android:textStyle="bold" />
 
-
         <FrameLayout
             android:id="@+id/ic_dialog_close"
             android:layout_width="wrap_content"

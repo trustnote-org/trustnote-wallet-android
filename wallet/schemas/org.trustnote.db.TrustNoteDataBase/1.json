@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c3535448a719ae94e7eb737e5a59541d",
+    "identityHash": "476edae5c69ed7e6305acfcc7b564b37",
     "entities": [
       {
         "tableName": "my_witnesses",
@@ -267,7 +267,7 @@
       },
       {
         "tableName": "inputs",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`unit` TEXT NOT NULL, `message_index` INTEGER NOT NULL, `input_index` INTEGER NOT NULL, `asset` TEXT, `denomination` INTEGER NOT NULL, `is_unique` INTEGER, `type` TEXT, `src_unit` TEXT, `src_message_index` INTEGER, `src_output_index` INTEGER, `from_main_chain_index` INTEGER, `to_main_chain_index` INTEGER, `serial_number` INTEGER, `amount` INTEGER, `address` TEXT, PRIMARY KEY(`unit`, `input_index`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`unit` TEXT NOT NULL, `message_index` INTEGER NOT NULL, `input_index` INTEGER NOT NULL, `asset` TEXT, `denomination` INTEGER NOT NULL, `is_unique` INTEGER, `type` TEXT, `src_unit` TEXT, `src_message_index` INTEGER, `src_output_index` INTEGER, `from_main_chain_index` INTEGER, `to_main_chain_index` INTEGER, `serial_number` INTEGER, `amount` INTEGER, `address` TEXT, PRIMARY KEY(`unit`, `message_index`, `input_index`))",
         "fields": [
           {
             "fieldPath": "unit",
@@ -363,6 +363,7 @@
         "primaryKey": {
           "columnNames": [
             "unit",
+            "message_index",
             "input_index"
           ],
           "autoGenerate": false
@@ -713,7 +714,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c3535448a719ae94e7eb737e5a59541d\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"476edae5c69ed7e6305acfcc7b564b37\")"
     ]
   }
 }

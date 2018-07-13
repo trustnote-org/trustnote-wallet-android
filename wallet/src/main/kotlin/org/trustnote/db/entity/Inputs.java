@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 import java.lang.Integer;
 import java.lang.String;
 
-@Entity(tableName = "inputs", primaryKeys = {"unit", "input_index"})
+@Entity(tableName = "inputs", primaryKeys = {"unit", "message_index", "input_index"})
 public class Inputs extends TBaseEntity {
   @ColumnInfo(
       name = "unit"

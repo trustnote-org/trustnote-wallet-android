@@ -1,7 +1,10 @@
 package org.trustnote.wallet.biz.units
 
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
+import org.json.JSONStringer
 import org.trustnote.db.DbHelper
 import org.trustnote.db.FundedAddress
 import org.trustnote.db.Payload
@@ -273,8 +276,8 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
         val hubResponse = req.getResponse()
 
-        if (hubResponse.msgType == MSG_TYPE.response) {
-            return "accepted" == hubResponse.responseJson?.asString
+        if (hubResponse.msgType == MSG_TYPE.response && hubResponse.responseJson is JsonPrimitive) {
+            return "accepted" == hubResponse.responseJson.asString
         }
 
         return false

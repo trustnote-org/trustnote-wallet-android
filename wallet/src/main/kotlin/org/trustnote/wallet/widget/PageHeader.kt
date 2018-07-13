@@ -37,7 +37,7 @@ open class PageHeader @JvmOverloads constructor(
     }
 
     fun hideCloseBtn() {
-        findViewById<ImageView>(R.id.ic_dialog_close)?.visibility = View.INVISIBLE
+        findViewById<View>(R.id.ic_dialog_close)?.visibility = View.INVISIBLE
     }
 
 }
