@@ -16,6 +16,8 @@ open class HubRequest : HubMsg {
     var params: JsonElement = Utils.emptyJsonObject
     val tag: String
     var attachedInfo: Object = Object()
+    var canUseBackupHub = true
+
     @Volatile
     lateinit var hubResponse: HubResponse
     val latch = CountDownLatch(1)

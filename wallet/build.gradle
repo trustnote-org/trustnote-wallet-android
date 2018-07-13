@@ -198,6 +198,9 @@ dependencies {
     // IOS swipe back
     implementation 'me.yokeyword:swipebackfragment:0.4.0'
 
+    // IOS progress dialog
+    implementation 'com.kaopiz:kprogresshud:1.1.0'
+
 
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation('android.arch.persistence.room:rxjava2:1.0.0') {

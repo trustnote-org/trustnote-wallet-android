@@ -13,6 +13,7 @@ import org.trustnote.wallet.biz.home.FragmentMainCreateWalletNormal
 import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.me.SettingItem
+import org.trustnote.wallet.biz.me.SettingItemsGroup
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.biz.msgs.MessageModel
@@ -120,7 +121,7 @@ class ActivityMain : ActivityBase() {
         val isFromLanguageChange = intent.getBooleanExtra(AndroidUtils.KEY_FROM_CHANGE_LANGUAGE, false)
         if (isFromLanguageChange) {
             intent.removeExtra(AndroidUtils.KEY_FROM_CHANGE_LANGUAGE)
-            SettingItem.openSubSetting(this, SettingItem.getSettingSystem(this), R.string.setting_system)
+            SettingItem.openSubSetting(this, SettingItemsGroup.LANGUAGE, R.string.setting_system)
             SettingItem.selectLanguageUI(this)
         }
 

@@ -41,10 +41,7 @@
     <string name="mnemonic_devicename_err">No more than 20 characters</string>
     <string name="dialog_backup_mnemonic_copy">Please never take a screenshot of the mnemonic. Write it down carefully instead!</string>
     <string name="dialog_remove_mnemonic_ask">Are you sure you want to delete the mnemonic?</string>
-    <string name="pwd_exist_prompt">钱包已加密</string>
-    <string name="pwd_exist_clickcontinue">点击继续</string>
     <string name="pwd_exist_input_pwd">Please enter the password</string>
-    <string name="pwd_exist_input_err">密码错误，请重新输入</string>
     <string name="tx_list_title">Recent transaction records</string>
     <string name="action_scan">Scan QR Code</string>
     <string name="contacts_add_title">Add Contacts</string>
@@ -53,11 +50,8 @@
     <string name="create_wallet_tab_title_normal">Regular wallet</string>
     <string name="create_wallet_tab_title_observe">Watch-Only wallet</string>
     <string name="me_wallet_detail_label_cold_code">Cold wallet authentication code</string>
-    <string name="OVSERVER_WALLET_WARNING1">不建议使用PC端作为观察钱包</string>
-    <string name="OVSERVER_WALLET_WARNING2">观察钱包发送交易时需要冷钱包配合签名。你可以使用另一台闲置手机，开飞行模式作为冷钱包，配合离线签名。</string>
     <string name="create_wallet_normal_hint">Enter the name of your new TrustNote wallet</string>
     <string name="MNEMONIC_BACKUP_WARNING1">Write it down or save it in an offline device</string>
-    <string name="tab_observer_wallet">观察</string>
     <string name="contacts_empty_msg">Select \"+\" in top right of the screen to add new contact</string>
     <string name="mypairid_title_info">Use other device to scan the QT code below, or send the QR code to other devices, add me as friends</string>
     <string name="mypairid_copy_btn">Copy Device Code</string>
@@ -72,7 +66,6 @@
     <string name="setting_about_hash">Hash Value</string>
     <string name="setting_about_tou">TERMS OF USE</string>
     <string name="setting_system_language">Language</string>
-    <string name="setting_system_password">钱包密码</string>
     <string name="setting_wallet_tools_restoremem">Restore from the mnemonic</string>
     <string name="me_clone_sync_title">Sync Cloned Wallets</string>
     <string name="wallet_transfer_btn">Send</string>
@@ -87,7 +80,6 @@
     <string name="me_wallet_manager">Manage wallet</string>
     <string name="me_wallet_detail_id_title">Wallet ID</string>
     <string name="me_wallet_detail_remove_btn">Delete wallet</string>
-    <string name="me_wallet_cold_code_msg">请使用观察钱包扫描冷钱包认证码</string>
     <string name="me_wallet_cold_code_sucessful_title">Signing succeed</string>
     <string name="me_wallet_cold_code_sucessful_msg">To complete the authoization process, use the watch-only wallet to scan the signature QR code</string>
     <string name="toolbar_edit_done">Complete</string>
@@ -96,27 +88,22 @@
     <string name="msg_friend_memo">No more than 10 characters</string>
     <string name="me_backup_hide">Hide the mnemonic</string>
     <string name="me_backup_show">Show the mnemonic</string>
-    <string name="me_backup_prompt_already_removed">助记词已删除</string>
     <string name="me_restore_warning">Please make sure your mnemonic is backuped already. When restore the wallet with another mnemonic, the existing wallet will be removed from the device!</string>
     <string name="me_clone_sync_btn">Sync Wallets</string>
     <string name="FULLSYNC_WARNING1">We don\'t recommend cloning your wallet because your wallet is safe as long as your mnemonic is well protected. However,if you experience data inconsistency issue between the original wallet and its clone,you can fix it by using the\"Sync Cloned Wallets\"feature on both wallets.</string>
     <string name="me_change_pwd_old_pwd_hint">Please enter your old password</string>
-    <string name="me_change_pwd_old_pwd_err">原密码输入错误</string>
     <string name="tx_confirmed">Confirmed</string>
     <string name="tx_unconfirmed">Unconfirmed</string>
     <string name="address_book_title">Address</string>
-    <string name="address_book_add_title">添加地址</string>
     <string name="address_book_label_memo">Remarks</string>
     <string name="address_book_label_address">Wallet address</string>
     <string name="title_edit_friend_memo">Set Alias</string>
     <string name="ic_remove_msg_contact">Delete Contact</string>
     <string name="ic_clear_chat_history">Clear Chat History</string>
-    <string name="title_edit_devicename">个人信息</string>
     <string name="ttt_transfer_title">Send TTT</string>
     <string name="place_holder">TestTTT</string>
     <string name="place_holder_address">ZKWUHD6P3CRLTX64TGPIDQ7U4PM7R7AI232342354254252</string>
     <string name="place_holder_number">8</string>
-    <string name="menu_debug">诊断调试</string>
     <string name="coming_soon">Coming soon…</string>
 
     <string name="ttt_slogan">Trust  ·  Token  ·  Things</string>
@@ -150,6 +137,14 @@ correct</string>
     <string name="msg_for_clear_chat_history">Are you sure you want to delete all chat records with “%1$s”?</string>
     <string name="chat_input_btn">SEND</string>
 
+
+    <string name="address_book_add_title">添加地址</string>
+    <string name="title_edit_devicename">个人信息</string>
+    <string name="me_change_pwd_old_pwd_err">原密码输入错误</string>
+    <string name="pwd_exist_input_err">密码错误，请重新输入</string>
+    <string name="setting_system_password">钱包密码</string>
+    <string name="pwd_exist_prompt">钱包已加密</string>
+    <string name="pwd_exist_clickcontinue">点击继续</string>
     <string name="wallet_new_msg_emptyname">钱包名称不能为空</string>
     <string name="qrcode_scan">扫描</string>
     <string name="tx_detial_sender_title">已发送(MN）</string>
@@ -163,8 +158,19 @@ correct</string>
     <string name="select_wallet_title">选择付款钱包</string>
     <string name="tx_empty_msg">暂无记录哦~</string>
 
+    <string name="upgrade_download">前往下载</string>
+    <string name="upgrade_title">系统升级</string>
+    <string name="upgrade_ignore">忽略</string>
+    <string name="upgrade_already_latest_version">已经是最新版本</string>
+
+
     <!-- 冷钱包相关 -->
     <string name="create_wallet_observer_msg">观察钱包需要导入冷钱包认证码，用来日常查看账户、交易。大额资金的钱包建议使用冷钱包管理，避免泄露被盗。</string>
+    <string name="me_backup_prompt_already_removed">助记词已删除</string>
+    <string name="OVSERVER_WALLET_WARNING1">不建议使用PC端作为观察钱包</string>
+    <string name="tab_observer_wallet">观察</string>
+    <string name="OVSERVER_WALLET_WARNING2">观察钱包发送交易时需要冷钱包配合签名。你可以使用另一台闲置手机，开飞行模式作为冷钱包，配合离线签名。</string>
+    <string name="me_wallet_cold_code_msg">请使用观察钱包扫描冷钱包认证码</string>
     <string name="create_wallet_observer_scancode_hint">扫描冷钱包认证码</string>
     <string name="create_wallet_observer_startbtn">开始导入</string>
     <string name="create_wallet_observer_howsign">如何使用冷钱包进行离线签名？</string>
@@ -200,9 +206,6 @@ correct</string>
     <string name="messages_contacts_title">Contacts</string>
     <string name="message_contacts_add_hint">Scan or enter the device code</string>
 
-    <string name="upgrade_download">前往下载</string>
-    <string name="upgrade_title">系统升级</string>
-    <string name="upgrade_ignore">忽略</string>
-    <string name="upgrade_already_latest_version">已经是最新版本</string>
+    <string name="menu_debug">诊断调试</string>
 
 </resources>

@@ -2,6 +2,7 @@ package org.trustnote.wallet.uiframework
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.inputmethodservice.Keyboard
 import android.os.Bundle
@@ -18,6 +19,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.google.zxing.integration.android.IntentIntegrator
+import com.kaopiz.kprogresshud.KProgressHUD
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
@@ -334,6 +336,22 @@ abstract class ActivityBase : AppCompatActivity() {
             return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
         }
         return false
+    }
+
+    var blockingProgressDialog: KProgressHUD? = null
+
+    fun showBlockProgressDialog() {
+
+        blockingProgressDialog = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(false)
+                .setAnimationSpeed(1)
+                .setDimAmount(0.2f)
+                .show()
+    }
+
+    fun dismissBlockProgressDialog() {
+        blockingProgressDialog?.dismiss()
     }
 
 }

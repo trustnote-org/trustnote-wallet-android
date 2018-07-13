@@ -83,7 +83,7 @@ public class Prefs {
     }
 
     public static Boolean isUserInFullRestore() {
-        return getInstance().readBoolean(KEY_IS_USER_IN_FULL_RESTORE);
+        return getInstance().readBoolean(KEY_IS_USER_IN_FULL_RESTORE, true);
     }
 
     public static void saveUserInFullRestore(boolean isInFullRestore) {

@@ -161,6 +161,11 @@ fun onMessageCalledByMsgsModel(hubJustSaying: HubJustSaying): String {
             myProfile.tempPrivkey,
             myProfile.prevTempPrivkey, myProfile.privKeyForPairId)
 
+    //In case we cannot decrypt package.
+    if (decryptPackage.isEmpty() || decryptPackage.length < 3) {
+        return messageHash
+    }
+
     decryptPackage = decryptPackage.replace("""\""", "")
 
     val messageJson = Utils.stringToJsonElement(decryptPackage)

@@ -13,22 +13,31 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
 
-        android:contentInsetRight="0dp"
         android:contentInsetEnd="0dp"
-        app:contentInsetRight="0dp"
-        app:contentInsetEnd="0dp"
+        android:contentInsetRight="0dp"
         android:paddingLeft="@dimen/padding_main"
-        android:paddingRight="@dimen/padding_main_20">
+        android:paddingRight="@dimen/padding_main_20"
+        app:contentInsetEnd="0dp"
+        app:contentInsetRight="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/toolbar_left_arrow"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/arrow_left" />
 
             <TextView
                 android:id="@+id/toolbar_title_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:text="@string/wallet_toolbar_title"
                 android:textColor="@color/title_bar_text"
                 android:textSize="@dimen/text_20"
@@ -39,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:gravity="right"
                 android:text="@string/toolbar_edit_done"
                 android:textColor="@color/action_text"

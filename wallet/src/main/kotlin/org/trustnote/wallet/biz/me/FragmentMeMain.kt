@@ -52,8 +52,9 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
 
         val fullMainSettings = mutableListOf<SettingItem>()
 
-        var settingsMain = SettingItem.getSettingMain(activity as ActivityMain)
-        fullMainSettings.addAll(settingsMain.toList())
+        var settingsMain = SettingItem.getSettingPageParameter(SettingItemsGroup.MAIN.ordinal,
+                (activity as ActivityMain))
+        fullMainSettings.addAll(settingsMain.first.toList())
 
         if (Utils.isTesterFeature()) {
 

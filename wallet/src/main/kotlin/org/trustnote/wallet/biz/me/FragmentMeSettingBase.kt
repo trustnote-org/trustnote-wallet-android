@@ -4,13 +4,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.util.AndroidUtils
 
-class FragmentMeSettingBase(val settingItems: Array<SettingItem>,
-                            val titlResId: Int) : FragmentBase() {
-
-//    TODO:  Use static SettingItem and refer it by index.
-//    AndroidRuntime: Caused by: android.support.v4.app.Fragment$InstantiationException: Unable to instantiate fragment org.trustnote.wallet.biz.me.FragmentMeSettingBase: could not find Fragment constructor
+class FragmentMeSettingBase : FragmentBase() {
 
     override fun getLayoutId(): Int {
         return R.layout.f_me_setting_base
@@ -19,13 +17,16 @@ class FragmentMeSettingBase(val settingItems: Array<SettingItem>,
     override fun updateUI() {
         super.updateUI()
 
+        val pageTypeIndex = arguments.getInt(AndroidUtils.KEY_SETTING_PAGE_TYPE)
+        val pageTitleResId = arguments.getInt(AndroidUtils.KEY_SETTING_PAGE_TITLE)
+
         val title = mRootView.findViewById<TextView>(R.id.setting_title)
-        title.setText(titlResId)
+        title.setText(pageTitleResId)
 
         val recyclerView = mRootView.findViewById<RecyclerView>(R.id.setting_item_list)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        recyclerView.adapter = SettingItemAdapter(settingItems)
+        recyclerView.adapter = SettingItemAdapter(SettingItem.getSettingPageParameter(pageTypeIndex, activity as ActivityMain).first)
     }
 
 }

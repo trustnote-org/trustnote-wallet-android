@@ -31,6 +31,7 @@ class HubManager {
     init {
         setupRetryLogic()
         monitorNetwork()
+        connectHubInBackground(TTT.hubStable)
     }
 
     companion object {
@@ -52,7 +53,11 @@ class HubManager {
 
     private fun sendHubMsgFromHubClient(hubMsg: HubMsg) {
 
-        val hubClient = hubClients[hubMsg.targetHubAddress]
+        var hubClient = hubClients[hubMsg.targetHubAddress]
+
+        if (hubClient == null && hubMsg is HubRequest && hubMsg.canUseBackupHub) {
+            hubClient = hubClients[TTT.hubStable]
+        }
 
         if (hubClient != null && !hubClient.isOpen) {
             hubMsg.networkErr()
@@ -66,7 +71,7 @@ class HubManager {
             hubClient.sendHubMsg(hubMsg)
         } else {
             //TODO: for no request type msg, discard it?
-            connectHub(hubMsg.targetHubAddress)
+            connectHubInBackground(hubMsg.targetHubAddress, false)
         }
 
     }
@@ -76,7 +81,7 @@ class HubManager {
         val disconnectedHub = hubClients.remove(mHubAddress)
         disconnectedHub?.dispose()
 
-        connectHub(mHubAddress)
+        connectHubInBackground(mHubAddress, true)
 
     }
 
@@ -156,24 +161,23 @@ class HubManager {
 
     }
 
-    fun connectHubWithDelay(hubAddress: String) {
-        if (isHubActive(hubAddress)) {
-            return
+    private fun connectHubInBackground(hubAddress: String, isDelay: Boolean = false) {
+
+        if (isDelay) {
+            MyThreadManager.instance.hubManagerThread.schedule({
+                connectHubIn(hubAddress)
+            }, 10, TimeUnit.SECONDS)
+
         } else {
-
+            MyThreadManager.instance.hubManagerThread.execute {
+                connectHubIn(hubAddress)
+            }
         }
 
-        MyThreadManager.instance.runDealyed(
-                Utils.random.nextInt(TTT.HUB_WAITING_SECONDS_RECCONNECT).toLong()
-        )
-        {
-            connectHub(hubAddress)
-        }
     }
 
-    private fun connectHub(hubAddress: String) {
+    private fun connectHubIn(hubAddress: String) {
         if (isHubActive(hubAddress)) {
-            return
         } else {
             val hubClient = HubClient(hubAddress)
             hubClient.connect()
@@ -228,12 +232,13 @@ class HubManager {
 
         }
 
-        if (hubMsg is HubJustSaying && HubMsgFactory.CMD_VERSION == hubMsg.subject) {
-
-            newVersionFound(TestData.newVersionInfo)
-            return
-
-        }
+        //Test code:
+        //        if (hubMsg is HubJustSaying && HubMsgFactory.CMD_VERSION == hubMsg.subject) {
+        //
+        //            newVersionFound(TestData.newVersionInfo)
+        //            return
+        //
+        //        }
 
         HubModel.instance.onMessage(hubMsg)
 

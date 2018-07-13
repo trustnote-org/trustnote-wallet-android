@@ -15,6 +15,7 @@ class ReqGetTempPubkey : HubRequest {
         val params = JsonPrimitive(pubkey)
         setReqParams(params)
         targetHubAddress = hubAddress
+        canUseBackupHub = false
 
     }
 

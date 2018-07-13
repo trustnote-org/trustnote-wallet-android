@@ -30,23 +30,33 @@
 
         <TextView
             android:id="@+id/title_middle"
-            android:gravity="center"
             style="@style/t_sub_title"
             android:layout_width="match_parent"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
             android:textSize="@dimen/text_16"
             android:textStyle="bold" />
 
-        <ImageView
+
+        <FrameLayout
             android:id="@+id/ic_dialog_close"
-            android:layout_width="@dimen/ic_20"
-            android:layout_height="@dimen/ic_20"
+            android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/page_margin_26"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_dialog_close" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_width="@dimen/ic_20"
+                android:layout_height="@dimen/ic_20"
+                android:layout_marginRight="@dimen/page_margin_26"
+                android:layout_marginLeft="@dimen/page_margin_26"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_dialog_close" />
+
+        </FrameLayout>
+
 
     </RelativeLayout>
 

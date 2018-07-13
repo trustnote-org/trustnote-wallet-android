@@ -26,22 +26,13 @@ class SettingItem(
 
     companion object {
 
-        fun getSettingMain(activity: ActivityMain): Array<SettingItem> {
+        private fun getSettingMain(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
-
-                    //Feature in future release.
-                    //                    SettingItem(titleResId = R.string.setting_ttt_pwd,
-                    //                            icResId = R.drawable.me_ttt_pwd,
-                    //                            lambda = {
-                    //                                AndroidUtils.todo()
-                    //                            }),
-                    //
-                    //                    SettingItem(itemType = SettingItemType.ITEM_GAP),
 
                     SettingItem(titleResId = R.string.setting_wallet_tools,
                             icResId = R.drawable.me_wallet_tool,
                             lambda = {
-                                openSubSetting(activity, getSettingWalletTools(activity), R.string.setting_wallet_tools)
+                                openSubSetting(activity, SettingItemsGroup.WALLET_TOOL, R.string.setting_wallet_tools)
                             }),
 
                     SettingItem(itemType = SettingItemType.ITEM_LINE),
@@ -57,7 +48,7 @@ class SettingItem(
                     SettingItem(titleResId = R.string.setting_system,
                             icResId = R.drawable.ic_setting,
                             lambda = {
-                                openSubSetting(activity, getSettingSystem(activity), R.string.setting_system)
+                                openSubSetting(activity, SettingItemsGroup.SYSTEM_SETTING, R.string.setting_system)
                             }),
 
                     SettingItem(itemType = SettingItemType.ITEM_GAP),
@@ -65,20 +56,26 @@ class SettingItem(
                     SettingItem(titleResId = R.string.setting_about,
                             icResId = R.drawable.me_about,
                             lambda = {
-                                openSubSetting(activity, getSettingAbout(activity), R.string.setting_about)
+                                openSubSetting(activity, SettingItemsGroup.ABOUT, R.string.setting_about)
                             })
             )
         }
 
-        fun openSubSetting(activity: ActivityMain, items: Array<SettingItem>, titielResId: Int) {
-            val f = FragmentMeSettingBase(items, titielResId)
+        fun openSubSetting(activity: ActivityMain, groupType: SettingItemsGroup, titleResId: Int) {
+
+            val f = FragmentMeSettingBase()
+            val arguments = Bundle()
+            arguments.putInt(AndroidUtils.KEY_SETTING_PAGE_TYPE, groupType.ordinal)
+            arguments.putInt(AndroidUtils.KEY_SETTING_PAGE_TITLE, titleResId)
+            f.arguments = arguments
             activity.addL2Fragment(f)
+
         }
 
-        fun getSettingAbout(activity: ActivityMain): Array<SettingItem> {
+        private fun getSettingAbout(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.setting_about_version, value = BuildConfig.VERSION_NAME){
+                            titleResId = R.string.setting_about_version, value = BuildConfig.VERSION_NAME) {
                         (activity as ActivityBase).checkUpgradeInfoFromPrefs()
                     },
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
@@ -92,7 +89,7 @@ class SettingItem(
             )
         }
 
-        fun getSettingSystem(activity: ActivityMain): Array<SettingItem> {
+        private fun getSettingSystem(activity: ActivityMain): Array<SettingItem> {
 
             return arrayOf(
 
@@ -109,7 +106,7 @@ class SettingItem(
             )
         }
 
-        fun getSettingWalletTools(activity: ActivityMain): Array<SettingItem> {
+        private fun getSettingWalletTools(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.setting_wallet_tools_backupmem) {
@@ -147,7 +144,7 @@ class SettingItem(
             )
         }
 
-        fun getSettingMoreForColdeWalletDetail(credential: Credential, activity: ActivityMain): Array<SettingItem> {
+        private fun getSettingMoreForColdeWalletDetail(credential: Credential, activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
 
@@ -169,7 +166,7 @@ class SettingItem(
             )
         }
 
-        fun getSettingLanguages(activity: ActivityMain): Array<SettingItem> {
+        private fun getSettingLanguages(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
                     SettingItem(itemType = SettingItemType.ITEM_GAP),
 
@@ -187,7 +184,7 @@ class SettingItem(
             )
         }
 
-        fun backupMnemonic(activity: ActivityMain) {
+        private fun backupMnemonic(activity: ActivityMain) {
 
             if (WalletManager.model.isMnemonicExist()) {
                 activity.addL2Fragment(FragmentMeBackupMnemonic())
@@ -206,7 +203,7 @@ class SettingItem(
         }
 
         fun selectLanguageUI(activity: ActivityMain) {
-            openSubSetting(activity, getSettingLanguages(activity), R.string.setting_system_language)
+            openSubSetting(activity, SettingItemsGroup.LANGUAGE, R.string.setting_system_language)
         }
 
         fun openChangePwdUI(activity: ActivityMain) {
@@ -226,6 +223,19 @@ class SettingItem(
             }
         }
 
+        fun getSettingPageParameter(typeIndex: Int, activity: ActivityMain): Pair<Array<SettingItem>, Int> {
+            val settingItemsGroup = SettingItemsGroup.values()[typeIndex]
+
+            return when (settingItemsGroup) {
+                SettingItemsGroup.UNKNOWN -> Pair(emptyArray<SettingItem>(), 0)
+                SettingItemsGroup.MAIN -> Pair(getSettingMain(activity), 0)
+                SettingItemsGroup.ABOUT -> Pair(getSettingAbout(activity), 0)
+                SettingItemsGroup.WALLET_TOOL -> Pair(getSettingWalletTools(activity), 0)
+                SettingItemsGroup.SYSTEM_SETTING -> Pair(getSettingSystem(activity), 0)
+                SettingItemsGroup.LANGUAGE -> Pair(getSettingLanguages(activity), 0)
+                else -> Pair(emptyArray(), 0)
+            }
+        }
     }
 }
 
@@ -239,4 +249,16 @@ enum class SettingItemType {
     ITEM_FIELD,
     UNKNOWN
 }
+
+enum class SettingItemsGroup {
+    UNKNOWN,
+    MAIN,
+    ABOUT,
+    WALLET_TOOL,
+    WALLET_MANAGER,
+    SYSTEM_SETTING,
+    LANGUAGE,
+
+}
+
 

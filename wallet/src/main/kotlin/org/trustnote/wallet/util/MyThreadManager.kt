@@ -18,6 +18,7 @@ class MyThreadManager {
     private var jsSyncInternal = createExec("JSSYNCINTERNAL")
     private var execLowPriority = createExec("LOWPRIORITY", 1)
     private var exec = createExec("ANOY", 1)
+    var hubManagerThread = createExec("HUB_MANAGER", 1)
 
     fun runDealyed(delaySeconds: Long, lambda: () -> Unit) {
         execLowPriority.schedule(lambda, delaySeconds, TimeUnit.SECONDS)
