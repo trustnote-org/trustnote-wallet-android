@@ -276,11 +276,8 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
         val hubResponse = req.getResponse()
 
-        if (hubResponse.msgType == MSG_TYPE.response && hubResponse.responseJson is JsonPrimitive) {
-            return "accepted" == hubResponse.responseJson.asString
-        }
+        return req.isAccepted()
 
-        return false
     }
 
     //TODO: how to notify UI.

@@ -2,6 +2,7 @@ package org.trustnote.wallet.network.pojo
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
 import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.util.Utils
@@ -71,5 +72,14 @@ open class HubRequest : HubMsg {
         return true
     }
 
+    fun isAccepted(): Boolean {
+
+        getResponse()
+
+        if (hubResponse.msgType == MSG_TYPE.response && hubResponse.responseJson is JsonPrimitive) {
+            return "accepted" == hubResponse.responseJson.asString
+        }
+        return false
+    }
 
 }
