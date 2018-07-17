@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -57,11 +58,11 @@ class FragmentMeBackupMnemonic : FragmentBase() {
         }
 
         removeBtn.setOnClickListener {
-            MyDialogFragment.showDialog2Btns(activity, R.string.dialog_remove_mnemonic_ask, {
+            MyDialogFragment.showDialog2Btns(activity, TApp.getString(R.string.dialog_remove_mnemonic_ask)) {
                 WalletManager.model.removeMnemonicFromProfile()
                 removeMeFromBackStack()
                 addL2Fragment(FragmentMeBackupMnemonicRemoved())
-            })
+            }
         }
 
         val mnemonicsGrid = findViewById<MnemonicsGridView>(R.id.mnemonics)

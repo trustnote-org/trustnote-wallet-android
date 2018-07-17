@@ -156,11 +156,11 @@ abstract class ActivityBase : AppCompatActivity() {
             val msg = msgList.joinToString("\n\r")
 
             if (!walletNewVersion.ignore) {
-                MyDialogFragment.showDialog1Btn(this, msg, false) {
+                MyDialogFragment.showDialog1Btn(this, msg, false, isTextAlignLeft = true) {
                     AndroidUtils.openSystemBrowser(TTT.TTT_UPGRADE_WEB_SITE)
                 }
             } else {
-                MyDialogFragment.showDialog2Btns(this, msg) {
+                MyDialogFragment.showDialog2Btns(this, msg, isTextAlignLeft = true) {
                     AndroidUtils.openSystemBrowser(TTT.TTT_UPGRADE_WEB_SITE)
                 }
             }

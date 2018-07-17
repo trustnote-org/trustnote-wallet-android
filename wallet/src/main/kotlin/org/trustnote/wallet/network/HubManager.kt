@@ -227,7 +227,7 @@ class HubManager {
 
         if (hubMsg is HubJustSaying && HubMsgFactory.CMD_NEW_VERSION_FROM_HUB == hubMsg.subject) {
 
-            newVersionFound(hubMsg.bodyJson.asString)
+            newVersionFound(hubMsg.bodyJson.toString())
             return
 
         }

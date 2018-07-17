@@ -139,20 +139,20 @@ class FragmentMsgsChat : FragmentMsgsBase() {
             R.id.ic_remove_msg_contact -> {
                 MyDialogFragment.showDialog2Btns(activity,
                         TApp.context.getString(R.string.msg_for_remove_contacts,
-                                correspondentDevices.name), {
+                                correspondentDevices.name)) {
 
                     model.removeCorrespondentDevice(correspondentDevices)
                     onBackPressed()
-                })
+                }
                 return true
             }
 
             R.id.ic_clear_chat_history -> {
                 MyDialogFragment.showDialog2Btns(activity,
                         TApp.context.getString(R.string.msg_for_clear_chat_history,
-                                correspondentDevices.name), {
+                                correspondentDevices.name)) {
                     model.clearChatHistory(correspondentAddresses)
-                })
+                }
                 return true
             }
 

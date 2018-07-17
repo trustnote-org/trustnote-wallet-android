@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.Button
 import android.widget.TextView
 
@@ -23,6 +20,7 @@ class MyDialogFragment() : DialogFragment() {
     var cancelLogic: () -> Unit = {}
     var confirmLogic: () -> Unit = {}
     var isTwoButtons = true
+    var isTextAlignLeft = false
 
     constructor(msg: String, confirmLogic: () -> Unit) : this(msg, confirmLogic, {}) {
         isTwoButtons = false
@@ -40,6 +38,10 @@ class MyDialogFragment() : DialogFragment() {
         val view = inflater!!.inflate(R.layout.l_dialog_twobutton, container, false)
 
         view.findViewById<TextView>(R.id.msg).text = msg
+
+        if (isTextAlignLeft) {
+            view.findViewById<TextView>(R.id.msg).gravity = Gravity.LEFT
+        }
 
         view.findViewById<Button>(R.id.first_button).setOnClickListener {
             dismiss()
@@ -91,10 +93,11 @@ class MyDialogFragment() : DialogFragment() {
             return ft
         }
 
-        fun showDialog1Btn(activity: FragmentActivity, msg: String, isCancelable: Boolean = true, confirmLogic: () -> Unit) {
+        fun showDialog1Btn(activity: FragmentActivity, msg: String, isCancelable: Boolean = true, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit) {
 
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic)
             newFragment.isCancelable = isCancelable
+            newFragment.isTextAlignLeft = isTextAlignLeft
             newFragment.show(getFragmentTransaction(activity), null)
         }
 
@@ -103,13 +106,9 @@ class MyDialogFragment() : DialogFragment() {
             showDialog1Btn(activity, msg) {}
         }
 
-        fun showDialog2Btns(activity: FragmentActivity, strResId: Int, confirmLogic: () -> Unit) {
-            val msg = activity.getString(strResId)!!
-            showDialog2Btns(activity, msg, confirmLogic)
-        }
-
-        fun showDialog2Btns(activity: FragmentActivity, msg: String, confirmLogic: () -> Unit) {
+        fun showDialog2Btns(activity: FragmentActivity, msg: String, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit = {}) {
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic, {})
+            newFragment.isTextAlignLeft = isTextAlignLeft
             newFragment.show(getFragmentTransaction(activity), null)
         }
 

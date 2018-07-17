@@ -220,9 +220,9 @@ class CWFragmentBackup : FragmentInit() {
         var btnBackupConfirm = view.findViewById<Button>(R.id.backup_confirm)
         btnBackupConfirm.setOnClickListener {
 
-            MyDialogFragment.showDialog2Btns(getMyActivity(), R.string.dialog_backup_mnemonic_ask, {
+            MyDialogFragment.showDialog2Btns(getMyActivity(), TApp.getString(R.string.dialog_backup_mnemonic_ask)) {
                 nextPage(R.layout.f_init_verify)
-            })
+            }
         }
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics)
@@ -312,10 +312,10 @@ class CWFragmentRemove : FragmentInit() {
 
         btnRemove.setOnClickListener {
 
-            MyDialogFragment.showDialog2Btns(activity, R.string.dialog_remove_mnemonic_ask, {
+            MyDialogFragment.showDialog2Btns(activity, TApp.getString(R.string.dialog_remove_mnemonic_ask)) {
                 WalletManager.model.removeMnemonicFromProfile()
                 getMyActivity().iamDone()
-            })
+            }
 
         }
 
