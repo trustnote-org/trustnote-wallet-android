@@ -62,7 +62,13 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         btnConfirm.setOnClickListener { transfer() }
 
         selectAddressIcon.setOnClickListener {
-            addL2Fragment(FragmentMeAddressesBook())
+
+            val f = FragmentMeAddressesBook()
+            AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, credential.walletId)
+            f.afterSelectLogic = {
+                setTransferAddress(it)
+            }
+            addL2Fragment(f)
         }
 
         amountText.addTextChangedListener(MyTextWatcher(this))
@@ -194,11 +200,6 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     override fun onResume() {
         super.onResume()
-
-        val returnRes = (activity as ActivityBase).readReturnResultAndClear()
-        if (returnRes.isNotEmpty()) {
-            setTransferAddress(returnRes)
-        }
 
     }
 

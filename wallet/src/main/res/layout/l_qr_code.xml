@@ -3,7 +3,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/qr_width"
     android:layout_height="@dimen/qr_width"
-    android:layout_marginBottom="@dimen/line_gap_20"
+    android:layout_marginBottom="@dimen/line_gap_14"
     android:background="@drawable/bg_qr_frame"
     android:padding="@dimen/line_gap_6">
 

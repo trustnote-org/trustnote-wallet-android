@@ -16,6 +16,12 @@ class FragmentMainWalletTxDetail : FragmentWalletBase() {
         return R.layout.f_main_wallet_tx_detail
     }
 
+    override fun setupToolbar() {
+        super.setupToolbar()
+        mToolbar.setBackgroundResource(R.color.tx_list_bg)
+
+    }
+
     override fun updateUI() {
         super.updateUI()
         val txIndex = arguments.getInt(TTT.KEY_TX_INDEX, 0)

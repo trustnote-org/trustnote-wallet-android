@@ -1,13 +1,16 @@
 package org.trustnote.wallet.biz.me
 
 import org.trustnote.db.entity.TransferAddresses
+import org.trustnote.wallet.biz.wallet.Credential
+import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.Prefs
 
 class AddressesBookManager {
 
     companion object {
 
-        @Synchronized fun addAddress(address: String, memo: String) {
+        @Synchronized
+        fun addAddress(address: String, memo: String) {
             if (address.isEmpty() || memo.isEmpty()) {
                 return
             }
@@ -17,7 +20,8 @@ class AddressesBookManager {
             addAddress(a)
         }
 
-        @Synchronized fun addAddress(address: TransferAddresses) {
+        @Synchronized
+        fun addAddress(address: TransferAddresses) {
             val db = getDao()
             val newRes = mutableSetOf<TransferAddresses>()
             newRes.add(address)
@@ -26,7 +30,8 @@ class AddressesBookManager {
             Prefs.writeTransferAddresses(db)
         }
 
-        @Synchronized fun removeAddress(address: TransferAddresses) {
+        @Synchronized
+        fun removeAddress(address: TransferAddresses) {
             val db = getDao()
             val newRes = mutableSetOf<TransferAddresses>()
             newRes.addAll(db.addresses)
@@ -35,15 +40,36 @@ class AddressesBookManager {
             Prefs.writeTransferAddresses(db)
         }
 
+        @Synchronized
+        fun getAddressBook(credential: Credential): List<TransferAddresses> {
 
-        @Synchronized fun getAddressBook(): List<TransferAddresses>{
-            return getDao().addresses.toList()
+            val res = mutableListOf<TransferAddresses>()
+            res.addAll(getDao().addresses.toList())
+
+            val myAllWallets = WalletManager.model.getAvaiableWalletsForUser()
+
+            for(one in myAllWallets) {
+                when {
+                    one.walletId == credential.walletId -> Unit
+                    one.myReceiveAddresses.isEmpty() -> Unit
+                    else -> {
+                        val a = TransferAddresses()
+                        a.address = one.myReceiveAddresses[0].address
+                        a.name = one.walletName
+                        res.add(a)
+                    }
+                }
+            }
+
+            return res
         }
 
-        @Synchronized fun getDao(): AddressesBookDb {
-           return Prefs.readTransferAddressesDb()
+
+
+        @Synchronized
+        fun getDao(): AddressesBookDb {
+            return Prefs.readTransferAddressesDb()
         }
     }
-
 
 }

@@ -18,12 +18,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/line_gap_20"
         android:layout_marginBottom="0dp"
+        android:layout_marginTop="@dimen/line_gap_10"
         android:gravity="center"
         android:text="@string/mypairid_title_info" />
 
     <ImageView
-        android:layout_marginLeft="@dimen/line_gap_20"
-        android:layout_marginRight="@dimen/line_gap_20"
+        android:layout_marginLeft="@dimen/line_gap_10"
+        android:layout_marginRight="@dimen/line_gap_10"
         android:src="@drawable/line_dash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -32,7 +33,7 @@
         android:id="@+id/mypairid_text"
         style="@style/t_text_msg"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/line_gap_20"
+        android:layout_margin="@dimen/line_gap_10"
         android:layout_marginBottom="0dp"
         android:gravity="center"
         android:text="" />
@@ -42,14 +43,18 @@
         layout="@layout/l_qr_code" />
 
 
-    <Button
-        android:id="@+id/mypairid_copy_btn"
-        style="@style/t_btn_white"
+    <FrameLayout
         android:layout_marginLeft="@dimen/line_gap_32"
         android:layout_marginRight="@dimen/line_gap_32"
-        android:layout_marginTop="@dimen/line_gap_32"
-        android:layout_marginBottom="@dimen/btn_bottom_margin"
         android:layout_width="match_parent"
-        android:text="@string/mypairid_copy_btn" />
+        android:layout_height="match_parent">
+        <Button
+            android:layout_gravity="center_vertical"
+            android:id="@+id/mypairid_copy_btn"
+            style="@style/t_btn_white"
+            android:layout_width="match_parent"
+            android:text="@string/mypairid_copy_btn" />
+
+    </FrameLayout>
 
 </LinearLayout>

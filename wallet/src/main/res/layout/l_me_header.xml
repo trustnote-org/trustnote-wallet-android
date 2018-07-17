@@ -50,7 +50,7 @@
 
         <TextView
             style="@style/t_text_base"
-            android:layout_alignBottom="@id/me_icon"
+            android:layout_below="@id/me_device_name"
             android:layout_alignLeft="@id/me_device_name"
             android:layout_toRightOf="@id/me_icon"
             android:text="@string/me_header_welcome"

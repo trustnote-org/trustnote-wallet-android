@@ -48,7 +48,6 @@ abstract class ActivityBase : AppCompatActivity() {
     lateinit var mRefreshingIndicator: View
     lateinit var mErrorIndicator: View
 
-    var stringAsReturnResult: String = ""
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
     abstract fun injectDependencies(graph: TApplicationComponent)
@@ -266,17 +265,6 @@ abstract class ActivityBase : AppCompatActivity() {
 
     fun showErrorUI(isShow: Boolean = false) {
         mErrorIndicator.visibility = if (isShow) View.VISIBLE else View.GONE
-    }
-
-    //TODO: buggy
-    fun setupStringAsReturnResult(s: String) {
-        stringAsReturnResult = s
-    }
-
-    fun readReturnResultAndClear(): String {
-        val res = stringAsReturnResult
-        stringAsReturnResult = ""
-        return res
     }
 
     override fun onPause() {

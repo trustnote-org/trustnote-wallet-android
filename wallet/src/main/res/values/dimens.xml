@@ -43,8 +43,7 @@
     <dimen name="line_gap_54">54dp</dimen>
     <dimen name="field_padding">17dp</dimen>
 
-    <dimen name="line_widthg_2">2dp</dimen>
-
+    <dimen name="padding_2">2dp</dimen>
 
     <dimen name="bg_dialog_padding_30">30dp</dimen>
     <dimen name="bg_dialog_corner_4">4dp</dimen>

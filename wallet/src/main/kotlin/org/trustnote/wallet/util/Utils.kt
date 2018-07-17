@@ -225,7 +225,7 @@ object Utils {
     }
 
     fun getFeeAsString(fee: Long): String {
-        return String.format("%.6f", fee.toFloat() / TTT.w_coinunitValue)
+        return String.format("%.6f", fee.toFloat() / TTT.w_coinunitValue) + " " + TTT.w_coinunitName
     }
 
     val emptyLambda = {}

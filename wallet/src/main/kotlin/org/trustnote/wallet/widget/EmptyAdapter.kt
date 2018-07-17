@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 
 open class EmptyAdapter<T : Any>(val layoutId: Int, val emptyLayoutId: Int,
-                                    private val mDatas: List<T>) : RecyclerView.Adapter<MyViewHolder>() {
+                                    val mDatas: List<T>) : RecyclerView.Adapter<MyViewHolder>() {
 
     var itemClickListener: (index: Int, item: T) -> Unit = { _, _ -> }
 

@@ -94,6 +94,9 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
 
         mMNAmountToolbar.setupStyle(true)
 
+
+        mAmountTitle.setText(R.string.wallet_amount_subtitle)
+
     }
 
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {

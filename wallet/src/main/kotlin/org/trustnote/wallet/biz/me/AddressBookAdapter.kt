@@ -23,6 +23,17 @@ class AddressBookAdapter(val myDataset: List<TransferAddresses>,
         viewBinderHelper.setOpenOnlyOne(true)
     }
 
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        //TODO: how about the first item.
+        if (getItemViewType(position) == VIEW_TYPE_ITEM) {
+            holder.itemView.findViewById<View>(R.id.item_data).setOnClickListener {
+                itemClickListener.invoke(position, mDatas[position])
+            }
+            handleItemView(holder, mDatas[position])
+        }
+    }
+
+
     override fun handleItemView(holder: MyViewHolder, dataItem: TransferAddresses) {
 
         holder.itemView.findViewById<TextView>(R.id.address).setText(dataItem.address)

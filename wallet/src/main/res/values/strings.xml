@@ -136,6 +136,7 @@ correct</string>
     <string name="tx_invalid">Invalid</string>
     <string name="msg_for_clear_chat_history">Are you sure you want to delete all chat records with “%1$s”?</string>
     <string name="chat_input_btn">SEND</string>
+    <string name="tx_detail_title">Transaction Details</string>
 
 
     <string name="address_book_add_title">添加地址</string>

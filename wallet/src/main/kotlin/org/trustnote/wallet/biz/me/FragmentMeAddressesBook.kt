@@ -4,6 +4,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.me.AddressesBookManager.Companion.getAddressBook
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
@@ -12,6 +13,8 @@ class FragmentMeAddressesBook : FragmentBase() {
     override fun getLayoutId(): Int {
         return R.layout.f_me_address_book
     }
+
+    var afterSelectLogic: (String) -> Unit = {}
 
     lateinit var listView: RecyclerView
     lateinit var addIcon: View
@@ -32,7 +35,7 @@ class FragmentMeAddressesBook : FragmentBase() {
 
     override fun updateUI() {
         super.updateUI()
-        val adapter = AddressBookAdapter(AddressesBookManager.getAddressBook())
+        val adapter = AddressBookAdapter(getAddressBook(credential))
 
         adapter.removeLambda = {
             AddressesBookManager.removeAddress(it)
@@ -47,7 +50,7 @@ class FragmentMeAddressesBook : FragmentBase() {
         }
 
         adapter.itemClickListener = {_, item ->
-            (activity as ActivityBase).setupStringAsReturnResult(item.address)
+            afterSelectLogic.invoke(item.address)
             onBackPressed()
         }
 

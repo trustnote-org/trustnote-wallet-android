@@ -288,4 +288,7 @@
 
     <string name="message_contacts_add_hint">扫码或输入配对码</string>
 
+    <string name="tx_detail_title">交易详情</string>
+
+
 </resources>
