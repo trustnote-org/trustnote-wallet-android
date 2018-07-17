@@ -23,6 +23,7 @@
 
     <dimen name="btn_gap_24">24dp</dimen>
     <dimen name="line_gap_16">16dp</dimen>
+    <dimen name="line_gap_18">18dp</dimen>
     <dimen name="line_gap_24">24dp</dimen>
     <dimen name="line_gap_14">14dp</dimen>
     <dimen name="line_gap_32">32dp</dimen>

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.webkit.ValueCallback
 import android.webkit.WebView
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
@@ -17,6 +18,7 @@ import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.*
+import android.widget.CompoundButton
 
 abstract class FragmentInit : FragmentBase() {
 
@@ -46,14 +48,12 @@ abstract class FragmentInit : FragmentBase() {
         addFragment(page.clz.newInstance())
     }
 
-
     fun nextPage(pageLayoutId: Int, nextPageLayoutId: Int) {
         val page = getPageSetting(pageLayoutId)
         val f = page.clz.newInstance()
         AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_TAG_FOR_NEXT_PAGE, nextPageLayoutId.toString())
         addFragment(f)
     }
-
 
     fun onShowPage() {
         if (mRootView is ViewGroup) {
@@ -79,12 +79,28 @@ class CWFragmentDisclaimer : FragmentInit() {
         supportSwipeBack = false
     }
 
+    lateinit var confirmBtn: Button
+
     override fun initFragment(view: View) {
         super.initFragment(view)
-        view.findViewById<View>(R.id.agree).setOnClickListener {
+        confirmBtn = view.findViewById<Button>(R.id.agree)
+
+        confirmBtn.setOnClickListener {
             CreateWalletModel.userAgree()
             showFragment(CWFragmentDeviceName())
         }
+
+        AndroidUtils.enableBtn(confirmBtn, false)
+
+        val checkBox = findViewById<CheckBox>(R.id.checkbox)
+        checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            AndroidUtils.enableBtn(confirmBtn, isChecked)
+        }
+
+    }
+
+    override fun getTitle(): String {
+        return TApp.getString(R.string.setting_about_tou)
     }
 
     override fun getLayoutId(): Int {
@@ -254,7 +270,7 @@ class CWFragmentVerify : FragmentInit() {
 
         mnemonicsGrid = view.findViewById(R.id.mnemonics_verify)
         //BUG: check the cell immediately after init finished. the cell maybe fill with content for test purpose.
-        mnemonicsGrid.onCheckResult = {isAllWordOK, isLastCellUpdate ->
+        mnemonicsGrid.onCheckResult = { isAllWordOK, isLastCellUpdate ->
             AndroidUtils.enableBtn(btnBackupConfirm, isAllWordOK)
 
             if (isLastCellUpdate && isAllWordOK) {
@@ -275,7 +291,6 @@ class CWFragmentVerify : FragmentInit() {
             mnemonicsGrid.setMnemonic(CreateWalletModel.tmpMnemonic, true)
         }
     }
-
 
     override fun onBackPressed() {
         nextPage(R.layout.f_init_backup)
@@ -404,3 +419,5 @@ open class CWFragmentRestore : FragmentInit() {
     }
 
 }
+
+

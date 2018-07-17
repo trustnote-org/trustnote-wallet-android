@@ -3,32 +3,49 @@
 
     <RelativeLayout style="@style/t_layout">
 
-        <TextView
-            android:id="@+id/disclaim"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="声明"
-            android:textColor="@color/t_text"
-            android:textSize="28sp" />
+            android:layout_height="@dimen/one_dp"
+            android:background="#F2F2F2" />
 
-        <TextView
-            android:id="@+id/disclaim2"
+        <ScrollView
+            android:id="@+id/ScrollView01"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/checkbox"
+            android:paddingTop="@dimen/line_gap_16">
+
+            <TextView
+                android:id="@+id/disclaim2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:lineSpacingMultiplier="1.5"
+                android:text="@string/tou_text"
+                android:textColor="@color/font_gray_amount"
+                android:textSize="13sp" />
+        </ScrollView>
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="34dp"
-            android:layout_below="@id/disclaim"
-            android:text="@string/coming_soon"
+            android:layout_above="@id/agree"
+            android:layout_marginBottom="@dimen/line_gap_18"
+            android:layout_marginTop="@dimen/line_gap_18"
+            android:button="@drawable/ic_checkbox"
+            android:checked="false"
+            android:paddingLeft="@dimen/line_gap_6"
+            android:text="@string/tou_checkbox"
             android:textColor="@color/t_text"
-            android:textSize="28sp" />
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/agree"
             style="@style/t_btn_blue"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"
-            android:text="@string/agree" />
+            android:text="@string/confirm" />
 
     </RelativeLayout>
 
