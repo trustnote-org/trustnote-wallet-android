@@ -205,8 +205,21 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     override fun updateUI() {
 
+        fun checkAmountIsInRange(){
+            val dotIndex =  amountText.text.indexOf('.')
+            if (dotIndex>=0 && amountText.text.length >= dotIndex + 6){
+                amountText.setText(amountText.text.substring(0, dotIndex + 5))
+            }
+
+            if (dotIndex>=10 || (dotIndex < 0 && amountText.text.length > 9)) {
+                amountText.setText(amountText.text.substring(1))
+            }
+
+        }
+
         balance.setMnAmount(credential.balance)
 
+        checkAmountIsInRange()
 
         if (TTTUtils.isValidAddress(receiverText.text.toString())
                 && TTTUtils.isValidAmount(amountText.text.toString(), credential.balance)) {

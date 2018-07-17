@@ -12,7 +12,9 @@ import org.trustnote.wallet.biz.home.FragmentMainCreateWallet
 import org.trustnote.wallet.biz.home.FragmentMainCreateWalletNormal
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.biz.wallet.WalletModel
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.widget.MyDialogFragment
 
 class FragmentMeWalletManager : FragmentWalletBase() {
 
@@ -28,7 +30,7 @@ class FragmentMeWalletManager : FragmentWalletBase() {
         mRecyclerView.layoutManager = LinearLayoutManager(activity)
 
         findViewById<View>(R.id.me_wallet_add).setOnClickListener {
-            addL2Fragment(FragmentMainCreateWalletNormal())
+            createNewWallet(activityMain = activity as ActivityMain)
         }
 
     }
@@ -61,3 +63,18 @@ class FragmentMeWalletManager : FragmentWalletBase() {
     }
 }
 
+
+
+fun createNewWallet(activityMain: ActivityMain) {
+
+    val allEmptyWallets = WalletManager.model.getAvaiableWalletsForUser().filter {
+        it.isAuto == false && it.txDetails.size == 0
+    }
+
+    if (allEmptyWallets.size >= 2) {
+        MyDialogFragment.showMsg(activityMain, R.string.too_much_empty_wallet)
+    } else {
+        activityMain.addL2Fragment(FragmentMainCreateWalletNormal())
+    }
+
+}

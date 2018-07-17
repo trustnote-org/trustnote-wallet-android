@@ -9,7 +9,7 @@
         <TextView
             android:id="@+id/pwd_setup_title"
             style="@style/t_title"
-            android:layout_marginBottom="@dimen/line_gap_24"
+            android:layout_marginBottom="@dimen/line_gap_16"
             android:text="@string/pwd_setup_title" />
 
         <WebView
@@ -22,7 +22,6 @@
             android:id="@+id/pwd_old"
             style="@style/t_pwd"
             android:layout_below="@id/pwd_warning"
-            android:layout_marginBottom="@dimen/line_gap_12"
             android:hint="@string/me_change_pwd_old_pwd_hint"
             android:text=""
             android:visibility="gone" />
@@ -37,8 +36,7 @@
             android:id="@+id/pwd_prompt_or_err"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pwd"
-            android:layout_marginBottom="@dimen/line_gap_12">
+            android:layout_below="@id/pwd">
 
             <LinearLayout
                 android:layout_width="match_parent"

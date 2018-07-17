@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/msg"
-            android:gravity="left"
+            android:gravity="center"
             style="@style/t_text_dialog_msg"
             android:layout_width="match_parent"
             android:lineSpacingMultiplier="1.5"

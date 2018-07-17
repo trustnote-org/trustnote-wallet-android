@@ -55,10 +55,9 @@
             android:id="@+id/receive_btn_copy"
             style="@style/t_btn_blue"
             android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/btn_bottom_margin"
             android:layout_marginLeft="@dimen/line_gap_32"
             android:layout_marginRight="@dimen/line_gap_32"
-            android:layout_marginTop="@dimen/line_gap_70"
+            android:layout_marginTop="@dimen/line_gap_32"
             android:text="@string/receive_btn_copy" />
 
     </LinearLayout>

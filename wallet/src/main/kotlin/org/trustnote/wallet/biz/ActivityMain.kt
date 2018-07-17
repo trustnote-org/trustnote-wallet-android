@@ -14,6 +14,7 @@ import org.trustnote.wallet.biz.home.FragmentMainWallet
 import org.trustnote.wallet.biz.me.FragmentMeMain
 import org.trustnote.wallet.biz.me.SettingItem
 import org.trustnote.wallet.biz.me.SettingItemsGroup
+import org.trustnote.wallet.biz.me.createNewWallet
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.biz.msgs.MessageModel
@@ -60,7 +61,7 @@ class ActivityMain : ActivityBase() {
         when (item.itemId) {
 
             R.id.action_create_wallet -> {
-                addL2Fragment(FragmentMainCreateWalletNormal())
+                createNewWallet(this)
                 return true
             }
             R.id.action_my_pair_id -> {

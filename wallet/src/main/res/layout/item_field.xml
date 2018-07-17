@@ -21,11 +21,12 @@
 
         <TextView
             android:id="@+id/field_value"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
             android:text="@string/place_holder"
-            android:gravity="right"
+            android:gravity="left"
+            android:layout_gravity="right"
             android:textColor="@color/font_gray_amount"
             android:textSize="@dimen/text_14"
             android:visibility="gone" />

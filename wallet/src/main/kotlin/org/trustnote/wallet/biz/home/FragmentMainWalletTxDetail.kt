@@ -44,7 +44,7 @@ class FragmentMainWalletTxDetail : FragmentWalletBase() {
             TxType.received -> {
                 amountTitle.setText(R.string.tx_detial_receive_title)
                 sender.setField(R.string.tx_sender, tx.arrPayerAddresses.joinToString{
-                    "$it\n"
+                    "$it"
                 })
                 receiver.setField(R.string.tx_receiver, tx.myAddress)
             }

@@ -6,6 +6,7 @@ import android.widget.EditText
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.PageHeader
 
 class FragmentWalletReceiveSetAmount : FragmentPageBase() {
@@ -44,8 +45,28 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
 
         showSystemSoftKeyboard(inputAmount, activity)
 
+
+        inputAmount.addTextChangedListener(MyTextWatcher(this))
+
     }
 
+    override fun updateUI() {
+
+        //TODO: dup code.
+        fun checkAmountIsInRange() {
+            val dotIndex = inputAmount.text.indexOf('.')
+            if (dotIndex >= 0 && inputAmount.text.length >= dotIndex + 6) {
+                inputAmount.setText(inputAmount.text.substring(0, dotIndex + 5))
+            }
+
+            if (dotIndex >= 10 || (dotIndex < 0 && inputAmount.text.length > 9)) {
+                inputAmount.setText(inputAmount.text.substring(1))
+            }
+
+        }
+
+        checkAmountIsInRange()
+    }
 
 }
 
