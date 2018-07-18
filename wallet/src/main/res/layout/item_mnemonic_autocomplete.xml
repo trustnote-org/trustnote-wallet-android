@@ -2,9 +2,11 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/line_gap_4"
     android:background="@color/t_white"
     android:maxLength="8"
+    android:paddingBottom="@dimen/line_gap_10"
+    android:paddingLeft="@dimen/line_gap_4"
+    android:paddingTop="@dimen/line_gap_10"
     android:singleLine="true"
     android:textColor="@color/t_text"
     android:textSize="@dimen/f_mnemonic_autocomplete" />

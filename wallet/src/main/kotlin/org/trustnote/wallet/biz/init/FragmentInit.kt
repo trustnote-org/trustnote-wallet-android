@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.init
 
+import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
@@ -19,6 +20,7 @@ import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.*
 import android.widget.CompoundButton
+import org.trustnote.wallet.biz.FragmentProgressBlocking
 
 abstract class FragmentInit : FragmentBase() {
 
@@ -403,13 +405,14 @@ open class CWFragmentRestore : FragmentInit() {
                 CreateWalletModel.savePassphraseInRam(it)
 
                 CreateWalletModel.iamDone(mnemonics, isRemove)
-                getMyActivity().iamDone()
+
+                showWaitingUI()
             }
 
         } else {
 
             CreateWalletModel.iamDone(mnemonics, isRemove)
-            getMyActivity().iamDone()
+            showWaitingUI()
 
         }
     }
@@ -421,6 +424,21 @@ open class CWFragmentRestore : FragmentInit() {
         } else {
             super.onBackPressed()
         }
+
+    }
+
+    fun showWaitingUI() {
+        val f = FragmentProgressBlocking()
+        val bundle = Bundle()
+        bundle.putInt(AndroidUtils.KEY_WAITING_MSG_RES_ID, R.string.restore_waiting_msg)
+        f.arguments = bundle
+
+        f.afterWaitingLogic = {
+            if (fromInitActivity) {
+                getMyActivity().iamDone()
+            }
+        }
+        addL2Fragment(f)
 
     }
 

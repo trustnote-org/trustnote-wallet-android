@@ -19,6 +19,7 @@ class FragmentEditBase : FragmentBase() {
     var mInitValue = ""
     var mErrInfo = ""
     var mPageTitle = ""
+    var hint = ""
 
     lateinit var mEditText: ClearableEditText
     lateinit var mErr: ErrTextView
@@ -63,14 +64,19 @@ class FragmentEditBase : FragmentBase() {
             mTitle.setText(mPageTitle)
         }
 
+        if (hint.isNotEmpty()) {
+            mEditText.hint = hint
+        }
+
     }
 
-    fun buildPage(value: String, errInfo: String, checkInputValidation: (String) -> Boolean = {true}, doneLogic: (String) -> Unit = {}, pageTitle: String = "") {
+    fun buildPage(value: String, errInfo: String, checkInputValidation: (String) -> Boolean = {true}, doneLogic: (String) -> Unit = {}, pageTitle: String = "", hint: String = "") {
         this.mInitValue = value
         this.checkInputValidation = checkInputValidation
         this.doneLogic = doneLogic
         this.mErrInfo = errInfo
         this.mPageTitle = pageTitle
+        this.hint = hint
     }
 
 

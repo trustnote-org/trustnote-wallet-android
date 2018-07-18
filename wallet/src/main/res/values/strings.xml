@@ -148,7 +148,7 @@ correct</string>
     <string name="address_book_empty_msg">Select \"+\" in top right of the screen to add new address</string>
     <string name="scan_result_title">Scan Result</string>
     <string name="sync_waiting_msg">Syncing, please don\'t exit…</string>
-
+    <string name="restore_waiting_msg">Restoring, please don’t exit...</string>
 
     <string name="tou_text">1. TrustNote wallet is completely free and open source under the very permissive MIT license.\n
 2. Because there is no centralized server, the password, private key, or mnemonic is not stored on or synced to the server, therefore TrustNote cannot provide a service to recover or reset your password, private key, and mnemonic if it’s forgotten, lost or stolen.\n
@@ -158,7 +158,9 @@ correct</string>
 6. You can check the T&amp;Cs from the TrustNote wallet and we encourage you to review it every time when you use the wallet.\n
 7. The software is provided “as is”, without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and non-infringement. In no event shall the authors or copyright holders be liable for any claim, damage or other liability.\n
 8. According to the feedback from the community, the software is open sourced after public testing, we cannot guarantee the software has zero defects, but we are committed to making continuously improvements to the software.\n
-9. Please confirm the use of the software is your own decision, you acknowledge you will take all risks and consequences related to the use of the software, and the use of the software shall strictly abide by all applicable laws.</string>
+9. Please confirm the use of the software is your own decision, you acknowledge you will take all risks and consequences related to the use of the software, and the use of the software shall strictly abide by all applicable laws.\n
+10. In no event shall the authors of the software be held liable for any claim, damages or other liability, whether in an action of contract, tort, or otherwise, arising from, out of or in connection with the software. \n\n
+        We reserve the right to modify this disclaimer from time to time.</string>
 
     <string name="address_book_add_title">添加地址</string>
     <string name="title_edit_devicename">个人信息</string>

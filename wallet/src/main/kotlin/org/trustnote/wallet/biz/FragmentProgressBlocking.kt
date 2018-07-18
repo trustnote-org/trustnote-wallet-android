@@ -14,6 +14,7 @@ import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.PageHeader
+import org.w3c.dom.Text
 
 class FragmentProgressBlocking : FragmentPageBase() {
 
@@ -22,13 +23,21 @@ class FragmentProgressBlocking : FragmentPageBase() {
     }
 
     var isDone = false
+    var afterWaitingLogic: () -> Unit = {}
+    lateinit var waitingText: TextView
 
     override fun initFragment(view: View) {
         super.initFragment(view)
+        waitingText = findViewById(R.id.waiting_msg)
         mRootView.postDelayed({
             isDone = true
             onBackPressed()
+            afterWaitingLogic.invoke()
         }, 7000)
+
+        if (arguments != null && arguments.containsKey(AndroidUtils.KEY_WAITING_MSG_RES_ID)) {
+            waitingText.setText(arguments.getInt(AndroidUtils.KEY_WAITING_MSG_RES_ID))
+        }
     }
 
     override fun updateUI() {
@@ -41,6 +50,7 @@ class FragmentProgressBlocking : FragmentPageBase() {
         mToolbar.visibility = View.INVISIBLE
 
     }
+
 
 }
 

@@ -58,6 +58,7 @@ object AndroidUtils {
     const val KEY_FROM_CHANGE_LANGUAGE: String = "KEY_FROM_CHANGE_LANGUAGE"
     const val KEY_SETTING_PAGE_TYPE: String = "KEY_SETTING_PAGE_TYPE"
     const val KEY_SETTING_PAGE_TITLE: String = "KEY_SETTING_PAGE_TITLE"
+    const val KEY_WAITING_MSG_RES_ID: String = "KEY_WAITING_MSG_RES_ID"
 
     fun getTagForNextPage(bundle: Bundle?): Int {
         if (bundle != null) {

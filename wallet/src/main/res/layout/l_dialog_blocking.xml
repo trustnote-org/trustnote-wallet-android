@@ -39,6 +39,7 @@
             </FrameLayout>
 
             <TextView
+                android:id="@+id/waiting_msg"
                 style="@style/t_text_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

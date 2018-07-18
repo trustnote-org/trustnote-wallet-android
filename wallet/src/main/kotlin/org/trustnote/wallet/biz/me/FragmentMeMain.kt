@@ -27,6 +27,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
     lateinit var meIcon: TextView
 
     override fun initFragment(view: View) {
+
         isBottomLayerUI = true
 
         super.initFragment(view)
@@ -93,7 +94,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
                 {
                     Prefs.writeDeviceName(it)
                     WalletManager.mWalletEventCenter.onNext(true)
-                }, TApp.getString(R.string.title_edit_devicename))
+                }, TApp.getString(R.string.title_edit_devicename), hint = TApp.getString(R.string.mnemonic_devicename_hint))
         addL2Fragment(f)
     }
 

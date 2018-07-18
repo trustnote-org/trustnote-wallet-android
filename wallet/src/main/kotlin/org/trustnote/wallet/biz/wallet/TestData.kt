@@ -9,7 +9,8 @@ import org.trustnote.wallet.util.Utils
 class TestData {
     companion object {
 
-        const val mnemonic0 = "theme wall plunge fluid circle organ gloom expire coach patient neck clip"
+        const val mnemonic0 = "win feed current today toilet firm carry toss coil sentence license canoe"
+        //const val mnemonic0 = "theme wall plunge fluid circle organ gloom expire coach patient neck clip"
         const val mnemonic1 = "dragon test equip crew file acoustic public myth alley siege vanish luggage"
         const val mnemonic2 = "together knife slab material electric broom wagon heart harvest side copper vote"
         const val mnemonic3 = "upset noble bulb mixture essay clinic regular waste ladder real evil wisdom"
