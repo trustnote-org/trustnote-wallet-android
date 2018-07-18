@@ -1,6 +1,17 @@
 <resources>
 
     <item name="mnemonic_0" type="id" />
+    <item name="mnemonic_1" type="id" />
+    <item name="mnemonic_2" type="id" />
+    <item name="mnemonic_3" type="id" />
+    <item name="mnemonic_4" type="id" />
+    <item name="mnemonic_5" type="id" />
+    <item name="mnemonic_6" type="id" />
+    <item name="mnemonic_7" type="id" />
+    <item name="mnemonic_8" type="id" />
+    <item name="mnemonic_9" type="id" />
+    <item name="mnemonic_10" type="id" />
+    <item name="mnemonic_11" type="id" />
 
     <!-- Move to file colors.xml later-->
 

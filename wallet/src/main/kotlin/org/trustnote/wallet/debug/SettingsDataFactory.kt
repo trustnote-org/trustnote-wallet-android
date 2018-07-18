@@ -36,7 +36,7 @@ object SettingsDataFactory {
         val res = ArrayList<SettingItem>()
 
         val testQrCode = SettingItem("Test QR CODE")
-        testQrCode.action = Runnable { SimpleFragmentActivityBase.startMe(QRFragment::class.java.canonicalName) }
+        //testQrCode.action = Runnable { SimpleFragmentActivityBase.startMe(QRFragment::class.java.canonicalName) }
         res.add(testQrCode)
 
         return res

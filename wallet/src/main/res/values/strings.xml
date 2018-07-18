@@ -139,6 +139,14 @@ correct</string>
     <string name="tx_detail_title">Transaction Details</string>
     <string name="tx_detial_sender_title">Sent (MN)</string>
     <string name="tou_checkbox">I affirm that i have read, understood, and agree with these terms.</string>
+    <string name="qrcode_scan">Scan</string>
+    <string name="pwd_exist_prompt">Your wallet is encrypted</string>
+    <string name="pwd_exist_clickcontinue">Click to Continue</string>
+    <string name="contacts_empty">No Contacts</string>
+    <string name="transfer_receiver_err_overflow">Insufficient remaining balance</string>
+    <string name="receive_copy_successful">Copy Successful</string>
+    <string name="address_book_empty_msg">Select \"+\" in top right of the screen to add new address</string>
+    <string name="scan_result_title">Scan Result</string>
 
     <string name="tou_text">1. TrustNote wallet is completely free and open source under the very permissive MIT license.\n
 2. Because there is no centralized server, the password, private key, or mnemonic is not stored on or synced to the server, therefore TrustNote cannot provide a service to recover or reset your password, private key, and mnemonic if it’s forgotten, lost or stolen.\n
@@ -155,17 +163,10 @@ correct</string>
     <string name="me_change_pwd_old_pwd_err">原密码输入错误</string>
     <string name="pwd_exist_input_err">密码错误，请重新输入</string>
     <string name="setting_system_password">钱包密码</string>
-    <string name="pwd_exist_prompt">钱包已加密</string>
-    <string name="pwd_exist_clickcontinue">点击继续</string>
     <string name="wallet_new_msg_emptyname">钱包名称不能为空</string>
-    <string name="qrcode_scan">扫描</string>
-    <string name="contacts_empty">没有联系人</string>
-    <string name="transfer_receiver_err_overflow">金额已超过可提现余额</string>
-    <string name="receive_copy_successful">复制成功</string>
     <string name="receive_amount_label">收款金额(MN)</string>
     <string name="address_book_empty_title">没有地址</string>
-    <string name="address_book_empty_msg">请点击右上角的“+”添加地址</string>
-    <string name="scan_result_title">扫码结果</string>
+
     <string name="select_wallet_title">选择付款钱包</string>
     <string name="tx_empty_msg">暂无记录哦~</string>
     <string name="too_much_empty_wallet">您不能创建更多的空钱包</string>

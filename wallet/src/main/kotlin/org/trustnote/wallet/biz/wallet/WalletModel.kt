@@ -88,8 +88,6 @@ class WalletModel() {
 
         fullRefreshing(password)
 
-        walletUpdated()
-
     }
 
     fun isRefreshing(): Boolean {
@@ -122,10 +120,17 @@ class WalletModel() {
 
     fun refreshExistWallet() {
         Utils.debugLog("""${TAG}:::refreshExistWallet""")
+
+        if (CreateWalletModel.getPassphraseInRam().isNotEmpty()) {
+            Utils.debugLog("""${TAG}:::continue full sync""")
+            fullRefreshing(CreateWalletModel.getPassphraseInRam())
+            return
+        }
+
         mProfile.credentials.forEach {
             refreshOneWallet(it)
         }
-        walletUpdated()
+
     }
 
     fun refreshOneWallet(walletId: String) {
@@ -446,9 +451,10 @@ class WalletModel() {
         val newCredential = createNextCredential(password, mProfile, credentialName, isAuto = isAuto)
         mProfile.credentials.add(newCredential)
 
+        walletUpdated()
+
         refreshOneWallet(newCredential)
 
-        walletUpdated()
     }
 
     @Synchronized
@@ -461,8 +467,9 @@ class WalletModel() {
         val newCredential = createObserveCredential(walletIndex, walletPubKey, walletTitle)
         mProfile.credentials.add(newCredential)
 
-        refreshOneWallet(newCredential)
         walletUpdated()
+
+        refreshOneWallet(newCredential)
     }
 
     fun findNextUnusedChangeAddress(walletId: String): MyAddresses {
