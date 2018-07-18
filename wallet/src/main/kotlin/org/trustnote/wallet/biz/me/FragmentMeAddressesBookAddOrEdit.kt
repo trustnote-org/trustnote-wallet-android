@@ -20,6 +20,7 @@ class FragmentMeAddressesBookAddOrEdit : FragmentBase() {
     lateinit var save: Button
     var isEditMode: Boolean = false
     var oldAddress: String = ""
+    var afterSave: () -> Unit = {}
 
     override fun initFragment(view: View) {
 
@@ -40,6 +41,7 @@ class FragmentMeAddressesBookAddOrEdit : FragmentBase() {
                 AddressesBookManager.removeAddress(oldTransferAddresses)
             }
             AddressesBookManager.addAddress(address.text.toString(), memo.text.toString())
+            afterSave.invoke()
             onBackPressed()
 
         }
@@ -51,8 +53,6 @@ class FragmentMeAddressesBookAddOrEdit : FragmentBase() {
         if (isEditMode) {
             oldAddress = AndroidUtils.getStringFromBundle(arguments, AndroidUtils.KEY_BUNDLE_ADDRESS)
         }
-
-
 
     }
 

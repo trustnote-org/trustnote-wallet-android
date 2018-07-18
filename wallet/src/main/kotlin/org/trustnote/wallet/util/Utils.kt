@@ -183,7 +183,8 @@ object Utils {
     }
 
     fun isTesterFeature(): Boolean {
-        return BuildConfig.DEBUG && BuildConfig.FLAVOR == "devnet"
+        return BuildConfig.DEVELOPER_MODE
+        //BuildConfig.DEBUG && BuildConfig.FLAVOR == "devnet"
     }
 
     fun isDeveloperFeature(): Boolean {

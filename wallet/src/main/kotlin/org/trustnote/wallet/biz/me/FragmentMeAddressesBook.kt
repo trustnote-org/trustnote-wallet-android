@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.me.AddressesBookManager.Companion.getAddressBook
-import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
 
 class FragmentMeAddressesBook : FragmentBase() {
+
     override fun getLayoutId(): Int {
         return R.layout.f_me_address_book
     }
@@ -28,7 +28,9 @@ class FragmentMeAddressesBook : FragmentBase() {
         listView.layoutManager = LinearLayoutManager(activity)
 
         addIcon.setOnClickListener {
-            addL2Fragment(FragmentMeAddressesBookAddOrEdit())
+            val f = FragmentMeAddressesBookAddOrEdit()
+            f.afterSave = {updateUI()}
+            addL2Fragment(f)
         }
 
     }
@@ -44,6 +46,7 @@ class FragmentMeAddressesBook : FragmentBase() {
 
         adapter.editLambda = {
             val f = FragmentMeAddressesBookAddOrEdit()
+            f.afterSave = {updateUI()}
             AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_ADDRESS, it.address)
             AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_MEMO, it.name)
             addL2Fragment(f)

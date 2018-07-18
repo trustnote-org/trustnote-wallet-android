@@ -31,6 +31,8 @@ import android.widget.EditText
 
 abstract class FragmentBase : SwipeBackFragment() {
 
+
+    //TODO: when back pressed, the top fragment will not call onResume. we need define custome fragment manager, so that onResume or onShow will be called.
     lateinit var credential: Credential
 
     var mToolbarVisibility = View.VISIBLE
