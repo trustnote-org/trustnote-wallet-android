@@ -196,7 +196,10 @@ class WalletModel() {
                 val credential = refreshingCredentials.take()
 
                 try {
+
                     refreshOneWalletImpl(credential)
+
+
                 } catch (e: Throwable) {
                     //TODO: show err?
                     Utils.logW(e.toString())

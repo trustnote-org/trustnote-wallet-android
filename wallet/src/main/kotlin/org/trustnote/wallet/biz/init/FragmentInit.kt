@@ -105,6 +105,13 @@ class CWFragmentDisclaimer : FragmentInit() {
             checkBox.visibility = View.GONE
         }
 
+        val webView = findViewById<WebView>(R.id.disclaim)
+        if (AndroidUtils.isZh(activity)) {
+            webView.loadUrl("file:///android_asset/tou_zh.html")
+        } else {
+            webView.loadUrl("file:///android_asset/tou_en.html")
+        }
+
     }
 
     override fun getTitle(): String {

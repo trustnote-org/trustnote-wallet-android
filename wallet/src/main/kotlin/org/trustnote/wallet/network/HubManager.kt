@@ -145,11 +145,17 @@ class HubManager {
 
     @Synchronized
     private fun retryOrTimeout() {
-        for ((tag, hubMsg) in mRequestMap.getRetryMap()) {
-            if (isTimeout(hubMsg) && hubMsg is HubRequest && hubMsg.msgType == MSG_TYPE.request) {
-                mRequestMap.remove(hubMsg.tag)
-                hubMsg.setResponse(HubResponse(MSG_TYPE.timeout))
+
+        try {
+
+            for ((tag, hubMsg) in mRequestMap.getRetryMap()) {
+                if (isTimeout(hubMsg) && hubMsg is HubRequest && hubMsg.msgType == MSG_TYPE.request) {
+                    mRequestMap.remove(hubMsg.tag)
+                    hubMsg.setResponse(HubResponse(MSG_TYPE.timeout))
+                }
             }
+        } catch (e: Exception) {
+            Utils.logW(e.localizedMessage)
         }
     }
 

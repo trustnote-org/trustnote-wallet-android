@@ -15,15 +15,10 @@
             android:layout_above="@id/checkbox"
             android:paddingTop="@dimen/line_gap_16">
 
-            <TextView
-                android:id="@+id/disclaim2"
+            <WebView
+                android:id="@+id/disclaim"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:lineSpacingMultiplier="1.5"
-                android:text="@string/tou_text"
-                android:textColor="@color/font_gray_amount"
-                android:textSize="13sp" />
+                android:layout_height="wrap_content" />
         </ScrollView>
 
         <CheckBox

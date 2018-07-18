@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.FragmentPageBase
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.PageHeader
@@ -66,6 +67,8 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
         }
 
         checkAmountIsInRange()
+
+        AndroidUtils.enableBtn(btnConfirm, inputAmount.text.isNotBlank())
     }
 
 }
