@@ -147,6 +147,8 @@ correct</string>
     <string name="receive_copy_successful">Copy Successful</string>
     <string name="address_book_empty_msg">Select \"+\" in top right of the screen to add new address</string>
     <string name="scan_result_title">Scan Result</string>
+    <string name="sync_waiting_msg">Syncing, please don\'t exit…</string>
+
 
     <string name="tou_text">1. TrustNote wallet is completely free and open source under the very permissive MIT license.\n
 2. Because there is no centralized server, the password, private key, or mnemonic is not stored on or synced to the server, therefore TrustNote cannot provide a service to recover or reset your password, private key, and mnemonic if it’s forgotten, lost or stolen.\n

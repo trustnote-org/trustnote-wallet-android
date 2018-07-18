@@ -301,6 +301,6 @@
     9、请确认本软件的使用是您自己的决定，您将自愿承担使用本软件相关的所有风险和其它后果，并严格遵守所有适用的法律。</string>
 
     <string name="too_much_empty_wallet">您不能创建更多的空钱包</string>
-
-
+    <string name="sync_waiting_msg">同步中，请勿关闭软件</string>
+    Syncing, please don't exit…
 </resources>

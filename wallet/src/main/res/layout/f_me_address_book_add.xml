@@ -24,18 +24,30 @@
             android:id="@+id/scan_address"
             android:layout_width="@dimen/ic_26"
             android:layout_height="@dimen/ic_26"
-            android:layout_alignTop="@id/address"
+            android:layout_above="@id/address"
             android:layout_alignParentRight="true"
             android:src="@drawable/action_scan" />
+
+        <org.trustnote.wallet.widget.ErrTextView
+            android:id="@+id/address_err"
+            style="@style/t_err"
+            android:layout_below="@id/address"
+            android:text="@string/transfer_receiver_err" />
 
 
         <org.trustnote.wallet.widget.ClearableEditText
             android:id="@+id/memo"
             style="@style/t_pwd"
-            android:layout_below="@id/address"
+            android:layout_below="@id/address_err"
             android:hint="@string/address_book_label_memo"
             android:inputType="text"
             android:text="" />
+
+        <org.trustnote.wallet.widget.ErrTextView
+            android:id="@+id/memo_err"
+            style="@style/t_err"
+            android:layout_below="@id/memo"
+            android:text="@string/wallet_name_err" />
 
 
         <Button

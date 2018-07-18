@@ -80,6 +80,7 @@ class CWFragmentDisclaimer : FragmentInit() {
     }
 
     lateinit var confirmBtn: Button
+    lateinit var checkBox: CheckBox
 
     override fun initFragment(view: View) {
         super.initFragment(view)
@@ -92,9 +93,14 @@ class CWFragmentDisclaimer : FragmentInit() {
 
         AndroidUtils.enableBtn(confirmBtn, false)
 
-        val checkBox = findViewById<CheckBox>(R.id.checkbox)
+        checkBox = findViewById(R.id.checkbox)
         checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             AndroidUtils.enableBtn(confirmBtn, isChecked)
+        }
+
+        if (!fromInitActivity) {
+            confirmBtn.visibility = View.GONE
+            checkBox.visibility = View.GONE
         }
 
     }

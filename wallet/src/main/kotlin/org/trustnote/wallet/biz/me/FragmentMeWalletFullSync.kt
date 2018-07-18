@@ -3,6 +3,7 @@ package org.trustnote.wallet.biz.me
 import android.view.View
 import android.webkit.WebView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.FragmentProgressBlocking
 import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.wallet.FragmentWalletBase
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -14,7 +15,6 @@ class FragmentMeWalletFullSync : FragmentWalletBase() {
         return R.layout.f_me_clone_sync
     }
 
-
     override fun initFragment(view: View) {
 
         super.initFragment(view)
@@ -25,12 +25,14 @@ class FragmentMeWalletFullSync : FragmentWalletBase() {
 
         view.findViewById<View>(R.id.me_clone_sync_btn).setOnClickListener {
 
-            FragmentDialogInputPwd.showMe(activity, {
+            addL2Fragment(FragmentProgressBlocking())
+            WalletManager.model.refreshExistWallet()
 
-                CreateWalletModel.savePassphraseInRam(it)
-                WalletManager.model.fullRefreshing(it)
-                activity.onBackPressed()
-            })
+//            FragmentDialogInputPwd.showMe(activity, {
+//
+//                CreateWalletModel.savePassphraseInRam(it)
+//                activity.onBackPressed()
+//            })
         }
 
     }

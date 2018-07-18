@@ -25,6 +25,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
+import org.trustnote.wallet.biz.FragmentProgressBlocking
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.biz.upgrade.isNewerVersion
@@ -111,6 +112,11 @@ abstract class ActivityBase : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        //TODO: weired code.
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_level2)
+        if (currentFragment != null && currentFragment is FragmentProgressBlocking && !currentFragment.isDone) {
+            return
+        }
 
         if (closeKeyboard()) {
 

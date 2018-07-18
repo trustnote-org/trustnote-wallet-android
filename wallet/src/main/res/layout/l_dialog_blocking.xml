@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center">
+
+            <FrameLayout
+                android:id="@+id/customdialog_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_progress_blocking_bg" />
+
+                <ProgressBar
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="right|bottom"
+                    android:layout_marginBottom="7dp"
+                    android:layout_marginRight="6dp"
+                    android:indeterminateDrawable="@drawable/ic_progress_anim" />
+
+            </FrameLayout>
+
+            <TextView
+                style="@style/t_text_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/customdialog_progressbar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="33dp"
+                android:gravity="center"
+                android:text="@string/sync_waiting_msg" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</RelativeLayout>

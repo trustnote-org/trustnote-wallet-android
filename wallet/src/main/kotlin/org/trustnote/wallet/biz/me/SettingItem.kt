@@ -6,6 +6,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
+import org.trustnote.wallet.biz.init.CWFragmentDisclaimer
 import org.trustnote.wallet.biz.wallet.Credential
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.ActivityBase
@@ -84,7 +85,7 @@ class SettingItem(
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
                             titleResId = R.string.setting_about_tou) {
-                        openTou()
+                        openTou(activity)
                     }
             )
         }
@@ -210,8 +211,10 @@ class SettingItem(
             activity.addL2Fragment(FragmentMeChangePwd())
         }
 
-        private fun openTou() {
-            AndroidUtils.todo()
+        private fun openTou(activity: ActivityMain) {
+            val f = CWFragmentDisclaimer()
+            f.fromInitActivity = false
+            activity.addL2Fragment(f)
         }
 
         private fun getCurrentLanguageAsString(): String {

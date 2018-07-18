@@ -28,6 +28,7 @@ import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.FragmentDialogSelectWallet
 import android.app.Activity
 import android.widget.EditText
+import org.trustnote.wallet.biz.FragmentProgressBlocking
 
 abstract class FragmentBase : SwipeBackFragment() {
 
@@ -225,8 +226,10 @@ abstract class FragmentBase : SwipeBackFragment() {
     }
 
     open fun onBackPressed() {
+
         hideSystemSoftKeyboard()
         activity.onBackPressed()
+
     }
 
     fun openSimpleInfoPage(msg: String, title: String) {
