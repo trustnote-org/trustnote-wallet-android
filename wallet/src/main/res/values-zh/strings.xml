@@ -307,4 +307,6 @@
 
     <string name="restore_waiting_msg">恢复中，请勿关闭软件 </string>
 
+    <string name="click_to_sync">点击按钮同步：</string>
+
 </resources>

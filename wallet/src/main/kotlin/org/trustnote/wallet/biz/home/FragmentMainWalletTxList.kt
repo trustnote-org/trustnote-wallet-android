@@ -29,6 +29,7 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var receiveBtnView: View
+    private lateinit var walletSummaryTitle: TextView
 
     override fun initFragment(view: View) {
 
@@ -62,6 +63,10 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
         mSwipeRefreshLayout.setOnRefreshListener {
             WalletManager.model.refreshOneWallet(credential.walletId)
         }
+
+        walletSummaryTitle = findViewById(R.id.wallet_summary_title)
+
+        walletSummaryTitle.setText(R.string.wallet_amount_subtitle)
 
     }
 

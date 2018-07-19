@@ -18,7 +18,7 @@
             android:id="@+id/mnemonic_restore_msg"
             style="@style/t_text_msg"
             android:layout_below="@id/mnemonic_restore_title"
-            android:text="@string/me_clone_sync_title"
+            android:text="@string/click_to_sync"
             android:textColor="@color/font_gray_amount" />
 
         <FrameLayout

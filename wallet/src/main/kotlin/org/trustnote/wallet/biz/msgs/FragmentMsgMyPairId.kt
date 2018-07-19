@@ -52,7 +52,8 @@ class FragmentMsgMyPairId : FragmentPageBase() {
     }
 
     override fun updateUI() {
-
+        super.updateUI()
+        mToolbar.visibility = View.INVISIBLE
     }
 
 }

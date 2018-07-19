@@ -46,20 +46,20 @@ class AddressesBookManager {
             val res = mutableListOf<TransferAddresses>()
             res.addAll(getDao().addresses.toList())
 
-            val myAllWallets = WalletManager.model.getAvaiableWalletsForUser()
-
-            for(one in myAllWallets) {
-                when {
-                    one.walletId == credential.walletId -> Unit
-                    one.myReceiveAddresses.isEmpty() -> Unit
-                    else -> {
-                        val a = TransferAddresses()
-                        a.address = one.myReceiveAddresses[0].address
-                        a.name = one.walletName
-                        res.add(a)
-                    }
-                }
-            }
+            //            val myAllWallets = WalletManager.model.getAvaiableWalletsForUser()
+            //
+            //            for(one in myAllWallets) {
+            //                when {
+            //                    one.walletId == credential.walletId -> Unit
+            //                    one.myReceiveAddresses.isEmpty() -> Unit
+            //                    else -> {
+            //                        val a = TransferAddresses()
+            //                        a.address = one.myReceiveAddresses[0].address
+            //                        a.name = one.walletName
+            //                        res.add(a)
+            //                    }
+            //                }
+            //            }
 
             return res
         }

@@ -78,7 +78,7 @@
             android:id="@+id/transfer_receiver_err_overflow"
             style="@style/t_err"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/transfer_receiver_"
+            android:layout_below="@id/transfer_amount"
             android:text="@string/transfer_receiver_err_overflow" />
 
         <TextView

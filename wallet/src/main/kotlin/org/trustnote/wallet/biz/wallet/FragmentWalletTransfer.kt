@@ -24,6 +24,10 @@ import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.TMnAmount
+import org.trustnote.wallet.widget.DecimalDigitsInputFilter
+import android.text.InputFilter
+
+
 
 class FragmentWalletTransfer : FragmentWalletBase() {
 
@@ -54,6 +58,8 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
         amountText = findViewById(R.id.transfer_amount)
         amountErr = findViewById(R.id.transfer_receiver_err_overflow)
+
+        amountText.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(9, 4))
 
         transferAll = findViewById(R.id.transfer_transfer_all)
         transferAll.setOnClickListener { setTransferAmount(credential.balance) }
@@ -205,26 +211,17 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     override fun updateUI() {
 
-        fun checkAmountIsInRange(){
-            val dotIndex =  amountText.text.indexOf('.')
-            if (dotIndex>=0 && amountText.text.length >= dotIndex + 6){
-                amountText.setText(amountText.text.substring(0, dotIndex + 5))
-            }
-
-            if (dotIndex>=10 || (dotIndex < 0 && amountText.text.length > 9)) {
-                amountText.setText(amountText.text.substring(1))
-            }
-
-        }
 
         balance.setMnAmount(credential.balance)
-
-        checkAmountIsInRange()
 
         if (TTTUtils.isValidAddress(receiverText.text.toString())
                 && TTTUtils.isValidAmount(amountText.text.toString(), credential.balance)) {
             AndroidUtils.enableBtn(btnConfirm)
+            amountErr.visibility = View.INVISIBLE
         } else {
+            if (amountText.text.isNotEmpty() && !TTTUtils.isValidAmount(amountText.text.toString(), credential.balance)) {
+                amountErr.visibility = View.VISIBLE
+            }
             AndroidUtils.disableBtn(btnConfirm)
         }
 
