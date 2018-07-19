@@ -16,7 +16,6 @@ import org.trustnote.wallet.biz.me.FragmentDialogAskAuthorToSigner
 import org.trustnote.wallet.biz.me.FragmentDialogScanSignResult
 import org.trustnote.wallet.biz.me.FragmentMeAddressesBook
 import org.trustnote.wallet.biz.units.UnitComposer
-import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
@@ -26,8 +25,6 @@ import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.TMnAmount
 import org.trustnote.wallet.widget.DecimalDigitsInputFilter
 import android.text.InputFilter
-
-
 
 class FragmentWalletTransfer : FragmentWalletBase() {
 
@@ -100,7 +97,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_scan_receive_address -> {
-                startScan{
+                startScan {
                     handleScanRes(it)
                 }
                 return true
@@ -211,7 +208,6 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     override fun updateUI() {
 
-
         balance.setMnAmount(credential.balance)
 
         if (TTTUtils.isValidAddress(receiverText.text.toString())
@@ -224,7 +220,6 @@ class FragmentWalletTransfer : FragmentWalletBase() {
             }
             AndroidUtils.disableBtn(btnConfirm)
         }
-
 
     }
 
