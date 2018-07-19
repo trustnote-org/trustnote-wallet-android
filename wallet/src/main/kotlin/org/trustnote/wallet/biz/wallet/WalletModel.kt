@@ -451,6 +451,18 @@ class WalletModel() {
 
     @Synchronized
     private fun newAutoWallet(password: String, credentialName: String = TTT.firstWalletName, isAuto: Boolean = true) {
+
+        if (!isAuto) {
+            val lastAutoEmptyWallet = mProfile.credentials.findLast {
+                it.isAuto && !it.isObserveOnly && it.txDetails.isEmpty()
+            }
+            if (lastAutoEmptyWallet != null) {
+                updateWalletName(lastAutoEmptyWallet, credentialName)
+                return
+            }
+
+        }
+
         val newCredential = createNextCredential(password, mProfile, credentialName, isAuto = isAuto)
         mProfile.credentials.add(newCredential)
 
@@ -467,6 +479,7 @@ class WalletModel() {
 
     @Synchronized
     fun newObserveWallet(walletIndex: Int, walletPubKey: String, walletTitle: String) {
+
         val newCredential = createObserveCredential(walletIndex, walletPubKey, walletTitle)
         mProfile.credentials.add(newCredential)
 
@@ -594,9 +607,10 @@ class WalletModel() {
     fun updateWalletName(credential: Credential, newName: String) {
         val wallet = findWallet(credential.walletId)
         wallet.walletName = newName
+        wallet.isAuto = false
+        refreshOneWallet(credential.walletId)
         walletUpdated()
     }
-
 
 }
 

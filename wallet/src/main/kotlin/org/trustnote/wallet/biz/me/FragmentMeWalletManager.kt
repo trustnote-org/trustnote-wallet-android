@@ -68,10 +68,10 @@ class FragmentMeWalletManager : FragmentWalletBase() {
 fun createNewWallet(activityMain: ActivityMain) {
 
     val allEmptyWallets = WalletManager.model.getAvaiableWalletsForUser().filter {
-        it.isAuto == false && it.txDetails.size == 0
+        !it.isAuto && it.txDetails.isEmpty()
     }
 
-    if (allEmptyWallets.size >= 2) {
+    if (allEmptyWallets.isNotEmpty()) {
         MyDialogFragment.showMsg(activityMain, R.string.too_much_empty_wallet)
     } else {
         activityMain.addL2Fragment(FragmentMainCreateWalletNormal())

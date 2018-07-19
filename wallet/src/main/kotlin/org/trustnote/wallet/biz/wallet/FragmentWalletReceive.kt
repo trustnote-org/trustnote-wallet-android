@@ -60,6 +60,7 @@ class FragmentWalletReceive : FragmentPageBase() {
             addL2Fragment(f)
         }
 
+
         clearAmount.setOnClickListener {
             mnAmount = 0L
             updateUI()
@@ -91,6 +92,8 @@ class FragmentWalletReceive : FragmentPageBase() {
             setupAmount.visibility = View.GONE
             receiveAmount.setMnAmount(mnAmount)
         }
+
+        setupAmount.visibility = View.INVISIBLE
 
     }
 
