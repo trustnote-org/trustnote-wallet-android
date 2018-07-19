@@ -5,6 +5,7 @@ import org.trustnote.db.entity.Friend
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.util.Utils
+import java.nio.file.Paths
 
 class TestData {
     companion object {
@@ -95,6 +96,7 @@ class TestData {
             return testData
 
         }
+
 
     }
 }

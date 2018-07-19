@@ -52,6 +52,7 @@ class Credential {
     var isAuto: Boolean = false
     var isRemoved: Boolean = false
     var deviceAddressFromObserved: String = ""
+    var defaultReceiveAddress: String = ""
 
     @Expose(serialize = false, deserialize = false)
     @Transient

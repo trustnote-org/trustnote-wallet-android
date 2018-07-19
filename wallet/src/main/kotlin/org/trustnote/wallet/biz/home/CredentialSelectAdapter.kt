@@ -38,7 +38,7 @@ class CredentialSelectAdapter(val myDataset: List<Credential>, val layoutResId: 
         if (holder is ViewHolder) {
             val credential = myDataset[position]
             holder.title.text = credential.walletName
-            holder.walletId.text = TTTUtils.formatWalletId(credential.walletId)
+            holder.walletId.text = TTTUtils.formatWalletId(credential.myReceiveAddresses[0].address)
         }
         return
     }
