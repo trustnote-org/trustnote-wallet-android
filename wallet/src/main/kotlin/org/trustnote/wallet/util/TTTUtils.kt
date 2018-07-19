@@ -67,7 +67,12 @@ object TTTUtils {
     }
 
     fun isValidAmount(amount: String, balance: Long): Boolean {
-        return amount.isNotEmpty() && amount.toFloat() * TTT.w_coinunitValue <= balance
+        //TODO:
+        try {
+            return amount.isNotEmpty() && amount.toFloat() * TTT.w_coinunitValue <= balance
+        } catch (e: Exception) {
+            return true
+        }
     }
 
     fun parseTTTAmount(amountStr: String): Long {
@@ -176,7 +181,6 @@ object TTTUtils {
     fun genDefinitions(addressPubkey: String): String {
         return """["sig",{"pubkey":"$addressPubkey"}]"""
     }
-
 
     //TODO:should copy from JS code:: tttMyPairIdPattern:: /^([w\/+]{44})@([w.:\/-]+)#([w\/+-]+)$/
     val tttReceiverAddressPattern = Regex("""TTT:.{32}(\?amount=)?""")

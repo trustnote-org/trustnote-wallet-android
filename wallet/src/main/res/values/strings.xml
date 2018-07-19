@@ -222,7 +222,7 @@ correct</string>
 
     <string name="messages_contacts_title">Contacts</string>
     <string name="message_contacts_add_hint">Scan or enter the device code</string>
-    <string name="click_to_sync">Click to Sync the Wallets:</string>
+    <string name="click_to_sync">Click to Sync the Wallets</string>
 
     <string name="menu_debug">诊断调试</string>
 

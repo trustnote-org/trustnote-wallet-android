@@ -180,6 +180,11 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         } else {
             amountErr.visibility = View.VISIBLE
         }
+
+        if (transferAmount == 0L) {
+            amountText.setText("")
+        }
+
         updateUI()
     }
 
@@ -209,6 +214,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
     override fun updateUI() {
 
         balance.setMnAmount(credential.balance)
+        amountErr.visibility = View.INVISIBLE
 
         if (TTTUtils.isValidAddress(receiverText.text.toString())
                 && TTTUtils.isValidAmount(amountText.text.toString(), credential.balance)) {
