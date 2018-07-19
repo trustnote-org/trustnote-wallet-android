@@ -54,6 +54,13 @@ class FragmentDialogSelectWallet : FragmentPageBase() {
 
         }
 
+        mToolbar.visibility = View.INVISIBLE
+
+    }
+
+    override fun setupToolbar() {
+        super.setupToolbar()
+        mToolbar.visibility = View.INVISIBLE
     }
 
 }
