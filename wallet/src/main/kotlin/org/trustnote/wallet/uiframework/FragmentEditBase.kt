@@ -33,7 +33,9 @@ class FragmentEditBase : FragmentBase() {
 
         mToolbar = view.findViewById(R.id.toolbar)
         view.isClickable = true
-        return view
+
+        return if (supportSwipeBack) attachToSwipeBack(view) else view
+
     }
 
     override fun initFragment(view: View) {

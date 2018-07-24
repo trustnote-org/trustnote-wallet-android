@@ -46,7 +46,9 @@ object Utils {
     }
 
     fun debugJS(s: String) {
-        android.util.Log.d("JSApi", s)
+        if (BuildConfig.DEBUG) {
+            android.util.Log.d("JSApi", s)
+        }
     }
 
     fun crash(s: String) {

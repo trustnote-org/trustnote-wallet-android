@@ -199,7 +199,6 @@ class WalletModel() {
 
                     refreshOneWalletImpl(credential)
 
-
                 } catch (e: Throwable) {
                     //TODO: show err?
                     Utils.logW(e.toString())
@@ -221,8 +220,19 @@ class WalletModel() {
             return
         }
 
+        //TODO: regarding network err, how to make sure wallet is empty in hub.
+        //Difference two case: hub empty list OR network err when get history.
+        //        var lastWallet = mProfile.credentials.lastOrNull { !it.isObserveOnly }
+        //
+        //        if (lastWallet != null && DbHelper.shouldGenerateNextWallet(lastWallet.walletId)) {
+        //            newAutoWallet(CreateWalletModel.getPassphraseInRam())
+        //            return
+        //        }
+
         if (CreateWalletModel.getPassphraseInRam().isNotEmpty()) {
 
+            //Buggy: cannot handle case: 1 2 (3nil) 4
+            newAutoWallet(CreateWalletModel.getPassphraseInRam())
             newAutoWallet(CreateWalletModel.getPassphraseInRam())
 
             //TODO: bug, it only restore one more wallet.
@@ -380,7 +390,7 @@ class WalletModel() {
             newAutoWallet(password)
         }
 
-        var lastWallet = mProfile.credentials.last { !it.isObserveOnly }
+        var lastWallet = mProfile.credentials.lastOrNull { !it.isObserveOnly }
 
         if (lastWallet != null && DbHelper.shouldGenerateNextWallet(lastWallet.walletId)) {
             newAutoWallet(password)
@@ -453,11 +463,13 @@ class WalletModel() {
     private fun newAutoWallet(password: String, credentialName: String = TTT.firstWalletName, isAuto: Boolean = true) {
 
         if (!isAuto) {
-            val lastAutoEmptyWallet = mProfile.credentials.findLast {
+
+            val firstAutoEmptyWallet = mProfile.credentials.firstOrNull {
                 it.isAuto && !it.isObserveOnly && it.txDetails.isEmpty()
             }
-            if (lastAutoEmptyWallet != null) {
-                updateWalletName(lastAutoEmptyWallet, credentialName)
+
+            if (firstAutoEmptyWallet != null) {
+                updateWalletName(firstAutoEmptyWallet, credentialName)
                 return
             }
 

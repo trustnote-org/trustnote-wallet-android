@@ -11,6 +11,7 @@
     <application
         android:name="org.trustnote.wallet.TApp"
         android:allowBackup="false"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/icon_ttt"
         android:label="${appProductFlavor}_${appBuildType}"
         android:supportsRtl="true"

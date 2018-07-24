@@ -1,9 +1,12 @@
 package org.trustnote.wallet.biz.init
 
+import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.ValueCallback
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.CheckBox
@@ -84,8 +87,14 @@ class CWFragmentDisclaimer : FragmentInit() {
     lateinit var confirmBtn: Button
     lateinit var checkBox: CheckBox
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        supportSwipeBack = (!fromInitActivity)
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun initFragment(view: View) {
         super.initFragment(view)
+
         confirmBtn = view.findViewById<Button>(R.id.agree)
 
         confirmBtn.setOnClickListener {
@@ -106,6 +115,20 @@ class CWFragmentDisclaimer : FragmentInit() {
         }
 
         val webView = findViewById<WebView>(R.id.disclaim)
+
+        //Below are three option to improve the performance
+        // See: https://stackoverflow.com/questions/7422427/android-webview-slow
+        webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH)
+        //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        //            // chromium, enable hardware acceleration
+        //            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        //        } else {
+        //            // older android version, disable hardware acceleration
+        //            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        //        }
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+
+
         if (AndroidUtils.isZh(activity)) {
             webView.loadUrl("file:///android_asset/tou_zh.html")
         } else {
