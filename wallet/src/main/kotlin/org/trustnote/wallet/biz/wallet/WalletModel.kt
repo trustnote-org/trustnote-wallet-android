@@ -433,6 +433,7 @@ class WalletModel() {
     private fun createNextCredential(password: String, profile: TProfile, credentialName: String = TTT.firstWalletName, isAuto: Boolean = true): Credential {
         val api = JSApi()
         val walletIndex = findNextAccount(profile)
+
         val privKey = getPrivKey(password)
         val walletPubKey = api.walletPubKeySync(privKey, walletIndex)
         val walletId = api.walletIDSync(walletPubKey)
@@ -445,7 +446,13 @@ class WalletModel() {
         res.walletId = walletId
         res.walletName = walletTitle
         res.xPubKey = walletPubKey
-        res.isAuto = isAuto
+
+        if (walletIndex == 0) {
+            res.isAuto = false
+        } else {
+            res.isAuto = isAuto
+        }
+
         return res
     }
 
