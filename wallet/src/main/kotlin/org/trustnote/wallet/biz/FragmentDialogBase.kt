@@ -1,17 +1,22 @@
 package org.trustnote.wallet.biz
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.DialogFragment
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import com.google.zxing.integration.android.IntentIntegrator
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.CustomViewFinderScannerActivity
 
 open class FragmentDialogBase(private val layoutId: Int, private val confirmLogic: (String) -> Unit = {}) : DialogFragment() {
 
@@ -41,11 +46,7 @@ open class FragmentDialogBase(private val layoutId: Int, private val confirmLogi
 
     fun startScan(scanResHandler: (String) -> Unit = {}) {
         this.scanResHandler = scanResHandler
-
-        val integrator = IntentIntegrator.forSupportFragment(this)
-        integrator.setOrientationLocked(true)
-        integrator.setBeepEnabled(true)
-        integrator.initiateScan()
+        AndroidUtils.initiateScan(this)
     }
 
     fun setupScan(scanIcon: View, scanResHandler: (String) -> Unit = {}) {
@@ -58,16 +59,33 @@ open class FragmentDialogBase(private val layoutId: Int, private val confirmLogi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Utils.logW("$requestCode ___  $resultCode")
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents == null) {
-                Utils.debugToast("Cancelled")
-            } else {
-                scanResHandler.invoke(result.contents ?: "")
-            }
+        AndroidUtils.handleScanResult(data, scanResHandler)
+    }
+
+    private val REQ_CODE_ZXING_CAMERA_PERMISSION = 1900
+    private val REQ_CODE_ZXING_SCAN_RESULT = 1901
+
+    fun launchScanActivity() {
+
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity,
+                    arrayOf(Manifest.permission.CAMERA), REQ_CODE_ZXING_CAMERA_PERMISSION)
         } else {
-            super.onActivityResult(requestCode, resultCode, data)
+            val intent = Intent(activity, CustomViewFinderScannerActivity::class.java)
+            startActivityForResult(intent, REQ_CODE_ZXING_SCAN_RESULT)
         }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQ_CODE_ZXING_CAMERA_PERMISSION -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(activity, CustomViewFinderScannerActivity::class.java)
+                    startActivityForResult(intent, REQ_CODE_ZXING_SCAN_RESULT)
+                }
+            }
+        }
+        return
     }
 
 

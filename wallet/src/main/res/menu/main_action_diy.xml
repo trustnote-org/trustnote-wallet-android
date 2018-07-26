@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_scan"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_scan_padding"
+        android:title="@string/action_scan"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_contacts_add"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_contacts_add_padding"
+        android:title="@string/action_contacts_add"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_create_wallet"
+        android:enabled="true"
+        android:icon="@drawable/ic_wallet_create_padding"
+
+        android:title="@string/action_create_wallet"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_my_pair_id"
+        android:enabled="true"
+        android:icon="@drawable/ic_my_pair_code_padding"
+        android:title="@string/action_my_pair_id"
+        app:showAsAction="never" />
+</menu>

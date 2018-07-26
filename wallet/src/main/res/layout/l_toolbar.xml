@@ -13,7 +13,7 @@
     app:contentInsetStart="0dp"
     app:contentInsetStartWithNavigation="0dp">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_marginLeft="@dimen/padding_main"
         android:layout_marginRight="@dimen/padding_main"
         android:layout_width="wrap_content"
@@ -48,5 +48,13 @@
             android:text="@string/wallet_toolbar_title"
             android:textColor="@color/title_bar_text"
             android:textSize="@dimen/text_20" />
-    </FrameLayout>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/ic_quick_action"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_quick_action"
+            android:layout_alignParentRight="true"
+            android:layout_width="18dp"
+            android:layout_height="18dp" />
+    </RelativeLayout>
 </android.support.v7.widget.Toolbar>

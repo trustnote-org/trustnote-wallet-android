@@ -126,5 +126,5 @@
     <dimen name="item_msg_height">90dp</dimen>
 
     <dimen name="ic_action_padding">4dp</dimen>
-    <dimen name="ic_action_padding_6">6dp</dimen>
+    <dimen name="ic_action_padding_8">8dp</dimen>
 </resources>

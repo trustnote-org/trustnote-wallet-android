@@ -14,6 +14,20 @@ import org.trustnote.wallet.biz.wallet.FragmentWalletBaseForHomePage
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.TMnAmount
+import android.widget.Toast
+import android.R.id.button1
+import android.support.v7.widget.PopupMenu
+import org.trustnote.wallet.util.Utils
+import android.support.v4.view.ViewCompat.setElevation
+import android.os.Build
+import android.widget.PopupWindow
+import android.content.Context.LAYOUT_INFLATER_SERVICE
+import android.view.LayoutInflater
+import android.R.id.closeButton
+import org.trustnote.wallet.util.CopyJavaCode
+import android.view.Gravity
+
+
 
 class FragmentMainWallet : FragmentWalletBaseForHomePage() {
 
@@ -50,7 +64,6 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
     override fun getTitle(): String {
         return TApp.context.getString(R.string.wallet_toolbar_title)
     }
-
 
     override fun initFragment(view: View) {
 
@@ -97,7 +110,48 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
 
         mAmountTitle.setText(R.string.wallet_amount_subtitle)
 
+
+        icQuickAction = findViewById(R.id.ic_quick_action)
+
+        if (icQuickAction != null) {
+            CopyJavaCode.createPopupListWindow(activity, icQuickAction)
+//            icQuickAction!!.setOnClickListener {
+//                setupQuickActionMenu(icQuickAction!!)
+//            }
+        }
     }
+
+    fun setupQuickActionMenu(icQuickAction: View) {
+
+
+
+        val inflater = activity.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        val customView = inflater.inflate(R.layout.l_quick_action, null)
+
+        val mPopupWindow = PopupWindow(
+                customView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+
+        customView.setOnClickListener {
+            fun onClick(view: View) {
+                // Dismiss the popup window
+                mPopupWindow.dismiss()
+            }
+        }
+        // Set an elevation value for popup window
+        // Call requires API level 21
+        if (Build.VERSION.SDK_INT >= 21) {
+            mPopupWindow.setElevation(5.0f)
+        }
+
+        val pos = CopyJavaCode.calculatePopWindowPos(icQuickAction, mRootView)
+        mPopupWindow.showAtLocation(icQuickAction, Gravity.TOP or Gravity.START, pos[0], pos[1])
+
+    }
+
 
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_action, menu)

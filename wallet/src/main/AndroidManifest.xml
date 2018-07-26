@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name="org.trustnote.wallet.TApp"
@@ -47,10 +48,22 @@
             android:name="org.trustnote.wallet.biz.wallet.SimpleFragmentActivityBase"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation" />
+        <activity android:name="org.trustnote.wallet.widget.CustomViewFinderScannerActivity"
+            android:theme="@style/AppTheme">
+        </activity>
+
+        <!--<activity-->
+            <!--android:name="com.journeyapps.barcodescanner.CaptureActivity"-->
+            <!--android:screenOrientation="fullSensor"-->
+            <!--tools:replace="screenOrientation" />-->
+
+        <!--<activity-->
+            <!--android:name="org.trustnote.wallet.widget.CustomScannerActivity"-->
+            <!--android:screenOrientation="fullSensor"-->
+            <!--android:stateNotNeeded="true"-->
+            <!--android:theme="@style/zxing_CaptureTheme"-->
+            <!--android:windowSoftInputMode="stateAlwaysHidden"></activity>-->
+
     </application>
 
 </manifest>

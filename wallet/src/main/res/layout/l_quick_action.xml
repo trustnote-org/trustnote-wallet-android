@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_marginRight="-28dp"
+        android:layout_width="170dp"
+        android:layout_height="210dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_popup_action" />
+
+    <LinearLayout
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <org.trustnote.wallet.widget.ActionMenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            app:action_icon="@drawable/action_scan"
+            app:action_text="@string/action_scan" />
+
+        <org.trustnote.wallet.widget.ActionMenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            app:action_icon="@drawable/ic_action_contacts_add"
+            app:action_text="@string/action_contacts_add" />
+
+        <org.trustnote.wallet.widget.ActionMenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            app:action_icon="@drawable/ic_wallet_create"
+            app:action_text="@string/action_create_wallet" />
+
+        <org.trustnote.wallet.widget.ActionMenuItem
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            app:action_icon="@drawable/ic_my_pair_code"
+            app:action_text="@string/action_my_pair_id" />
+
+    </LinearLayout>
+</FrameLayout>

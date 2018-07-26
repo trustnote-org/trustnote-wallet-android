@@ -9,6 +9,7 @@ import org.trustnote.wallet.biz.startMainActivityAfterLanguageChanged
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
+import org.trustnote.wallet.util.Utils
 
 class ActivityStarterChooser : ActivityBase() {
 
@@ -23,7 +24,7 @@ class ActivityStarterChooser : ActivityBase() {
             TApp.userAlreadyInputPwd = true
         }
 
-        if (!TApp.userAlreadyInputPwd
+        if (!Utils.isDeveloperFeature() && !TApp.userAlreadyInputPwd
             && CreateWalletModel.readPwdHash().isNotEmpty()
             && Prefs.readEnablepwdForStartup()) {
 

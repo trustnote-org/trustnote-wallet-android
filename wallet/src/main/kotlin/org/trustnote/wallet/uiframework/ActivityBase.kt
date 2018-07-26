@@ -2,8 +2,9 @@ package org.trustnote.wallet.uiframework
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.inputmethodservice.Keyboard
 import android.os.Bundle
 import android.os.IBinder
@@ -11,14 +12,16 @@ import android.support.annotation.CallSuper
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import com.google.zxing.integration.android.IntentIntegrator
+import android.widget.Toast
 import com.kaopiz.kprogresshud.KProgressHUD
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -27,7 +30,6 @@ import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
 import org.trustnote.wallet.biz.FragmentProgressBlocking
 import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.biz.upgrade.isNewerVersion
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.network.pojo.WalletNewVersion
@@ -347,6 +349,7 @@ abstract class ActivityBase : AppCompatActivity() {
     fun dismissBlockProgressDialog() {
         blockingProgressDialog?.dismiss()
     }
+
 
 }
 

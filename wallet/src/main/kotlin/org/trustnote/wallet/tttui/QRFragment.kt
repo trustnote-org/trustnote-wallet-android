@@ -11,11 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
-import com.google.zxing.common.BitMatrix
-import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
@@ -36,31 +31,25 @@ class QRFragment : FragmentBase() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val bitmap = AndroidUtils.encodeStrAsQrBitmap("guodaping", 300)
         view!!.findViewById<ImageView>(R.id.qr_code_bitmap).setImageBitmap(bitmap)
 
-
-        view.findViewById<Button>(R.id.qrcode_scan).setOnClickListener(View.OnClickListener {
-            IntentIntegrator.forSupportFragment(this).initiateScan()        })
+//        view.findViewById<Button>(R.id.qrcode_scan).setOnClickListener(View.OnClickListener {
+//            IntentIntegrator.forSupportFragment(this).initiateScan()        })
 
         scanResultTextView = view.findViewById(R.id.qrcode_scan_res)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents == null) {
-                Utils.debugToast("Scan Cancelled")
-            } else {
-                scanResultTextView.text = result.contents
-            }
-        }
+//        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+//        if (result != null) {
+//            if (result.contents == null) {
+//                Utils.debugToast("Scan Cancelled")
+//            } else {
+//                scanResultTextView.text = result.contents
+//            }
+//        }
+//
     }
-
-
-
-
-
 
 }

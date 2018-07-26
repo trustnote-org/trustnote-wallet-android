@@ -1,10 +1,12 @@
 package org.trustnote.wallet.util
 
+import android.Manifest
 import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
@@ -14,15 +16,18 @@ import org.trustnote.wallet.biz.js.BIP38_WORD_LIST_EN
 import org.trustnote.wallet.uiframework.ActivityBase
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -40,7 +45,11 @@ import org.trustnote.wallet.ActivityStarterChooser
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.FragmentDialogBase
+import org.trustnote.wallet.biz.home.FragmentDialogCreateObserverFinish
+import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.uiframework.FragmentBaseForHomePage
 import org.trustnote.wallet.widget.ClearableEditText
+import org.trustnote.wallet.widget.CustomViewFinderScannerActivity
 import org.trustnote.wallet.widget.RecyclerItemClickListener
 import java.io.File
 import java.text.SimpleDateFormat
@@ -501,7 +510,7 @@ object AndroidUtils {
 
     fun changeIconSizeForBottomNavigation(bottomNavigationView: BottomNavigationView) {
         val menuView = bottomNavigationView.getChildAt(0) as BottomNavigationMenuView
-        for (i in 0 .. (menuView.childCount - 1)) {
+        for (i in 0..(menuView.childCount - 1)) {
             val iconView = menuView.getChildAt(i).findViewById<ImageView>(android.support.design.R.id.icon)
             val layoutParams = iconView.layoutParams
             val width = TApp.resources.getDimensionPixelSize(R.dimen.line_gap_28)
@@ -510,6 +519,21 @@ object AndroidUtils {
             layoutParams.height = height
             iconView.scaleType = ImageView.ScaleType.FIT_XY
             iconView.layoutParams = layoutParams
+        }
+    }
+
+    fun handleScanResult(data: Intent?, scanResHandler: (String) -> Unit) {
+        val result = CustomViewFinderScannerActivity.parseScanResult(data)
+        if (result.isNotEmpty()) {
+            scanResHandler.invoke(result ?: "")
+        }
+    }
+
+    fun initiateScan(fragment: Fragment) {
+        when (fragment) {
+            is FragmentBase -> fragment.launchScanActivity()
+            is FragmentBaseForHomePage -> fragment.launchScanActivity()
+            is FragmentDialogBase -> fragment.launchScanActivity()
         }
     }
 

@@ -1,12 +1,15 @@
 package org.trustnote.wallet.uiframework
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.annotation.IdRes
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.Toolbar
-import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.ActivityMain
@@ -27,6 +30,7 @@ import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsAdd
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.widget.CustomViewFinderScannerActivity
 import org.trustnote.wallet.widget.FragmentDialogSelectWallet
 
 abstract class FragmentBaseForHomePage : Fragment() {
@@ -39,6 +43,9 @@ abstract class FragmentBaseForHomePage : Fragment() {
     lateinit var mToolbar: Toolbar
     var isCreated = false
     private val ttag = "TTTUI"
+
+    var icQuickAction: View? = null
+
     protected val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -146,10 +153,7 @@ abstract class FragmentBaseForHomePage : Fragment() {
     fun startScan(scanResHandler: (String) -> Unit = {}) {
         this.scanResHandler = scanResHandler
 
-        val integrator = IntentIntegrator.forSupportFragment(this)
-        integrator.setOrientationLocked(true)
-        integrator.setBeepEnabled(true)
-        integrator.initiateScan()
+        AndroidUtils.initiateScan(this)
 
     }
 
@@ -163,16 +167,7 @@ abstract class FragmentBaseForHomePage : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Utils.logW("$requestCode ___  $resultCode")
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents == null) {
-
-            } else {
-                scanResHandler.invoke(result.contents ?: "")
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
+        AndroidUtils.handleScanResult(data, scanResHandler)
     }
 
     fun showRefreshingUI(isShow: Boolean = false) {
@@ -277,4 +272,30 @@ abstract class FragmentBaseForHomePage : Fragment() {
         }
     }
 
+
+    private val REQ_CODE_ZXING_CAMERA_PERMISSION = 1900
+    private val REQ_CODE_ZXING_SCAN_RESULT = 1901
+
+    fun launchScanActivity() {
+
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity,
+                    arrayOf(Manifest.permission.CAMERA), REQ_CODE_ZXING_CAMERA_PERMISSION)
+        } else {
+            val intent = Intent(activity, CustomViewFinderScannerActivity::class.java)
+            startActivityForResult(intent, REQ_CODE_ZXING_SCAN_RESULT)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQ_CODE_ZXING_CAMERA_PERMISSION -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(activity, CustomViewFinderScannerActivity::class.java)
+                    startActivityForResult(intent, REQ_CODE_ZXING_SCAN_RESULT)
+                }
+            }
+        }
+        return
+    }
 }

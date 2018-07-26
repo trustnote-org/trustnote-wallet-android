@@ -1,10 +1,14 @@
 package org.trustnote.wallet.biz.home
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -12,12 +16,12 @@ import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.FragmentDialogBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.util.Utils
+import org.trustnote.wallet.widget.CustomViewFinderScannerActivity
 
 class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}) : FragmentDialogBase(R.layout.l_dialog_create_wallet_observer_finish, confirmLogic) {
 
@@ -36,10 +40,7 @@ class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}
 
         view.findViewById<View>(R.id.create_wallet_observer_qr_finish_scan).setOnClickListener {
 
-            val integrator = IntentIntegrator.forSupportFragment(this)
-            integrator.setOrientationLocked(true)
-            integrator.setBeepEnabled(true)
-            integrator.initiateScan()
+            AndroidUtils.initiateScan(this)
         }
 
 
@@ -75,16 +76,7 @@ class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Utils.logW("$requestCode ___  $resultCode")
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents == null) {
-                Utils.debugToast("Cancelled")
-            } else {
-                showScanResult(result.contents)
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
+        AndroidUtils.handleScanResult(data, scanResHandler)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -97,4 +89,6 @@ class FragmentDialogCreateObserverFinish(val confirmLogic: (String) -> Unit = {}
 
         return dialog
     }
+
+
 }

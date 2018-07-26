@@ -1,11 +1,11 @@
 package org.trustnote.wallet.uiframework
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v7.widget.Toolbar
-import com.google.zxing.integration.android.IntentIntegrator
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.wallet.Credential
@@ -21,14 +21,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
 import me.yokeyword.swipebackfragment.SwipeBackFragment
 import org.trustnote.wallet.TApp
-import org.trustnote.wallet.biz.home.FragmentMainCreateWalletObserve
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.FragmentDialogSelectWallet
 import android.app.Activity
+import android.content.pm.PackageManager
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.widget.EditText
-import org.trustnote.wallet.biz.FragmentProgressBlocking
+import org.trustnote.wallet.widget.CustomViewFinderScannerActivity
 
 abstract class FragmentBase : SwipeBackFragment() {
 
@@ -148,11 +150,7 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     fun startScan(scanResHandler: (String) -> Unit = {}) {
         this.scanResHandler = scanResHandler
-
-        val integrator = IntentIntegrator.forSupportFragment(this)
-        integrator.setOrientationLocked(true)
-        integrator.setBeepEnabled(true)
-        integrator.initiateScan()
+        AndroidUtils.initiateScan(this)
 
     }
 
@@ -166,16 +164,11 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Utils.logW("$requestCode ___  $resultCode")
-        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if (result != null) {
-            if (result.contents == null) {
-                Utils.debugLog("action_scan cancelled")
-            } else {
-                scanResHandler.invoke(result.contents ?: "")
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == REQ_CODE_ZXING_SCAN_RESULT && resultCode == Activity.RESULT_OK) {
+            AndroidUtils.handleScanResult(data, scanResHandler)
         }
+
     }
 
     fun showRefreshingUI(isShow: Boolean = false) {
@@ -269,11 +262,11 @@ abstract class FragmentBase : SwipeBackFragment() {
                 addL2Fragment(f)
             }
 
-            //            SCAN_RESULT_TYPE.COLD_WALLET -> {
-            //                val f = FragmentMainCreateWalletObserve()
-            //                AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
-            //                addL2Fragment(f)
-            //            }
+        //            SCAN_RESULT_TYPE.COLD_WALLET -> {
+        //                val f = FragmentMainCreateWalletObserve()
+        //                AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_QRCODE, qrCode)
+        //                addL2Fragment(f)
+        //            }
 
             SCAN_RESULT_TYPE.TTT_PAIRID -> {
             }
@@ -284,4 +277,30 @@ abstract class FragmentBase : SwipeBackFragment() {
         }
     }
 
+
+    private val REQ_CODE_ZXING_CAMERA_PERMISSION = 1900
+    private val REQ_CODE_ZXING_SCAN_RESULT = 1901
+
+    fun launchScanActivity() {
+
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity,
+                    arrayOf(Manifest.permission.CAMERA), REQ_CODE_ZXING_CAMERA_PERMISSION)
+        } else {
+            val intent = Intent(activity, CustomViewFinderScannerActivity::class.java)
+            startActivityForResult(intent, REQ_CODE_ZXING_SCAN_RESULT)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQ_CODE_ZXING_CAMERA_PERMISSION -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    val intent = Intent(activity, CustomViewFinderScannerActivity::class.java)
+                    startActivityForResult(intent, REQ_CODE_ZXING_SCAN_RESULT)
+                }
+            }
+        }
+        return
+    }
 }

@@ -39,7 +39,7 @@ class TestData {
                     }
                 """
 
-        const val password = "qwer1234"
+        const val password = "11111111"
 
         val loremMessags = TApp.getString(R.string.lorem_ttt)
 
