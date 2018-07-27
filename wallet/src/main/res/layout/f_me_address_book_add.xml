@@ -9,29 +9,40 @@
         <TextView
             android:id="@+id/title"
             style="@style/t_title"
-            android:layout_marginTop="@dimen/line_gap_48"
+            android:layout_marginTop="8dp"
             android:text="@string/address_book_add_title" />
 
-        <org.trustnote.wallet.widget.ClearableEditText
-            android:id="@+id/address"
-            style="@style/t_pwd"
-            android:layout_below="@id/title"
-            android:hint="@string/address_book_label_address"
-            android:inputType="text"
-            android:text="" />
 
-        <ImageView
-            android:id="@+id/scan_address"
-            android:layout_width="@dimen/ic_26"
-            android:layout_height="@dimen/ic_26"
-            android:layout_above="@id/address"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/action_scan" />
+        <RelativeLayout
+            android:id="@+id/address_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title">
+
+            <org.trustnote.wallet.widget.ClearableEditText
+                android:id="@+id/address"
+                style="@style/t_pwd"
+                android:hint="@string/address_book_label_address"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:paddingRight="@dimen/line_gap_28"
+                android:text="" />
+
+            <ImageView
+                android:id="@+id/scan_address"
+                android:layout_width="@dimen/ic_26"
+                android:layout_height="@dimen/ic_26"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/action_scan" />
+
+        </RelativeLayout>
+
 
         <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/address_err"
             style="@style/t_err"
-            android:layout_below="@id/address"
+            android:layout_below="@id/address_input"
             android:text="@string/transfer_receiver_err" />
 
 

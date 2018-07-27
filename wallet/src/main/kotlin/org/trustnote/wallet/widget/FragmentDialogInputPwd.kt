@@ -14,13 +14,15 @@ import android.view.Window
 import android.widget.Button
 
 import org.trustnote.wallet.R
+import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.biz.init.CreateWalletModel
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.Prefs
 import org.trustnote.wallet.util.Utils
 
-class FragmentDialogInputPwd() : DialogFragment() {
+class FragmentDialogInputPwd() : FragmentPageBase() {
+
 
     var msg: String = "TTT Welcome"
 
@@ -35,13 +37,16 @@ class FragmentDialogInputPwd() : DialogFragment() {
         isTwoButtons = false
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun getLayoutId(): Int {
+        return R.layout.l_dialog_input_pwd
+    }
+
+    override fun initFragment(view: View) {
+        super.initFragment(view)
         // Inflate the layout to use as dialog or embedded fragment
-        val view = inflater!!.inflate(R.layout.l_dialog_input_pwd, container, false)
 
         view.findViewById<Button>(R.id.first_button).setOnClickListener {
-            dismiss()
+            onBackPressed()
         }
 
         view.findViewById<Button>(R.id.second_button).setOnClickListener {
@@ -59,12 +64,11 @@ class FragmentDialogInputPwd() : DialogFragment() {
             pwdView.setText(TestData.password)
         }
 
-        return view
     }
 
     private fun checkPwd(password: String) {
         if (CreateWalletModel.verifyPwd(password)) {
-            dismiss()
+            onBackPressed()
             savePwdInRamOrNot(password)
             confirmLogic.invoke(password)
         } else {
@@ -79,36 +83,9 @@ class FragmentDialogInputPwd() : DialogFragment() {
         }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-
-        if (dialog.window != null) {
-            dialog.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.window.requestFeature(Window.FEATURE_NO_TITLE)
-        }
-
-        return dialog
+    override fun updateUI() {
+        super.updateUI()
+        mToolbar.visibility = View.INVISIBLE
     }
 
-    companion object {
-
-        private fun getFragmentTransaction(activity: FragmentActivity): FragmentTransaction {
-
-            val ft = activity.supportFragmentManager.beginTransaction()
-            val prev = activity.supportFragmentManager.findFragmentByTag("dialog")
-            if (prev != null) {
-                ft.remove(prev)
-            }
-
-            ft.addToBackStack(null)
-            return ft
-        }
-
-        fun showMe(activity: FragmentActivity, confirmLogic: (String) -> Unit) {
-
-            val newFragment = FragmentDialogInputPwd(confirmLogic)
-            newFragment.show(getFragmentTransaction(activity), null)
-        }
-
-    }
 }

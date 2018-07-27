@@ -155,7 +155,7 @@ class HubManager {
                 }
             }
         } catch (e: Exception) {
-            Utils.logW(e.localizedMessage)
+            Utils.logW(e.toString())
         }
     }
 

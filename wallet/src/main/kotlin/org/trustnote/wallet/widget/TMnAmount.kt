@@ -19,7 +19,6 @@ open class TMnAmount @JvmOverloads constructor(
     private val amountView: TextView
     private val decimalView: TextView
     var amount: Long = 0
-    private var showAsSmall = false
     private var txType = TxType.invalid
 
     init {
@@ -29,8 +28,12 @@ open class TMnAmount @JvmOverloads constructor(
         decimalView = view.findViewById(R.id.decimal)
     }
 
+    fun setupMiddelFont() {
+        amountView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_m_i).toFloat())
+        decimalView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_m_d).toFloat())
+    }
+
     fun setupStyle(showAsSmall: Boolean) {
-        this.showAsSmall = showAsSmall
         if (showAsSmall) {
             amountView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_s_i).toFloat())
             decimalView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_s_d).toFloat())

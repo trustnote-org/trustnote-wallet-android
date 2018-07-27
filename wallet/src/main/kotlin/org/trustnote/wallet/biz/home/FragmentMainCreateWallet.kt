@@ -95,10 +95,13 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
             if (editText.text.toString().trim().length > 10) {
                 err.visibility = View.VISIBLE
             } else {
-                FragmentDialogInputPwd.showMe(activity) {
+                val f = FragmentDialogInputPwd()
+                f.confirmLogic = {
                     MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newManualWallet(it, editText.text.toString().trim()) }
                     activity.onBackPressed()
+
                 }
+                addL2Fragment(f)
             }
 
         }

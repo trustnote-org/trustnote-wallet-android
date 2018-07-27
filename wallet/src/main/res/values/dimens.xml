@@ -10,8 +10,8 @@
     <dimen name="page_margin_bottom">64dp</dimen>
     <dimen name="btn_bottom_margin">26dp</dimen>
 
-    <dimen name="logo_width">151dp</dimen>
-    <dimen name="logo_height">144dp</dimen>
+    <dimen name="logo_width">188dp</dimen>
+    <dimen name="logo_height">186dp</dimen>
 
     <dimen name="btn_corner">2dp</dimen>
 
@@ -21,7 +21,7 @@
     <dimen name="icon_width">64dp</dimen>
     <dimen name="icon_height">64dp</dimen>
 
-    <dimen name="btn_gap_24">24dp</dimen>
+    <dimen name="btn_gap_24">22dp</dimen>
     <dimen name="line_gap_16">16dp</dimen>
     <dimen name="line_gap_18">18dp</dimen>
     <dimen name="line_gap_24">24dp</dimen>
@@ -34,6 +34,7 @@
     <dimen name="line_gap_26">26dp</dimen>
     <dimen name="line_gap_12">12dp</dimen>
     <dimen name="line_gap_42">42dp</dimen>
+    <dimen name="line_gap_40">40dp</dimen>
     <dimen name="line_gap_48">48dp</dimen>
     <dimen name="line_gap_10">10dp</dimen>
     <dimen name="line_gap_8">8dp</dimen>
@@ -41,6 +42,7 @@
     <dimen name="line_gap_6">6dp</dimen>
     <dimen name="line_gap_7">7dp</dimen>
     <dimen name="line_gap_70">70dp</dimen>
+    <dimen name="line_gap_64">64dp</dimen>
     <dimen name="line_gap_54">54dp</dimen>
     <dimen name="field_padding">17dp</dimen>
 
@@ -83,6 +85,8 @@
     <dimen name="mn_amount_b_d">32sp</dimen>
     <dimen name="mn_amount_s_i">20sp</dimen>
     <dimen name="mn_amount_s_d">16sp</dimen>
+    <dimen name="mn_amount_m_i">26sp</dimen>
+    <dimen name="mn_amount_m_d">22sp</dimen>
 
     <dimen name="credential_ic_size">46dp</dimen>
 
@@ -113,8 +117,9 @@
     <dimen name="ic_26">26dp</dimen>
     <dimen name="ic_20">20dp</dimen>
     <dimen name="ic_24">24dp</dimen>
+    <dimen name="ic_44">44dp</dimen>
 
-    <dimen name="page_margin">20dp</dimen>
+    <dimen name="page_margin">26dp</dimen>
     <dimen name="page_header_height">54dp</dimen>
 
 

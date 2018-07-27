@@ -24,7 +24,8 @@ class ActivityStarterChooser : ActivityBase() {
             TApp.userAlreadyInputPwd = true
         }
 
-        if (!Utils.isDeveloperFeature() && !TApp.userAlreadyInputPwd
+//        if (!Utils.isDeveloperFeature() && !TApp.userAlreadyInputPwd
+        if (!TApp.userAlreadyInputPwd
             && CreateWalletModel.readPwdHash().isNotEmpty()
             && Prefs.readEnablepwdForStartup()) {
 

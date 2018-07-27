@@ -16,15 +16,14 @@ import org.trustnote.wallet.biz.me.FragmentDialogAskAuthorToSigner
 import org.trustnote.wallet.biz.me.FragmentDialogScanSignResult
 import org.trustnote.wallet.biz.me.FragmentMeAddressesBook
 import org.trustnote.wallet.biz.units.UnitComposer
-import org.trustnote.wallet.util.AndroidUtils
-import org.trustnote.wallet.util.MyThreadManager
-import org.trustnote.wallet.util.TTTUtils
-import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.FragmentDialogInputPwd
 import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.TMnAmount
 import org.trustnote.wallet.widget.DecimalDigitsInputFilter
 import android.text.InputFilter
+import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.init.CreateWalletModel
+import org.trustnote.wallet.util.*
 
 class FragmentWalletTransfer : FragmentWalletBase() {
 
@@ -49,6 +48,8 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         title = findViewById(R.id.transfer_title)
 
         balance = findViewById(R.id.transfer_balance)
+        balance.setupMiddelFont()
+
         receiverText = findViewById(R.id.transfer_receiver_hint)
         selectAddressIcon = findViewById(R.id.transfer_receiver_select)
         receiveErr = findViewById(R.id.transfer_receiver_err)
@@ -123,9 +124,12 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     private fun askUserInputPwdForTransfer(unitComposer: UnitComposer) {
 
-        FragmentDialogInputPwd.showMe(activity, {
+        val inputPwdDialog = FragmentDialogInputPwd()
+        inputPwdDialog.confirmLogic = {
             sendTxOrShowHahsToSign(unitComposer, it)
-        })
+        }
+        addL2Fragment(inputPwdDialog)
+
 
         MyThreadManager.instance.runInBack {
             unitComposer.composeUnits()

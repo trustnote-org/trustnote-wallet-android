@@ -55,7 +55,8 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
             return
         }
 
-        FragmentDialogInputPwd.showMe(activity, {
+        val f = FragmentDialogInputPwd()
+        f.confirmLogic = {
             val f = FragmentDialogMeRemoveWallet {
                 val removeResult = WalletManager.model.removeWallet(credential)
                 if (removeResult) {
@@ -66,7 +67,9 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
             }
 
             AndroidUtils.openDialog(activity, f, false)
-        })
+        }
+        addL2Fragment(f)
+
 
     }
 

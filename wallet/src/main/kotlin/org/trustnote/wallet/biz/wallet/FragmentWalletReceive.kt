@@ -70,7 +70,7 @@ class FragmentWalletReceive : FragmentPageBase() {
 
             AndroidUtils.copyTextToClipboard(addressText.text.toString())
 
-            Utils.toastMsg(TApp.context.getString(R.string.receive_copy_successful))
+            AndroidUtils.showIosToast(TApp.context.getString(R.string.receive_copy_successful))
 
         }
 
@@ -93,7 +93,7 @@ class FragmentWalletReceive : FragmentPageBase() {
             receiveAmount.setMnAmount(mnAmount)
         }
 
-        setupAmount.visibility = View.INVISIBLE
+        //setupAmount.visibility = View.INVISIBLE
 
     }
 

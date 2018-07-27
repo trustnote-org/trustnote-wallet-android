@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/line_gap_22"
+    android:layout_marginTop="@dimen/line_gap_32"
     android:orientation="vertical">
 
     <TextView
@@ -12,9 +12,10 @@
         android:text="@string/wallet_amount_subtitle_manager" />
 
     <org.trustnote.wallet.widget.TMnAmount
+        android:layout_marginTop="-4dp"
         android:id="@+id/wallet_summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/line_gap_8"
+        android:layout_marginBottom="@dimen/line_gap_32"
         android:gravity="top" />
 </LinearLayout>

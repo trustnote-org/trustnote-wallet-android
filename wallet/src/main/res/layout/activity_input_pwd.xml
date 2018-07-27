@@ -9,14 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_white"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/page_margin_26"
-        android:paddingRight="@dimen/page_margin_26">
+        android:orientation="vertical">
 
-        <org.trustnote.wallet.widget.NonSwipeableViewPager
-            android:id="@+id/view_pager"
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_above="@+id/home_line" />
+
 
     </LinearLayout>
 

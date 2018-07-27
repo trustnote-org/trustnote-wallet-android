@@ -1,52 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        style="@style/t_layout"
-        android:paddingLeft="@dimen/padding_main"
-        android:paddingRight="@dimen/padding_main">
+    <RelativeLayout style="@style/t_layout">
 
         <TextView
             android:id="@+id/transfer_title"
             style="@style/t_title"
-            android:layout_marginTop="@dimen/line_gap_32"
+            android:layout_marginTop="@dimen/line_gap_8"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main"
             android:text="@string/ttt_transfer_title" />
 
         <TextView
             android:id="@+id/transfer_balance_title"
             style="@style/t_text_msg"
             android:layout_below="@id/transfer_title"
-            android:layout_marginTop="@dimen/line_gap_16"
+            android:layout_marginTop="@dimen/line_gap_24"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main"
             android:text="@string/transfer_balance_title" />
 
         <org.trustnote.wallet.widget.TMnAmount
             android:id="@+id/transfer_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/transfer_balance_title" />
+            android:layout_below="@id/transfer_balance_title"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main" />
 
-        <include
+        <View
             android:id="@+id/transfer_line_1"
-            layout="@layout/item_line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_dp"
-            android:layout_below="@id/transfer_balance" />
+            android:layout_below="@id/transfer_balance"
+            android:layout_marginTop="@dimen/line_gap_18"
+            android:background="#E9EFF7" />
 
         <RelativeLayout
             android:id="@+id/transfer_receiver_"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/transfer_line_1"
-            android:layout_marginTop="@dimen/line_gap_24">
+            android:layout_marginTop="@dimen/line_gap_24"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main">
 
             <org.trustnote.wallet.widget.ClearableEditText
                 android:id="@+id/transfer_receiver_hint"
                 style="@style/t_pwd"
                 android:layout_width="match_parent"
+
+                android:backgroundTint="@drawable/t_edit_bg_transfer"
                 android:hint="@string/transfer_receiver_hint"
-                android:paddingRight="@dimen/line_gap_28"
                 android:inputType="textMultiLine"
                 android:lines="2"
+                android:paddingRight="@dimen/line_gap_28"
                 android:text="" />
 
             <ImageView
@@ -63,56 +71,72 @@
             android:id="@+id/transfer_receiver_err"
             style="@style/t_err"
             android:layout_below="@id/transfer_receiver_"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main"
             android:text="@string/transfer_receiver_err" />
 
-        <org.trustnote.wallet.widget.ClearableEditText
-            android:id="@+id/transfer_amount"
-            style="@style/t_pwd"
+        <FrameLayout
+            android:id="@+id/transfer_amount_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/transfer_receiver_err"
-            android:hint="@string/transfer_amount_hint"
-            android:textSize="@dimen/text_20"
-            android:inputType="numberDecimal"
-            android:text="" />
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main">
+
+            <org.trustnote.wallet.widget.ClearableEditText
+                android:id="@+id/transfer_amount"
+                style="@style/t_pwd"
+                android:backgroundTint="@drawable/t_edit_bg_transfer"
+                android:hint="@string/transfer_amount_hint"
+                android:inputType="numberDecimal"
+                android:text=""
+                android:textSize="@dimen/text_16" />
+
+        </FrameLayout>
 
         <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/transfer_receiver_err_overflow"
             style="@style/t_err"
             android:layout_alignParentLeft="true"
-            android:layout_below="@id/transfer_amount"
+            android:layout_below="@id/transfer_amount_wrapper"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main"
             android:text="@string/transfer_receiver_err_overflow" />
 
         <TextView
-            android:visibility="invisible"
             android:id="@+id/transfer_transfer_all"
             style="@style/t_text_msg"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/transfer_amount"
+            android:layout_below="@id/transfer_amount_wrapper"
             android:text="@string/transfer_transfer_all"
-            android:textColor="@color/t_blue" />
+            android:textColor="@color/t_blue"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/transfer_confirm"
             style="@style/t_btn_blue"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main"
             android:text="@string/confirm" />
 
         <!--<TextView-->
-            <!--android:id="@+id/transfer_observer_prompt_line1"-->
-            <!--style="@style/t_text_msg"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_above="@id/transfer_observer_prompt_url"-->
-            <!--android:layout_marginTop="@dimen/line_gap_24"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/transfer_observer_prompt_line1" />-->
+        <!--android:id="@+id/transfer_observer_prompt_line1"-->
+        <!--style="@style/t_text_msg"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_above="@id/transfer_observer_prompt_url"-->
+        <!--android:layout_marginTop="@dimen/line_gap_24"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/transfer_observer_prompt_line1" />-->
 
         <!--<TextView-->
-            <!--android:id="@+id/transfer_observer_prompt_url"-->
-            <!--style="@style/t_url"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_marginBottom="@dimen/line_gap_14"-->
-            <!--android:layout_marginTop="@dimen/line_gap_4"-->
-            <!--android:text="@string/transfer_observer_prompt_url" />-->
+        <!--android:id="@+id/transfer_observer_prompt_url"-->
+        <!--style="@style/t_url"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_marginBottom="@dimen/line_gap_14"-->
+        <!--android:layout_marginTop="@dimen/line_gap_4"-->
+        <!--android:text="@string/transfer_observer_prompt_url" />-->
 
     </RelativeLayout>
 

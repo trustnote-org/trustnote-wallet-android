@@ -15,6 +15,7 @@
     <org.trustnote.wallet.widget.ClearableEditText
         android:id="@+id/pwd"
         style="@style/t_pwd"
+        android:layout_marginTop="@dimen/line_gap_32"
         android:layout_below="@id/pwd_warning"
         android:text="" />
 
@@ -24,17 +25,19 @@
         style="@style/t_err" />
 
     <LinearLayout
-        android:layout_marginTop="@dimen/btn_gap_24"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/line_gap_48"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/line_gap_6"
         android:paddingLeft="@dimen/line_gap_4"
         android:paddingRight="@dimen/line_gap_4"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/first_button"
-            android:layout_width="@dimen/btn_width_128"
+            android:layout_width="0dp"
             style="@style/t_btn_white"
+            android:layout_weight="1"
             android:text="@string/cancel" />
 
         <View
@@ -42,7 +45,8 @@
             android:layout_height="1dp" />
 
         <Button
-            android:layout_width="@dimen/btn_width_128"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:id="@+id/second_button"
             style="@style/t_btn_blue"
             android:text="@string/confirm" />

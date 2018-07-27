@@ -54,7 +54,7 @@
 
     <color name="bg_msg_counter">#FF4D46</color>
 
-    <color name="page_bg">#F5D3DFF1</color>
+    <color name="page_bg">#F0D3DFF1</color>
     <color name="page_title_bg">#F6F7F9</color>
 
     <color name="line_in_dialog">#A74D4D4D</color>

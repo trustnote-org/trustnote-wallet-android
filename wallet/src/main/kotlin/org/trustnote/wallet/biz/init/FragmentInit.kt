@@ -24,6 +24,7 @@ import org.trustnote.wallet.util.Utils
 import org.trustnote.wallet.widget.*
 import android.widget.CompoundButton
 import org.trustnote.wallet.biz.FragmentProgressBlocking
+import org.trustnote.wallet.util.MyThreadManager
 
 abstract class FragmentInit : FragmentBase() {
 
@@ -429,16 +430,18 @@ open class CWFragmentRestore : FragmentInit() {
 
     open fun startRestore(isRemove: Boolean, mnemonics: String) {
         if (CreateWalletModel.getPassphraseInRam().isEmpty()) {
-            FragmentDialogInputPwd.showMe(activity) {
-
+            val f = FragmentDialogInputPwd()
+            f.confirmLogic = {
                 Prefs.saveUserInFullRestore(true)
                 CreateWalletModel.savePassphraseInRam(it)
 
                 CreateWalletModel.iamDone(mnemonics, isRemove)
 
                 showWaitingUI()
-            }
 
+            }
+            addL2Fragment(f)
+            
         } else {
 
             CreateWalletModel.iamDone(mnemonics, isRemove)

@@ -3,56 +3,52 @@
 
     <RelativeLayout
         style="@style/t_layout"
-        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/line_gap_70"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="@dimen/logo_width"
-            android:layout_height="@dimen/logo_height"
-            android:layout_above="@id/slogan"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="@dimen/line_gap_16"
-            android:scaleType="fitXY"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/slogan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/ttt_slogan"
-            android:textColor="@color/t_blue"
-            android:textSize="22sp" />
-
         <LinearLayout
+
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingTop="@dimen/line_gap_48"
-            android:layout_below="@id/slogan"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/pwd_exist_prompt"
-                style="@style/t_text_msg_16"
-                android:text="@string/pwd_exist_prompt" />
-
-            <TextView
-                android:id="@+id/pwd_exist_clickcontinue"
-                style="@style/t_text_msg_16"
-                android:layout_marginLeft="@dimen/line_gap_7"
-                android:text="@string/pwd_exist_clickcontinue"
-                android:textColor="@color/t_blue" />
+            android:orientation="vertical">
 
             <ImageView
-                android:layout_marginLeft="@dimen/line_gap_6"
-                android:src="@drawable/arrow_continue"
-                android:layout_width="@dimen/arrow_continue_width"
-                android:layout_height="@dimen/arrow_continue_height" />
+                android:id="@+id/logo"
+                android:layout_width="@dimen/logo_width"
+                android:layout_height="@dimen/logo_height"
+                android:scaleType="fitXY"
+                android:src="@drawable/logo" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="80dp">
+
+                <TextView
+                    android:id="@+id/pwd_exist_prompt"
+                    style="@style/t_text_msg_16"
+                    android:text="@string/pwd_exist_prompt" />
+
+                <TextView
+                    android:id="@+id/pwd_exist_clickcontinue"
+                    style="@style/t_text_msg_16"
+                    android:layout_marginLeft="@dimen/line_gap_7"
+                    android:text="@string/pwd_exist_clickcontinue"
+                    android:textColor="@color/t_blue" />
+
+                <ImageView
+                    android:layout_width="@dimen/arrow_continue_width"
+                    android:layout_height="@dimen/arrow_continue_height"
+                    android:layout_marginLeft="@dimen/line_gap_6"
+                    android:src="@drawable/arrow_continue" />
+            </LinearLayout>
+
         </LinearLayout>
+
 
     </RelativeLayout>
 

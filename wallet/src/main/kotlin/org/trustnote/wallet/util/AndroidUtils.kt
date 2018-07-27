@@ -30,6 +30,7 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
@@ -46,6 +47,7 @@ import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.FragmentDialogBase
 import org.trustnote.wallet.biz.home.FragmentDialogCreateObserverFinish
+import org.trustnote.wallet.extensions.inflateLayout
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.uiframework.FragmentBaseForHomePage
 import org.trustnote.wallet.widget.ClearableEditText
@@ -537,4 +539,16 @@ object AndroidUtils {
         }
     }
 
+    fun showIosToast(message: String) {
+
+        val toastView = TApp.context.inflateLayout(R.layout.l_toast_ios)
+        toastView.findViewById<TextView>(R.id.message).text = message
+        val toast = Toast(TApp.context)
+        toast.view = toastView
+        toast.duration = Toast.LENGTH_SHORT
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show()
+    }
+
 }
+

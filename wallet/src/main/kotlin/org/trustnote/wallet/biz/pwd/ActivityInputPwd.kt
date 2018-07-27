@@ -17,9 +17,6 @@ class ActivityInputPwd : ActivityBase() {
     override fun injectDependencies(graph: TApplicationComponent) {
     }
 
-    private lateinit var mPager: ViewPager
-    private lateinit var mPagerAdapter: PagerAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,36 +26,9 @@ class ActivityInputPwd : ActivityBase() {
 
         setContentView(R.layout.activity_input_pwd)
 
-        setupViewPager()
+        val f = FragmentInputPwd()
+        addFragment(f)
 
-        adjustUIBySetting()
-
-    }
-
-    private fun setupViewPager() {
-        mPager = findViewById(R.id.view_pager)
-        mPagerAdapter = PagerAdapter(supportFragmentManager)
-        mPager.adapter = mPagerAdapter
-    }
-
-    private fun switchToPage(position: Int) {
-
-    }
-
-    fun adjustUIBySetting() {
-        AndroidUtils.hideStatusBar(this, true)
     }
 
 }
-
-class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
-    @Synchronized override fun getItem(position: Int): Fragment {
-        return FragmentInputPwd()
-    }
-
-    override fun getCount(): Int {
-        return 1
-    }
-
-}
-

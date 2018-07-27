@@ -114,10 +114,10 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
         icQuickAction = findViewById(R.id.ic_quick_action)
 
         if (icQuickAction != null) {
-            CopyJavaCode.createPopupListWindow(activity, icQuickAction)
-//            icQuickAction!!.setOnClickListener {
-//                setupQuickActionMenu(icQuickAction!!)
-//            }
+            //            CopyJavaCode.createPopupListWindow(activity, icQuickAction)
+            //            icQuickAction!!.setOnClickListener {
+            //                setupQuickActionMenu(icQuickAction!!)
+            //            }
         }
     }
 

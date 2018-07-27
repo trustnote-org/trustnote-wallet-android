@@ -150,20 +150,7 @@ class SettingItem(
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
 
                     SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
-                            titleResId = R.string.me_wallet_detail_label_cold_code, lambda = {
-
-                        FragmentDialogInputPwd.showMe(activity, {
-
-                            TApp.userAlreadyInputPwd = true
-                            val bundle = Bundle()
-                            bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
-                            val f = FragmentMeWalletColdCode()
-                            f.arguments = bundle
-                            activity.addL2Fragment(f)
-
-                        })
-
-                    })
+                            titleResId = R.string.me_wallet_detail_label_cold_code)
             )
         }
 

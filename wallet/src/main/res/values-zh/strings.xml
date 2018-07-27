@@ -36,10 +36,8 @@
 
     <string name="qrcode_scan">扫描</string>
 
-    <string name="ttt_slogan">信任  ·  通证  ·  万物</string>
-
+    <string name="ttt_slogan">信任\u0020\u0020\u0020·\u0020\u0020\u0020通证\u0020\u0020\u0020·\u0020\u0020\u0020万物</string>
     <string name="pwd_setup_title">设置密码</string>
-
     <string name="PWD_WARNING1">密码用于进入设备和交易授权，强度非常重要</string>
     <string name="PWD_WARNING2">TrustNote不存储密码，也无法帮您找回，请务必牢记</string>
 
@@ -313,6 +311,5 @@
     <string name="scan_flash_on">轻触照亮</string>
 
     <string name="scan_hint">将二维码放入框内，自动扫描</string>
-
 
 </resources>

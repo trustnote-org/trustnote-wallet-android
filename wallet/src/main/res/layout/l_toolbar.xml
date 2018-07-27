@@ -8,6 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@android:color/transparent"
+    android:paddingBottom="@dimen/line_gap_4"
     android:gravity="center_vertical"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
