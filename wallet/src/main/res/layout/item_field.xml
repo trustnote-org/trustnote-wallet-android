@@ -27,8 +27,8 @@
             android:text="@string/place_holder"
             android:gravity="left"
             android:layout_gravity="right"
-            android:textColor="@color/font_gray_amount"
-            android:textSize="@dimen/text_14"
+            android:textColor="@color/title_bar_text"
+            android:textSize="@dimen/text_12"
             android:visibility="gone" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:gravity="right"
             android:textIsSelectable="true"
             android:textColor="@color/t_blue"
-            android:textSize="@dimen/text_14"
+            android:textSize="@dimen/text_12"
             android:visibility="gone" />
 
         <LinearLayout

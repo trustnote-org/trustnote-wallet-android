@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ttt:ttt_icon="@drawable/ic_select_wallet"
+        ttt:ttt_icon="@drawable/ic_select_wallet_padding"
         ttt:ttt_title="@string/select_wallet_title" />
 
     <android.support.v7.widget.RecyclerView

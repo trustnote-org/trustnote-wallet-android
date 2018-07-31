@@ -3,8 +3,8 @@
 
     <RelativeLayout
         style="@style/t_layout"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:paddingTop="@dimen/line_gap_40"
+        android:gravity="center_horizontal|top">
 
         <ImageView
             android:id="@+id/img_address_book_empty"
@@ -16,6 +16,8 @@
         <TextView
             android:id="@+id/contacts_empty_subtitle"
             style="@style/t_sub_title"
+            android:textSize="20sp"
+
             android:layout_marginBottom="@dimen/line_gap_14"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/img_address_book_empty"

@@ -26,7 +26,7 @@ open class FragmentInputPwd : FragmentBase() {
             TApp.userAlreadyInputPwd = true
             (activity as ActivityBase).iamDone()
         }
-        addFragment(f)
+        addFragment(f, isUseAnimation = false)
 
         view.findViewById<View>(R.id.pwd_exist_clickcontinue).setOnClickListener {
             val f = FragmentDialogInputPwd()

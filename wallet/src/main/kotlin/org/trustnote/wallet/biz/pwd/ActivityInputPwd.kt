@@ -27,7 +27,7 @@ class ActivityInputPwd : ActivityBase() {
         setContentView(R.layout.activity_input_pwd)
 
         val f = FragmentInputPwd()
-        addFragment(f)
+        addFragment(f, isUseAnimation = false)
 
     }
 

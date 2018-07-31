@@ -7,7 +7,7 @@
         android:id="@+id/swipe_reveal_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_credential_height"
-        android:layout_marginBottom="@dimen/one_dp"
+        android:layout_marginBottom="2dp"
         app:dragEdge="right"
         app:mode="same_level">
 
@@ -28,8 +28,8 @@
                 card_view:cardCornerRadius="2dp">
 
                 <ImageView
-                    android:layout_width="@dimen/ic_20"
-                    android:layout_height="@dimen/ic_20"
+                    android:layout_width="@dimen/ic_26"
+                    android:layout_height="@dimen/ic_26"
                     android:layout_gravity="center"
 
                     android:src="@drawable/ic_listitem_edit" />
@@ -44,8 +44,8 @@
                 card_view:cardCornerRadius="2dp">
 
                 <ImageView
-                    android:layout_width="@dimen/ic_20"
-                    android:layout_height="@dimen/ic_20"
+                    android:layout_width="@dimen/ic_26"
+                    android:layout_height="@dimen/ic_26"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_listitem_remove" />
             </android.support.v7.widget.CardView>

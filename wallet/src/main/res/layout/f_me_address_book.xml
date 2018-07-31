@@ -21,14 +21,20 @@
             android:layout_marginRight="@dimen/padding_main"
             android:src="@drawable/ic_address_book_add" />
 
-        <android.support.v7.widget.RecyclerView
+        <View
             android:layout_marginTop="@dimen/line_gap_24"
+            android:id="@+id/gap_for_list"
+            android:background="@color/tx_list_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_gap_10"
+            android:layout_below="@id/title" />
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/title"
+            android:layout_below="@id/gap_for_list"
             android:background="@color/tx_list_bg"
-            android:paddingTop="@dimen/line_gap_10"
             android:scrollbars="vertical" />
 
     </RelativeLayout>

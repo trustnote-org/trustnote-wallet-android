@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
+import android.text.Layout
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
 
 import org.trustnote.wallet.R
-
+import android.view.WindowManager
+import org.trustnote.wallet.util.AndroidUtils
 
 class MyDialogFragment() : DialogFragment() {
 
@@ -30,6 +32,11 @@ class MyDialogFragment() : DialogFragment() {
         this.msg = msg
         this.confirmLogic = confirmLogic
         this.cancelLogic = cancelLogic
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dialog.window!!.setLayout(AndroidUtils.getScreenWidth(activity) * 270 / 360, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -110,6 +117,17 @@ class MyDialogFragment() : DialogFragment() {
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic, {})
             newFragment.isTextAlignLeft = isTextAlignLeft
             newFragment.show(getFragmentTransaction(activity), null)
+
+            //            val adb = AlertDialog.Builder(this)
+            //            val d = adb.setView(View(this)).create()
+            //            // (That new View is just there to have something inside the dialog that can grow big enough to cover the whole screen.)
+            //
+            //            val lp = WindowManager.LayoutParams()
+            //            lp.copyFrom(d.getWindow()!!.getAttributes())
+            //            lp.width = WindowManager.LayoutParams.MATCH_PARENT
+            //            lp.height = WindowManager.LayoutParams.MATCH_PARENT
+            //            d.show()
+            //            d.getWindow()!!.setAttributes(lp)
         }
 
     }

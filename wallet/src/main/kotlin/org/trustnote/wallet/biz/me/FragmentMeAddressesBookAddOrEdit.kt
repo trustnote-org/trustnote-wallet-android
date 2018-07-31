@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.me
 
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -10,6 +11,7 @@ import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.ClearableEditText
 import org.trustnote.wallet.widget.ErrTextView
+import org.trustnote.wallet.widget.MyTextWatcher
 
 class FragmentMeAddressesBookAddOrEdit : FragmentBase() {
     override fun getLayoutId(): Int {
@@ -42,6 +44,9 @@ class FragmentMeAddressesBookAddOrEdit : FragmentBase() {
 
         address.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) addressErr.visibility = View.INVISIBLE }
         memo.setOnFocusChangeListener { _, hasFocus -> if (hasFocus) memoErr.visibility = View.INVISIBLE }
+
+        address.addTextChangedListener(MyTextWatcher(this))
+        memo.addTextChangedListener(MyTextWatcher(this))
 
         setupScan(scan, { handleScanRes(it) })
 
@@ -88,6 +93,12 @@ class FragmentMeAddressesBookAddOrEdit : FragmentBase() {
     private fun handleScanRes(scanRes: String) {
         val paymentInfo = TTTUtils.parsePaymentFromQRCode(scanRes)
         address.setText(paymentInfo.receiverAddress)
+    }
+
+    override fun updateUI() {
+        super.updateUI()
+        val isEnable = address.text.isNotEmpty() && memo.text.isNotEmpty()
+        AndroidUtils.enableBtn(save, isEnable)
     }
 
 }

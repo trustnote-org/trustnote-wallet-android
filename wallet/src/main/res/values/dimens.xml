@@ -10,7 +10,7 @@
     <dimen name="page_margin_bottom">64dp</dimen>
     <dimen name="btn_bottom_margin">26dp</dimen>
 
-    <dimen name="logo_width">188dp</dimen>
+    <dimen name="logo_width">220dp</dimen>
     <dimen name="logo_height">186dp</dimen>
 
     <dimen name="btn_corner">2dp</dimen>

@@ -28,16 +28,14 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/bg_white"
             app:cardCornerRadius="4dp"
-            app:cardElevation="1dp"
+            app:cardElevation="3dp"
             app:cardUseCompatPadding="true">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/line_gap_16"
                 android:paddingLeft="@dimen/line_gap_14"
-                android:paddingRight="@dimen/line_gap_14"
-                android:paddingTop="@dimen/line_gap_4">
+                android:paddingRight="@dimen/line_gap_14">
 
                 <include layout="@layout/l_amount_summary" />
 

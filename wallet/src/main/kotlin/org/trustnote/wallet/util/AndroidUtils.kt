@@ -29,6 +29,7 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -548,6 +549,12 @@ object AndroidUtils {
         toast.duration = Toast.LENGTH_SHORT
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show()
+    }
+
+    fun getScreenWidth(activity: FragmentActivity): Int {
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.widthPixels
     }
 
 }

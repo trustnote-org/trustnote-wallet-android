@@ -1,0 +1,6 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <dimen name="logo_width">188dp</dimen>
+
+</resources>

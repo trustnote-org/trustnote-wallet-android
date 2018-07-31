@@ -75,9 +75,9 @@ abstract class ActivityBase : AppCompatActivity() {
 
     }
 
-    open fun addFragment(f: FragmentBase) {
+    open fun addFragment(f: FragmentBase, isUseAnimation: Boolean = true) {
 
-        addFragment(f, R.id.fragment_container)
+        addFragment(f, R.id.fragment_container, isUseAnimation = isUseAnimation)
 
     }
 
@@ -87,11 +87,12 @@ abstract class ActivityBase : AppCompatActivity() {
 
     }
 
-    open fun addFragment(f: Fragment, fragmentContainerId: Int, isAddToBackStack: Boolean = true) {
-
+    open fun addFragment(f: Fragment, fragmentContainerId: Int, isAddToBackStack: Boolean = true, isUseAnimation: Boolean = true) {
         val transaction = supportFragmentManager.beginTransaction()
 
-        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+        if (isUseAnimation) {
+            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
+        }
 
         if (isAddToBackStack) {
 

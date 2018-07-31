@@ -37,7 +37,9 @@ class FragmentMeAddressesBook : FragmentBase() {
 
     override fun updateUI() {
         super.updateUI()
-        val adapter = AddressBookAdapter(getAddressBook(credential))
+
+        val dataList = getAddressBook(credential)
+        val adapter = AddressBookAdapter(dataList)
 
         adapter.removeLambda = {
             AddressesBookManager.removeAddress(it)
@@ -58,6 +60,12 @@ class FragmentMeAddressesBook : FragmentBase() {
         }
 
         listView.adapter = adapter
+
+        if (dataList.isNotEmpty()) {
+            findViewById<View>(R.id.gap_for_list).visibility = View.VISIBLE
+        } else {
+            findViewById<View>(R.id.gap_for_list).visibility = View.INVISIBLE
+        }
 
     }
 }

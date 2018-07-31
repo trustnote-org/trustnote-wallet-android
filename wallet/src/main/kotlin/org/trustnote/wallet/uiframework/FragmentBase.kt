@@ -185,9 +185,9 @@ abstract class FragmentBase : SwipeBackFragment() {
 
     }
 
-    fun addFragment(f: FragmentBase) {
+    fun addFragment(f: FragmentBase, isUseAnimation: Boolean = true) {
 
-        (activity as ActivityBase).addFragment(f)
+        (activity as ActivityBase).addFragment(f, isUseAnimation = isUseAnimation)
 
     }
 
