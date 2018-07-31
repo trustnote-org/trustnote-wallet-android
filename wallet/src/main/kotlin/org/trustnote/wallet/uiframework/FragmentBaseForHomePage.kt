@@ -154,7 +154,6 @@ abstract class FragmentBaseForHomePage : Fragment() {
         this.scanResHandler = scanResHandler
 
         AndroidUtils.initiateScan(this)
-
     }
 
     fun setupScan(scanIcon: View, scanResHandler: (String) -> Unit = {}) {

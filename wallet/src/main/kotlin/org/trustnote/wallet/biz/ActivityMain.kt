@@ -56,6 +56,11 @@ class ActivityMain : ActivityBase() {
         super.onBackPressed()
     }
 
+    fun showPopupmenu(scanLogic: () -> Unit) {
+        val f = FragmentPopupmenu()
+        f.scanLogic = scanLogic
+        addFragment(f, R.id.fragment_popmenu, isUseAnimation = false)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

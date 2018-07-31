@@ -278,8 +278,8 @@ abstract class FragmentBase : SwipeBackFragment() {
     }
 
 
-    private val REQ_CODE_ZXING_CAMERA_PERMISSION = 1900
-    private val REQ_CODE_ZXING_SCAN_RESULT = 1901
+    val REQ_CODE_ZXING_CAMERA_PERMISSION = 1900
+    val REQ_CODE_ZXING_SCAN_RESULT = 1901
 
     fun launchScanActivity() {
 

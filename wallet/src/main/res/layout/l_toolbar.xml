@@ -17,8 +17,9 @@
     <RelativeLayout
         android:layout_marginLeft="@dimen/padding_main"
         android:layout_marginRight="@dimen/padding_main"
+        android:gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/toolbar_wallet_summary_layout"
@@ -49,13 +50,21 @@
             android:text="@string/wallet_toolbar_title"
             android:textColor="@color/title_bar_text"
             android:textSize="@dimen/text_20" />
-        <ImageView
-            android:visibility="gone"
-            android:id="@+id/ic_quick_action"
+        <FrameLayout
+            android:id="@+id/ic_quick_action_container"
+            android:paddingLeft="@dimen/line_gap_24"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_quick_action"
+            android:paddingBottom="4dp"
             android:layout_alignParentRight="true"
-            android:layout_width="18dp"
-            android:layout_height="18dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_gravity="center"
+                android:id="@+id/ic_quick_action"
+                android:src="@drawable/ic_quick_action"
+                android:layout_width="18dp"
+                android:layout_height="18dp" />
+
+        </FrameLayout>
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

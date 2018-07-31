@@ -143,7 +143,7 @@ object AndroidUtils {
     }
 
     fun disableBtn(btn: Button) {
-        btn.alpha = 0.5f
+        btn.alpha = 0.20f
         btn.isEnabled = false
     }
 

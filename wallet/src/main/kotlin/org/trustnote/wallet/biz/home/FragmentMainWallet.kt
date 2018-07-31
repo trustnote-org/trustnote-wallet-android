@@ -26,8 +26,7 @@ import android.view.LayoutInflater
 import android.R.id.closeButton
 import org.trustnote.wallet.util.CopyJavaCode
 import android.view.Gravity
-
-
+import org.trustnote.wallet.biz.ActivityMain
 
 class FragmentMainWallet : FragmentWalletBaseForHomePage() {
 
@@ -111,19 +110,22 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
         mAmountTitle.setText(R.string.wallet_amount_subtitle)
 
 
-        icQuickAction = findViewById(R.id.ic_quick_action)
+        icQuickAction = findViewById(R.id.ic_quick_action_container)
 
         if (icQuickAction != null) {
-            //            CopyJavaCode.createPopupListWindow(activity, icQuickAction)
-            //            icQuickAction!!.setOnClickListener {
-            //                setupQuickActionMenu(icQuickAction!!)
-            //            }
+            icQuickAction!!.visibility = View.VISIBLE
+            icQuickAction!!.setOnClickListener {
+                (activity as ActivityMain).showPopupmenu{
+                    startScan {
+                        handleUnknownScanRes(it)
+                    }
+                }
+            }
         }
+
     }
 
     fun setupQuickActionMenu(icQuickAction: View) {
-
-
 
         val inflater = activity.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -152,9 +154,8 @@ class FragmentMainWallet : FragmentWalletBaseForHomePage() {
 
     }
 
-
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_action, menu)
+        //inflater.inflate(R.menu.main_action, menu)
     }
 
     private fun doAnimation(offset: Float) {
