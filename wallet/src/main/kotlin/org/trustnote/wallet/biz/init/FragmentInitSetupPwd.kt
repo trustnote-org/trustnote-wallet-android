@@ -151,7 +151,7 @@ open class FragmentInitSetupPwd : FragmentInit() {
         return true
     }
 
-    private fun isPwdLengthOk(pwd: String): Boolean {
+    fun isPwdLengthOk(pwd: String): Boolean {
         return pwd.isNotEmpty() && pwd.length >= 8
     }
 

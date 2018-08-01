@@ -2,6 +2,7 @@ package org.trustnote.wallet.biz.me
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.FragmentProgressBlocking
 import org.trustnote.wallet.biz.init.CWFragmentRestore
@@ -19,6 +20,9 @@ class FragmentMeWalletRestore : CWFragmentRestore() {
         super.initFragment(view)
 
         MyDialogFragment.showMsg(activity, R.string.me_restore_warning)
+
+        val title = findViewById<TextView>(R.id.mnemonic_restore_title)
+        title.text = activity.getString(R.string.mnemonic_restore_me_title)
 
     }
 

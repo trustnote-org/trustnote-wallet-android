@@ -93,25 +93,37 @@
             </LinearLayout>
         </FrameLayout>
 
-        <include
-            android:id="@+id/mnemonic_backup_layout"
-            layout="@layout/l_backup_mnemonic"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/show_or_hide" />
+            android:layout_below="@id/show_or_hide">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/t_gradient_shadow" />
 
-        <WebView
-            android:id="@+id/backup_warning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/mnemonic_remove_btn" />
+            <include
+                android:layout_marginTop="@dimen/line_gap_20"
+                android:id="@+id/mnemonic_backup_layout"
+                layout="@layout/l_backup_mnemonic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/mnemonic_remove_btn"
-            style="@style/t_btn_white"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/btn_bottom_margin"
-            android:text="@string/mnemonic_remove_btn" />
+            <WebView
+                android:id="@+id/backup_warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/mnemonic_remove_btn" />
+
+            <Button
+                android:id="@+id/mnemonic_remove_btn"
+                style="@style/t_btn_white"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/btn_bottom_margin"
+                android:text="@string/mnemonic_remove_btn" />
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

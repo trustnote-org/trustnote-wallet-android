@@ -3,9 +3,9 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
     style="@style/ToolBarStyle"
-    android:paddingBottom="@dimen/line_gap_4"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
+    android:paddingBottom="@dimen/line_gap_4"
     android:paddingLeft="@dimen/page_margin_26">
 
     <RelativeLayout
@@ -13,11 +13,11 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_centerVertical="true"
             android:id="@+id/toolbar_left_arrow"
             android:layout_width="@dimen/ic_44"
             android:layout_height="@dimen/ic_44"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/arrow_left" />
 
         <TextView
@@ -35,13 +35,35 @@
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingBottom="6dp"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
             android:text="@string/wallet_toolbar_title"
             android:textColor="@color/title_bar_text"
             android:textSize="@dimen/text_20"
             android:textStyle="bold" />
+
+        <FrameLayout
+            android:paddingRight="6dp"
+            android:id="@+id/ic_quick_action_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dp"
+            android:paddingLeft="@dimen/line_gap_24"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ic_quick_action"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_quick_action" />
+
+        </FrameLayout>
+
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

@@ -6,6 +6,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_dp"
+            android:layout_marginLeft="-100dp"
+            android:layout_marginRight="-100dp"
             android:background="#F2F2F2" />
 
         <ScrollView
@@ -13,6 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/checkbox"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main"
             android:paddingTop="@dimen/line_gap_16">
 
             <WebView
@@ -27,6 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/agree"
             android:layout_marginBottom="@dimen/line_gap_18"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main"
             android:layout_marginTop="@dimen/line_gap_18"
             android:button="@drawable/ic_checkbox"
             android:checked="false"
@@ -40,6 +46,8 @@
             style="@style/t_btn_blue"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main"
             android:text="@string/confirm" />
 
     </RelativeLayout>

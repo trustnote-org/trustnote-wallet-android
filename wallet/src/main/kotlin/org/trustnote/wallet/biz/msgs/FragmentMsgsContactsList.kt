@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBaseForHomePage
 
@@ -42,6 +43,19 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
 
         model.refreshHomeList()
 
+        icQuickAction = mToolbar.findViewById(R.id.ic_quick_action_container)
+
+        if (icQuickAction != null) {
+            icQuickAction!!.visibility = View.VISIBLE
+            icQuickAction!!.setOnClickListener {
+                (activity as ActivityMain).showPopupmenu{
+                    startScan {
+                        handleUnknownScanRes(it)
+                    }
+                }
+            }
+        }
+
     }
 
     override fun onResume() {
@@ -50,7 +64,7 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
     }
 
     override fun getTitle(): String {
-        return TApp.getString(R.string.messages_contacts_title)
+        return activity.getString(R.string.messages_contacts_title)
     }
 
     override fun updateUI() {
@@ -69,7 +83,7 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
     }
 
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_action, menu)
+        //inflater.inflate(R.menu.main_action, menu)
     }
 
 }

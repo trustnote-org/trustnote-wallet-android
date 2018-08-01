@@ -26,6 +26,7 @@
         android:layout_below="@id/time"
         android:layout_centerHorizontal="true"
         android:layout_marginRight="@dimen/line_gap_48"
+        android:layout_marginTop="@dimen/line_gap_10"
         android:background="@drawable/bg_chat_message_from_system"
         android:gravity="center"
         android:paddingBottom="@dimen/line_gap_4"

@@ -33,13 +33,32 @@ class FragmentMeChangePwd : FragmentInitSetupPwd() {
 
         if (!CreateWalletModel.verifyPwd(oldPwd.text.toString())) {
             MyDialogFragment.showMsg(activity, R.string.me_change_pwd_old_pwd_err)
-        } else {
-            val pwdString = pwd.text.toString()
-            WalletManager.model.updatePassword(oldPwd.text.toString(), pwd.text.toString())
-            CreateWalletModel.savePassphraseInDisk(pwdString)
-            CreateWalletModel.clearPassphraseInRam()
-            onBackPressed()
+            return
         }
+
+        val pwdString = pwd.text.toString()
+
+        val pwdStrength = pwdStrength.computPwdStrength(pwdString)
+
+        val isPwdVerifyOk = (pwd.text.toString() == pwdVerify.text.toString())
+        val isPwdLengthOk = isPwdLengthOk(pwdString)
+        val isPwdStrengOk = (pwdStrength == PwdStrength.NORMAL || pwdStrength == PwdStrength.STRONG)
+
+        if (!isPwdLengthOk) {
+            pwdError.setText(R.string.pwd_length_error)
+            pwdError.visibility = View.VISIBLE
+            return
+        }
+
+        if (!isPwdVerifyOk) {
+            pwdVerifyError.visibility = View.VISIBLE
+            return
+        }
+
+        WalletManager.model.updatePassword(oldPwd.text.toString(), pwd.text.toString())
+        CreateWalletModel.savePassphraseInDisk(pwdString)
+        CreateWalletModel.clearPassphraseInRam()
+        onBackPressed()
     }
 
 }

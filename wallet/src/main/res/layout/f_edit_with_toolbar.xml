@@ -69,14 +69,18 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:background="@color/bg_white">
 
             <org.trustnote.wallet.widget.ClearableEditText
+                android:layout_gravity="center_vertical"
                 android:id="@+id/input_text"
                 style="@style/t_pwd"
+                android:paddingBottom="1dp"
                 android:layout_marginLeft="@dimen/padding_main"
                 android:layout_marginRight="@dimen/padding_main"
+                android:background="@null"
+                android:backgroundTint="@null"
                 android:inputType="text"
                 android:text="" />
 

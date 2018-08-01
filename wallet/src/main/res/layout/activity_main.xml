@@ -39,6 +39,11 @@
         android:id="@+id/fragment_level2"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/fragment_popmenu"
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <include layout="@layout/l_mnemonic_keyboard" />
 

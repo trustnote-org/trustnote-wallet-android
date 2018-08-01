@@ -39,7 +39,7 @@ class FragmentMsgMyPairId : FragmentPageBase() {
 
             AndroidUtils.copyTextToClipboard(pairIdText.text.toString())
 
-            Utils.toastMsg(TApp.context.getString(R.string.receive_copy_successful))
+            AndroidUtils.showIosToast(activity.getString(R.string.receive_copy_successful))
 
         }
 

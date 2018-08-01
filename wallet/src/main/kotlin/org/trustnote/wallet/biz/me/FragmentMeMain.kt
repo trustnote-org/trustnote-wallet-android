@@ -39,7 +39,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
     }
 
     override fun getTitle(): String {
-        return TApp.getString(R.string.menu_me)
+        return activity.getString(R.string.menu_me)
     }
 
     override fun updateUI() {
@@ -86,7 +86,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
     private fun editDevicename() {
         val f = FragmentEditBase()
         f.buildPage(Prefs.readDeviceName(),
-                TApp.getString(R.string.mnemonic_devicename_err),
+                activity.getString(R.string.mnemonic_devicename_err),
                 {
                     it.length <= 20
                 },
@@ -94,7 +94,7 @@ class FragmentMeMain : FragmentWalletBaseForHomePage() {
                 {
                     Prefs.writeDeviceName(it)
                     WalletManager.mWalletEventCenter.onNext(true)
-                }, TApp.getString(R.string.title_edit_devicename), hint = TApp.getString(R.string.mnemonic_devicename_hint))
+                }, activity.getString(R.string.title_edit_devicename), hint = activity.getString(R.string.mnemonic_devicename_hint))
         addL2Fragment(f)
     }
 

@@ -18,7 +18,7 @@ fun setupUISettings() {
         return
     }
 
-    addConfig(R.layout.f_init_disclaimer, CWFragmentDisclaimer::class.java, false, false)
+    addConfig(R.layout.f_init_disclaimer, CWFragmentDisclaimer::class.java, true, false)
 
     addConfig(R.layout.f_init_backup, CWFragmentBackup::class.java)
 

@@ -7,13 +7,12 @@
         android:background="@color/bg_white"
         android:gravity="top"
         android:orientation="vertical"
-        android:paddingTop="@dimen/one_dp"
-        android:padding="@dimen/padding_main">
+        android:paddingLeft="@dimen/padding_main"
+        android:paddingRight="@dimen/padding_main">
 
         <TextView
             android:id="@+id/contacts_add_title"
             style="@style/t_title"
-            android:paddingTop="@dimen/line_gap_8"
             android:layout_marginBottom="@dimen/line_gap_48"
             android:text="@string/contacts_add_title" />
 

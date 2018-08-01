@@ -25,7 +25,12 @@ class FragmentMeWalletFullSync : FragmentWalletBase() {
 
         view.findViewById<View>(R.id.me_clone_sync_btn).setOnClickListener {
 
-            addL2Fragment(FragmentProgressBlocking())
+            val f = FragmentProgressBlocking()
+            f.afterWaitingLogic = {
+                AndroidUtils.showIosToast(activity.getString(R.string.fullsync_finished))
+            }
+            addL2Fragment(f)
+
             WalletManager.model.refreshExistWallet()
 
 //            FragmentDialogInputPwd.showMe(activity, {

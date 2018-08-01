@@ -96,6 +96,8 @@ class CWFragmentDisclaimer : FragmentInit() {
     override fun initFragment(view: View) {
         super.initFragment(view)
 
+        mRootView.setPadding(0, 0, 0, 0)
+
         confirmBtn = view.findViewById<Button>(R.id.agree)
 
         confirmBtn.setOnClickListener {
@@ -139,7 +141,7 @@ class CWFragmentDisclaimer : FragmentInit() {
     }
 
     override fun getTitle(): String {
-        return TApp.getString(R.string.setting_about_tou)
+        return activity.getString(R.string.setting_about_tou)
     }
 
     override fun getLayoutId(): Int {
@@ -259,7 +261,7 @@ class CWFragmentBackup : FragmentInit() {
         var btnBackupConfirm = view.findViewById<Button>(R.id.backup_confirm)
         btnBackupConfirm.setOnClickListener {
 
-            MyDialogFragment.showDialog2Btns(getMyActivity(), TApp.getString(R.string.dialog_backup_mnemonic_ask)) {
+            MyDialogFragment.showDialog2Btns(getMyActivity(), activity.getString(R.string.dialog_backup_mnemonic_ask)) {
                 nextPage(R.layout.f_init_verify)
             }
         }
@@ -351,7 +353,7 @@ class CWFragmentRemove : FragmentInit() {
 
         btnRemove.setOnClickListener {
 
-            MyDialogFragment.showDialog2Btns(activity, TApp.getString(R.string.dialog_remove_mnemonic_ask)) {
+            MyDialogFragment.showDialog2Btns(activity, activity.getString(R.string.dialog_remove_mnemonic_ask)) {
                 WalletManager.model.removeMnemonicFromProfile()
                 getMyActivity().iamDone()
             }

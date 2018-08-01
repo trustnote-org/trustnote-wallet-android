@@ -9,11 +9,12 @@
             android:id="@+id/setting_title"
             style="@style/t_title"
             android:textStyle="bold"
+            android:textSize="24sp"
             android:layout_width="match_parent"
             android:paddingLeft="@dimen/padding_main"
             android:paddingRight="@dimen/padding_main"
-            android:paddingBottom="@dimen/line_gap_36"
-            android:paddingTop="@dimen/line_gap_10"
+            android:paddingBottom="@dimen/line_gap_28"
+            android:paddingTop="@dimen/line_gap_7"
             android:text="@string/setting_system" />
 
         <android.support.v7.widget.RecyclerView
