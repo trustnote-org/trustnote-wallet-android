@@ -26,10 +26,15 @@ class FragmentMainWalletTxDetail : FragmentWalletBase() {
         super.updateUI()
         val txIndex = arguments.getInt(TTT.KEY_TX_INDEX, 0)
 
-        val tx = credential.txDetails[txIndex]
+
+        val listData = credential.txDetails.filter {
+            TxType.moved != it.txType
+        }
+
+        val tx = listData[txIndex]
 
         val amountView = mRootView.findViewById<TMnAmount>(R.id.wallet_summary)
-        amountView.setupStyle(tx.txType)
+        amountView.setupStyle(tx.txType, isFromDetail = true)
         amountView.setMnAmount(tx.amount)
 
         val amountTitle = mRootView.findViewById<TextView>(R.id.wallet_summary_title)

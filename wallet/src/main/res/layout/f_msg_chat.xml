@@ -39,6 +39,8 @@
             android:id="@+id/input"
             android:imeOptions="actionSend"
             android:inputType="text"
+            android:maxLines="18"
+            android:scrollHorizontally="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/line_gap_8"

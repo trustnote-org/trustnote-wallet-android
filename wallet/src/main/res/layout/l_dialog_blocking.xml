@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/customdialog_progressbar"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="33dp"
+                android:layout_marginTop="28dp"
                 android:gravity="center"
                 android:text="@string/sync_waiting_msg" />
         </RelativeLayout>

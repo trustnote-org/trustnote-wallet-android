@@ -35,9 +35,9 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
             updateUI()
         }
 
-        scanLayout.scanTitle.setText(TApp.getString(R.string.contacts_add_pair_code_label))
+        scanLayout.scanTitle.setText(activity.getString(R.string.contacts_add_pair_code_label))
 
-        scanLayout.scanResult.setHint(TApp.getString(R.string.message_contacts_add_hint))
+        scanLayout.scanResult.setHint(activity.getString(R.string.message_contacts_add_hint))
 
         val qrCode = AndroidUtils.getQrcodeFromBundle(arguments)
         scanLayout.scanResult.setText(qrCode)
@@ -98,9 +98,9 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
         val res = scanLayout.scanResult.text.toString()
         val matchRes = TTTUtils.parseQrCodeType(res) == SCAN_RESULT_TYPE.TTT_PAIRID
         return if (matchRes) {
-            TApp.getString(R.string.contacts_add_err_cannot_add_myself)
+            activity.getString(R.string.contacts_add_err_cannot_add_myself)
         } else {
-            TApp.getString(R.string.contacts_add_pairid_format_err)
+            activity.getString(R.string.contacts_add_pairid_format_err)
         }
 
     }

@@ -64,7 +64,7 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
     }
 
     override fun getTitle(): String {
-        return TApp.getString(R.string.messages_contacts_title)
+        return activity.getString(R.string.messages_contacts_title)
     }
 
     override fun updateUI() {

@@ -72,6 +72,7 @@
     <string name="mnemonic_remove_btn">删除助记词</string>
 
     <string name="mnemonic_restore_title">恢复钱包</string>
+    <string name="mnemonic_restore_me_title">助记词恢复钱包</string>
     <string name="mnemonic_restore_msg">钱包助记词</string>
 
     <string name="mnemonic_resotre_btn">使用助记词恢复钱包</string>
@@ -171,7 +172,7 @@
     <string name="setting_wallet_tools_backupmem">备份助记词</string>
     <string name="setting_wallet_tools_restoremem">助记词恢复钱包</string>
     <string name="setting_wallet_tools_fullsync">克隆钱包同步</string>
-
+    <string name="fullsync_finished">同步完成</string>
     <string name="wallet_transfer_btn">转账</string>
     <string name="wallet_receive_btn">收款</string>
 

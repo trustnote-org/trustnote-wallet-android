@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:bottom="@dimen/ic_action_padding"
+        android:drawable="@drawable/ic_clear_chat_history"
+        android:left="@dimen/ic_action_padding"
+        android:right="@dimen/ic_action_padding"
+        android:top="@dimen/ic_action_padding"></item>
+
+</layer-list>

@@ -163,7 +163,7 @@ class FragmentMsgsChat : FragmentMsgsBase() {
     fun editFriendMemoName(activity: ActivityBase) {
         val f = FragmentEditBase()
         f.buildPage(correspondentDevices.name,
-                TApp.getString(R.string.msg_friend_memo),
+                activity.getString(R.string.msg_friend_memo),
                 {
                     it.length <= 10
                 },
@@ -173,7 +173,7 @@ class FragmentMsgsChat : FragmentMsgsBase() {
                     model.updateCorrespondentDeviceName(correspondentDevices)
                     updateUI()
                 },
-                TApp.getString(R.string.title_edit_friend_memo)
+                activity.getString(R.string.title_edit_friend_memo)
         )
 
         activity.addL2Fragment(f)

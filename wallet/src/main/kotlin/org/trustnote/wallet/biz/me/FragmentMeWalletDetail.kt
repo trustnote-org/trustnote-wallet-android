@@ -97,13 +97,13 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
     private fun editWalletname() {
         val f = FragmentEditBase()
         f.buildPage(credential.walletName,
-                TApp.getString(R.string.wallet_name_err),
+                activity.getString(R.string.wallet_name_err),
                 {
                     it.length <= 10
                 },
                 {
                     WalletManager.model.udpateCredentialName(credential, it)
-                }, TApp.getString(R.string.me_wallet_detail_name_title))
+                }, activity.getString(R.string.me_wallet_detail_name_title))
         addL2Fragment(f)
     }
 

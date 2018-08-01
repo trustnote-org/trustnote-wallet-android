@@ -13,8 +13,8 @@
 
     <ImageView
         android:id="@+id/scan_icon"
-        android:layout_width="@dimen/quick_action_size"
-        android:layout_height="@dimen/quick_action_size"
+        android:layout_width="@dimen/ic_26"
+        android:layout_height="@dimen/ic_26"
         android:layout_alignBottom="@id/scan_what_title"
         android:layout_alignParentRight="true"
         android:src="@drawable/action_scan" />

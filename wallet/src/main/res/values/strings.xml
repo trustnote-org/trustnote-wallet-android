@@ -8,6 +8,7 @@
     <string name="next_step">NEXT</string>
     <string name="create_wallet_normal_btn">Create the wallet</string>
     <string name="mnemonic_restore_title">Restore Mnemonic</string>
+    <string name="mnemonic_restore_me_title">Restore Mnemonic</string>
     <string name="me_wallet_detail_name_title">Wallet name</string>
     <string name="pwd_setup_title">Set up a password</string>
     <string name="PWD_WARNING1">Password strength is critical to safeguard your wallet</string>
@@ -216,6 +217,7 @@ correct</string>
     <string name="action_my_pair_id">My Matching Code</string>
     <string name="create_wallet_observer_scancode">Cold wallet authentication code</string>
     <string name="setting_wallet_tools_fullsync">Sync Cloned Wallets</string>
+    <string name="fullsync_finished">Sync finished</string>
     <string name="me_wallet_cold_code_sucessful_btn">Complete</string>
     <string name="wallet_name_err">No more than 10 characters</string>
     <string name="ic_edit_contacts_memo">Set Alias</string>

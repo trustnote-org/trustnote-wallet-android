@@ -272,7 +272,7 @@ abstract class FragmentBase : SwipeBackFragment() {
             }
 
             SCAN_RESULT_TYPE.COLD_WALLET, SCAN_RESULT_TYPE.UNKNOWN -> {
-                openSimpleInfoPage(qrCode, TApp.getString(R.string.scan_result_title))
+                openSimpleInfoPage(qrCode, activity.getString(R.string.scan_result_title))
             }
         }
     }

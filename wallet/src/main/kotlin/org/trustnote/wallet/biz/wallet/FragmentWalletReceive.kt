@@ -70,7 +70,7 @@ class FragmentWalletReceive : FragmentPageBase() {
 
             AndroidUtils.copyTextToClipboard(addressText.text.toString())
 
-            AndroidUtils.showIosToast(TApp.context.getString(R.string.receive_copy_successful))
+            AndroidUtils.showIosToast(activity.getString(R.string.receive_copy_successful))
 
         }
 

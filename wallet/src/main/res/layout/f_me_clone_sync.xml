@@ -11,7 +11,7 @@
         <TextView
             android:id="@+id/mnemonic_restore_title"
             style="@style/t_title"
-            android:layout_marginBottom="@dimen/line_gap_32"
+            android:layout_marginBottom="@dimen/line_gap_14"
             android:text="@string/me_clone_sync_title" />
 
         <TextView
@@ -24,7 +24,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:layout_marginBottom="@dimen/line_gap_10"
             android:layout_above="@id/full_sync_warning"
             android:layout_below="@id/mnemonic_restore_msg"
             android:layout_centerHorizontal="true">
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/me_clone_sync_btn"
-            android:layout_marginBottom="@dimen/line_gap_32" />
+            android:layout_marginBottom="@dimen/line_gap_28" />
 
         <Button
             android:id="@+id/me_clone_sync_btn"

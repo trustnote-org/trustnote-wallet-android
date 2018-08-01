@@ -24,7 +24,7 @@ abstract class FragmentWalletBase : FragmentBase() {
 
     fun scanEveryThing() {
         startScan {
-            openSimpleInfoPage(it, TApp.getString(R.string.scan_result_title))
+            openSimpleInfoPage(it, activity.getString(R.string.scan_result_title))
         }
     }
 
