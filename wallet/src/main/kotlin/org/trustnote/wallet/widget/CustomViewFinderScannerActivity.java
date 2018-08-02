@@ -78,7 +78,8 @@ public class CustomViewFinderScannerActivity extends AppCompatActivity implement
     public void toggleFlash(View v) {
         mFlash = !mFlash;
         mScannerView.setFlash(mFlash);
-        flashSwitcher.setImageResource(mFlash ? R.drawable.ic_scan_flash_off : R.drawable.ic_scan_flash_on);
+
+        flashSwitcher.setImageResource(!mFlash ? R.drawable.ic_scan_flash_off : R.drawable.ic_scan_flash_on);
 
         flashText.setText(mFlash ? R.string.scan_flash_off : R.string.scan_flash_on);
     }

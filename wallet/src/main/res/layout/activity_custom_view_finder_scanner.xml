@@ -24,7 +24,7 @@
             android:id="@+id/flash_switcher"
             android:layout_width="@dimen/ic_26"
             android:layout_height="@dimen/ic_26"
-            android:src="@drawable/ic_scan_flash_on" />
+            android:src="@drawable/ic_scan_flash_off" />
 
         <TextView
             android:id="@+id/flash_txt"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/flash_switcher"
             android:layout_marginTop="@dimen/line_gap_10"
-            android:text="@string/place_holder"
+            android:text="@string/scan_flash_on"
             android:textColor="@color/bg_white"
             android:textSize="@dimen/text_14" />
 

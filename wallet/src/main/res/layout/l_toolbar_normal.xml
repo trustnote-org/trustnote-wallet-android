@@ -14,9 +14,11 @@
 
         <ImageView
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="-8dp"
             android:id="@+id/toolbar_left_arrow"
             android:layout_width="@dimen/ic_44"
             android:layout_height="@dimen/ic_44"
+            android:scaleType="fitXY"
             android:layout_alignParentLeft="true"
             android:src="@drawable/arrow_left" />
 

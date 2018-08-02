@@ -63,7 +63,7 @@
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:drawablePadding">@dimen/t_drawable_padding</item>
-        <item name="android:layout_marginTop">@dimen/line_gap_10</item>
+        <item name="android:layout_marginTop">2dp</item>
         <item name="android:textSize">12sp</item>
         <item name="android:text">@string/place_holder</item>
     </style>
