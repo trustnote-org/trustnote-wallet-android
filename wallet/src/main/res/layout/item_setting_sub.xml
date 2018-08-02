@@ -11,6 +11,7 @@
             android:layout_centerVertical="true"
             android:id="@+id/setting_title"
             style="@style/t_sub_title"
+            android:textSize="@dimen/text_16"
             android:text="@string/place_holder" />
 
         <TextView
@@ -24,7 +25,7 @@
             android:layout_marginLeft="@dimen/line_gap_16"
             android:layout_toLeftOf="@id/icon_setting_arrow"
             android:layout_toRightOf="@id/setting_title"
-            android:layout_marginRight="@dimen/line_gap_8"
+            android:layout_marginRight="@dimen/line_gap_4"
             android:text="@string/place_holder" />
 
         <ImageView
@@ -32,7 +33,7 @@
             android:id="@+id/icon_setting_arrow"
             android:layout_width="@dimen/icon_setting_arrow"
             android:layout_height="@dimen/icon_setting_arrow"
-            android:textSize="@dimen/text_16"
+            android:textSize="@dimen/text_14"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/icon_setting_arrow_margin"
             android:src="@drawable/icon_setting_arrow" />

@@ -28,15 +28,6 @@ class FragmentMeWalletRestore : CWFragmentRestore() {
 
     override fun startRestore(isRemove: Boolean, mnemonics: String) {
 
-        val f = FragmentDialogMeRemoveWallet {
-            val removeResult = WalletManager.model.removeWallet(credential)
-            if (removeResult) {
-                activity.onBackPressed()
-            } else {
-                MyDialogFragment.showMsg(getMyActivity(), R.string.me_wallet_remove_wallet_deny)
-            }
-        }
-
         val inputPwdDialog = FragmentDialogInputPwd()
         inputPwdDialog.confirmLogic = {
 

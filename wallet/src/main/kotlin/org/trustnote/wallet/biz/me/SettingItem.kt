@@ -23,6 +23,8 @@ class SettingItem(
         var value: String = Utils.emptyString,
         var isChecked: Boolean = false,
         var showArrow: Boolean = false,
+        var isUseSmallFontForFieldValue:Boolean = false,
+        var alwaysShowArrow:Boolean = false,
         var lambda: () -> Unit = Utils.emptyLambda) {
 
     companion object {
@@ -75,7 +77,7 @@ class SettingItem(
 
         private fun getSettingAbout(activity: ActivityMain): Array<SettingItem> {
             return arrayOf(
-                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB,
+                    SettingItem(itemType = SettingItemType.ITEM_SETTING_SUB, alwaysShowArrow = true,
                             titleResId = R.string.setting_about_version, value = BuildConfig.VERSION_NAME) {
                         (activity as ActivityBase).checkUpgradeInfoFromPrefs()
                     },
@@ -140,6 +142,7 @@ class SettingItem(
                     SettingItem(itemType = SettingItemType.ITEM_LINE_SUB),
                     SettingItem(itemType = SettingItemType.ITEM_FIELD,
                             titleResId = R.string.me_wallet_detail_id_title,
+                            isUseSmallFontForFieldValue = true,
                             value = credential.walletId)
 
             )
@@ -199,7 +202,7 @@ class SettingItem(
         }
 
         private fun openTou(activity: ActivityMain) {
-            val f = CWFragmentDisclaimer()
+            val f = FragmentMeTou()
             f.fromInitActivity = false
             activity.addL2Fragment(f)
         }

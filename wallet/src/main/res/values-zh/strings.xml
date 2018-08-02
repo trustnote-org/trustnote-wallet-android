@@ -312,5 +312,6 @@
     <string name="scan_flash_on">轻触照亮</string>
 
     <string name="scan_hint">将二维码放入框内，自动扫描</string>
+    <string name="upgrade_title">系统升级</string>
 
 </resources>

@@ -157,7 +157,7 @@ abstract class ActivityBase : AppCompatActivity() {
 
     private fun handleUpgradeEvent(walletNewVersion: WalletNewVersion) {
         if (isNewerVersion(walletNewVersion.version)) {
-            val title = TApp.resources.getString(R.string.upgrade_title)
+            val title = getString(R.string.upgrade_title)
 
             val msgList = mutableListOf<String>()
             msgList.add(title)

@@ -4,15 +4,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_dialog"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/line_gap_32"
-        android:paddingBottom="@dimen/line_gap_42"
+        android:layout_marginTop="29dp"
+        android:paddingBottom="@dimen/line_gap_16"
         android:paddingLeft="@dimen/bg_dialog_padding_left"
         android:paddingRight="@dimen/bg_dialog_padding_left">
 
@@ -34,10 +33,11 @@
             android:id="@+id/msg"
             android:gravity="left"
             style="@style/t_text_dialog_msg"
+            android:textSize="@dimen/text_14"
             android:layout_width="match_parent"
-            android:lineSpacingMultiplier="1.5"
+            android:lineSpacingMultiplier="1.25"
             android:paddingBottom="@dimen/line_gap_24"
-            android:paddingTop="@dimen/line_gap_24"
+            android:paddingTop="@dimen/line_gap_18"
             android:text="@string/me_wallet_remove_wallet_msg" />
 
 

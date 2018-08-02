@@ -79,7 +79,7 @@ abstract class FragmentInit : FragmentBase() {
 
 }
 
-class CWFragmentDisclaimer : FragmentInit() {
+open class CWFragmentDisclaimer : FragmentInit() {
 
     init {
         supportSwipeBack = false

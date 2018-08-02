@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz.me
 
 import android.support.v7.widget.RecyclerView
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,8 +80,19 @@ class SettingItemAdapter(private val myDataset: Array<SettingItem>) :
             if (settingData.value.isEmpty()) {
                 holder.holderView.findViewById<TextView>(R.id.setting_value).visibility = View.INVISIBLE
             } else {
+
                 holder.holderView.findViewById<TextView>(R.id.setting_value).setText(settingData.value)
-                holder.holderView.findViewById<View>(R.id.icon_setting_arrow).visibility = View.INVISIBLE
+
+                if (settingData.alwaysShowArrow) {
+                    holder.holderView.findViewById<View>(R.id.icon_setting_arrow).visibility = View.VISIBLE
+                } else {
+                    holder.holderView.findViewById<View>(R.id.icon_setting_arrow).visibility = View.INVISIBLE
+                }
+
+                if (settingData.isUseSmallFontForFieldValue) {
+                    //Work around for wallet id font size.
+                    holder.holderView.findViewById<TextView>(R.id.setting_value).setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+                }
             }
 
             if (settingData.showArrow) {

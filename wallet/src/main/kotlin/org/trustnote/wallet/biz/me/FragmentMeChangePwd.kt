@@ -19,6 +19,11 @@ class FragmentMeChangePwd : FragmentInitSetupPwd() {
 
 
     lateinit var oldPwd: EditText
+
+    override fun getLayoutId(): Int {
+        return R.layout.f_me_change_pwd
+    }
+
     override fun initFragment(view: View) {
 
         fromInitActivity = false

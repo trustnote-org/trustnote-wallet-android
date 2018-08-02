@@ -31,8 +31,8 @@
         android:layout_below="@id/summary_bar"
         android:background="@color/bg_white"
         android:paddingBottom="@dimen/line_gap_24"
-        android:paddingLeft="@dimen/page_margin_26"
-        android:paddingTop="@dimen/line_gap_8"
+        android:paddingLeft="28dp"
+        android:paddingTop="@dimen/line_gap_4"
         android:text="@string/place_holder"
         android:textIsSelectable="true" />
 

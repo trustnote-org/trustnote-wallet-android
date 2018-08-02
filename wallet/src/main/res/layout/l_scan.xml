@@ -26,8 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/scan_what_title"
         android:focusable="false"
+        android:inputType="textMultiLine"
+        android:lines="2"
         android:hint="@string/create_wallet_observer_scancode_hint"
-        android:inputType="text"
         android:scrollHorizontally="false"
         android:text="" />
 

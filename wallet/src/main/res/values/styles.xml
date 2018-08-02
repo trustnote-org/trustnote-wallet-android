@@ -38,10 +38,9 @@
     <style name="t_title" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_title_black</item>
         <item name="android:gravity">left</item>
-
-        <!--<item name="android:fontFamily">sans-serif-medium</item>-->
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
+        <!--<item name="android:fontFamily">sans-serif-medium</item>-->
     </style>
 
     <style name="t_pwd" parent="@style/t_text_base">

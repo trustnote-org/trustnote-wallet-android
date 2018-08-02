@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout style="@style/t_layout">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginLeft="-100dp"
+            android:layout_marginRight="-100dp"
+            android:background="#F6F7F9" />
+
+        <ScrollView
+            android:id="@+id/ScrollView01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/checkbox"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main"
+            android:paddingTop="@dimen/line_gap_16">
+
+            <WebView
+                android:id="@+id/disclaim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+        <CheckBox
+            android:visibility="gone"
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/agree"
+            android:layout_marginBottom="@dimen/line_gap_18"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main"
+            android:layout_marginTop="@dimen/line_gap_18"
+            android:button="@drawable/ic_checkbox"
+            android:checked="false"
+            android:paddingLeft="@dimen/line_gap_6"
+            android:text="@string/tou_checkbox"
+            android:textColor="@color/t_text"
+            android:textSize="13sp" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/agree"
+            style="@style/t_btn_blue"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:layout_marginLeft="@dimen/padding_main"
+            android:layout_marginRight="@dimen/padding_main"
+            android:text="@string/confirm" />
+
+    </RelativeLayout>
+
+</layout>

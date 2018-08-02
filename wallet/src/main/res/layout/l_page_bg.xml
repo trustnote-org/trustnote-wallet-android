@@ -8,15 +8,14 @@
     <include
         layout="@layout/l_toolbar_normal"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/line_gap_36"
         android:paddingLeft="@dimen/page_margin" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_marginTop="@dimen/line_gap_8"
-        android:layout_marginBottom="@dimen/line_gap_54"
+        android:layout_marginBottom="@dimen/line_gap_8"
         android:gravity="center"
         android:paddingLeft="@dimen/page_margin"
         android:paddingRight="@dimen/page_margin">

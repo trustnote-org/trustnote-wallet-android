@@ -4,13 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
-        android:overScrollMode="never"
-        android:background="@color/tx_list_bg"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:overScrollMode="never"
+            android:background="@color/tx_list_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
+
+        <View
+            android:id="@+id/top_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/t_gradient_shadow" />
+
+    </FrameLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>
 

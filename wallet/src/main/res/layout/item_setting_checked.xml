@@ -3,7 +3,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_setting_height"
+        android:layout_height="50dp"
         android:paddingLeft="@dimen/padding_main"
         android:background="@color/bg_white">
 
@@ -11,6 +11,7 @@
             android:layout_centerVertical="true"
             android:id="@+id/setting_title"
             style="@style/t_sub_title"
+            android:textSize="@dimen/text_16"
             android:text="@string/place_holder" />
 
         <ImageView

@@ -13,11 +13,11 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:layout_marginTop="8dp"
             android:id="@+id/toolbar_left_arrow"
             android:layout_width="@dimen/ic_44"
             android:layout_height="@dimen/ic_44"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
             android:src="@drawable/arrow_left" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="bottom"
-            android:paddingBottom="6dp"
+            android:paddingBottom="8dp"
             android:layout_centerHorizontal="true"
             android:text="@string/wallet_toolbar_title"
             android:textColor="@color/title_bar_text"

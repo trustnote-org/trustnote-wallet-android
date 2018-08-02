@@ -72,6 +72,13 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
 
         val a = ContactsAdapter(model.latestHomeList)
 
+        val shadow = findViewById<View>(R.id.top_shadow)
+        if (model.latestHomeList.isEmpty()) {
+            shadow.visibility = View.INVISIBLE
+        } else {
+            shadow.visibility = View.VISIBLE
+        }
+
         a.itemClickListener = { _, item ->
             chatWithFriend(item.deviceAddress, activity as ActivityBase)
         }

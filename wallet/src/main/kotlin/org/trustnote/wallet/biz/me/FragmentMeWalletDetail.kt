@@ -66,10 +66,10 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
                 }
             }
 
-            AndroidUtils.openDialog(activity, f, false)
+            addL2Fragment(f)
+
         }
         addL2Fragment(f)
-
 
     }
 
@@ -77,6 +77,7 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
         super.updateUI()
         walletId.text = TTTUtils.formatWalletId(credential.walletId)
         totalBalanceView.setMnAmount(credential.balance)
+        totalBalanceView.removeMarginBottom()
         credentialName.text = credential.walletName
 
         val a = SettingItem.getSettingForWalletDetail(credential, activity as ActivityMain)
@@ -93,6 +94,7 @@ class FragmentMeWalletDetail : FragmentWalletBase() {
         recyclerView.adapter = SettingItemAdapter(c.toTypedArray())
 
     }
+
 
     private fun editWalletname() {
         val f = FragmentEditBase()

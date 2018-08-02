@@ -9,6 +9,9 @@ import android.widget.TextView
 import org.trustnote.db.TxType
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.TTT
+import android.widget.LinearLayout
+
+
 
 open class TMnAmount @JvmOverloads constructor(
         context: Context,
@@ -63,6 +66,16 @@ open class TMnAmount @JvmOverloads constructor(
                 decimalView.setTextColor(resources.getColor(R.color.t_f_gray))
             }
         }
+    }
+
+
+    fun removeMarginBottom() {
+        val lp = this.layoutParams
+
+        if (lp is LinearLayout.LayoutParams) {
+            lp.bottomMargin = 0
+        }
+        this.layoutParams = lp
     }
 
     fun setMnAmount(i: Long) {
