@@ -16,6 +16,7 @@
     <!-- Move to file colors.xml later-->
 
     <style name="t_text_base" parent="TextAppearance.AppCompat">
+        <item name="android:includeFontPadding">false</item>
         <item name="android:textColor">@color/t_title_black</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -38,6 +39,7 @@
     <style name="t_title" parent="@style/t_text_base">
         <item name="android:textColor">@color/t_title_black</item>
         <item name="android:gravity">left</item>
+        <item name="android:layout_marginTop">6dp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">24sp</item>
         <!--<item name="android:fontFamily">sans-serif-medium</item>-->
@@ -48,7 +50,7 @@
         <item name="android:gravity">left|center_vertical</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginLeft">-4dp</item>
-        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:layout_marginRight">-4dp</item>
         <item name="android:textSize">16sp</item>
         <item name="android:inputType">textPassword</item>

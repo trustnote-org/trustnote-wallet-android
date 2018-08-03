@@ -7,7 +7,7 @@
     <include
         layout="@layout/l_toolbar_normal"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/myaction_bar_height"
         android:paddingLeft="@dimen/page_margin_26" />
 
 

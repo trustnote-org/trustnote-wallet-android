@@ -231,6 +231,7 @@ correct</string>
 
     <string name="scan_hint">Align QR Code within frame to scan</string>
 
+    <string name="mn_address_remove_msg">Do you want to delete the "%1$s" address?</string>
 
     <string name="menu_debug">诊断调试</string>
 

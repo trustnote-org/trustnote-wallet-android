@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@drawable/bg_dialog_input_pwd"
     android:orientation="vertical"
-    android:padding="@dimen/bg_dialog_padding_30">
+    android:paddingLeft="@dimen/bg_dialog_padding_30"
+    android:paddingRight="@dimen/bg_dialog_padding_30"
+    android:paddingTop="@dimen/bg_dialog_padding_30">
 
     <TextView
         android:id="@+id/msg"
@@ -15,6 +17,7 @@
     <org.trustnote.wallet.widget.ClearableEditText
         android:id="@+id/pwd"
         style="@style/t_pwd"
+        android:hint="@string/pwd_input_hint"
         android:layout_marginTop="@dimen/line_gap_32"
         android:layout_below="@id/pwd_warning"
         android:text="" />
@@ -28,7 +31,7 @@
         android:layout_marginTop="@dimen/line_gap_48"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/line_gap_6"
+        android:layout_marginBottom="@dimen/line_gap_16"
         android:paddingLeft="@dimen/line_gap_4"
         android:paddingRight="@dimen/line_gap_4"
         android:orientation="horizontal">

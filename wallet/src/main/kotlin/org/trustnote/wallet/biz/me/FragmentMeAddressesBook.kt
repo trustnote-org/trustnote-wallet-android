@@ -7,6 +7,7 @@ import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.me.AddressesBookManager.Companion.getAddressBook
 import org.trustnote.wallet.uiframework.FragmentBase
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.widget.MyDialogFragment
 
 class FragmentMeAddressesBook : FragmentBase() {
 
@@ -42,8 +43,12 @@ class FragmentMeAddressesBook : FragmentBase() {
         val adapter = AddressBookAdapter(dataList)
 
         adapter.removeLambda = {
-            AddressesBookManager.removeAddress(it)
-            updateUI()
+
+            MyDialogFragment.showDialog2Btns(activity, activity.getString(R.string.mn_address_remove_msg, it.name)) {
+                AddressesBookManager.removeAddress(it)
+                updateUI()
+            }
+
         }
 
         adapter.editLambda = {

@@ -28,7 +28,7 @@ class ActivityInit : ActivityBase() {
 
         setupUISettings()
 
-        if (BuildConfig.DEBUG || !Utils.isDeveloperFeature()) {
+        if (!BuildConfig.DEBUG) {
             window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         }
 

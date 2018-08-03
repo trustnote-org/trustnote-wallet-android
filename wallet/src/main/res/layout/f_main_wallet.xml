@@ -41,7 +41,7 @@
                         layout="@layout/l_toolbar"
                         app:layout_collapseMode="pin"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="@dimen/myaction_bar_height" />
 
                 </android.support.design.widget.CollapsingToolbarLayout>
             </android.support.design.widget.AppBarLayout>

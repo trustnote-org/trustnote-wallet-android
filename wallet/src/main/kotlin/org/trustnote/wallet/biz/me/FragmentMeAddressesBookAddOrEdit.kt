@@ -1,9 +1,7 @@
 package org.trustnote.wallet.biz.me
 
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import org.trustnote.db.entity.TransferAddresses
 import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.FragmentBase

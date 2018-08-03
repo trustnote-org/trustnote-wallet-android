@@ -36,7 +36,7 @@ class MyDialogFragment() : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        dialog.window!!.setLayout(AndroidUtils.getScreenWidth(activity) * 270 / 360, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window!!.setLayout(AndroidUtils.getScreenWidth(activity) * 270 / 380, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,

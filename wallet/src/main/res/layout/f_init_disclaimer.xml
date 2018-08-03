@@ -6,8 +6,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/one_dp"
-            android:layout_marginLeft="-100dp"
-            android:layout_marginRight="-100dp"
             android:background="#F2F2F2" />
 
         <ScrollView

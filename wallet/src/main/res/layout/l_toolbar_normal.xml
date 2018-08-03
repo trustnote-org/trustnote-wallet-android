@@ -4,8 +4,7 @@
     android:id="@+id/toolbar"
     style="@style/ToolBarStyle"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:paddingBottom="@dimen/line_gap_4"
+    android:layout_height="@dimen/myaction_bar_height"
     android:paddingLeft="@dimen/page_margin_26">
 
     <RelativeLayout
@@ -13,8 +12,6 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="-8dp"
             android:id="@+id/toolbar_left_arrow"
             android:layout_width="@dimen/ic_44"
             android:layout_height="@dimen/ic_44"
@@ -25,9 +22,10 @@
         <TextView
             android:id="@+id/toolbar_title_left"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:gravity="center_vertical"
             android:text="@string/wallet_toolbar_title"
             android:textColor="@color/title_bar_text"
             android:textSize="@dimen/text_20"
@@ -38,8 +36,7 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:paddingBottom="8dp"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
             android:text="@string/wallet_toolbar_title"
             android:textColor="@color/title_bar_text"
