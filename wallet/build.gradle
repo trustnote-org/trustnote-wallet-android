@@ -195,11 +195,8 @@ dependencies {
         exclude group: 'com.android.support'
     }
     kapt "android.arch.persistence.room:compiler:1.0.0"
-
-
     //
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
-
     annotationProcessor "android.arch.persistence.room:rxjava2:1.0.0"
     // Unit Testing
     testImplementation 'junit:junit:4.12'
@@ -208,6 +205,7 @@ dependencies {
     androidTestImplementation 'com.android.support:support-annotations:26.0.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    implementation project(':shadow')
 }
 
 repositories {

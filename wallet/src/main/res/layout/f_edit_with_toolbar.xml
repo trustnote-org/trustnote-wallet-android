@@ -11,26 +11,35 @@
         style="@style/ToolBarStyle"
 
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="@dimen/myaction_bar_height"
 
         android:contentInsetEnd="0dp"
         android:contentInsetRight="0dp"
-        android:paddingLeft="@dimen/padding_main"
         android:paddingRight="@dimen/padding_main_20"
-        app:contentInsetEnd="0dp"
-        app:contentInsetRight="0dp">
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:id="@+id/toolbar_left_arrow"
-                android:layout_width="?attr/actionBarSize"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/arrow_left" />
+            <FrameLayout
+                android:id="@+id/toolbar_left_arrow_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/page_margin_26"
+                android:paddingRight="@dimen/page_margin_26">
+
+                <ImageView
+                    android:id="@+id/toolbar_left_arrow"
+                    android:layout_width="@dimen/ic_44"
+                    android:layout_height="@dimen/ic_44"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/arrow_left" />
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/toolbar_title_center"
@@ -38,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/page_margin_26"
                 android:text="@string/wallet_toolbar_title"
                 android:textColor="@color/title_bar_text"
                 android:textSize="@dimen/text_20"
@@ -73,15 +83,15 @@
             android:background="@color/bg_white">
 
             <org.trustnote.wallet.widget.ClearableEditText
-                android:layout_gravity="center_vertical"
                 android:id="@+id/input_text"
                 style="@style/t_pwd"
-                android:paddingBottom="1dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/padding_main"
                 android:layout_marginRight="@dimen/padding_main"
                 android:background="@null"
                 android:backgroundTint="@null"
                 android:inputType="text"
+                android:paddingBottom="1dp"
                 android:text="" />
 
         </FrameLayout>

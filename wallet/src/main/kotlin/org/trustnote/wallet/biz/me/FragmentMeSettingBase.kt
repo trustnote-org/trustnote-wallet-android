@@ -20,7 +20,7 @@ class FragmentMeSettingBase : FragmentBase() {
         val pageTypeIndex = arguments.getInt(AndroidUtils.KEY_SETTING_PAGE_TYPE)
         val pageTitleResId = arguments.getInt(AndroidUtils.KEY_SETTING_PAGE_TITLE)
 
-        val title = mRootView.findViewById<TextView>(R.id.setting_title)
+        val title = mRootView.findViewById<TextView>(R.id.setting_title_top_outer)
         title.setText(pageTitleResId)
 
         val recyclerView = mRootView.findViewById<RecyclerView>(R.id.setting_item_list)
