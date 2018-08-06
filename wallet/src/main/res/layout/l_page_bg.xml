@@ -13,8 +13,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/line_gap_8"
-        android:layout_below="@id/toolbar"
         android:gravity="center"
         android:paddingLeft="@dimen/page_margin"
         android:paddingRight="@dimen/page_margin">

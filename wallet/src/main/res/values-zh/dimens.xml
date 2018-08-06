@@ -5,10 +5,10 @@
     <dimen name="popupmenu_margin_top">28dp</dimen>
     <dimen name="popupmenu_padding_left">40dp</dimen>
     <dimen name="popupmenu_padding_right">38dp</dimen>
-    <dimen name="popupmenu_padding_top">28dp</dimen>
-    <dimen name="popupmenu_padding_bottom">8dp</dimen>
+    <dimen name="popupmenu_padding_top">22dp</dimen>
+    <dimen name="popupmenu_padding_bottom">4dp</dimen>
     <dimen name="popupmenu_layout_width">200dp</dimen>
-    <dimen name="popupmenu_layout_height">236dp</dimen>
+    <dimen name="popupmenu_layout_height">212dp</dimen>
     <dimen name="popupmenu_line_margin_rightl">0dp</dimen>
 
 </resources>

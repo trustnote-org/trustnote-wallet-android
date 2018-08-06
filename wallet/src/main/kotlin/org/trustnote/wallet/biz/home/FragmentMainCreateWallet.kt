@@ -25,6 +25,7 @@ import org.trustnote.wallet.util.MyThreadManager
 import org.trustnote.wallet.util.TTTUtils
 import org.trustnote.wallet.widget.ClearableEditText
 import org.trustnote.wallet.widget.FragmentDialogInputPwd
+import org.trustnote.wallet.widget.MyDialogFragment
 import org.trustnote.wallet.widget.MyTextWatcher
 
 class FragmentMainCreateWallet : FragmentWalletBase() {
@@ -92,16 +93,27 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
 
         button.setOnClickListener {
 
-            if (editText.text.toString().trim().length > 10) {
-                err.visibility = View.VISIBLE
-            } else {
-                val f = FragmentDialogInputPwd()
-                f.confirmLogic = {
-                    MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newManualWallet(it, editText.text.toString().trim()) }
-                    activity.onBackPressed()
+            val allEmptyWallets = WalletManager.model.getAvaiableWalletsForUser().filter {
+                !it.isAuto && it.txDetails.isEmpty()
+            }
 
+            if (allEmptyWallets.size >= TTT.MAX_EMPTY_WALLET_COUNT) {
+
+                MyDialogFragment.showMsg(activity, R.string.too_much_empty_wallet)
+
+            } else {
+
+                if (editText.text.toString().trim().length > 10) {
+                    err.visibility = View.VISIBLE
+                } else {
+                    val f = FragmentDialogInputPwd()
+                    f.confirmLogic = {
+                        MyThreadManager.instance.runJSInNonUIThread { WalletManager.model.newManualWallet(it, editText.text.toString().trim()) }
+                        activity.onBackPressed()
+
+                    }
+                    addL2Fragment(f)
                 }
-                addL2Fragment(f)
             }
 
         }

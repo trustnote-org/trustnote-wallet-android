@@ -2,7 +2,7 @@
 <org.trustnote.wallet.widget.MnemonicAutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/title"
     android:layout_width="match_parent"
-    android:layout_height="44dp"
+    android:layout_height="43dp"
     android:background="#FFF5F5F5"
     android:textColor="@color/t_text"
     android:gravity="center"

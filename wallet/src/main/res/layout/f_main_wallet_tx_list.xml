@@ -16,6 +16,7 @@
         <TextView
             android:id="@+id/credential_name"
             style="@style/t_title"
+            android:layout_marginBottom="32dp"
             android:text="@string/place_holder" />
 
         <include layout="@layout/l_amount_summary" />

@@ -6,6 +6,7 @@
         android:gravity="center">
 
         <ImageView
+            android:layout_marginTop="@dimen/line_gap_20"
             android:id="@+id/mnemonic_remove_icon"
             android:layout_width="@dimen/icon_width"
             android:layout_height="@dimen/icon_height"
@@ -16,7 +17,7 @@
             android:id="@+id/mnemonic_verify_success_title"
             style="@style/t_title"
             android:layout_below="@id/mnemonic_remove_icon"
-            android:layout_marginTop="@dimen/line_gap_42"
+            android:layout_marginTop="@dimen/line_gap_40"
             android:text="@string/mnemonic_verify_success_title" />
 
         <TextView

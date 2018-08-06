@@ -25,6 +25,7 @@
         <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/create_wallet_normal_err"
             style="@style/t_err"
+            android:layout_marginTop="4dp"
             android:text="@string/wallet_name_err" />
 
         <View

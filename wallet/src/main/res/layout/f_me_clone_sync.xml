@@ -24,13 +24,14 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/line_gap_10"
+
+            android:paddingTop="54dp"
             android:layout_above="@id/full_sync_warning"
             android:layout_below="@id/mnemonic_restore_msg"
             android:layout_centerHorizontal="true">
 
             <ImageView
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/pp"
                 android:layout_width="@dimen/contacts_empty_width"
                 android:layout_height="@dimen/contacts_empty_width"
@@ -43,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/me_clone_sync_btn"
-            android:layout_marginBottom="@dimen/line_gap_28" />
+            android:layout_marginBottom="@dimen/line_gap_12" />
 
         <Button
             android:id="@+id/me_clone_sync_btn"

@@ -23,6 +23,8 @@ class MyDialogFragment() : DialogFragment() {
     var confirmLogic: () -> Unit = {}
     var isTwoButtons = true
     var isTextAlignLeft = false
+    var widthAdjustment: Int = 270
+    var msgView: TextView? = null
 
     constructor(msg: String, confirmLogic: () -> Unit) : this(msg, confirmLogic, {}) {
         isTwoButtons = false
@@ -36,7 +38,12 @@ class MyDialogFragment() : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        dialog.window!!.setLayout(AndroidUtils.getScreenWidth(activity) * 270 / 380, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window!!.setLayout(AndroidUtils.getScreenWidth(activity) * widthAdjustment / 375, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        if (widthAdjustment > 270) {
+            msgView!!.gravity = Gravity.LEFT
+        }
+
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
@@ -44,7 +51,8 @@ class MyDialogFragment() : DialogFragment() {
         // Inflate the layout to use as dialog or embedded fragment
         val view = inflater!!.inflate(R.layout.l_dialog_twobutton, container, false)
 
-        view.findViewById<TextView>(R.id.msg).text = msg
+        msgView = view.findViewById<TextView>(R.id.msg)
+        msgView!!.text = msg
 
         if (isTextAlignLeft) {
             view.findViewById<TextView>(R.id.msg).gravity = Gravity.LEFT
@@ -100,17 +108,20 @@ class MyDialogFragment() : DialogFragment() {
             return ft
         }
 
-        fun showDialog1Btn(activity: FragmentActivity, msg: String, isCancelable: Boolean = true, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit) {
+        fun showDialog1Btn(activity: FragmentActivity, msg: String, isBigWidth: Boolean = false, isCancelable: Boolean = true, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit) {
 
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic)
+            if (isBigWidth) {
+                newFragment.widthAdjustment = 292
+            }
             newFragment.isCancelable = isCancelable
             newFragment.isTextAlignLeft = isTextAlignLeft
             newFragment.show(getFragmentTransaction(activity), null)
         }
 
-        fun showMsg(activity: FragmentActivity, strResId: Int) {
+        fun showMsg(activity: FragmentActivity, strResId: Int, isBigWidth: Boolean = false) {
             val msg = activity.getString(strResId)!!
-            showDialog1Btn(activity, msg) {}
+            showDialog1Btn(activity, msg, isBigWidth = isBigWidth) {}
         }
 
         fun showDialog2Btns(activity: FragmentActivity, msg: String, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit = {}) {

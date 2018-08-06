@@ -29,7 +29,7 @@
         <org.trustnote.wallet.widget.ActionMenuItem
             android:id="@+id/action_scan"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="42dp"
             app:action_icon="@drawable/action_scan"
             app:action_text="@string/action_scan" />
 
@@ -42,7 +42,7 @@
         <org.trustnote.wallet.widget.ActionMenuItem
             android:id="@+id/action_contacts_add"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="42dp"
             app:action_icon="@drawable/ic_action_contacts_add"
             app:action_text="@string/action_contacts_add" />
 
@@ -55,7 +55,7 @@
         <org.trustnote.wallet.widget.ActionMenuItem
             android:id="@+id/action_wallet_create"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="42dp"
             app:action_icon="@drawable/ic_wallet_create"
             app:action_text="@string/action_create_wallet" />
 
@@ -68,7 +68,7 @@
         <org.trustnote.wallet.widget.ActionMenuItem
             android:id="@+id/action_my_pair_code"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="42dp"
             app:action_icon="@drawable/ic_my_pair_code"
             app:action_text="@string/action_my_pair_id" />
 

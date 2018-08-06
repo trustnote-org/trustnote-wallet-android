@@ -16,6 +16,7 @@
         android:id="@+id/err"
         style="@style/t_err"
         android:layout_below="@id/grid_view"
+        android:layout_marginTop="12dp"
         android:text="@string/mnemonic_verify_failed" />
 
 </RelativeLayout>

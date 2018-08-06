@@ -16,7 +16,7 @@
             android:id="@+id/pwd_warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/line_gap_18"
+            android:layout_marginBottom="@dimen/line_gap_22"
             android:layout_below="@id/pwd_setup_title" />
 
         <org.trustnote.wallet.widget.ClearableEditText

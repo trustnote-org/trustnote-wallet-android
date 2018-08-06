@@ -5,12 +5,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="9dp"/>
     <include
         android:id="@+id/amount_summary_layout"
         layout="@layout/l_amount_summary" />
 
     <View
         android:layout_width="match_parent"
+        android:layout_marginTop="3dp"
         android:layout_height="@dimen/one_dp"
         android:layout_gravity="top"
         android:background="@color/home_line_middle" />

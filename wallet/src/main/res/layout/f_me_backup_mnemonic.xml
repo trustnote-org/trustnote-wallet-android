@@ -11,7 +11,7 @@
         <TextView
             android:id="@+id/title"
             style="@style/t_title"
-            android:layout_marginBottom="@dimen/line_gap_16"
+            android:layout_marginBottom="@dimen/line_gap_32"
             android:text="@string/setting_wallet_tools_backupmem" />
 
         <FrameLayout
@@ -25,6 +25,7 @@
                 android:id="@+id/hide_mnemonic_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="visible">
 
@@ -62,6 +63,7 @@
                 android:id="@+id/show_mnemonic_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:visibility="gone">
 
@@ -104,7 +106,7 @@
                 android:background="@drawable/t_gradient_shadow" />
 
             <include
-                android:layout_marginTop="@dimen/line_gap_20"
+                android:layout_marginTop="@dimen/line_gap_28"
                 android:id="@+id/mnemonic_backup_layout"
                 layout="@layout/l_backup_mnemonic"
                 android:layout_width="match_parent"
@@ -119,6 +121,7 @@
             <Button
                 android:id="@+id/mnemonic_remove_btn"
                 style="@style/t_btn_white"
+                android:layout_marginTop="@dimen/line_gap_8"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/btn_bottom_margin"
                 android:text="@string/mnemonic_remove_btn" />

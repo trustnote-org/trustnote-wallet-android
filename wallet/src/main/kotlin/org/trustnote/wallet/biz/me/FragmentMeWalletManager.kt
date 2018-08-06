@@ -63,18 +63,8 @@ class FragmentMeWalletManager : FragmentWalletBase() {
     }
 }
 
-
-
 fun createNewWallet(activityMain: ActivityMain) {
 
-    val allEmptyWallets = WalletManager.model.getAvaiableWalletsForUser().filter {
-        !it.isAuto && it.txDetails.isEmpty()
-    }
-
-    if (allEmptyWallets.size >= TTT.MAX_EMPTY_WALLET_COUNT) {
-        MyDialogFragment.showMsg(activityMain, R.string.too_much_empty_wallet)
-    } else {
-        activityMain.addL2Fragment(FragmentMainCreateWalletNormal())
-    }
+    activityMain.addL2Fragment(FragmentMainCreateWalletNormal())
 
 }
