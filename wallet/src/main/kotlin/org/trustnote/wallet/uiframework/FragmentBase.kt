@@ -123,11 +123,11 @@ abstract class FragmentBase : SwipeBackFragment() {
         actionBar.setDisplayShowHomeEnabled(false)
 
         if (!isBottomLayerUI) {
-            mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow)?.setOnClickListener {
+            mToolbar.findViewById<View>(R.id.toolbar_left_arrow_container)?.setOnClickListener {
                 onBackPressed()
             }
         } else {
-            mToolbar.findViewById<ImageView>(R.id.toolbar_left_arrow)?.visibility = View.INVISIBLE
+            mToolbar.findViewById<View>(R.id.toolbar_left_arrow_container)?.visibility = View.INVISIBLE
         }
 
         mToolbar.findViewById<TextView>(R.id.toolbar_title)?.text = getTitle()

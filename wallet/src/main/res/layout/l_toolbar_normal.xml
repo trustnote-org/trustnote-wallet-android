@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     style="@style/ToolBarStyle"
     android:layout_width="match_parent"
     android:layout_height="@dimen/myaction_bar_height"
-    android:paddingLeft="@dimen/page_margin_26">
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    app:contentInsetStartWithNavigation="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/toolbar_left_arrow"
-            android:layout_width="@dimen/ic_44"
-            android:layout_height="@dimen/ic_44"
-            android:scaleType="fitXY"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/arrow_left" />
+        <FrameLayout
+            android:id="@+id/toolbar_left_arrow_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/page_margin_26"
+            android:paddingRight="@dimen/page_margin_26">
+
+            <ImageView
+                android:id="@+id/toolbar_left_arrow"
+                android:layout_width="@dimen/ic_44"
+                android:layout_height="@dimen/ic_44"
+                android:scaleType="fitXY"
+                android:src="@drawable/arrow_left" />
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/toolbar_title_left"
@@ -36,15 +47,14 @@
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:layout_centerHorizontal="true"
+            android:gravity="center"
             android:text="@string/wallet_toolbar_title"
             android:textColor="@color/title_bar_text"
             android:textSize="@dimen/text_20"
             android:textStyle="bold" />
 
         <FrameLayout
-            android:paddingRight="6dp"
             android:id="@+id/ic_quick_action_container"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -52,6 +62,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="4dp"
             android:paddingLeft="@dimen/line_gap_24"
+            android:paddingRight="6dp"
             android:visibility="gone">
 
             <ImageView
