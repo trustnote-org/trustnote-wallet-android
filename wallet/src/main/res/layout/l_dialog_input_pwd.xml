@@ -31,7 +31,7 @@
         android:layout_marginTop="@dimen/line_gap_48"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/line_gap_16"
+        android:layout_marginBottom="@dimen/line_gap_40"
         android:paddingLeft="@dimen/line_gap_4"
         android:paddingRight="@dimen/line_gap_4"
         android:orientation="horizontal">
@@ -51,6 +51,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:id="@+id/second_button"
+
             style="@style/t_btn_blue"
             android:text="@string/confirm" />
 

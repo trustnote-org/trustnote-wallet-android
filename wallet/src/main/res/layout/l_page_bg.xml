@@ -13,8 +13,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
         android:layout_marginBottom="@dimen/line_gap_8"
+        android:layout_below="@id/toolbar"
         android:gravity="center"
         android:paddingLeft="@dimen/page_margin"
         android:paddingRight="@dimen/page_margin">
@@ -31,8 +31,7 @@
             <FrameLayout
                 android:id="@+id/dialog_frame"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"></FrameLayout>
+                android:layout_height="wrap_content"></FrameLayout>
         </android.support.v7.widget.CardView>
 
     </RelativeLayout>

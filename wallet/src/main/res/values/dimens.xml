@@ -13,6 +13,9 @@
     <dimen name="logo_width">220dp</dimen>
     <dimen name="logo_height">186dp</dimen>
 
+    <dimen name="logo_width_2">186dp</dimen>
+    <dimen name="logo_height_2">178dp</dimen>
+
     <dimen name="btn_corner">2dp</dimen>
 
     <dimen name="t_drawable_padding">6dp</dimen>
@@ -21,7 +24,7 @@
     <dimen name="icon_width">64dp</dimen>
     <dimen name="icon_height">64dp</dimen>
 
-    <dimen name="btn_gap_24">22dp</dimen>
+    <dimen name="btn_gap_24">24dp</dimen>
     <dimen name="line_gap_16">16dp</dimen>
     <dimen name="line_gap_18">18dp</dimen>
     <dimen name="line_gap_24">24dp</dimen>
@@ -144,6 +147,6 @@
     <dimen name="popupmenu_line_margin_rightl">6dp</dimen>
 
     <dimen name="myaction_bar_height">44dp</dimen>
-    <dimen name="shdow_margin">14dp</dimen>
+    <dimen name="shdow_margin">26dp</dimen>
 
 </resources>

@@ -30,7 +30,7 @@
             android:id="@+id/backup_confirm"
             style="@style/t_btn_blue"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:layout_marginBottom="@dimen/page_margin_bottom"
             android:layout_marginTop="@dimen/line_gap_6"
             android:text="@string/confirm_backup" />
 

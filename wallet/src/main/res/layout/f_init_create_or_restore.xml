@@ -8,6 +8,7 @@
         <RelativeLayout
             android:layout_above="@id/btn_new_seed"
             android:gravity="center"
+            android:layout_marginBottom="@dimen/line_gap_18"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -17,8 +18,8 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/logo"
-                    android:layout_width="@dimen/logo_width"
-                    android:layout_height="@dimen/logo_height"
+                    android:layout_width="@dimen/logo_width_2"
+                    android:layout_height="@dimen/logo_height_2"
                     android:scaleType="fitXY"
                     android:layout_marginBottom="@dimen/line_gap_16"
                     android:src="@drawable/logo" />
@@ -40,7 +41,6 @@
         <Button
             android:id="@+id/btn_new_seed"
             style="@style/t_btn_blue"
-            android:layout_marginTop="?attr/actionBarSize"
             android:layout_above="@id/btn_restore_seed"
             android:text="@string/create_seed" />
 

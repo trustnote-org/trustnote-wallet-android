@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -41,21 +41,18 @@
         <TextView
             android:id="@+id/receive_clear_amount"
             style="@style/t_url"
+            android:layout_marginTop="@dimen/line_gap_20"
             android:layout_width="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/receive_clear_amount" />
 
         <TextView
             android:id="@+id/receive_setup_amount"
+            android:layout_marginTop="@dimen/line_gap_14"
             style="@style/t_url"
             android:layout_width="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/receive_setup_amount" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
 
         <Button
             android:id="@+id/receive_btn_copy"
@@ -64,6 +61,7 @@
             android:layout_marginLeft="@dimen/line_gap_32"
             android:layout_marginRight="@dimen/line_gap_32"
             android:layout_marginTop="@dimen/line_gap_32"
+            android:layout_marginBottom="@dimen/line_gap_40"
             android:text="@string/receive_btn_copy" />
 
     </LinearLayout>

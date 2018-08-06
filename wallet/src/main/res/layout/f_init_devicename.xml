@@ -5,8 +5,9 @@
 
         <ImageView
             android:id="@+id/mnemonic_devicename_icon"
+            android:layout_marginTop="@dimen/line_gap_20"
             android:layout_width="67dp"
-            android:layout_height="67dp"
+            android:layout_height="64dp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_wallet" />
 
@@ -44,7 +45,7 @@
             android:id="@+id/mnemonic_devicename_confirm"
             style="@style/t_btn_blue"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:layout_marginBottom="@dimen/page_margin_bottom"
             android:text="@string/confirm" />
     </RelativeLayout>
 

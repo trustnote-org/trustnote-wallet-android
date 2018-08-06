@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     app:backgroundColor="#fff"
     app:cornerRadiusBL="2dp"
     app:cornerRadiusBR="2dp"
     app:cornerRadiusTL="2dp"
     app:cornerRadiusTR="2dp"
-    app:shadowColor="#40D4E0F1"
+    app:shadowColor="#50D4E0F1"
     app:shadowDy="3dp"
     app:shadowMarginBottom="@dimen/shdow_margin"
     app:shadowMarginLeft="@dimen/shdow_margin"
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/l_me_header_padding"
             android:paddingRight="@dimen/l_me_header_padding"
-            android:paddingBottom="@dimen/line_gap_36"
+            android:paddingBottom="@dimen/l_me_header_padding"
             android:paddingTop="@dimen/l_me_header_padding">
 
             <TextView
