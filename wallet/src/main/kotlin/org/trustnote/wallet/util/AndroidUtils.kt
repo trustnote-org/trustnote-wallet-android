@@ -142,12 +142,12 @@ object AndroidUtils {
         //END_INCLUDE (set_ui_flags)
     }
 
-    fun disableBtn(btn: Button) {
+    fun disableBtn(btn: TextView) {
         btn.alpha = 0.20f
         btn.isEnabled = false
     }
 
-    fun enableBtn(btn: Button, enable: Boolean) {
+    fun enableBtn(btn: TextView, enable: Boolean) {
         if (enable) {
             enableBtn(btn)
         } else {
@@ -155,7 +155,7 @@ object AndroidUtils {
         }
     }
 
-    fun enableBtn(btn: Button) {
+    fun enableBtn(btn: TextView) {
         btn.alpha = 1f
         btn.isEnabled = true
     }

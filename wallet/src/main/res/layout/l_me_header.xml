@@ -25,9 +25,9 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/l_me_header_padding"
             android:paddingLeft="@dimen/l_me_header_padding"
             android:paddingRight="@dimen/l_me_header_padding"
-            android:paddingBottom="@dimen/l_me_header_padding"
             android:paddingTop="@dimen/l_me_header_padding">
 
             <TextView
@@ -52,8 +52,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_alignTop="@id/me_device_name"
-                android:padding="@dimen/line_gap_6">
+                android:layout_alignBottom="@id/me_device_name"
+                android:layout_marginTop="-8dp"
+                android:paddingLeft="@dimen/line_gap_6"
+                android:paddingRight="6dp">
 
                 <ImageView
                     android:layout_width="@dimen/ic_20"

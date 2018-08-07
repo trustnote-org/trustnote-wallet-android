@@ -53,6 +53,7 @@ class FragmentMeAddressesBook : FragmentBase() {
 
         adapter.editLambda = {
             val f = FragmentMeAddressesBookAddOrEdit()
+            f.isNewAddress = false
             f.afterSave = {updateUI()}
             AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_ADDRESS, it.address)
             AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_BUNDLE_MEMO, it.name)

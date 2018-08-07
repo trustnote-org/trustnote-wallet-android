@@ -28,10 +28,11 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/bg_white"
             app:cardCornerRadius="4dp"
-            app:cardElevation="3dp"
+            app:cardElevation="2dp"
             app:cardUseCompatPadding="true">
 
             <FrameLayout
+                android:paddingTop="@dimen/line_gap_28"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/line_gap_14"

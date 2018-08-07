@@ -17,6 +17,7 @@
         <TextView
             android:id="@+id/credential_name"
             style="@style/t_title"
+            android:layout_marginBottom="@dimen/line_gap_26"
             android:text="@string/place_holder" />
 
         <include layout="@layout/l_amount_summary" />
@@ -30,7 +31,7 @@
         android:layout_alignLeft="@id/summary_bar"
         android:layout_below="@id/summary_bar"
         android:background="@color/bg_white"
-        android:paddingBottom="@dimen/line_gap_24"
+        android:paddingBottom="@dimen/line_gap_20"
         android:paddingLeft="28dp"
         android:paddingTop="@dimen/line_gap_4"
         android:text="@string/place_holder"

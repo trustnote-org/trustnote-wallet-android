@@ -47,4 +47,23 @@
         android:textColor="@color/bg_white"
         android:textSize="@dimen/text_14" />
 
+
+    <FrameLayout
+        android:id="@+id/toolbar_left_arrow_container"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingRight="26dp"
+        android:paddingLeft="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/toolbar_left_arrow"
+            android:layout_width="@dimen/ic_44"
+            android:layout_height="@dimen/ic_44"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_left_arrow_white" />
+
+    </FrameLayout>
+
+
 </FrameLayout>

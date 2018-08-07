@@ -253,6 +253,7 @@
     <string name="address_book_title">地址</string>
 
     <string name="address_book_add_title">添加地址</string>
+    <string name="address_book_edit_title">编辑地址</string>
     <string name="address_book_label_memo">备注</string>
     <string name="address_book_label_address">钱包地址</string>
     <string name="address_book_empty_title">没有地址</string>
@@ -273,7 +274,7 @@
 
     <string name="title_edit_friend_memo">设置备注名</string>
 
-    <string name="msg_for_remove_contacts">将联系人“%1$s”删除，同时删除与该联系人的聊天记录</string>
+    <string name="msg_for_remove_contacts">将联系人“%1$s”删除，同时删除与该联系人的聊天记录？</string>
     <string name="msg_for_clear_chat_history">确定要删除与“%1$s”的全部聊天记录</string>
 
     <string name="time_format_yesterday">昨天</string>
@@ -317,5 +318,6 @@
     <string name="upgrade_title">系统升级</string>
 
     <string name="mn_address_remove_msg">是否删除“%1$s”常用地址？</string>
+    <string name="upgrade_already_latest_version">已经是最新版本</string>
 
 </resources>

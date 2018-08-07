@@ -164,6 +164,7 @@ correct</string>
         We reserve the right to modify this disclaimer from time to time.</string>
 
     <string name="address_book_add_title">Address</string>
+    <string name="address_book_edit_title">Address</string>
     <string name="title_edit_devicename">Device Name</string>
     <string name="me_change_pwd_old_pwd_err">The original password is invalid</string>
     <string name="pwd_exist_input_err">Invalid password, please input again</string>

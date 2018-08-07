@@ -30,4 +30,10 @@ class FragmentDialogMeRemoveWallet(val confirmLogic: (String) -> Unit = {}) : Fr
 
     }
 
+    override fun updateUI() {
+        super.updateUI()
+        mToolbar.visibility = View.INVISIBLE
+    }
+
+
 }

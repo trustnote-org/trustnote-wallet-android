@@ -182,6 +182,7 @@ abstract class ActivityBase : AppCompatActivity() {
 
         if (walletNewVersion != null && isNewerVersion(walletNewVersion.version)) {
 
+            //MyDialogFragment.showMsg(this, R.string.upgrade_already_latest_version)
             handleUpgradeEvent(walletNewVersion)
 
         } else {

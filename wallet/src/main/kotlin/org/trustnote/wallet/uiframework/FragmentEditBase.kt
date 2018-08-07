@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import org.trustnote.wallet.R
+import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.widget.ClearableEditText
 import org.trustnote.wallet.widget.ErrTextView
 import org.trustnote.wallet.widget.MyTextWatcher
@@ -49,6 +50,7 @@ class FragmentEditBase : FragmentBase() {
 
         mEditText.setText(mInitValue)
         mErr.setText(mErrInfo)
+        mEditText.bindingErr = mErr
 
         mDone.setOnClickListener {
             val isDone = checkInputValidation.invoke(mEditText.text.toString())
@@ -56,7 +58,9 @@ class FragmentEditBase : FragmentBase() {
                 doneLogic.invoke(mEditText.text.toString())
                 onBackPressed()
             } else {
-
+                val isValid = checkInputValidation.invoke(mEditText.text.toString())
+                mErr.visibility = if (isValid) View.INVISIBLE else View.VISIBLE
+                updateUI()
             }
         }
 
@@ -85,8 +89,8 @@ class FragmentEditBase : FragmentBase() {
     override fun updateUI() {
 
         super.updateUI()
-        val isValid = checkInputValidation.invoke(mEditText.text.toString())
-        mErr.visibility = if (isValid) View.INVISIBLE else View.VISIBLE
+
+        AndroidUtils.enableBtn(mDone, mEditText.text.isNotEmpty())
 
 
     }

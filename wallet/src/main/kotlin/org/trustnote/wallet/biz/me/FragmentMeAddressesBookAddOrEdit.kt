@@ -2,6 +2,7 @@ package org.trustnote.wallet.biz.me
 
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import org.trustnote.db.entity.TransferAddresses
 import org.trustnote.wallet.R
 import org.trustnote.wallet.uiframework.FragmentBase
@@ -16,11 +17,13 @@ class FragmentMeAddressesBookAddOrEdit : FragmentBase() {
         return R.layout.f_me_address_book_add
     }
 
+    var isNewAddress: Boolean = true
     lateinit var scan: View
     lateinit var address: ClearableEditText
     lateinit var memo: ClearableEditText
     lateinit var addressErr: ErrTextView
     lateinit var memoErr: ErrTextView
+    lateinit var title: TextView
 
     lateinit var save: Button
     var isEditMode: Boolean = false
@@ -31,6 +34,10 @@ class FragmentMeAddressesBookAddOrEdit : FragmentBase() {
 
         super.initFragment(view)
 
+        title = findViewById(R.id.title)
+        if (!isNewAddress) {
+            title.setText(R.string.address_book_edit_title)
+        }
         scan = findViewById(R.id.scan_address)
         address = findViewById(R.id.address)
         memo = findViewById(R.id.memo)

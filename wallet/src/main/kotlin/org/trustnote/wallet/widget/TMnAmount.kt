@@ -31,9 +31,20 @@ open class TMnAmount @JvmOverloads constructor(
         decimalView = view.findViewById(R.id.decimal)
     }
 
+
+    fun setupMyReceiverAddress() {
+        amountView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_i_myreceiver).toFloat())
+        decimalView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_d_myreceiver).toFloat())
+    }
+
     fun setupMiddelFont() {
         amountView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_m_i).toFloat())
         decimalView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_m_d).toFloat())
+    }
+
+    fun setupForTxListHeader() {
+        amountView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_i_tx_list_header).toFloat())
+        decimalView.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelSize(R.dimen.mn_amount_d_tx_list_header).toFloat())
     }
 
     fun setupStyle(showAsSmall: Boolean) {

@@ -53,7 +53,11 @@ class FragmentDialogInputPwd() : FragmentPageBase() {
             checkPwd(pwdView.text.toString())
         }
 
+
+
         pwdView = view.findViewById(R.id.pwd)
+
+        pwdView.addTextChangedListener(MyTextWatcher(this))
         //pwdView.transformationMethod = MyPasswordTransformationMethod()
 
         pwdErrView = view.findViewById(R.id.pwd_err)
@@ -86,6 +90,9 @@ class FragmentDialogInputPwd() : FragmentPageBase() {
     override fun updateUI() {
         super.updateUI()
         mToolbar.visibility = View.INVISIBLE
+
+        //AndroidUtils.enableBtn(findViewById<Button>(R.id.first_button), pwdView.text.isNotEmpty())
+        AndroidUtils.enableBtn(findViewById<Button>(R.id.second_button), pwdView.text.isNotEmpty())
     }
 
 }

@@ -49,11 +49,10 @@
                 android:id="@+id/transfer_receiver_hint"
                 style="@style/t_pwd"
                 android:layout_width="match_parent"
-
                 android:backgroundTint="@drawable/t_edit_bg_transfer"
+                android:ellipsize="end"
                 android:hint="@string/transfer_receiver_hint"
-                android:inputType="textMultiLine"
-                android:lines="2"
+                android:inputType="text"
                 android:paddingRight="@dimen/line_gap_28"
                 android:text="" />
 

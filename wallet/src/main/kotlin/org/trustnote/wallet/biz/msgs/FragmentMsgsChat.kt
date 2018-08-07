@@ -29,7 +29,7 @@ class FragmentMsgsChat : FragmentMsgsBase() {
 
     private lateinit var recyclerView: RecyclerView
     lateinit var title: TextView
-    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    //private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var correspondentAddresses: String
     private lateinit var correspondentDevices: CorrespondentDevices
     lateinit var input: EditText
@@ -50,15 +50,15 @@ class FragmentMsgsChat : FragmentMsgsBase() {
         llm.stackFromEnd = true
         recyclerView.layoutManager = llm
 
-        mSwipeRefreshLayout = mRootView.findViewById(R.id.swiperefresh)
-
-        mSwipeRefreshLayout.setProgressViewOffset(true, -60, 40)
-        mSwipeRefreshLayout.setOnRefreshListener {
-
-            //TODO:
-            mSwipeRefreshLayout.isRefreshing = false
-
-        }
+//        mSwipeRefreshLayout = mRootView.findViewById(R.id.swiperefresh)
+//
+//        mSwipeRefreshLayout.setProgressViewOffset(true, -60, 40)
+//        mSwipeRefreshLayout.setOnRefreshListener {
+//
+//            //TODO:
+//            mSwipeRefreshLayout.isRefreshing = false
+//
+//        }
 
 
         input.setOnEditorActionListener(object : TextView.OnEditorActionListener {
@@ -121,7 +121,7 @@ class FragmentMsgsChat : FragmentMsgsBase() {
         val a = ChatAdapter(deboundedMsgs)
         recyclerView.adapter = a
 
-        mSwipeRefreshLayout.isRefreshing = model.isRefreshing()
+        //mSwipeRefreshLayout.isRefreshing = model.isRefreshing()
 
     }
 

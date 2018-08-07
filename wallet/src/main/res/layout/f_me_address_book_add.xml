@@ -14,11 +14,11 @@
 
 
         <RelativeLayout
-            android:layout_marginTop="@dimen/line_gap_28"
             android:id="@+id/address_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title">
+            android:layout_below="@id/title"
+            android:layout_marginTop="@dimen/line_gap_24">
 
             <org.trustnote.wallet.widget.ClearableEditText
                 android:id="@+id/address"
@@ -44,6 +44,8 @@
             android:id="@+id/address_err"
             style="@style/t_err"
             android:layout_below="@id/address_input"
+
+            android:layout_marginTop="4dp"
             android:text="@string/transfer_receiver_err" />
 
 
@@ -58,6 +60,7 @@
         <org.trustnote.wallet.widget.ErrTextView
             android:id="@+id/memo_err"
             style="@style/t_err"
+            android:layout_marginTop="4dp"
             android:layout_below="@id/memo"
             android:text="@string/wallet_name_err" />
 

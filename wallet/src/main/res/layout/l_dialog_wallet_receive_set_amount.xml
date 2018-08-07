@@ -22,7 +22,7 @@
         <TextView
             style="@style/t_text_msg"
             android:layout_width="match_parent"
-            android:layout_marginBottom="@dimen/line_gap_10"
+            android:layout_marginBottom="@dimen/line_gap_6"
             android:gravity="left"
             android:text="@string/receive_amount_label" />
 
@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/scan_what_title"
             android:hint="@null"
+            android:textSize="34sp"
             android:inputType="numberDecimal"
             android:scrollHorizontally="false"
             android:text="" />
@@ -41,7 +42,8 @@
             android:id="@+id/receive_set_amount_btn"
             style="@style/t_btn_blue"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/bg_dialog_padding_30"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/confirm" />
     </LinearLayout>
 

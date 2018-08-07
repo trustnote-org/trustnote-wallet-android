@@ -36,6 +36,7 @@ class FragmentMainWalletTxList : FragmentWalletBase() {
         super.initFragment(view)
 
         totalBalanceView = mRootView.findViewById<TMnAmount>(R.id.wallet_summary)
+        totalBalanceView.setupForTxListHeader()
 
         credentialName = mRootView.findViewById(R.id.credential_name)
 

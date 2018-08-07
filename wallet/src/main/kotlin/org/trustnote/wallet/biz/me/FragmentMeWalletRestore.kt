@@ -19,7 +19,7 @@ class FragmentMeWalletRestore : CWFragmentRestore() {
         fromInitActivity = false
         super.initFragment(view)
 
-        MyDialogFragment.showMsg(activity, R.string.me_restore_warning, isBigWidth = true)
+        MyDialogFragment.showMsg(activity, R.string.me_restore_warning, isTextAlignLeft = true)
 
         val title = findViewById<TextView>(R.id.mnemonic_restore_title)
         title.text = activity.getString(R.string.mnemonic_restore_me_title)
@@ -35,12 +35,15 @@ class FragmentMeWalletRestore : CWFragmentRestore() {
             CreateWalletModel.savePassphraseInRam(it)
 
             WalletManager.initWithMnemonic(it, mnemonics, isRemove)
-            onBackPressed()
 
-            showWaitingUI()
+            showWaitingUI {
+                onBackPressed()
+            }
 
         }
+
         addL2Fragment(inputPwdDialog)
+
     }
 
 }

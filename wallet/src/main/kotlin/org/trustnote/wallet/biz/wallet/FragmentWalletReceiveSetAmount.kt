@@ -19,6 +19,10 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
     lateinit var pageHeader: PageHeader
     lateinit var doneAction: (Long) -> Unit
 
+    init {
+        useLayoutFromTop = true
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.l_dialog_wallet_receive_set_amount
     }

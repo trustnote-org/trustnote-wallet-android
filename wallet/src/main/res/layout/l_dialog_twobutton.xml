@@ -20,7 +20,7 @@
             android:paddingBottom="@dimen/line_gap_14"
             android:layout_marginLeft="@dimen/bg_dialog_padding_left"
             android:layout_marginRight="@dimen/bg_dialog_padding_right"
-            android:paddingTop="@dimen/line_gap_14"
+            android:paddingTop="@dimen/line_gap_16"
             android:text="@string/place_holder" />
 
         <View

@@ -462,7 +462,7 @@ open class CWFragmentRestore : FragmentInit() {
 
     }
 
-    fun showWaitingUI() {
+    fun showWaitingUI(afterWaitingLogic: ()->Unit = {}) {
         val f = FragmentProgressBlocking()
         val bundle = Bundle()
         bundle.putInt(AndroidUtils.KEY_WAITING_MSG_RES_ID, R.string.restore_waiting_msg)
@@ -472,6 +472,7 @@ open class CWFragmentRestore : FragmentInit() {
             if (fromInitActivity) {
                 getMyActivity().iamDone()
             }
+            afterWaitingLogic.invoke()
         }
         addL2Fragment(f)
 

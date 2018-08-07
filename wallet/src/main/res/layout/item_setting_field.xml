@@ -5,14 +5,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_white"
-        android:paddingBottom="@dimen/line_gap_16"
-        android:paddingLeft="@dimen/padding_main"
-        android:paddingTop="@dimen/line_gap_16">
+        android:paddingLeft="@dimen/padding_main">
 
         <TextView
             android:id="@+id/setting_title"
             style="@style/t_sub_title"
             android:layout_centerVertical="true"
+            android:paddingBottom="@dimen/line_gap_16"
+            android:paddingTop="@dimen/line_gap_16"
             android:text="@string/place_holder"
             android:textColor="@color/font_gray_amount"
             android:textSize="@dimen/text_14" />
@@ -21,19 +21,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/line_gap_16"
+            android:layout_marginLeft="@dimen/line_gap_28"
             android:layout_toLeftOf="@id/icon_setting_arrow"
-            android:layout_toRightOf="@id/setting_title">
+            android:layout_toRightOf="@id/setting_title"
+            android:paddingBottom="@dimen/line_gap_16"
+            android:paddingTop="@dimen/line_gap_16">
 
             <TextView
                 android:id="@+id/setting_value"
                 style="@style/t_sub_title"
+                android:lineSpacingMultiplier="1.4"
                 android:layout_width="wrap_content"
                 android:layout_gravity="right"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/place_holder"
                 android:textSize="@dimen/text_14" />
-
 
         </FrameLayout>
 

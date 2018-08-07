@@ -36,6 +36,7 @@ class FragmentMainWalletTxDetail : FragmentWalletBase() {
         val amountView = mRootView.findViewById<TMnAmount>(R.id.wallet_summary)
         amountView.setupStyle(tx.txType, isFromDetail = true)
         amountView.setMnAmount(tx.amount)
+        amountView.setupForTxListHeader()
 
         val amountTitle = mRootView.findViewById<TextView>(R.id.wallet_summary_title)
 

@@ -56,10 +56,11 @@
             <TextView
                 android:id="@+id/toolbar_done_right"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:paddingLeft="18dp"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:gravity="right"
+                android:gravity="right|center_vertical"
                 android:text="@string/toolbar_edit_done"
                 android:textColor="@color/action_text"
                 android:textSize="@dimen/text_16"

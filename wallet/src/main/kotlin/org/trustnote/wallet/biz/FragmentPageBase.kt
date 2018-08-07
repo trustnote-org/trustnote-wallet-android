@@ -14,11 +14,13 @@ abstract class FragmentPageBase : FragmentBase() {
         return activity as ActivityMain
     }
 
+    var useLayoutFromTop: Boolean = false
     lateinit var pageOutmostLayout: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val view = inflater.inflate(R.layout.l_page_bg, container, false)
+        val view = inflater.inflate(
+                if (useLayoutFromTop) R.layout.l_page_bg_from_top else R.layout.l_page_bg, container, false)
 
         pageOutmostLayout = view.findViewById(R.id.page_outermost_layout)
 

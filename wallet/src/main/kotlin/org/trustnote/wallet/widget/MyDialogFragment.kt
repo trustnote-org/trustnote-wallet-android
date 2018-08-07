@@ -23,7 +23,6 @@ class MyDialogFragment() : DialogFragment() {
     var confirmLogic: () -> Unit = {}
     var isTwoButtons = true
     var isTextAlignLeft = false
-    var widthAdjustment: Int = 270
     var msgView: TextView? = null
 
     constructor(msg: String, confirmLogic: () -> Unit) : this(msg, confirmLogic, {}) {
@@ -38,9 +37,9 @@ class MyDialogFragment() : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        dialog.window!!.setLayout(AndroidUtils.getScreenWidth(activity) * widthAdjustment / 375, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog.window!!.setLayout(AndroidUtils.getScreenWidth(activity) * 270 / 375, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        if (widthAdjustment > 270) {
+        if (isTextAlignLeft) {
             msgView!!.gravity = Gravity.LEFT
         }
 
@@ -108,20 +107,17 @@ class MyDialogFragment() : DialogFragment() {
             return ft
         }
 
-        fun showDialog1Btn(activity: FragmentActivity, msg: String, isBigWidth: Boolean = false, isCancelable: Boolean = true, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit) {
+        fun showDialog1Btn(activity: FragmentActivity, msg: String, isCancelable: Boolean = true, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit) {
 
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic)
-            if (isBigWidth) {
-                newFragment.widthAdjustment = 292
-            }
             newFragment.isCancelable = isCancelable
             newFragment.isTextAlignLeft = isTextAlignLeft
             newFragment.show(getFragmentTransaction(activity), null)
         }
 
-        fun showMsg(activity: FragmentActivity, strResId: Int, isBigWidth: Boolean = false) {
+        fun showMsg(activity: FragmentActivity, strResId: Int, isTextAlignLeft: Boolean = false) {
             val msg = activity.getString(strResId)!!
-            showDialog1Btn(activity, msg, isBigWidth = isBigWidth) {}
+            showDialog1Btn(activity, msg, isTextAlignLeft = isTextAlignLeft) {}
         }
 
         fun showDialog2Btns(activity: FragmentActivity, msg: String, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit = {}) {

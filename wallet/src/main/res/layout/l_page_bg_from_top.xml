@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/page_outermost_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/page_bg">
+
+    <include
+        layout="@layout/l_toolbar_normal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/myaction_bar_height"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:gravity="center_horizontal|top"
+        android:paddingTop="14dp"
+        android:paddingLeft="@dimen/page_margin"
+        android:paddingRight="@dimen/page_margin">
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/bg_white"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <FrameLayout
+                android:id="@+id/dialog_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></FrameLayout>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

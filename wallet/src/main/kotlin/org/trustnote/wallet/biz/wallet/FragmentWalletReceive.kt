@@ -43,6 +43,7 @@ class FragmentWalletReceive : FragmentPageBase() {
         addressText = mRootView.findViewById(R.id.receive_address_text)
         addressQR = mRootView.findViewById(R.id.qr_code_imageview)
         receiveAmount = mRootView.findViewById(R.id.receive_amount)
+        receiveAmount.setupMyReceiverAddress()
         clearAmount = mRootView.findViewById(R.id.receive_clear_amount)
         setupAmount = mRootView.findViewById(R.id.receive_setup_amount)
         copyBtn = mRootView.findViewById(R.id.receive_btn_copy)

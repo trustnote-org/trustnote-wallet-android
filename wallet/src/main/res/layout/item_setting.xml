@@ -20,6 +20,8 @@
             android:id="@+id/setting_title"
             android:layout_centerVertical="true"
             style="@style/t_sub_title"
+            android:textColor="@color/title_bar_text"
+            android:textSize="16sp"
             android:layout_marginLeft="@dimen/line_gap_8"
             android:layout_toRightOf="@id/setting_ic"
             android:text="@string/place_holder" />

@@ -31,6 +31,7 @@
     <dimen name="line_gap_14">14dp</dimen>
     <dimen name="line_gap_32">32dp</dimen>
     <dimen name="line_gap_36">36dp</dimen>
+    <dimen name="line_gap_38">38dp</dimen>
     <dimen name="line_gap_22">22dp</dimen>
     <dimen name="line_gap_20">20dp</dimen>
     <dimen name="line_gap_28">28dp</dimen>
@@ -47,15 +48,14 @@
     <dimen name="line_gap_70">70dp</dimen>
     <dimen name="line_gap_64">64dp</dimen>
     <dimen name="line_gap_54">54dp</dimen>
-    <dimen name="field_padding">17dp</dimen>
 
     <dimen name="padding_2">2dp</dimen>
 
     <dimen name="bg_dialog_padding_30">30dp</dimen>
     <dimen name="bg_dialog_corner_4">4dp</dimen>
     <dimen name="bg_dialog_corner">12dp</dimen>
-    <dimen name="bg_dialog_padding_left">19dp</dimen>
-    <dimen name="bg_dialog_padding_right">16dp</dimen>
+    <dimen name="bg_dialog_padding_left">21dp</dimen>
+    <dimen name="bg_dialog_padding_right">18dp</dimen>
     <dimen name="dialog_btn_font">17sp</dimen>
 
     <dimen name="f_mnemonic_autocomplete">14sp</dimen>
@@ -91,6 +91,12 @@
     <dimen name="mn_amount_s_d">16sp</dimen>
     <dimen name="mn_amount_m_i">26sp</dimen>
     <dimen name="mn_amount_m_d">22sp</dimen>
+
+    <dimen name="mn_amount_i_tx_list_header">40sp</dimen>
+    <dimen name="mn_amount_d_tx_list_header">32sp</dimen>
+
+    <dimen name="mn_amount_i_myreceiver">34sp</dimen>
+    <dimen name="mn_amount_d_myreceiver">28sp</dimen>
 
     <dimen name="credential_ic_size">46dp</dimen>
 

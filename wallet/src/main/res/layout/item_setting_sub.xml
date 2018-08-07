@@ -12,6 +12,7 @@
             android:id="@+id/setting_title"
             style="@style/t_sub_title"
             android:textSize="@dimen/text_16"
+            android:textColor="@color/title_bar_text"
             android:text="@string/place_holder" />
 
         <TextView

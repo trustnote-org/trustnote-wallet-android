@@ -45,6 +45,13 @@ public class CustomViewFinderScannerActivity extends AppCompatActivity implement
         super.onCreate(state);
         setContentView(R.layout.activity_custom_view_finder_scanner);
 
+        findViewById(R.id.toolbar_left_arrow_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         ViewGroup contentFrame = (ViewGroup) findViewById(R.id.content_frame);
         mScannerView = new ZXingScannerView(this) {
             @Override
@@ -100,8 +107,8 @@ public class CustomViewFinderScannerActivity extends AppCompatActivity implement
 
     @Override
     public void handleResult(Result rawResult) {
-        Toast.makeText(this, "Contents = " + rawResult.getText() +
-                ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
+        //        Toast.makeText(this, "Contents = " + rawResult.getText() +
+        //                ", Format = " + rawResult.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
 
         if (!TextUtils.isEmpty(rawResult.getText())) {
             Intent data = new Intent();
