@@ -11,20 +11,28 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import org.trustnote.wallet.R
+import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.me.createNewWallet
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
+import org.trustnote.wallet.biz.msgs.FragmentMsgsChat
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsAdd
+import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentBase
+import org.trustnote.wallet.uiframework.FragmentEditBase
 import org.trustnote.wallet.widget.CustomViewFinderScannerActivity
+import org.trustnote.wallet.widget.MyDialogFragment
 
 class FragmentPopupmenu : FragmentBase() {
 
     //TODO: scan logic should not depend fragment.
     var scanLogic: () -> Unit = {}
+    var popLayoutId: Int = R.layout.l_quick_action
+    var currentChatRef: FragmentMsgsChat? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val activityMain = activity as ActivityMain
-        val view = inflater.inflate(R.layout.l_quick_action, container, false)
+        val view = inflater.inflate(popLayoutId, container, false)
 
         view.isClickable = true
 
@@ -37,31 +45,44 @@ class FragmentPopupmenu : FragmentBase() {
         mToolbar = view.findViewById(R.id.toolbar)
 
 
-        findViewById<View>(R.id.action_scan).setOnClickListener {
+        findNullableViewById<View>(R.id.action_scan)?.setOnClickListener {
 
             onBackPressed()
             scanLogic.invoke()
 
         }
 
-        findViewById<View>(R.id.action_contacts_add).setOnClickListener {
+        findNullableViewById<View>(R.id.action_contacts_add)?.setOnClickListener {
 
             onBackPressed()
             activityMain.addL2Fragment(FragmentMsgsContactsAdd())
 
         }
 
-        findViewById<View>(R.id.action_wallet_create).setOnClickListener {
+        findNullableViewById<View>(R.id.action_wallet_create)?.setOnClickListener {
             onBackPressed()
             createNewWallet(activityMain)
         }
 
-        findViewById<View>(R.id.action_my_pair_code).setOnClickListener {
+        findNullableViewById<View>(R.id.action_my_pair_code)?.setOnClickListener {
             onBackPressed()
             activityMain.addL2Fragment(FragmentMsgMyPairId())
         }
 
+        findNullableViewById<View>(R.id.ic_edit_contacts_memo)?.setOnClickListener {
+            onBackPressed()
+            currentChatRef?.editFriendMemoName(currentChatRef!!.activity as ActivityBase)
+        }
 
+        findNullableViewById<View>(R.id.ic_remove_msg_contact)?.setOnClickListener {
+            onBackPressed()
+            currentChatRef?.removeContact()
+        }
+
+        findNullableViewById<View>(R.id.ic_clear_chat_history)?.setOnClickListener {
+            onBackPressed()
+            currentChatRef?.removeChatHistory()
+        }
 
         return view
     }
@@ -69,5 +90,7 @@ class FragmentPopupmenu : FragmentBase() {
     override fun getLayoutId(): Int {
         return R.layout.l_quick_action
     }
+
+
 
 }

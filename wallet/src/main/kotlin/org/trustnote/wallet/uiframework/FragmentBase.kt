@@ -142,6 +142,10 @@ abstract class FragmentBase : SwipeBackFragment() {
         return mRootView.findViewById(id)
     }
 
+    fun <T : View> findNullableViewById(@IdRes id: Int): T? {
+        return  mRootView.findViewById(id)
+    }
+
     open fun updateUI() {
         Utils.debugLog("$ttag:${this.javaClass.canonicalName}::updateUI")
     }
@@ -179,9 +183,9 @@ abstract class FragmentBase : SwipeBackFragment() {
         (activity as ActivityBase).showErrorUI(isShow)
     }
 
-    fun addL2Fragment(f: FragmentBase) {
+    fun addL2Fragment(f: FragmentBase, isUseAnimation: Boolean = true) {
 
-        (activity as ActivityBase).addL2Fragment(f)
+        (activity as ActivityBase).addL2Fragment(f, isUseAnimation = isUseAnimation)
 
     }
 

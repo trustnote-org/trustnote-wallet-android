@@ -54,6 +54,7 @@
 
     <color name="bg_msg_counter">#FF4D46</color>
 
+    <color name="page_bg_set_amount">#D3DFF1</color>
     <color name="page_bg">#F0D3DFF1</color>
     <color name="page_title_bg">#F6F7F9</color>
 

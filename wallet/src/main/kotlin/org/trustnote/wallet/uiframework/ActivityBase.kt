@@ -28,6 +28,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.Subject
 import kr.co.namee.permissiongen.PermissionGen
 import org.trustnote.wallet.*
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.FragmentProgressBlocking
 import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.upgrade.isNewerVersion
@@ -65,7 +66,9 @@ abstract class ActivityBase : AppCompatActivity() {
 
     private fun setupStatusBar() {
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        if (this !is ActivityMain) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        }
         // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
         //window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -81,7 +84,7 @@ abstract class ActivityBase : AppCompatActivity() {
 
     }
 
-    fun addL2Fragment(f: Fragment) {
+    fun addL2Fragment(f: Fragment, isUseAnimation: Boolean = true) {
 
         addFragment(f, R.id.fragment_level2)
 
@@ -351,7 +354,6 @@ abstract class ActivityBase : AppCompatActivity() {
     fun dismissBlockProgressDialog() {
         blockingProgressDialog?.dismiss()
     }
-
 
 }
 

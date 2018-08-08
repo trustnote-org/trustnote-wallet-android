@@ -15,22 +15,21 @@
         android:id="@+id/scan_icon"
         android:layout_width="@dimen/ic_26"
         android:layout_height="@dimen/ic_26"
-        android:layout_alignBottom="@id/scan_what_title"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/action_scan" />
+        android:src="@drawable/action_scan"
+        android:layout_alignParentRight="true"/>
 
     <org.trustnote.wallet.widget.ClearableEditText
         android:id="@+id/scan_result"
-        style="@style/t_pwd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/scan_what_title"
-        android:focusable="false"
-        android:inputType="textMultiLine"
-        android:lines="2"
-        android:hint="@string/create_wallet_observer_scancode_hint"
-        android:scrollHorizontally="false"
-        android:text="" />
+    style="@style/t_pwd"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/scan_what_title"
+    android:focusable="false"
+    android:inputType="textMultiLine"
+    android:lines="2"
+    android:hint="@string/create_wallet_observer_scancode_hint"
+    android:scrollHorizontally="false"
+    android:text="" />
 
     <org.trustnote.wallet.widget.ErrTextView
         android:id="@+id/scan_err"

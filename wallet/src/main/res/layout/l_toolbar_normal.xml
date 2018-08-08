@@ -72,6 +72,13 @@
                 android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_quick_action" />
+            <ImageView
+                android:id="@+id/ic_quick_action_chat"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:src="@drawable/ic_chat_actions" />
 
         </FrameLayout>
 

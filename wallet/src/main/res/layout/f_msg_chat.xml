@@ -40,7 +40,7 @@
             android:layout_marginTop="@dimen/line_gap_8"
             android:background="@drawable/bg_chat_input"
             android:fitsSystemWindows="true"
-            android:gravity="left|top"
+            android:gravity="left|center_vertical"
             android:imeActionLabel="@string/chat_input_btn"
             android:imeOptions="actionSend"
             android:inputType="text"

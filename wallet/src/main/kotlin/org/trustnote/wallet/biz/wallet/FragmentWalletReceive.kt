@@ -58,7 +58,7 @@ class FragmentWalletReceive : FragmentPageBase() {
                 mnAmount = it
                 updateUI()
             }
-            addL2Fragment(f)
+            addL2Fragment(f, isUseAnimation = false)
         }
 
 

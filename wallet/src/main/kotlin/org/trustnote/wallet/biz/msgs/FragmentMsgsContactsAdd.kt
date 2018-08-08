@@ -31,7 +31,11 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
         btn = mRootView.findViewById(R.id.contacts_add_btn)
 
         setupScan(scanLayout.scanIcon) {
-            scanLayout.scanResult.setText(it)
+            if (it.isNotEmpty() && it.startsWith("TTT:")) {
+                scanLayout.scanResult.setText(it.substring(4))
+            } else {
+                scanLayout.scanResult.setText(it)
+            }
             updateUI()
         }
 
@@ -83,7 +87,7 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
 
     private fun isQrCodeValid(): Boolean {
 
-        val res = scanLayout.scanResult.text.toString()
+        val res = "TTT:" + scanLayout.scanResult.text.toString()
         val matchRes = TTTUtils.parseQrCodeType(res) == SCAN_RESULT_TYPE.TTT_PAIRID
         return if (matchRes) {
             !res.contains(WalletManager.model.mProfile.pubKeyForPairId)

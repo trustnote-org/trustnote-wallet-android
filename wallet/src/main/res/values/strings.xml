@@ -99,6 +99,7 @@
     <string name="address_book_label_memo">Remarks</string>
     <string name="address_book_label_address">Wallet address</string>
     <string name="title_edit_friend_memo">Set Alias</string>
+    <string name="hint_edit_friend_memo">Alias</string>
     <string name="ic_remove_msg_contact">Delete Contact</string>
     <string name="ic_clear_chat_history">Clear Chat History</string>
     <string name="ttt_transfer_title">Send TTT</string>
@@ -218,7 +219,7 @@ correct</string>
     <string name="action_my_pair_id">My Matching Code</string>
     <string name="create_wallet_observer_scancode">Cold wallet authentication code</string>
     <string name="setting_wallet_tools_fullsync">Sync Cloned Wallets</string>
-    <string name="fullsync_finished">Sync finished</string>
+    <string name="fullsync_finished">Complete synchronization</string>
     <string name="me_wallet_cold_code_sucessful_btn">Complete</string>
     <string name="wallet_name_err">No more than 10 characters</string>
     <string name="ic_edit_contacts_memo">Set Alias</string>

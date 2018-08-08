@@ -2,6 +2,7 @@ package org.trustnote.wallet.biz.wallet
 
 import android.text.InputFilter
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import org.trustnote.wallet.R
@@ -31,6 +32,8 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
 
         super.initFragment(view)
 
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+
         mRootView.findViewById<PageHeader>(R.id.page_header).closeAction = {
             onBackPressed()
         }
@@ -57,6 +60,12 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
 
         inputAmount.addTextChangedListener(MyTextWatcher(this))
 
+        inputAmount.requestFocus()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     override fun updateUI() {

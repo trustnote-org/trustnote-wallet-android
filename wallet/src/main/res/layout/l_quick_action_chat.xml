@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <include
+        layout="@layout/l_toolbar_normal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="@dimen/popupmenu_layout_width_chat"
+        android:layout_height="@dimen/popupmenu_layout_height_chat"
+        android:layout_gravity="right|top"
+        android:layout_marginRight="@dimen/popupmenu_margin_right"
+        android:layout_marginTop="@dimen/popupmenu_margin_top"
+        android:background="@drawable/bg_action_popup"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/popupmenu_padding_bottom"
+        android:paddingLeft="@dimen/popupmenu_padding_left"
+        android:paddingRight="@dimen/popupmenu_padding_right_chat"
+        android:paddingTop="@dimen/popupmenu_padding_top">
+
+        <org.trustnote.wallet.widget.ActionMenuItem
+            android:id="@+id/ic_edit_contacts_memo"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:action_icon="@drawable/ic_edit_contacts_memo"
+            app:action_text="@string/ic_edit_contacts_memo" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/half_dp"
+            android:layout_marginRight="@dimen/popupmenu_line_margin_rightl"
+            android:background="#E9EFF7" />
+
+
+        <org.trustnote.wallet.widget.ActionMenuItem
+            android:id="@+id/ic_remove_msg_contact"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:action_icon="@drawable/ic_remove_msg_contact"
+            app:action_text="@string/ic_remove_msg_contact" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/half_dp"
+            android:layout_marginRight="@dimen/popupmenu_line_margin_rightl"
+            android:background="#E9EFF7" />
+
+        <org.trustnote.wallet.widget.ActionMenuItem
+            android:id="@+id/ic_clear_chat_history"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:action_icon="@drawable/ic_clear_chat_history"
+            app:action_text="@string/ic_clear_chat_history" />
+
+    </LinearLayout>
+</FrameLayout>

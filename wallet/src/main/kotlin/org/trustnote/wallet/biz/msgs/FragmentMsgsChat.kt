@@ -8,11 +8,13 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import org.trustnote.db.entity.CorrespondentDevices
 import org.trustnote.db.entity.Friend
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
+import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.wallet.TestData
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.FragmentEditBase
@@ -26,6 +28,8 @@ class FragmentMsgsChat : FragmentMsgsBase() {
     override fun getLayoutId(): Int {
         return R.layout.f_msg_chat
     }
+
+    var icQuickAction: View? = null
 
     private lateinit var recyclerView: RecyclerView
     lateinit var title: TextView
@@ -81,6 +85,20 @@ class FragmentMsgsChat : FragmentMsgsBase() {
 
         })
 
+        icQuickAction = mToolbar.findViewById(R.id.ic_quick_action_container)
+
+        if (icQuickAction != null) {
+            icQuickAction!!.visibility = View.VISIBLE
+
+            icQuickAction!!.findViewById<ImageView>(R.id.ic_quick_action).visibility = View.GONE
+            icQuickAction!!.findViewById<ImageView>(R.id.ic_quick_action_chat).visibility = View.VISIBLE
+
+            icQuickAction!!.setOnClickListener {
+                (activity as ActivityMain).showPopupmenuForMsgChat(this)
+            }
+        }
+
+
     }
 
     private fun sendMessage(messages: String) {
@@ -92,7 +110,7 @@ class FragmentMsgsChat : FragmentMsgsBase() {
     }
 
     override fun inflateMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.msg_chat_action, menu)
+        //inflater.inflate(R.menu.msg_chat_action, menu)
     }
 
     override fun onResume() {
@@ -137,13 +155,6 @@ class FragmentMsgsChat : FragmentMsgsBase() {
             }
 
             R.id.ic_remove_msg_contact -> {
-                MyDialogFragment.showDialog2Btns(activity,
-                        TApp.context.getString(R.string.msg_for_remove_contacts,
-                                correspondentDevices.name)) {
-
-                    model.removeCorrespondentDevice(correspondentDevices)
-                    onBackPressed()
-                }
                 return true
             }
 
@@ -160,6 +171,24 @@ class FragmentMsgsChat : FragmentMsgsBase() {
         return false
     }
 
+    fun removeChatHistory() {
+        MyDialogFragment.showDialog2Btns(activity,
+                TApp.context.getString(R.string.msg_for_clear_chat_history,
+                        correspondentDevices.name)) {
+            model.clearChatHistory(correspondentAddresses)
+        }
+    }
+
+    fun removeContact() {
+        MyDialogFragment.showDialog2Btns(activity,
+                TApp.context.getString(R.string.msg_for_remove_contacts,
+                        correspondentDevices.name)) {
+
+            model.removeCorrespondentDevice(correspondentDevices)
+            onBackPressed()
+        }
+    }
+
     fun editFriendMemoName(activity: ActivityBase) {
         val f = FragmentEditBase()
         f.buildPage(correspondentDevices.name,
@@ -173,7 +202,9 @@ class FragmentMsgsChat : FragmentMsgsBase() {
                     model.updateCorrespondentDeviceName(correspondentDevices)
                     updateUI()
                 },
-                activity.getString(R.string.title_edit_friend_memo)
+                pageTitle = activity.getString(R.string.title_edit_friend_memo),
+                hint = activity.getString(R.string.hint_edit_friend_memo)
+
         )
 
         activity.addL2Fragment(f)

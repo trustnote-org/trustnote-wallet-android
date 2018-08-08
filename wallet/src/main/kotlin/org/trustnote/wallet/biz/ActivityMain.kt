@@ -16,11 +16,13 @@ import org.trustnote.wallet.biz.me.SettingItem
 import org.trustnote.wallet.biz.me.SettingItemsGroup
 import org.trustnote.wallet.biz.me.createNewWallet
 import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
+import org.trustnote.wallet.biz.msgs.FragmentMsgsChat
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.biz.msgs.MessageModel
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.EmptyFragment
+import org.trustnote.wallet.util.AndroidBug5497Workaround
 import org.trustnote.wallet.util.AndroidUtils
 
 class ActivityMain : ActivityBase() {
@@ -50,6 +52,8 @@ class ActivityMain : ActivityBase() {
             }
         }
 
+        //AndroidBug5497Workaround.assistActivity(this)
+
     }
 
     override fun onBackPressed() {
@@ -59,6 +63,13 @@ class ActivityMain : ActivityBase() {
     fun showPopupmenu(scanLogic: () -> Unit) {
         val f = FragmentPopupmenu()
         f.scanLogic = scanLogic
+        addFragment(f, R.id.fragment_popmenu, isUseAnimation = false)
+    }
+
+    fun showPopupmenuForMsgChat(currentF: FragmentMsgsChat) {
+        val f = FragmentPopupmenu()
+        f.currentChatRef = currentF
+        f.popLayoutId = R.layout.l_quick_action_chat
         addFragment(f, R.id.fragment_popmenu, isUseAnimation = false)
     }
 

@@ -3,7 +3,7 @@
     android:id="@+id/page_outermost_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/page_bg">
+    android:background="@color/page_bg_set_amount">
 
     <include
         layout="@layout/l_toolbar_normal"

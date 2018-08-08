@@ -153,6 +153,11 @@
     <dimen name="popupmenu_layout_height">208dp</dimen>
     <dimen name="popupmenu_line_margin_rightl">6dp</dimen>
 
+    <dimen name="popupmenu_padding_right_chat">29dp</dimen>
+    <dimen name="popupmenu_layout_width_chat">250dp</dimen>
+    <dimen name="popupmenu_layout_height_chat">168dp</dimen>
+
+
     <dimen name="myaction_bar_height">44dp</dimen>
     <dimen name="shdow_margin">26dp</dimen>
 
