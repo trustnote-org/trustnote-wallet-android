@@ -9,6 +9,7 @@ import java.util.*
 import com.google.gson.JsonParser
 import com.google.gson.annotations.Expose
 import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.util.TTTUtils
 
 class TProfile {
 

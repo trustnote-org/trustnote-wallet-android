@@ -57,7 +57,6 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
 
         showSystemSoftKeyboard(inputAmount, activity)
 
-
         inputAmount.addTextChangedListener(MyTextWatcher(this))
 
         inputAmount.requestFocus()

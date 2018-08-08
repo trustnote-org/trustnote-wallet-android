@@ -53,7 +53,7 @@
                 android:ellipsize="end"
                 android:hint="@string/transfer_receiver_hint"
                 android:inputType="text"
-                android:paddingRight="@dimen/line_gap_28"
+                android:paddingRight="@dimen/line_gap_38"
                 android:text="" />
 
             <ImageView

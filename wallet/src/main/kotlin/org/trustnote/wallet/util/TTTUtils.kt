@@ -62,16 +62,14 @@ object TTTUtils {
     }
 
     fun isValidAddress(address: String): Boolean {
-        //TODO:
-        return address.isNotEmpty()
+        return tttReceiverAddressPattern.matches("TTT:$address")
     }
 
     fun isValidAmount(amount: String, balance: Long): Boolean {
-        //TODO:
         try {
             return amount.isNotEmpty() && amount.toFloat() * TTT.w_coinunitValue <= balance
         } catch (e: Exception) {
-            return true
+            return false
         }
     }
 
