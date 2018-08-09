@@ -44,10 +44,14 @@ class FragmentMsgMyPairId : FragmentPageBase() {
         }
 
         WalletManager.model.generateMyPairId(ValueCallback {
-            pairIdText.text = it
+            //TODO: use struct for qr code.
+            if (it.isNotEmpty() && it.length > 4) {
+                pairIdText.text = it.substring(4)
+            } else {
+                pairIdText.text = it
+            }
             TTTUtils.setupQRCode(it, pairIdQR)
         })
-
 
     }
 

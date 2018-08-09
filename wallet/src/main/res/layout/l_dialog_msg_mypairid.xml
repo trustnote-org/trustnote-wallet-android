@@ -33,9 +33,10 @@
         android:id="@+id/mypairid_text"
         style="@style/t_text_msg"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/line_gap_10"
+        android:layout_margin="@dimen/line_gap_8"
         android:layout_marginBottom="@dimen/line_gap_12"
         android:gravity="center"
+        android:maxLines="2"
         android:text="" />
 
     <include

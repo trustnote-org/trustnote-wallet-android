@@ -236,5 +236,6 @@ correct</string>
     <string name="mn_address_remove_msg">Do you want to delete the "%1$s" address?</string>
 
     <string name="menu_debug">诊断调试</string>
+    <string name="pwd_input_hint">Please enter your password</string>
 
 </resources>

@@ -56,7 +56,6 @@ class FragmentPopupmenu : FragmentBase() {
 
             onBackPressed()
             activityMain.addL2Fragment(FragmentMsgsContactsAdd())
-
         }
 
         findNullableViewById<View>(R.id.action_wallet_create)?.setOnClickListener {

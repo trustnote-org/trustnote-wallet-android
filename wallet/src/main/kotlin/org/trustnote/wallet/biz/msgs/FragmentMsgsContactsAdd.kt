@@ -50,7 +50,7 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
 
             if (isQrCodeValid()) {
                 onBackPressed()
-                MessageModel.instance.addContacts(scanLayout.scanResult.text.toString()) {
+                MessageModel.instance.addContacts("TTT:" + scanLayout.scanResult.text.toString()) {
 
                     chatWithFriend(it, ownerActivity)
 
