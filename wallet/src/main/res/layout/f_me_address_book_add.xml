@@ -24,9 +24,9 @@
                 android:id="@+id/address"
                 style="@style/t_pwd"
                 android:hint="@string/address_book_label_address"
-                android:inputType="textMultiLine"
-                android:lines="2"
-                android:paddingRight="@dimen/line_gap_28"
+                android:inputType="text"
+                android:singleLine="true"
+                android:paddingRight="38dp"
                 android:text="" />
 
             <ImageView
