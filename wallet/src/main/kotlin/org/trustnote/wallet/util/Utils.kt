@@ -26,8 +26,7 @@ import org.trustnote.wallet.biz.wallet.TProfile
 import java.io.File
 import java.text.SimpleDateFormat
 import com.google.gson.JsonParser
-
-
+import java.math.BigDecimal
 
 object Utils {
 
@@ -284,7 +283,8 @@ object Utils {
     }
 
     fun mnToNotes(inputAmount: String): Long {
-        return (inputAmount.toFloat() * TTT.w_coinunitValue).toLong()
+        val inputValue = BigDecimal(inputAmount)
+        return (inputValue.multiply(BigDecimal(TTT.w_coinunitValue))).toLong()
     }
 
     var timeZoneOffset: Int = 0
