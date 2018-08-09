@@ -21,6 +21,7 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    lateinit var topShadow: View
     override fun initFragment(view: View) {
 
         isBottomLayerUI = true
@@ -55,6 +56,23 @@ class FragmentMsgsContactsList : FragmentBaseForHomePage() {
                 }
             }
         }
+
+
+        topShadow = findViewById(R.id.top_shadow)
+        topShadow.alpha = 0f
+        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val y = Math.abs(recyclerView!!.computeVerticalScrollOffset())
+                if (y > 200) {
+                    topShadow.alpha = 1f
+                } else {
+                    topShadow.alpha = (y/2f)/100f
+                }
+            }
+        })
+
+
 
     }
 

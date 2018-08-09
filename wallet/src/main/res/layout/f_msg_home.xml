@@ -30,7 +30,7 @@
                 <View
                     android:id="@+id/top_shadow"
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
+                    android:layout_height="18dp"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/t_gradient_shadow" />
 

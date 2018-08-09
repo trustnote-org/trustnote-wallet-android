@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.wallet
 
+import android.view.View
 import org.trustnote.db.entity.ChatMessages
 import org.trustnote.db.entity.Friend
 import org.trustnote.wallet.R
@@ -19,7 +20,7 @@ class TestData {
         const val mnemonic3 = "upset noble bulb mixture essay clinic regular waste ladder real evil wisdom"
 
         val a = emptyList<String>()
-
+        val c = View.MeasureSpec.AT_MOST
         const val newVersionInfo =
                 """
                     {

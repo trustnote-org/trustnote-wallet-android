@@ -8,8 +8,6 @@ open class TEditText @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : AppCompatEditText(context, attrs, defStyleAttr) {
-
-}
+) : AppCompatEditText(context, attrs, defStyleAttr)
 
 
