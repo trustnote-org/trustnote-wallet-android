@@ -222,24 +222,26 @@ class WalletModel() {
 
         //TODO: regarding network err, how to make sure wallet is empty in hub.
         //Difference two case: hub empty list OR network err when get history.
-        //        var lastWallet = mProfile.credentials.lastOrNull { !it.isObserveOnly }
-        //
-        //        if (lastWallet != null && DbHelper.shouldGenerateNextWallet(lastWallet.walletId)) {
-        //            newAutoWallet(CreateWalletModel.getPassphraseInRam())
-        //            return
-        //        }
+
+        //If we already has two empty wallet, stop the process.
+        val allEmptyWallets = mProfile.credentials.filter {
+            it.txDetails.isEmpty()
+        }
+
+        if (allEmptyWallets.size >= TTT.MAX_EMPTY_WALLET_COUNT) {
+
+            CreateWalletModel.clearPassphraseInRam()
+            Prefs.saveUserInFullRestore(false)
+            return
+        }
 
         if (CreateWalletModel.getPassphraseInRam().isNotEmpty()) {
 
             //Buggy: cannot handle case: 1 2 (3nil) 4
             newAutoWallet(CreateWalletModel.getPassphraseInRam())
-            newAutoWallet(CreateWalletModel.getPassphraseInRam())
-
-            //TODO: bug, it only restore one more wallet.
-            CreateWalletModel.clearPassphraseInRam()
-            Prefs.saveUserInFullRestore(false)
-
+            return
         }
+
     }
 
     private fun refreshOneWalletImpl(credential: Credential) {
