@@ -99,7 +99,7 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
 
     private fun getErrInfo(): String {
 
-        val res = scanLayout.scanResult.text.toString()
+        val res = "TTT:" + scanLayout.scanResult.text.toString()
         val matchRes = TTTUtils.parseQrCodeType(res) == SCAN_RESULT_TYPE.TTT_PAIRID
         return if (matchRes) {
             activity.getString(R.string.contacts_add_err_cannot_add_myself)

@@ -37,7 +37,7 @@ class FragmentMsgMyPairId : FragmentPageBase() {
 
         copyBtn.setOnClickListener {
 
-            AndroidUtils.copyTextToClipboard(pairIdText.text.toString())
+            AndroidUtils.copyTextToClipboard("TTT:" + pairIdText.text.toString())
 
             AndroidUtils.showIosToast(activity.getString(R.string.receive_copy_successful))
 

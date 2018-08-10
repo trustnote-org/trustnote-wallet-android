@@ -64,9 +64,10 @@ class SettingItem(
             )
         }
 
-        fun openSubSetting(activity: ActivityMain, groupType: SettingItemsGroup, titleResId: Int) {
+        fun openSubSetting(activity: ActivityMain, groupType: SettingItemsGroup, titleResId: Int, showTitleInToolbar: Boolean = false) {
 
             val f = FragmentMeSettingBase()
+            f.showTitleInToolbar = showTitleInToolbar
             val arguments = Bundle()
             arguments.putInt(AndroidUtils.KEY_SETTING_PAGE_TYPE, groupType.ordinal)
             arguments.putInt(AndroidUtils.KEY_SETTING_PAGE_TITLE, titleResId)
@@ -194,7 +195,7 @@ class SettingItem(
         }
 
         fun selectLanguageUI(activity: ActivityMain) {
-            openSubSetting(activity, SettingItemsGroup.LANGUAGE, R.string.setting_system_language)
+            openSubSetting(activity, SettingItemsGroup.LANGUAGE, R.string.setting_system_language, showTitleInToolbar = true)
         }
 
         fun openChangePwdUI(activity: ActivityMain) {

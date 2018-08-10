@@ -74,11 +74,11 @@ class FragmentMsgsChat : FragmentMsgsBase() {
                     handled = true
 
                     /*隐藏软键盘*/
-                    val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE)
-                            as InputMethodManager
-                    if (inputMethodManager.isActive()) {
-                        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0)
-                    }
+                    //                    val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE)
+                    //                            as InputMethodManager
+                    //                    if (inputMethodManager.isActive()) {
+                    //                        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0)
+                    //                    }
                 }
                 return handled
             }
