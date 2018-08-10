@@ -23,7 +23,6 @@ class ContactsAdapter(myDataset: List<CorrespondentDevices>,
         holder.itemView.findViewById<TextView>(R.id.msg_time).setText(timeAsText)
 
         val unreadCounter = holder.itemView.findViewById<TextView>(R.id.msg_unread_counter)
-        dataItem.unReadMsgsCounter = 14
 
         if (dataItem.unReadMsgsCounter > 10) {
             unreadCounter.visibility = View.VISIBLE
