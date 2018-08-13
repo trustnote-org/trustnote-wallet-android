@@ -24,6 +24,7 @@ class TApp : Application() {
         lateinit var context: Context
         lateinit var resources: Resources
         lateinit var graph: TApplicationComponent
+        var isAlreadyShowUpgradeInfo = false
 
         var smallIconSize = 14
         lateinit var smallIconError: Drawable

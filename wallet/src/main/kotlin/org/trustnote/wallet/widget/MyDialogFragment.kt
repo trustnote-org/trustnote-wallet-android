@@ -24,6 +24,7 @@ class MyDialogFragment() : DialogFragment() {
     var isTwoButtons = true
     var isTextAlignLeft = false
     var msgView: TextView? = null
+    var forUpgradeInfoUI = false
 
     constructor(msg: String, confirmLogic: () -> Unit) : this(msg, confirmLogic, {}) {
         isTwoButtons = false
@@ -48,7 +49,7 @@ class MyDialogFragment() : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout to use as dialog or embedded fragment
-        val view = inflater!!.inflate(R.layout.l_dialog_twobutton, container, false)
+        val view = inflater!!.inflate(if (forUpgradeInfoUI) R.layout.l_dialog_upgradeinfo else R.layout.l_dialog_twobutton, container, false)
 
         msgView = view.findViewById<TextView>(R.id.msg)
         msgView!!.text = msg
@@ -107,11 +108,13 @@ class MyDialogFragment() : DialogFragment() {
             return ft
         }
 
-        fun showDialog1Btn(activity: FragmentActivity, msg: String, isCancelable: Boolean = true, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit) {
+        fun showDialog1Btn(activity: FragmentActivity, msg: String, isCancelable: Boolean = true, isTextAlignLeft: Boolean = false, forUpgradeInfoUI: Boolean = false, confirmLogic: () -> Unit) {
 
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic)
             newFragment.isCancelable = isCancelable
             newFragment.isTextAlignLeft = isTextAlignLeft
+            newFragment.forUpgradeInfoUI = forUpgradeInfoUI
+
             newFragment.show(getFragmentTransaction(activity), null)
         }
 
@@ -120,10 +123,11 @@ class MyDialogFragment() : DialogFragment() {
             showDialog1Btn(activity, msg, isTextAlignLeft = isTextAlignLeft) {}
         }
 
-        fun showDialog2Btns(activity: FragmentActivity, msg: String, isTextAlignLeft:Boolean = false, confirmLogic: () -> Unit = {}) {
+        fun showDialog2Btns(activity: FragmentActivity, msg: String, isTextAlignLeft: Boolean = false, forUpgradeInfoUI: Boolean = false, confirmLogic: () -> Unit = {}) {
             val newFragment = MyDialogFragment.newInstance(msg, confirmLogic, {})
             newFragment.isTextAlignLeft = isTextAlignLeft
             newFragment.show(getFragmentTransaction(activity), null)
+            newFragment.forUpgradeInfoUI = forUpgradeInfoUI
 
             //            val adb = AlertDialog.Builder(this)
             //            val d = adb.setView(View(this)).create()

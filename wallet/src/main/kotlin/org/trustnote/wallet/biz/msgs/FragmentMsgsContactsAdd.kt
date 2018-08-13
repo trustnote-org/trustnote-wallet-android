@@ -9,6 +9,7 @@ import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.util.AndroidUtils
 import org.trustnote.wallet.util.SCAN_RESULT_TYPE
 import org.trustnote.wallet.util.TTTUtils
+import org.trustnote.wallet.widget.MyTextWatcher
 import org.trustnote.wallet.widget.ScanLayout
 
 class FragmentMsgsContactsAdd : FragmentMsgsBase() {
@@ -51,38 +52,31 @@ class FragmentMsgsContactsAdd : FragmentMsgsBase() {
             if (isQrCodeValid()) {
                 onBackPressed()
                 MessageModel.instance.addContacts("TTT:" + scanLayout.scanResult.text.toString()) {
-
                     chatWithFriend(it, ownerActivity)
-
                 }
+
+            } else {
+                val res = scanLayout.scanResult.text.toString()
+
+                if (res.isEmpty()) {
+                    scanLayout.scanErr.visibility = View.INVISIBLE
+                } else {
+                    scanLayout.scanErr.visibility = View.VISIBLE
+                    scanLayout.scanErr.text = getErrInfo()
+                }
+
             }
 
         }
+
+        scanLayout.scanResult.addTextChangedListener(MyTextWatcher(this))
 
     }
 
     override fun updateUI() {
         super.updateUI()
-        if (isQrCodeValid()) {
-
-            scanLayout.scanErr.visibility = View.INVISIBLE
-            AndroidUtils.enableBtn(btn)
-
-        } else {
-
-            val res = scanLayout.scanResult.text.toString()
-
-            if (res.isEmpty()) {
-                scanLayout.scanErr.visibility = View.INVISIBLE
-                AndroidUtils.disableBtn(btn)
-            } else {
-                scanLayout.scanErr.visibility = View.VISIBLE
-                scanLayout.scanErr.text = getErrInfo()
-                AndroidUtils.disableBtn(btn)
-            }
-
-        }
-
+        AndroidUtils.enableBtn(btn, scanLayout.scanResult.text.isNotEmpty())
+        scanLayout.scanErr.visibility = View.INVISIBLE
     }
 
     private fun isQrCodeValid(): Boolean {

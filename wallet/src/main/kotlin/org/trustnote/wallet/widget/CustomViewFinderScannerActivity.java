@@ -167,6 +167,29 @@ public class CustomViewFinderScannerActivity extends AppCompatActivity implement
 
             canvas.drawBitmap(scanFrameBitmap, null, newFramingRect, new Paint());
 
+
+            int distance = TApp.resources.getDimensionPixelOffset(R.dimen.line_gap_20);
+            int textSize = TApp.resources.getDimensionPixelSize(R.dimen.text_14);
+            r = new Rect(0, framingRect.bottom  + boderWidth + distance, getWidth(), framingRect.bottom  + boderWidth + distance + 200);
+
+            String scanHint = TApp.resources.getString(R.string.scan_hint);
+
+            drawCenter(canvas, new Paint(), scanHint, framingRect.bottom + boderWidth + distance +textSize);
+
+        }
+
+        private Rect r = new Rect();
+
+        private void drawCenter(Canvas canvas, Paint paint, String text, float ypointRef) {
+            paint.setTextAlign(Paint.Align.LEFT);
+            paint.setAntiAlias(true);
+            paint.setColor(Color.WHITE);
+            paint.setTextSize(TApp.resources.getDimensionPixelSize(R.dimen.text_14));
+
+            paint.getTextBounds(text, 0, text.length(), r);
+            float x = getWidth()/2f - r.width() / 2f;
+            float y = ypointRef;
+            canvas.drawText(text, x, y, paint);
         }
 
 

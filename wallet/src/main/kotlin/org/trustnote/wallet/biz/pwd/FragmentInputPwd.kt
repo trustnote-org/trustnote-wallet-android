@@ -21,21 +21,21 @@ open class FragmentInputPwd : FragmentBase() {
 
         super.initFragment(view)
 
+        showPwdDialog()
+
+        view.findViewById<View>(R.id.pwd_exist_clickcontinue).setOnClickListener {
+            showPwdDialog()
+        }
+    }
+
+    private fun showPwdDialog() {
         val f = FragmentDialogInputPwd()
+        f.dontRunOnBackPressed = true
         f.confirmLogic = {
             TApp.userAlreadyInputPwd = true
             (activity as ActivityBase).iamDone()
         }
         addFragment(f, isUseAnimation = false)
-
-        view.findViewById<View>(R.id.pwd_exist_clickcontinue).setOnClickListener {
-            val f = FragmentDialogInputPwd()
-            f.confirmLogic = {
-                TApp.userAlreadyInputPwd = true
-                (activity as ActivityBase).iamDone()
-            }
-            addFragment(f, isUseAnimation = false)
-        }
     }
 
 }

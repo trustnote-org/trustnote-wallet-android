@@ -117,12 +117,11 @@ class ActivityMain : ActivityBase() {
 
         selectPageByIntent(intent)
 
-
-
         listener(MessageModel.instance.mMessagesEventCenter) {
             updateMsgIconInBottomNavigation()
         }
 
+        showUpgradeInfoFromPrefs()
 
     }
 

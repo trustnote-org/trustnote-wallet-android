@@ -238,4 +238,8 @@ correct</string>
     <string name="menu_debug">诊断调试</string>
     <string name="pwd_input_hint">Please enter your password</string>
 
+    <string name="btn_upgrade_ignore">Ignore</string>
+    <string name="btn_upgrade_download">Download</string>
+    <string name="title_upgrade">Update</string>
+
 </resources>

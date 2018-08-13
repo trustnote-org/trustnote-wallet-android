@@ -140,6 +140,9 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         changeOutput.address = changeAddress
         changeOutput.amount = TTT.PLACEHOLDER_AMOUNT
 
+        payload.outputs.clear()
+        payload.outputs.clear()
+
         payload.outputs.add(receiverOutput)
         payload.outputs.add(changeOutput)
 
@@ -178,12 +181,39 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         genAuthors()
 
         genCommission()
+
+        updateTransferValueIfNotEnoughCommission()
+
         genChange()
         genPayloadHash()
 
         hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
 
         Utils.debugLog(Utils.toGsonString(units))
+    }
+
+    private var isAlreadyUpdateTransferValue: Boolean = false
+
+    private fun updateTransferValueIfNotEnoughCommission() {
+
+        if (isAlreadyUpdateTransferValue) {
+
+            return
+
+        } else {
+
+            val credential = WalletManager.model.findWallet(sendPaymentInfo.walletId)
+            if (credential.balance >= sendPaymentInfo.amount + units.headersCommission + units.payloadCommission) {
+                return
+            } else {
+                sendPaymentInfo.amount = credential.balance - (units.headersCommission + units.payloadCommission) -1
+
+                receiverOutput.amount = sendPaymentInfo.amount
+                changeOutput.amount = 1
+            }
+            isAlreadyUpdateTransferValue = true
+        }
+
     }
 
     fun getOneUnSignedAuthentifier(): Authentifiers? {

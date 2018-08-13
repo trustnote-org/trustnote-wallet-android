@@ -321,4 +321,8 @@
     <string name="mn_address_remove_msg">是否删除“%1$s”常用地址？</string>
     <string name="upgrade_already_latest_version">已经是最新版本</string>
 
+    <string name="btn_upgrade_ignore">忽略</string>
+    <string name="btn_upgrade_download">前往下载</string>
+    <string name="title_upgrade">系统升级</string>
+
 </resources>

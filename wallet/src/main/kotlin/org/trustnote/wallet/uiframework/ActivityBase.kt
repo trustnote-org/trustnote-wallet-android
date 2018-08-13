@@ -149,6 +149,7 @@ abstract class ActivityBase : AppCompatActivity() {
         }
 
         setupKeyboard()
+
     }
 
     private fun handleUpgradeEvent() {
@@ -160,22 +161,39 @@ abstract class ActivityBase : AppCompatActivity() {
 
     private fun handleUpgradeEvent(walletNewVersion: WalletNewVersion) {
         if (isNewerVersion(walletNewVersion.version)) {
+
             val title = getString(R.string.upgrade_title)
 
             val msgList = mutableListOf<String>()
-            msgList.add(title)
+            //msgList.add(title)
             msgList.addAll(walletNewVersion.getUpgradeItems(this))
             val msg = msgList.joinToString("\n\r")
 
             if (!walletNewVersion.ignore) {
-                MyDialogFragment.showDialog1Btn(this, msg, false, isTextAlignLeft = true) {
+                MyDialogFragment.showDialog1Btn(this, msg, false, isTextAlignLeft = true, forUpgradeInfoUI = true) {
                     AndroidUtils.openSystemBrowser(TTT.TTT_UPGRADE_WEB_SITE)
                 }
             } else {
-                MyDialogFragment.showDialog2Btns(this, msg, isTextAlignLeft = true) {
+                MyDialogFragment.showDialog2Btns(this, msg, isTextAlignLeft = true, forUpgradeInfoUI = true) {
                     AndroidUtils.openSystemBrowser(TTT.TTT_UPGRADE_WEB_SITE)
                 }
             }
+        }
+    }
+
+    fun showUpgradeInfoFromPrefs() {
+
+        if (TApp.isAlreadyShowUpgradeInfo) {
+            return
+        }
+
+        val walletNewVersion = Prefs.readUpgradeInfo()
+
+        if (walletNewVersion != null && isNewerVersion(walletNewVersion.version)) {
+
+            //MyDialogFragment.showMsg(this, R.string.upgrade_already_latest_version)
+            handleUpgradeEvent(walletNewVersion)
+            TApp.isAlreadyShowUpgradeInfo = true
         }
     }
 

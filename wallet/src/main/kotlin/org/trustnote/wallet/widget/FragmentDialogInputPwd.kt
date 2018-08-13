@@ -1,18 +1,7 @@
 package org.trustnote.wallet.widget
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentTransaction
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.Window
 import android.widget.Button
-
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.FragmentPageBase
 import org.trustnote.wallet.biz.init.CreateWalletModel
@@ -28,6 +17,7 @@ class FragmentDialogInputPwd() : FragmentPageBase() {
 
     var cancelLogic: () -> Unit = {}
     var confirmLogic: (String) -> Unit = {}
+    var dontRunOnBackPressed: Boolean = false
     var isTwoButtons = true
     lateinit var pwdView: ClearableEditText
     lateinit var pwdErrView: View
@@ -72,13 +62,14 @@ class FragmentDialogInputPwd() : FragmentPageBase() {
 
     private fun checkPwd(password: String) {
         if (CreateWalletModel.verifyPwd(password)) {
-            onBackPressed()
+            if (!dontRunOnBackPressed) {
+                onBackPressed()
+            }
             savePwdInRamOrNot(password)
             confirmLogic.invoke(password)
         } else {
             pwdErrView.visibility = View.VISIBLE
         }
-
     }
 
     private fun savePwdInRamOrNot(pwd: String) {

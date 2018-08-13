@@ -28,6 +28,8 @@ class ScanLayout constructor(context: Context, attrs: AttributeSet? = null) : Fr
         scanIcon = view.findViewById(R.id.scan_icon)
         scanIcon.setImageDrawable(context.getDrawable(R.drawable.action_scan))
 
+        scanResult.bindingErr = scanErr
+
     }
 
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_dialog"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/t_text_dialog_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/bg_dialog_padding_left"
+
+            android:layout_marginRight="@dimen/bg_dialog_padding_right"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.3"
+            android:paddingBottom="@dimen/line_gap_14"
+            android:paddingTop="@dimen/line_gap_12"
+            android:text="@string/title_upgrade"
+            android:textColor="#030303"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/msg"
+            style="@style/t_text_dialog_msg"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/bg_dialog_padding_left"
+            android:layout_marginRight="@dimen/bg_dialog_padding_right"
+            android:gravity="left|top"
+            android:lineSpacingMultiplier="1.3"
+            android:minHeight="70dp"
+            android:paddingBottom="@dimen/line_gap_14"
+            android:text="@string/place_holder"
+            android:textColor="#030303"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/half_dp"
+            android:background="@color/line_in_dialog" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/first_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:padding="@dimen/line_gap_6"
+                android:text="@string/btn_upgrade_ignore"
+                android:textColor="@color/t_text"
+                android:textSize="@dimen/dialog_btn_font" />
+
+            <View
+                android:id="@+id/line_between_btns"
+                android:layout_width="@dimen/half_dp"
+                android:layout_height="match_parent"
+                android:background="@color/line_in_dialog" />
+
+            <Button
+                android:id="@+id/second_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/btn_upgrade_download"
+                android:textColor="@color/btn2_text_in_dialog"
+                android:textSize="@dimen/dialog_btn_font" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
