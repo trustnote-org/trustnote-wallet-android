@@ -270,8 +270,26 @@ class WalletModel() {
             readDataFromDb(credential)
 
             needRefreshedAddresses = checkIsAddressesIsEnoughAndGenerateMore(credential).toTypedArray()
+
         }
 
+        updateIsAutoFlag()
+
+    }
+
+    private fun updateIsAutoFlag() {
+        val reversed = mProfile.credentials.reversed()
+        var foundNotEmptyWallet = false
+        for (oneCredential in reversed) {
+            if (foundNotEmptyWallet) {
+                oneCredential.isAuto = false
+                continue
+            }
+
+            if (oneCredential.txDetails.isNotEmpty()) {
+                foundNotEmptyWallet = true
+            }
+        }
     }
 
     private fun checkIsAddressesIsEnoughAndGenerateMore(credential: Credential): List<MyAddresses> {

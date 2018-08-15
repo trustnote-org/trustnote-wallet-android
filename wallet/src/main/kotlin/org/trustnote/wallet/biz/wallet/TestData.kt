@@ -13,7 +13,10 @@ class TestData {
 
         //const val mnemonic0 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
         //const val mnemonic0 = "win feed current today toilet firm carry toss coil sentence license canoe"
-        const val mnemonic0 = "output trick motion simple sauce fossil squirrel secret glove panic borrow romance"
+        //
+
+        //const val mnemonic0 = "output trick motion simple sauce fossil squirrel secret glove panic borrow romance"
+        const val mnemonic0 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
         //const val mnemonic0 = "theme wall plunge fluid circle organ gloom expire coach patient neck clip"
         const val mnemonic1 = "dragon test equip crew file acoustic public myth alley siege vanish luggage"
         const val mnemonic2 = "together knife slab material electric broom wagon heart harvest side copper vote"

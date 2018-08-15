@@ -94,7 +94,9 @@ class FragmentMainCreateWalletNormal : FragmentBase() {
         button.setOnClickListener {
 
             val allEmptyWallets = WalletManager.model.getAvaiableWalletsForUser().filter {
+
                 !it.isAuto && it.txDetails.isEmpty()
+
             }
 
             if (allEmptyWallets.size >= TTT.MAX_EMPTY_WALLET_COUNT) {
