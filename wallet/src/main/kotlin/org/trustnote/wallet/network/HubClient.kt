@@ -92,6 +92,11 @@ class HubClient : WebSocketClient {
     //From test result: onError sometimes be called after onClose.
     override fun onError(ex: Exception) {
         log("onError:: " + ex.message)
+        mHeartBeatTask.stop()
+
+        disposables.dispose()
+
+        HubManager.instance.hubClosed(mHubAddress)
     }
 
     private fun log(msg: String) {

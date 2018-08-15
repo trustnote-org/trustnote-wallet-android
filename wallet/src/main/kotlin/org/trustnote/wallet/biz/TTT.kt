@@ -60,6 +60,7 @@ class TTT {
         const val w_idleDurationMin = 4
         const val w_coinunitName = "MN"
         const val w_coinunitValue = 1000000
+        const val w_balance_limit_remove = 10
         const val w_coinunitDecimals = 6
         const val w_coinunitCode = "mega"
         const val w_coinbbUnitName = "blacknotes"

@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.support.annotation.StringRes
 import android.webkit.WebView
-import dagger.Lazy
 import org.trustnote.wallet.biz.js.TWebView
 import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.util.*
@@ -16,8 +15,7 @@ import javax.inject.Inject
 
 class TApp : Application() {
 
-    @Inject
-    lateinit var debugTree: Lazy<Timber.DebugTree>
+    var debugTree: Timber.DebugTree = Timber.DebugTree()
 
     companion object {
 
@@ -43,7 +41,7 @@ class TApp : Application() {
         initDependencyGraph()
 
         if (BuildConfig.DEBUG) {
-            Timber.plant(debugTree.get())
+            Timber.plant(debugTree)
             Timber.plant(TimberFile(this))
         }
 

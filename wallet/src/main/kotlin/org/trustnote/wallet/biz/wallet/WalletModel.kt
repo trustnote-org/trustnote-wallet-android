@@ -548,7 +548,7 @@ class WalletModel() {
     }
 
     fun canRemove(credential: Credential): Boolean {
-        return credential.isObserveOnly || credential.balance == 0L
+        return credential.isObserveOnly || credential.balance < TTT.w_balance_limit_remove
     }
 
     fun removeWallet(credential: Credential): Boolean {

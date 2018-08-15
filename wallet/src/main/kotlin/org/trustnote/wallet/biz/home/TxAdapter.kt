@@ -14,7 +14,6 @@ import org.trustnote.wallet.widget.TMnAmount
 class TxAdapter(private val myDataset: List<Tx>) :
         EmptyAdapter<Tx>(R.layout.item_tx, R.layout.item_tx_empty, myDataset) {
 
-
     override fun handleItemView(holder: MyViewHolder, tx: Tx) {
 
         val ic: ImageView = holder.itemView.findViewById(R.id.tx_ic)
