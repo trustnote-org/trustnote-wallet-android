@@ -98,7 +98,8 @@ data class PaymentInfo(
         var receiverAddress: String = "",
         var amount: Long = 0,
         //TODO: remove below field.
-        var lastBallMCI: Int = 0
+        var lastBallMCI: Int = 0,
+        var textMessage: String = ""
 )
 
 data class InputOfPayment(

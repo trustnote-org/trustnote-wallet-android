@@ -112,6 +112,24 @@
             android:textColor="@color/t_blue"
             android:visibility="invisible" />
 
+        <FrameLayout
+            android:id="@+id/transfer_notes_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transfer_receiver_err_overflow"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main">
+
+            <org.trustnote.wallet.widget.ClearableEditText
+                android:id="@+id/transfer_notes"
+                style="@style/t_pwd"
+                android:backgroundTint="@drawable/t_edit_bg_transfer"
+                android:hint="@string/transfer_notes_hint"
+                android:inputType="text"
+                android:text=""
+                android:textSize="@dimen/text_16" />
+
+        </FrameLayout>
         <Button
             android:id="@+id/transfer_confirm"
             style="@style/t_btn_blue"

@@ -1,10 +1,6 @@
 package org.trustnote.wallet.biz.units
 
-import com.google.gson.JsonArray
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.google.gson.JsonPrimitive
-import org.json.JSONStringer
 import org.trustnote.db.DbHelper
 import org.trustnote.db.FundedAddress
 import org.trustnote.db.Payload
@@ -14,10 +10,7 @@ import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.PaymentInfo
 import org.trustnote.wallet.biz.wallet.WalletManager
-import org.trustnote.wallet.biz.wallet.WitnessManager
-import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.HubModel
-import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.network.pojo.ReqGetParents
 import org.trustnote.wallet.network.pojo.ReqPostJoint
 import org.trustnote.wallet.util.MyThreadManager
@@ -179,6 +172,7 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
         genPayloadInputs()
         genAuthors()
+        genTextMessage()
 
         genCommission()
 
@@ -190,6 +184,28 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
 
         Utils.debugLog(Utils.toGsonString(units))
+    }
+
+
+    private fun genTextMessage() {
+        //The text message always the second message.
+        if (units.messages.size == 2) {
+            units.messages.removeAt(1)
+        }
+
+        if (sendPaymentInfo.textMessage.isEmpty()) {
+            return
+        }
+
+        val textMessage = Messages()
+        textMessage.app = TTT.unitMsgTypeText
+        textMessage.payloadLocation = TTT.unitPayloadLoationInline
+
+        textMessage.payloadHash = JSApi().getBase64HashSync(sendPaymentInfo.textMessage)
+
+
+
+
     }
 
     private var isAlreadyUpdateTransferValue: Boolean = false

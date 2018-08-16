@@ -27,6 +27,7 @@ class TTT {
         const val version = "1.0"
         const val alt = "1"
         const val unitMsgTypePayment = "payment"
+        const val unitMsgTypeText = "text"
         const val unitPayloadLoationInline = "inline"
 
         const val GENESIS_UNIT = "rg1RzwKwnfRHjBojGol3gZaC5w7kR++rOR6O61JRsrQ="

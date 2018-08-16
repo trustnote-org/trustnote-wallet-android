@@ -32,6 +32,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
     lateinit var receiveErr: TextView
 
     lateinit var amountText: ClearableEditText
+    lateinit var notesText: ClearableEditText
     lateinit var amountErr: TextView
     lateinit var transferAll: TextView
     lateinit var btnConfirm: Button
@@ -139,6 +140,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         paymentInfo.receiverAddress = receiverText.text.toString()
         paymentInfo.amount = TTTUtils.parseTTTAmount(amountText.text.toString())
         paymentInfo.walletId = credential.walletId
+        paymentInfo.textMessage = notesText.text.toString()
 
         val unitComposer = UnitComposer(paymentInfo)
         if (unitComposer.isOkToSendTx()) {

@@ -72,6 +72,7 @@
     <string name="wallet_transfer_btn">Send</string>
     <string name="wallet_receive_btn">Receive</string>
     <string name="transfer_amount_hint">Amount</string>
+    <string name="transfer_notes_hint">Notes</string>
     <string name="transfer_receiver_err">Invalid address, please check and try it again</string>
     <string name="transfer_transfer_all">Send all</string>
     <string name="receive_title">My receiving address</string>
