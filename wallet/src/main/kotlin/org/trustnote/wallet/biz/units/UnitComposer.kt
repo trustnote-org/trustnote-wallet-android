@@ -69,10 +69,10 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
                 return@runInBack
             }
 
-            units.unit = jsApi.getUnitHashSync(Utils.toGsonString(units))
+            units.unit = jsApi.getUnitHashSync(unitToGsonString(units))
 
             if (postNewUnitToHub()) {
-                val unitJson = Utils.toGsonObject(units)
+                val unitJson = unitToGsonObject(units)
                 val unit = UnitsManager().parseUnitFromJson(unitJson, listOf())
 
                 WalletManager.model.newUnitAcceptedByHub(unit, sendPaymentInfo.walletId)
@@ -80,6 +80,35 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
                 showFail()
             }
         }
+    }
+
+    private fun unitToGsonString(units: Units): String {
+        return unitToGsonObject(units).toString()
+    }
+
+    private fun unitToGsonObject(units: Units): JsonObject {
+        val unitJson = Utils.toGsonObject(units)
+        addTextMessage(unitJson)
+        return unitJson
+    }
+
+    private fun addTextMessage(unitJson: JsonObject) {
+        //The text message always the second message.
+        if (sendPaymentInfo.textMessage.isEmpty()) {
+            return
+        }
+
+        val textMessage = Messages()
+        textMessage.app = TTT.unitMsgTypeText
+        textMessage.payloadLocation = TTT.unitPayloadLoationInline
+        textMessage.payloadHash = JSApi().getBase64HashForStringSync(sendPaymentInfo.textMessage)
+
+        val textMsgJson = Utils.toGsonObject(textMessage)
+        textMsgJson.remove("payload")
+        textMsgJson.addProperty("payload", sendPaymentInfo.textMessage)
+
+        unitJson.getAsJsonArray("messages").add(textMsgJson)
+
     }
 
     private fun genPayloadInputs() {
@@ -172,7 +201,6 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
         genPayloadInputs()
         genAuthors()
-        genTextMessage()
 
         genCommission()
 
@@ -181,32 +209,12 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
         genChange()
         genPayloadHash()
 
-        hashToSign = jsApi.getUnitHashToSignSync(Utils.toGsonString(units))
+        hashToSign = jsApi.getUnitHashToSignSync(unitToGsonString(units))
 
-        Utils.debugLog(Utils.toGsonString(units))
+        Utils.debugLog(unitToGsonString(units))
     }
 
 
-    private fun genTextMessage() {
-        //The text message always the second message.
-        if (units.messages.size == 2) {
-            units.messages.removeAt(1)
-        }
-
-        if (sendPaymentInfo.textMessage.isEmpty()) {
-            return
-        }
-
-        val textMessage = Messages()
-        textMessage.app = TTT.unitMsgTypeText
-        textMessage.payloadLocation = TTT.unitPayloadLoationInline
-
-        textMessage.payloadHash = JSApi().getBase64HashSync(sendPaymentInfo.textMessage)
-
-
-
-
-    }
 
     private var isAlreadyUpdateTransferValue: Boolean = false
 
@@ -278,8 +286,8 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
     }
 
     private fun genCommission() {
-        units.headersCommission = jsApi.getHeadersSizeSync(Utils.toGsonString(units)).toLong()
-        units.payloadCommission = jsApi.getTotalPayloadSizeSync(Utils.toGsonString(units)).toLong()
+        units.headersCommission = jsApi.getHeadersSizeSync(unitToGsonString(units)).toLong()
+        units.payloadCommission = jsApi.getTotalPayloadSizeSync(unitToGsonString(units)).toLong()
     }
 
     private fun genAuthors() {
@@ -317,7 +325,7 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
 
     private fun postNewUnitToHub(): Boolean {
 
-        val req = ReqPostJoint(Utils.toGsonObject(units))
+        val req = ReqPostJoint(unitToGsonObject(units))
         HubModel.instance.sendHubMsg(req)
 
         val hubResponse = req.getResponse()

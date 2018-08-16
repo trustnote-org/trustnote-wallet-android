@@ -210,6 +210,10 @@ class JSApi {
         return TWebView.sInstance.callJSSync("window.Client.getBase64Hash($json);")
     }
 
+    fun getBase64HashForStringSync(str: String): String {
+        return TWebView.sInstance.callJSSync("""window.Client.getBase64HashForString("$str");""")
+    }
+
     /**
      * 获得交易单元unit hash
      * @method getUnitHash

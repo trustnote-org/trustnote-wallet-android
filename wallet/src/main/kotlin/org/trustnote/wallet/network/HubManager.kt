@@ -68,8 +68,7 @@ class HubManager {
             }
         }
 
-        if (hubClient != null && !hubClient.isOpen) {
-
+        if (hubClient == null || !hubClient.isOpen) {
 
             hubMsg.networkErr()
             return

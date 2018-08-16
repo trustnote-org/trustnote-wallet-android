@@ -54,6 +54,9 @@ class FragmentWalletTransfer : FragmentWalletBase() {
         amountErr = findViewById(R.id.transfer_receiver_err_overflow)
         amountText.bindingErr = amountErr
 
+        notesText = findViewById(R.id.transfer_notes)
+
+
         amountText.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(9, 4))
 
         transferAll = findViewById(R.id.transfer_transfer_all)
