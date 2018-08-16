@@ -1,6 +1,7 @@
 package org.trustnote.wallet.biz.pwd
 
 import android.view.View
+import android.view.WindowManager
 import org.trustnote.wallet.R
 import org.trustnote.wallet.TApp
 import org.trustnote.wallet.biz.init.CreateWalletModel

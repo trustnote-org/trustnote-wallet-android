@@ -1,6 +1,7 @@
 package org.trustnote.wallet.widget
 
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import org.trustnote.wallet.R
 import org.trustnote.wallet.biz.FragmentPageBase
@@ -44,7 +45,6 @@ class FragmentDialogInputPwd() : FragmentPageBase() {
         }
 
 
-
         pwdView = view.findViewById(R.id.pwd)
 
         pwdView.addTextChangedListener(MyTextWatcher(this))
@@ -58,6 +58,16 @@ class FragmentDialogInputPwd() : FragmentPageBase() {
             pwdView.setText(TestData.password)
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     private fun checkPwd(password: String) {

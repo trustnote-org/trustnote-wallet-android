@@ -27,7 +27,8 @@
         <activity
             android:name="org.trustnote.wallet.biz.pwd.ActivityInputPwd"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name="org.trustnote.wallet.ActivityStarterChooser"
@@ -48,21 +49,21 @@
             android:name="org.trustnote.wallet.biz.wallet.SimpleFragmentActivityBase"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name="org.trustnote.wallet.widget.CustomViewFinderScannerActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+        <activity
+            android:name="org.trustnote.wallet.widget.CustomViewFinderScannerActivity"
+            android:theme="@style/AppTheme"></activity>
 
         <!--<activity-->
-            <!--android:name="com.journeyapps.barcodescanner.CaptureActivity"-->
-            <!--android:screenOrientation="fullSensor"-->
-            <!--tools:replace="screenOrientation" />-->
+        <!--android:name="com.journeyapps.barcodescanner.CaptureActivity"-->
+        <!--android:screenOrientation="fullSensor"-->
+        <!--tools:replace="screenOrientation" />-->
 
         <!--<activity-->
-            <!--android:name="org.trustnote.wallet.widget.CustomScannerActivity"-->
-            <!--android:screenOrientation="fullSensor"-->
-            <!--android:stateNotNeeded="true"-->
-            <!--android:theme="@style/zxing_CaptureTheme"-->
-            <!--android:windowSoftInputMode="stateAlwaysHidden"></activity>-->
+        <!--android:name="org.trustnote.wallet.widget.CustomScannerActivity"-->
+        <!--android:screenOrientation="fullSensor"-->
+        <!--android:stateNotNeeded="true"-->
+        <!--android:theme="@style/zxing_CaptureTheme"-->
+        <!--android:windowSoftInputMode="stateAlwaysHidden"></activity>-->
 
     </application>
 

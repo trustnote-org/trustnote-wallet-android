@@ -32,7 +32,7 @@ class FragmentWalletReceiveSetAmount : FragmentPageBase() {
 
         super.initFragment(view)
 
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
 
         mRootView.findViewById<PageHeader>(R.id.page_header).closeAction = {
             onBackPressed()

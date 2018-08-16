@@ -26,6 +26,7 @@ class MessageModel : ModelBase() {
     }
 
     companion object {
+        //TODO: should re-run monitorOutbox after DB re-created.
         val instance = MessageModel()
     }
 

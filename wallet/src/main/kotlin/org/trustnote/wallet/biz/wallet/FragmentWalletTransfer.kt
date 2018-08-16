@@ -238,7 +238,7 @@ class FragmentWalletTransfer : FragmentWalletBase() {
 
     override fun onResume() {
         super.onResume()
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
     }
 
     override fun onPause() {
