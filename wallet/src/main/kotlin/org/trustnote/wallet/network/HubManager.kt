@@ -206,7 +206,7 @@ class HubManager {
     }
 
     private fun isHubActive(hubAddress: String): Boolean {
-        return hubClients.containsKey(hubAddress) && (!hubClients[hubAddress]!!.isOpen())
+        return hubClients.containsKey(hubAddress) && (hubClients[hubAddress]!!.isOpen)
     }
 
     fun onMessage(hubAddress: String, message: String) {
