@@ -15,8 +15,8 @@ class UnitsManager {
     @Suppress("UNCHECKED_CAST")
     fun saveUnitsFromHubResponse(hubResponse: HubResponse): List<Units> {
 
-        if (hubResponse.msgType == MSG_TYPE.empty) {
-            return listOf()
+        if (hubResponse.msgType != MSG_TYPE.response) {
+            throw RuntimeException("Cannot get hub response")
         }
 
         //TODO: too much tedious work.

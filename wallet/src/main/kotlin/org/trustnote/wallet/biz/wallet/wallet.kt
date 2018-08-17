@@ -50,6 +50,7 @@ class Credential {
     var balance: Long = 0
     var isObserveOnly: Boolean = false
     var isAuto: Boolean = false
+    var isLastRefreshOk = false
     var isRemoved: Boolean = false
     var deviceAddressFromObserved: String = ""
     var defaultReceiveAddress: String = ""
