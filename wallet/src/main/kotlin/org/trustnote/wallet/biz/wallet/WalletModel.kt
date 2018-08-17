@@ -228,19 +228,24 @@ class WalletModel() {
             it.txDetails.isEmpty()
         }
 
-        if (allEmptyWallets.size >= TTT.MAX_EMPTY_WALLET_COUNT) {
+        val isLastRefreshFailed = mProfile.credentials.any { !it.isLastRefreshOk }
+
+        if (!isLastRefreshFailed && allEmptyWallets.size >= TTT.MAX_EMPTY_WALLET_COUNT) {
 
             CreateWalletModel.clearPassphraseInRam()
             Prefs.saveUserInFullRestore(false)
             return
         }
 
-        if (CreateWalletModel.getPassphraseInRam().isNotEmpty()) {
+        if (allEmptyWallets.size < TTT.MAX_EMPTY_WALLET_COUNT) {
+            if (CreateWalletModel.getPassphraseInRam().isNotEmpty()) {
 
-            //Buggy: cannot handle case: 1 2 (3nil) 4
-            newAutoWallet(CreateWalletModel.getPassphraseInRam())
-            return
+                //Buggy: cannot handle case: 1 2 (3nil) 4
+                newAutoWallet(CreateWalletModel.getPassphraseInRam())
+                return
+            }
         }
+
 
     }
 
@@ -274,6 +279,8 @@ class WalletModel() {
         }
 
         updateIsAutoFlag()
+
+        credential.isLastRefreshOk = true
 
     }
 

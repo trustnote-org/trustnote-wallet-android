@@ -63,8 +63,8 @@ open class TMnAmount @JvmOverloads constructor(
         when (txType) {
 
             TxType.sent -> {
-                amountView.setTextColor(resources.getColor(if (isFromDetail) R.color.t_text else R.color.tx_red))
-                decimalView.setTextColor(resources.getColor(if (isFromDetail) R.color.t_text else R.color.tx_red))
+                amountView.setTextColor(resources.getColor(if (isFromDetail) R.color.t_text else R.color.title_bar_text))
+                decimalView.setTextColor(resources.getColor(if (isFromDetail) R.color.t_text else R.color.title_bar_text))
             }
 
             TxType.received -> {

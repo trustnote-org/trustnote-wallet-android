@@ -1,8 +1,11 @@
 package org.trustnote.wallet.biz.units
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import org.trustnote.db.*
 import org.trustnote.db.entity.*
+import org.trustnote.wallet.biz.TTT
 import org.trustnote.wallet.network.pojo.HubResponse
 import org.trustnote.wallet.network.pojo.MSG_TYPE
 import org.trustnote.wallet.util.TTTUtils
@@ -12,16 +15,19 @@ class UnitsManager {
     @Suppress("UNCHECKED_CAST")
     fun saveUnitsFromHubResponse(hubResponse: HubResponse): List<Units> {
 
-        if (hubResponse.msgType == MSG_TYPE.empty) {
-            return listOf()
+        if (hubResponse.msgType != MSG_TYPE.response) {
+            throw RuntimeException("Cannot get hub response")
         }
 
         //TODO: too much tedious work.
         //TODO: save data to table units_authors??
         val response = hubResponse.msgJson.getAsJsonObject("response")
+        //DO NOT CHECK NULL. timeout will throw exception.
         if (!response.has("joints")) {
             return listOf()
         }
+
+        justKeepPaymentMessagesInHubResponse(response)
 
         val jointList = Utils.parseChild(TBaseEntity.VoidEntity, response, Joints::class.java.canonicalName, "joints") as List<Joints>
 
@@ -37,15 +43,47 @@ class UnitsManager {
 
         val stableUnitIds = proofChainBalls.map { it.unit }
 
-
         DbHelper.unitsStabled(stableUnitIds)
 
         return res.toList()
 
     }
 
+    fun justKeepPaymentMessagesInHubResponse(response: JsonObject) {
+        val joints = response.getAsJsonArray("joints")
+        if (joints == null) {
+            return
+        }
+        for(oneUnit in joints) {
+            if (oneUnit !is JsonObject) {
+                continue
+            }
+            val oneUnitJson = oneUnit.getAsJsonObject("unit")
+            justKeepPaymentMessages(oneUnitJson)
+        }
+
+    }
+
+    fun justKeepPaymentMessages(unitJson: JsonObject) {
+        val msgs = unitJson.getAsJsonArray("messages")
+
+        if (msgs.size() > 1) {
+            Utils.debugHub(msgs.toString())
+        }
+
+        unitJson.remove("messages")
+        val allPaymentsJson = JsonArray()
+        for( one in msgs) {
+            if(one is JsonObject && TTT.unitMsgTypePayment == one.getAsJsonPrimitive("app")?.asString){
+                allPaymentsJson.add(one)
+            }
+        }
+        unitJson.add("messages", allPaymentsJson)
+    }
+
     fun parseUnitFromJson(unitJson: JsonObject, finalBadUnits: List<String>): Units {
 
+        justKeepPaymentMessages(unitJson)
 
         val units = Utils.getGson().fromJson(unitJson, Units::class.java)
 
