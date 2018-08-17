@@ -22,7 +22,8 @@ class UnitsManager {
         //TODO: too much tedious work.
         //TODO: save data to table units_authors??
         val response = hubResponse.msgJson.getAsJsonObject("response")
-        if (response == null || !response.has("joints")) {
+        //DO NOT CHECK NULL. timeout will throw exception.
+        if (!response.has("joints")) {
             return listOf()
         }
 

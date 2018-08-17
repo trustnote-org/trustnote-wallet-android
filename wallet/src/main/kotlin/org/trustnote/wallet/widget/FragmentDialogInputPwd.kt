@@ -62,7 +62,7 @@ class FragmentDialogInputPwd() : FragmentPageBase() {
 
     override fun onResume() {
         super.onResume()
-        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 
     override fun onPause() {
