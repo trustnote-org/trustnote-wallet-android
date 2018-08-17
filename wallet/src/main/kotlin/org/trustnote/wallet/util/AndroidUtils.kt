@@ -557,5 +557,14 @@ object AndroidUtils {
         return displayMetrics.widthPixels
     }
 
+    fun openDefaultBrowser(activity: Activity, url: String) {
+        var newUrl = url
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            newUrl = "http://$url"
+        }
+
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(newUrl))
+        activity.startActivity(browserIntent)
+    }
 }
 

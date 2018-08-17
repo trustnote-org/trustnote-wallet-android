@@ -18,7 +18,7 @@ open class FieldTextView @JvmOverloads constructor(
 
     private val fieldLable: TextView
     private val fieldValue: TextView
-    private val fieldUnitValue: TextView
+    val fieldUnitValue: TextView
     private val statusLayout: View
     private val statusImageView: ImageView
     private val statusTextView: TextView

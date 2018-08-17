@@ -105,6 +105,12 @@ class TTT {
         const val KEY_TTT_QR_TAG = "TTT" //OR TTT:?? TODO:
 
         const val TTT_UPGRADE_WEB_SITE = "https://trustnote.org/application.html"
+
+        const val TTT_TEST_EXPLORER = "https://testexplorer.trustnote.org/detail#"
+        const val TTT_EXPLORER = "https://explorer.trustnote.org/detail#"
+
+        val TTT_EXPLORER_URL = if (TTT.isTestnet) TTT_TEST_EXPLORER else TTT_EXPLORER
+
         val MAX_EMPTY_WALLET_COUNT = 2
 
     }

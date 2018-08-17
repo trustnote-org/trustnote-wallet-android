@@ -22,10 +22,10 @@ class TestData {
 //        const val mnemonic2 = "together knife slab material electric broom wagon heart harvest side copper vote"
 //        const val mnemonic3 = "upset noble bulb mixture essay clinic regular waste ladder real evil wisdom"
 
-        const val mnemonic0 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
-        const val mnemonic1 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
-        const val mnemonic2 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
-        const val mnemonic3 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+        const val mnemonic0 = "pupil script liberty immense attend item destroy once tumble upset web poem"
+        const val mnemonic1 = "pupil script liberty immense attend item destroy once tumble upset web poem"
+        const val mnemonic2 = "pupil script liberty immense attend item destroy once tumble upset web poem"
+        const val mnemonic3 = "pupil script liberty immense attend item destroy once tumble upset web poem"
 
         val a = emptyList<String>()
         val c = View.MeasureSpec.AT_MOST
