@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit
 class MessageModel : ModelBase() {
 
     init {
-        TAG = "MessageModel"
         monitorOutbox()
     }
 
@@ -35,9 +34,9 @@ class MessageModel : ModelBase() {
     var latestHomeList: List<CorrespondentDevices> = listOf()
 
     private fun monitorOutbox() {
-
+        Utils.debugLog("$TAG::init monitorOutbox")
         DbHelper.monitorOutbox().debounce(3, TimeUnit.SECONDS).observeOn(Schedulers.io()).subscribeOn(Schedulers.io()).subscribe {
-            Utils.debugLog("from monitorOutbox")
+            Utils.debugLog("$TAG::from monitorOutbox")
             if (it.isNotEmpty()) {
                 val outbox = it[0]
                 sendOutboxMessage(outbox)
@@ -66,7 +65,7 @@ class MessageModel : ModelBase() {
     //TODO: use waitiing UI.
     fun addContacts(pairIdQrCode: String, lambda: (String) -> Unit = {}) {
 
-        method("addContacts", pairIdQrCode, lambda)
+        method("$TAG::addContacts", pairIdQrCode, lambda)
 
         val matchRes = TTTUtils.tttMyPairIdPattern.matchEntire(pairIdQrCode) ?: return
 
@@ -75,13 +74,14 @@ class MessageModel : ModelBase() {
         val secret = matchRes.groups[3]?.value
 
         MyThreadManager.instance.runInBack {
-            addOrUpdateContacts(pubkey!!, "", hubAddress!!, 0, "New", secret!!, lambda)
+            Utils.debugLog("${MessageModel.instance.TAG}::addContacts::addOrUpdateContacts")
+            addOrUpdateContacts(TTTUtils.removeTTTTag(pubkey!!), "", hubAddress!!, 0, "New", secret!!, lambda)
         }
 
     }
 
     fun sendTextMessage(message: String, correspondentDevices: CorrespondentDevices) {
-        method("sendTextMessage", message, correspondentDevices)
+        method("$TAG::sendTextMessage", message, correspondentDevices)
 
         MyThreadManager.instance.runInBack {
             sendTextMessageBackground(message, correspondentDevices)
@@ -90,7 +90,7 @@ class MessageModel : ModelBase() {
 
     fun sendTextMessageBackground(message: String, correspondentDevices: CorrespondentDevices) {
 
-        method("sendTextMessageBackground", message, correspondentDevices)
+        method("$TAG::sendTextMessageBackground", message, correspondentDevices)
 
         val chatMessages = ChatMessages.createOutMessage(message, correspondentDevices.deviceAddress)
 
@@ -149,7 +149,7 @@ class MessageModel : ModelBase() {
 
     fun outboxMessageSendSuccessful(outbox: Outbox) {
 
-        method("outboxMessageSendSuccessful", outbox)
+        method("$TAG::outboxMessageSendSuccessful", outbox)
 
         DbHelper.removeMsgInOutbox(outbox)
         updated()
@@ -158,7 +158,7 @@ class MessageModel : ModelBase() {
 
     fun onMessage(hubJustSaying: HubJustSaying) {
 
-        method("onMessage", hubJustSaying)
+        method("$TAG::onMessage", hubJustSaying)
 
         val messageHash = onMessageCalledByMsgsModel(hubJustSaying)
         if (messageHash.isNotEmpty()) {
@@ -191,7 +191,7 @@ class MessageModel : ModelBase() {
 
     fun receivePairingRequest(messageJson: JsonObject, pubkey: String) {
 
-        method("receivePairingRequest", messageJson, pubkey)
+        method("$TAG::receivePairingRequest", messageJson, pubkey)
 
         val body = messageJson.get("body") as JsonObject
 

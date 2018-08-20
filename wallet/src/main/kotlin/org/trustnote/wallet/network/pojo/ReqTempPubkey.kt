@@ -1,6 +1,7 @@
 package org.trustnote.wallet.network.pojo
 
 import org.trustnote.wallet.biz.wallet.WalletManager
+import org.trustnote.wallet.network.HubManager
 import org.trustnote.wallet.network.HubModel
 import org.trustnote.wallet.network.HubMsgFactory
 import org.trustnote.wallet.network.HubMsgFactory.CMD_UPDATE_MY_TEMP_PUBKEY
@@ -18,6 +19,7 @@ class ReqTempPubkey(val pub: String, val priv: String) : HubRequest(CMD_UPDATE_M
         val resp = getResponse()
         if ("updated" == resp.responseJson.asString) {
             //TODO: Thread security in case model update at this moment.
+            HubManager.isAlreadyUpdateMyTempPubkey = true
             WalletManager.model.updateMyTempPrivkey(pub, priv)
         }
         return true

@@ -235,6 +235,13 @@ object TTTUtils {
         return TApp.resources.getColor(colorResId)
     }
 
+    fun removeTTTTag(s: String): String {
+        if (s.contains("TTT:")) {
+            return s.replace("TTT:", "")
+        }
+        return s
+    }
+
 }
 
 enum class SCAN_RESULT_TYPE {

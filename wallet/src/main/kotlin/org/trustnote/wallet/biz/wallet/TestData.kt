@@ -17,15 +17,15 @@ class TestData {
 
         //const val mnemonic0 = "output trick motion simple sauce fossil squirrel secret glove panic borrow romance"
         //const val mnemonic0 = "theme wall plunge fluid circle organ gloom expire coach patient neck clip"
-//        const val mnemonic0 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
-//        const val mnemonic1 = "dragon test equip crew file acoustic public myth alley siege vanish luggage"
-//        const val mnemonic2 = "together knife slab material electric broom wagon heart harvest side copper vote"
-//        const val mnemonic3 = "upset noble bulb mixture essay clinic regular waste ladder real evil wisdom"
-
         const val mnemonic0 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
-        const val mnemonic1 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
-        const val mnemonic2 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
-        const val mnemonic3 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+        const val mnemonic1 = "dragon test equip crew file acoustic public myth alley siege vanish luggage"
+        const val mnemonic2 = "together knife slab material electric broom wagon heart harvest side copper vote"
+        const val mnemonic3 = "upset noble bulb mixture essay clinic regular waste ladder real evil wisdom"
+
+//        const val mnemonic0 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+//        const val mnemonic1 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+//        const val mnemonic2 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+//        const val mnemonic3 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
 
         val a = emptyList<String>()
         val c = View.MeasureSpec.AT_MOST
