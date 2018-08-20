@@ -167,7 +167,7 @@ abstract class ActivityBase : AppCompatActivity() {
             val msgList = mutableListOf<String>()
             //msgList.add(title)
             msgList.addAll(walletNewVersion.getUpgradeItems(this))
-            val msg = msgList.joinToString("\n\r")
+            val msg = msgList.joinToString("\n")
 
             if (!walletNewVersion.ignore) {
                 MyDialogFragment.showDialog1Btn(this, msg, false, isTextAlignLeft = true, forUpgradeInfoUI = true) {
