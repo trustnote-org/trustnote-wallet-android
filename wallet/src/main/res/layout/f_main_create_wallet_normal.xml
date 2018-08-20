@@ -17,6 +17,7 @@
             android:id="@+id/create_wallet_normal"
             style="@style/t_pwd"
             android:layout_marginTop="@dimen/line_gap_48"
+            android:imeOptions="actionDone"
             android:hint="@string/create_wallet_normal_hint"
             android:inputType="text"
             android:maxLength="20"

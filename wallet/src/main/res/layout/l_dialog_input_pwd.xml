@@ -17,6 +17,7 @@
     <org.trustnote.wallet.widget.ClearableEditText
         android:id="@+id/pwd"
         style="@style/t_pwd"
+        android:imeOptions="actionDone"
         android:layout_below="@id/pwd_warning"
         android:layout_marginTop="@dimen/line_gap_32"
         android:hint="@string/pwd_input_hint"

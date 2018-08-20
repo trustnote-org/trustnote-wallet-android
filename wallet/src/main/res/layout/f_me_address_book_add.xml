@@ -24,6 +24,7 @@
                 android:id="@+id/address"
                 style="@style/t_pwd"
                 android:hint="@string/address_book_label_address"
+                android:nextFocusDown="@id/memo"
                 android:inputType="text"
                 android:singleLine="true"
                 android:paddingRight="38dp"
@@ -52,6 +53,7 @@
         <org.trustnote.wallet.widget.ClearableEditText
             android:id="@+id/memo"
             style="@style/t_pwd"
+            android:imeOptions="actionDone"
             android:layout_below="@id/address_err"
             android:hint="@string/address_book_label_memo"
             android:inputType="text"
