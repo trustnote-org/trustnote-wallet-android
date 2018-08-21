@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout style="@style/t_layout"
+    <RelativeLayout
+        style="@style/t_layout"
         android:fitsSystemWindows="true">
 
         <TextView
@@ -54,6 +55,7 @@
                 android:ellipsize="end"
                 android:hint="@string/transfer_receiver_hint"
                 android:inputType="text"
+                android:nextFocusDown="@id/transfer_amount"
                 android:paddingRight="@dimen/line_gap_38"
                 android:text="" />
 
@@ -88,6 +90,7 @@
                 style="@style/t_pwd"
                 android:backgroundTint="@drawable/t_edit_bg_transfer"
                 android:hint="@string/transfer_amount_hint"
+                android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
                 android:text=""
                 android:textSize="@dimen/text_16" />

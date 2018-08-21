@@ -1,5 +1,6 @@
 package org.trustnote.wallet.biz.units
 
+import android.os.Bundle
 import com.google.gson.JsonObject
 import org.trustnote.db.DbHelper
 import org.trustnote.db.FundedAddress
@@ -7,6 +8,7 @@ import org.trustnote.db.Payload
 import org.trustnote.db.entity.*
 import org.trustnote.wallet.biz.ActivityMain
 import org.trustnote.wallet.biz.TTT
+import org.trustnote.wallet.biz.home.FragmentMainWalletTxDetail
 import org.trustnote.wallet.biz.js.JSApi
 import org.trustnote.wallet.biz.wallet.PaymentInfo
 import org.trustnote.wallet.biz.wallet.WalletManager
@@ -76,6 +78,20 @@ class UnitComposer(val sendPaymentInfo: PaymentInfo) {
                 val unit = UnitsManager().parseUnitFromJson(unitJson, listOf())
 
                 WalletManager.model.newUnitAcceptedByHub(unit, sendPaymentInfo.walletId)
+
+                if (sendPaymentInfo.amount < 10 && sendPaymentInfo.textMessage.isNotEmpty()) {
+                    //Go to detail for text message
+                    val bundle = Bundle()
+                    bundle.putString(TTT.KEY_WALLET_ID, credential.walletId)
+                    bundle.putInt(TTT.KEY_TX_INDEX, 0)
+                    val f = FragmentMainWalletTxDetail()
+                    f.arguments = bundle
+                    activity.addL2Fragment(f)
+                }
+
+
+                units.unit
+
             } else {
                 showFail()
             }

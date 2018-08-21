@@ -19,11 +19,13 @@ import org.trustnote.wallet.biz.msgs.FragmentMsgMyPairId
 import org.trustnote.wallet.biz.msgs.FragmentMsgsChat
 import org.trustnote.wallet.biz.msgs.FragmentMsgsContactsList
 import org.trustnote.wallet.biz.msgs.MessageModel
+import org.trustnote.wallet.biz.wallet.FragmentWalletUploadText
 import org.trustnote.wallet.biz.wallet.WalletManager
 import org.trustnote.wallet.uiframework.ActivityBase
 import org.trustnote.wallet.uiframework.EmptyFragment
 import org.trustnote.wallet.util.AndroidBug5497Workaround
 import org.trustnote.wallet.util.AndroidUtils
+import org.trustnote.wallet.util.Utils
 
 class ActivityMain : ActivityBase() {
 
@@ -52,6 +54,13 @@ class ActivityMain : ActivityBase() {
             }
         }
 
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            changeFragment(item.itemId)
+            true
+        }
+
+        changeFragment(R.id.menu_wallet)
+
         //AndroidBug5497Workaround.assistActivity(this)
 
     }
@@ -72,6 +81,7 @@ class ActivityMain : ActivityBase() {
         f.popLayoutId = R.layout.l_quick_action_chat
         addFragment(f, R.id.fragment_popmenu, isUseAnimation = false)
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -100,7 +110,7 @@ class ActivityMain : ActivityBase() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        selectPageByIntent(intent)
+        setIntent(intent)
     }
 
     override fun onStart() {
@@ -109,11 +119,6 @@ class ActivityMain : ActivityBase() {
 
     override fun onResume() {
         super.onResume()
-
-        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            changeFragment(item.itemId)
-            true
-        }
 
         selectPageByIntent(intent)
 
@@ -139,8 +144,25 @@ class ActivityMain : ActivityBase() {
             intent.removeExtra(AndroidUtils.KEY_FROM_CHANGE_LANGUAGE)
             SettingItem.openSubSetting(this, SettingItemsGroup.LANGUAGE, R.string.setting_system)
             SettingItem.selectLanguageUI(this)
+            return
         }
 
+        val isFromApiShare = intent.getBooleanExtra(AndroidUtils.KEY_FROM_SHARE_API, false)
+        if (isFromApiShare) {
+            intent.removeExtra(AndroidUtils.KEY_FROM_SHARE_API)
+            val f = FragmentWalletUploadText()
+            //TODO: if profile is not ready
+            val credential = WalletManager.model.getDefaultWallet()
+            if (credential != null) {
+                AndroidUtils.addFragmentArguments(f, TTT.KEY_WALLET_ID, credential.walletId)
+                val attachText = intent.getStringExtra(AndroidUtils.KEY_SHARE_TEXT)
+                AndroidUtils.addFragmentArguments(f, AndroidUtils.KEY_SHARE_TEXT, attachText)
+                addL2Fragment(f)
+                return
+            } else {
+                Utils.toastMsg("Cannot find available wallet")
+            }
+        }
     }
 
     fun changeFragment(menuItemId: Int) {

@@ -102,6 +102,8 @@ class TTT {
         const val KEY_WALLET_ID = "KEY_WALLET_ID"
         const val KEY_TRANSFER_QRCODEW = "KEY_TRANSFER_QRCODEW"
 
+        const val KEY_UPLOAD_TEXT = "KEY_UPLOAD_TEXT"
+
         const val KEY_TTT_QR_TAG = "TTT" //OR TTT:?? TODO:
 
         const val TTT_UPGRADE_WEB_SITE = "https://trustnote.org/application.html"

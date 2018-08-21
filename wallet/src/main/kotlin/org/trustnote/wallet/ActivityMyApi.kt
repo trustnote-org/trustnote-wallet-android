@@ -2,6 +2,8 @@ package org.trustnote.wallet
 
 import android.content.Intent
 import android.os.Bundle
+import org.trustnote.wallet.biz.ActivityMain
+import org.trustnote.wallet.biz.MAINACTIVITY_KEY_MENU_ID
 import org.trustnote.wallet.biz.pwd.ActivityInputPwd
 import org.trustnote.wallet.biz.startMainActivityWithMenuId
 import org.trustnote.wallet.biz.init.ActivityInit
@@ -27,6 +29,7 @@ class ActivityMyApi : ActivityBase() {
             }
 
             else -> {
+
             }
         }
 
@@ -34,9 +37,20 @@ class ActivityMyApi : ActivityBase() {
     }
 
     private fun handleSendText(intent: Intent?) {
+
         intent?.getStringExtra(Intent.EXTRA_TEXT)?.let {
-            // Update UI to reflect text being shared
+
+            openUI(AndroidUtils.KEY_FROM_SHARE_API, intent?.getStringExtra(Intent.EXTRA_TEXT))
+
         }
     }
+
+    private fun openUI(flagAsKey: String, attachText: String) {
+        val intent = Intent(TApp.context, ActivityMain::class.java)
+        intent.putExtra(flagAsKey, true)
+        intent.putExtra(AndroidUtils.KEY_SHARE_TEXT, attachText)
+        startActivity(intent)
+    }
+
 }
 

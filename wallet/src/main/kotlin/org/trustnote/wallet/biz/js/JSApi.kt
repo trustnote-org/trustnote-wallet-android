@@ -1,6 +1,10 @@
 package org.trustnote.wallet.biz.js
 
 import android.webkit.ValueCallback
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
+import org.apache.commons.lang3.StringEscapeUtils
 
 class JSApi {
 
@@ -211,7 +215,8 @@ class JSApi {
     }
 
     fun getBase64HashForStringSync(str: String): String {
-        return TWebView.sInstance.callJSSync("""window.Client.getBase64HashForString("$str");""")
+        val newStr = StringEscapeUtils.escapeJson(str)
+        return TWebView.sInstance.callJSSync("""window.Client.getBase64HashForString("$newStr");""")
     }
 
     /**

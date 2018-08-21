@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        style="@style/t_layout"
+
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/transfer_title"
+            style="@style/t_title"
+            android:layout_marginTop="@dimen/line_gap_8"
+            android:paddingLeft="@dimen/padding_main"
+            android:paddingRight="@dimen/padding_main"
+            android:text="@string/ttt_upload_text_title" />
+
+        <RelativeLayout
+            android:id="@+id/transfer_receiver_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transfer_title"
+            android:layout_marginBottom="@dimen/btn_bottom_margin"
+            android:layout_marginTop="@dimen/line_gap_24">
+
+            <FrameLayout
+                android:id="@+id/transfer_notes_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/padding_main"
+                android:paddingRight="@dimen/padding_main">
+
+                <org.trustnote.wallet.widget.ClearableEditText
+                    android:id="@+id/transfer_notes"
+                    style="@style/t_pwd"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@drawable/t_edit_bg_transfer"
+                    android:hint="@string/transfer_notes_hint"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLines="5"
+                    android:text="@string/ttt_slogan"
+                    android:textSize="@dimen/text_16" />
+
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/transfer_confirm"
+                style="@style/t_btn_blue"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/btn_bottom_margin"
+                android:layout_marginLeft="@dimen/padding_main"
+                android:layout_marginRight="@dimen/padding_main"
+                android:text="@string/confirm" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</layout>

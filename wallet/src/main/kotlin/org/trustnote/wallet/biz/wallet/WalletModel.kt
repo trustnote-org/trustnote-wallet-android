@@ -658,6 +658,12 @@ class WalletModel() {
         walletUpdated()
     }
 
+    fun getDefaultWallet(): Credential? {
+        return mProfile.credentials.firstOrNull{
+            it.balance > 0
+        }
+    }
+
 }
 
 

@@ -90,6 +90,7 @@
                 android:layout_marginLeft="@dimen/padding_main"
                 android:layout_marginRight="@dimen/padding_main"
                 android:background="@null"
+                android:imeOptions="actionDone"
                 android:backgroundTint="@null"
                 android:inputType="text"
                 android:paddingBottom="1dp"

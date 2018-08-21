@@ -11,13 +11,6 @@
         android:layout_alignParentLeft="true"
         android:text="@string/place_holder" />
 
-    <ImageView
-        android:id="@+id/scan_icon"
-        android:layout_width="@dimen/ic_26"
-        android:layout_height="@dimen/ic_26"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/action_scan" />
-
     <org.trustnote.wallet.widget.ClearableEditText
         android:id="@+id/scan_result"
         style="@style/t_pwd"
@@ -29,6 +22,13 @@
         android:lines="2"
         android:scrollHorizontally="false"
         android:text="" />
+
+    <ImageView
+        android:id="@+id/scan_icon"
+        android:layout_width="@dimen/ic_26"
+        android:layout_height="@dimen/ic_26"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/action_scan" />
 
     <org.trustnote.wallet.widget.ErrTextView
         android:id="@+id/scan_err"

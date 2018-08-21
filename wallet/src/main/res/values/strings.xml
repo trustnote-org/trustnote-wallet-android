@@ -243,4 +243,9 @@ correct</string>
     <string name="btn_upgrade_download">Download</string>
     <string name="title_upgrade">Update</string>
 
+
+    <!-- Just for new feature about upload text to block chain-->
+    <string name="ttt_upload_text_title">Upload text to block chain</string>
+
+
 </resources>

@@ -27,6 +27,11 @@ class TestData {
         const val mnemonic2 = "pupil script liberty immense attend item destroy once tumble upset web poem"
         const val mnemonic3 = "pupil script liberty immense attend item destroy once tumble upset web poem"
 
+//        const val mnemonic0 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+//        const val mnemonic1 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+//        const val mnemonic2 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+//        const val mnemonic3 = "what fault measure beach horn decorate armor hover raven diamond bone refuse"
+
         val a = emptyList<String>()
         val c = View.MeasureSpec.AT_MOST
         const val newVersionInfo =

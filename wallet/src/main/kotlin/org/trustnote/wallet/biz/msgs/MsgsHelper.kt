@@ -148,6 +148,8 @@ fun onMessageCalledByMsgsModel(hubJustSaying: HubJustSaying): String {
         return ""
     }
 
+    Utils.debugLog("${MessageModel.instance.TAG}::onMessageCalledByMsgsModel::${hubJustSaying.bodyJson.toString()}")
+
     val deviceMessage = (hubJustSaying.bodyJson as JsonObject).get("message") as JsonObject
 
     val messageHash = (hubJustSaying.bodyJson as JsonObject).get("message_hash").asString
@@ -159,7 +161,7 @@ fun onMessageCalledByMsgsModel(hubJustSaying: HubJustSaying): String {
 
     var decryptPackage = api.decryptPackage(deviceMessageObj.encryptedPackage.toString(),
             myProfile.tempPrivkey,
-            myProfile.prevTempPrivkey, myProfile.privKeyForPairId)
+            myProfile.tempPrivkey, myProfile.privKeyForPairId)
 
     //In case we cannot decrypt package.
     if (decryptPackage.isEmpty() || decryptPackage.length < 3) {
@@ -210,6 +212,8 @@ fun getTempPubkey(correspondentDevices: CorrespondentDevices): String {
 
 fun sendOutboxMessage(outbox: Outbox) {
 
+    Utils.debugLog("${MessageModel.instance.TAG}::start::sendOutboxMessage::${outbox.message}")
+
     val api = JSApi()
     val deviceAddress = outbox.to
 
@@ -225,6 +229,8 @@ fun sendOutboxMessage(outbox: Outbox) {
     if (tempPubkey.isEmpty()) {
         return
     }
+
+    Utils.debugLog("${MessageModel.instance.TAG}::sendOutboxMessage::${outbox.message}")
 
     var encryptedMessage = api.createEncryptedPackageSync(outbox.message, tempPubkey)
     var encryptedMessageJson = Utils.stringToJsonElement(encryptedMessage)
@@ -243,8 +249,10 @@ fun sendOutboxMessage(outbox: Outbox) {
     HubModel.instance.sendHubMsg(reqDeliver)
 
     if (reqDeliver.isAccepted()) {
+        Utils.debugLog("${MessageModel.instance.TAG}::sendOutboxMessage::successful::${outbox.message}")
         MessageModel.instance.outboxMessageSendSuccessful(outbox)
     } else if (reqDeliver.getResponse().hasErrorFromHub) {
+        Utils.debugLog("${MessageModel.instance.TAG}::sendOutboxMessage::fail::${outbox.message}")
         MessageModel.instance.outboxMessageSendSuccessful(outbox)
         //TODO: save error msg in outbox ?When to retry?
     }
@@ -253,6 +261,7 @@ fun sendOutboxMessage(outbox: Outbox) {
 
 fun addOrUpdateContacts(pubkey: String, deviceAddressP: String, hubAddress: String, isConfirmed: Int, name: String, secret: String, lambda: (String) -> Unit = {}) {
 
+    Utils.debugLog("${MessageModel.instance.TAG}::addOrUpdateContacts")
     val api = JSApi()
 
     var deviceAddress = deviceAddressP
@@ -280,7 +289,7 @@ fun addOrUpdateContacts(pubkey: String, deviceAddressP: String, hubAddress: Stri
 
         correspondentDevices?.deviceAddress = deviceAddress
         correspondentDevices?.hub = hubAddress
-        //correspondentDevices?.name = name
+        correspondentDevices?.name = name
 
     }
 
@@ -290,8 +299,10 @@ fun addOrUpdateContacts(pubkey: String, deviceAddressP: String, hubAddress: Stri
 
     DbHelper.saveCorrespondentDevice(correspondentDevices!!)
 
-    val outbox = composeOutboxPairingMessage(secret, correspondentDevices)
-    DbHelper.saveOutbox(outbox)
+    if (!isExist) {
+        val outbox = composeOutboxPairingMessage(secret, correspondentDevices)
+        DbHelper.saveOutbox(outbox)
+    }
 
     MessageModel.instance.refreshHomeList()
 
