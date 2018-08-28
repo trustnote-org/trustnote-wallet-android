@@ -1,4 +1,4 @@
-package org.trustnote.wallet
+package org.trustnote.superwallet
 
 import android.content.Context
 import junit.framework.Assert.assertTrue
@@ -6,7 +6,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.runners.MockitoJUnitRunner
-import org.trustnote.wallet.util.Utils
+import org.trustnote.superwallet.util.Utils
 
 @RunWith(MockitoJUnitRunner::class)
 class BasicTest {

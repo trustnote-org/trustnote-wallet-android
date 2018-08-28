@@ -83,7 +83,7 @@
             android:layout_height="50dp"
             android:background="@color/bg_white">
 
-            <org.trustnote.wallet.widget.ClearableEditText
+            <org.trustnote.superwallet.widget.ClearableEditText
                 android:id="@+id/input_text"
                 style="@style/t_pwd"
                 android:layout_gravity="center_vertical"
@@ -98,7 +98,7 @@
 
         </FrameLayout>
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/input_err"
             style="@style/t_err"
             android:layout_below="@id/input_text"

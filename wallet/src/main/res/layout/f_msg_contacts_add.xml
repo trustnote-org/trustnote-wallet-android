@@ -16,7 +16,7 @@
             android:layout_marginBottom="@dimen/line_gap_48"
             android:text="@string/contacts_add_title" />
 
-        <org.trustnote.wallet.widget.ScanLayout
+        <org.trustnote.superwallet.widget.ScanLayout
             android:id="@+id/contacts_add_scan_layoiut"
             style="@style/t_layout"
             android:layout_height="wrap_content"

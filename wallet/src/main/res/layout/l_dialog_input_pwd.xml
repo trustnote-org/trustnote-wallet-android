@@ -14,7 +14,7 @@
         android:text="@string/pwd_exist_input_pwd"
         android:textSize="@dimen/font_20" />
 
-    <org.trustnote.wallet.widget.ClearableEditText
+    <org.trustnote.superwallet.widget.ClearableEditText
         android:id="@+id/pwd"
         style="@style/t_pwd"
         android:imeOptions="actionDone"
@@ -23,7 +23,7 @@
         android:hint="@string/pwd_input_hint"
         android:text="" />
 
-    <org.trustnote.wallet.widget.ErrTextView
+    <org.trustnote.superwallet.widget.ErrTextView
         android:id="@+id/pwd_err"
         style="@style/t_err"
         android:text="@string/pwd_exist_input_err" />

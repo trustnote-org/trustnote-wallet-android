@@ -12,7 +12,7 @@
         android:horizontalSpacing="5dp"
         android:numColumns="4" />
 
-    <org.trustnote.wallet.widget.ErrTextView
+    <org.trustnote.superwallet.widget.ErrTextView
         android:id="@+id/err"
         style="@style/t_err"
         android:layout_below="@id/grid_view"

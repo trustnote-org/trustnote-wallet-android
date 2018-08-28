@@ -17,7 +17,7 @@
         android:layout_below="@id/new_mnemonic_sub_title"
         android:text="@string/new_mnemonic_msg" />
 
-    <org.trustnote.wallet.widget.MnemonicsGridView
+    <org.trustnote.superwallet.widget.MnemonicsGridView
         android:id="@+id/mnemonics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

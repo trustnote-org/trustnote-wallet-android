@@ -5,8 +5,8 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import org.trustnote.db.*
 import org.trustnote.db.entity.*
-import org.trustnote.wallet.biz.TTT
-import org.trustnote.wallet.util.Utils
+import org.trustnote.superwallet.biz.TTT
+import org.trustnote.superwallet.util.Utils
 
 @SuppressWarnings("unchecked")
 @Suppress("UNCHECKED_CAST")

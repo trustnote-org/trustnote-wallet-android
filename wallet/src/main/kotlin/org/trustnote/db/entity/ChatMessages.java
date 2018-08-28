@@ -5,10 +5,10 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
-import org.trustnote.wallet.R;
-import org.trustnote.wallet.TApp;
-import org.trustnote.wallet.biz.msgs.MessageModel;
-import org.trustnote.wallet.biz.msgs.TMessageType;
+import org.trustnote.superwallet.R;
+import org.trustnote.superwallet.TApp;
+import org.trustnote.superwallet.biz.msgs.MessageModel;
+import org.trustnote.superwallet.biz.msgs.TMessageType;
 
 import java.lang.Integer;
 import java.lang.String;

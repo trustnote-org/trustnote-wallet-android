@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                app:layout_behavior="org.trustnote.wallet.biz.home.FlingBehavior">
+                app:layout_behavior="org.trustnote.superwallet.biz.home.FlingBehavior">
 
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:id="@+id/main_collapsing"

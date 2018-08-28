@@ -21,7 +21,7 @@
             android:layout_marginBottom="@dimen/line_gap_24"
             android:text="@string/mnemonic_restore_msg" />
 
-        <org.trustnote.wallet.widget.MnemonicsGridView
+        <org.trustnote.superwallet.widget.MnemonicsGridView
             android:id="@+id/mnemonics_restore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

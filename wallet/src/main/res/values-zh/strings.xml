@@ -1,7 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="app_name">TestTTT</string>
-
     <string name="place_holder">TestTTT</string>
     <string name="place_holder_address">ZKWUHD6P3CRLTX64TGPIDQ7U4PM7R7AI232342354254252</string>
     <string name="place_holder_number">8</string>

@@ -30,7 +30,7 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/action_scan" />
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <org.trustnote.superwallet.widget.ClearableEditText
             android:id="@+id/create_wallet_observer_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:inputType="text"
             android:text="" />
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/create_wallet_observer_err"
             style="@style/t_err"
             android:text="@string/create_wallet_observer_err" />

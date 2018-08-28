@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/line_gap_20"
     android:visibility="gone">
 
-    <org.trustnote.wallet.widget.keyboard.CustomKeyboardView
+    <org.trustnote.superwallet.widget.keyboard.CustomKeyboardView
 
         android:id="@+id/keyboard_view"
         android:layout_width="fill_parent"

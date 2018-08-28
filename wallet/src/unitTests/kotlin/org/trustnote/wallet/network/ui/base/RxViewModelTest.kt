@@ -1,4 +1,4 @@
-package org.trustnote.wallet.ui.base
+package org.trustnote.superwallet.ui.base
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposables
@@ -6,7 +6,7 @@ import io.reactivex.observers.TestObserver
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.trustnote.wallet.uiframework.RxViewModel
+import org.trustnote.superwallet.uiframework.RxViewModel
 
 class RxViewModelTest {
 

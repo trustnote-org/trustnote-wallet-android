@@ -1,4 +1,4 @@
-package org.trustnote.wallet
+package org.trustnote.superwallet
 
 import android.test.suitebuilder.annotation.SmallTest
 

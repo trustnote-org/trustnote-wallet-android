@@ -22,7 +22,7 @@
             android:paddingRight="@dimen/padding_main"
             android:text="@string/transfer_balance_title" />
 
-        <org.trustnote.wallet.widget.TMnAmount
+        <org.trustnote.superwallet.widget.TMnAmount
             android:id="@+id/transfer_balance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:paddingLeft="@dimen/padding_main"
             android:paddingRight="@dimen/padding_main">
 
-            <org.trustnote.wallet.widget.ClearableEditText
+            <org.trustnote.superwallet.widget.ClearableEditText
                 android:id="@+id/transfer_receiver_hint"
                 style="@style/t_pwd"
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
 
         </RelativeLayout>
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/transfer_receiver_err"
             style="@style/t_err"
             android:layout_below="@id/transfer_receiver_"
@@ -85,7 +85,7 @@
             android:paddingLeft="@dimen/padding_main"
             android:paddingRight="@dimen/padding_main">
 
-            <org.trustnote.wallet.widget.ClearableEditText
+            <org.trustnote.superwallet.widget.ClearableEditText
                 android:id="@+id/transfer_amount"
                 style="@style/t_pwd"
                 android:backgroundTint="@drawable/t_edit_bg_transfer"
@@ -97,7 +97,7 @@
 
         </FrameLayout>
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/transfer_receiver_err_overflow"
             style="@style/t_err"
             android:layout_alignParentLeft="true"

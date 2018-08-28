@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:text="@string/place_holder" />
 
-    <org.trustnote.wallet.widget.ClearableEditText
+    <org.trustnote.superwallet.widget.ClearableEditText
         android:id="@+id/scan_result"
         style="@style/t_pwd"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:layout_alignParentRight="true"
         android:src="@drawable/action_scan" />
 
-    <org.trustnote.wallet.widget.ErrTextView
+    <org.trustnote.superwallet.widget.ErrTextView
         android:id="@+id/scan_err"
         style="@style/t_err"
         android:layout_below="@id/scan_result"

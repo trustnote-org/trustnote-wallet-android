@@ -4,8 +4,8 @@ import android.arch.persistence.room.Query
 import io.reactivex.Observable
 import org.trustnote.db.dao.UnitsDao
 import org.trustnote.db.entity.*
-import org.trustnote.wallet.TApp
-import org.trustnote.wallet.util.Utils
+import org.trustnote.superwallet.TApp
+import org.trustnote.superwallet.util.Utils
 import java.io.File
 
 @Suppress("UNCHECKED_CAST")

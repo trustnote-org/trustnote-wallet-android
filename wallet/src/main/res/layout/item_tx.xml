@@ -55,7 +55,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/tx_bottom_line" />
 
-        <org.trustnote.wallet.widget.TMnAmount
+        <org.trustnote.superwallet.widget.TMnAmount
             android:id="@+id/tx_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

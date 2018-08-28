@@ -19,7 +19,7 @@
             android:layout_marginBottom="15dp"
             android:layout_below="@id/pwd_setup_title" />
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <org.trustnote.superwallet.widget.ClearableEditText
             android:id="@+id/pwd_old"
             style="@style/t_pwd"
             android:layout_below="@id/pwd_warning"
@@ -27,7 +27,7 @@
             android:hint="@string/me_change_pwd_old_pwd_hint"
             android:text="" />
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <org.trustnote.superwallet.widget.ClearableEditText
             android:id="@+id/pwd"
             android:layout_marginLeft="-4dp"
             style="@style/t_pwd"
@@ -45,12 +45,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <org.trustnote.wallet.widget.PasswordStrength
+                <org.trustnote.superwallet.widget.PasswordStrength
                     android:id="@+id/pwd_strength"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <org.trustnote.wallet.widget.ErrTextView
+                <org.trustnote.superwallet.widget.ErrTextView
                     android:id="@+id/pwd_err"
                     style="@style/t_err" />
 
@@ -65,7 +65,7 @@
         </FrameLayout>
 
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <org.trustnote.superwallet.widget.ClearableEditText
             android:id="@+id/pwd_verify"
             style="@style/t_pwd"
             android:layout_marginTop="-3dp"
@@ -74,7 +74,7 @@
             android:hint="@string/pwd_confirm_hint"
             android:text="" />
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/pwd_verify_err"
             style="@style/t_err"
             android:layout_below="@id/pwd_verify"

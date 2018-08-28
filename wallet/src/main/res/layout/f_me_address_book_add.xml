@@ -20,7 +20,7 @@
             android:layout_below="@id/title"
             android:layout_marginTop="@dimen/line_gap_24">
 
-            <org.trustnote.wallet.widget.ClearableEditText
+            <org.trustnote.superwallet.widget.ClearableEditText
                 android:id="@+id/address"
                 style="@style/t_pwd"
                 android:hint="@string/address_book_label_address"
@@ -41,7 +41,7 @@
         </RelativeLayout>
 
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/address_err"
             style="@style/t_err"
             android:layout_below="@id/address_input"
@@ -50,7 +50,7 @@
             android:text="@string/transfer_receiver_err" />
 
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <org.trustnote.superwallet.widget.ClearableEditText
             android:id="@+id/memo"
             style="@style/t_pwd"
             android:imeOptions="actionDone"
@@ -59,7 +59,7 @@
             android:inputType="text"
             android:text="" />
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/memo_err"
             style="@style/t_err"
             android:layout_marginTop="4dp"

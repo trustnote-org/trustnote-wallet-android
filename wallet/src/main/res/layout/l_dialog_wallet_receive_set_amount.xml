@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <org.trustnote.wallet.widget.PageHeader
+    <org.trustnote.superwallet.widget.PageHeader
         android:id="@+id/page_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:gravity="left"
             android:text="@string/receive_amount_label" />
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <org.trustnote.superwallet.widget.ClearableEditText
             android:id="@+id/receive_amount_input"
             style="@style/t_pwd"
             android:layout_width="match_parent"

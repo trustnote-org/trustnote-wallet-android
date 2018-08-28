@@ -1,2 +1,0 @@
-package org.trustnote.wallet
-

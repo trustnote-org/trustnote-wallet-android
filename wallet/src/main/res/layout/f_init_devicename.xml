@@ -25,7 +25,7 @@
             android:layout_marginTop="@dimen/line_gap_16"
             android:text="@string/mnemonic_devicename_msg" />
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <org.trustnote.superwallet.widget.ClearableEditText
             android:id="@+id/mnemonic_devicename_edit_text"
             style="@style/t_pwd"
             android:textSize="@dimen/text_18"
@@ -35,7 +35,7 @@
             android:inputType="text"
             android:text="" />
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/mnemonic_devicename_err"
             style="@style/t_err"
             android:layout_below="@id/mnemonic_devicename_edit_text"

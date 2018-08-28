@@ -10,7 +10,7 @@
         style="@style/t_text_amount_subtitle"
         android:text="@string/wallet_amount_subtitle_manager" />
 
-    <org.trustnote.wallet.widget.TMnAmount
+    <org.trustnote.superwallet.widget.TMnAmount
         android:layout_marginTop="3dp"
         android:id="@+id/wallet_summary"
         android:layout_width="match_parent"

@@ -55,35 +55,35 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/padding_main">
 
-        <org.trustnote.wallet.widget.FieldTextView
+        <org.trustnote.superwallet.widget.FieldTextView
             android:id="@+id/tx_sender"
             style="@style/tx_field"
             android:layout_alignParentLeft="true" />
 
         <include layout="@layout/item_line" />
 
-        <org.trustnote.wallet.widget.FieldTextView
+        <org.trustnote.superwallet.widget.FieldTextView
             android:id="@+id/tx_receiver"
             style="@style/tx_field"
             android:layout_alignParentLeft="true" />
 
         <include layout="@layout/item_line" />
 
-        <org.trustnote.wallet.widget.FieldTextView
+        <org.trustnote.superwallet.widget.FieldTextView
             android:id="@+id/tx_date"
             style="@style/tx_field"
             android:layout_alignParentLeft="true" />
 
         <include layout="@layout/item_line" />
 
-        <org.trustnote.wallet.widget.FieldTextView
+        <org.trustnote.superwallet.widget.FieldTextView
             android:id="@+id/tx_unit"
             style="@style/tx_field"
             android:layout_alignParentLeft="true" />
 
         <include layout="@layout/item_line" />
 
-        <org.trustnote.wallet.widget.FieldTextView
+        <org.trustnote.superwallet.widget.FieldTextView
             android:id="@+id/tx_status"
             style="@style/tx_field"
             android:layout_alignParentLeft="true" />

@@ -13,7 +13,7 @@
             style="@style/t_title"
             android:text="@string/create_ttt_wallet" />
 
-        <org.trustnote.wallet.widget.ClearableEditText
+        <org.trustnote.superwallet.widget.ClearableEditText
             android:id="@+id/create_wallet_normal"
             style="@style/t_pwd"
             android:layout_marginTop="@dimen/line_gap_48"
@@ -23,7 +23,7 @@
             android:maxLength="20"
             android:text="" />
 
-        <org.trustnote.wallet.widget.ErrTextView
+        <org.trustnote.superwallet.widget.ErrTextView
             android:id="@+id/create_wallet_normal_err"
             style="@style/t_err"
             android:layout_marginTop="4dp"

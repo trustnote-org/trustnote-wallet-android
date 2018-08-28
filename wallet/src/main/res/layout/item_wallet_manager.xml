@@ -81,7 +81,7 @@
                 android:text="@string/wallet_amount_subtitle_manager"
                 android:textColor="@color/t_hint" />
 
-            <org.trustnote.wallet.widget.TMnAmount
+            <org.trustnote.superwallet.widget.TMnAmount
                 android:id="@+id/credential_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-//package org.trustnote.org.trustnote.wallet.db
+//package org.trustnote.org.trustnote.superwallet.db
 //
 //import android.arch.persistence.room.Room
 //import org.junit.After

@@ -6,7 +6,7 @@
     android:background="@color/bg_white"
     android:orientation="vertical">
 
-    <org.trustnote.wallet.widget.PageHeader
+    <org.trustnote.superwallet.widget.PageHeader
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

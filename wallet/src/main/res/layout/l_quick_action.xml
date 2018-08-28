@@ -26,7 +26,7 @@
         android:paddingRight="@dimen/popupmenu_padding_right"
         android:paddingTop="@dimen/popupmenu_padding_top">
 
-        <org.trustnote.wallet.widget.ActionMenuItem
+        <org.trustnote.superwallet.widget.ActionMenuItem
             android:id="@+id/action_scan"
             android:layout_width="match_parent"
             android:layout_height="42dp"
@@ -39,7 +39,7 @@
             android:layout_marginRight="@dimen/popupmenu_line_margin_rightl"
             android:background="#E9EFF7" />
 
-        <org.trustnote.wallet.widget.ActionMenuItem
+        <org.trustnote.superwallet.widget.ActionMenuItem
             android:id="@+id/action_contacts_add"
             android:layout_width="match_parent"
             android:layout_height="42dp"
@@ -52,7 +52,7 @@
             android:layout_marginRight="@dimen/popupmenu_line_margin_rightl"
             android:background="#E9EFF7" />
 
-        <org.trustnote.wallet.widget.ActionMenuItem
+        <org.trustnote.superwallet.widget.ActionMenuItem
             android:id="@+id/action_wallet_create"
             android:layout_width="match_parent"
             android:layout_height="42dp"
@@ -65,7 +65,7 @@
             android:layout_marginRight="@dimen/popupmenu_line_margin_rightl"
             android:background="#E9EFF7" />
 
-        <org.trustnote.wallet.widget.ActionMenuItem
+        <org.trustnote.superwallet.widget.ActionMenuItem
             android:id="@+id/action_my_pair_code"
             android:layout_width="match_parent"
             android:layout_height="42dp"
