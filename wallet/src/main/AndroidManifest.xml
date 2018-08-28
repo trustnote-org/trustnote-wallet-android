@@ -14,7 +14,7 @@
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/icon_ttt"
-        android:label="${appProductFlavor}_${appBuildType}"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup, android:label">

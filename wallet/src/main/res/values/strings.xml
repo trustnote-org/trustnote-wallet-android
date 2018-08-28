@@ -209,7 +209,6 @@ correct</string>
     <string name="create_wallet_observer_qr_finish_title">完成授权</string>
 
     <!-- Missing duplicate value  -->
-    <string name="app_name">TestTTT</string>
     <string name="create_seed">Create the wallet</string>
     <string name="restore_seed">Restore Mnemonic</string>
     <string name="wallet_new_name">Wallet name</string>
